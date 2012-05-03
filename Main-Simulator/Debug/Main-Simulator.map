@@ -1,0 +1,923 @@
+Archive member included because of file (symbol)
+
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                              Main.o (createPeriodicJob)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+                              ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o) (schedule_next)
+..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                              ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o) (__default_stack_size)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                              ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o) (setTimerClockSelect)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                              ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o) (rr_schedule)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+                              ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o) (HARDWARE_RESET)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                              ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o) (setPinOutput)
+c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+                              c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o (exit)
+c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+                              ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o) (__do_copy_data)
+c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+                              Main.o (__do_clear_bss)
+c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+                              ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o) (calloc)
+c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                              c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o) (malloc)
+c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                              c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o) (memset)
+
+Allocating common symbols
+Common symbol       size              file
+
+processListHead     0x2               ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+Timer3B             0x8               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinC7               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer3              0x7               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinB2               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinB6               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer1A             0x8               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinD2               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinD0               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinC4               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinA4               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinD1               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer3A             0x8               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinC3               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer0              0x7               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinB7               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinB5               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer2A             0x8               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PortD               0x6               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+__brkval            0x2               c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+PinA5               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinA2               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinD3               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+queues              0x23              ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+PinC6               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer0A             0x8               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinA3               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinC5               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinC1               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinB0               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PortC               0x6               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinA0               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PortA               0x6               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinB3               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinA7               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer2              0x7               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinB4               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinC2               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinD5               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+__idle_process      0x2               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinC0               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinD7               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer2B             0x8               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer1B             0x8               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+__flp               0x2               c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+PinD4               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer0B             0x8               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinA6               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+Timer1              0x7               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinD6               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinA1               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PinB1               0x3               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+PortB               0x6               ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800100         0x0000ff00         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+LOAD Main.o
+START GROUP
+LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libm.a
+LOAD ..\..\AntonAvrLib\Debug\libAntonAvrLib.a
+LOAD ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a
+END GROUP
+LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a
+LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a
+LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x147c
+ *(.vectors)
+ .vectors       0x00000000       0x8c c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+                0x00000000                __vector_default
+                0x00000000                __vectors
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x0000008c                . = ALIGN (0x2)
+                0x0000008c                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x0000008c        0x0 linker stubs
+ *(.trampolines*)
+                0x0000008c                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x0000008c                __ctors_start = .
+ *(.ctors)
+                0x0000008c                __ctors_end = .
+                0x0000008c                __dtors_start = .
+ *(.dtors)
+                0x0000008c                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x0000008c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+                0x0000008c                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000008c        0xc c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000098       0x1a c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+                0x00000098                __do_copy_data
+ .init4         0x000000b2       0x10 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+                0x000000b2                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ .init8         0x000000c2       0x14 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x000000c2                init_ports_m1284P_kernel_init
+                0x000000c6                init_timer_m1284P_kernel_init
+                0x000000ca                init_idle_scheduler_kernel_init
+                0x000000ce                init_scheduler_kernel_init
+                0x000000d2                init_kernel_kernel_init
+ *(.init8)
+ *(.init9)
+ .init9         0x000000d6        0x8 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ *(.init9)
+ *(.text)
+ .text          0x000000de        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+                0x000000de                __vector_22
+                0x000000de                __vector_28
+                0x000000de                __vector_1
+                0x000000de                __vector_34
+                0x000000de                __vector_24
+                0x000000de                __vector_12
+                0x000000de                __bad_interrupt
+                0x000000de                __vector_6
+                0x000000de                __vector_31
+                0x000000de                __vector_3
+                0x000000de                __vector_23
+                0x000000de                __vector_30
+                0x000000de                __vector_25
+                0x000000de                __vector_11
+                0x000000de                __vector_13
+                0x000000de                __vector_17
+                0x000000de                __vector_19
+                0x000000de                __vector_7
+                0x000000de                __vector_27
+                0x000000de                __vector_5
+                0x000000de                __vector_33
+                0x000000de                __vector_4
+                0x000000de                __vector_9
+                0x000000de                __vector_2
+                0x000000de                __vector_21
+                0x000000de                __vector_15
+                0x000000de                __vector_29
+                0x000000de                __vector_8
+                0x000000de                __vector_26
+                0x000000de                __vector_14
+                0x000000de                __vector_10
+                0x000000de                __vector_16
+                0x000000de                __vector_18
+                0x000000de                __vector_20
+ .text          0x000000e2        0x0 Main.o
+ .text          0x000000e2        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .text          0x000000e2        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .text          0x000000e2        0x0 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .text          0x000000e2        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .text          0x000000e2        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .text          0x000000e2        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .text          0x000000e2        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .text          0x000000e2        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .text          0x000000e2        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .text          0x000000e2        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .text          0x000000e2        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .text          0x000000e2        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .text          0x000000e2        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                0x000000e2                . = ALIGN (0x2)
+ *(.text.*)
+ .text.MyPeriodicJob
+                0x000000e2       0x14 Main.o
+                0x000000e2                MyPeriodicJob
+ .text.before_scheduler
+                0x000000f6       0x14 Main.o
+                0x000000f6                before_scheduler
+ .text.main     0x0000010a       0x14 Main.o
+                0x0000010a                main
+ .text.AperiodicJobWrapper
+                0x0000011e       0x26 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x0000011e                AperiodicJobWrapper
+ .text.PeriodicJobWrapper
+                0x00000144       0x42 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00000144                PeriodicJobWrapper
+ .text.dms_schedule
+                0x00000186       0x6c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00000186                dms_schedule
+ .text.insertJobIntoList
+                0x000001f2       0x8a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x000001f2                insertJobIntoList
+ .text.initializeJob
+                0x0000027c       0x6c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x0000027c                initializeJob
+ .text.createPeriodicJob
+                0x000002e8       0x7c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x000002e8                createPeriodicJob
+ .text.createAperiodicJob
+                0x00000364       0x64 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00000364                createAperiodicJob
+ .text.triggerAperiodicJob
+                0x000003c8       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x000003c8                triggerAperiodicJob
+ .text.schedule_next
+                0x000003d8       0x12 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+                0x000003d8                schedule_next
+ .text.processor_idle
+                0x000003ea       0x12 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+                0x000003ea                processor_idle
+ .text.processor_loop_idle
+                0x000003fc        0x6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+                0x000003fc                processor_loop_idle
+ .text.ProcessGraveyard
+                0x00000402        0x6 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000402                ProcessGraveyard
+ .text.init_ports_m1284P
+                0x00000408      0x28a ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000408                init_ports_m1284P
+ .text.init_timer_m1284P
+                0x00000692       0xda ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000692                init_timer_m1284P
+ .text.init_process_base
+                0x0000076c       0x4c ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x0000076c                init_process_base
+ .text.createProcessBase3
+                0x000007b8       0xc2 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x000007b8                createProcessBase3
+ .text.createProcessBase2
+                0x0000087a       0x10 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x0000087a                createProcessBase2
+ .text.createProcessBase
+                0x0000088a        0xa ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x0000088a                createProcessBase
+ .text.switchContext
+                0x00000894       0xac ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000894                switchContext
+ .text.getCurrentProcess
+                0x00000940        0xa ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000940                getCurrentProcess
+ .text.switchProcess
+                0x0000094a       0x18 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x0000094a                switchProcess
+ .text.createProcess3
+                0x00000962       0x54 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000962                createProcess3
+ .text.createProcess2
+                0x000009b6       0x10 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x000009b6                createProcess2
+ .text.createProcess
+                0x000009c6        0xa ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x000009c6                createProcess
+ .text.freeProcess
+                0x000009d0       0x34 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x000009d0                freeProcess
+ .text.getProcessStackSize
+                0x00000a04        0x6 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000a04                getProcessStackSize
+ .text.getFreeProcessStackSize
+                0x00000a0a       0x12 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000a0a                getFreeProcessStackSize
+ .text.getProcessNumber
+                0x00000a1c        0x8 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000a1c                getProcessNumber
+ .text.getProcessMemory
+                0x00000a24        0xa ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000a24                getProcessMemory
+ .text.init_process
+                0x00000a2e       0x3c ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000a2e                init_process
+ .text.init_idle_scheduler
+                0x00000a6a       0x1c ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000a6a                init_idle_scheduler
+ .text.idle_schedule
+                0x00000a86        0xa ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000a86                idle_schedule
+ .text.init_scheduler
+                0x00000a90       0x2e ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000a90                init_scheduler
+ .text.start_scheduler
+                0x00000abe        0xc ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000abe                start_scheduler
+ .text.before_scheduler
+                0x00000aca        0x2 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .text.schedule
+                0x00000acc       0x2c ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000acc                schedule
+ .text.__vector_32
+                0x00000af8       0xee ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000af8                __vector_32
+ .text.init_kernel
+                0x00000be6       0x16 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00000be6                init_kernel
+ .text.setCompareMatchOutputMode
+                0x00000bfc       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000bfc                setCompareMatchOutputMode
+ .text.setTimerClockSelect
+                0x00000c54       0xc8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000c54                setTimerClockSelect
+ .text.setWaveformGenerationMode
+                0x00000d1c      0x14e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000d1c                setWaveformGenerationMode
+ .text.enableTimerInterrupt
+                0x00000e6a       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000e6a                enableTimerInterrupt
+ .text.enableOutputCompare
+                0x00000e92       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000e92                enableOutputCompare
+ .text.disableOutputCompare
+                0x00000eb0        0xa ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000eb0                disableOutputCompare
+ .text.setTimerCompareValue
+                0x00000eba       0x30 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000eba                setTimerCompareValue
+ .text.getTimerCompareValue
+                0x00000eea       0x2a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000eea                getTimerCompareValue
+ .text.insertThreadIntoQueue
+                0x00000f14       0x8a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00000f14                insertThreadIntoQueue
+ .text.createThread2
+                0x00000f9e       0x22 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00000f9e                createThread2
+ .text.createThread
+                0x00000fc0        0xa ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00000fc0                createThread
+ .text.createThread3
+                0x00000fca       0x24 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00000fca                createThread3
+ .text.createThread4
+                0x00000fee       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00000fee                createThread4
+ .text.rr_schedule
+                0x00001016       0x8c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00001016                rr_schedule
+ .text.rr_captureMainProcess
+                0x000010a2       0x16 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x000010a2                rr_captureMainProcess
+ .text.getCurrentThread
+                0x000010b8        0x6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x000010b8                getCurrentThread
+ .text.HARDWARE_RESET
+                0x000010be       0x16 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+                0x000010be                HARDWARE_RESET
+ .text.setPortOutput
+                0x000010d4       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x000010d4                setPortOutput
+ .text.setPortInput
+                0x000010e4        0xe ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x000010e4                setPortInput
+ .text.setPinOutput
+                0x000010f2       0x1c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x000010f2                setPinOutput
+ .text.setPinInput
+                0x0000110e       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x0000110e                setPinInput
+ .text.writePort
+                0x0000112c        0xc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x0000112c                writePort
+ .text.readPort
+                0x00001138        0xe ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00001138                readPort
+ .text.setPinOne
+                0x00001146       0x1c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00001146                setPinOne
+ .text.setPinZero
+                0x00001162       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00001162                setPinZero
+ .text.writePin
+                0x00001180       0x12 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00001180                writePin
+ .text.readPin  0x00001192       0x22 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00001192                readPin
+ .text.libgcc   0x000011b4        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x000011b4        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .text.libgcc   0x000011b4        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .text.avr-libc
+                0x000011b4       0x4a c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+                0x000011b4                calloc
+ .text.avr-libc
+                0x000011fe      0x266 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x000011fe                malloc
+                0x00001332                free
+ .text.avr-libc
+                0x00001464        0xe c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                0x00001464                memset
+                0x00001472                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00001472        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+                0x00001472                _exit
+                0x00001472                exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ .fini1         0x00001472        0x6 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00001472                MainProcessEnd
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00001478        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ *(.fini0)
+                0x0000147c                _etext = .
+
+.data           0x00800100       0xe6 load address 0x0000147c
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .data          0x00800100        0x0 Main.o
+ .data          0x00800100        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .data          0x00800100        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .data          0x00800100       0xd8 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x00800100                __default_stack_size
+                0x00800102                __nextProcessNumber
+ .data          0x008001d8        0x8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .data          0x008001e0        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .data          0x008001e0        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .data          0x008001e0        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .data          0x008001e0        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .data          0x008001e0        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .data          0x008001e0        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .data          0x008001e0        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .data          0x008001e0        0x6 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x008001e0                __malloc_margin
+                0x008001e2                __malloc_heap_start
+                0x008001e4                __malloc_heap_end
+ .data          0x008001e6        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x008001e6                . = ALIGN (0x2)
+                0x008001e6                _edata = .
+                0x008001e6                PROVIDE (__data_end, .)
+
+.bss            0x008001e6      0x10c
+                0x008001e6                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x008001e6        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .bss           0x008001e6        0x4 Main.o
+                0x008001e6                counter
+                0x008001e8                main_counter
+ .bss           0x008001ea        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .bss           0x008001ea        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .bss           0x008001ea        0x7 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x008001ea                __main_process_additional_memory
+                0x008001eb                __current_process
+                0x008001ed                milliseconds_running
+ .bss           0x008001f1        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .bss           0x008001f1        0x2 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x008001f1                highestPrio
+ .bss           0x008001f3        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .bss           0x008001f3        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .bss           0x008001f3        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .bss           0x008001f3        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .bss           0x008001f3        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .bss           0x008001f3        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .bss           0x008001f3        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .bss           0x008001f3        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x008001f3        0x2 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x008001f3                processListHead
+ COMMON         0x008001f5       0xd6 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                0x008001f5                Timer3B
+                0x008001fd                PinC7
+                0x00800200                Timer3
+                0x00800207                PinB2
+                0x0080020a                PinB6
+                0x0080020d                Timer1A
+                0x00800215                PinD2
+                0x00800218                PinD0
+                0x0080021b                PinC4
+                0x0080021e                PinA4
+                0x00800221                PinD1
+                0x00800224                Timer3A
+                0x0080022c                PinC3
+                0x0080022f                Timer0
+                0x00800236                PinB7
+                0x00800239                PinB5
+                0x0080023c                Timer2A
+                0x00800244                PortD
+                0x0080024a                PinA5
+                0x0080024d                PinA2
+                0x00800250                PinD3
+                0x00800253                PinC6
+                0x00800256                Timer0A
+                0x0080025e                PinA3
+                0x00800261                PinC5
+                0x00800264                PinC1
+                0x00800267                PinB0
+                0x0080026a                PortC
+                0x00800270                PinA0
+                0x00800273                PortA
+                0x00800279                PinB3
+                0x0080027c                PinA7
+                0x0080027f                Timer2
+                0x00800286                PinB4
+                0x00800289                PinC2
+                0x0080028c                PinD5
+                0x0080028f                __idle_process
+                0x00800291                PinC0
+                0x00800294                PinD7
+                0x00800297                Timer2B
+                0x0080029f                Timer1B
+                0x008002a7                PinD4
+                0x008002aa                Timer0B
+                0x008002b2                PinA6
+                0x008002b5                Timer1
+                0x008002bc                PinD6
+                0x008002bf                PinA1
+                0x008002c2                PinB1
+                0x008002c5                PortB
+ COMMON         0x008002cb       0x23 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x008002cb                queues
+ COMMON         0x008002ee        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x008002ee                __brkval
+                0x008002f0                __flp
+                0x008002f2                PROVIDE (__bss_end, .)
+                0x0000147c                __data_load_start = LOADADDR (.data)
+                0x00001562                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008002f2        0x0
+                0x008002f2                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008002f2                PROVIDE (__noinit_end, .)
+                0x008002f2                _end = .
+                0x008002f2                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab           0x00000000      0x738
+ *(.stab)
+ .stab          0x00000000      0x6cc c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .stab          0x000006cc       0x6c c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                                 0x78 (size before relaxing)
+
+.stabstr        0x00000000      0x10b
+ *(.stabstr)
+ .stabstr       0x00000000      0x10b c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x358
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x30 Main.o
+ .debug_aranges
+                0x00000030       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_aranges
+                0x00000088       0x30 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_aranges
+                0x000000b8      0x120 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .debug_aranges
+                0x000001d8       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_aranges
+                0x00000230       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_aranges
+                0x00000288       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_aranges
+                0x000002a8       0x68 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_aranges
+                0x00000310       0x20 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_aranges
+                0x00000330       0x28 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_pubnames
+                0x00000000      0xa0b
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000       0x5f Main.o
+ .debug_pubnames
+                0x0000005f       0xd3 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_pubnames
+                0x00000132       0x4f ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_pubnames
+                0x00000181      0x573 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .debug_pubnames
+                0x000006f4       0xe2 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_pubnames
+                0x000007d6       0xcd ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_pubnames
+                0x000008a3       0x25 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_pubnames
+                0x000008c8       0xa7 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_pubnames
+                0x0000096f       0x1d c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_pubnames
+                0x0000098c       0x7f c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_info     0x00000000     0x27e0
+ *(.debug_info)
+ .debug_info    0x00000000       0xf4 Main.o
+ .debug_info    0x000000f4      0x4fa ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_info    0x000005ee      0x10d ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_info    0x000006fb     0x1118 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .debug_info    0x00001813      0x50b ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_info    0x00001d1e      0x440 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_info    0x0000215e       0x85 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_info    0x000021e3      0x2d6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_info    0x000024b9       0x91 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_info    0x0000254a      0x296 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0xa43
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000       0x8c Main.o
+ .debug_abbrev  0x0000008c      0x17e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_abbrev  0x0000020a       0xaf ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_abbrev  0x000002b9      0x295 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .debug_abbrev  0x0000054e      0x10e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_abbrev  0x0000065c      0x12f ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_abbrev  0x0000078b       0x4e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_abbrev  0x000007d9      0x100 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_abbrev  0x000008d9       0x75 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_abbrev  0x0000094e       0xf5 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_line     0x00000000     0x390b
+ *(.debug_line)
+ .debug_line    0x00000000      0x727 Main.o
+ .debug_line    0x00000727      0x5b5 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_line    0x00000cdc      0x3bc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_line    0x00001098      0xf06 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .debug_line    0x00001f9e      0x75e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_line    0x000026fc      0x520 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_line    0x00002c1c      0x32c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_line    0x00002f48      0x460 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_line    0x000033a8      0x15e c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_line    0x00003506      0x405 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_frame    0x00000000      0x570
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x40 Main.o
+ .debug_frame   0x00000040       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_frame   0x000000d0       0x40 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_frame   0x00000110      0x220 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .debug_frame   0x00000330       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_frame   0x000003c0       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_frame   0x00000450       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_frame   0x00000470       0xb0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_frame   0x00000520       0x20 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_frame   0x00000540       0x30 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_str      0x00000000      0xf7e
+ *(.debug_str)
+ .debug_str     0x00000000       0xbc Main.o
+                                 0xf8 (size before relaxing)
+ .debug_str     0x000000bc      0x233 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                                0x2cb (size before relaxing)
+ .debug_str     0x000002ef       0x51 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+                                0x12c (size before relaxing)
+ .debug_str     0x00000340      0x7a1 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+                                0x8e0 (size before relaxing)
+ .debug_str     0x00000ae1      0x14d ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                                0x45b (size before relaxing)
+ .debug_str     0x00000c2e      0x15e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                                0x2c7 (size before relaxing)
+ .debug_str     0x00000d8c       0x2a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+                                 0xd3 (size before relaxing)
+ .debug_str     0x00000db6       0x86 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                                0x15a (size before relaxing)
+ .debug_str     0x00000e3c       0x70 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+                                 0x9e (size before relaxing)
+ .debug_str     0x00000eac       0xd2 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                                0x17c (size before relaxing)
+
+.debug_loc      0x00000000     0x17aa
+ *(.debug_loc)
+ .debug_loc     0x00000000      0x3de ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_loc     0x000003de       0x18 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_loc     0x000003f6      0x472 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .debug_loc     0x00000868      0x68c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_loc     0x00000ef4      0x2cd ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_loc     0x000011c1      0x168 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_loc     0x00001329       0x58 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_loc     0x00001381      0x429 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_macinfo  0x00000000    0x3fdd1
+ *(.debug_macinfo)
+ .debug_macinfo
+                0x00000000     0x7e1c Main.o
+ .debug_macinfo
+                0x00007e1c     0x8236 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_macinfo
+                0x00010052     0x8034 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_macinfo
+                0x00018086     0x8c69 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .debug_macinfo
+                0x00020cef     0x7d4d ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_macinfo
+                0x00028a3c     0x7b9f ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_macinfo
+                0x000305db     0x7b60 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_macinfo
+                0x0003813b     0x7c96 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+OUTPUT(Main-Simulator.elf elf32-avr)
+LOAD linker stubs
+
+.debug_pubtypes
+                0x00000000      0x465
+ .debug_pubtypes
+                0x00000000       0x1f Main.o
+ .debug_pubtypes
+                0x0000001f       0xb7 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_pubtypes
+                0x000000d6       0x45 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_pubtypes
+                0x0000011b       0xfa ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .debug_pubtypes
+                0x00000215       0xbd ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_pubtypes
+                0x000002d2       0xe5 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_pubtypes
+                0x000003b7       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_pubtypes
+                0x000003d5       0x3a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_pubtypes
+                0x0000040f       0x1d c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_pubtypes
+                0x0000042c       0x39 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_ranges   0x00000000      0x2e8
+ .debug_ranges  0x00000000       0x20 Main.o
+ .debug_ranges  0x00000020       0x48 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_ranges  0x00000068       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_ranges  0x00000088      0x140 ..\..\Kernel-Simulator\Debug\libKernel-Simulator.a(simulator_kernel.o)
+ .debug_ranges  0x000001c8       0x48 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_ranges  0x00000210       0x48 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_ranges  0x00000258       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_ranges  0x00000268       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_ranges  0x000002c0       0x10 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_ranges  0x000002d0       0x18 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)

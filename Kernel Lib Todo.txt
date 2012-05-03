@@ -1,0 +1,14 @@
+
+Uncovered AVR-features:
+	- Power-saving configuration
+	- Configuration of BOD
+	- Configuration of WDT
+	- Handling Analog input
+	- == TWI ==
+	- Extended motor-functionality for driving around
+	
+- Evtl. make scheduling code concurrency safe... to be able to create threads etc inside main()
+- cooperative_scheduler -- round robin without preemption, without timer, interrupts etc. for hardest rt-tasks.
+- generic locking-library on top of all other threading w/ suspension libraries...
+	-- zB mit abstraktem flag-byte in process_ext, welches ein definiertes 'suspended' bit enthält,
+		welches mit ner process_ext API gesetzt werden kann, und auf welches die scheduler reagieren sollen.

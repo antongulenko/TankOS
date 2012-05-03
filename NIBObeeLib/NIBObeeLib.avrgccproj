@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>5.0</ProjectVersion>
+    <ProjectGuid>{3fde3a91-c033-4cbd-99c2-9abd937a4aff}</ProjectGuid>
+    <avrdevice>ATmega1284P</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>StaticLibrary</OutputType>
+    <Language>C</Language>
+    <OutputFile>lib$(MSBuildProjectName).a</OutputFile>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <UseGlobalToolchain>True</UseGlobalToolchain>
+    <ToolchainDirPath>
+    </ToolchainDirPath>
+    <MakeDirPath>
+    </MakeDirPath>
+    <GlobalToolchainPath>C:\Program Files (x86)\Atmel\AVR Studio 5.0\AVR ToolChain\bin</GlobalToolchainPath>
+    <AvrGccProjectExtensions>
+    </AvrGccProjectExtensions>
+    <AssemblyName>NIBObeeLib</AssemblyName>
+    <Name>NIBObeeLib</Name>
+    <RootNamespace>NIBObeeLib</RootNamespace>
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrGcc>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>_NIBOBEE_</Value>
+      <Value>AVR</Value>
+      <Value>F_CPU=20000000</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>..\..\..\NIBObeeLib\include</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.level>Optimize most (-O3)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.compiler.miscellaneous.DoNotDeleteTemporaryFiles>True</avrgcc.compiler.miscellaneous.DoNotDeleteTemporaryFiles>
+</AvrGcc>
+    </ToolchainSettings>
+    <MemorySettings>
+      <MemorySegments>
+        <InitialStack IsEnabled="0">
+          <Address>0x4000</Address>
+        </InitialStack>
+      </MemorySegments>
+    </MemorySettings>
+    <GenerateHexFile>True</GenerateHexFile>
+    <GenerateMapFile>True</GenerateMapFile>
+    <GenerateListFile>True</GenerateListFile>
+    <GenerateEepFile>True</GenerateEepFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrGcc>
+  <avrgcc.compiler.symbols.DefSymbols>
+    <ListValues>
+      <Value>_NIBOBEE_</Value>
+      <Value>AVR</Value>
+      <Value>F_CPU=20000000</Value>
+    </ListValues>
+  </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>..\..\..\NIBObeeLib\include</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
+  <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
+  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.compiler.miscellaneous.DoNotDeleteTemporaryFiles>True</avrgcc.compiler.miscellaneous.DoNotDeleteTemporaryFiles>
+  <avrgcc.assembler.debugging.DebugLevel>Minimal (-Wa,-g1)</avrgcc.assembler.debugging.DebugLevel>
+</AvrGcc>
+    </ToolchainSettings>
+    <MemorySettings>
+      <MemorySegments>
+        <InitialStack IsEnabled="0">
+          <Address>0x4000</Address>
+        </InitialStack>
+      </MemorySegments>
+    </MemorySettings>
+    <GenerateHexFile>True</GenerateHexFile>
+    <GenerateMapFile>True</GenerateMapFile>
+    <GenerateListFile>True</GenerateListFile>
+    <GenerateEepFile>True</GenerateEepFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\analog.c">
+      <SubType>compile</SubType>
+      <Link>analog.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\analog.h">
+      <SubType>compile</SubType>
+      <Link>analog.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\base.c">
+      <SubType>compile</SubType>
+      <Link>base.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\base.h">
+      <SubType>compile</SubType>
+      <Link>base.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\bgx1.c">
+      <SubType>compile</SubType>
+      <Link>bgx1.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\bgx1.h">
+      <SubType>compile</SubType>
+      <Link>bgx1.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\bgx1_protocol.h">
+      <SubType>compile</SubType>
+      <Link>bgx1_protocol.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\clock.c">
+      <SubType>compile</SubType>
+      <Link>clock.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\clock.h">
+      <SubType>compile</SubType>
+      <Link>clock.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\delay.c">
+      <SubType>compile</SubType>
+      <Link>delay.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\delay.h">
+      <SubType>compile</SubType>
+      <Link>delay.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\i2cmaster.c">
+      <SubType>compile</SubType>
+      <Link>i2cmaster.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\i2cmaster.h">
+      <SubType>compile</SubType>
+      <Link>i2cmaster.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\iodefs.h">
+      <SubType>compile</SubType>
+      <Link>iodefs.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\iodefs_nibobee.h">
+      <SubType>compile</SubType>
+      <Link>iodefs_nibobee.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\led.c">
+      <SubType>compile</SubType>
+      <Link>led.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\led.h">
+      <SubType>compile</SubType>
+      <Link>led.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\line.c">
+      <SubType>compile</SubType>
+      <Link>line.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\line.h">
+      <SubType>compile</SubType>
+      <Link>line.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\motpid.c">
+      <SubType>compile</SubType>
+      <Link>motpid.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\motpid.h">
+      <SubType>compile</SubType>
+      <Link>motpid.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\motpwm.c">
+      <SubType>compile</SubType>
+      <Link>motpwm.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\motpwm.h">
+      <SubType>compile</SubType>
+      <Link>motpwm.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\odometry.c">
+      <SubType>compile</SubType>
+      <Link>odometry.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\odometry.h">
+      <SubType>compile</SubType>
+      <Link>odometry.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\sens.c">
+      <SubType>compile</SubType>
+      <Link>sens.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\sens.h">
+      <SubType>compile</SubType>
+      <Link>sens.h</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\usart.c">
+      <SubType>compile</SubType>
+      <Link>usart.c</Link>
+    </Compile>
+    <Compile Include="..\..\NIBObeeLib\src\nibobee\usart.h">
+      <SubType>compile</SubType>
+      <Link>usart.h</Link>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
+</Project>

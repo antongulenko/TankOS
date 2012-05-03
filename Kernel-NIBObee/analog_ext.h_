@@ -1,0 +1,20 @@
+/*
+ * analog_ext.h
+ *
+ * Created: 13.02.2012 01:07:41
+ *  Author: Anton
+ */ 
+
+#ifndef ANALOG_EXT_H_
+#define ANALOG_EXT_H_
+
+#include "kernel.h"
+#include <nibobee/analog.h>
+
+// Read all analog inputs. This function will return immediately, before the values are ready.
+// To wait for the values to be ready, one can loop on the SAMPLING_RUNNING() macro
+void trigger_samplings();
+
+#define SAMPLING_RUNNING() (ADCSRA & _BV(ADEN))
+
+#endif /* ANALOG_EXT_H_ */

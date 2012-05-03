@@ -1,0 +1,3982 @@
+
+NIBObee.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000118  00800100  000015c2  00001656  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000015c2  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          000001a8  00800218  00800218  0000176e  2**0
+                  ALLOC
+  3 .stab         00000738  00000000  00000000  00001770  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  4 .stabstr      000000e7  00000000  00000000  00001ea8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_aranges 00000388  00000000  00000000  00001f8f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_pubnames 00000c10  00000000  00000000  00002317  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_info   00002e35  00000000  00000000  00002f27  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_abbrev 00000bee  00000000  00000000  00005d5c  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_line   00003e5c  00000000  00000000  0000694a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_frame  000005d0  00000000  00000000  0000a7a8  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_str    00001205  00000000  00000000  0000ad78  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_loc    000017ce  00000000  00000000  0000bf7d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_macinfo 000575f7  00000000  00000000  0000d74b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_pubtypes 000004bb  00000000  00000000  00064d42  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 15 .debug_ranges 00000318  00000000  00000000  000651fd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+       0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
+       4:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+       8:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+       c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      10:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      14:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      18:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      1c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      20:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      24:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      28:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      2c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      30:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      34:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      38:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      3c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      40:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      44:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      48:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      4c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      50:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      54:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      58:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      5c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      60:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      64:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      68:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      6c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      70:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      74:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      78:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      7c:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      80:	0c 94 63 04 	jmp	0x8c6	; 0x8c6 <__vector_32>
+      84:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+      88:	0c 94 73 00 	jmp	0xe6	; 0xe6 <__bad_interrupt>
+
+0000008c <__ctors_end>:
+      8c:	11 24       	eor	r1, r1
+      8e:	1f be       	out	0x3f, r1	; 63
+      90:	cf ef       	ldi	r28, 0xFF	; 255
+      92:	d0 e4       	ldi	r29, 0x40	; 64
+      94:	de bf       	out	0x3e, r29	; 62
+      96:	cd bf       	out	0x3d, r28	; 61
+
+00000098 <__do_copy_data>:
+      98:	12 e0       	ldi	r17, 0x02	; 2
+      9a:	a0 e0       	ldi	r26, 0x00	; 0
+      9c:	b1 e0       	ldi	r27, 0x01	; 1
+      9e:	e2 ec       	ldi	r30, 0xC2	; 194
+      a0:	f5 e1       	ldi	r31, 0x15	; 21
+      a2:	00 e0       	ldi	r16, 0x00	; 0
+      a4:	0b bf       	out	0x3b, r16	; 59
+      a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
+      a8:	07 90       	elpm	r0, Z+
+      aa:	0d 92       	st	X+, r0
+      ac:	a8 31       	cpi	r26, 0x18	; 24
+      ae:	b1 07       	cpc	r27, r17
+      b0:	d9 f7       	brne	.-10     	; 0xa8 <__do_copy_data+0x10>
+
+000000b2 <__do_clear_bss>:
+      b2:	13 e0       	ldi	r17, 0x03	; 3
+      b4:	a8 e1       	ldi	r26, 0x18	; 24
+      b6:	b2 e0       	ldi	r27, 0x02	; 2
+      b8:	01 c0       	rjmp	.+2      	; 0xbc <.do_clear_bss_start>
+
+000000ba <.do_clear_bss_loop>:
+      ba:	1d 92       	st	X+, r1
+
+000000bc <.do_clear_bss_start>:
+      bc:	a0 3c       	cpi	r26, 0xC0	; 192
+      be:	b1 07       	cpc	r27, r17
+      c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
+
+000000c2 <init_reset_condition_kernel_init>:
+	// This kernel-file should be included in the very beginning, as MCUSR should
+	// be reset in the very beginning.
+	current_reset_status = MCUSR;
+	MCUSR = 0;
+}
+KERNEL_INIT(init_reset_condition)
+      c2:	0e 94 84 00 	call	0x108	; 0x108 <init_reset_condition>
+
+000000c6 <init_ports_m1284P_kernel_init>:
+	INIT_PORT_AND_PINS(A);
+	INIT_PORT_AND_PINS(B);
+	INIT_PORT_AND_PINS(C);
+	INIT_PORT_AND_PINS(D);
+}
+KERNEL_INIT(init_ports_m1284P)
+      c6:	0e 94 8c 00 	call	0x118	; 0x118 <init_ports_m1284P>
+
+000000ca <init_timer_m1284P_kernel_init>:
+	INIT_TIMER(Timer2A, Timer2, OCR2A, TIMER_A, PinD7) // Pin 21
+	INIT_TIMER(Timer2B, Timer2, OCR2B, TIMER_B, PinD6) // Pin 20
+	INIT_TIMER(Timer3A, Timer3, OCR3A, TIMER_A, PinB6) // Pin7
+	INIT_TIMER(Timer3B, Timer3, OCR3B, TIMER_B, PinB7) // Pin 8
+}
+KERNEL_INIT(init_timer_m1284P)
+      ca:	0e 94 d1 01 	call	0x3a2	; 0x3a2 <init_timer_m1284P>
+
+000000ce <init_nibobee_leds_kernel_init>:
+	INIT_LED_GROUP(YellowLeds, yellowLedsArray, 2)
+	INIT_LED_GROUP(RightLeds, rightLedsArray, 2)
+	INIT_LED_GROUP(LeftLeds, leftLedsArray, 2)
+	INIT_LED_GROUP(AllLeds, allLedsArray, 4)
+}
+KERNEL_INIT(init_nibobee_leds)
+      ce:	0e 94 3e 02 	call	0x47c	; 0x47c <init_nibobee_leds>
+
+000000d2 <init_nibobee_motors_kernel_init>:
+
+void init_nibobee_motors() {
+	INIT_MOTOR(LeftMotor, MOTOR_NORMAL, PinD6, Timer1A)
+	INIT_MOTOR(RightMotor, MOTOR_NORMAL, PinD7, Timer1B)
+}
+KERNEL_INIT(init_nibobee_motors)
+      d2:	0e 94 9c 02 	call	0x538	; 0x538 <init_nibobee_motors>
+
+000000d6 <init_nibobee_scheduler_kernel_init>:
+	setWaveformGenerationMode(timerConf, clear_timer_on_match);
+	setTimerCompareValue(timer, 204); // 2500 -- TODO fix before deploying on robot
+	setTimerClockSelect(timerConf, prescale_8);
+	// --> 8 * 2500 = 20000, resulting in one compare-match every millisecond
+}
+KERNEL_INIT(init_nibobee_scheduler)
+      d6:	0e 94 35 04 	call	0x86a	; 0x86a <init_nibobee_scheduler>
+
+000000da <init_nibobee_kernel_init>:
+	init_process(); // AFTER other modules modified __default_stack_size and __main_process_additional_memory
+	rr_captureMainProcess(PrioNormal);
+	before_scheduler(); // AFTER all other initialization and BEFORE starting the scheduler
+	start_nibobee_scheduler();
+}
+KERNEL_INIT(init_nibobee)
+      da:	0e 94 da 04 	call	0x9b4	; 0x9b4 <init_nibobee>
+      de:	0e 94 26 05 	call	0xa4c	; 0xa4c <main>
+      e2:	0c 94 dc 0a 	jmp	0x15b8	; 0x15b8 <MainProcessEnd>
+
+000000e6 <__bad_interrupt>:
+      e6:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000ea <trigger_samplings>:
+ */
+
+#include "analog_ext.h"
+
+void trigger_samplings() {
+	ADCSRA |= _BV(ADEN);
+      ea:	ea e7       	ldi	r30, 0x7A	; 122
+      ec:	f0 e0       	ldi	r31, 0x00	; 0
+      ee:	80 81       	ld	r24, Z
+      f0:	80 68       	ori	r24, 0x80	; 128
+      f2:	80 83       	st	Z, r24
+}
+      f4:	08 95       	ret
+
+000000f6 <analog_irq_hook>:
+
+// Triggered from the IRQ of the Analog-Digital-Converter in analog.c
+void analog_irq_hook() {
+	// Disable conversion; stop endless conversion to save power.
+	// One full scan of all analog sensors can be triggered with 
+	ADCSRA &= ~_BV(ADEN);
+      f6:	ea e7       	ldi	r30, 0x7A	; 122
+      f8:	f0 e0       	ldi	r31, 0x00	; 0
+      fa:	80 81       	ld	r24, Z
+      fc:	8f 77       	andi	r24, 0x7F	; 127
+      fe:	80 83       	st	Z, r24
+}
+     100:	08 95       	ret
+
+00000102 <ProcessGraveyard>:
+// The first created process is an exception, as it uses the initial stack; we use gcc's .fini1 section 
+// to make the main-process end up here as well (see below).
+// If a process ends up here without any scheduler set up, nothing will happen anymore.
+// The watchdog-timer can detect such a condition.
+void ProcessGraveyard() {
+	processor_loop_idle();
+     102:	0e 94 7a 09 	call	0x12f4	; 0x12f4 <processor_loop_idle>
+}
+     106:	08 95       	ret
+
+00000108 <init_reset_condition>:
+
+void init_reset_condition() {
+	// Read and reset the MCU-status-register.
+	// This kernel-file should be included in the very beginning, as MCUSR should
+	// be reset in the very beginning.
+	current_reset_status = MCUSR;
+     108:	84 b7       	in	r24, 0x34	; 52
+     10a:	80 93 18 02 	sts	0x0218, r24
+	MCUSR = 0;
+     10e:	14 be       	out	0x34, r1	; 52
+}
+     110:	08 95       	ret
+
+00000112 <getResetStatus>:
+KERNEL_INIT(init_reset_condition)
+
+uint8_t getResetStatus() {
+	return current_reset_status;
+}
+     112:	80 91 18 02 	lds	r24, 0x0218
+     116:	08 95       	ret
+
+00000118 <init_ports_m1284P>:
+
+#include "../kernel_init.h"
+#include "port_m1284P.h"
+
+void init_ports_m1284P() {
+	INIT_PORT_AND_PINS(A);
+     118:	af eb       	ldi	r26, 0xBF	; 191
+     11a:	b2 e0       	ldi	r27, 0x02	; 2
+     11c:	e3 e0       	ldi	r30, 0x03	; 3
+     11e:	f2 e0       	ldi	r31, 0x02	; 2
+     120:	86 e0       	ldi	r24, 0x06	; 6
+     122:	01 90       	ld	r0, Z+
+     124:	0d 92       	st	X+, r0
+     126:	81 50       	subi	r24, 0x01	; 1
+     128:	e1 f7       	brne	.-8      	; 0x122 <init_ports_m1284P+0xa>
+     12a:	ac eb       	ldi	r26, 0xBC	; 188
+     12c:	b2 e0       	ldi	r27, 0x02	; 2
+     12e:	e0 e0       	ldi	r30, 0x00	; 0
+     130:	f2 e0       	ldi	r31, 0x02	; 2
+     132:	83 e0       	ldi	r24, 0x03	; 3
+     134:	01 90       	ld	r0, Z+
+     136:	0d 92       	st	X+, r0
+     138:	81 50       	subi	r24, 0x01	; 1
+     13a:	e1 f7       	brne	.-8      	; 0x134 <init_ports_m1284P+0x1c>
+     13c:	a3 e1       	ldi	r26, 0x13	; 19
+     13e:	b3 e0       	ldi	r27, 0x03	; 3
+     140:	ed ef       	ldi	r30, 0xFD	; 253
+     142:	f1 e0       	ldi	r31, 0x01	; 1
+     144:	83 e0       	ldi	r24, 0x03	; 3
+     146:	01 90       	ld	r0, Z+
+     148:	0d 92       	st	X+, r0
+     14a:	81 50       	subi	r24, 0x01	; 1
+     14c:	e1 f7       	brne	.-8      	; 0x146 <init_ports_m1284P+0x2e>
+     14e:	a4 e9       	ldi	r26, 0x94	; 148
+     150:	b2 e0       	ldi	r27, 0x02	; 2
+     152:	ea ef       	ldi	r30, 0xFA	; 250
+     154:	f1 e0       	ldi	r31, 0x01	; 1
+     156:	83 e0       	ldi	r24, 0x03	; 3
+     158:	01 90       	ld	r0, Z+
+     15a:	0d 92       	st	X+, r0
+     15c:	81 50       	subi	r24, 0x01	; 1
+     15e:	e1 f7       	brne	.-8      	; 0x158 <init_ports_m1284P+0x40>
+     160:	a7 ea       	ldi	r26, 0xA7	; 167
+     162:	b2 e0       	ldi	r27, 0x02	; 2
+     164:	e7 ef       	ldi	r30, 0xF7	; 247
+     166:	f1 e0       	ldi	r31, 0x01	; 1
+     168:	83 e0       	ldi	r24, 0x03	; 3
+     16a:	01 90       	ld	r0, Z+
+     16c:	0d 92       	st	X+, r0
+     16e:	81 50       	subi	r24, 0x01	; 1
+     170:	e1 f7       	brne	.-8      	; 0x16a <init_ports_m1284P+0x52>
+     172:	ab e5       	ldi	r26, 0x5B	; 91
+     174:	b2 e0       	ldi	r27, 0x02	; 2
+     176:	e4 ef       	ldi	r30, 0xF4	; 244
+     178:	f1 e0       	ldi	r31, 0x01	; 1
+     17a:	83 e0       	ldi	r24, 0x03	; 3
+     17c:	01 90       	ld	r0, Z+
+     17e:	0d 92       	st	X+, r0
+     180:	81 50       	subi	r24, 0x01	; 1
+     182:	e1 f7       	brne	.-8      	; 0x17c <init_ports_m1284P+0x64>
+     184:	ac e8       	ldi	r26, 0x8C	; 140
+     186:	b2 e0       	ldi	r27, 0x02	; 2
+     188:	e1 ef       	ldi	r30, 0xF1	; 241
+     18a:	f1 e0       	ldi	r31, 0x01	; 1
+     18c:	83 e0       	ldi	r24, 0x03	; 3
+     18e:	01 90       	ld	r0, Z+
+     190:	0d 92       	st	X+, r0
+     192:	81 50       	subi	r24, 0x01	; 1
+     194:	e1 f7       	brne	.-8      	; 0x18e <init_ports_m1284P+0x76>
+     196:	a6 e0       	ldi	r26, 0x06	; 6
+     198:	b3 e0       	ldi	r27, 0x03	; 3
+     19a:	ee ee       	ldi	r30, 0xEE	; 238
+     19c:	f1 e0       	ldi	r31, 0x01	; 1
+     19e:	83 e0       	ldi	r24, 0x03	; 3
+     1a0:	01 90       	ld	r0, Z+
+     1a2:	0d 92       	st	X+, r0
+     1a4:	81 50       	subi	r24, 0x01	; 1
+     1a6:	e1 f7       	brne	.-8      	; 0x1a0 <init_ports_m1284P+0x88>
+     1a8:	a8 ec       	ldi	r26, 0xC8	; 200
+     1aa:	b2 e0       	ldi	r27, 0x02	; 2
+     1ac:	eb ee       	ldi	r30, 0xEB	; 235
+     1ae:	f1 e0       	ldi	r31, 0x01	; 1
+     1b0:	83 e0       	ldi	r24, 0x03	; 3
+     1b2:	01 90       	ld	r0, Z+
+     1b4:	0d 92       	st	X+, r0
+     1b6:	81 50       	subi	r24, 0x01	; 1
+     1b8:	e1 f7       	brne	.-8      	; 0x1b2 <init_ports_m1284P+0x9a>
+	INIT_PORT_AND_PINS(B);
+     1ba:	a9 e1       	ldi	r26, 0x19	; 25
+     1bc:	b3 e0       	ldi	r27, 0x03	; 3
+     1be:	e5 ee       	ldi	r30, 0xE5	; 229
+     1c0:	f1 e0       	ldi	r31, 0x01	; 1
+     1c2:	86 e0       	ldi	r24, 0x06	; 6
+     1c4:	01 90       	ld	r0, Z+
+     1c6:	0d 92       	st	X+, r0
+     1c8:	81 50       	subi	r24, 0x01	; 1
+     1ca:	e1 f7       	brne	.-8      	; 0x1c4 <init_ports_m1284P+0xac>
+     1cc:	a0 eb       	ldi	r26, 0xB0	; 176
+     1ce:	b2 e0       	ldi	r27, 0x02	; 2
+     1d0:	e2 ee       	ldi	r30, 0xE2	; 226
+     1d2:	f1 e0       	ldi	r31, 0x01	; 1
+     1d4:	83 e0       	ldi	r24, 0x03	; 3
+     1d6:	01 90       	ld	r0, Z+
+     1d8:	0d 92       	st	X+, r0
+     1da:	81 50       	subi	r24, 0x01	; 1
+     1dc:	e1 f7       	brne	.-8      	; 0x1d6 <init_ports_m1284P+0xbe>
+     1de:	a6 e1       	ldi	r26, 0x16	; 22
+     1e0:	b3 e0       	ldi	r27, 0x03	; 3
+     1e2:	ef ed       	ldi	r30, 0xDF	; 223
+     1e4:	f1 e0       	ldi	r31, 0x01	; 1
+     1e6:	83 e0       	ldi	r24, 0x03	; 3
+     1e8:	01 90       	ld	r0, Z+
+     1ea:	0d 92       	st	X+, r0
+     1ec:	81 50       	subi	r24, 0x01	; 1
+     1ee:	e1 f7       	brne	.-8      	; 0x1e8 <init_ports_m1284P+0xd0>
+     1f0:	a8 e3       	ldi	r26, 0x38	; 56
+     1f2:	b2 e0       	ldi	r27, 0x02	; 2
+     1f4:	ec ed       	ldi	r30, 0xDC	; 220
+     1f6:	f1 e0       	ldi	r31, 0x01	; 1
+     1f8:	83 e0       	ldi	r24, 0x03	; 3
+     1fa:	01 90       	ld	r0, Z+
+     1fc:	0d 92       	st	X+, r0
+     1fe:	81 50       	subi	r24, 0x01	; 1
+     200:	e1 f7       	brne	.-8      	; 0x1fa <init_ports_m1284P+0xe2>
+     202:	a5 ec       	ldi	r26, 0xC5	; 197
+     204:	b2 e0       	ldi	r27, 0x02	; 2
+     206:	e9 ed       	ldi	r30, 0xD9	; 217
+     208:	f1 e0       	ldi	r31, 0x01	; 1
+     20a:	83 e0       	ldi	r24, 0x03	; 3
+     20c:	01 90       	ld	r0, Z+
+     20e:	0d 92       	st	X+, r0
+     210:	81 50       	subi	r24, 0x01	; 1
+     212:	e1 f7       	brne	.-8      	; 0x20c <init_ports_m1284P+0xf4>
+     214:	a5 ed       	ldi	r26, 0xD5	; 213
+     216:	b2 e0       	ldi	r27, 0x02	; 2
+     218:	e6 ed       	ldi	r30, 0xD6	; 214
+     21a:	f1 e0       	ldi	r31, 0x01	; 1
+     21c:	83 e0       	ldi	r24, 0x03	; 3
+     21e:	01 90       	ld	r0, Z+
+     220:	0d 92       	st	X+, r0
+     222:	81 50       	subi	r24, 0x01	; 1
+     224:	e1 f7       	brne	.-8      	; 0x21e <init_ports_m1284P+0x106>
+     226:	a9 e7       	ldi	r26, 0x79	; 121
+     228:	b2 e0       	ldi	r27, 0x02	; 2
+     22a:	e3 ed       	ldi	r30, 0xD3	; 211
+     22c:	f1 e0       	ldi	r31, 0x01	; 1
+     22e:	83 e0       	ldi	r24, 0x03	; 3
+     230:	01 90       	ld	r0, Z+
+     232:	0d 92       	st	X+, r0
+     234:	81 50       	subi	r24, 0x01	; 1
+     236:	e1 f7       	brne	.-8      	; 0x230 <init_ports_m1284P+0x118>
+     238:	ab e3       	ldi	r26, 0x3B	; 59
+     23a:	b2 e0       	ldi	r27, 0x02	; 2
+     23c:	e0 ed       	ldi	r30, 0xD0	; 208
+     23e:	f1 e0       	ldi	r31, 0x01	; 1
+     240:	83 e0       	ldi	r24, 0x03	; 3
+     242:	01 90       	ld	r0, Z+
+     244:	0d 92       	st	X+, r0
+     246:	81 50       	subi	r24, 0x01	; 1
+     248:	e1 f7       	brne	.-8      	; 0x242 <init_ports_m1284P+0x12a>
+     24a:	a6 e7       	ldi	r26, 0x76	; 118
+     24c:	b2 e0       	ldi	r27, 0x02	; 2
+     24e:	ed ec       	ldi	r30, 0xCD	; 205
+     250:	f1 e0       	ldi	r31, 0x01	; 1
+     252:	83 e0       	ldi	r24, 0x03	; 3
+     254:	01 90       	ld	r0, Z+
+     256:	0d 92       	st	X+, r0
+     258:	81 50       	subi	r24, 0x01	; 1
+     25a:	e1 f7       	brne	.-8      	; 0x254 <init_ports_m1284P+0x13c>
+	INIT_PORT_AND_PINS(C);
+     25c:	a3 eb       	ldi	r26, 0xB3	; 179
+     25e:	b2 e0       	ldi	r27, 0x02	; 2
+     260:	e7 ec       	ldi	r30, 0xC7	; 199
+     262:	f1 e0       	ldi	r31, 0x01	; 1
+     264:	86 e0       	ldi	r24, 0x06	; 6
+     266:	01 90       	ld	r0, Z+
+     268:	0d 92       	st	X+, r0
+     26a:	81 50       	subi	r24, 0x01	; 1
+     26c:	e1 f7       	brne	.-8      	; 0x266 <init_ports_m1284P+0x14e>
+     26e:	a3 ee       	ldi	r26, 0xE3	; 227
+     270:	b2 e0       	ldi	r27, 0x02	; 2
+     272:	e4 ec       	ldi	r30, 0xC4	; 196
+     274:	f1 e0       	ldi	r31, 0x01	; 1
+     276:	83 e0       	ldi	r24, 0x03	; 3
+     278:	01 90       	ld	r0, Z+
+     27a:	0d 92       	st	X+, r0
+     27c:	81 50       	subi	r24, 0x01	; 1
+     27e:	e1 f7       	brne	.-8      	; 0x278 <init_ports_m1284P+0x160>
+     280:	ad ea       	ldi	r26, 0xAD	; 173
+     282:	b2 e0       	ldi	r27, 0x02	; 2
+     284:	e1 ec       	ldi	r30, 0xC1	; 193
+     286:	f1 e0       	ldi	r31, 0x01	; 1
+     288:	83 e0       	ldi	r24, 0x03	; 3
+     28a:	01 90       	ld	r0, Z+
+     28c:	0d 92       	st	X+, r0
+     28e:	81 50       	subi	r24, 0x01	; 1
+     290:	e1 f7       	brne	.-8      	; 0x28a <init_ports_m1284P+0x172>
+     292:	ad ed       	ldi	r26, 0xDD	; 221
+     294:	b2 e0       	ldi	r27, 0x02	; 2
+     296:	ee eb       	ldi	r30, 0xBE	; 190
+     298:	f1 e0       	ldi	r31, 0x01	; 1
+     29a:	83 e0       	ldi	r24, 0x03	; 3
+     29c:	01 90       	ld	r0, Z+
+     29e:	0d 92       	st	X+, r0
+     2a0:	81 50       	subi	r24, 0x01	; 1
+     2a2:	e1 f7       	brne	.-8      	; 0x29c <init_ports_m1284P+0x184>
+     2a4:	ac e6       	ldi	r26, 0x6C	; 108
+     2a6:	b2 e0       	ldi	r27, 0x02	; 2
+     2a8:	eb eb       	ldi	r30, 0xBB	; 187
+     2aa:	f1 e0       	ldi	r31, 0x01	; 1
+     2ac:	83 e0       	ldi	r24, 0x03	; 3
+     2ae:	01 90       	ld	r0, Z+
+     2b0:	0d 92       	st	X+, r0
+     2b2:	81 50       	subi	r24, 0x01	; 1
+     2b4:	e1 f7       	brne	.-8      	; 0x2ae <init_ports_m1284P+0x196>
+     2b6:	a8 e5       	ldi	r26, 0x58	; 88
+     2b8:	b2 e0       	ldi	r27, 0x02	; 2
+     2ba:	e8 eb       	ldi	r30, 0xB8	; 184
+     2bc:	f1 e0       	ldi	r31, 0x01	; 1
+     2be:	83 e0       	ldi	r24, 0x03	; 3
+     2c0:	01 90       	ld	r0, Z+
+     2c2:	0d 92       	st	X+, r0
+     2c4:	81 50       	subi	r24, 0x01	; 1
+     2c6:	e1 f7       	brne	.-8      	; 0x2c0 <init_ports_m1284P+0x1a8>
+     2c8:	aa ea       	ldi	r26, 0xAA	; 170
+     2ca:	b2 e0       	ldi	r27, 0x02	; 2
+     2cc:	e5 eb       	ldi	r30, 0xB5	; 181
+     2ce:	f1 e0       	ldi	r31, 0x01	; 1
+     2d0:	83 e0       	ldi	r24, 0x03	; 3
+     2d2:	01 90       	ld	r0, Z+
+     2d4:	0d 92       	st	X+, r0
+     2d6:	81 50       	subi	r24, 0x01	; 1
+     2d8:	e1 f7       	brne	.-8      	; 0x2d2 <init_ports_m1284P+0x1ba>
+     2da:	ac e9       	ldi	r26, 0x9C	; 156
+     2dc:	b2 e0       	ldi	r27, 0x02	; 2
+     2de:	e2 eb       	ldi	r30, 0xB2	; 178
+     2e0:	f1 e0       	ldi	r31, 0x01	; 1
+     2e2:	83 e0       	ldi	r24, 0x03	; 3
+     2e4:	01 90       	ld	r0, Z+
+     2e6:	0d 92       	st	X+, r0
+     2e8:	81 50       	subi	r24, 0x01	; 1
+     2ea:	e1 f7       	brne	.-8      	; 0x2e4 <init_ports_m1284P+0x1cc>
+     2ec:	ae e2       	ldi	r26, 0x2E	; 46
+     2ee:	b2 e0       	ldi	r27, 0x02	; 2
+     2f0:	ef ea       	ldi	r30, 0xAF	; 175
+     2f2:	f1 e0       	ldi	r31, 0x01	; 1
+     2f4:	83 e0       	ldi	r24, 0x03	; 3
+     2f6:	01 90       	ld	r0, Z+
+     2f8:	0d 92       	st	X+, r0
+     2fa:	81 50       	subi	r24, 0x01	; 1
+     2fc:	e1 f7       	brne	.-8      	; 0x2f6 <init_ports_m1284P+0x1de>
+	INIT_PORT_AND_PINS(D);
+     2fe:	a4 e8       	ldi	r26, 0x84	; 132
+     300:	b2 e0       	ldi	r27, 0x02	; 2
+     302:	e9 ea       	ldi	r30, 0xA9	; 169
+     304:	f1 e0       	ldi	r31, 0x01	; 1
+     306:	86 e0       	ldi	r24, 0x06	; 6
+     308:	01 90       	ld	r0, Z+
+     30a:	0d 92       	st	X+, r0
+     30c:	81 50       	subi	r24, 0x01	; 1
+     30e:	e1 f7       	brne	.-8      	; 0x308 <init_ports_m1284P+0x1f0>
+     310:	ac e4       	ldi	r26, 0x4C	; 76
+     312:	b2 e0       	ldi	r27, 0x02	; 2
+     314:	e6 ea       	ldi	r30, 0xA6	; 166
+     316:	f1 e0       	ldi	r31, 0x01	; 1
+     318:	83 e0       	ldi	r24, 0x03	; 3
+     31a:	01 90       	ld	r0, Z+
+     31c:	0d 92       	st	X+, r0
+     31e:	81 50       	subi	r24, 0x01	; 1
+     320:	e1 f7       	brne	.-8      	; 0x31a <init_ports_m1284P+0x202>
+     322:	a1 e6       	ldi	r26, 0x61	; 97
+     324:	b2 e0       	ldi	r27, 0x02	; 2
+     326:	e3 ea       	ldi	r30, 0xA3	; 163
+     328:	f1 e0       	ldi	r31, 0x01	; 1
+     32a:	83 e0       	ldi	r24, 0x03	; 3
+     32c:	01 90       	ld	r0, Z+
+     32e:	0d 92       	st	X+, r0
+     330:	81 50       	subi	r24, 0x01	; 1
+     332:	e1 f7       	brne	.-8      	; 0x32c <init_ports_m1284P+0x214>
+     334:	a9 e4       	ldi	r26, 0x49	; 73
+     336:	b2 e0       	ldi	r27, 0x02	; 2
+     338:	e0 ea       	ldi	r30, 0xA0	; 160
+     33a:	f1 e0       	ldi	r31, 0x01	; 1
+     33c:	83 e0       	ldi	r24, 0x03	; 3
+     33e:	01 90       	ld	r0, Z+
+     340:	0d 92       	st	X+, r0
+     342:	81 50       	subi	r24, 0x01	; 1
+     344:	e1 f7       	brne	.-8      	; 0x33e <init_ports_m1284P+0x226>
+     346:	a7 e9       	ldi	r26, 0x97	; 151
+     348:	b2 e0       	ldi	r27, 0x02	; 2
+     34a:	ed e9       	ldi	r30, 0x9D	; 157
+     34c:	f1 e0       	ldi	r31, 0x01	; 1
+     34e:	83 e0       	ldi	r24, 0x03	; 3
+     350:	01 90       	ld	r0, Z+
+     352:	0d 92       	st	X+, r0
+     354:	81 50       	subi	r24, 0x01	; 1
+     356:	e1 f7       	brne	.-8      	; 0x350 <init_ports_m1284P+0x238>
+     358:	ab ef       	ldi	r26, 0xFB	; 251
+     35a:	b2 e0       	ldi	r27, 0x02	; 2
+     35c:	ea e9       	ldi	r30, 0x9A	; 154
+     35e:	f1 e0       	ldi	r31, 0x01	; 1
+     360:	83 e0       	ldi	r24, 0x03	; 3
+     362:	01 90       	ld	r0, Z+
+     364:	0d 92       	st	X+, r0
+     366:	81 50       	subi	r24, 0x01	; 1
+     368:	e1 f7       	brne	.-8      	; 0x362 <init_ports_m1284P+0x24a>
+     36a:	a0 ee       	ldi	r26, 0xE0	; 224
+     36c:	b2 e0       	ldi	r27, 0x02	; 2
+     36e:	e7 e9       	ldi	r30, 0x97	; 151
+     370:	f1 e0       	ldi	r31, 0x01	; 1
+     372:	83 e0       	ldi	r24, 0x03	; 3
+     374:	01 90       	ld	r0, Z+
+     376:	0d 92       	st	X+, r0
+     378:	81 50       	subi	r24, 0x01	; 1
+     37a:	e1 f7       	brne	.-8      	; 0x374 <init_ports_m1284P+0x25c>
+     37c:	a0 e1       	ldi	r26, 0x10	; 16
+     37e:	b3 e0       	ldi	r27, 0x03	; 3
+     380:	e4 e9       	ldi	r30, 0x94	; 148
+     382:	f1 e0       	ldi	r31, 0x01	; 1
+     384:	83 e0       	ldi	r24, 0x03	; 3
+     386:	01 90       	ld	r0, Z+
+     388:	0d 92       	st	X+, r0
+     38a:	81 50       	subi	r24, 0x01	; 1
+     38c:	e1 f7       	brne	.-8      	; 0x386 <init_ports_m1284P+0x26e>
+     38e:	a6 ee       	ldi	r26, 0xE6	; 230
+     390:	b2 e0       	ldi	r27, 0x02	; 2
+     392:	e1 e9       	ldi	r30, 0x91	; 145
+     394:	f1 e0       	ldi	r31, 0x01	; 1
+     396:	83 e0       	ldi	r24, 0x03	; 3
+     398:	01 90       	ld	r0, Z+
+     39a:	0d 92       	st	X+, r0
+     39c:	81 50       	subi	r24, 0x01	; 1
+     39e:	e1 f7       	brne	.-8      	; 0x398 <init_ports_m1284P+0x280>
+}
+     3a0:	08 95       	ret
+
+000003a2 <init_timer_m1284P>:
+#include "../kernel_init.h"
+#include "timer_m1284P.h"
+#include "port_m1284P.kernel"
+
+void init_timer_m1284P() {
+	INIT_TIMER_CONFIG(Timer0, TIMER_NORMAL, TCCR0A, TCCR0B, TIMSK0)
+     3a2:	af e6       	ldi	r26, 0x6F	; 111
+     3a4:	b2 e0       	ldi	r27, 0x02	; 2
+     3a6:	ea e8       	ldi	r30, 0x8A	; 138
+     3a8:	f1 e0       	ldi	r31, 0x01	; 1
+     3aa:	87 e0       	ldi	r24, 0x07	; 7
+     3ac:	01 90       	ld	r0, Z+
+     3ae:	0d 92       	st	X+, r0
+     3b0:	81 50       	subi	r24, 0x01	; 1
+     3b2:	e1 f7       	brne	.-8      	; 0x3ac <init_timer_m1284P+0xa>
+	INIT_TIMER_CONFIG(Timer1, TIMER_16bit, TCCR1A, TCCR1B, TIMSK1)
+     3b4:	a9 e0       	ldi	r26, 0x09	; 9
+     3b6:	b3 e0       	ldi	r27, 0x03	; 3
+     3b8:	e3 e8       	ldi	r30, 0x83	; 131
+     3ba:	f1 e0       	ldi	r31, 0x01	; 1
+     3bc:	87 e0       	ldi	r24, 0x07	; 7
+     3be:	01 90       	ld	r0, Z+
+     3c0:	0d 92       	st	X+, r0
+     3c2:	81 50       	subi	r24, 0x01	; 1
+     3c4:	e1 f7       	brne	.-8      	; 0x3be <init_timer_m1284P+0x1c>
+	INIT_TIMER_CONFIG(Timer2, TIMER_ASYNCHRONOUS, TCCR2A, TCCR2B, TIMSK2)
+     3c6:	ab ec       	ldi	r26, 0xCB	; 203
+     3c8:	b2 e0       	ldi	r27, 0x02	; 2
+     3ca:	ec e7       	ldi	r30, 0x7C	; 124
+     3cc:	f1 e0       	ldi	r31, 0x01	; 1
+     3ce:	87 e0       	ldi	r24, 0x07	; 7
+     3d0:	01 90       	ld	r0, Z+
+     3d2:	0d 92       	st	X+, r0
+     3d4:	81 50       	subi	r24, 0x01	; 1
+     3d6:	e1 f7       	brne	.-8      	; 0x3d0 <init_timer_m1284P+0x2e>
+	INIT_TIMER_CONFIG(Timer3, TIMER_16bit, TCCR3A, TCCR3B, TIMSK3)
+     3d8:	a1 e3       	ldi	r26, 0x31	; 49
+     3da:	b2 e0       	ldi	r27, 0x02	; 2
+     3dc:	e5 e7       	ldi	r30, 0x75	; 117
+     3de:	f1 e0       	ldi	r31, 0x01	; 1
+     3e0:	87 e0       	ldi	r24, 0x07	; 7
+     3e2:	01 90       	ld	r0, Z+
+     3e4:	0d 92       	st	X+, r0
+     3e6:	81 50       	subi	r24, 0x01	; 1
+     3e8:	e1 f7       	brne	.-8      	; 0x3e2 <init_timer_m1284P+0x40>
+
+	INIT_TIMER(Timer0A, Timer0, OCR0A, TIMER_A, PinB3) // Pin 4
+     3ea:	af e9       	ldi	r26, 0x9F	; 159
+     3ec:	b2 e0       	ldi	r27, 0x02	; 2
+     3ee:	ed e6       	ldi	r30, 0x6D	; 109
+     3f0:	f1 e0       	ldi	r31, 0x01	; 1
+     3f2:	88 e0       	ldi	r24, 0x08	; 8
+     3f4:	01 90       	ld	r0, Z+
+     3f6:	0d 92       	st	X+, r0
+     3f8:	81 50       	subi	r24, 0x01	; 1
+     3fa:	e1 f7       	brne	.-8      	; 0x3f4 <init_timer_m1284P+0x52>
+	INIT_TIMER(Timer0B, Timer0, OCR0B, TIMER_B, PinB4) // Pin 5
+     3fc:	ae ef       	ldi	r26, 0xFE	; 254
+     3fe:	b2 e0       	ldi	r27, 0x02	; 2
+     400:	e5 e6       	ldi	r30, 0x65	; 101
+     402:	f1 e0       	ldi	r31, 0x01	; 1
+     404:	88 e0       	ldi	r24, 0x08	; 8
+     406:	01 90       	ld	r0, Z+
+     408:	0d 92       	st	X+, r0
+     40a:	81 50       	subi	r24, 0x01	; 1
+     40c:	e1 f7       	brne	.-8      	; 0x406 <init_timer_m1284P+0x64>
+	INIT_TIMER(Timer1A, Timer1, OCR1A, TIMER_A, PinD5) // Pin 19
+     40e:	ae e3       	ldi	r26, 0x3E	; 62
+     410:	b2 e0       	ldi	r27, 0x02	; 2
+     412:	ed e5       	ldi	r30, 0x5D	; 93
+     414:	f1 e0       	ldi	r31, 0x01	; 1
+     416:	88 e0       	ldi	r24, 0x08	; 8
+     418:	01 90       	ld	r0, Z+
+     41a:	0d 92       	st	X+, r0
+     41c:	81 50       	subi	r24, 0x01	; 1
+     41e:	e1 f7       	brne	.-8      	; 0x418 <init_timer_m1284P+0x76>
+	INIT_TIMER(Timer1B, Timer1, OCR1B, TIMER_B, PinD4) // Pin 18
+     420:	a3 ef       	ldi	r26, 0xF3	; 243
+     422:	b2 e0       	ldi	r27, 0x02	; 2
+     424:	e5 e5       	ldi	r30, 0x55	; 85
+     426:	f1 e0       	ldi	r31, 0x01	; 1
+     428:	88 e0       	ldi	r24, 0x08	; 8
+     42a:	01 90       	ld	r0, Z+
+     42c:	0d 92       	st	X+, r0
+     42e:	81 50       	subi	r24, 0x01	; 1
+     430:	e1 f7       	brne	.-8      	; 0x42a <init_timer_m1284P+0x88>
+	INIT_TIMER(Timer2A, Timer2, OCR2A, TIMER_A, PinD7) // Pin 21
+     432:	ac e7       	ldi	r26, 0x7C	; 124
+     434:	b2 e0       	ldi	r27, 0x02	; 2
+     436:	ed e4       	ldi	r30, 0x4D	; 77
+     438:	f1 e0       	ldi	r31, 0x01	; 1
+     43a:	88 e0       	ldi	r24, 0x08	; 8
+     43c:	01 90       	ld	r0, Z+
+     43e:	0d 92       	st	X+, r0
+     440:	81 50       	subi	r24, 0x01	; 1
+     442:	e1 f7       	brne	.-8      	; 0x43c <init_timer_m1284P+0x9a>
+	INIT_TIMER(Timer2B, Timer2, OCR2B, TIMER_B, PinD6) // Pin 20
+     444:	ab ee       	ldi	r26, 0xEB	; 235
+     446:	b2 e0       	ldi	r27, 0x02	; 2
+     448:	e5 e4       	ldi	r30, 0x45	; 69
+     44a:	f1 e0       	ldi	r31, 0x01	; 1
+     44c:	88 e0       	ldi	r24, 0x08	; 8
+     44e:	01 90       	ld	r0, Z+
+     450:	0d 92       	st	X+, r0
+     452:	81 50       	subi	r24, 0x01	; 1
+     454:	e1 f7       	brne	.-8      	; 0x44e <init_timer_m1284P+0xac>
+	INIT_TIMER(Timer3A, Timer3, OCR3A, TIMER_A, PinB6) // Pin7
+     456:	a4 e6       	ldi	r26, 0x64	; 100
+     458:	b2 e0       	ldi	r27, 0x02	; 2
+     45a:	ed e3       	ldi	r30, 0x3D	; 61
+     45c:	f1 e0       	ldi	r31, 0x01	; 1
+     45e:	88 e0       	ldi	r24, 0x08	; 8
+     460:	01 90       	ld	r0, Z+
+     462:	0d 92       	st	X+, r0
+     464:	81 50       	subi	r24, 0x01	; 1
+     466:	e1 f7       	brne	.-8      	; 0x460 <init_timer_m1284P+0xbe>
+	INIT_TIMER(Timer3B, Timer3, OCR3B, TIMER_B, PinB7) // Pin 8
+     468:	a6 e2       	ldi	r26, 0x26	; 38
+     46a:	b2 e0       	ldi	r27, 0x02	; 2
+     46c:	e5 e3       	ldi	r30, 0x35	; 53
+     46e:	f1 e0       	ldi	r31, 0x01	; 1
+     470:	88 e0       	ldi	r24, 0x08	; 8
+     472:	01 90       	ld	r0, Z+
+     474:	0d 92       	st	X+, r0
+     476:	81 50       	subi	r24, 0x01	; 1
+     478:	e1 f7       	brne	.-8      	; 0x472 <init_timer_m1284P+0xd0>
+}
+     47a:	08 95       	ret
+
+0000047c <init_nibobee_leds>:
+PLed rightLedsArray[] = { &RightYellow, &RightRed };
+PLed leftLedsArray[] = { &LeftYellow, &LeftRed };
+PLed allLedsArray[] = { &LeftYellow, &LeftRed, &RightYellow, &RightRed };
+
+void init_nibobee_leds() {
+	INIT_LED(LeftYellow, PinB0)
+     47c:	80 eb       	ldi	r24, 0xB0	; 176
+     47e:	92 e0       	ldi	r25, 0x02	; 2
+     480:	90 93 25 02 	sts	0x0225, r25
+     484:	80 93 24 02 	sts	0x0224, r24
+
+#include "../kernel_init.h"
+#include "led.h"
+
+static void initLed(PLed led) {
+	setPinOutput(led->pin);
+     488:	0e 94 49 05 	call	0xa92	; 0xa92 <setPinOutput>
+	INIT_LED(LeftRed, PinB1)
+     48c:	86 e1       	ldi	r24, 0x16	; 22
+     48e:	93 e0       	ldi	r25, 0x03	; 3
+     490:	90 93 23 02 	sts	0x0223, r25
+     494:	80 93 22 02 	sts	0x0222, r24
+     498:	0e 94 49 05 	call	0xa92	; 0xa92 <setPinOutput>
+	INIT_LED(RightRed, PinB2)
+     49c:	88 e3       	ldi	r24, 0x38	; 56
+     49e:	92 e0       	ldi	r25, 0x02	; 2
+     4a0:	90 93 8b 02 	sts	0x028B, r25
+     4a4:	80 93 8a 02 	sts	0x028A, r24
+     4a8:	0e 94 49 05 	call	0xa92	; 0xa92 <setPinOutput>
+	INIT_LED(RightYellow, PinB3)
+     4ac:	85 ec       	ldi	r24, 0xC5	; 197
+     4ae:	92 e0       	ldi	r25, 0x02	; 2
+     4b0:	90 93 ea 02 	sts	0x02EA, r25
+     4b4:	80 93 e9 02 	sts	0x02E9, r24
+     4b8:	0e 94 49 05 	call	0xa92	; 0xa92 <setPinOutput>
+	
+	INIT_LED_GROUP(RedLeds, redLedsArray, 2)
+     4bc:	ae e5       	ldi	r26, 0x5E	; 94
+     4be:	b2 e0       	ldi	r27, 0x02	; 2
+     4c0:	e2 e3       	ldi	r30, 0x32	; 50
+     4c2:	f1 e0       	ldi	r31, 0x01	; 1
+     4c4:	83 e0       	ldi	r24, 0x03	; 3
+     4c6:	01 90       	ld	r0, Z+
+     4c8:	0d 92       	st	X+, r0
+     4ca:	81 50       	subi	r24, 0x01	; 1
+     4cc:	e1 f7       	brne	.-8      	; 0x4c6 <init_nibobee_leds+0x4a>
+	INIT_LED_GROUP(YellowLeds, yellowLedsArray, 2)
+     4ce:	a6 e4       	ldi	r26, 0x46	; 70
+     4d0:	b2 e0       	ldi	r27, 0x02	; 2
+     4d2:	ef e2       	ldi	r30, 0x2F	; 47
+     4d4:	f1 e0       	ldi	r31, 0x01	; 1
+     4d6:	83 e0       	ldi	r24, 0x03	; 3
+     4d8:	01 90       	ld	r0, Z+
+     4da:	0d 92       	st	X+, r0
+     4dc:	81 50       	subi	r24, 0x01	; 1
+     4de:	e1 f7       	brne	.-8      	; 0x4d8 <init_nibobee_leds+0x5c>
+	INIT_LED_GROUP(RightLeds, rightLedsArray, 2)
+     4e0:	a5 e5       	ldi	r26, 0x55	; 85
+     4e2:	b2 e0       	ldi	r27, 0x02	; 2
+     4e4:	ec e2       	ldi	r30, 0x2C	; 44
+     4e6:	f1 e0       	ldi	r31, 0x01	; 1
+     4e8:	83 e0       	ldi	r24, 0x03	; 3
+     4ea:	01 90       	ld	r0, Z+
+     4ec:	0d 92       	st	X+, r0
+     4ee:	81 50       	subi	r24, 0x01	; 1
+     4f0:	e1 f7       	brne	.-8      	; 0x4ea <init_nibobee_leds+0x6e>
+	INIT_LED_GROUP(LeftLeds, leftLedsArray, 2)
+     4f2:	a2 ed       	ldi	r26, 0xD2	; 210
+     4f4:	b2 e0       	ldi	r27, 0x02	; 2
+     4f6:	e9 e2       	ldi	r30, 0x29	; 41
+     4f8:	f1 e0       	ldi	r31, 0x01	; 1
+     4fa:	83 e0       	ldi	r24, 0x03	; 3
+     4fc:	01 90       	ld	r0, Z+
+     4fe:	0d 92       	st	X+, r0
+     500:	81 50       	subi	r24, 0x01	; 1
+     502:	e1 f7       	brne	.-8      	; 0x4fc <init_nibobee_leds+0x80>
+	INIT_LED_GROUP(AllLeds, allLedsArray, 4)
+     504:	a9 eb       	ldi	r26, 0xB9	; 185
+     506:	b2 e0       	ldi	r27, 0x02	; 2
+     508:	e6 e2       	ldi	r30, 0x26	; 38
+     50a:	f1 e0       	ldi	r31, 0x01	; 1
+     50c:	83 e0       	ldi	r24, 0x03	; 3
+     50e:	01 90       	ld	r0, Z+
+     510:	0d 92       	st	X+, r0
+     512:	81 50       	subi	r24, 0x01	; 1
+     514:	e1 f7       	brne	.-8      	; 0x50e <init_nibobee_leds+0x92>
+}
+     516:	08 95       	ret
+
+00000518 <initMotor>:
+
+#include "../kernel_init.h"
+#include "motor.h"
+
+// This must be called from another init-routine, after the motors have been initialized.
+void initMotor(PMotor motor) {
+     518:	cf 93       	push	r28
+     51a:	df 93       	push	r29
+     51c:	ec 01       	movw	r28, r24
+	setTimerCompareValue(motor->pwmTimer, 0);
+     51e:	8b 81       	ldd	r24, Y+3	; 0x03
+     520:	9c 81       	ldd	r25, Y+4	; 0x04
+     522:	60 e0       	ldi	r22, 0x00	; 0
+     524:	70 e0       	ldi	r23, 0x00	; 0
+     526:	0e 94 09 07 	call	0xe12	; 0xe12 <setTimerCompareValue>
+	setPinOutput(motor->direction);
+     52a:	89 81       	ldd	r24, Y+1	; 0x01
+     52c:	9a 81       	ldd	r25, Y+2	; 0x02
+     52e:	0e 94 49 05 	call	0xa92	; 0xa92 <setPinOutput>
+}
+     532:	df 91       	pop	r29
+     534:	cf 91       	pop	r28
+     536:	08 95       	ret
+
+00000538 <init_nibobee_motors>:
+#include <kernel/devices/timer_m1284P.kernel>
+#include <kernel/devices/motor.kernel>
+#include "nibobee_motor.h"
+
+void init_nibobee_motors() {
+	INIT_MOTOR(LeftMotor, MOTOR_NORMAL, PinD6, Timer1A)
+     538:	af e8       	ldi	r26, 0x8F	; 143
+     53a:	b2 e0       	ldi	r27, 0x02	; 2
+     53c:	e1 e2       	ldi	r30, 0x21	; 33
+     53e:	f1 e0       	ldi	r31, 0x01	; 1
+     540:	85 e0       	ldi	r24, 0x05	; 5
+     542:	01 90       	ld	r0, Z+
+     544:	0d 92       	st	X+, r0
+     546:	81 50       	subi	r24, 0x01	; 1
+     548:	e1 f7       	brne	.-8      	; 0x542 <init_nibobee_motors+0xa>
+     54a:	8f e8       	ldi	r24, 0x8F	; 143
+     54c:	92 e0       	ldi	r25, 0x02	; 2
+     54e:	0e 94 8c 02 	call	0x518	; 0x518 <initMotor>
+	INIT_MOTOR(RightMotor, MOTOR_NORMAL, PinD7, Timer1B)
+     552:	a8 ed       	ldi	r26, 0xD8	; 216
+     554:	b2 e0       	ldi	r27, 0x02	; 2
+     556:	ec e1       	ldi	r30, 0x1C	; 28
+     558:	f1 e0       	ldi	r31, 0x01	; 1
+     55a:	85 e0       	ldi	r24, 0x05	; 5
+     55c:	01 90       	ld	r0, Z+
+     55e:	0d 92       	st	X+, r0
+     560:	81 50       	subi	r24, 0x01	; 1
+     562:	e1 f7       	brne	.-8      	; 0x55c <init_nibobee_motors+0x24>
+     564:	88 ed       	ldi	r24, 0xD8	; 216
+     566:	92 e0       	ldi	r25, 0x02	; 2
+     568:	0e 94 8c 02 	call	0x518	; 0x518 <initMotor>
+}
+     56c:	08 95       	ret
+
+0000056e <init_process_base>:
+	// allocating memory (otherwise it would attempt to detect heap-stack-collisions). 
+	// When using multiple processes, we have multiple stacks and this collision-detection
+	// is therefore not usable. Malloc can use the whole heap, except for the stack of the
+	// first running process, which is at the end of the usable RAM.
+	// As expected, you really have to think about what stack sizes you choose...
+	__malloc_heap_end = (void*) (RAMEND - __default_stack_size);
+     56e:	8f ef       	ldi	r24, 0xFF	; 255
+     570:	90 e4       	ldi	r25, 0x40	; 64
+     572:	20 91 18 01 	lds	r18, 0x0118
+     576:	30 91 19 01 	lds	r19, 0x0119
+     57a:	82 1b       	sub	r24, r18
+     57c:	93 0b       	sbc	r25, r19
+     57e:	90 93 16 02 	sts	0x0216, r25
+     582:	80 93 15 02 	sts	0x0215, r24
+	__malloc_margin = 0;
+     586:	10 92 12 02 	sts	0x0212, r1
+     58a:	10 92 11 02 	sts	0x0211, r1
+#include "scheduler_internal.h"
+
+Process __current_process = NULL;
+
+static Process initializeProcessInternal(uint8_t additionalMemory, void *stackPointer) {
+	PPCB process = (PPCB) calloc(1, sizeof(PCB) + additionalMemory);
+     58e:	60 91 19 02 	lds	r22, 0x0219
+     592:	70 e0       	ldi	r23, 0x00	; 0
+     594:	6e 5f       	subi	r22, 0xFE	; 254
+     596:	7f 4f       	sbci	r23, 0xFF	; 255
+     598:	81 e0       	ldi	r24, 0x01	; 1
+     59a:	90 e0       	ldi	r25, 0x00	; 0
+     59c:	0e 94 7d 09 	call	0x12fa	; 0x12fa <calloc>
+     5a0:	fc 01       	movw	r30, r24
+	if (!process) { return InvalidProcess; }
+     5a2:	00 97       	sbiw	r24, 0x00	; 0
+     5a4:	19 f0       	breq	.+6      	; 0x5ac <init_process_base+0x3e>
+	process->stackPointer = stackPointer;
+     5a6:	11 82       	std	Z+1, r1	; 0x01
+     5a8:	10 82       	st	Z, r1
+     5aa:	02 c0       	rjmp	.+4      	; 0x5b0 <init_process_base+0x42>
+
+Process __current_process = NULL;
+
+static Process initializeProcessInternal(uint8_t additionalMemory, void *stackPointer) {
+	PPCB process = (PPCB) calloc(1, sizeof(PCB) + additionalMemory);
+	if (!process) { return InvalidProcess; }
+     5ac:	e0 e0       	ldi	r30, 0x00	; 0
+     5ae:	f0 e0       	ldi	r31, 0x00	; 0
+	__malloc_heap_end = (void*) (RAMEND - __default_stack_size);
+	__malloc_margin = 0;
+	
+	// The stack-pointer is left to zero, because this process-structure will be stored
+	// into, before it will be restored again.
+	__current_process = initializeProcessInternal(__main_process_additional_memory, NULL);
+     5b0:	f0 93 1b 02 	sts	0x021B, r31
+     5b4:	e0 93 1a 02 	sts	0x021A, r30
+}
+     5b8:	08 95       	ret
+
+000005ba <createProcessBase3>:
+void MainProcessEnd() __attribute__((section (".fini1")));
+void MainProcessEnd() {
+	ProcessGraveyard();
+}
+
+Process createProcess3(ProcessEntryPoint entryPoint, void *parameter, uint16_t stackSize, uint8_t additionalMem) {
+     5ba:	af 92       	push	r10
+     5bc:	bf 92       	push	r11
+     5be:	cf 92       	push	r12
+     5c0:	df 92       	push	r13
+     5c2:	ef 92       	push	r14
+     5c4:	ff 92       	push	r15
+     5c6:	0f 93       	push	r16
+     5c8:	1f 93       	push	r17
+     5ca:	df 93       	push	r29
+     5cc:	cf 93       	push	r28
+     5ce:	00 d0       	rcall	.+0      	; 0x5d0 <createProcessBase3+0x16>
+     5d0:	cd b7       	in	r28, 0x3d	; 61
+     5d2:	de b7       	in	r29, 0x3e	; 62
+     5d4:	d8 2e       	mov	r13, r24
+     5d6:	c9 2e       	mov	r12, r25
+     5d8:	7b 01       	movw	r14, r22
+     5da:	5a 01       	movw	r10, r20
+	// Allocate stack-memory and set the stack-pointer.
+	// The stack-pointer of the new process is the end of the allocated block,
+	// because the stack grows in opposite direction as the allocation.
+	// 2 and sizeof(PCB) are subtracted because there is an initial context pushed there.
+	uint8_t *stackTop = (uint8_t*) calloc(stackSize, sizeof(uint8_t));
+     5dc:	ca 01       	movw	r24, r20
+     5de:	61 e0       	ldi	r22, 0x01	; 1
+     5e0:	70 e0       	ldi	r23, 0x00	; 0
+     5e2:	29 83       	std	Y+1, r18	; 0x01
+     5e4:	0e 94 7d 09 	call	0x12fa	; 0x12fa <calloc>
+     5e8:	8c 01       	movw	r16, r24
+	if (!stackTop) { return InvalidProcess; }
+     5ea:	29 81       	ldd	r18, Y+1	; 0x01
+     5ec:	00 97       	sbiw	r24, 0x00	; 0
+     5ee:	b1 f1       	breq	.+108    	; 0x65c <createProcessBase3+0xa2>
+	uint8_t *stackBottom = stackTop + stackSize - 1;
+     5f0:	a5 01       	movw	r20, r10
+     5f2:	41 50       	subi	r20, 0x01	; 1
+     5f4:	50 40       	sbci	r21, 0x00	; 0
+     5f6:	48 0f       	add	r20, r24
+     5f8:	59 1f       	adc	r21, r25
+	// "Push" the address of the ProcessGraveyard and the actual entryPoint
+	*(stackBottom - 0) = LOBYTE((uint16_t) ProcessGraveyard);
+     5fa:	81 e8       	ldi	r24, 0x81	; 129
+     5fc:	90 e0       	ldi	r25, 0x00	; 0
+     5fe:	fa 01       	movw	r30, r20
+     600:	80 83       	st	Z, r24
+	*(stackBottom - 1) = HIBYTE((uint16_t) ProcessGraveyard);
+     602:	31 97       	sbiw	r30, 0x01	; 1
+     604:	90 83       	st	Z, r25
+	*(stackBottom - 2) = LOBYTE((uint16_t) entryPoint);
+     606:	fa 01       	movw	r30, r20
+     608:	32 97       	sbiw	r30, 0x02	; 2
+     60a:	d0 82       	st	Z, r13
+	*(stackBottom - 3) = HIBYTE((uint16_t) entryPoint);
+     60c:	fa 01       	movw	r30, r20
+     60e:	33 97       	sbiw	r30, 0x03	; 3
+     610:	c0 82       	st	Z, r12
+#include "scheduler_internal.h"
+
+Process __current_process = NULL;
+
+static Process initializeProcessInternal(uint8_t additionalMemory, void *stackPointer) {
+	PPCB process = (PPCB) calloc(1, sizeof(PCB) + additionalMemory);
+     612:	62 2f       	mov	r22, r18
+     614:	70 e0       	ldi	r23, 0x00	; 0
+     616:	6e 5f       	subi	r22, 0xFE	; 254
+     618:	7f 4f       	sbci	r23, 0xFF	; 255
+     61a:	81 e0       	ldi	r24, 0x01	; 1
+     61c:	90 e0       	ldi	r25, 0x00	; 0
+     61e:	49 83       	std	Y+1, r20	; 0x01
+     620:	5a 83       	std	Y+2, r21	; 0x02
+     622:	0e 94 7d 09 	call	0x12fa	; 0x12fa <calloc>
+     626:	9c 01       	movw	r18, r24
+	if (!process) { return InvalidProcess; }
+     628:	49 81       	ldd	r20, Y+1	; 0x01
+     62a:	5a 81       	ldd	r21, Y+2	; 0x02
+     62c:	00 97       	sbiw	r24, 0x00	; 0
+     62e:	49 f0       	breq	.+18     	; 0x642 <createProcessBase3+0x88>
+	*(stackBottom - 0) = LOBYTE((uint16_t) ProcessGraveyard);
+	*(stackBottom - 1) = HIBYTE((uint16_t) ProcessGraveyard);
+	*(stackBottom - 2) = LOBYTE((uint16_t) entryPoint);
+	*(stackBottom - 3) = HIBYTE((uint16_t) entryPoint);
+	
+	Process result = initializeProcessInternal(additionalMem, (void*) (stackBottom - INITIAL_STACK_SIZE));
+     630:	ca 01       	movw	r24, r20
+     632:	86 97       	sbiw	r24, 0x26	; 38
+Process __current_process = NULL;
+
+static Process initializeProcessInternal(uint8_t additionalMemory, void *stackPointer) {
+	PPCB process = (PPCB) calloc(1, sizeof(PCB) + additionalMemory);
+	if (!process) { return InvalidProcess; }
+	process->stackPointer = stackPointer;
+     634:	f9 01       	movw	r30, r18
+     636:	91 83       	std	Z+1, r25	; 0x01
+     638:	80 83       	st	Z, r24
+	Process result = initializeProcessInternal(additionalMem, (void*) (stackBottom - INITIAL_STACK_SIZE));
+	if (result == InvalidProcess) { free(stackTop); return InvalidProcess; }
+	
+	// "Push" the process-parameter on r25 and r24, following GCCs calling convention.
+	// 6 bytes are pushed on the initial stack below the first register r0
+	if (!parameter) parameter = result;
+     63a:	e1 14       	cp	r14, r1
+     63c:	f1 04       	cpc	r15, r1
+     63e:	31 f4       	brne	.+12     	; 0x64c <createProcessBase3+0x92>
+     640:	04 c0       	rjmp	.+8      	; 0x64a <createProcessBase3+0x90>
+	*(stackBottom - 1) = HIBYTE((uint16_t) ProcessGraveyard);
+	*(stackBottom - 2) = LOBYTE((uint16_t) entryPoint);
+	*(stackBottom - 3) = HIBYTE((uint16_t) entryPoint);
+	
+	Process result = initializeProcessInternal(additionalMem, (void*) (stackBottom - INITIAL_STACK_SIZE));
+	if (result == InvalidProcess) { free(stackTop); return InvalidProcess; }
+     642:	c8 01       	movw	r24, r16
+     644:	0e 94 3c 0a 	call	0x1478	; 0x1478 <free>
+     648:	09 c0       	rjmp	.+18     	; 0x65c <createProcessBase3+0xa2>
+	
+	// "Push" the process-parameter on r25 and r24, following GCCs calling convention.
+	// 6 bytes are pushed on the initial stack below the first register r0
+	if (!parameter) parameter = result;
+     64a:	79 01       	movw	r14, r18
+	*(stackBottom - (6 + 24)) = LOBYTE((uint16_t) parameter);
+     64c:	fa 01       	movw	r30, r20
+     64e:	7e 97       	sbiw	r30, 0x1e	; 30
+     650:	e0 82       	st	Z, r14
+	*(stackBottom - (6 + 25)) = HIBYTE((uint16_t) parameter);
+     652:	4f 51       	subi	r20, 0x1F	; 31
+     654:	50 40       	sbci	r21, 0x00	; 0
+     656:	fa 01       	movw	r30, r20
+     658:	f0 82       	st	Z, r15
+	return result;
+     65a:	02 c0       	rjmp	.+4      	; 0x660 <createProcessBase3+0xa6>
+	// Allocate stack-memory and set the stack-pointer.
+	// The stack-pointer of the new process is the end of the allocated block,
+	// because the stack grows in opposite direction as the allocation.
+	// 2 and sizeof(PCB) are subtracted because there is an initial context pushed there.
+	uint8_t *stackTop = (uint8_t*) calloc(stackSize, sizeof(uint8_t));
+	if (!stackTop) { return InvalidProcess; }
+     65c:	20 e0       	ldi	r18, 0x00	; 0
+     65e:	30 e0       	ldi	r19, 0x00	; 0
+	// 6 bytes are pushed on the initial stack below the first register r0
+	if (!parameter) parameter = result;
+	*(stackBottom - (6 + 24)) = LOBYTE((uint16_t) parameter);
+	*(stackBottom - (6 + 25)) = HIBYTE((uint16_t) parameter);
+	return result;
+}
+     660:	c9 01       	movw	r24, r18
+     662:	0f 90       	pop	r0
+     664:	0f 90       	pop	r0
+     666:	cf 91       	pop	r28
+     668:	df 91       	pop	r29
+     66a:	1f 91       	pop	r17
+     66c:	0f 91       	pop	r16
+     66e:	ff 90       	pop	r15
+     670:	ef 90       	pop	r14
+     672:	df 90       	pop	r13
+     674:	cf 90       	pop	r12
+     676:	bf 90       	pop	r11
+     678:	af 90       	pop	r10
+     67a:	08 95       	ret
+
+0000067c <createProcessBase2>:
+
+Process createProcess2(ProcessEntryPoint entryPoint, void *parameter) {
+     67c:	40 91 18 01 	lds	r20, 0x0118
+     680:	50 91 19 01 	lds	r21, 0x0119
+     684:	20 e0       	ldi	r18, 0x00	; 0
+     686:	0e 94 dd 02 	call	0x5ba	; 0x5ba <createProcessBase3>
+	return createProcess3(entryPoint, parameter, __default_stack_size, 0);
+}
+     68a:	08 95       	ret
+
+0000068c <createProcessBase>:
+
+Process createProcess(ProcessEntryPoint entryPoint) {
+     68c:	60 e0       	ldi	r22, 0x00	; 0
+     68e:	70 e0       	ldi	r23, 0x00	; 0
+     690:	0e 94 3e 03 	call	0x67c	; 0x67c <createProcessBase2>
+	return createProcess2(entryPoint, NULL);
+}
+     694:	08 95       	ret
+
+00000696 <switchContext>:
+
+// This method may not call other methods, so that gcc does not save any registers at the beginning.
+void switchContext(PPCB oldProcess, PPCB newProcess) {
+     696:	0f 92       	push	r0
+     698:	0f b6       	in	r0, 0x3f	; 63
+     69a:	f8 94       	cli
+     69c:	0f 92       	push	r0
+     69e:	0b b6       	in	r0, 0x3b	; 59
+     6a0:	0f 92       	push	r0
+     6a2:	1f 92       	push	r1
+     6a4:	11 24       	eor	r1, r1
+     6a6:	2f 92       	push	r2
+     6a8:	3f 92       	push	r3
+     6aa:	4f 92       	push	r4
+     6ac:	5f 92       	push	r5
+     6ae:	6f 92       	push	r6
+     6b0:	7f 92       	push	r7
+     6b2:	8f 92       	push	r8
+     6b4:	9f 92       	push	r9
+     6b6:	af 92       	push	r10
+     6b8:	bf 92       	push	r11
+     6ba:	cf 92       	push	r12
+     6bc:	df 92       	push	r13
+     6be:	ef 92       	push	r14
+     6c0:	ff 92       	push	r15
+     6c2:	0f 93       	push	r16
+     6c4:	1f 93       	push	r17
+     6c6:	2f 93       	push	r18
+     6c8:	3f 93       	push	r19
+     6ca:	4f 93       	push	r20
+     6cc:	5f 93       	push	r21
+     6ce:	6f 93       	push	r22
+     6d0:	7f 93       	push	r23
+     6d2:	8f 93       	push	r24
+     6d4:	9f 93       	push	r25
+     6d6:	af 93       	push	r26
+     6d8:	bf 93       	push	r27
+     6da:	cf 93       	push	r28
+     6dc:	df 93       	push	r29
+     6de:	ef 93       	push	r30
+     6e0:	ff 93       	push	r31
+	PushProcessContext()
+	asm volatile("movw r26, r24"); // Place oldProcess in the X-register
+     6e2:	dc 01       	movw	r26, r24
+	StoreContextStack()
+     6e4:	0d b6       	in	r0, 0x3d	; 61
+     6e6:	0d 92       	st	X+, r0
+     6e8:	0e b6       	in	r0, 0x3e	; 62
+     6ea:	0d 92       	st	X+, r0
+	asm volatile("movw r26, r22"); // Place newProcess in the X-register
+     6ec:	db 01       	movw	r26, r22
+	RestoreContextStack()
+     6ee:	0d 90       	ld	r0, X+
+     6f0:	0d be       	out	0x3d, r0	; 61
+     6f2:	0d 90       	ld	r0, X+
+     6f4:	0e be       	out	0x3e, r0	; 62
+	PopProcessContext()
+     6f6:	ff 91       	pop	r31
+     6f8:	ef 91       	pop	r30
+     6fa:	df 91       	pop	r29
+     6fc:	cf 91       	pop	r28
+     6fe:	bf 91       	pop	r27
+     700:	af 91       	pop	r26
+     702:	9f 91       	pop	r25
+     704:	8f 91       	pop	r24
+     706:	7f 91       	pop	r23
+     708:	6f 91       	pop	r22
+     70a:	5f 91       	pop	r21
+     70c:	4f 91       	pop	r20
+     70e:	3f 91       	pop	r19
+     710:	2f 91       	pop	r18
+     712:	1f 91       	pop	r17
+     714:	0f 91       	pop	r16
+     716:	ff 90       	pop	r15
+     718:	ef 90       	pop	r14
+     71a:	df 90       	pop	r13
+     71c:	cf 90       	pop	r12
+     71e:	bf 90       	pop	r11
+     720:	af 90       	pop	r10
+     722:	9f 90       	pop	r9
+     724:	8f 90       	pop	r8
+     726:	7f 90       	pop	r7
+     728:	6f 90       	pop	r6
+     72a:	5f 90       	pop	r5
+     72c:	4f 90       	pop	r4
+     72e:	3f 90       	pop	r3
+     730:	2f 90       	pop	r2
+     732:	1f 90       	pop	r1
+     734:	0f 90       	pop	r0
+     736:	0b be       	out	0x3b, r0	; 59
+     738:	0f 90       	pop	r0
+     73a:	0f be       	out	0x3f, r0	; 63
+     73c:	0f 90       	pop	r0
+}
+     73e:	08 95       	ret
+
+00000740 <getCurrentProcess>:
+
+inline Process getCurrentProcess() {
+     740:	80 91 1a 02 	lds	r24, 0x021A
+     744:	90 91 1b 02 	lds	r25, 0x021B
+     748:	08 95       	ret
+
+0000074a <switchProcess>:
+	return (Process) __current_process;
+}
+
+void switchProcess(Process newProcess) {
+     74a:	bc 01       	movw	r22, r24
+	Process oldCurrentProcess = __current_process;
+     74c:	80 91 1a 02 	lds	r24, 0x021A
+     750:	90 91 1b 02 	lds	r25, 0x021B
+	__current_process = newProcess;
+     754:	70 93 1b 02 	sts	0x021B, r23
+     758:	60 93 1a 02 	sts	0x021A, r22
+	switchContext((PPCB) oldCurrentProcess, (PPCB) newProcess);
+     75c:	0e 94 4b 03 	call	0x696	; 0x696 <switchContext>
+}
+     760:	08 95       	ret
+
+00000762 <createProcess3>:
+#undef init_process
+
+#define ProcMem(proc) ((PPCBExt)getProcessMemoryBase((Process) proc))
+#define StackPointer(proc) ((uint8_t*)((PPCB)proc)->stackPointer)
+
+Process createProcess3(ProcessEntryPoint entryPoint, void *processArgument, uint16_t stackSize, uint8_t additionalMemory) {
+     762:	cf 93       	push	r28
+     764:	df 93       	push	r29
+     766:	ea 01       	movw	r28, r20
+	Process proc = createProcessBase3(entryPoint, processArgument, stackSize, sizeof(PCBExt) + additionalMemory);
+     768:	2a 5f       	subi	r18, 0xFA	; 250
+     76a:	0e 94 dd 02 	call	0x5ba	; 0x5ba <createProcessBase3>
+     76e:	fc 01       	movw	r30, r24
+	if (proc == InvalidProcess) return proc;
+     770:	00 97       	sbiw	r24, 0x00	; 0
+     772:	e9 f0       	breq	.+58     	; 0x7ae <createProcess3+0x4c>
+
+inline void *getProcessMemory(Process proc) {
+	return proc + sizeof(PCB);
+     774:	dc 01       	movw	r26, r24
+     776:	14 96       	adiw	r26, 0x04	; 4
+	PPCBExt ext = ProcMem(proc);
+	ext->processNumber = __nextProcessNumber++;
+     778:	80 91 1a 01 	lds	r24, 0x011A
+     77c:	90 91 1b 01 	lds	r25, 0x011B
+     780:	95 83       	std	Z+5, r25	; 0x05
+     782:	84 83       	std	Z+4, r24	; 0x04
+     784:	01 96       	adiw	r24, 0x01	; 1
+     786:	90 93 1b 01 	sts	0x011B, r25
+     78a:	80 93 1a 01 	sts	0x011A, r24
+	ext->stackSize = stackSize;
+     78e:	13 96       	adiw	r26, 0x03	; 3
+     790:	dc 93       	st	X, r29
+     792:	ce 93       	st	-X, r28
+     794:	12 97       	sbiw	r26, 0x02	; 2
+	ext->stackTop = StackPointer(proc) + INITIAL_STACK_SIZE - stackSize + 1; // A little hacky, but at least no magic numbers here.
+     796:	27 e2       	ldi	r18, 0x27	; 39
+     798:	30 e0       	ldi	r19, 0x00	; 0
+     79a:	2c 1b       	sub	r18, r28
+     79c:	3d 0b       	sbc	r19, r29
+     79e:	80 81       	ld	r24, Z
+     7a0:	91 81       	ldd	r25, Z+1	; 0x01
+     7a2:	82 0f       	add	r24, r18
+     7a4:	93 1f       	adc	r25, r19
+     7a6:	15 96       	adiw	r26, 0x05	; 5
+     7a8:	9c 93       	st	X, r25
+     7aa:	8e 93       	st	-X, r24
+     7ac:	14 97       	sbiw	r26, 0x04	; 4
+	return proc;
+}
+     7ae:	cf 01       	movw	r24, r30
+     7b0:	df 91       	pop	r29
+     7b2:	cf 91       	pop	r28
+     7b4:	08 95       	ret
+
+000007b6 <createProcess2>:
+
+Process createProcess2(ProcessEntryPoint entryPoint, void *processArgument) {
+     7b6:	40 91 18 01 	lds	r20, 0x0118
+     7ba:	50 91 19 01 	lds	r21, 0x0119
+     7be:	20 e0       	ldi	r18, 0x00	; 0
+     7c0:	0e 94 b1 03 	call	0x762	; 0x762 <createProcess3>
+	return createProcess3(entryPoint, processArgument, __default_stack_size, 0);
+}
+     7c4:	08 95       	ret
+
+000007c6 <createProcess>:
+
+Process createProcess(ProcessEntryPoint entryPoint) {
+     7c6:	60 e0       	ldi	r22, 0x00	; 0
+     7c8:	70 e0       	ldi	r23, 0x00	; 0
+     7ca:	0e 94 db 03 	call	0x7b6	; 0x7b6 <createProcess2>
+	return createProcess2(entryPoint, NULL);
+}
+     7ce:	08 95       	ret
+
+000007d0 <freeProcess>:
+
+void freeProcess(Process process) {
+     7d0:	cf 93       	push	r28
+     7d2:	df 93       	push	r29
+     7d4:	ec 01       	movw	r28, r24
+	if (process == getCurrentProcess()) return;
+     7d6:	80 91 1a 02 	lds	r24, 0x021A
+     7da:	90 91 1b 02 	lds	r25, 0x021B
+     7de:	c8 17       	cp	r28, r24
+     7e0:	d9 07       	cpc	r29, r25
+     7e2:	69 f0       	breq	.+26     	; 0x7fe <freeProcess+0x2e>
+     7e4:	fe 01       	movw	r30, r28
+     7e6:	34 96       	adiw	r30, 0x04	; 4
+	PPCBExt pcb = ProcMem(process);
+	if (pcb->processNumber != 0) { // Dont free intial stack.
+     7e8:	8c 81       	ldd	r24, Y+4	; 0x04
+     7ea:	9d 81       	ldd	r25, Y+5	; 0x05
+     7ec:	00 97       	sbiw	r24, 0x00	; 0
+     7ee:	21 f0       	breq	.+8      	; 0x7f8 <freeProcess+0x28>
+		free(pcb->stackTop);
+     7f0:	84 81       	ldd	r24, Z+4	; 0x04
+     7f2:	95 81       	ldd	r25, Z+5	; 0x05
+     7f4:	0e 94 3c 0a 	call	0x1478	; 0x1478 <free>
+	}
+	free(process);
+     7f8:	ce 01       	movw	r24, r28
+     7fa:	0e 94 3c 0a 	call	0x1478	; 0x1478 <free>
+}
+     7fe:	df 91       	pop	r29
+     800:	cf 91       	pop	r28
+     802:	08 95       	ret
+
+00000804 <getProcessStackSize>:
+
+uint8_t getProcessStackSize(Process process) {
+     804:	fc 01       	movw	r30, r24
+     806:	86 81       	ldd	r24, Z+6	; 0x06
+     808:	08 95       	ret
+
+0000080a <getFreeProcessStackSize>:
+	return ProcMem(process)->stackSize;
+}
+
+uint16_t getFreeProcessStackSize(Process process) {
+     80a:	fc 01       	movw	r30, r24
+	PPCBExt pcb = ProcMem(process);
+	return (uint16_t) ((uint8_t*) pcb->stackTop - StackPointer(process));
+     80c:	20 85       	ldd	r18, Z+8	; 0x08
+     80e:	31 85       	ldd	r19, Z+9	; 0x09
+     810:	80 81       	ld	r24, Z
+     812:	91 81       	ldd	r25, Z+1	; 0x01
+     814:	28 1b       	sub	r18, r24
+     816:	39 0b       	sbc	r19, r25
+}
+     818:	c9 01       	movw	r24, r18
+     81a:	08 95       	ret
+
+0000081c <getProcessNumber>:
+
+uint16_t getProcessNumber(Process process) {
+     81c:	fc 01       	movw	r30, r24
+	return ProcMem(process)->processNumber;
+}
+     81e:	84 81       	ldd	r24, Z+4	; 0x04
+     820:	95 81       	ldd	r25, Z+5	; 0x05
+     822:	08 95       	ret
+
+00000824 <getProcessMemory>:
+
+inline void *getProcessMemory(Process proc) {
+     824:	9c 01       	movw	r18, r24
+     826:	28 5d       	subi	r18, 0xD8	; 216
+     828:	3f 4f       	sbci	r19, 0xFF	; 255
+	return ProcMem(proc) + ADDITIONAL_MEMORY;
+}
+     82a:	c9 01       	movw	r24, r18
+     82c:	08 95       	ret
+
+0000082e <init_process>:
+
+// Initialize the API in this header.
+// This is not a KERNEL_INIT-function and has to be called explicitely. This includes initialization
+// for the basic process-module.
+// This should be called as late as possible, but before starting any scheduler.
+void init_process() {
+     82e:	80 91 19 02 	lds	r24, 0x0219
+     832:	8a 5f       	subi	r24, 0xFA	; 250
+     834:	80 93 19 02 	sts	0x0219, r24
+	// Incrementing this variable must be done before the process.kernel init-routine.
+	// Other kernels would need to define a KERNEL_INIT function, but here we can just do it before the base-function.
+	__main_process_additional_memory += ADDITIONAL_MEMORY;
+	init_process_base();
+     838:	0e 94 b7 02 	call	0x56e	; 0x56e <init_process_base>
+     83c:	a0 91 1a 02 	lds	r26, 0x021A
+     840:	b0 91 1b 02 	lds	r27, 0x021B
+     844:	fd 01       	movw	r30, r26
+     846:	34 96       	adiw	r30, 0x04	; 4
+	PPCBExt initialProcess = ProcMem(__current_process);
+	initialProcess->processNumber = 0;
+     848:	15 96       	adiw	r26, 0x05	; 5
+     84a:	1c 92       	st	X, r1
+     84c:	1e 92       	st	-X, r1
+     84e:	14 97       	sbiw	r26, 0x04	; 4
+	initialProcess->stackSize = __default_stack_size;
+     850:	80 91 18 01 	lds	r24, 0x0118
+     854:	90 91 19 01 	lds	r25, 0x0119
+     858:	93 83       	std	Z+3, r25	; 0x03
+     85a:	82 83       	std	Z+2, r24	; 0x02
+	initialProcess->stackTop = __malloc_heap_end;
+     85c:	80 91 15 02 	lds	r24, 0x0215
+     860:	90 91 16 02 	lds	r25, 0x0216
+     864:	95 83       	std	Z+5, r25	; 0x05
+     866:	84 83       	std	Z+4, r24	; 0x04
+}
+     868:	08 95       	ret
+
+0000086a <init_nibobee_scheduler>:
+#include <kernel/devices/timer.h>
+
+#define CLOCKISR TIMER3_COMPA_vect
+#include <kernel/processes/timed_scheduler.kernel>
+
+void init_nibobee_scheduler() {
+     86a:	cf 93       	push	r28
+     86c:	df 93       	push	r29
+	PTimerConfig timerConf = &Timer3;
+	PTimer timer = &Timer3A;
+	
+	setWaveformGenerationMode(timerConf, clear_timer_on_match);
+     86e:	c1 e3       	ldi	r28, 0x31	; 49
+     870:	d2 e0       	ldi	r29, 0x02	; 2
+     872:	ce 01       	movw	r24, r28
+     874:	61 e0       	ldi	r22, 0x01	; 1
+     876:	70 e0       	ldi	r23, 0x00	; 0
+     878:	0e 94 3a 06 	call	0xc74	; 0xc74 <setWaveformGenerationMode>
+	setTimerCompareValue(timer, 204); // 2500 -- TODO fix before deploying on robot
+     87c:	84 e6       	ldi	r24, 0x64	; 100
+     87e:	92 e0       	ldi	r25, 0x02	; 2
+     880:	6c ec       	ldi	r22, 0xCC	; 204
+     882:	70 e0       	ldi	r23, 0x00	; 0
+     884:	0e 94 09 07 	call	0xe12	; 0xe12 <setTimerCompareValue>
+	setTimerClockSelect(timerConf, prescale_8);
+     888:	ce 01       	movw	r24, r28
+     88a:	62 e0       	ldi	r22, 0x02	; 2
+     88c:	70 e0       	ldi	r23, 0x00	; 0
+     88e:	0e 94 d6 05 	call	0xbac	; 0xbac <setTimerClockSelect>
+	// --> 8 * 2500 = 20000, resulting in one compare-match every millisecond
+}
+     892:	df 91       	pop	r29
+     894:	cf 91       	pop	r28
+     896:	08 95       	ret
+
+00000898 <start_nibobee_scheduler>:
+KERNEL_INIT(init_nibobee_scheduler)
+
+void start_nibobee_scheduler() {
+     898:	84 e6       	ldi	r24, 0x64	; 100
+     89a:	92 e0       	ldi	r25, 0x02	; 2
+     89c:	0e 94 e1 06 	call	0xdc2	; 0xdc2 <enableTimerInterrupt>
+	// Enabling the interrupt will start invoking the scheduler.
+	enableTimerInterrupt(&Timer3A);
+	sei();
+     8a0:	78 94       	sei
+}
+     8a2:	08 95       	ret
+#include "nibobee_scheduler.kernel"
+
+// This function can be implemented in user code to have some initialization-code before the timer starts running.
+// This kernel-module should be included after all process-related modules.
+void before_scheduler() __attribute__((weak));
+void before_scheduler() {}
+     8a4:	08 95       	ret
+
+000008a6 <schedule>:
+
+// Regular header-files
+#include "nibobee.h"
+#include "analog_ext.h"
+
+Process schedule(BOOL fromTimer) {
+     8a6:	cf 93       	push	r28
+     8a8:	df 93       	push	r29
+     8aa:	ec 01       	movw	r28, r24
+	Process p = dms_schedule(fromTimer);
+     8ac:	0e 94 6a 07 	call	0xed4	; 0xed4 <dms_schedule>
+     8b0:	9c 01       	movw	r18, r24
+	if (!p) p = rr_schedule(fromTimer);
+     8b2:	00 97       	sbiw	r24, 0x00	; 0
+     8b4:	21 f4       	brne	.+8      	; 0x8be <schedule+0x18>
+     8b6:	ce 01       	movw	r24, r28
+     8b8:	0e 94 14 09 	call	0x1228	; 0x1228 <rr_schedule>
+     8bc:	9c 01       	movw	r18, r24
+	return p;
+}
+     8be:	c9 01       	movw	r24, r18
+     8c0:	df 91       	pop	r29
+     8c2:	cf 91       	pop	r28
+     8c4:	08 95       	ret
+
+000008c6 <__vector_32>:
+// This is defined in timed_scheduler.kernel to be the ISR of the timer-interrupt.
+// If not yet defined, the scheduler-ISR will just be a regular function.
+#ifndef SCHEDULER_TICK_ISR
+void scheduler_tick() {
+#else
+SCHEDULER_TICK_ISR {
+     8c6:	0f 92       	push	r0
+     8c8:	0f b6       	in	r0, 0x3f	; 63
+     8ca:	f8 94       	cli
+     8cc:	0f 92       	push	r0
+     8ce:	0b b6       	in	r0, 0x3b	; 59
+     8d0:	0f 92       	push	r0
+     8d2:	1f 92       	push	r1
+     8d4:	11 24       	eor	r1, r1
+     8d6:	2f 92       	push	r2
+     8d8:	3f 92       	push	r3
+     8da:	4f 92       	push	r4
+     8dc:	5f 92       	push	r5
+     8de:	6f 92       	push	r6
+     8e0:	7f 92       	push	r7
+     8e2:	8f 92       	push	r8
+     8e4:	9f 92       	push	r9
+     8e6:	af 92       	push	r10
+     8e8:	bf 92       	push	r11
+     8ea:	cf 92       	push	r12
+     8ec:	df 92       	push	r13
+     8ee:	ef 92       	push	r14
+     8f0:	ff 92       	push	r15
+     8f2:	0f 93       	push	r16
+     8f4:	1f 93       	push	r17
+     8f6:	2f 93       	push	r18
+     8f8:	3f 93       	push	r19
+     8fa:	4f 93       	push	r20
+     8fc:	5f 93       	push	r21
+     8fe:	6f 93       	push	r22
+     900:	7f 93       	push	r23
+     902:	8f 93       	push	r24
+     904:	9f 93       	push	r25
+     906:	af 93       	push	r26
+     908:	bf 93       	push	r27
+     90a:	cf 93       	push	r28
+     90c:	df 93       	push	r29
+     90e:	ef 93       	push	r30
+     910:	ff 93       	push	r31
+	// First push the current context, before any register may be modified.
+	PushProcessContext()
+	
+	// Can be defined before including this file, to include some additional action here
+	#ifdef SCHEDULER_TICK_ISR_CONTEXT_PUSHED
+	SCHEDULER_TICK_ISR_CONTEXT_PUSHED
+     912:	80 91 1c 02 	lds	r24, 0x021C
+     916:	90 91 1d 02 	lds	r25, 0x021D
+     91a:	a0 91 1e 02 	lds	r26, 0x021E
+     91e:	b0 91 1f 02 	lds	r27, 0x021F
+     922:	01 96       	adiw	r24, 0x01	; 1
+     924:	a1 1d       	adc	r26, r1
+     926:	b1 1d       	adc	r27, r1
+     928:	80 93 1c 02 	sts	0x021C, r24
+     92c:	90 93 1d 02 	sts	0x021D, r25
+     930:	a0 93 1e 02 	sts	0x021E, r26
+     934:	b0 93 1f 02 	sts	0x021F, r27
+	#endif
+	
+	// Place current process in the X-register
+	asm volatile("lds r26, __current_process");
+     938:	a0 91 1a 02 	lds	r26, 0x021A
+	asm volatile("lds r27, __current_process + 1");
+     93c:	b0 91 1b 02 	lds	r27, 0x021B
+	StoreContextStack()
+     940:	0d b6       	in	r0, 0x3d	; 61
+     942:	0d 92       	st	X+, r0
+     944:	0e b6       	in	r0, 0x3e	; 62
+     946:	0d 92       	st	X+, r0
+	
+	__current_process = schedule(TRUE);
+     948:	81 e0       	ldi	r24, 0x01	; 1
+     94a:	90 e0       	ldi	r25, 0x00	; 0
+     94c:	0e 94 53 04 	call	0x8a6	; 0x8a6 <schedule>
+     950:	90 93 1b 02 	sts	0x021B, r25
+     954:	80 93 1a 02 	sts	0x021A, r24
+	if (__current_process == InvalidProcess) {
+     958:	00 97       	sbiw	r24, 0x00	; 0
+     95a:	11 f4       	brne	.+4      	; 0x960 <__vector_32+0x9a>
+		// This call will not return here; wait for next schedule at timer-interrupt.
+		// If no timer-interrupt is activated, we are dead now.
+		processor_loop_idle();
+     95c:	0e 94 7a 09 	call	0x12f4	; 0x12f4 <processor_loop_idle>
+	}
+	asm volatile("movw r26, r24"); // Place newProcess in the X-register
+     960:	dc 01       	movw	r26, r24
+	RestoreContextStack()
+     962:	0d 90       	ld	r0, X+
+     964:	0d be       	out	0x3d, r0	; 61
+     966:	0d 90       	ld	r0, X+
+     968:	0e be       	out	0x3e, r0	; 62
+	PopProcessContext()
+     96a:	ff 91       	pop	r31
+     96c:	ef 91       	pop	r30
+     96e:	df 91       	pop	r29
+     970:	cf 91       	pop	r28
+     972:	bf 91       	pop	r27
+     974:	af 91       	pop	r26
+     976:	9f 91       	pop	r25
+     978:	8f 91       	pop	r24
+     97a:	7f 91       	pop	r23
+     97c:	6f 91       	pop	r22
+     97e:	5f 91       	pop	r21
+     980:	4f 91       	pop	r20
+     982:	3f 91       	pop	r19
+     984:	2f 91       	pop	r18
+     986:	1f 91       	pop	r17
+     988:	0f 91       	pop	r16
+     98a:	ff 90       	pop	r15
+     98c:	ef 90       	pop	r14
+     98e:	df 90       	pop	r13
+     990:	cf 90       	pop	r12
+     992:	bf 90       	pop	r11
+     994:	af 90       	pop	r10
+     996:	9f 90       	pop	r9
+     998:	8f 90       	pop	r8
+     99a:	7f 90       	pop	r7
+     99c:	6f 90       	pop	r6
+     99e:	5f 90       	pop	r5
+     9a0:	4f 90       	pop	r4
+     9a2:	3f 90       	pop	r3
+     9a4:	2f 90       	pop	r2
+     9a6:	1f 90       	pop	r1
+     9a8:	0f 90       	pop	r0
+     9aa:	0b be       	out	0x3b, r0	; 59
+     9ac:	0f 90       	pop	r0
+     9ae:	0f be       	out	0x3f, r0	; 63
+     9b0:	0f 90       	pop	r0
+	
+	// Return from the interrupt, into the context of the new process.
+	asm volatile("reti");
+     9b2:	18 95       	reti
+
+000009b4 <init_nibobee>:
+}
+     9b4:	80 b7       	in	r24, 0x30	; 48
+     9b6:	80 68       	ori	r24, 0x80	; 128
+     9b8:	80 bf       	out	0x30, r24	; 48
+	// Initialize sensors and actuators
+	// analog_init(); // TODO -- replace with own version; this causes a bad interrupt.
+	
+	// Power saving settings
+	ACSR |= _BV(ACD); // Turn off Analog Comparator - not needed
+	PRR0 |= _BV(PRTIM0) | _BV(PRTIM2); // Turn off unused timers
+     9ba:	e4 e6       	ldi	r30, 0x64	; 100
+     9bc:	f0 e0       	ldi	r31, 0x00	; 0
+     9be:	80 81       	ld	r24, Z
+     9c0:	80 66       	ori	r24, 0x60	; 96
+     9c2:	80 83       	st	Z, r24
+	
+	// Watchdog-timer
+	// Enabled through the WDTON-fuse-bit. Explicitely disable here.
+	// Configure the prescaler -- WDT system-reset after 0,5 s without wdt-instruction.
+	WDTCSR = _BV(WDCE);
+     9c4:	e0 e6       	ldi	r30, 0x60	; 96
+     9c6:	f0 e0       	ldi	r31, 0x00	; 0
+     9c8:	80 e1       	ldi	r24, 0x10	; 16
+     9ca:	80 83       	st	Z, r24
+	// WDP3:0 = 0101 - 0,5s timeout
+	WDTCSR |= // _BV(WDP3) |
+     9cc:	80 81       	ld	r24, Z
+     9ce:	85 60       	ori	r24, 0x05	; 5
+     9d0:	80 83       	st	Z, r24
+			_BV(WDP0);
+	
+	// BOD - TODO configure?
+	
+	// Final initialization-sequence
+	init_process(); // AFTER other modules modified __default_stack_size and __main_process_additional_memory
+     9d2:	0e 94 17 04 	call	0x82e	; 0x82e <init_process>
+	rr_captureMainProcess(PrioNormal);
+     9d6:	83 e0       	ldi	r24, 0x03	; 3
+     9d8:	90 e0       	ldi	r25, 0x00	; 0
+     9da:	0e 94 5a 09 	call	0x12b4	; 0x12b4 <rr_captureMainProcess>
+	before_scheduler(); // AFTER all other initialization and BEFORE starting the scheduler
+     9de:	0e 94 02 05 	call	0xa04	; 0xa04 <before_scheduler>
+	start_nibobee_scheduler();
+     9e2:	0e 94 4c 04 	call	0x898	; 0x898 <start_nibobee_scheduler>
+}
+     9e6:	08 95       	ret
+
+000009e8 <processEntry>:
+#define NUM_PROCESSES 20
+
+volatile unsigned long counters[NUM_PROCESSES];
+Thread threads[NUM_PROCESSES];
+
+void processEntry(volatile unsigned long *testMyCounter) {
+     9e8:	fc 01       	movw	r30, r24
+	while (1) {
+		(*testMyCounter)++;
+     9ea:	20 81       	ld	r18, Z
+     9ec:	31 81       	ldd	r19, Z+1	; 0x01
+     9ee:	42 81       	ldd	r20, Z+2	; 0x02
+     9f0:	53 81       	ldd	r21, Z+3	; 0x03
+     9f2:	2f 5f       	subi	r18, 0xFF	; 255
+     9f4:	3f 4f       	sbci	r19, 0xFF	; 255
+     9f6:	4f 4f       	sbci	r20, 0xFF	; 255
+     9f8:	5f 4f       	sbci	r21, 0xFF	; 255
+     9fa:	20 83       	st	Z, r18
+     9fc:	31 83       	std	Z+1, r19	; 0x01
+     9fe:	42 83       	std	Z+2, r20	; 0x02
+     a00:	53 83       	std	Z+3, r21	; 0x03
+     a02:	f3 cf       	rjmp	.-26     	; 0x9ea <processEntry+0x2>
+
+00000a04 <before_scheduler>:
+	}
+}
+
+void before_scheduler() {
+     a04:	0f 93       	push	r16
+     a06:	1f 93       	push	r17
+     a08:	cf 93       	push	r28
+     a0a:	df 93       	push	r29
+	threads[0] = getCurrentThread();
+     a0c:	0e 94 65 09 	call	0x12ca	; 0x12ca <getCurrentThread>
+     a10:	90 93 20 03 	sts	0x0320, r25
+     a14:	80 93 1f 03 	sts	0x031F, r24
+     a18:	01 e2       	ldi	r16, 0x21	; 33
+     a1a:	13 e0       	ldi	r17, 0x03	; 3
+	for (int i = 1; i < NUM_PROCESSES; i++) {
+     a1c:	c1 e0       	ldi	r28, 0x01	; 1
+     a1e:	d0 e0       	ldi	r29, 0x00	; 0
+	while (1) {
+		(*testMyCounter)++;
+	}
+}
+
+void before_scheduler() {
+     a20:	ae 01       	movw	r20, r28
+     a22:	49 5b       	subi	r20, 0xB9	; 185
+     a24:	5c 4f       	sbci	r21, 0xFC	; 252
+	threads[0] = getCurrentThread();
+	for (int i = 1; i < NUM_PROCESSES; i++) {
+		threads[i] = createThread3(processEntry, PrioHigh, (void*) counters + i);
+     a26:	84 ef       	ldi	r24, 0xF4	; 244
+     a28:	94 e0       	ldi	r25, 0x04	; 4
+     a2a:	65 e0       	ldi	r22, 0x05	; 5
+     a2c:	70 e0       	ldi	r23, 0x00	; 0
+     a2e:	0e 94 ee 08 	call	0x11dc	; 0x11dc <createThread3>
+     a32:	f8 01       	movw	r30, r16
+     a34:	81 93       	st	Z+, r24
+     a36:	91 93       	st	Z+, r25
+     a38:	8f 01       	movw	r16, r30
+	}
+}
+
+void before_scheduler() {
+	threads[0] = getCurrentThread();
+	for (int i = 1; i < NUM_PROCESSES; i++) {
+     a3a:	21 96       	adiw	r28, 0x01	; 1
+     a3c:	c4 31       	cpi	r28, 0x14	; 20
+     a3e:	d1 05       	cpc	r29, r1
+     a40:	79 f7       	brne	.-34     	; 0xa20 <before_scheduler+0x1c>
+		threads[i] = createThread3(processEntry, PrioHigh, (void*) counters + i);
+	}
+}
+     a42:	df 91       	pop	r29
+     a44:	cf 91       	pop	r28
+     a46:	1f 91       	pop	r17
+     a48:	0f 91       	pop	r16
+     a4a:	08 95       	ret
+
+00000a4c <main>:
+volatile unsigned long counters[NUM_PROCESSES];
+Thread threads[NUM_PROCESSES];
+
+void processEntry(volatile unsigned long *testMyCounter) {
+	while (1) {
+		(*testMyCounter)++;
+     a4c:	80 91 47 03 	lds	r24, 0x0347
+     a50:	90 91 48 03 	lds	r25, 0x0348
+     a54:	a0 91 49 03 	lds	r26, 0x0349
+     a58:	b0 91 4a 03 	lds	r27, 0x034A
+     a5c:	01 96       	adiw	r24, 0x01	; 1
+     a5e:	a1 1d       	adc	r26, r1
+     a60:	b1 1d       	adc	r27, r1
+     a62:	80 93 47 03 	sts	0x0347, r24
+     a66:	90 93 48 03 	sts	0x0348, r25
+     a6a:	a0 93 49 03 	sts	0x0349, r26
+     a6e:	b0 93 4a 03 	sts	0x034A, r27
+     a72:	ec cf       	rjmp	.-40     	; 0xa4c <main>
+
+00000a74 <setPortOutput>:
+#define _PORT_KERNEL_H_
+
+#include "port.h"
+
+void setPortOutput(PPort port) {
+	*port->ddr = 0xFF;
+     a74:	dc 01       	movw	r26, r24
+     a76:	14 96       	adiw	r26, 0x04	; 4
+     a78:	ed 91       	ld	r30, X+
+     a7a:	fc 91       	ld	r31, X
+     a7c:	15 97       	sbiw	r26, 0x05	; 5
+     a7e:	8f ef       	ldi	r24, 0xFF	; 255
+     a80:	80 83       	st	Z, r24
+}
+     a82:	08 95       	ret
+
+00000a84 <setPortInput>:
+
+void setPortInput(PPort port) {
+	*port->ddr = 0;
+     a84:	dc 01       	movw	r26, r24
+     a86:	14 96       	adiw	r26, 0x04	; 4
+     a88:	ed 91       	ld	r30, X+
+     a8a:	fc 91       	ld	r31, X
+     a8c:	15 97       	sbiw	r26, 0x05	; 5
+     a8e:	10 82       	st	Z, r1
+}
+     a90:	08 95       	ret
+
+00000a92 <setPinOutput>:
+
+void setPinOutput(PPin pin) {
+     a92:	dc 01       	movw	r26, r24
+	*pin->port->ddr |= pin->mask;
+     a94:	ed 91       	ld	r30, X+
+     a96:	fc 91       	ld	r31, X
+     a98:	11 97       	sbiw	r26, 0x01	; 1
+     a9a:	04 80       	ldd	r0, Z+4	; 0x04
+     a9c:	f5 81       	ldd	r31, Z+5	; 0x05
+     a9e:	e0 2d       	mov	r30, r0
+     aa0:	80 81       	ld	r24, Z
+     aa2:	12 96       	adiw	r26, 0x02	; 2
+     aa4:	9c 91       	ld	r25, X
+     aa6:	12 97       	sbiw	r26, 0x02	; 2
+     aa8:	89 2b       	or	r24, r25
+     aaa:	80 83       	st	Z, r24
+}
+     aac:	08 95       	ret
+
+00000aae <setPinInput>:
+
+void setPinInput(PPin pin) {
+     aae:	dc 01       	movw	r26, r24
+	*pin->port->ddr &= ~pin->mask;
+     ab0:	ed 91       	ld	r30, X+
+     ab2:	fc 91       	ld	r31, X
+     ab4:	11 97       	sbiw	r26, 0x01	; 1
+     ab6:	04 80       	ldd	r0, Z+4	; 0x04
+     ab8:	f5 81       	ldd	r31, Z+5	; 0x05
+     aba:	e0 2d       	mov	r30, r0
+     abc:	90 81       	ld	r25, Z
+     abe:	12 96       	adiw	r26, 0x02	; 2
+     ac0:	8c 91       	ld	r24, X
+     ac2:	12 97       	sbiw	r26, 0x02	; 2
+     ac4:	80 95       	com	r24
+     ac6:	89 23       	and	r24, r25
+     ac8:	80 83       	st	Z, r24
+}
+     aca:	08 95       	ret
+
+00000acc <writePort>:
+
+void writePort(PPort port, uint8_t value) {
+	*port->port = value;
+     acc:	dc 01       	movw	r26, r24
+     ace:	ed 91       	ld	r30, X+
+     ad0:	fc 91       	ld	r31, X
+     ad2:	11 97       	sbiw	r26, 0x01	; 1
+     ad4:	60 83       	st	Z, r22
+}
+     ad6:	08 95       	ret
+
+00000ad8 <readPort>:
+
+uint8_t readPort(PPort port) {
+	return *port->pin;
+     ad8:	dc 01       	movw	r26, r24
+     ada:	12 96       	adiw	r26, 0x02	; 2
+     adc:	ed 91       	ld	r30, X+
+     ade:	fc 91       	ld	r31, X
+     ae0:	13 97       	sbiw	r26, 0x03	; 3
+     ae2:	80 81       	ld	r24, Z
+}
+     ae4:	08 95       	ret
+
+00000ae6 <setPinOne>:
+void writePin(PPin pin, BOOL value) {
+	if (value) setPinOne(pin);
+	else setPinZero(pin);
+}
+
+void setPinOne(PPin pin) {
+     ae6:	dc 01       	movw	r26, r24
+	*pin->port->port |= pin->mask;
+     ae8:	ed 91       	ld	r30, X+
+     aea:	fc 91       	ld	r31, X
+     aec:	11 97       	sbiw	r26, 0x01	; 1
+     aee:	01 90       	ld	r0, Z+
+     af0:	f0 81       	ld	r31, Z
+     af2:	e0 2d       	mov	r30, r0
+     af4:	80 81       	ld	r24, Z
+     af6:	12 96       	adiw	r26, 0x02	; 2
+     af8:	9c 91       	ld	r25, X
+     afa:	12 97       	sbiw	r26, 0x02	; 2
+     afc:	89 2b       	or	r24, r25
+     afe:	80 83       	st	Z, r24
+}
+     b00:	08 95       	ret
+
+00000b02 <setPinZero>:
+
+void setPinZero(PPin pin) {
+     b02:	dc 01       	movw	r26, r24
+	*pin->port->port &= ~pin->mask;
+     b04:	ed 91       	ld	r30, X+
+     b06:	fc 91       	ld	r31, X
+     b08:	11 97       	sbiw	r26, 0x01	; 1
+     b0a:	01 90       	ld	r0, Z+
+     b0c:	f0 81       	ld	r31, Z
+     b0e:	e0 2d       	mov	r30, r0
+     b10:	90 81       	ld	r25, Z
+     b12:	12 96       	adiw	r26, 0x02	; 2
+     b14:	8c 91       	ld	r24, X
+     b16:	12 97       	sbiw	r26, 0x02	; 2
+     b18:	80 95       	com	r24
+     b1a:	89 23       	and	r24, r25
+     b1c:	80 83       	st	Z, r24
+}
+     b1e:	08 95       	ret
+
+00000b20 <writePin>:
+uint8_t readPort(PPort port) {
+	return *port->pin;
+}
+
+void writePin(PPin pin, BOOL value) {
+	if (value) setPinOne(pin);
+     b20:	61 15       	cp	r22, r1
+     b22:	71 05       	cpc	r23, r1
+     b24:	19 f0       	breq	.+6      	; 0xb2c <writePin+0xc>
+     b26:	0e 94 73 05 	call	0xae6	; 0xae6 <setPinOne>
+     b2a:	08 95       	ret
+	else setPinZero(pin);
+     b2c:	0e 94 81 05 	call	0xb02	; 0xb02 <setPinZero>
+     b30:	08 95       	ret
+
+00000b32 <readPin>:
+
+void setPinZero(PPin pin) {
+	*pin->port->port &= ~pin->mask;
+}
+
+BOOL readPin(PPin pin) {
+     b32:	fc 01       	movw	r30, r24
+	if (*pin->port->pin & pin->mask)
+     b34:	a0 81       	ld	r26, Z
+     b36:	b1 81       	ldd	r27, Z+1	; 0x01
+     b38:	12 96       	adiw	r26, 0x02	; 2
+     b3a:	0d 90       	ld	r0, X+
+     b3c:	bc 91       	ld	r27, X
+     b3e:	a0 2d       	mov	r26, r0
+     b40:	8c 91       	ld	r24, X
+     b42:	92 81       	ldd	r25, Z+2	; 0x02
+     b44:	89 23       	and	r24, r25
+		return TRUE;
+     b46:	21 e0       	ldi	r18, 0x01	; 1
+     b48:	30 e0       	ldi	r19, 0x00	; 0
+     b4a:	11 f4       	brne	.+4      	; 0xb50 <readPin+0x1e>
+     b4c:	20 e0       	ldi	r18, 0x00	; 0
+     b4e:	30 e0       	ldi	r19, 0x00	; 0
+	else
+		return FALSE;
+}
+     b50:	c9 01       	movw	r24, r18
+     b52:	08 95       	ret
+
+00000b54 <setCompareMatchOutputMode>:
+ */ 
+
+#include "timer.h"
+#include "port.h"
+
+void setCompareMatchOutputMode(PTimer timer, CompareMatchOutputMode com) {
+     b54:	fc 01       	movw	r30, r24
+     b56:	64 30       	cpi	r22, 0x04	; 4
+     b58:	71 05       	cpc	r23, r1
+     b5a:	48 f4       	brcc	.+18     	; 0xb6e <setCompareMatchOutputMode+0x1a>
+     b5c:	db 01       	movw	r26, r22
+     b5e:	a7 5f       	subi	r26, 0xF7	; 247
+     b60:	bd 4f       	sbci	r27, 0xFD	; 253
+     b62:	2c 91       	ld	r18, X
+     b64:	63 5f       	subi	r22, 0xF3	; 243
+     b66:	7d 4f       	sbci	r23, 0xFD	; 253
+     b68:	db 01       	movw	r26, r22
+     b6a:	3c 91       	ld	r19, X
+     b6c:	02 c0       	rjmp	.+4      	; 0xb72 <setCompareMatchOutputMode+0x1e>
+     b6e:	30 e0       	ldi	r19, 0x00	; 0
+     b70:	20 e0       	ldi	r18, 0x00	; 0
+			break;
+		case clear_on_match:
+			oneBits = _BV(COM0A1) | _BV(COM0A0);
+			break;
+	}
+	if (timer->type == TIMER_B) {
+     b72:	84 81       	ldd	r24, Z+4	; 0x04
+     b74:	95 81       	ldd	r25, Z+5	; 0x05
+     b76:	81 30       	cpi	r24, 0x01	; 1
+     b78:	91 05       	cpc	r25, r1
+     b7a:	21 f4       	brne	.+8      	; 0xb84 <setCompareMatchOutputMode+0x30>
+		// The COM-bits for the B-timer are right next to the A-timer-bits.
+		oneBits = oneBits >> 2;
+     b7c:	36 95       	lsr	r19
+     b7e:	36 95       	lsr	r19
+		zeroBits = zeroBits >> 2;
+     b80:	26 95       	lsr	r18
+     b82:	26 95       	lsr	r18
+	}
+	*timer->timer->controlRegisterA |= oneBits;
+     b84:	a0 81       	ld	r26, Z
+     b86:	b1 81       	ldd	r27, Z+1	; 0x01
+     b88:	11 96       	adiw	r26, 0x01	; 1
+     b8a:	0d 90       	ld	r0, X+
+     b8c:	bc 91       	ld	r27, X
+     b8e:	a0 2d       	mov	r26, r0
+     b90:	8c 91       	ld	r24, X
+     b92:	83 2b       	or	r24, r19
+     b94:	8c 93       	st	X, r24
+	*timer->timer->controlRegisterA &= ~zeroBits;
+     b96:	01 90       	ld	r0, Z+
+     b98:	f0 81       	ld	r31, Z
+     b9a:	e0 2d       	mov	r30, r0
+     b9c:	01 80       	ldd	r0, Z+1	; 0x01
+     b9e:	f2 81       	ldd	r31, Z+2	; 0x02
+     ba0:	e0 2d       	mov	r30, r0
+     ba2:	80 81       	ld	r24, Z
+     ba4:	20 95       	com	r18
+     ba6:	28 23       	and	r18, r24
+     ba8:	20 83       	st	Z, r18
+}
+     baa:	08 95       	ret
+
+00000bac <setTimerClockSelect>:
+
+void setTimerClockSelect(PTimerConfig timer, TimerClockSelect cs) {
+     bac:	fc 01       	movw	r30, r24
+	BOOL asyncTimer = timer->flags & TIMER_ASYNCHRONOUS;
+     bae:	80 81       	ld	r24, Z
+     bb0:	90 e0       	ldi	r25, 0x00	; 0
+     bb2:	82 70       	andi	r24, 0x02	; 2
+     bb4:	90 70       	andi	r25, 0x00	; 0
+	uint8_t zeroBits = 0;
+	uint8_t oneBits = 0;
+	switch (cs) {
+     bb6:	64 30       	cpi	r22, 0x04	; 4
+     bb8:	71 05       	cpc	r23, r1
+     bba:	71 f1       	breq	.+92     	; 0xc18 <setTimerClockSelect+0x6c>
+     bbc:	65 30       	cpi	r22, 0x05	; 5
+     bbe:	71 05       	cpc	r23, r1
+     bc0:	68 f4       	brcc	.+26     	; 0xbdc <setTimerClockSelect+0x30>
+     bc2:	61 30       	cpi	r22, 0x01	; 1
+     bc4:	71 05       	cpc	r23, r1
+     bc6:	f9 f0       	breq	.+62     	; 0xc06 <setTimerClockSelect+0x5a>
+     bc8:	61 30       	cpi	r22, 0x01	; 1
+     bca:	71 05       	cpc	r23, r1
+     bcc:	d8 f1       	brcs	.+118    	; 0xc44 <setTimerClockSelect+0x98>
+     bce:	62 30       	cpi	r22, 0x02	; 2
+     bd0:	71 05       	cpc	r23, r1
+     bd2:	e1 f0       	breq	.+56     	; 0xc0c <setTimerClockSelect+0x60>
+     bd4:	63 30       	cpi	r22, 0x03	; 3
+     bd6:	71 05       	cpc	r23, r1
+     bd8:	a1 f4       	brne	.+40     	; 0xc02 <setTimerClockSelect+0x56>
+     bda:	1b c0       	rjmp	.+54     	; 0xc12 <setTimerClockSelect+0x66>
+     bdc:	67 30       	cpi	r22, 0x07	; 7
+     bde:	71 05       	cpc	r23, r1
+     be0:	21 f1       	breq	.+72     	; 0xc2a <setTimerClockSelect+0x7e>
+     be2:	68 30       	cpi	r22, 0x08	; 8
+     be4:	71 05       	cpc	r23, r1
+     be6:	38 f4       	brcc	.+14     	; 0xbf6 <setTimerClockSelect+0x4a>
+     be8:	65 30       	cpi	r22, 0x05	; 5
+     bea:	71 05       	cpc	r23, r1
+     bec:	c1 f0       	breq	.+48     	; 0xc1e <setTimerClockSelect+0x72>
+     bee:	66 30       	cpi	r22, 0x06	; 6
+     bf0:	71 05       	cpc	r23, r1
+     bf2:	39 f4       	brne	.+14     	; 0xc02 <setTimerClockSelect+0x56>
+     bf4:	17 c0       	rjmp	.+46     	; 0xc24 <setTimerClockSelect+0x78>
+     bf6:	68 30       	cpi	r22, 0x08	; 8
+     bf8:	71 05       	cpc	r23, r1
+     bfa:	d1 f0       	breq	.+52     	; 0xc30 <setTimerClockSelect+0x84>
+     bfc:	69 30       	cpi	r22, 0x09	; 9
+     bfe:	71 05       	cpc	r23, r1
+     c00:	e1 f0       	breq	.+56     	; 0xc3a <setTimerClockSelect+0x8e>
+}
+
+void setTimerClockSelect(PTimerConfig timer, TimerClockSelect cs) {
+	BOOL asyncTimer = timer->flags & TIMER_ASYNCHRONOUS;
+	uint8_t zeroBits = 0;
+	uint8_t oneBits = 0;
+     c02:	90 e0       	ldi	r25, 0x00	; 0
+     c04:	1d c0       	rjmp	.+58     	; 0xc40 <setTimerClockSelect+0x94>
+		case no_clock: // 000
+			zeroBits = _BV(CS02) | _BV(CS01) | _BV(CS00);
+			break;
+		case prescale_1: // 001
+			zeroBits = _BV(CS02) | _BV(CS01);
+			oneBits = _BV(CS00);
+     c06:	91 e0       	ldi	r25, 0x01	; 1
+	switch (cs) {
+		case no_clock: // 000
+			zeroBits = _BV(CS02) | _BV(CS01) | _BV(CS00);
+			break;
+		case prescale_1: // 001
+			zeroBits = _BV(CS02) | _BV(CS01);
+     c08:	86 e0       	ldi	r24, 0x06	; 6
+			oneBits = _BV(CS00);
+			break;
+     c0a:	27 c0       	rjmp	.+78     	; 0xc5a <setTimerClockSelect+0xae>
+		case prescale_8: // 010
+			zeroBits = _BV(CS02) | _BV(CS00);
+			oneBits = _BV(CS01);
+     c0c:	92 e0       	ldi	r25, 0x02	; 2
+		case prescale_1: // 001
+			zeroBits = _BV(CS02) | _BV(CS01);
+			oneBits = _BV(CS00);
+			break;
+		case prescale_8: // 010
+			zeroBits = _BV(CS02) | _BV(CS00);
+     c0e:	85 e0       	ldi	r24, 0x05	; 5
+			oneBits = _BV(CS01);
+			break;
+     c10:	24 c0       	rjmp	.+72     	; 0xc5a <setTimerClockSelect+0xae>
+		case prescale_32: // (only async) 011
+			if (!asyncTimer) return; // INVALID!
+     c12:	00 97       	sbiw	r24, 0x00	; 0
+     c14:	e9 f4       	brne	.+58     	; 0xc50 <setTimerClockSelect+0xa4>
+     c16:	2d c0       	rjmp	.+90     	; 0xc72 <setTimerClockSelect+0xc6>
+			zeroBits = _BV(CS02);
+			oneBits = _BV(CS01) | _BV(CS00);
+		case prescale_64:
+			if (asyncTimer) { // 100
+     c18:	00 97       	sbiw	r24, 0x00	; 0
+     c1a:	b9 f0       	breq	.+46     	; 0xc4a <setTimerClockSelect+0x9e>
+     c1c:	19 c0       	rjmp	.+50     	; 0xc50 <setTimerClockSelect+0xa4>
+				zeroBits = _BV(CS02);
+				oneBits = _BV(CS01) | _BV(CS00);
+			}
+			break;
+		case prescale_128: // (only async) 101
+			if (!asyncTimer) return; // INVALID!
+     c1e:	00 97       	sbiw	r24, 0x00	; 0
+     c20:	d1 f4       	brne	.+52     	; 0xc56 <setTimerClockSelect+0xaa>
+     c22:	27 c0       	rjmp	.+78     	; 0xc72 <setTimerClockSelect+0xc6>
+			zeroBits = _BV(CS01);
+			oneBits = _BV(CS02) | _BV(CS00);
+			break;
+		case prescale_256:
+			if (asyncTimer) { // 110
+     c24:	00 97       	sbiw	r24, 0x00	; 0
+     c26:	a1 f0       	breq	.+40     	; 0xc50 <setTimerClockSelect+0xa4>
+     c28:	05 c0       	rjmp	.+10     	; 0xc34 <setTimerClockSelect+0x88>
+				oneBits = _BV(CS02);
+				zeroBits = _BV(CS00) | _BV(CS01);
+			}
+			break;
+		case prescale_1024:
+			if (asyncTimer) { // 111
+     c2a:	00 97       	sbiw	r24, 0x00	; 0
+     c2c:	a1 f0       	breq	.+40     	; 0xc56 <setTimerClockSelect+0xaa>
+     c2e:	07 c0       	rjmp	.+14     	; 0xc3e <setTimerClockSelect+0x92>
+				oneBits = _BV(CS02) | _BV(CS00);
+				zeroBits = _BV(CS01);
+			}
+			break;
+		case external_falling_edge: // (no async) 110 
+			if (asyncTimer) return; // INVALID!
+     c30:	00 97       	sbiw	r24, 0x00	; 0
+     c32:	f9 f4       	brne	.+62     	; 0xc72 <setTimerClockSelect+0xc6>
+			oneBits = _BV(CS02) | _BV(CS01);
+     c34:	96 e0       	ldi	r25, 0x06	; 6
+			zeroBits = _BV(CS00);
+     c36:	81 e0       	ldi	r24, 0x01	; 1
+     c38:	10 c0       	rjmp	.+32     	; 0xc5a <setTimerClockSelect+0xae>
+			break;
+		case external_rising_edge: // (no async) 111
+			if (asyncTimer) return; // INVALID!
+     c3a:	00 97       	sbiw	r24, 0x00	; 0
+     c3c:	d1 f4       	brne	.+52     	; 0xc72 <setTimerClockSelect+0xc6>
+			oneBits = _BV(CS02) | _BV(CS01) | _BV(CS00);
+     c3e:	97 e0       	ldi	r25, 0x07	; 7
+	*timer->timer->controlRegisterA &= ~zeroBits;
+}
+
+void setTimerClockSelect(PTimerConfig timer, TimerClockSelect cs) {
+	BOOL asyncTimer = timer->flags & TIMER_ASYNCHRONOUS;
+	uint8_t zeroBits = 0;
+     c40:	80 e0       	ldi	r24, 0x00	; 0
+     c42:	0b c0       	rjmp	.+22     	; 0xc5a <setTimerClockSelect+0xae>
+	uint8_t oneBits = 0;
+     c44:	90 e0       	ldi	r25, 0x00	; 0
+	switch (cs) {
+		case no_clock: // 000
+			zeroBits = _BV(CS02) | _BV(CS01) | _BV(CS00);
+     c46:	87 e0       	ldi	r24, 0x07	; 7
+     c48:	08 c0       	rjmp	.+16     	; 0xc5a <setTimerClockSelect+0xae>
+			if (asyncTimer) { // 100
+				zeroBits = _BV(CS01) | _BV(CS00);
+				oneBits = _BV(CS02);
+			} else { // 011
+				zeroBits = _BV(CS02);
+				oneBits = _BV(CS01) | _BV(CS00);
+     c4a:	93 e0       	ldi	r25, 0x03	; 3
+		case prescale_64:
+			if (asyncTimer) { // 100
+				zeroBits = _BV(CS01) | _BV(CS00);
+				oneBits = _BV(CS02);
+			} else { // 011
+				zeroBits = _BV(CS02);
+     c4c:	84 e0       	ldi	r24, 0x04	; 4
+     c4e:	05 c0       	rjmp	.+10     	; 0xc5a <setTimerClockSelect+0xae>
+		case prescale_256:
+			if (asyncTimer) { // 110
+				oneBits = _BV(CS02) | _BV(CS01);
+				zeroBits = _BV(CS00);
+			} else { // 100
+				oneBits = _BV(CS02);
+     c50:	94 e0       	ldi	r25, 0x04	; 4
+				zeroBits = _BV(CS00) | _BV(CS01);
+     c52:	83 e0       	ldi	r24, 0x03	; 3
+     c54:	02 c0       	rjmp	.+4      	; 0xc5a <setTimerClockSelect+0xae>
+			break;
+		case prescale_1024:
+			if (asyncTimer) { // 111
+				oneBits = _BV(CS02) | _BV(CS01) | _BV(CS00);
+			} else { // 101
+				oneBits = _BV(CS02) | _BV(CS00);
+     c56:	95 e0       	ldi	r25, 0x05	; 5
+				zeroBits = _BV(CS01);
+     c58:	82 e0       	ldi	r24, 0x02	; 2
+		case external_rising_edge: // (no async) 111
+			if (asyncTimer) return; // INVALID!
+			oneBits = _BV(CS02) | _BV(CS01) | _BV(CS00);
+			break;
+	}
+	*timer->controlRegisterB |= oneBits;
+     c5a:	a3 81       	ldd	r26, Z+3	; 0x03
+     c5c:	b4 81       	ldd	r27, Z+4	; 0x04
+     c5e:	2c 91       	ld	r18, X
+     c60:	29 2b       	or	r18, r25
+     c62:	2c 93       	st	X, r18
+	*timer->controlRegisterB &= ~zeroBits;
+     c64:	03 80       	ldd	r0, Z+3	; 0x03
+     c66:	f4 81       	ldd	r31, Z+4	; 0x04
+     c68:	e0 2d       	mov	r30, r0
+     c6a:	90 81       	ld	r25, Z
+     c6c:	80 95       	com	r24
+     c6e:	89 23       	and	r24, r25
+     c70:	80 83       	st	Z, r24
+     c72:	08 95       	ret
+
+00000c74 <setWaveformGenerationMode>:
+}
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+     c74:	fc 01       	movw	r30, r24
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+	uint8_t oneBitsB = 0;
+	if (timer->flags & TIMER_16bit) {
+     c76:	80 81       	ld	r24, Z
+     c78:	82 ff       	sbrs	r24, 2
+     c7a:	54 c0       	rjmp	.+168    	; 0xd24 <setWaveformGenerationMode+0xb0>
+		// 16 bit: 1+0 in A, 2+3 in B
+		switch(wgm) {
+     c7c:	65 30       	cpi	r22, 0x05	; 5
+     c7e:	71 05       	cpc	r23, r1
+     c80:	b9 f1       	breq	.+110    	; 0xcf0 <setWaveformGenerationMode+0x7c>
+     c82:	66 30       	cpi	r22, 0x06	; 6
+     c84:	71 05       	cpc	r23, r1
+     c86:	b0 f4       	brcc	.+44     	; 0xcb4 <setWaveformGenerationMode+0x40>
+     c88:	62 30       	cpi	r22, 0x02	; 2
+     c8a:	71 05       	cpc	r23, r1
+     c8c:	69 f1       	breq	.+90     	; 0xce8 <setWaveformGenerationMode+0x74>
+     c8e:	63 30       	cpi	r22, 0x03	; 3
+     c90:	71 05       	cpc	r23, r1
+     c92:	40 f4       	brcc	.+16     	; 0xca4 <setWaveformGenerationMode+0x30>
+     c94:	61 15       	cp	r22, r1
+     c96:	71 05       	cpc	r23, r1
+     c98:	19 f1       	breq	.+70     	; 0xce0 <setWaveformGenerationMode+0x6c>
+     c9a:	61 30       	cpi	r22, 0x01	; 1
+     c9c:	71 05       	cpc	r23, r1
+     c9e:	09 f0       	breq	.+2      	; 0xca2 <setWaveformGenerationMode+0x2e>
+     ca0:	8f c0       	rjmp	.+286    	; 0xdc0 <setWaveformGenerationMode+0x14c>
+     ca2:	6e c0       	rjmp	.+220    	; 0xd80 <setWaveformGenerationMode+0x10c>
+     ca4:	63 30       	cpi	r22, 0x03	; 3
+     ca6:	71 05       	cpc	r23, r1
+     ca8:	29 f1       	breq	.+74     	; 0xcf4 <setWaveformGenerationMode+0x80>
+     caa:	64 30       	cpi	r22, 0x04	; 4
+     cac:	71 05       	cpc	r23, r1
+     cae:	09 f0       	breq	.+2      	; 0xcb2 <setWaveformGenerationMode+0x3e>
+     cb0:	87 c0       	rjmp	.+270    	; 0xdc0 <setWaveformGenerationMode+0x14c>
+     cb2:	24 c0       	rjmp	.+72     	; 0xcfc <setWaveformGenerationMode+0x88>
+     cb4:	68 30       	cpi	r22, 0x08	; 8
+     cb6:	71 05       	cpc	r23, r1
+     cb8:	29 f1       	breq	.+74     	; 0xd04 <setWaveformGenerationMode+0x90>
+     cba:	69 30       	cpi	r22, 0x09	; 9
+     cbc:	71 05       	cpc	r23, r1
+     cbe:	40 f4       	brcc	.+16     	; 0xcd0 <setWaveformGenerationMode+0x5c>
+     cc0:	66 30       	cpi	r22, 0x06	; 6
+     cc2:	71 05       	cpc	r23, r1
+     cc4:	39 f1       	breq	.+78     	; 0xd14 <setWaveformGenerationMode+0xa0>
+     cc6:	67 30       	cpi	r22, 0x07	; 7
+     cc8:	71 05       	cpc	r23, r1
+     cca:	09 f0       	breq	.+2      	; 0xcce <setWaveformGenerationMode+0x5a>
+     ccc:	79 c0       	rjmp	.+242    	; 0xdc0 <setWaveformGenerationMode+0x14c>
+     cce:	26 c0       	rjmp	.+76     	; 0xd1c <setWaveformGenerationMode+0xa8>
+     cd0:	69 30       	cpi	r22, 0x09	; 9
+     cd2:	71 05       	cpc	r23, r1
+     cd4:	d9 f0       	breq	.+54     	; 0xd0c <setWaveformGenerationMode+0x98>
+     cd6:	6a 30       	cpi	r22, 0x0A	; 10
+     cd8:	71 05       	cpc	r23, r1
+     cda:	09 f0       	breq	.+2      	; 0xcde <setWaveformGenerationMode+0x6a>
+     cdc:	71 c0       	rjmp	.+226    	; 0xdc0 <setWaveformGenerationMode+0x14c>
+     cde:	10 c0       	rjmp	.+32     	; 0xd00 <setWaveformGenerationMode+0x8c>
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+	uint8_t oneBitsB = 0;
+     ce0:	90 e0       	ldi	r25, 0x00	; 0
+}
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+     ce2:	30 e0       	ldi	r19, 0x00	; 0
+	if (timer->flags & TIMER_16bit) {
+		// 16 bit: 1+0 in A, 2+3 in B
+		switch(wgm) {
+			case wgm_normal: // 0000
+				zeroBitsA = _BV(WGM11) | _BV(WGM10);
+				zeroBitsB = _BV(WGM13) | _BV(WGM12);
+     ce4:	88 e1       	ldi	r24, 0x18	; 24
+     ce6:	4f c0       	rjmp	.+158    	; 0xd86 <setWaveformGenerationMode+0x112>
+				break;
+			case pwm_fast_FF: // 0101
+				zeroBitsA = _BV(WGM11);
+				oneBitsA = _BV(WGM10);
+				zeroBitsB = _BV(WGM13);
+				oneBitsB = _BV(WGM12);
+     ce8:	98 e0       	ldi	r25, 0x08	; 8
+				zeroBitsB = _BV(WGM13);
+				oneBitsB = _BV(WGM12);
+				break;
+			case pwm_fast_FF: // 0101
+				zeroBitsA = _BV(WGM11);
+				oneBitsA = _BV(WGM10);
+     cea:	31 e0       	ldi	r19, 0x01	; 1
+				zeroBitsB = _BV(WGM13);
+     cec:	80 e1       	ldi	r24, 0x10	; 16
+     cee:	46 c0       	rjmp	.+140    	; 0xd7c <setWaveformGenerationMode+0x108>
+				oneBitsB = _BV(WGM12);
+				break;
+			case pwm_fast: // 1111
+				oneBitsA = _BV(WGM11) | _BV(WGM10);
+				oneBitsB = _BV(WGM13) | _BV(WGM12);
+     cf0:	98 e1       	ldi	r25, 0x18	; 24
+     cf2:	3a c0       	rjmp	.+116    	; 0xd68 <setWaveformGenerationMode+0xf4>
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+	uint8_t oneBitsB = 0;
+     cf4:	90 e0       	ldi	r25, 0x00	; 0
+				oneBitsA = _BV(WGM11) | _BV(WGM10);
+				oneBitsB = _BV(WGM13) | _BV(WGM12);
+				break;
+			case pwm_phase_correct_FF: // 0001
+				zeroBitsA = _BV(WGM11);
+				oneBitsA = _BV(WGM10);
+     cf6:	31 e0       	ldi	r19, 0x01	; 1
+				zeroBitsB = _BV(WGM13) | _BV(WGM12);
+     cf8:	88 e1       	ldi	r24, 0x18	; 24
+     cfa:	40 c0       	rjmp	.+128    	; 0xd7c <setWaveformGenerationMode+0x108>
+				break;
+			case pwm_phase_correct: // 1011
+				oneBitsA = _BV(WGM10) | _BV(WGM11);
+				zeroBitsB = _BV(WGM12);
+				oneBitsB = _BV(WGM13);
+     cfc:	90 e1       	ldi	r25, 0x10	; 16
+     cfe:	2f c0       	rjmp	.+94     	; 0xd5e <setWaveformGenerationMode+0xea>
+				break;
+			case pwm_phase_and_frequency_correct: // 1001
+				oneBitsA = _BV(WGM10);
+				zeroBitsA = _BV(WGM11);
+				oneBitsB = _BV(WGM13);
+     d00:	90 e1       	ldi	r25, 0x10	; 16
+     d02:	36 c0       	rjmp	.+108    	; 0xd70 <setWaveformGenerationMode+0xfc>
+				zeroBitsB = _BV(WGM12);
+				break;
+			case pwm_fast_9bit: // 0110
+				oneBitsA = _BV(WGM11);
+				zeroBitsA = _BV(WGM10);
+				oneBitsB = _BV(WGM12);
+     d04:	98 e0       	ldi	r25, 0x08	; 8
+				zeroBitsA = _BV(WGM11);
+				oneBitsB = _BV(WGM13);
+				zeroBitsB = _BV(WGM12);
+				break;
+			case pwm_fast_9bit: // 0110
+				oneBitsA = _BV(WGM11);
+     d06:	32 e0       	ldi	r19, 0x02	; 2
+				zeroBitsA = _BV(WGM10);
+				oneBitsB = _BV(WGM12);
+				zeroBitsB = _BV(WGM13);
+     d08:	80 e1       	ldi	r24, 0x10	; 16
+     d0a:	42 c0       	rjmp	.+132    	; 0xd90 <setWaveformGenerationMode+0x11c>
+				break;
+			case pwm_fast_10bit: // 0111
+				oneBitsA = _BV(WGM10) | _BV(WGM11);
+				oneBitsB = _BV(WGM12);
+     d0c:	98 e0       	ldi	r25, 0x08	; 8
+				zeroBitsA = _BV(WGM10);
+				oneBitsB = _BV(WGM12);
+				zeroBitsB = _BV(WGM13);
+				break;
+			case pwm_fast_10bit: // 0111
+				oneBitsA = _BV(WGM10) | _BV(WGM11);
+     d0e:	33 e0       	ldi	r19, 0x03	; 3
+				oneBitsB = _BV(WGM12);
+				zeroBitsB = _BV(WGM13);
+     d10:	80 e1       	ldi	r24, 0x10	; 16
+     d12:	27 c0       	rjmp	.+78     	; 0xd62 <setWaveformGenerationMode+0xee>
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+	uint8_t oneBitsB = 0;
+     d14:	90 e0       	ldi	r25, 0x00	; 0
+				oneBitsB = _BV(WGM12);
+				zeroBitsB = _BV(WGM13);
+				break;
+			case pwm_phase_correct_9bit: // 0010
+				zeroBitsA = _BV(WGM10);
+				oneBitsA = _BV(WGM11);
+     d16:	32 e0       	ldi	r19, 0x02	; 2
+				zeroBitsB = _BV(WGM13) | _BV(WGM12);
+     d18:	88 e1       	ldi	r24, 0x18	; 24
+     d1a:	3a c0       	rjmp	.+116    	; 0xd90 <setWaveformGenerationMode+0x11c>
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+	uint8_t oneBitsB = 0;
+     d1c:	90 e0       	ldi	r25, 0x00	; 0
+				zeroBitsA = _BV(WGM10);
+				oneBitsA = _BV(WGM11);
+				zeroBitsB = _BV(WGM13) | _BV(WGM12);
+				break;
+			case pwm_phase_correct_10bit: // 0011
+				oneBitsA = _BV(WGM11) | _BV(WGM10);
+     d1e:	33 e0       	ldi	r19, 0x03	; 3
+				zeroBitsB = _BV(WGM13) | _BV(WGM12);
+     d20:	88 e1       	ldi	r24, 0x18	; 24
+     d22:	1f c0       	rjmp	.+62     	; 0xd62 <setWaveformGenerationMode+0xee>
+			default:
+				return;
+		}
+	} else {
+		// 8 bit: 0+1 in A, 2 in B
+		switch (wgm) {
+     d24:	62 30       	cpi	r22, 0x02	; 2
+     d26:	71 05       	cpc	r23, r1
+     d28:	c9 f0       	breq	.+50     	; 0xd5c <setWaveformGenerationMode+0xe8>
+     d2a:	63 30       	cpi	r22, 0x03	; 3
+     d2c:	71 05       	cpc	r23, r1
+     d2e:	40 f4       	brcc	.+16     	; 0xd40 <setWaveformGenerationMode+0xcc>
+     d30:	61 15       	cp	r22, r1
+     d32:	71 05       	cpc	r23, r1
+     d34:	79 f0       	breq	.+30     	; 0xd54 <setWaveformGenerationMode+0xe0>
+     d36:	61 30       	cpi	r22, 0x01	; 1
+     d38:	71 05       	cpc	r23, r1
+     d3a:	09 f0       	breq	.+2      	; 0xd3e <setWaveformGenerationMode+0xca>
+     d3c:	41 c0       	rjmp	.+130    	; 0xdc0 <setWaveformGenerationMode+0x14c>
+     d3e:	25 c0       	rjmp	.+74     	; 0xd8a <setWaveformGenerationMode+0x116>
+     d40:	64 30       	cpi	r22, 0x04	; 4
+     d42:	71 05       	cpc	r23, r1
+     d44:	c1 f0       	breq	.+48     	; 0xd76 <setWaveformGenerationMode+0x102>
+     d46:	64 30       	cpi	r22, 0x04	; 4
+     d48:	71 05       	cpc	r23, r1
+     d4a:	88 f0       	brcs	.+34     	; 0xd6e <setWaveformGenerationMode+0xfa>
+     d4c:	65 30       	cpi	r22, 0x05	; 5
+     d4e:	71 05       	cpc	r23, r1
+     d50:	b9 f5       	brne	.+110    	; 0xdc0 <setWaveformGenerationMode+0x14c>
+     d52:	09 c0       	rjmp	.+18     	; 0xd66 <setWaveformGenerationMode+0xf2>
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+	uint8_t oneBitsB = 0;
+     d54:	90 e0       	ldi	r25, 0x00	; 0
+}
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+     d56:	30 e0       	ldi	r19, 0x00	; 0
+	} else {
+		// 8 bit: 0+1 in A, 2 in B
+		switch (wgm) {
+			case wgm_normal: // 000
+				zeroBitsA = _BV(WGM01) | _BV(WGM00);
+				zeroBitsB = _BV(WGM02);
+     d58:	88 e0       	ldi	r24, 0x08	; 8
+     d5a:	15 c0       	rjmp	.+42     	; 0xd86 <setWaveformGenerationMode+0x112>
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+	uint8_t oneBitsB = 0;
+     d5c:	90 e0       	ldi	r25, 0x00	; 0
+				oneBitsA = _BV(WGM01);
+				zeroBitsA = _BV(WGM00);
+				zeroBitsB = _BV(WGM02);
+				break;
+			case pwm_fast_FF: // 011
+				oneBitsA = _BV(WGM00) | _BV(WGM01);
+     d5e:	33 e0       	ldi	r19, 0x03	; 3
+				zeroBitsB = _BV(WGM02);
+     d60:	88 e0       	ldi	r24, 0x08	; 8
+	*timer->controlRegisterB |= oneBits;
+	*timer->controlRegisterB &= ~zeroBits;
+}
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+     d62:	20 e0       	ldi	r18, 0x00	; 0
+				zeroBitsB = _BV(WGM02);
+				break;
+			case pwm_fast_FF: // 011
+				oneBitsA = _BV(WGM00) | _BV(WGM01);
+				zeroBitsB = _BV(WGM02);
+				break;
+     d64:	16 c0       	rjmp	.+44     	; 0xd92 <setWaveformGenerationMode+0x11e>
+			case pwm_fast: // 111
+				oneBitsA = _BV(WGM01) | _BV(WGM00);
+				oneBitsB = _BV(WGM02);
+     d66:	98 e0       	ldi	r25, 0x08	; 8
+			case pwm_fast_FF: // 011
+				oneBitsA = _BV(WGM00) | _BV(WGM01);
+				zeroBitsB = _BV(WGM02);
+				break;
+			case pwm_fast: // 111
+				oneBitsA = _BV(WGM01) | _BV(WGM00);
+     d68:	33 e0       	ldi	r19, 0x03	; 3
+	*timer->controlRegisterB &= ~zeroBits;
+}
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+     d6a:	80 e0       	ldi	r24, 0x00	; 0
+     d6c:	fa cf       	rjmp	.-12     	; 0xd62 <setWaveformGenerationMode+0xee>
+	uint8_t oneBitsA = 0;
+	uint8_t oneBitsB = 0;
+     d6e:	90 e0       	ldi	r25, 0x00	; 0
+				oneBitsA = _BV(WGM01) | _BV(WGM00);
+				oneBitsB = _BV(WGM02);
+				break;
+			case pwm_phase_correct_FF: // 001
+				zeroBitsA = _BV(WGM01);
+				oneBitsA = _BV(WGM00);
+     d70:	31 e0       	ldi	r19, 0x01	; 1
+				zeroBitsB = _BV(WGM02);
+     d72:	88 e0       	ldi	r24, 0x08	; 8
+     d74:	03 c0       	rjmp	.+6      	; 0xd7c <setWaveformGenerationMode+0x108>
+				break;
+			case pwm_phase_correct: // 101
+				oneBitsA = _BV(WGM00);
+				zeroBitsA = _BV(WGM01);
+				oneBitsB = _BV(WGM02);
+     d76:	98 e0       	ldi	r25, 0x08	; 8
+				zeroBitsA = _BV(WGM01);
+				oneBitsA = _BV(WGM00);
+				zeroBitsB = _BV(WGM02);
+				break;
+			case pwm_phase_correct: // 101
+				oneBitsA = _BV(WGM00);
+     d78:	31 e0       	ldi	r19, 0x01	; 1
+	*timer->controlRegisterB &= ~zeroBits;
+}
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+     d7a:	80 e0       	ldi	r24, 0x00	; 0
+				oneBitsA = _BV(WGM00);
+				zeroBitsB = _BV(WGM02);
+				break;
+			case pwm_phase_correct: // 101
+				oneBitsA = _BV(WGM00);
+				zeroBitsA = _BV(WGM01);
+     d7c:	22 e0       	ldi	r18, 0x02	; 2
+				oneBitsB = _BV(WGM02);
+				break;
+     d7e:	09 c0       	rjmp	.+18     	; 0xd92 <setWaveformGenerationMode+0x11e>
+				zeroBitsB = _BV(WGM13) | _BV(WGM12);
+				break;
+			case clear_timer_on_match: // 0100
+				zeroBitsA = _BV(WGM11) | _BV(WGM10);
+				zeroBitsB = _BV(WGM13);
+				oneBitsB = _BV(WGM12);
+     d80:	98 e0       	ldi	r25, 0x08	; 8
+}
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+     d82:	30 e0       	ldi	r19, 0x00	; 0
+				zeroBitsA = _BV(WGM11) | _BV(WGM10);
+				zeroBitsB = _BV(WGM13) | _BV(WGM12);
+				break;
+			case clear_timer_on_match: // 0100
+				zeroBitsA = _BV(WGM11) | _BV(WGM10);
+				zeroBitsB = _BV(WGM13);
+     d84:	80 e1       	ldi	r24, 0x10	; 16
+			case wgm_normal: // 0000
+				zeroBitsA = _BV(WGM11) | _BV(WGM10);
+				zeroBitsB = _BV(WGM13) | _BV(WGM12);
+				break;
+			case clear_timer_on_match: // 0100
+				zeroBitsA = _BV(WGM11) | _BV(WGM10);
+     d86:	23 e0       	ldi	r18, 0x03	; 3
+     d88:	04 c0       	rjmp	.+8      	; 0xd92 <setWaveformGenerationMode+0x11e>
+
+void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+	uint8_t zeroBitsA = 0;
+	uint8_t zeroBitsB = 0;
+	uint8_t oneBitsA = 0;
+	uint8_t oneBitsB = 0;
+     d8a:	90 e0       	ldi	r25, 0x00	; 0
+			case wgm_normal: // 000
+				zeroBitsA = _BV(WGM01) | _BV(WGM00);
+				zeroBitsB = _BV(WGM02);
+				break;
+			case clear_timer_on_match: // 010
+				oneBitsA = _BV(WGM01);
+     d8c:	32 e0       	ldi	r19, 0x02	; 2
+				zeroBitsA = _BV(WGM00);
+				zeroBitsB = _BV(WGM02);
+     d8e:	88 e0       	ldi	r24, 0x08	; 8
+				zeroBitsA = _BV(WGM01) | _BV(WGM00);
+				zeroBitsB = _BV(WGM02);
+				break;
+			case clear_timer_on_match: // 010
+				oneBitsA = _BV(WGM01);
+				zeroBitsA = _BV(WGM00);
+     d90:	21 e0       	ldi	r18, 0x01	; 1
+				break;
+			default:
+				return;
+		}
+	}
+	*timer->controlRegisterA |= oneBitsA;
+     d92:	a1 81       	ldd	r26, Z+1	; 0x01
+     d94:	b2 81       	ldd	r27, Z+2	; 0x02
+     d96:	4c 91       	ld	r20, X
+     d98:	43 2b       	or	r20, r19
+     d9a:	4c 93       	st	X, r20
+	*timer->controlRegisterA &= ~zeroBitsA;
+     d9c:	a1 81       	ldd	r26, Z+1	; 0x01
+     d9e:	b2 81       	ldd	r27, Z+2	; 0x02
+     da0:	3c 91       	ld	r19, X
+     da2:	20 95       	com	r18
+     da4:	23 23       	and	r18, r19
+     da6:	2c 93       	st	X, r18
+	*timer->controlRegisterB |= oneBitsB;
+     da8:	a3 81       	ldd	r26, Z+3	; 0x03
+     daa:	b4 81       	ldd	r27, Z+4	; 0x04
+     dac:	2c 91       	ld	r18, X
+     dae:	29 2b       	or	r18, r25
+     db0:	2c 93       	st	X, r18
+	*timer->controlRegisterB &= ~zeroBitsB;
+     db2:	03 80       	ldd	r0, Z+3	; 0x03
+     db4:	f4 81       	ldd	r31, Z+4	; 0x04
+     db6:	e0 2d       	mov	r30, r0
+     db8:	90 81       	ld	r25, Z
+     dba:	80 95       	com	r24
+     dbc:	89 23       	and	r24, r25
+     dbe:	80 83       	st	Z, r24
+     dc0:	08 95       	ret
+
+00000dc2 <enableTimerInterrupt>:
+}
+
+void enableTimerInterrupt(PTimer timer) {
+     dc2:	dc 01       	movw	r26, r24
+	// OCIE0x is used as representative makro for all timers. All other values are the same.
+	*timer->timer->interruptMaskRegister |= _BV(timer->type == TIMER_A ? OCIE0A : OCIE0B);
+     dc4:	ed 91       	ld	r30, X+
+     dc6:	fc 91       	ld	r31, X
+     dc8:	11 97       	sbiw	r26, 0x01	; 1
+     dca:	05 80       	ldd	r0, Z+5	; 0x05
+     dcc:	f6 81       	ldd	r31, Z+6	; 0x06
+     dce:	e0 2d       	mov	r30, r0
+     dd0:	20 81       	ld	r18, Z
+     dd2:	14 96       	adiw	r26, 0x04	; 4
+     dd4:	8d 91       	ld	r24, X+
+     dd6:	9c 91       	ld	r25, X
+     dd8:	15 97       	sbiw	r26, 0x05	; 5
+     dda:	00 97       	sbiw	r24, 0x00	; 0
+     ddc:	11 f4       	brne	.+4      	; 0xde2 <enableTimerInterrupt+0x20>
+     dde:	82 e0       	ldi	r24, 0x02	; 2
+     de0:	01 c0       	rjmp	.+2      	; 0xde4 <enableTimerInterrupt+0x22>
+     de2:	84 e0       	ldi	r24, 0x04	; 4
+     de4:	82 2b       	or	r24, r18
+     de6:	80 83       	st	Z, r24
+}
+     de8:	08 95       	ret
+
+00000dea <enableOutputCompare>:
+
+void enableOutputCompare(PTimer timer) {
+     dea:	cf 93       	push	r28
+     dec:	df 93       	push	r29
+     dee:	ec 01       	movw	r28, r24
+	setPinOutput(timer->outputComparePin);
+     df0:	8e 81       	ldd	r24, Y+6	; 0x06
+     df2:	9f 81       	ldd	r25, Y+7	; 0x07
+     df4:	0e 94 49 05 	call	0xa92	; 0xa92 <setPinOutput>
+	setCompareMatchOutputMode(timer, toggle_on_match);
+     df8:	ce 01       	movw	r24, r28
+     dfa:	61 e0       	ldi	r22, 0x01	; 1
+     dfc:	70 e0       	ldi	r23, 0x00	; 0
+     dfe:	0e 94 aa 05 	call	0xb54	; 0xb54 <setCompareMatchOutputMode>
+}
+     e02:	df 91       	pop	r29
+     e04:	cf 91       	pop	r28
+     e06:	08 95       	ret
+
+00000e08 <disableOutputCompare>:
+
+void disableOutputCompare(PTimer timer) {
+	setCompareMatchOutputMode(timer, no_output);
+     e08:	60 e0       	ldi	r22, 0x00	; 0
+     e0a:	70 e0       	ldi	r23, 0x00	; 0
+     e0c:	0e 94 aa 05 	call	0xb54	; 0xb54 <setCompareMatchOutputMode>
+}
+     e10:	08 95       	ret
+
+00000e12 <setTimerCompareValue>:
+
+void setTimerCompareValue(PTimer timer, uint16_t value) {
+     e12:	fc 01       	movw	r30, r24
+	if (timer->timer->flags & TIMER_16bit) {
+     e14:	a0 81       	ld	r26, Z
+     e16:	b1 81       	ldd	r27, Z+1	; 0x01
+     e18:	8c 91       	ld	r24, X
+     e1a:	82 ff       	sbrs	r24, 2
+     e1c:	0d c0       	rjmp	.+26     	; 0xe38 <setTimerCompareValue+0x26>
+		// Setting a 16-bit register requires disabling interrupts for a short period.
+		// The assembler-code will involve writing the high part to the TEMP register
+		// before writing the low part directly into the low register, which also copies the TEMP register.
+		uint8_t sreg = SREG;
+     e1e:	8f b7       	in	r24, 0x3f	; 63
+		cli();
+     e20:	f8 94       	cli
+		// 16-bit register access -- high byte first. m1284P-manual page 113.
+		// Compiler will turn these two sub-accesses around, so code them separately.
+		*((uint8_t*) timer->outputCompareRegister + 1) = HIBYTE(value);
+     e22:	a2 81       	ldd	r26, Z+2	; 0x02
+     e24:	b3 81       	ldd	r27, Z+3	; 0x03
+     e26:	11 96       	adiw	r26, 0x01	; 1
+     e28:	7c 93       	st	X, r23
+     e2a:	11 97       	sbiw	r26, 0x01	; 1
+		*((uint8_t*) timer->outputCompareRegister) = LOBYTE(value);
+     e2c:	02 80       	ldd	r0, Z+2	; 0x02
+     e2e:	f3 81       	ldd	r31, Z+3	; 0x03
+     e30:	e0 2d       	mov	r30, r0
+     e32:	60 83       	st	Z, r22
+		SREG = sreg; // re-enable interrupts
+     e34:	8f bf       	out	0x3f, r24	; 63
+     e36:	08 95       	ret
+	} else {
+		*timer->outputCompareRegister = HIBYTE(value);
+     e38:	02 80       	ldd	r0, Z+2	; 0x02
+     e3a:	f3 81       	ldd	r31, Z+3	; 0x03
+     e3c:	e0 2d       	mov	r30, r0
+     e3e:	70 83       	st	Z, r23
+     e40:	08 95       	ret
+
+00000e42 <getTimerCompareValue>:
+	}
+}
+
+uint16_t getTimerCompareValue(PTimer timer) {
+     e42:	fc 01       	movw	r30, r24
+	uint16_t result;
+	if (timer->timer->flags & TIMER_16bit) {
+     e44:	a0 81       	ld	r26, Z
+     e46:	b1 81       	ldd	r27, Z+1	; 0x01
+     e48:	8c 91       	ld	r24, X
+     e4a:	82 ff       	sbrs	r24, 2
+     e4c:	09 c0       	rjmp	.+18     	; 0xe60 <getTimerCompareValue+0x1e>
+		// See comment above about 16-bit registers.
+		uint8_t sreg = SREG;
+     e4e:	2f b7       	in	r18, 0x3f	; 63
+		cli();
+     e50:	f8 94       	cli
+		// Reading OCR-register does not require any particular
+		result = *((uint16_t*) timer->outputCompareRegister);
+     e52:	02 80       	ldd	r0, Z+2	; 0x02
+     e54:	f3 81       	ldd	r31, Z+3	; 0x03
+     e56:	e0 2d       	mov	r30, r0
+     e58:	80 81       	ld	r24, Z
+     e5a:	91 81       	ldd	r25, Z+1	; 0x01
+		SREG = sreg; // re-enable interrupts
+     e5c:	2f bf       	out	0x3f, r18	; 63
+     e5e:	08 95       	ret
+	} else {
+		// Use the 8-bit value as the high part of a word, filled with zeros.
+		result = MAKE_WORD(*timer->outputCompareRegister, 0x0);
+     e60:	02 80       	ldd	r0, Z+2	; 0x02
+     e62:	f3 81       	ldd	r31, Z+3	; 0x03
+     e64:	e0 2d       	mov	r30, r0
+     e66:	90 81       	ld	r25, Z
+     e68:	80 e0       	ldi	r24, 0x00	; 0
+	}
+	return result;
+}
+     e6a:	08 95       	ret
+
+00000e6c <AperiodicJobWrapper>:
+		periodicJob->nextPeriod += job->period;
+		schedule_next();
+	}
+}
+
+void AperiodicJobWrapper(Process process) {
+     e6c:	ef 92       	push	r14
+     e6e:	ff 92       	push	r15
+     e70:	cf 93       	push	r28
+     e72:	df 93       	push	r29
+	PJob job = JobMem(process);
+     e74:	0e 94 12 04 	call	0x824	; 0x824 <getProcessMemory>
+     e78:	e8 2e       	mov	r14, r24
+     e7a:	e7 01       	movw	r28, r14
+     e7c:	7e 01       	movw	r14, r28
+     e7e:	f9 2e       	mov	r15, r25
+     e80:	e7 01       	movw	r28, r14
+	PAperiodicJob aperiodicJob = (PAperiodicJob) job;
+	while (1) {
+		job->entryPoint();
+     e82:	e9 81       	ldd	r30, Y+1	; 0x01
+     e84:	fa 81       	ldd	r31, Y+2	; 0x02
+     e86:	09 95       	icall
+		aperiodicJob->wantsToRun = FALSE;
+     e88:	1c 86       	std	Y+12, r1	; 0x0c
+     e8a:	1b 86       	std	Y+11, r1	; 0x0b
+		schedule_next();
+     e8c:	0e 94 68 09 	call	0x12d0	; 0x12d0 <schedule_next>
+     e90:	f8 cf       	rjmp	.-16     	; 0xe82 <AperiodicJobWrapper+0x16>
+
+00000e92 <PeriodicJobWrapper>:
+	BOOL wantsToRun;
+} AperiodicJob, *PAperiodicJob;
+
+#define JobMem(proc) ((PJob)getProcessMemory(proc))
+
+void PeriodicJobWrapper(Process process) {
+     e92:	ef 92       	push	r14
+     e94:	ff 92       	push	r15
+     e96:	cf 93       	push	r28
+     e98:	df 93       	push	r29
+	PJob job = JobMem(process);
+     e9a:	0e 94 12 04 	call	0x824	; 0x824 <getProcessMemory>
+     e9e:	e8 2e       	mov	r14, r24
+     ea0:	e7 01       	movw	r28, r14
+     ea2:	7e 01       	movw	r14, r28
+     ea4:	f9 2e       	mov	r15, r25
+     ea6:	e7 01       	movw	r28, r14
+	PPeriodicJob periodicJob = (PPeriodicJob) job;
+	while (1) {
+		job->entryPoint();
+     ea8:	e9 81       	ldd	r30, Y+1	; 0x01
+     eaa:	fa 81       	ldd	r31, Y+2	; 0x02
+     eac:	09 95       	icall
+		periodicJob->nextPeriod += job->period;
+     eae:	8b 85       	ldd	r24, Y+11	; 0x0b
+     eb0:	9c 85       	ldd	r25, Y+12	; 0x0c
+     eb2:	ad 85       	ldd	r26, Y+13	; 0x0d
+     eb4:	be 85       	ldd	r27, Y+14	; 0x0e
+     eb6:	2d 81       	ldd	r18, Y+5	; 0x05
+     eb8:	3e 81       	ldd	r19, Y+6	; 0x06
+     eba:	4f 81       	ldd	r20, Y+7	; 0x07
+     ebc:	58 85       	ldd	r21, Y+8	; 0x08
+     ebe:	82 0f       	add	r24, r18
+     ec0:	93 1f       	adc	r25, r19
+     ec2:	a4 1f       	adc	r26, r20
+     ec4:	b5 1f       	adc	r27, r21
+     ec6:	8b 87       	std	Y+11, r24	; 0x0b
+     ec8:	9c 87       	std	Y+12, r25	; 0x0c
+     eca:	ad 87       	std	Y+13, r26	; 0x0d
+     ecc:	be 87       	std	Y+14, r27	; 0x0e
+		schedule_next();
+     ece:	0e 94 68 09 	call	0x12d0	; 0x12d0 <schedule_next>
+     ed2:	ea cf       	rjmp	.-44     	; 0xea8 <PeriodicJobWrapper+0x16>
+
+00000ed4 <dms_schedule>:
+}
+
+// The first element in the job list, the job with the highest priority.
+Process processListHead;
+
+Process dms_schedule(BOOL invokedFromTimer) {
+     ed4:	ef 92       	push	r14
+     ed6:	ff 92       	push	r15
+     ed8:	cf 93       	push	r28
+     eda:	df 93       	push	r29
+	// invokedFromTimer parameter is ignored - if a Job calls schedule_next,
+	// we schedule again; if a higher-prio aperiodic job has woken up, it will be scheduled;
+	// else, the same job should scheduled again, because other periodic threads did not wake up yet.
+	Process current = processListHead;
+     edc:	c0 91 97 03 	lds	r28, 0x0397
+     ee0:	d0 91 98 03 	lds	r29, 0x0398
+	while (current) {
+     ee4:	25 c0       	rjmp	.+74     	; 0xf30 <dms_schedule+0x5c>
+		PJob job = JobMem(current);
+     ee6:	ce 01       	movw	r24, r28
+     ee8:	0e 94 12 04 	call	0x824	; 0x824 <getProcessMemory>
+     eec:	fc 01       	movw	r30, r24
+		switch(job->jobType) {
+     eee:	81 85       	ldd	r24, Z+9	; 0x09
+     ef0:	92 85       	ldd	r25, Z+10	; 0x0a
+     ef2:	00 97       	sbiw	r24, 0x00	; 0
+     ef4:	21 f0       	breq	.+8      	; 0xefe <dms_schedule+0x2a>
+     ef6:	81 30       	cpi	r24, 0x01	; 1
+     ef8:	91 05       	cpc	r25, r1
+     efa:	c1 f4       	brne	.+48     	; 0xf2c <dms_schedule+0x58>
+     efc:	12 c0       	rjmp	.+36     	; 0xf22 <dms_schedule+0x4e>
+			case (Periodic):
+				if (((PPeriodicJob) current)->nextPeriod >= milliseconds_running) {
+     efe:	6b 85       	ldd	r22, Y+11	; 0x0b
+     f00:	7c 85       	ldd	r23, Y+12	; 0x0c
+     f02:	8d 85       	ldd	r24, Y+13	; 0x0d
+     f04:	9e 85       	ldd	r25, Y+14	; 0x0e
+     f06:	20 91 1c 02 	lds	r18, 0x021C
+     f0a:	30 91 1d 02 	lds	r19, 0x021D
+     f0e:	40 91 1e 02 	lds	r20, 0x021E
+     f12:	50 91 1f 02 	lds	r21, 0x021F
+     f16:	62 17       	cp	r22, r18
+     f18:	73 07       	cpc	r23, r19
+     f1a:	84 07       	cpc	r24, r20
+     f1c:	95 07       	cpc	r25, r21
+     f1e:	30 f0       	brcs	.+12     	; 0xf2c <dms_schedule+0x58>
+     f20:	09 c0       	rjmp	.+18     	; 0xf34 <dms_schedule+0x60>
+					return current;
+				}
+				break;
+			case (Aperiodic):
+				if (((PAperiodicJob) current)->wantsToRun == TRUE) {
+     f22:	8b 85       	ldd	r24, Y+11	; 0x0b
+     f24:	9c 85       	ldd	r25, Y+12	; 0x0c
+     f26:	81 30       	cpi	r24, 0x01	; 1
+     f28:	91 05       	cpc	r25, r1
+     f2a:	21 f0       	breq	.+8      	; 0xf34 <dms_schedule+0x60>
+					return current;
+				}
+				break;
+		}
+		current = job->nextJob;
+     f2c:	c3 81       	ldd	r28, Z+3	; 0x03
+     f2e:	d4 81       	ldd	r29, Z+4	; 0x04
+Process dms_schedule(BOOL invokedFromTimer) {
+	// invokedFromTimer parameter is ignored - if a Job calls schedule_next,
+	// we schedule again; if a higher-prio aperiodic job has woken up, it will be scheduled;
+	// else, the same job should scheduled again, because other periodic threads did not wake up yet.
+	Process current = processListHead;
+	while (current) {
+     f30:	20 97       	sbiw	r28, 0x00	; 0
+     f32:	c9 f6       	brne	.-78     	; 0xee6 <dms_schedule+0x12>
+				break;
+		}
+		current = job->nextJob;
+	}
+	return InvalidProcess;
+}
+     f34:	ce 01       	movw	r24, r28
+     f36:	df 91       	pop	r29
+     f38:	cf 91       	pop	r28
+     f3a:	ff 90       	pop	r15
+     f3c:	ef 90       	pop	r14
+     f3e:	08 95       	ret
+
+00000f40 <insertJobIntoList>:
+
+void insertJobIntoList(Process process, PJob job) {
+     f40:	0f 93       	push	r16
+     f42:	1f 93       	push	r17
+     f44:	cf 93       	push	r28
+     f46:	df 93       	push	r29
+     f48:	8c 01       	movw	r16, r24
+     f4a:	eb 01       	movw	r28, r22
+	if (!processListHead) {
+     f4c:	80 91 97 03 	lds	r24, 0x0397
+     f50:	90 91 98 03 	lds	r25, 0x0398
+     f54:	00 97       	sbiw	r24, 0x00	; 0
+     f56:	39 f4       	brne	.+14     	; 0xf66 <insertJobIntoList+0x26>
+		processListHead = process;
+     f58:	10 93 98 03 	sts	0x0398, r17
+     f5c:	00 93 97 03 	sts	0x0397, r16
+		job->nextJob = NULL;
+     f60:	1c 82       	std	Y+4, r1	; 0x04
+     f62:	1b 82       	std	Y+3, r1	; 0x03
+     f64:	2d c0       	rjmp	.+90     	; 0xfc0 <insertJobIntoList+0x80>
+	} else {
+		Process current = processListHead;
+		Process predecessor = NULL;
+		while (current) {
+			PJob currentJob = JobMem(current);
+     f66:	0e 94 12 04 	call	0x824	; 0x824 <getProcessMemory>
+     f6a:	fc 01       	movw	r30, r24
+			if (currentJob->period > job->period)
+     f6c:	65 81       	ldd	r22, Z+5	; 0x05
+     f6e:	76 81       	ldd	r23, Z+6	; 0x06
+     f70:	87 81       	ldd	r24, Z+7	; 0x07
+     f72:	90 85       	ldd	r25, Z+8	; 0x08
+     f74:	2d 81       	ldd	r18, Y+5	; 0x05
+     f76:	3e 81       	ldd	r19, Y+6	; 0x06
+     f78:	4f 81       	ldd	r20, Y+7	; 0x07
+     f7a:	58 85       	ldd	r21, Y+8	; 0x08
+     f7c:	26 17       	cp	r18, r22
+     f7e:	37 07       	cpc	r19, r23
+     f80:	48 07       	cpc	r20, r24
+     f82:	59 07       	cpc	r21, r25
+     f84:	68 f0       	brcs	.+26     	; 0xfa0 <insertJobIntoList+0x60>
+				break;
+			if (currentJob->period == job->period && currentJob->userPriority < job->userPriority)
+     f86:	62 17       	cp	r22, r18
+     f88:	73 07       	cpc	r23, r19
+     f8a:	84 07       	cpc	r24, r20
+     f8c:	95 07       	cpc	r25, r21
+     f8e:	21 f4       	brne	.+8      	; 0xf98 <insertJobIntoList+0x58>
+     f90:	90 81       	ld	r25, Z
+     f92:	88 81       	ld	r24, Y
+     f94:	98 17       	cp	r25, r24
+     f96:	20 f0       	brcs	.+8      	; 0xfa0 <insertJobIntoList+0x60>
+				break;
+			current = currentJob->nextJob;
+     f98:	83 81       	ldd	r24, Z+3	; 0x03
+     f9a:	94 81       	ldd	r25, Z+4	; 0x04
+		processListHead = process;
+		job->nextJob = NULL;
+	} else {
+		Process current = processListHead;
+		Process predecessor = NULL;
+		while (current) {
+     f9c:	00 97       	sbiw	r24, 0x00	; 0
+     f9e:	19 f7       	brne	.-58     	; 0xf66 <insertJobIntoList+0x26>
+				break;
+			if (currentJob->period == job->period && currentJob->userPriority < job->userPriority)
+				break;
+			current = currentJob->nextJob;
+		}
+		job->nextJob = JobMem(predecessor)->nextJob;
+     fa0:	80 e0       	ldi	r24, 0x00	; 0
+     fa2:	90 e0       	ldi	r25, 0x00	; 0
+     fa4:	0e 94 12 04 	call	0x824	; 0x824 <getProcessMemory>
+     fa8:	fc 01       	movw	r30, r24
+     faa:	83 81       	ldd	r24, Z+3	; 0x03
+     fac:	94 81       	ldd	r25, Z+4	; 0x04
+     fae:	9c 83       	std	Y+4, r25	; 0x04
+     fb0:	8b 83       	std	Y+3, r24	; 0x03
+		JobMem(predecessor)->nextJob = process;
+     fb2:	80 e0       	ldi	r24, 0x00	; 0
+     fb4:	90 e0       	ldi	r25, 0x00	; 0
+     fb6:	0e 94 12 04 	call	0x824	; 0x824 <getProcessMemory>
+     fba:	fc 01       	movw	r30, r24
+     fbc:	14 83       	std	Z+4, r17	; 0x04
+     fbe:	03 83       	std	Z+3, r16	; 0x03
+	}
+}
+     fc0:	df 91       	pop	r29
+     fc2:	cf 91       	pop	r28
+     fc4:	1f 91       	pop	r17
+     fc6:	0f 91       	pop	r16
+     fc8:	08 95       	ret
+
+00000fca <initializeJob>:
+
+PJob initializeJob(Process process, JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority) {
+     fca:	6f 92       	push	r6
+     fcc:	7f 92       	push	r7
+     fce:	8f 92       	push	r8
+     fd0:	9f 92       	push	r9
+     fd2:	af 92       	push	r10
+     fd4:	bf 92       	push	r11
+     fd6:	cf 92       	push	r12
+     fd8:	df 92       	push	r13
+     fda:	ef 92       	push	r14
+     fdc:	ff 92       	push	r15
+     fde:	0f 93       	push	r16
+     fe0:	1f 93       	push	r17
+     fe2:	cf 93       	push	r28
+     fe4:	df 93       	push	r29
+     fe6:	5c 01       	movw	r10, r24
+     fe8:	4b 01       	movw	r8, r22
+     fea:	69 01       	movw	r12, r18
+     fec:	7a 01       	movw	r14, r20
+	PJob job = JobMem(process);
+     fee:	0e 94 12 04 	call	0x824	; 0x824 <getProcessMemory>
+     ff2:	19 2f       	mov	r17, r25
+     ff4:	68 2e       	mov	r6, r24
+     ff6:	e3 01       	movw	r28, r6
+     ff8:	3e 01       	movw	r6, r28
+     ffa:	79 2e       	mov	r7, r25
+     ffc:	e3 01       	movw	r28, r6
+	job->entryPoint = entryPoint;
+     ffe:	9a 82       	std	Y+2, r9	; 0x02
+    1000:	89 82       	std	Y+1, r8	; 0x01
+	job->userPriority = userPriority;
+    1002:	08 83       	st	Y, r16
+	job->period = period;
+    1004:	cd 82       	std	Y+5, r12	; 0x05
+    1006:	de 82       	std	Y+6, r13	; 0x06
+    1008:	ef 82       	std	Y+7, r14	; 0x07
+    100a:	f8 86       	std	Y+8, r15	; 0x08
+	insertJobIntoList(process, job);
+    100c:	c5 01       	movw	r24, r10
+    100e:	b3 01       	movw	r22, r6
+    1010:	0e 94 a0 07 	call	0xf40	; 0xf40 <insertJobIntoList>
+	return job;
+}
+    1014:	86 2d       	mov	r24, r6
+    1016:	91 2f       	mov	r25, r17
+    1018:	df 91       	pop	r29
+    101a:	cf 91       	pop	r28
+    101c:	1f 91       	pop	r17
+    101e:	0f 91       	pop	r16
+    1020:	ff 90       	pop	r15
+    1022:	ef 90       	pop	r14
+    1024:	df 90       	pop	r13
+    1026:	cf 90       	pop	r12
+    1028:	bf 90       	pop	r11
+    102a:	af 90       	pop	r10
+    102c:	9f 90       	pop	r9
+    102e:	8f 90       	pop	r8
+    1030:	7f 90       	pop	r7
+    1032:	6f 90       	pop	r6
+    1034:	08 95       	ret
+
+00001036 <createPeriodicJob>:
+
+Process createPeriodicJob(JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority) {
+    1036:	af 92       	push	r10
+    1038:	bf 92       	push	r11
+    103a:	cf 92       	push	r12
+    103c:	df 92       	push	r13
+    103e:	ff 92       	push	r15
+    1040:	0f 93       	push	r16
+    1042:	1f 93       	push	r17
+    1044:	cf 93       	push	r28
+    1046:	df 93       	push	r29
+    1048:	ec 01       	movw	r28, r24
+    104a:	5a 01       	movw	r10, r20
+    104c:	6b 01       	movw	r12, r22
+    104e:	02 2f       	mov	r16, r18
+	Process process = createProcess3(&PeriodicJobWrapper, NULL, __default_stack_size, sizeof(PeriodicJob));
+    1050:	40 91 18 01 	lds	r20, 0x0118
+    1054:	50 91 19 01 	lds	r21, 0x0119
+    1058:	89 e4       	ldi	r24, 0x49	; 73
+    105a:	97 e0       	ldi	r25, 0x07	; 7
+    105c:	60 e0       	ldi	r22, 0x00	; 0
+    105e:	70 e0       	ldi	r23, 0x00	; 0
+    1060:	2f e0       	ldi	r18, 0x0F	; 15
+    1062:	0e 94 b1 03 	call	0x762	; 0x762 <createProcess3>
+    1066:	f8 2e       	mov	r15, r24
+    1068:	19 2f       	mov	r17, r25
+	PPeriodicJob job = (PPeriodicJob) initializeJob(process, entryPoint, period, userPriority);
+    106a:	be 01       	movw	r22, r28
+    106c:	a6 01       	movw	r20, r12
+    106e:	95 01       	movw	r18, r10
+    1070:	0e 94 e5 07 	call	0xfca	; 0xfca <initializeJob>
+    1074:	fc 01       	movw	r30, r24
+	job->job.jobType = Periodic;
+    1076:	12 86       	std	Z+10, r1	; 0x0a
+    1078:	11 86       	std	Z+9, r1	; 0x09
+	job->nextPeriod = milliseconds_running + period;
+    107a:	20 91 1c 02 	lds	r18, 0x021C
+    107e:	30 91 1d 02 	lds	r19, 0x021D
+    1082:	40 91 1e 02 	lds	r20, 0x021E
+    1086:	50 91 1f 02 	lds	r21, 0x021F
+    108a:	2a 0d       	add	r18, r10
+    108c:	3b 1d       	adc	r19, r11
+    108e:	4c 1d       	adc	r20, r12
+    1090:	5d 1d       	adc	r21, r13
+    1092:	23 87       	std	Z+11, r18	; 0x0b
+    1094:	34 87       	std	Z+12, r19	; 0x0c
+    1096:	45 87       	std	Z+13, r20	; 0x0d
+    1098:	56 87       	std	Z+14, r21	; 0x0e
+	return process;
+}
+    109a:	8f 2d       	mov	r24, r15
+    109c:	91 2f       	mov	r25, r17
+    109e:	df 91       	pop	r29
+    10a0:	cf 91       	pop	r28
+    10a2:	1f 91       	pop	r17
+    10a4:	0f 91       	pop	r16
+    10a6:	ff 90       	pop	r15
+    10a8:	df 90       	pop	r13
+    10aa:	cf 90       	pop	r12
+    10ac:	bf 90       	pop	r11
+    10ae:	af 90       	pop	r10
+    10b0:	08 95       	ret
+
+000010b2 <createAperiodicJob>:
+
+Process createAperiodicJob(JobEntryPoint entryPoint, uint32_t minimalPeriod, uint8_t userPriority) {
+    10b2:	af 92       	push	r10
+    10b4:	bf 92       	push	r11
+    10b6:	cf 92       	push	r12
+    10b8:	df 92       	push	r13
+    10ba:	ff 92       	push	r15
+    10bc:	0f 93       	push	r16
+    10be:	1f 93       	push	r17
+    10c0:	cf 93       	push	r28
+    10c2:	df 93       	push	r29
+    10c4:	ec 01       	movw	r28, r24
+    10c6:	5a 01       	movw	r10, r20
+    10c8:	6b 01       	movw	r12, r22
+    10ca:	02 2f       	mov	r16, r18
+	Process process = createProcess3(&AperiodicJobWrapper, NULL, __default_stack_size, sizeof(AperiodicJob));
+    10cc:	40 91 18 01 	lds	r20, 0x0118
+    10d0:	50 91 19 01 	lds	r21, 0x0119
+    10d4:	86 e3       	ldi	r24, 0x36	; 54
+    10d6:	97 e0       	ldi	r25, 0x07	; 7
+    10d8:	60 e0       	ldi	r22, 0x00	; 0
+    10da:	70 e0       	ldi	r23, 0x00	; 0
+    10dc:	2d e0       	ldi	r18, 0x0D	; 13
+    10de:	0e 94 b1 03 	call	0x762	; 0x762 <createProcess3>
+    10e2:	f8 2e       	mov	r15, r24
+    10e4:	19 2f       	mov	r17, r25
+	PAperiodicJob job = (PAperiodicJob) initializeJob(process, entryPoint, minimalPeriod, userPriority);
+    10e6:	be 01       	movw	r22, r28
+    10e8:	a6 01       	movw	r20, r12
+    10ea:	95 01       	movw	r18, r10
+    10ec:	0e 94 e5 07 	call	0xfca	; 0xfca <initializeJob>
+    10f0:	fc 01       	movw	r30, r24
+	job->job.jobType = Aperiodic;
+    10f2:	81 e0       	ldi	r24, 0x01	; 1
+    10f4:	90 e0       	ldi	r25, 0x00	; 0
+    10f6:	92 87       	std	Z+10, r25	; 0x0a
+    10f8:	81 87       	std	Z+9, r24	; 0x09
+	job->wantsToRun = FALSE;
+    10fa:	14 86       	std	Z+12, r1	; 0x0c
+    10fc:	13 86       	std	Z+11, r1	; 0x0b
+	return process;
+}
+    10fe:	8f 2d       	mov	r24, r15
+    1100:	91 2f       	mov	r25, r17
+    1102:	df 91       	pop	r29
+    1104:	cf 91       	pop	r28
+    1106:	1f 91       	pop	r17
+    1108:	0f 91       	pop	r16
+    110a:	ff 90       	pop	r15
+    110c:	df 90       	pop	r13
+    110e:	cf 90       	pop	r12
+    1110:	bf 90       	pop	r11
+    1112:	af 90       	pop	r10
+    1114:	08 95       	ret
+
+00001116 <triggerAperiodicJob>:
+
+void triggerAperiodicJob(Process proc) {
+	((PAperiodicJob) JobMem(proc))->wantsToRun = TRUE;
+    1116:	0e 94 12 04 	call	0x824	; 0x824 <getProcessMemory>
+    111a:	21 e0       	ldi	r18, 0x01	; 1
+    111c:	30 e0       	ldi	r19, 0x00	; 0
+    111e:	fc 01       	movw	r30, r24
+    1120:	34 87       	std	Z+12, r19	; 0x0c
+    1122:	23 87       	std	Z+11, r18	; 0x0b
+}
+    1124:	08 95       	ret
+
+00001126 <insertThreadIntoQueue>:
+} ThreadQueue, *PThreadQueue;
+
+ThreadPriority highestPrio = PrioLowest;
+ThreadQueue queues[NUM_PRIOS];
+
+void insertThreadIntoQueue(Thread thread, ThreadPriority prio) {
+    1126:	0f 93       	push	r16
+    1128:	1f 93       	push	r17
+    112a:	cf 93       	push	r28
+    112c:	df 93       	push	r29
+    112e:	8c 01       	movw	r16, r24
+    1130:	eb 01       	movw	r28, r22
+	// TODO - this is not concurrency-safe.
+	PThreadQueue queue = &queues[prio];
+	PThreadQueueElement elem = (PThreadQueueElement) calloc(1, sizeof(ThreadQueueElement));
+    1132:	81 e0       	ldi	r24, 0x01	; 1
+    1134:	90 e0       	ldi	r25, 0x00	; 0
+    1136:	64 e0       	ldi	r22, 0x04	; 4
+    1138:	70 e0       	ldi	r23, 0x00	; 0
+    113a:	0e 94 7d 09 	call	0x12fa	; 0x12fa <calloc>
+    113e:	fc 01       	movw	r30, r24
+	elem->thread = thread;
+    1140:	11 83       	std	Z+1, r17	; 0x01
+    1142:	00 83       	st	Z, r16
+	elem->next = queue->first;
+    1144:	de 01       	movw	r26, r28
+    1146:	aa 0f       	add	r26, r26
+    1148:	bb 1f       	adc	r27, r27
+    114a:	aa 0f       	add	r26, r26
+    114c:	bb 1f       	adc	r27, r27
+    114e:	ac 0f       	add	r26, r28
+    1150:	bd 1f       	adc	r27, r29
+    1152:	a7 56       	subi	r26, 0x67	; 103
+    1154:	bc 4f       	sbci	r27, 0xFC	; 252
+    1156:	8d 91       	ld	r24, X+
+    1158:	9c 91       	ld	r25, X
+    115a:	11 97       	sbiw	r26, 0x01	; 1
+    115c:	93 83       	std	Z+3, r25	; 0x03
+    115e:	82 83       	std	Z+2, r24	; 0x02
+	queue->first = elem;
+    1160:	11 96       	adiw	r26, 0x01	; 1
+    1162:	fc 93       	st	X, r31
+    1164:	ee 93       	st	-X, r30
+	if (queue->count == 0)
+    1166:	14 96       	adiw	r26, 0x04	; 4
+    1168:	8c 91       	ld	r24, X
+    116a:	14 97       	sbiw	r26, 0x04	; 4
+    116c:	88 23       	and	r24, r24
+    116e:	21 f4       	brne	.+8      	; 0x1178 <insertThreadIntoQueue+0x52>
+		queue->current = elem;
+    1170:	13 96       	adiw	r26, 0x03	; 3
+    1172:	fc 93       	st	X, r31
+    1174:	ee 93       	st	-X, r30
+    1176:	12 97       	sbiw	r26, 0x02	; 2
+	queue->count++;
+    1178:	fe 01       	movw	r30, r28
+    117a:	ee 0f       	add	r30, r30
+    117c:	ff 1f       	adc	r31, r31
+    117e:	ee 0f       	add	r30, r30
+    1180:	ff 1f       	adc	r31, r31
+    1182:	ec 0f       	add	r30, r28
+    1184:	fd 1f       	adc	r31, r29
+    1186:	e7 56       	subi	r30, 0x67	; 103
+    1188:	fc 4f       	sbci	r31, 0xFC	; 252
+    118a:	84 81       	ldd	r24, Z+4	; 0x04
+    118c:	8f 5f       	subi	r24, 0xFF	; 255
+    118e:	84 83       	std	Z+4, r24	; 0x04
+	if (prio > highestPrio) highestPrio = prio;
+    1190:	80 91 20 02 	lds	r24, 0x0220
+    1194:	90 91 21 02 	lds	r25, 0x0221
+    1198:	8c 17       	cp	r24, r28
+    119a:	9d 07       	cpc	r25, r29
+    119c:	20 f4       	brcc	.+8      	; 0x11a6 <insertThreadIntoQueue+0x80>
+    119e:	d0 93 21 02 	sts	0x0221, r29
+    11a2:	c0 93 20 02 	sts	0x0220, r28
+}
+    11a6:	df 91       	pop	r29
+    11a8:	cf 91       	pop	r28
+    11aa:	1f 91       	pop	r17
+    11ac:	0f 91       	pop	r16
+    11ae:	08 95       	ret
+
+000011b0 <createThread2>:
+
+Thread createThread(ThreadEntryPoint entry) {
+	return createThread2(entry, PrioNormal);
+}
+
+Thread createThread2(ThreadEntryPoint entry, ThreadPriority prio) {
+    11b0:	0f 93       	push	r16
+    11b2:	1f 93       	push	r17
+    11b4:	cf 93       	push	r28
+    11b6:	df 93       	push	r29
+    11b8:	eb 01       	movw	r28, r22
+	Thread thread = (Thread) createProcess(entry);
+    11ba:	0e 94 e3 03 	call	0x7c6	; 0x7c6 <createProcess>
+    11be:	8c 01       	movw	r16, r24
+	insertThreadIntoQueue(thread, prio);
+    11c0:	be 01       	movw	r22, r28
+    11c2:	0e 94 93 08 	call	0x1126	; 0x1126 <insertThreadIntoQueue>
+	return thread;
+}
+    11c6:	c8 01       	movw	r24, r16
+    11c8:	df 91       	pop	r29
+    11ca:	cf 91       	pop	r28
+    11cc:	1f 91       	pop	r17
+    11ce:	0f 91       	pop	r16
+    11d0:	08 95       	ret
+
+000011d2 <createThread>:
+	queue->count++;
+	if (prio > highestPrio) highestPrio = prio;
+}
+
+Thread createThread(ThreadEntryPoint entry) {
+	return createThread2(entry, PrioNormal);
+    11d2:	63 e0       	ldi	r22, 0x03	; 3
+    11d4:	70 e0       	ldi	r23, 0x00	; 0
+    11d6:	0e 94 d8 08 	call	0x11b0	; 0x11b0 <createThread2>
+}
+    11da:	08 95       	ret
+
+000011dc <createThread3>:
+	Thread thread = (Thread) createProcess(entry);
+	insertThreadIntoQueue(thread, prio);
+	return thread;
+}
+
+Thread createThread3(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter) {
+    11dc:	0f 93       	push	r16
+    11de:	1f 93       	push	r17
+    11e0:	cf 93       	push	r28
+    11e2:	df 93       	push	r29
+    11e4:	eb 01       	movw	r28, r22
+    11e6:	ba 01       	movw	r22, r20
+	Thread thread = (Thread) createProcess2(entry, threadParameter);
+    11e8:	0e 94 db 03 	call	0x7b6	; 0x7b6 <createProcess2>
+    11ec:	8c 01       	movw	r16, r24
+	insertThreadIntoQueue(thread, prio);
+    11ee:	be 01       	movw	r22, r28
+    11f0:	0e 94 93 08 	call	0x1126	; 0x1126 <insertThreadIntoQueue>
+	return thread;
+}
+    11f4:	c8 01       	movw	r24, r16
+    11f6:	df 91       	pop	r29
+    11f8:	cf 91       	pop	r28
+    11fa:	1f 91       	pop	r17
+    11fc:	0f 91       	pop	r16
+    11fe:	08 95       	ret
+
+00001200 <createThread4>:
+
+Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter, uint16_t stackSize) {
+    1200:	0f 93       	push	r16
+    1202:	1f 93       	push	r17
+    1204:	cf 93       	push	r28
+    1206:	df 93       	push	r29
+    1208:	eb 01       	movw	r28, r22
+    120a:	ba 01       	movw	r22, r20
+	Thread thread = (Thread) createProcess3(entry, threadParameter, stackSize, 0);
+    120c:	a9 01       	movw	r20, r18
+    120e:	20 e0       	ldi	r18, 0x00	; 0
+    1210:	0e 94 b1 03 	call	0x762	; 0x762 <createProcess3>
+    1214:	8c 01       	movw	r16, r24
+	insertThreadIntoQueue(thread, prio);
+    1216:	be 01       	movw	r22, r28
+    1218:	0e 94 93 08 	call	0x1126	; 0x1126 <insertThreadIntoQueue>
+	return thread;
+}
+    121c:	c8 01       	movw	r24, r16
+    121e:	df 91       	pop	r29
+    1220:	cf 91       	pop	r28
+    1222:	1f 91       	pop	r17
+    1224:	0f 91       	pop	r16
+    1226:	08 95       	ret
+
+00001228 <rr_schedule>:
+	
+	PThreadQueue queue = &queues[highestPrio];
+	
+	// Nothing to schedule?
+	if (queue->count == 0)
+		return InvalidProcess;
+    1228:	80 91 20 02 	lds	r24, 0x0220
+    122c:	90 91 21 02 	lds	r25, 0x0221
+	return thread;
+}
+
+Process rr_schedule(BOOL invokedFromTimer) {
+	// Lower the top-priority, if necessary. It must be increased at all relevant places!
+	while (highestPrio > 0 && queues[highestPrio].count == 0) highestPrio--;
+    1230:	01 c0       	rjmp	.+2      	; 0x1234 <rr_schedule+0xc>
+    1232:	01 97       	sbiw	r24, 0x01	; 1
+    1234:	00 97       	sbiw	r24, 0x00	; 0
+    1236:	29 f4       	brne	.+10     	; 0x1242 <rr_schedule+0x1a>
+    1238:	10 92 20 02 	sts	0x0220, r1
+    123c:	10 92 21 02 	sts	0x0221, r1
+    1240:	10 c0       	rjmp	.+32     	; 0x1262 <rr_schedule+0x3a>
+    1242:	fc 01       	movw	r30, r24
+    1244:	ee 0f       	add	r30, r30
+    1246:	ff 1f       	adc	r31, r31
+    1248:	ee 0f       	add	r30, r30
+    124a:	ff 1f       	adc	r31, r31
+    124c:	e8 0f       	add	r30, r24
+    124e:	f9 1f       	adc	r31, r25
+    1250:	e7 56       	subi	r30, 0x67	; 103
+    1252:	fc 4f       	sbci	r31, 0xFC	; 252
+    1254:	24 81       	ldd	r18, Z+4	; 0x04
+    1256:	22 23       	and	r18, r18
+    1258:	61 f3       	breq	.-40     	; 0x1232 <rr_schedule+0xa>
+    125a:	80 93 20 02 	sts	0x0220, r24
+    125e:	90 93 21 02 	sts	0x0221, r25
+	
+	PThreadQueue queue = &queues[highestPrio];
+	
+	// Nothing to schedule?
+	if (queue->count == 0)
+    1262:	fc 01       	movw	r30, r24
+    1264:	ee 0f       	add	r30, r30
+    1266:	ff 1f       	adc	r31, r31
+    1268:	ee 0f       	add	r30, r30
+    126a:	ff 1f       	adc	r31, r31
+    126c:	e8 0f       	add	r30, r24
+    126e:	f9 1f       	adc	r31, r25
+    1270:	e7 56       	subi	r30, 0x67	; 103
+    1272:	fc 4f       	sbci	r31, 0xFC	; 252
+    1274:	24 81       	ldd	r18, Z+4	; 0x04
+    1276:	22 23       	and	r18, r18
+    1278:	c9 f0       	breq	.+50     	; 0x12ac <rr_schedule+0x84>
+		return InvalidProcess;
+	
+	PThreadQueueElement current = queue->current;
+    127a:	a2 81       	ldd	r26, Z+2	; 0x02
+    127c:	b3 81       	ldd	r27, Z+3	; 0x03
+	current = current->next == NULL ? queue->first : current->next;
+    127e:	12 96       	adiw	r26, 0x02	; 2
+    1280:	0d 90       	ld	r0, X+
+    1282:	bc 91       	ld	r27, X
+    1284:	a0 2d       	mov	r26, r0
+    1286:	10 97       	sbiw	r26, 0x00	; 0
+    1288:	11 f4       	brne	.+4      	; 0x128e <rr_schedule+0x66>
+    128a:	a0 81       	ld	r26, Z
+    128c:	b1 81       	ldd	r27, Z+1	; 0x01
+	queue->current = current;
+    128e:	fc 01       	movw	r30, r24
+    1290:	ee 0f       	add	r30, r30
+    1292:	ff 1f       	adc	r31, r31
+    1294:	ee 0f       	add	r30, r30
+    1296:	ff 1f       	adc	r31, r31
+    1298:	e8 0f       	add	r30, r24
+    129a:	f9 1f       	adc	r31, r25
+    129c:	e7 56       	subi	r30, 0x67	; 103
+    129e:	fc 4f       	sbci	r31, 0xFC	; 252
+    12a0:	b3 83       	std	Z+3, r27	; 0x03
+    12a2:	a2 83       	std	Z+2, r26	; 0x02
+	return (Process) current->thread;
+    12a4:	2d 91       	ld	r18, X+
+    12a6:	3c 91       	ld	r19, X
+    12a8:	11 97       	sbiw	r26, 0x01	; 1
+    12aa:	02 c0       	rjmp	.+4      	; 0x12b0 <rr_schedule+0x88>
+	
+	PThreadQueue queue = &queues[highestPrio];
+	
+	// Nothing to schedule?
+	if (queue->count == 0)
+		return InvalidProcess;
+    12ac:	20 e0       	ldi	r18, 0x00	; 0
+    12ae:	30 e0       	ldi	r19, 0x00	; 0
+	
+	PThreadQueueElement current = queue->current;
+	current = current->next == NULL ? queue->first : current->next;
+	queue->current = current;
+	return (Process) current->thread;
+}
+    12b0:	c9 01       	movw	r24, r18
+    12b2:	08 95       	ret
+
+000012b4 <rr_captureMainProcess>:
+
+void rr_captureMainProcess(ThreadPriority prio) {
+    12b4:	cf 93       	push	r28
+    12b6:	df 93       	push	r29
+    12b8:	ec 01       	movw	r28, r24
+	insertThreadIntoQueue((Thread) getCurrentProcess(), prio);
+    12ba:	0e 94 a0 03 	call	0x740	; 0x740 <getCurrentProcess>
+    12be:	be 01       	movw	r22, r28
+    12c0:	0e 94 93 08 	call	0x1126	; 0x1126 <insertThreadIntoQueue>
+}
+    12c4:	df 91       	pop	r29
+    12c6:	cf 91       	pop	r28
+    12c8:	08 95       	ret
+
+000012ca <getCurrentThread>:
+
+Thread getCurrentThread() {
+	return (Thread) getCurrentProcess();
+    12ca:	0e 94 a0 03 	call	0x740	; 0x740 <getCurrentProcess>
+}
+    12ce:	08 95       	ret
+
+000012d0 <schedule_next>:
+// invoked it has saved all its registers, that are important. As this function
+// also does not take any arguments, nothing can go wrong here.
+// Contrary to the scheduler-timer-isr, this does not make the processor idle, if schedule
+// does not return a valid Process.
+void schedule_next() {
+	Process next = schedule(FALSE);
+    12d0:	80 e0       	ldi	r24, 0x00	; 0
+    12d2:	90 e0       	ldi	r25, 0x00	; 0
+    12d4:	0e 94 53 04 	call	0x8a6	; 0x8a6 <schedule>
+	if (!next) return;
+    12d8:	00 97       	sbiw	r24, 0x00	; 0
+    12da:	11 f0       	breq	.+4      	; 0x12e0 <schedule_next+0x10>
+	switchProcess(next);
+    12dc:	0e 94 a5 03 	call	0x74a	; 0x74a <switchProcess>
+    12e0:	08 95       	ret
+
+000012e2 <processor_idle>:
+}
+
+void processor_idle() {
+	sleep_enable();
+    12e2:	83 b7       	in	r24, 0x33	; 51
+    12e4:	81 60       	ori	r24, 0x01	; 1
+    12e6:	83 bf       	out	0x33, r24	; 51
+	set_sleep_mode(SLEEP_MODE_IDLE);
+    12e8:	83 b7       	in	r24, 0x33	; 51
+    12ea:	81 7f       	andi	r24, 0xF1	; 241
+    12ec:	83 bf       	out	0x33, r24	; 51
+	enable_interrupts(); // Just in case, if this is called form an ISR
+    12ee:	78 94       	sei
+	sleep_cpu();
+    12f0:	88 95       	sleep
+}
+    12f2:	08 95       	ret
+
+000012f4 <processor_loop_idle>:
+
+void processor_loop_idle() {
+	while (TRUE) {
+		processor_idle();
+    12f4:	0e 94 71 09 	call	0x12e2	; 0x12e2 <processor_idle>
+    12f8:	fd cf       	rjmp	.-6      	; 0x12f4 <processor_loop_idle>
+
+000012fa <calloc>:
+    12fa:	ef 92       	push	r14
+    12fc:	ff 92       	push	r15
+    12fe:	0f 93       	push	r16
+    1300:	1f 93       	push	r17
+    1302:	cf 93       	push	r28
+    1304:	df 93       	push	r29
+    1306:	68 9f       	mul	r22, r24
+    1308:	80 01       	movw	r16, r0
+    130a:	69 9f       	mul	r22, r25
+    130c:	10 0d       	add	r17, r0
+    130e:	78 9f       	mul	r23, r24
+    1310:	10 0d       	add	r17, r0
+    1312:	11 24       	eor	r1, r1
+    1314:	c8 01       	movw	r24, r16
+    1316:	0e 94 a2 09 	call	0x1344	; 0x1344 <malloc>
+    131a:	e8 2e       	mov	r14, r24
+    131c:	e7 01       	movw	r28, r14
+    131e:	7e 01       	movw	r14, r28
+    1320:	f9 2e       	mov	r15, r25
+    1322:	e7 01       	movw	r28, r14
+    1324:	20 97       	sbiw	r28, 0x00	; 0
+    1326:	31 f0       	breq	.+12     	; 0x1334 <calloc+0x3a>
+    1328:	8e 2d       	mov	r24, r14
+    132a:	60 e0       	ldi	r22, 0x00	; 0
+    132c:	70 e0       	ldi	r23, 0x00	; 0
+    132e:	a8 01       	movw	r20, r16
+    1330:	0e 94 d5 0a 	call	0x15aa	; 0x15aa <memset>
+    1334:	ce 01       	movw	r24, r28
+    1336:	df 91       	pop	r29
+    1338:	cf 91       	pop	r28
+    133a:	1f 91       	pop	r17
+    133c:	0f 91       	pop	r16
+    133e:	ff 90       	pop	r15
+    1340:	ef 90       	pop	r14
+    1342:	08 95       	ret
+
+00001344 <malloc>:
+    1344:	cf 93       	push	r28
+    1346:	df 93       	push	r29
+    1348:	82 30       	cpi	r24, 0x02	; 2
+    134a:	91 05       	cpc	r25, r1
+    134c:	10 f4       	brcc	.+4      	; 0x1352 <malloc+0xe>
+    134e:	82 e0       	ldi	r24, 0x02	; 2
+    1350:	90 e0       	ldi	r25, 0x00	; 0
+    1352:	e0 91 be 03 	lds	r30, 0x03BE
+    1356:	f0 91 bf 03 	lds	r31, 0x03BF
+    135a:	40 e0       	ldi	r20, 0x00	; 0
+    135c:	50 e0       	ldi	r21, 0x00	; 0
+    135e:	20 e0       	ldi	r18, 0x00	; 0
+    1360:	30 e0       	ldi	r19, 0x00	; 0
+    1362:	26 c0       	rjmp	.+76     	; 0x13b0 <malloc+0x6c>
+    1364:	60 81       	ld	r22, Z
+    1366:	71 81       	ldd	r23, Z+1	; 0x01
+    1368:	68 17       	cp	r22, r24
+    136a:	79 07       	cpc	r23, r25
+    136c:	e0 f0       	brcs	.+56     	; 0x13a6 <malloc+0x62>
+    136e:	68 17       	cp	r22, r24
+    1370:	79 07       	cpc	r23, r25
+    1372:	81 f4       	brne	.+32     	; 0x1394 <malloc+0x50>
+    1374:	82 81       	ldd	r24, Z+2	; 0x02
+    1376:	93 81       	ldd	r25, Z+3	; 0x03
+    1378:	21 15       	cp	r18, r1
+    137a:	31 05       	cpc	r19, r1
+    137c:	31 f0       	breq	.+12     	; 0x138a <malloc+0x46>
+    137e:	d9 01       	movw	r26, r18
+    1380:	13 96       	adiw	r26, 0x03	; 3
+    1382:	9c 93       	st	X, r25
+    1384:	8e 93       	st	-X, r24
+    1386:	12 97       	sbiw	r26, 0x02	; 2
+    1388:	2b c0       	rjmp	.+86     	; 0x13e0 <malloc+0x9c>
+    138a:	90 93 bf 03 	sts	0x03BF, r25
+    138e:	80 93 be 03 	sts	0x03BE, r24
+    1392:	26 c0       	rjmp	.+76     	; 0x13e0 <malloc+0x9c>
+    1394:	41 15       	cp	r20, r1
+    1396:	51 05       	cpc	r21, r1
+    1398:	19 f0       	breq	.+6      	; 0x13a0 <malloc+0x5c>
+    139a:	64 17       	cp	r22, r20
+    139c:	75 07       	cpc	r23, r21
+    139e:	18 f4       	brcc	.+6      	; 0x13a6 <malloc+0x62>
+    13a0:	ab 01       	movw	r20, r22
+    13a2:	e9 01       	movw	r28, r18
+    13a4:	df 01       	movw	r26, r30
+    13a6:	9f 01       	movw	r18, r30
+    13a8:	72 81       	ldd	r23, Z+2	; 0x02
+    13aa:	63 81       	ldd	r22, Z+3	; 0x03
+    13ac:	e7 2f       	mov	r30, r23
+    13ae:	f6 2f       	mov	r31, r22
+    13b0:	30 97       	sbiw	r30, 0x00	; 0
+    13b2:	c1 f6       	brne	.-80     	; 0x1364 <malloc+0x20>
+    13b4:	41 15       	cp	r20, r1
+    13b6:	51 05       	cpc	r21, r1
+    13b8:	01 f1       	breq	.+64     	; 0x13fa <malloc+0xb6>
+    13ba:	48 1b       	sub	r20, r24
+    13bc:	59 0b       	sbc	r21, r25
+    13be:	44 30       	cpi	r20, 0x04	; 4
+    13c0:	51 05       	cpc	r21, r1
+    13c2:	80 f4       	brcc	.+32     	; 0x13e4 <malloc+0xa0>
+    13c4:	12 96       	adiw	r26, 0x02	; 2
+    13c6:	8d 91       	ld	r24, X+
+    13c8:	9c 91       	ld	r25, X
+    13ca:	13 97       	sbiw	r26, 0x03	; 3
+    13cc:	20 97       	sbiw	r28, 0x00	; 0
+    13ce:	19 f0       	breq	.+6      	; 0x13d6 <malloc+0x92>
+    13d0:	9b 83       	std	Y+3, r25	; 0x03
+    13d2:	8a 83       	std	Y+2, r24	; 0x02
+    13d4:	04 c0       	rjmp	.+8      	; 0x13de <malloc+0x9a>
+    13d6:	90 93 bf 03 	sts	0x03BF, r25
+    13da:	80 93 be 03 	sts	0x03BE, r24
+    13de:	fd 01       	movw	r30, r26
+    13e0:	32 96       	adiw	r30, 0x02	; 2
+    13e2:	46 c0       	rjmp	.+140    	; 0x1470 <malloc+0x12c>
+    13e4:	fd 01       	movw	r30, r26
+    13e6:	e4 0f       	add	r30, r20
+    13e8:	f5 1f       	adc	r31, r21
+    13ea:	81 93       	st	Z+, r24
+    13ec:	91 93       	st	Z+, r25
+    13ee:	42 50       	subi	r20, 0x02	; 2
+    13f0:	50 40       	sbci	r21, 0x00	; 0
+    13f2:	11 96       	adiw	r26, 0x01	; 1
+    13f4:	5c 93       	st	X, r21
+    13f6:	4e 93       	st	-X, r20
+    13f8:	3b c0       	rjmp	.+118    	; 0x1470 <malloc+0x12c>
+    13fa:	20 91 bc 03 	lds	r18, 0x03BC
+    13fe:	30 91 bd 03 	lds	r19, 0x03BD
+    1402:	21 15       	cp	r18, r1
+    1404:	31 05       	cpc	r19, r1
+    1406:	41 f4       	brne	.+16     	; 0x1418 <malloc+0xd4>
+    1408:	20 91 13 02 	lds	r18, 0x0213
+    140c:	30 91 14 02 	lds	r19, 0x0214
+    1410:	30 93 bd 03 	sts	0x03BD, r19
+    1414:	20 93 bc 03 	sts	0x03BC, r18
+    1418:	20 91 15 02 	lds	r18, 0x0215
+    141c:	30 91 16 02 	lds	r19, 0x0216
+    1420:	21 15       	cp	r18, r1
+    1422:	31 05       	cpc	r19, r1
+    1424:	41 f4       	brne	.+16     	; 0x1436 <malloc+0xf2>
+    1426:	2d b7       	in	r18, 0x3d	; 61
+    1428:	3e b7       	in	r19, 0x3e	; 62
+    142a:	40 91 11 02 	lds	r20, 0x0211
+    142e:	50 91 12 02 	lds	r21, 0x0212
+    1432:	24 1b       	sub	r18, r20
+    1434:	35 0b       	sbc	r19, r21
+    1436:	e0 91 bc 03 	lds	r30, 0x03BC
+    143a:	f0 91 bd 03 	lds	r31, 0x03BD
+    143e:	e2 17       	cp	r30, r18
+    1440:	f3 07       	cpc	r31, r19
+    1442:	a0 f4       	brcc	.+40     	; 0x146c <malloc+0x128>
+    1444:	2e 1b       	sub	r18, r30
+    1446:	3f 0b       	sbc	r19, r31
+    1448:	28 17       	cp	r18, r24
+    144a:	39 07       	cpc	r19, r25
+    144c:	78 f0       	brcs	.+30     	; 0x146c <malloc+0x128>
+    144e:	ac 01       	movw	r20, r24
+    1450:	4e 5f       	subi	r20, 0xFE	; 254
+    1452:	5f 4f       	sbci	r21, 0xFF	; 255
+    1454:	24 17       	cp	r18, r20
+    1456:	35 07       	cpc	r19, r21
+    1458:	48 f0       	brcs	.+18     	; 0x146c <malloc+0x128>
+    145a:	4e 0f       	add	r20, r30
+    145c:	5f 1f       	adc	r21, r31
+    145e:	50 93 bd 03 	sts	0x03BD, r21
+    1462:	40 93 bc 03 	sts	0x03BC, r20
+    1466:	81 93       	st	Z+, r24
+    1468:	91 93       	st	Z+, r25
+    146a:	02 c0       	rjmp	.+4      	; 0x1470 <malloc+0x12c>
+    146c:	e0 e0       	ldi	r30, 0x00	; 0
+    146e:	f0 e0       	ldi	r31, 0x00	; 0
+    1470:	cf 01       	movw	r24, r30
+    1472:	df 91       	pop	r29
+    1474:	cf 91       	pop	r28
+    1476:	08 95       	ret
+
+00001478 <free>:
+    1478:	cf 93       	push	r28
+    147a:	df 93       	push	r29
+    147c:	00 97       	sbiw	r24, 0x00	; 0
+    147e:	09 f4       	brne	.+2      	; 0x1482 <free+0xa>
+    1480:	91 c0       	rjmp	.+290    	; 0x15a4 <free+0x12c>
+    1482:	fc 01       	movw	r30, r24
+    1484:	32 97       	sbiw	r30, 0x02	; 2
+    1486:	13 82       	std	Z+3, r1	; 0x03
+    1488:	12 82       	std	Z+2, r1	; 0x02
+    148a:	60 91 be 03 	lds	r22, 0x03BE
+    148e:	70 91 bf 03 	lds	r23, 0x03BF
+    1492:	61 15       	cp	r22, r1
+    1494:	71 05       	cpc	r23, r1
+    1496:	81 f4       	brne	.+32     	; 0x14b8 <free+0x40>
+    1498:	20 81       	ld	r18, Z
+    149a:	31 81       	ldd	r19, Z+1	; 0x01
+    149c:	28 0f       	add	r18, r24
+    149e:	39 1f       	adc	r19, r25
+    14a0:	80 91 bc 03 	lds	r24, 0x03BC
+    14a4:	90 91 bd 03 	lds	r25, 0x03BD
+    14a8:	82 17       	cp	r24, r18
+    14aa:	93 07       	cpc	r25, r19
+    14ac:	99 f5       	brne	.+102    	; 0x1514 <free+0x9c>
+    14ae:	f0 93 bd 03 	sts	0x03BD, r31
+    14b2:	e0 93 bc 03 	sts	0x03BC, r30
+    14b6:	76 c0       	rjmp	.+236    	; 0x15a4 <free+0x12c>
+    14b8:	db 01       	movw	r26, r22
+    14ba:	80 e0       	ldi	r24, 0x00	; 0
+    14bc:	90 e0       	ldi	r25, 0x00	; 0
+    14be:	02 c0       	rjmp	.+4      	; 0x14c4 <free+0x4c>
+    14c0:	cd 01       	movw	r24, r26
+    14c2:	d9 01       	movw	r26, r18
+    14c4:	ae 17       	cp	r26, r30
+    14c6:	bf 07       	cpc	r27, r31
+    14c8:	48 f4       	brcc	.+18     	; 0x14dc <free+0x64>
+    14ca:	12 96       	adiw	r26, 0x02	; 2
+    14cc:	2d 91       	ld	r18, X+
+    14ce:	3c 91       	ld	r19, X
+    14d0:	13 97       	sbiw	r26, 0x03	; 3
+    14d2:	21 15       	cp	r18, r1
+    14d4:	31 05       	cpc	r19, r1
+    14d6:	a1 f7       	brne	.-24     	; 0x14c0 <free+0x48>
+    14d8:	cd 01       	movw	r24, r26
+    14da:	21 c0       	rjmp	.+66     	; 0x151e <free+0xa6>
+    14dc:	b3 83       	std	Z+3, r27	; 0x03
+    14de:	a2 83       	std	Z+2, r26	; 0x02
+    14e0:	ef 01       	movw	r28, r30
+    14e2:	49 91       	ld	r20, Y+
+    14e4:	59 91       	ld	r21, Y+
+    14e6:	9e 01       	movw	r18, r28
+    14e8:	24 0f       	add	r18, r20
+    14ea:	35 1f       	adc	r19, r21
+    14ec:	a2 17       	cp	r26, r18
+    14ee:	b3 07       	cpc	r27, r19
+    14f0:	79 f4       	brne	.+30     	; 0x1510 <free+0x98>
+    14f2:	2d 91       	ld	r18, X+
+    14f4:	3c 91       	ld	r19, X
+    14f6:	11 97       	sbiw	r26, 0x01	; 1
+    14f8:	24 0f       	add	r18, r20
+    14fa:	35 1f       	adc	r19, r21
+    14fc:	2e 5f       	subi	r18, 0xFE	; 254
+    14fe:	3f 4f       	sbci	r19, 0xFF	; 255
+    1500:	31 83       	std	Z+1, r19	; 0x01
+    1502:	20 83       	st	Z, r18
+    1504:	12 96       	adiw	r26, 0x02	; 2
+    1506:	2d 91       	ld	r18, X+
+    1508:	3c 91       	ld	r19, X
+    150a:	13 97       	sbiw	r26, 0x03	; 3
+    150c:	33 83       	std	Z+3, r19	; 0x03
+    150e:	22 83       	std	Z+2, r18	; 0x02
+    1510:	00 97       	sbiw	r24, 0x00	; 0
+    1512:	29 f4       	brne	.+10     	; 0x151e <free+0xa6>
+    1514:	f0 93 bf 03 	sts	0x03BF, r31
+    1518:	e0 93 be 03 	sts	0x03BE, r30
+    151c:	43 c0       	rjmp	.+134    	; 0x15a4 <free+0x12c>
+    151e:	dc 01       	movw	r26, r24
+    1520:	13 96       	adiw	r26, 0x03	; 3
+    1522:	fc 93       	st	X, r31
+    1524:	ee 93       	st	-X, r30
+    1526:	12 97       	sbiw	r26, 0x02	; 2
+    1528:	4d 91       	ld	r20, X+
+    152a:	5d 91       	ld	r21, X+
+    152c:	a4 0f       	add	r26, r20
+    152e:	b5 1f       	adc	r27, r21
+    1530:	ea 17       	cp	r30, r26
+    1532:	fb 07       	cpc	r31, r27
+    1534:	69 f4       	brne	.+26     	; 0x1550 <free+0xd8>
+    1536:	20 81       	ld	r18, Z
+    1538:	31 81       	ldd	r19, Z+1	; 0x01
+    153a:	24 0f       	add	r18, r20
+    153c:	35 1f       	adc	r19, r21
+    153e:	2e 5f       	subi	r18, 0xFE	; 254
+    1540:	3f 4f       	sbci	r19, 0xFF	; 255
+    1542:	ec 01       	movw	r28, r24
+    1544:	39 83       	std	Y+1, r19	; 0x01
+    1546:	28 83       	st	Y, r18
+    1548:	22 81       	ldd	r18, Z+2	; 0x02
+    154a:	33 81       	ldd	r19, Z+3	; 0x03
+    154c:	3b 83       	std	Y+3, r19	; 0x03
+    154e:	2a 83       	std	Y+2, r18	; 0x02
+    1550:	e0 e0       	ldi	r30, 0x00	; 0
+    1552:	f0 e0       	ldi	r31, 0x00	; 0
+    1554:	02 c0       	rjmp	.+4      	; 0x155a <free+0xe2>
+    1556:	fb 01       	movw	r30, r22
+    1558:	bc 01       	movw	r22, r24
+    155a:	db 01       	movw	r26, r22
+    155c:	12 96       	adiw	r26, 0x02	; 2
+    155e:	8d 91       	ld	r24, X+
+    1560:	9c 91       	ld	r25, X
+    1562:	13 97       	sbiw	r26, 0x03	; 3
+    1564:	00 97       	sbiw	r24, 0x00	; 0
+    1566:	b9 f7       	brne	.-18     	; 0x1556 <free+0xde>
+    1568:	9b 01       	movw	r18, r22
+    156a:	2e 5f       	subi	r18, 0xFE	; 254
+    156c:	3f 4f       	sbci	r19, 0xFF	; 255
+    156e:	8d 91       	ld	r24, X+
+    1570:	9c 91       	ld	r25, X
+    1572:	11 97       	sbiw	r26, 0x01	; 1
+    1574:	82 0f       	add	r24, r18
+    1576:	93 1f       	adc	r25, r19
+    1578:	40 91 bc 03 	lds	r20, 0x03BC
+    157c:	50 91 bd 03 	lds	r21, 0x03BD
+    1580:	48 17       	cp	r20, r24
+    1582:	59 07       	cpc	r21, r25
+    1584:	79 f4       	brne	.+30     	; 0x15a4 <free+0x12c>
+    1586:	30 97       	sbiw	r30, 0x00	; 0
+    1588:	29 f4       	brne	.+10     	; 0x1594 <free+0x11c>
+    158a:	10 92 bf 03 	sts	0x03BF, r1
+    158e:	10 92 be 03 	sts	0x03BE, r1
+    1592:	02 c0       	rjmp	.+4      	; 0x1598 <free+0x120>
+    1594:	13 82       	std	Z+3, r1	; 0x03
+    1596:	12 82       	std	Z+2, r1	; 0x02
+    1598:	22 50       	subi	r18, 0x02	; 2
+    159a:	30 40       	sbci	r19, 0x00	; 0
+    159c:	30 93 bd 03 	sts	0x03BD, r19
+    15a0:	20 93 bc 03 	sts	0x03BC, r18
+    15a4:	df 91       	pop	r29
+    15a6:	cf 91       	pop	r28
+    15a8:	08 95       	ret
+
+000015aa <memset>:
+    15aa:	dc 01       	movw	r26, r24
+    15ac:	01 c0       	rjmp	.+2      	; 0x15b0 <memset+0x6>
+    15ae:	6d 93       	st	X+, r22
+    15b0:	41 50       	subi	r20, 0x01	; 1
+    15b2:	50 40       	sbci	r21, 0x00	; 0
+    15b4:	e0 f7       	brcc	.-8      	; 0x15ae <memset+0x4>
+    15b6:	08 95       	ret
+
+000015b8 <MainProcessEnd>:
+// The first created process is an exception, as it uses the initial stack; we use gcc's .fini1 section 
+// to make the main-process end up here as well (see below).
+// If a process ends up here without any scheduler set up, nothing will happen anymore.
+// The watchdog-timer can detect such a condition.
+void ProcessGraveyard() {
+	processor_loop_idle();
+    15b8:	0e 94 7a 09 	call	0x12f4	; 0x12f4 <processor_loop_idle>
+// This makes the initial main()-process end up in the ProcessGraveyard, like
+// every other process.
+void MainProcessEnd() __attribute__((section (".fini1")));
+void MainProcessEnd() {
+	ProcessGraveyard();
+}
+    15bc:	08 95       	ret
+    15be:	f8 94       	cli
+
+000015c0 <__stop_program>:
+    15c0:	ff cf       	rjmp	.-2      	; 0x15c0 <__stop_program>

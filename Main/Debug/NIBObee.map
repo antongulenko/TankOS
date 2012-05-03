@@ -1,0 +1,1060 @@
+Archive member included because of file (symbol)
+
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                              kernel/nibobee_kernel.o (setPinOutput)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                              kernel/nibobee_kernel.o (setTimerClockSelect)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                              kernel/nibobee_kernel.o (dms_schedule)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                              Main.o (createThread3)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+                              ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o) (schedule_next)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+                              c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o (exit)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+                              kernel/nibobee_kernel.o (__do_copy_data)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+                              kernel/nibobee_kernel.o (__do_clear_bss)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+                              kernel/nibobee_kernel.o (calloc)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                              c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o) (malloc)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                              c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o) (memset)
+
+Allocating common symbols
+Common symbol       size              file
+
+LeftRed             0x2               kernel/nibobee_kernel.o
+processListHead     0x2               ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+LeftYellow          0x2               kernel/nibobee_kernel.o
+Timer3B             0x8               kernel/nibobee_kernel.o
+PinC7               0x3               kernel/nibobee_kernel.o
+Timer3              0x7               kernel/nibobee_kernel.o
+PinB2               0x3               kernel/nibobee_kernel.o
+PinB6               0x3               kernel/nibobee_kernel.o
+Timer1A             0x8               kernel/nibobee_kernel.o
+YellowLeds          0x3               kernel/nibobee_kernel.o
+PinD2               0x3               kernel/nibobee_kernel.o
+PinD0               0x3               kernel/nibobee_kernel.o
+ButtonLeftForward   0x2               kernel/nibobee_kernel.o
+ButtonLeftBackward  0x2               kernel/nibobee_kernel.o
+ButtonRightBackward
+                    0x2               kernel/nibobee_kernel.o
+RightLeds           0x3               kernel/nibobee_kernel.o
+PinC4               0x3               kernel/nibobee_kernel.o
+PinA4               0x3               kernel/nibobee_kernel.o
+RedLeds             0x3               kernel/nibobee_kernel.o
+PinD1               0x3               kernel/nibobee_kernel.o
+Timer3A             0x8               kernel/nibobee_kernel.o
+PinC3               0x3               kernel/nibobee_kernel.o
+Timer0              0x7               kernel/nibobee_kernel.o
+threads             0x28              Main.o
+PinB7               0x3               kernel/nibobee_kernel.o
+PinB5               0x3               kernel/nibobee_kernel.o
+Timer2A             0x8               kernel/nibobee_kernel.o
+PortD               0x6               kernel/nibobee_kernel.o
+RightRed            0x2               kernel/nibobee_kernel.o
+__brkval            0x2               c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+PinA5               0x3               kernel/nibobee_kernel.o
+LeftMotor           0x5               kernel/nibobee_kernel.o
+PinA2               0x3               kernel/nibobee_kernel.o
+PinD3               0x3               kernel/nibobee_kernel.o
+ButtonRightForward  0x2               kernel/nibobee_kernel.o
+queues              0x23              ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+PinC6               0x3               kernel/nibobee_kernel.o
+Timer0A             0x8               kernel/nibobee_kernel.o
+PinA3               0x3               kernel/nibobee_kernel.o
+PinC5               0x3               kernel/nibobee_kernel.o
+counters            0x50              Main.o
+PinC1               0x3               kernel/nibobee_kernel.o
+PinB0               0x3               kernel/nibobee_kernel.o
+PortC               0x6               kernel/nibobee_kernel.o
+AllLeds             0x3               kernel/nibobee_kernel.o
+PinA0               0x3               kernel/nibobee_kernel.o
+PortA               0x6               kernel/nibobee_kernel.o
+PinB3               0x3               kernel/nibobee_kernel.o
+PinA7               0x3               kernel/nibobee_kernel.o
+Timer2              0x7               kernel/nibobee_kernel.o
+LeftLeds            0x3               kernel/nibobee_kernel.o
+PinB4               0x3               kernel/nibobee_kernel.o
+RightMotor          0x5               kernel/nibobee_kernel.o
+PinC2               0x3               kernel/nibobee_kernel.o
+PinD5               0x3               kernel/nibobee_kernel.o
+PinC0               0x3               kernel/nibobee_kernel.o
+PinD7               0x3               kernel/nibobee_kernel.o
+RightYellow         0x2               kernel/nibobee_kernel.o
+Timer2B             0x8               kernel/nibobee_kernel.o
+Timer1B             0x8               kernel/nibobee_kernel.o
+__flp               0x2               c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+PinD4               0x3               kernel/nibobee_kernel.o
+Timer0B             0x8               kernel/nibobee_kernel.o
+PinA6               0x3               kernel/nibobee_kernel.o
+Timer1              0x7               kernel/nibobee_kernel.o
+PinD6               0x3               kernel/nibobee_kernel.o
+PinA1               0x3               kernel/nibobee_kernel.o
+PinB1               0x3               kernel/nibobee_kernel.o
+PortB               0x6               kernel/nibobee_kernel.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800100         0x0000ff00         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+LOAD kernel/analog_ext.o
+LOAD kernel/nibobee_kernel.o
+LOAD Main.o
+LOAD Main_test_blink_reset_condition.o
+LOAD Main_test_clock_routine.o
+LOAD Main_test_DMS_simple.o
+LOAD Main_test_rr_many.o
+LOAD Main_test_rr_two.o
+LOAD Main_test_sleep_clock_onDevice.o
+LOAD Main_test_switchProcess.o
+LOAD Main_test_switchProcess_many.o
+LOAD ..\..\NIBObeeLib\Debug\libNIBObeeLib.a
+LOAD ..\..\AntonAvrLib\Debug\libAntonAvrLib.a
+LOAD c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a
+LOAD c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a
+LOAD c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000     0x15c2
+ *(.vectors)
+ .vectors       0x00000000       0x8c c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+                0x00000000                __vector_default
+                0x00000000                __vectors
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x0000008c                . = ALIGN (0x2)
+                0x0000008c                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x0000008c        0x0 linker stubs
+ *(.trampolines*)
+                0x0000008c                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x0000008c                __ctors_start = .
+ *(.ctors)
+                0x0000008c                __ctors_end = .
+                0x0000008c                __dtors_start = .
+ *(.dtors)
+                0x0000008c                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x0000008c        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+                0x0000008c                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000008c        0xc c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000098       0x1a c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+                0x00000098                __do_copy_data
+ .init4         0x000000b2       0x10 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+                0x000000b2                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ .init8         0x000000c2       0x1c kernel/nibobee_kernel.o
+                0x000000c2                init_reset_condition_kernel_init
+                0x000000c6                init_ports_m1284P_kernel_init
+                0x000000ca                init_timer_m1284P_kernel_init
+                0x000000ce                init_nibobee_leds_kernel_init
+                0x000000d2                init_nibobee_motors_kernel_init
+                0x000000d6                init_nibobee_scheduler_kernel_init
+                0x000000da                init_nibobee_kernel_init
+ *(.init8)
+ *(.init9)
+ .init9         0x000000de        0x8 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ *(.init9)
+ *(.text)
+ .text          0x000000e6        0x4 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+                0x000000e6                __vector_22
+                0x000000e6                __vector_28
+                0x000000e6                __vector_1
+                0x000000e6                __vector_34
+                0x000000e6                __vector_24
+                0x000000e6                __vector_12
+                0x000000e6                __bad_interrupt
+                0x000000e6                __vector_6
+                0x000000e6                __vector_31
+                0x000000e6                __vector_3
+                0x000000e6                __vector_23
+                0x000000e6                __vector_30
+                0x000000e6                __vector_25
+                0x000000e6                __vector_11
+                0x000000e6                __vector_13
+                0x000000e6                __vector_17
+                0x000000e6                __vector_19
+                0x000000e6                __vector_7
+                0x000000e6                __vector_27
+                0x000000e6                __vector_5
+                0x000000e6                __vector_33
+                0x000000e6                __vector_4
+                0x000000e6                __vector_9
+                0x000000e6                __vector_2
+                0x000000e6                __vector_21
+                0x000000e6                __vector_15
+                0x000000e6                __vector_29
+                0x000000e6                __vector_8
+                0x000000e6                __vector_26
+                0x000000e6                __vector_14
+                0x000000e6                __vector_10
+                0x000000e6                __vector_16
+                0x000000e6                __vector_18
+                0x000000e6                __vector_20
+ .text          0x000000ea        0x0 kernel/analog_ext.o
+ .text          0x000000ea        0x0 kernel/nibobee_kernel.o
+ .text          0x000000ea        0x0 Main.o
+ .text          0x000000ea        0x0 Main_test_blink_reset_condition.o
+ .text          0x000000ea        0x0 Main_test_clock_routine.o
+ .text          0x000000ea        0x0 Main_test_DMS_simple.o
+ .text          0x000000ea        0x0 Main_test_rr_many.o
+ .text          0x000000ea        0x0 Main_test_rr_two.o
+ .text          0x000000ea        0x0 Main_test_sleep_clock_onDevice.o
+ .text          0x000000ea        0x0 Main_test_switchProcess.o
+ .text          0x000000ea        0x0 Main_test_switchProcess_many.o
+ .text          0x000000ea        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .text          0x000000ea        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .text          0x000000ea        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .text          0x000000ea        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .text          0x000000ea        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .text          0x000000ea        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .text          0x000000ea        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .text          0x000000ea        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .text          0x000000ea        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .text          0x000000ea        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .text          0x000000ea        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                0x000000ea                . = ALIGN (0x2)
+ *(.text.*)
+ .text.trigger_samplings
+                0x000000ea        0xc kernel/analog_ext.o
+                0x000000ea                trigger_samplings
+ .text.analog_irq_hook
+                0x000000f6        0xc kernel/analog_ext.o
+                0x000000f6                analog_irq_hook
+ .text.ProcessGraveyard
+                0x00000102        0x6 kernel/nibobee_kernel.o
+                0x00000102                ProcessGraveyard
+ .text.init_reset_condition
+                0x00000108        0xa kernel/nibobee_kernel.o
+                0x00000108                init_reset_condition
+ .text.getResetStatus
+                0x00000112        0x6 kernel/nibobee_kernel.o
+                0x00000112                getResetStatus
+ .text.init_ports_m1284P
+                0x00000118      0x28a kernel/nibobee_kernel.o
+                0x00000118                init_ports_m1284P
+ .text.init_timer_m1284P
+                0x000003a2       0xda kernel/nibobee_kernel.o
+                0x000003a2                init_timer_m1284P
+ .text.init_nibobee_leds
+                0x0000047c       0x9c kernel/nibobee_kernel.o
+                0x0000047c                init_nibobee_leds
+ .text.initMotor
+                0x00000518       0x20 kernel/nibobee_kernel.o
+                0x00000518                initMotor
+ .text.init_nibobee_motors
+                0x00000538       0x36 kernel/nibobee_kernel.o
+                0x00000538                init_nibobee_motors
+ .text.init_process_base
+                0x0000056e       0x4c kernel/nibobee_kernel.o
+                0x0000056e                init_process_base
+ .text.createProcessBase3
+                0x000005ba       0xc2 kernel/nibobee_kernel.o
+                0x000005ba                createProcessBase3
+ .text.createProcessBase2
+                0x0000067c       0x10 kernel/nibobee_kernel.o
+                0x0000067c                createProcessBase2
+ .text.createProcessBase
+                0x0000068c        0xa kernel/nibobee_kernel.o
+                0x0000068c                createProcessBase
+ .text.switchContext
+                0x00000696       0xaa kernel/nibobee_kernel.o
+                0x00000696                switchContext
+ .text.getCurrentProcess
+                0x00000740        0xa kernel/nibobee_kernel.o
+                0x00000740                getCurrentProcess
+ .text.switchProcess
+                0x0000074a       0x18 kernel/nibobee_kernel.o
+                0x0000074a                switchProcess
+ .text.createProcess3
+                0x00000762       0x54 kernel/nibobee_kernel.o
+                0x00000762                createProcess3
+ .text.createProcess2
+                0x000007b6       0x10 kernel/nibobee_kernel.o
+                0x000007b6                createProcess2
+ .text.createProcess
+                0x000007c6        0xa kernel/nibobee_kernel.o
+                0x000007c6                createProcess
+ .text.freeProcess
+                0x000007d0       0x34 kernel/nibobee_kernel.o
+                0x000007d0                freeProcess
+ .text.getProcessStackSize
+                0x00000804        0x6 kernel/nibobee_kernel.o
+                0x00000804                getProcessStackSize
+ .text.getFreeProcessStackSize
+                0x0000080a       0x12 kernel/nibobee_kernel.o
+                0x0000080a                getFreeProcessStackSize
+ .text.getProcessNumber
+                0x0000081c        0x8 kernel/nibobee_kernel.o
+                0x0000081c                getProcessNumber
+ .text.getProcessMemory
+                0x00000824        0xa kernel/nibobee_kernel.o
+                0x00000824                getProcessMemory
+ .text.init_process
+                0x0000082e       0x3c kernel/nibobee_kernel.o
+                0x0000082e                init_process
+ .text.init_nibobee_scheduler
+                0x0000086a       0x2e kernel/nibobee_kernel.o
+                0x0000086a                init_nibobee_scheduler
+ .text.start_nibobee_scheduler
+                0x00000898        0xc kernel/nibobee_kernel.o
+                0x00000898                start_nibobee_scheduler
+ .text.before_scheduler
+                0x000008a4        0x2 kernel/nibobee_kernel.o
+ .text.schedule
+                0x000008a6       0x20 kernel/nibobee_kernel.o
+                0x000008a6                schedule
+ .text.__vector_32
+                0x000008c6       0xee kernel/nibobee_kernel.o
+                0x000008c6                __vector_32
+ .text.init_nibobee
+                0x000009b4       0x34 kernel/nibobee_kernel.o
+                0x000009b4                init_nibobee
+ .text.processEntry
+                0x000009e8       0x1c Main.o
+                0x000009e8                processEntry
+ .text.before_scheduler
+                0x00000a04       0x48 Main.o
+                0x00000a04                before_scheduler
+ .text.main     0x00000a4c       0x28 Main.o
+                0x00000a4c                main
+ .text.setPortOutput
+                0x00000a74       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000a74                setPortOutput
+ .text.setPortInput
+                0x00000a84        0xe ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000a84                setPortInput
+ .text.setPinOutput
+                0x00000a92       0x1c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000a92                setPinOutput
+ .text.setPinInput
+                0x00000aae       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000aae                setPinInput
+ .text.writePort
+                0x00000acc        0xc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000acc                writePort
+ .text.readPort
+                0x00000ad8        0xe ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000ad8                readPort
+ .text.setPinOne
+                0x00000ae6       0x1c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000ae6                setPinOne
+ .text.setPinZero
+                0x00000b02       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000b02                setPinZero
+ .text.writePin
+                0x00000b20       0x12 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000b20                writePin
+ .text.readPin  0x00000b32       0x22 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000b32                readPin
+ .text.setCompareMatchOutputMode
+                0x00000b54       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000b54                setCompareMatchOutputMode
+ .text.setTimerClockSelect
+                0x00000bac       0xc8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000bac                setTimerClockSelect
+ .text.setWaveformGenerationMode
+                0x00000c74      0x14e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000c74                setWaveformGenerationMode
+ .text.enableTimerInterrupt
+                0x00000dc2       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000dc2                enableTimerInterrupt
+ .text.enableOutputCompare
+                0x00000dea       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000dea                enableOutputCompare
+ .text.disableOutputCompare
+                0x00000e08        0xa ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000e08                disableOutputCompare
+ .text.setTimerCompareValue
+                0x00000e12       0x30 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000e12                setTimerCompareValue
+ .text.getTimerCompareValue
+                0x00000e42       0x2a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00000e42                getTimerCompareValue
+ .text.AperiodicJobWrapper
+                0x00000e6c       0x26 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00000e6c                AperiodicJobWrapper
+ .text.PeriodicJobWrapper
+                0x00000e92       0x42 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00000e92                PeriodicJobWrapper
+ .text.dms_schedule
+                0x00000ed4       0x6c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00000ed4                dms_schedule
+ .text.insertJobIntoList
+                0x00000f40       0x8a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00000f40                insertJobIntoList
+ .text.initializeJob
+                0x00000fca       0x6c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00000fca                initializeJob
+ .text.createPeriodicJob
+                0x00001036       0x7c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00001036                createPeriodicJob
+ .text.createAperiodicJob
+                0x000010b2       0x64 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x000010b2                createAperiodicJob
+ .text.triggerAperiodicJob
+                0x00001116       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00001116                triggerAperiodicJob
+ .text.insertThreadIntoQueue
+                0x00001126       0x8a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00001126                insertThreadIntoQueue
+ .text.createThread2
+                0x000011b0       0x22 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x000011b0                createThread2
+ .text.createThread
+                0x000011d2        0xa ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x000011d2                createThread
+ .text.createThread3
+                0x000011dc       0x24 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x000011dc                createThread3
+ .text.createThread4
+                0x00001200       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00001200                createThread4
+ .text.rr_schedule
+                0x00001228       0x8c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00001228                rr_schedule
+ .text.rr_captureMainProcess
+                0x000012b4       0x16 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x000012b4                rr_captureMainProcess
+ .text.getCurrentThread
+                0x000012ca        0x6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x000012ca                getCurrentThread
+ .text.schedule_next
+                0x000012d0       0x12 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+                0x000012d0                schedule_next
+ .text.processor_idle
+                0x000012e2       0x12 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+                0x000012e2                processor_idle
+ .text.processor_loop_idle
+                0x000012f4        0x6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+                0x000012f4                processor_loop_idle
+ .text.libgcc   0x000012fa        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x000012fa        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .text.libgcc   0x000012fa        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .text.avr-libc
+                0x000012fa       0x4a c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+                0x000012fa                calloc
+ .text.avr-libc
+                0x00001344      0x266 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x00001344                malloc
+                0x00001478                free
+ .text.avr-libc
+                0x000015aa        0xe c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                0x000015aa                memset
+                0x000015b8                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x000015b8        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+                0x000015b8                _exit
+                0x000015b8                exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ .fini1         0x000015b8        0x6 kernel/nibobee_kernel.o
+                0x000015b8                MainProcessEnd
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x000015be        0x4 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ *(.fini0)
+                0x000015c2                _etext = .
+
+.data           0x00800100      0x118 load address 0x000015c2
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .data          0x00800100        0x0 kernel/analog_ext.o
+ .data          0x00800100      0x109 kernel/nibobee_kernel.o
+                0x00800100                redLedsArray
+                0x00800104                yellowLedsArray
+                0x00800108                rightLedsArray
+                0x0080010c                leftLedsArray
+                0x00800110                allLedsArray
+                0x00800118                __default_stack_size
+                0x0080011a                __nextProcessNumber
+ .data          0x00800209        0x0 Main.o
+ .data          0x00800209        0x0 Main_test_blink_reset_condition.o
+ .data          0x00800209        0x0 Main_test_clock_routine.o
+ .data          0x00800209        0x0 Main_test_DMS_simple.o
+ .data          0x00800209        0x0 Main_test_rr_many.o
+ .data          0x00800209        0x0 Main_test_rr_two.o
+ .data          0x00800209        0x0 Main_test_sleep_clock_onDevice.o
+ .data          0x00800209        0x0 Main_test_switchProcess.o
+ .data          0x00800209        0x0 Main_test_switchProcess_many.o
+ .data          0x00800209        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .data          0x00800209        0x8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .data          0x00800211        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .data          0x00800211        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .data          0x00800211        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .data          0x00800211        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .data          0x00800211        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .data          0x00800211        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .data          0x00800211        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .data          0x00800211        0x6 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x00800211                __malloc_margin
+                0x00800213                __malloc_heap_start
+                0x00800215                __malloc_heap_end
+ .data          0x00800217        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x00800218                . = ALIGN (0x2)
+ *fill*         0x00800217        0x1 00
+                0x00800218                _edata = .
+                0x00800218                PROVIDE (__data_end, .)
+
+.bss            0x00800218      0x1a8
+                0x00800218                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00800218        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .bss           0x00800218        0x0 kernel/analog_ext.o
+ .bss           0x00800218        0x8 kernel/nibobee_kernel.o
+                0x00800218                current_reset_status
+                0x00800219                __main_process_additional_memory
+                0x0080021a                __current_process
+                0x0080021c                milliseconds_running
+ .bss           0x00800220        0x0 Main.o
+ .bss           0x00800220        0x0 Main_test_blink_reset_condition.o
+ .bss           0x00800220        0x0 Main_test_clock_routine.o
+ .bss           0x00800220        0x0 Main_test_DMS_simple.o
+ .bss           0x00800220        0x0 Main_test_rr_many.o
+ .bss           0x00800220        0x0 Main_test_rr_two.o
+ .bss           0x00800220        0x0 Main_test_sleep_clock_onDevice.o
+ .bss           0x00800220        0x0 Main_test_switchProcess.o
+ .bss           0x00800220        0x0 Main_test_switchProcess_many.o
+ .bss           0x00800220        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .bss           0x00800220        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .bss           0x00800220        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .bss           0x00800220        0x2 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00800220                highestPrio
+ .bss           0x00800222        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .bss           0x00800222        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .bss           0x00800222        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .bss           0x00800222        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .bss           0x00800222        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .bss           0x00800222        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .bss           0x00800222        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x00800222       0xfd kernel/nibobee_kernel.o
+                0x00800222                LeftRed
+                0x00800224                LeftYellow
+                0x00800226                Timer3B
+                0x0080022e                PinC7
+                0x00800231                Timer3
+                0x00800238                PinB2
+                0x0080023b                PinB6
+                0x0080023e                Timer1A
+                0x00800246                YellowLeds
+                0x00800249                PinD2
+                0x0080024c                PinD0
+                0x0080024f                ButtonLeftForward
+                0x00800251                ButtonLeftBackward
+                0x00800253                ButtonRightBackward
+                0x00800255                RightLeds
+                0x00800258                PinC4
+                0x0080025b                PinA4
+                0x0080025e                RedLeds
+                0x00800261                PinD1
+                0x00800264                Timer3A
+                0x0080026c                PinC3
+                0x0080026f                Timer0
+                0x00800276                PinB7
+                0x00800279                PinB5
+                0x0080027c                Timer2A
+                0x00800284                PortD
+                0x0080028a                RightRed
+                0x0080028c                PinA5
+                0x0080028f                LeftMotor
+                0x00800294                PinA2
+                0x00800297                PinD3
+                0x0080029a                ButtonRightForward
+                0x0080029c                PinC6
+                0x0080029f                Timer0A
+                0x008002a7                PinA3
+                0x008002aa                PinC5
+                0x008002ad                PinC1
+                0x008002b0                PinB0
+                0x008002b3                PortC
+                0x008002b9                AllLeds
+                0x008002bc                PinA0
+                0x008002bf                PortA
+                0x008002c5                PinB3
+                0x008002c8                PinA7
+                0x008002cb                Timer2
+                0x008002d2                LeftLeds
+                0x008002d5                PinB4
+                0x008002d8                RightMotor
+                0x008002dd                PinC2
+                0x008002e0                PinD5
+                0x008002e3                PinC0
+                0x008002e6                PinD7
+                0x008002e9                RightYellow
+                0x008002eb                Timer2B
+                0x008002f3                Timer1B
+                0x008002fb                PinD4
+                0x008002fe                Timer0B
+                0x00800306                PinA6
+                0x00800309                Timer1
+                0x00800310                PinD6
+                0x00800313                PinA1
+                0x00800316                PinB1
+                0x00800319                PortB
+ COMMON         0x0080031f       0x78 Main.o
+                0x0080031f                threads
+                0x00800347                counters
+ COMMON         0x00800397        0x2 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                0x00800397                processListHead
+ COMMON         0x00800399       0x23 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                0x00800399                queues
+ COMMON         0x008003bc        0x4 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x008003bc                __brkval
+                0x008003be                __flp
+                0x008003c0                PROVIDE (__bss_end, .)
+                0x000015c2                __data_load_start = LOADADDR (.data)
+                0x000016da                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x008003c0        0x0
+                0x008003c0                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x008003c0                PROVIDE (__noinit_end, .)
+                0x008003c0                _end = .
+                0x008003c0                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab           0x00000000      0x738
+ *(.stab)
+ .stab          0x00000000      0x6cc c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .stab          0x000006cc       0x6c c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                                 0x78 (size before relaxing)
+
+.stabstr        0x00000000       0xe7
+ *(.stabstr)
+ .stabstr       0x00000000       0xe7 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x388
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x28 kernel/analog_ext.o
+ .debug_aranges
+                0x00000028      0x148 kernel/nibobee_kernel.o
+ .debug_aranges
+                0x00000170       0x30 Main.o
+ .debug_aranges
+                0x000001a0       0x68 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_aranges
+                0x00000208       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_aranges
+                0x00000260       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_aranges
+                0x000002b8       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_aranges
+                0x00000310       0x30 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_aranges
+                0x00000340       0x20 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_aranges
+                0x00000360       0x28 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_pubnames
+                0x00000000      0xc10
+ *(.debug_pubnames)
+ .debug_pubnames
+                0x00000000       0x3c kernel/analog_ext.o
+ .debug_pubnames
+                0x0000003c      0x766 kernel/nibobee_kernel.o
+ .debug_pubnames
+                0x000007a2       0x5a Main.o
+ .debug_pubnames
+                0x000007fc       0xa7 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_pubnames
+                0x000008a3       0xe2 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_pubnames
+                0x00000985       0xd3 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_pubnames
+                0x00000a58       0xcd ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_pubnames
+                0x00000b25       0x4f ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_pubnames
+                0x00000b74       0x1d c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_pubnames
+                0x00000b91       0x7f c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_info     0x00000000     0x2e35
+ *(.debug_info)
+ .debug_info    0x00000000       0x99 kernel/analog_ext.o
+ .debug_info    0x00000099     0x1523 kernel/nibobee_kernel.o
+ .debug_info    0x000015bc      0x1e2 Main.o
+ .debug_info    0x0000179e       0x29 Main_test_blink_reset_condition.o
+ .debug_info    0x000017c7       0x29 Main_test_clock_routine.o
+ .debug_info    0x000017f0       0x29 Main_test_DMS_simple.o
+ .debug_info    0x00001819       0x29 Main_test_rr_many.o
+ .debug_info    0x00001842       0x29 Main_test_rr_two.o
+ .debug_info    0x0000186b       0x29 Main_test_sleep_clock_onDevice.o
+ .debug_info    0x00001894       0x29 Main_test_switchProcess.o
+ .debug_info    0x000018bd       0x29 Main_test_switchProcess_many.o
+ .debug_info    0x000018e6      0x2d6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_info    0x00001bbc      0x50b ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_info    0x000020c7      0x4fa ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_info    0x000025c1      0x440 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_info    0x00002a01      0x10d ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_info    0x00002b0e       0x91 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_info    0x00002b9f      0x296 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0xbee
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000       0x4e kernel/analog_ext.o
+ .debug_abbrev  0x0000004e      0x2d5 kernel/nibobee_kernel.o
+ .debug_abbrev  0x00000323      0x147 Main.o
+ .debug_abbrev  0x0000046a       0x16 Main_test_blink_reset_condition.o
+ .debug_abbrev  0x00000480       0x16 Main_test_clock_routine.o
+ .debug_abbrev  0x00000496       0x16 Main_test_DMS_simple.o
+ .debug_abbrev  0x000004ac       0x16 Main_test_rr_many.o
+ .debug_abbrev  0x000004c2       0x16 Main_test_rr_two.o
+ .debug_abbrev  0x000004d8       0x16 Main_test_sleep_clock_onDevice.o
+ .debug_abbrev  0x000004ee       0x16 Main_test_switchProcess.o
+ .debug_abbrev  0x00000504       0x16 Main_test_switchProcess_many.o
+ .debug_abbrev  0x0000051a      0x100 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_abbrev  0x0000061a      0x10e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_abbrev  0x00000728      0x17e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_abbrev  0x000008a6      0x12f ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_abbrev  0x000009d5       0xaf ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_abbrev  0x00000a84       0x75 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_abbrev  0x00000af9       0xf5 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_line     0x00000000     0x3e5c
+ *(.debug_line)
+ .debug_line    0x00000000      0x624 kernel/analog_ext.o
+ .debug_line    0x00000624     0x101e kernel/nibobee_kernel.o
+ .debug_line    0x00001642      0x676 Main.o
+ .debug_line    0x00001cb8       0x68 Main_test_blink_reset_condition.o
+ .debug_line    0x00001d20       0x60 Main_test_clock_routine.o
+ .debug_line    0x00001d80       0x5d Main_test_DMS_simple.o
+ .debug_line    0x00001ddd       0x5a Main_test_rr_many.o
+ .debug_line    0x00001e37       0x59 Main_test_rr_two.o
+ .debug_line    0x00001e90       0x67 Main_test_sleep_clock_onDevice.o
+ .debug_line    0x00001ef7       0x60 Main_test_switchProcess.o
+ .debug_line    0x00001f57       0x65 Main_test_switchProcess_many.o
+ .debug_line    0x00001fbc      0x43e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_line    0x000023fa      0x73c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_line    0x00002b36      0x593 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_line    0x000030c9      0x4fe ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_line    0x000035c7      0x39a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_line    0x00003961      0x133 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_line    0x00003a94      0x3c8 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_frame    0x00000000      0x5d0
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x30 kernel/analog_ext.o
+ .debug_frame   0x00000030      0x270 kernel/nibobee_kernel.o
+ .debug_frame   0x000002a0       0x40 Main.o
+ .debug_frame   0x000002e0       0xb0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_frame   0x00000390       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_frame   0x00000420       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_frame   0x000004b0       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_frame   0x00000540       0x40 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_frame   0x00000580       0x20 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_frame   0x000005a0       0x30 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_str      0x00000000     0x1205
+ *(.debug_str)
+ .debug_str     0x00000000       0xaa kernel/analog_ext.o
+                                 0xde (size before relaxing)
+ .debug_str     0x000000aa      0x9c1 kernel/nibobee_kernel.o
+                                0xaa6 (size before relaxing)
+ .debug_str     0x00000a6b       0x46 Main.o
+                                0x15e (size before relaxing)
+ .debug_str     0x00000ab1       0x27 Main_test_blink_reset_condition.o
+                                 0x5d (size before relaxing)
+ .debug_str     0x00000ad8       0x1f Main_test_clock_routine.o
+                                 0x55 (size before relaxing)
+ .debug_str     0x00000af7       0x1c Main_test_DMS_simple.o
+                                 0x52 (size before relaxing)
+ .debug_str     0x00000b13       0x19 Main_test_rr_many.o
+                                 0x4f (size before relaxing)
+ .debug_str     0x00000b2c       0x18 Main_test_rr_two.o
+                                 0x4e (size before relaxing)
+ .debug_str     0x00000b44       0x26 Main_test_sleep_clock_onDevice.o
+                                 0x5c (size before relaxing)
+ .debug_str     0x00000b6a       0x1f Main_test_switchProcess.o
+                                 0x55 (size before relaxing)
+ .debug_str     0x00000b89       0x24 Main_test_switchProcess_many.o
+                                 0x5a (size before relaxing)
+ .debug_str     0x00000bad       0xba ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                                0x15a (size before relaxing)
+ .debug_str     0x00000c67      0x147 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                                0x45b (size before relaxing)
+ .debug_str     0x00000dae      0x199 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+                                0x2cb (size before relaxing)
+ .debug_str     0x00000f47      0x14f ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+                                0x2c7 (size before relaxing)
+ .debug_str     0x00001096       0x51 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+                                0x12c (size before relaxing)
+ .debug_str     0x000010e7       0x5e c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+                                 0x8c (size before relaxing)
+ .debug_str     0x00001145       0xc0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                                0x16a (size before relaxing)
+
+.debug_loc      0x00000000     0x17ce
+ *(.debug_loc)
+ .debug_loc     0x00000000      0x472 kernel/nibobee_kernel.o
+ .debug_loc     0x00000472       0x24 Main.o
+ .debug_loc     0x00000496      0x168 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_loc     0x000005fe      0x68c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_loc     0x00000c8a      0x3de ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_loc     0x00001068      0x2cd ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_loc     0x00001335       0x18 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_loc     0x0000134d       0x58 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_loc     0x000013a5      0x429 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_macinfo  0x00000000    0x575f7
+ *(.debug_macinfo)
+ .debug_macinfo
+                0x00000000     0x8c1f kernel/analog_ext.o
+ .debug_macinfo
+                0x00008c1f     0xa034 kernel/nibobee_kernel.o
+ .debug_macinfo
+                0x00012c53     0x8c4b Main.o
+ .debug_macinfo
+                0x0001b89e     0x2173 Main_test_blink_reset_condition.o
+ .debug_macinfo
+                0x0001da11     0x2173 Main_test_clock_routine.o
+ .debug_macinfo
+                0x0001fb84     0x2173 Main_test_DMS_simple.o
+ .debug_macinfo
+                0x00021cf7     0x2173 Main_test_rr_many.o
+ .debug_macinfo
+                0x00023e6a     0x2173 Main_test_rr_two.o
+ .debug_macinfo
+                0x00025fdd     0x2173 Main_test_sleep_clock_onDevice.o
+ .debug_macinfo
+                0x00028150     0x2173 Main_test_switchProcess.o
+ .debug_macinfo
+                0x0002a2c3     0x2173 Main_test_switchProcess_many.o
+ .debug_macinfo
+                0x0002c436     0x882b ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_macinfo
+                0x00034c61     0x88e2 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_macinfo
+                0x0003d543     0x8dbb ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_macinfo
+                0x000462fe     0x8734 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_macinfo
+                0x0004ea32     0x8bc5 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+OUTPUT(NIBObee.elf elf32-avr)
+LOAD linker stubs
+
+.debug_pubtypes
+                0x00000000      0x4bb
+ .debug_pubtypes
+                0x00000000       0x1e kernel/analog_ext.o
+ .debug_pubtypes
+                0x0000001e      0x138 kernel/nibobee_kernel.o
+ .debug_pubtypes
+                0x00000156       0x37 Main.o
+ .debug_pubtypes
+                0x0000018d       0x3a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_pubtypes
+                0x000001c7       0xbd ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_pubtypes
+                0x00000284       0xb7 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_pubtypes
+                0x0000033b       0xe5 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_pubtypes
+                0x00000420       0x45 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_pubtypes
+                0x00000465       0x1d c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_pubtypes
+                0x00000482       0x39 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+
+.debug_ranges   0x00000000      0x318
+ .debug_ranges  0x00000000       0x18 kernel/analog_ext.o
+ .debug_ranges  0x00000018      0x168 kernel/nibobee_kernel.o
+ .debug_ranges  0x00000180       0x20 Main.o
+ .debug_ranges  0x000001a0       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_ranges  0x000001f8       0x48 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_ranges  0x00000240       0x48 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(dms_scheduler.o)
+ .debug_ranges  0x00000288       0x48 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(rr_scheduler.o)
+ .debug_ranges  0x000002d0       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(scheduler.o)
+ .debug_ranges  0x000002f0       0x10 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(calloc.o)
+ .debug_ranges  0x00000300       0x18 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)

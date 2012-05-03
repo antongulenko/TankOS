@@ -1,0 +1,578 @@
+Archive member included because of file (symbol)
+
+..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+                              Main.o (analog_init)
+..\..\NIBObeeLib\Release\libNIBObeeLib.a(base.o)
+                              ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o) (nibobee_initialization)
+..\..\NIBObeeLib\Release\libNIBObeeLib.a(led.o)
+                              Main.o (led_set)
+..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+                              Main.o (motpwm_init)
+..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+                              Main.o (odometry_init)
+..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+                              Main.o (usart_setbaudrate)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+                              ..\..\NIBObeeLib\Release\libNIBObeeLib.a(base.o) (__udivmodhi4)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
+                              ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o) (__udivmodsi4)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+                              c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o (exit)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+                              Main.o (__do_copy_data)
+c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+                              ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o) (__do_clear_bss)
+
+Allocating common symbols
+Common symbol       size              file
+
+usart_txbuf_begin   0x1               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+usart_rxbuf_end     0x1               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+odometry_pid_left   0x1               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+motpwm_flags        0x1               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+analog_pos          0x1               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+nibobee_initialization
+                    0x1               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(base.o)
+motpwm_motor_l      0x2               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+analog_samples      0x16              ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+usart_rxbuf_begin   0x1               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+usart_txbuf         0x10              ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+motpwm_motor_r      0x2               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+usart_rxbuf         0x8               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+odometry_left       0x2               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+usart_txbuf_end     0x1               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+odometry_right      0x2               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+odometry_pid_right  0x1               ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+
+Discarded input sections
+
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .text          0x00000000        0x0 bgx1_test_gfx.o
+ .data          0x00000000        0x0 bgx1_test_gfx.o
+ .bss           0x00000000        0x0 bgx1_test_gfx.o
+ .text          0x00000000        0x0 bgx1_test_io.o
+ .data          0x00000000        0x0 bgx1_test_io.o
+ .bss           0x00000000        0x0 bgx1_test_io.o
+ .text          0x00000000        0x0 bgx1_test_term.o
+ .data          0x00000000        0x0 bgx1_test_term.o
+ .bss           0x00000000        0x0 bgx1_test_term.o
+ .text          0x00000000        0x0 calibration.o
+ .data          0x00000000        0x0 calibration.o
+ .bss           0x00000000        0x0 calibration.o
+ .text          0x00000000        0x0 first.o
+ .data          0x00000000        0x0 first.o
+ .bss           0x00000000        0x0 first.o
+ .text          0x00000000        0x0 program1.o
+ .data          0x00000000        0x0 program1.o
+ .bss           0x00000000        0x0 program1.o
+ .text          0x00000000        0x0 program2.o
+ .data          0x00000000        0x0 program2.o
+ .bss           0x00000000        0x0 program2.o
+ .text          0x00000000        0x0 program3.o
+ .data          0x00000000        0x0 program3.o
+ .bss           0x00000000        0x0 program3.o
+ .text          0x00000000        0x0 program4.o
+ .data          0x00000000        0x0 program4.o
+ .bss           0x00000000        0x0 program4.o
+ .text          0x00000000        0x0 program5.o
+ .data          0x00000000        0x0 program5.o
+ .bss           0x00000000        0x0 program5.o
+ .text          0x00000000        0x0 program6.o
+ .data          0x00000000        0x0 program6.o
+ .bss           0x00000000        0x0 program6.o
+ .text          0x00000000        0x0 program7.o
+ .data          0x00000000        0x0 program7.o
+ .bss           0x00000000        0x0 program7.o
+ .text          0x00000000        0x0 program8.o
+ .data          0x00000000        0x0 program8.o
+ .bss           0x00000000        0x0 program8.o
+ .text          0x00000000        0x0 program9.o
+ .data          0x00000000        0x0 program9.o
+ .bss           0x00000000        0x0 program9.o
+ .text          0x00000000        0x0 Main.o
+ .bss           0x00000000        0x0 Main.o
+ .text.decode_l
+                0x00000000       0x16 Main.o
+ .text.decode_r
+                0x00000000       0x16 Main.o
+ .text          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+ .data          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+ .bss           0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+ .text          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(base.o)
+ .data          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(base.o)
+ .bss           0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(base.o)
+ .text.nibobee_getMillivolt
+                0x00000000       0x2e ..\..\NIBObeeLib\Release\libNIBObeeLib.a(base.o)
+ .text.nibobee_assertMinVoltage
+                0x00000000      0x43a ..\..\NIBObeeLib\Release\libNIBObeeLib.a(base.o)
+ .text          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(led.o)
+ .data          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(led.o)
+ .bss           0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(led.o)
+ .text.led_init
+                0x00000000        0x8 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(led.o)
+ .text          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+ .data          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+ .bss           0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+ .text          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+ .data          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+ .bss           0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+ .text.odometry_reset
+                0x00000000       0x18 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+ .text.odometry_getLeft
+                0x00000000       0x1e ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+ .text.odometry_getRight
+                0x00000000       0x1e ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+ .text          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+ .data          0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+ .bss           0x00000000        0x0 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+ .text.usart_getchar
+                0x00000000       0x3a ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+ .text.usart_putchar
+                0x00000000       0x44 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+ .text.usart_disable
+                0x00000000        0x6 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+ .text.libgcc   0x00000000       0x28 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800100         0x0000ff00         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+Address of section .data set to 0x800100
+LOAD c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+LOAD bgx1_test_gfx.o
+LOAD bgx1_test_io.o
+LOAD bgx1_test_term.o
+LOAD calibration.o
+LOAD first.o
+LOAD program1.o
+LOAD program2.o
+LOAD program3.o
+LOAD program4.o
+LOAD program5.o
+LOAD program6.o
+LOAD program7.o
+LOAD program8.o
+LOAD program9.o
+LOAD Main.o
+LOAD ..\..\NIBObeeLib\Release\libNIBObeeLib.a
+LOAD c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a
+LOAD c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a
+LOAD c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000      0x93a
+ *(.vectors)
+ .vectors       0x00000000       0x8c c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+                0x00000000                __vector_default
+                0x00000000                __vectors
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x0000008c                . = ALIGN (0x2)
+                0x0000008c                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x0000008c        0x0 linker stubs
+ *(.trampolines*)
+                0x0000008c                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x0000008c                __ctors_start = .
+ *(.ctors)
+                0x0000008c                __ctors_end = .
+                0x0000008c                __dtors_start = .
+ *(.dtors)
+                0x0000008c                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x0000008c        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+                0x0000008c                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x0000008c        0xc c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000098       0x1a c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+                0x00000098                __do_copy_data
+ .init4         0x000000b2       0x10 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+                0x000000b2                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x000000c2        0x4 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ *(.init9)
+ *(.text)
+ .text          0x000000c6        0x2 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+                0x000000c6                __vector_22
+                0x000000c6                __vector_28
+                0x000000c6                __vector_32
+                0x000000c6                __vector_34
+                0x000000c6                __vector_12
+                0x000000c6                __bad_interrupt
+                0x000000c6                __vector_6
+                0x000000c6                __vector_31
+                0x000000c6                __vector_3
+                0x000000c6                __vector_23
+                0x000000c6                __vector_30
+                0x000000c6                __vector_25
+                0x000000c6                __vector_11
+                0x000000c6                __vector_17
+                0x000000c6                __vector_19
+                0x000000c6                __vector_7
+                0x000000c6                __vector_27
+                0x000000c6                __vector_5
+                0x000000c6                __vector_33
+                0x000000c6                __vector_4
+                0x000000c6                __vector_9
+                0x000000c6                __vector_15
+                0x000000c6                __vector_29
+                0x000000c6                __vector_8
+                0x000000c6                __vector_26
+                0x000000c6                __vector_10
+                0x000000c6                __vector_16
+                0x000000c6                __vector_18
+                0x000000c8                . = ALIGN (0x2)
+ *(.text.*)
+ .text.main     0x000000c8      0x1e4 Main.o
+                0x000000c8                main
+ .text.analog_init
+                0x000002ac       0x14 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+                0x000002ac                analog_init
+ .text.analog_getValue
+                0x000002c0       0x18 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+                0x000002c0                analog_getValue
+ .text.analog_irq_hook
+                0x000002d8        0x2 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+                0x000002d8                analog_irq_hook
+ .text.__vector_24
+                0x000002da      0x1cc ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+                0x000002da                __vector_24
+ .text.led_set  0x000004a6       0x46 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(led.o)
+                0x000004a6                led_set
+ .text.motpwm_init
+                0x000004ec       0x2c ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+                0x000004ec                motpwm_init
+ .text.motpwm_stop
+                0x00000518       0x28 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+                0x00000518                motpwm_stop
+ .text.motpwm_setLeft
+                0x00000540       0x80 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+                0x00000540                motpwm_setLeft
+ .text.motpwm_setRight
+                0x000005c0       0x80 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+                0x000005c0                motpwm_setRight
+ .text.__vector_13
+                0x00000640       0x50 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+                0x00000640                __vector_13
+ .text.__vector_14
+                0x00000690       0x50 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+                0x00000690                __vector_14
+ .text.odometry_init
+                0x000006e0       0x16 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+                0x000006e0                odometry_init
+ .text.__vector_1
+                0x000006f6       0x66 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+                0x000006f6                __vector_1
+ .text.__vector_2
+                0x0000075c       0x66 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+                0x0000075c                __vector_2
+ .text.usart_setbaudrate
+                0x000007c2       0x3e ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+                0x000007c2                usart_setbaudrate
+ .text.usart_enable
+                0x00000800        0x8 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+                0x00000800                usart_enable
+ .text.__vector_20
+                0x00000808       0x6e ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+                0x00000808                __vector_20
+ .text.__vector_21
+                0x00000876       0x7c ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+                0x00000876                __vector_21
+ .text.libgcc   0x000008f2       0x44 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodsi4.o)
+                0x000008f2                __udivmodsi4
+                0x00000936                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00000936        0x0 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+                0x00000936                _exit
+                0x00000936                exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00000936        0x4 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ *(.fini0)
+                0x0000093a                _etext = .
+
+.data           0x00800100        0xc load address 0x0000093a
+                0x00800100                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800100        0xc Main.o
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x0080010c                . = ALIGN (0x2)
+                0x0080010c                _edata = .
+                0x0080010c                PROVIDE (__data_end, .)
+
+.bss            0x0080010c       0x3f
+                0x0080010c                PROVIDE (__bss_start, .)
+ *(.bss)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x0080010c       0x17 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(analog.o)
+                0x0080010c                analog_pos
+                0x0080010d                analog_samples
+ COMMON         0x00800123        0x1 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(base.o)
+                0x00800123                nibobee_initialization
+ COMMON         0x00800124        0x5 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(motpwm.o)
+                0x00800124                motpwm_flags
+                0x00800125                motpwm_motor_l
+                0x00800127                motpwm_motor_r
+ COMMON         0x00800129        0x6 ..\..\NIBObeeLib\Release\libNIBObeeLib.a(odometry.o)
+                0x00800129                odometry_pid_left
+                0x0080012a                odometry_left
+                0x0080012c                odometry_right
+                0x0080012e                odometry_pid_right
+ COMMON         0x0080012f       0x1c ..\..\NIBObeeLib\Release\libNIBObeeLib.a(usart.o)
+                0x0080012f                usart_txbuf_begin
+                0x00800130                usart_rxbuf_end
+                0x00800131                usart_rxbuf_begin
+                0x00800132                usart_txbuf
+                0x00800142                usart_rxbuf
+                0x0080014a                usart_txbuf_end
+                0x0080014b                PROVIDE (__bss_end, .)
+                0x0000093a                __data_load_start = LOADADDR (.data)
+                0x00000946                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x0080014b        0x0
+                0x0080014b                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x0080014b                PROVIDE (__noinit_end, .)
+                0x0080014b                _end = .
+                0x0080014b                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab           0x00000000      0x6cc
+ *(.stab)
+ .stab          0x00000000      0x6cc c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+
+.stabstr        0x00000000       0x85
+ *(.stabstr)
+ .stabstr       0x00000000       0x85 c:/program files (x86)/atmel/avr studio 5.0/avr toolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges
+ *(.debug_aranges)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info
+ *(.debug_info)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev
+ *(.debug_abbrev)
+
+.debug_line
+ *(.debug_line)
+
+.debug_frame
+ *(.debug_frame)
+
+.debug_str
+ *(.debug_str)
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(NIBObeeLibTests.elf elf32-avr)
+LOAD linker stubs
