@@ -2871,6 +2871,8 @@ typedef enum {
  TRUE
 } BOOL;
 
+typedef uint8_t byte;
+
 asm ("__RAMPZ__ = 0x3b");
 
 #define ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructContent = variableName; for (int __i = 0; __i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }
@@ -3125,7 +3127,12 @@ void disblePinChangeInterrupt(uint8_t pcNumber);
 
 
 
+#define BUTTON_NORMAL 
+#define BUTTON_INVERTED (1 << 1)
+#define BUTTON_NEEDS_PULLUP (1 << 2)
+
 typedef struct {
+ uint8_t flags;
  PPin pin;
 } Button, *PButton;
 
@@ -3142,19 +3149,21 @@ BOOL buttonStatus(PButton button);
 
 #define DEFINE_INTERRUPT_BUTTON(buttonName) InterruptButton buttonName;
 
-#define INIT_BUTTON(buttonName,pinName) buttonName = (Button) { &pinName }; initButton(&buttonName);
+#define INIT_BUTTON(buttonName,pinName,flags) buttonName = (Button) { flags, &pinName }; initButton(&buttonName);
 
 
-#define INIT_INTERRUPT_BUTTON(buttonName,pinName,interruptNumber) buttonName = (InterruptButton) { &pinName, interruptNumber }; initInterruptButton(&buttonName);
+#define INIT_INTERRUPT_BUTTON(buttonName,pinName,flags,interruptNumber) buttonName = (InterruptButton) { flags, &pinName, interruptNumber }; initInterruptButton(&buttonName);
 # 14 "..\\..\\AntonAvrLib/kernel/devices/button.kernel.h" 2
 
 void initButton(PButton button) {
  setPinInput(button->pin);
+ if (button->flags & (1 << 2))
+  setPinOne(button->pin);
 }
 
 void initInterruptButton(PInterruptButton button) {
+ initButton(button->button);
  enablePinChangeInterrupt(button->pinChangeInterruptNumber);
- setPinInput(button->button->pin);
 }
 # 14 ".././nibobee_button.kernel.h" 2
 # 1 ".././nibobee_button.h" 1
@@ -3171,10 +3180,10 @@ Button ButtonLeftForward;
 # 15 ".././nibobee_button.kernel.h" 2
 
 void init_nibobee_buttons() {
- ButtonLeftBackward = (Button) { &PinC4 }; initButton(&ButtonLeftBackward);
- ButtonLeftForward = (Button) { &PinC5 }; initButton(&ButtonLeftForward);
- ButtonRightBackward = (Button) { &PinC6 }; initButton(&ButtonRightBackward);
- ButtonRightForward = (Button) { &PinC7 }; initButton(&ButtonRightForward);
+ ButtonLeftBackward = (Button) { (1 << 2) | (1 << 1), &PinC5 }; initButton(&ButtonLeftBackward);
+ ButtonLeftForward = (Button) { (1 << 2) | (1 << 1), &PinC4 }; initButton(&ButtonLeftForward);
+ ButtonRightBackward = (Button) { (1 << 2) | (1 << 1), &PinC7 }; initButton(&ButtonRightBackward);
+ ButtonRightForward = (Button) { (1 << 2) | (1 << 1), &PinC6 }; initButton(&ButtonRightForward);
 }
 void init_nibobee_buttons_kernel_init() __attribute__((naked, section(".init8"))); void init_nibobee_buttons_kernel_init() { init_nibobee_buttons(); }
 # 12 ".././nibobee_kernel.c" 2
@@ -3421,6 +3430,483 @@ void init_nibobee_motors_kernel_init() __attribute__((naked, section(".init8")))
 # 1 ".././shared/base.kernel.h" 1
 # 9 ".././shared/base.kernel.h"
 #define _BASE_KERNEL_ 
+
+#define TWI_Slave 
+#define TWI_BIT_RATE_VALUE 17
+#define TWI_PRESCALER_MASK 0
+# 1 ".././shared/../twi.kernel.h" 1
+
+
+#define _TWI_KERNEL_KERNEL_ 
+
+#define TWI_Slave_Address 0x02
+#define TWI_Slave_Buffer_Size 64
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 1
+
+#define _TWI_RAW_KERNEL_ 
+# 13 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
+
+#define TWI_RAW_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/../../anton_std.h" 1
+# 5 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 2
+
+
+typedef struct {
+ uint8_t address;
+} TWIDevice;
+
+extern TWIDevice TWIBroadcast;
+
+typedef struct {
+ byte *data;
+ uint16_t size;
+} TWIBuffer;
+
+typedef struct {
+ TWIBuffer buffer;
+ TWIDevice device;
+ enum {
+  TWI_IllegalOperation,
+  TWI_Receive,
+  TWI_Send
+ } operationMode;
+} TWIOperation;
+
+typedef enum {
+ TWI_No_Error,
+
+ TWI_No_Info_Interrupt,
+ TWI_Bus_Error,
+ TWI_Illegal_Status,
+
+ TWI_SlaveAddress_NoAck,
+ TWI_Arbitration_Lost,
+
+ TWI_Master_TooMuchDataTransmitted,
+
+
+
+
+
+
+ TWI_Slave_NotEnoughDataTransmitted,
+ TWI_Slave_TooMuchDataTransmitted,
+ TWI_Slave_NotEnoughDataReceived
+
+
+} TWIError;
+
+extern volatile BOOL twi_running;
+extern TWIError last_twi_error;
+#define WAIT_FOR_TWI() while (twi_running) ;
+
+
+
+void twiSend(TWIDevice targetDevice, TWIBuffer data);
+void twiReceive(TWIDevice targetDevice, TWIBuffer receiveBuffer);
+void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer);
+
+#define NUM_TWI_OPERATIONS 3
+
+
+
+
+void twiMultipleOperations(int count, TWIOperation *operations);
+# 14 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 2
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h" 1 3
+# 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h" 3
+#define _UTIL_TWI_H_ 1
+# 61 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h" 3
+#define TW_START 0x08
+
+
+
+
+#define TW_REP_START 0x10
+
+
+
+
+
+#define TW_MT_SLA_ACK 0x18
+
+
+
+
+#define TW_MT_SLA_NACK 0x20
+
+
+
+
+#define TW_MT_DATA_ACK 0x28
+
+
+
+
+#define TW_MT_DATA_NACK 0x30
+
+
+
+
+#define TW_MT_ARB_LOST 0x38
+
+
+
+
+
+#define TW_MR_ARB_LOST 0x38
+
+
+
+
+#define TW_MR_SLA_ACK 0x40
+
+
+
+
+#define TW_MR_SLA_NACK 0x48
+
+
+
+
+#define TW_MR_DATA_ACK 0x50
+
+
+
+
+#define TW_MR_DATA_NACK 0x58
+
+
+
+
+
+#define TW_ST_SLA_ACK 0xA8
+
+
+
+
+#define TW_ST_ARB_LOST_SLA_ACK 0xB0
+
+
+
+
+#define TW_ST_DATA_ACK 0xB8
+
+
+
+
+#define TW_ST_DATA_NACK 0xC0
+
+
+
+
+#define TW_ST_LAST_DATA 0xC8
+
+
+
+
+
+#define TW_SR_SLA_ACK 0x60
+
+
+
+
+#define TW_SR_ARB_LOST_SLA_ACK 0x68
+
+
+
+
+#define TW_SR_GCALL_ACK 0x70
+
+
+
+
+#define TW_SR_ARB_LOST_GCALL_ACK 0x78
+
+
+
+
+#define TW_SR_DATA_ACK 0x80
+
+
+
+
+#define TW_SR_DATA_NACK 0x88
+
+
+
+
+#define TW_SR_GCALL_DATA_ACK 0x90
+
+
+
+
+#define TW_SR_GCALL_DATA_NACK 0x98
+
+
+
+
+#define TW_SR_STOP 0xA0
+
+
+
+
+
+#define TW_NO_INFO 0xF8
+
+
+
+
+#define TW_BUS_ERROR 0x00
+# 210 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h" 3
+#define TW_STATUS_MASK (_BV(TWS7)|_BV(TWS6)|_BV(TWS5)|_BV(TWS4)| _BV(TWS3))
+
+
+
+
+
+
+
+#define TW_STATUS (TWSR & TW_STATUS_MASK)
+# 229 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h" 3
+#define TW_READ 1
+
+
+
+
+#define TW_WRITE 0
+# 15 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 2
+
+
+ TWIBuffer twi_handleMasterRequest();
+ void twi_handleMasterTransmission(TWIBuffer twi_buffer);
+ byte twi_defaultSlaveBufferData[64];
+ TWIBuffer twi_defaultSlaveBuffer = { twi_defaultSlaveBufferData, 64 };
+
+
+
+
+
+
+
+void twi_unexpectedCondition() __attribute__((weak));
+void twi_unexpectedCondition() { }
+# 38 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+volatile BOOL twi_running;
+TWIDevice twi_address;
+uint16_t alreadyHandled;
+TWIBuffer twi_buffer;
+TWIError error;
+TWIOperation furtherOperations[3];
+int nextTwiOperation;
+
+void init_twi() {
+ (*(volatile uint8_t *)(0xBC)) = (1 << (0)) | (1 << (2));
+ (*(volatile uint8_t *)(0xBB)) = 0xff;
+ (*(volatile uint8_t *)(0xB8)) = 17;
+ (*(volatile uint8_t *)(0xB9)) = 0;
+
+
+
+
+
+  (*(volatile uint8_t *)(0xBA)) = 0x02;
+
+}
+void init_twi_kernel_init() __attribute__((naked, section(".init8"))); void init_twi_kernel_init() { init_twi(); }
+
+#define twi_base TWCR = _BV(TWEN) | _BV(TWINT) | _BV(TWIE)
+#define twi_start() twi_base | _BV(TWSTA)
+#define twi_ack() twi_base | _BV(TWEA)
+#define twi_continue() twi_base
+#define twi_send(data) TWDR = data; twi_continue()
+#define twi_send_ack(data) TWDR = data; twi_ack()
+
+static inline void twi_stop() {
+
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (4)) | (1 << (6));
+  twi_buffer = twi_defaultSlaveBuffer;
+
+
+
+ twi_running = FALSE;
+}
+
+BOOL next_twi_operation() {
+ TWIOperation current;
+ do {
+  current = furtherOperations[nextTwiOperation++];
+ } while (nextTwiOperation < 3 && current.operationMode == TWI_IllegalOperation);
+ if (nextTwiOperation >= 3) return FALSE;
+
+ if (current.operationMode == TWI_Send) {
+  twi_address.address = current.device.address & ~(1 << (1));
+ } else if (current.operationMode == TWI_Send) {
+  twi_address.address = current.device.address | (1 << (1));;
+ }
+ alreadyHandled = 0;
+ twi_buffer = current.buffer;
+ return TRUE;
+}
+
+static inline void twi_stop_or_next() {
+ if (nextTwiOperation >= 3 || !next_twi_operation()) {
+  twi_stop();
+ }
+}
+
+static inline void twi_end() {
+
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
+  twi_buffer = twi_defaultSlaveBuffer;
+
+
+
+ twi_running = FALSE;
+}
+
+void twi_start_master_operation() {
+ error = TWI_No_Error;
+ twi_running = TRUE;
+ nextTwiOperation = 0;
+ next_twi_operation();
+}
+
+static inline void twi_receive_byte() {
+
+ twi_buffer.data[alreadyHandled++] = (*(volatile uint8_t *)(0xBB));
+ if (alreadyHandled < twi_buffer.size - 1) {
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
+ } else {
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
+ }
+}
+
+static inline void twi_init_receive() {
+ if (twi_buffer.size > 0) {
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
+ } else {
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
+ }
+}
+
+void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_26 (void) {
+ switch(((*(volatile uint8_t *)(0xB9)) & ((1 << (7))|(1 << (6))|(1 << (5))|(1 << (4))| (1 << (3))))) {
+
+  case 0x08:
+  case 0x10:
+
+   (*(volatile uint8_t *)(0xBB)) = twi_address.address; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
+   break;
+  case 0x38:
+   error = TWI_Arbitration_Lost;
+   twi_end();
+   break;
+
+  case 0x28:
+  case 0x18:
+
+
+   if (alreadyHandled < twi_buffer.size) {
+    (*(volatile uint8_t *)(0xBB)) = twi_buffer.data[alreadyHandled++]; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
+   } else {
+    twi_stop_or_next();
+   }
+   break;
+  case 0x20:
+   error = TWI_SlaveAddress_NoAck;
+   twi_stop();
+   break;
+  case 0x30:
+   error = TWI_Master_TooMuchDataTransmitted;
+   twi_stop();
+   break;
+
+  case 0x40:
+   twi_init_receive();
+   break;
+  case 0x50:
+   twi_receive_byte();
+   break;
+  case 0x48:
+   error = TWI_SlaveAddress_NoAck;
+   twi_stop();
+   break;
+  case 0x58:
+
+
+   twi_stop_or_next();
+   break;
+
+
+  case 0xA8:
+  case 0xB0:
+   twi_buffer = twi_handleMasterRequest();
+  case 0xB8:
+   if (alreadyHandled < twi_buffer.size - 1) {
+
+    (*(volatile uint8_t *)(0xBB)) = twi_buffer.data[alreadyHandled++]; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
+   } else {
+
+    (*(volatile uint8_t *)(0xBB)) = twi_buffer.data[alreadyHandled++]; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
+   }
+   break;
+  case 0xC8:
+   error = TWI_Slave_NotEnoughDataTransmitted;
+   twi_end();
+   break;
+  case 0xC0:
+   if (alreadyHandled < twi_buffer.size) {
+    error = TWI_Slave_TooMuchDataTransmitted;
+   }
+   twi_end();
+   break;
+
+  case 0x60:
+  case 0x68:
+  case 0x70:
+  case 0x78:
+   twi_init_receive();
+   break;
+  case 0x80:
+  case 0x90:
+   twi_receive_byte();
+   break;
+  case 0xA0:
+
+   error = TWI_Slave_NotEnoughDataReceived;
+  case 0x88:
+  case 0x98:
+
+   twi_handleMasterTransmission((TWIBuffer) { twi_buffer.data, alreadyHandled } );
+   twi_end();
+   break;
+
+
+  case 0xF8:
+   error = TWI_No_Info_Interrupt;
+  case 0x00:
+   error = TWI_Bus_Error;
+  default:
+   error = TWI_Illegal_Status;
+   twi_unexpectedCondition();
+ }
+}
+# 9 ".././shared/../twi.kernel.h" 2
+
+TWIBuffer twi_handleMasterRequest() {
+ TWIBuffer buf;
+ return buf;
+}
+
+void twi_handleMasterTransmission(TWIBuffer twi_buffer) {
+
+}
+# 15 ".././shared/base.kernel.h" 2
+
 
 # 1 ".././shared/scheduler.kernel.h" 1
 
@@ -3965,7 +4451,7 @@ void start_scheduler() {
  enableTimerInterrupt(&Timer3A);
  __asm__ __volatile__ ("sei" ::: "memory");
 }
-# 12 ".././shared/base.kernel.h" 2
+# 18 ".././shared/base.kernel.h" 2
 
 
 
@@ -4020,13 +4506,21 @@ void triggerAperiodicJob(Process job);
 # 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h" 1
 # 20 ".././shared/../shared/kernel_base.h" 2
 # 16 ".././shared/../kernel.h" 2
-# 1 ".././shared/../nibobee_button.h" 1
+# 1 ".././shared/../twi.h" 1
+
+
+#define TWI_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
+# 6 ".././shared/../twi.h" 2
 # 17 ".././shared/../kernel.h" 2
-# 1 ".././shared/../nibobee_led.h" 1
+# 1 ".././shared/../nibobee_button.h" 1
 # 18 ".././shared/../kernel.h" 2
-# 1 ".././shared/../nibobee_motor.h" 1
+# 1 ".././shared/../nibobee_led.h" 1
 # 19 ".././shared/../kernel.h" 2
-# 20 ".././shared/base.kernel.h" 2
+# 1 ".././shared/../nibobee_motor.h" 1
+# 20 ".././shared/../kernel.h" 2
+# 26 ".././shared/base.kernel.h" 2
 
 Process schedule(BOOL fromTimer) {
  Process p = dms_schedule(fromTimer);

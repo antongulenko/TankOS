@@ -16,7 +16,7 @@
 void init_tank_motors() {
 	
 	// TODO assign correct pins, correct motor-properties
-
+	
 	INIT_2DirPins_MOTOR(LeftMotor, MOTOR_NORMAL, PinA1, Timer1A, PinA1)
 	INIT_2DirPins_MOTOR(RightMotor, MOTOR_NORMAL, PinA1, Timer1B, PinA1)
 }

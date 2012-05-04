@@ -48,10 +48,13 @@ Process schedule(BOOL fromTimer) {
 	return p;
 }
 
+// Pseudo-Led-Group to avoid compilation error.
+LedGroup AllLeds = { 0 };
+
 void init_kernel() {
 	// Final initialization-sequence
 	init_process(); // AFTER other modules modified __default_stack_size and __main_process_additional_memory
-	rr_captureMainProcess(PrioNormal);
+	// rr_captureMainProcess(PrioNormal);
 	before_scheduler(); // AFTER all other initialization and BEFORE starting the scheduler
 	start_scheduler();
 }

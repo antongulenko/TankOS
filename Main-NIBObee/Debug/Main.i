@@ -2875,6 +2875,8 @@ typedef enum {
  TRUE
 } BOOL;
 
+typedef uint8_t byte;
+
 asm ("__RAMPZ__ = 0x3b");
 
 #define ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructContent = variableName; for (int __i = 0; __i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }
@@ -3126,6 +3128,82 @@ Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadPa
 Thread getCurrentThread();
 # 20 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 16 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 1 "..\\..\\Kernel-NIBObee/twi.h" 1
+
+
+#define TWI_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
+
+#define TWI_RAW_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/../../anton_std.h" 1
+# 5 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 2
+
+
+typedef struct {
+ uint8_t address;
+} TWIDevice;
+
+extern TWIDevice TWIBroadcast;
+
+typedef struct {
+ byte *data;
+ uint16_t size;
+} TWIBuffer;
+
+typedef struct {
+ TWIBuffer buffer;
+ TWIDevice device;
+ enum {
+  TWI_IllegalOperation,
+  TWI_Receive,
+  TWI_Send
+ } operationMode;
+} TWIOperation;
+
+typedef enum {
+ TWI_No_Error,
+
+ TWI_No_Info_Interrupt,
+ TWI_Bus_Error,
+ TWI_Illegal_Status,
+
+ TWI_SlaveAddress_NoAck,
+ TWI_Arbitration_Lost,
+
+ TWI_Master_TooMuchDataTransmitted,
+
+
+
+
+
+
+ TWI_Slave_NotEnoughDataTransmitted,
+ TWI_Slave_TooMuchDataTransmitted,
+ TWI_Slave_NotEnoughDataReceived
+
+
+} TWIError;
+
+extern volatile BOOL twi_running;
+extern TWIError last_twi_error;
+#define WAIT_FOR_TWI() while (twi_running) ;
+
+
+
+void twiSend(TWIDevice targetDevice, TWIBuffer data);
+void twiReceive(TWIDevice targetDevice, TWIBuffer receiveBuffer);
+void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer);
+
+#define NUM_TWI_OPERATIONS 3
+
+
+
+
+void twiMultipleOperations(int count, TWIOperation *operations);
+# 6 "..\\..\\Kernel-NIBObee/twi.h" 2
+# 17 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_button.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_button.h"
 #define NIBOBEE_BUTTON_H_ 
@@ -3137,7 +3215,12 @@ Thread getCurrentThread();
 
 
 
+#define BUTTON_NORMAL 
+#define BUTTON_INVERTED (1 << 1)
+#define BUTTON_NEEDS_PULLUP (1 << 2)
+
 typedef struct {
+ uint8_t flags;
  PPin pin;
 } Button, *PButton;
 
@@ -3148,7 +3231,7 @@ typedef struct {
 
 
 BOOL buttonStatus(PButton button);
-# 38 "..\\..\\AntonAvrLib/kernel/devices/button.h"
+# 43 "..\\..\\AntonAvrLib/kernel/devices/button.h"
 #define DEFINE_BUTTON(buttonName) extern Button buttonName;
 
 #define DEFINE_INTERRUPT_BUTTON(buttonName) extern InterruptButton buttonName;
@@ -3158,7 +3241,7 @@ extern Button ButtonRightBackward;
 extern Button ButtonRightForward;
 extern Button ButtonLeftBackward;
 extern Button ButtonLeftForward;
-# 17 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 18 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_led.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_led.h"
 #define NIBOBEE_LED_H_ 
@@ -3175,7 +3258,7 @@ extern LedGroup YellowLeds;
 extern LedGroup RightLeds;
 extern LedGroup LeftLeds;
 extern LedGroup AllLeds;
-# 18 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 19 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_motor.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_motor.h"
 #define NIBOBEE_MOTOR_H_ 
@@ -3355,42 +3438,42 @@ void setDirSpeed(PMotor motor, int16_t speed);
 
 extern Motor LeftMotor;
 extern Motor RightMotor;
-# 19 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 20 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 14 "../../Main/Main.c" 2
-# 22 "../../Main/Main.c"
-#define Main_test_DMS_rr_two 
 
+
+
+
+#define Main_test_NIBObee_Buttons 
+# 27 "../../Main/Main.c"
 # 1 "../../Main/device_tests/Main_test_blink_AllLeds.c" 1
-# 25 "../../Main/Main.c" 2
-# 1 "../../Main/device_tests/Main_test_blink_reset_condition.c" 1
-# 26 "../../Main/Main.c" 2
-
-# 1 "../../Main/simulator_tests/Main_test_switchProcess.c" 1
 # 28 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_switchProcess_many.c" 1
+# 1 "../../Main/device_tests/Main_test_blink_reset_condition.c" 1
 # 29 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_rr_two.c" 1
+# 1 "../../Main/device_tests/Main_test_AllLeds.c" 1
 # 30 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_rr_many.c" 1
-# 31 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_DMS_rr_two.c" 1
+# 1 "../../Main/device_tests/Main_test_NIBObee_Buttons.c" 1
 
-
-volatile uint16_t counter = 0;
-volatile uint16_t main_counter = 0;
-
-void MyPeriodicJob() {
- counter++;
-}
-
-void before_scheduler() {
- createPeriodicJob(&MyPeriodicJob, 50, 0);
-}
 
 int main() {
-
  while (1) {
-  main_counter++;
+  setLed(&LeftYellow, buttonStatus(&ButtonLeftBackward));
+  setLed(&LeftRed, buttonStatus(&ButtonLeftForward));
+  setLed(&RightYellow, buttonStatus(&ButtonRightBackward));
+  setLed(&RightRed, buttonStatus(&ButtonRightForward));
  }
 }
-# 32 "../../Main/Main.c" 2
+# 31 "../../Main/Main.c" 2
+
+# 1 "../../Main/simulator_tests/Main_test_switchProcess.c" 1
+# 33 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_switchProcess_many.c" 1
+# 34 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_rr_two.c" 1
+# 35 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_rr_many.c" 1
+# 36 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_DMS_rr_two.c" 1
+# 37 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_DMS_with_idle.c" 1
+# 38 "../../Main/Main.c" 2

@@ -5,6 +5,8 @@
 # 13 "../../Main/Main.c"
 # 1 "..\\..\\Kernel-NIBObee/kernel.h" 1
 # 15 "..\\..\\Kernel-NIBObee/kernel.h"
+# 1 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 1
+# 12 "..\\..\\Kernel-NIBObee/shared/kernel_base.h"
 # 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
 # 11 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h"
 # 1 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 1
@@ -313,12 +315,18 @@ typedef enum {
  TRUE
 } BOOL;
 
+typedef uint8_t byte;
+
 asm ("__RAMPZ__ = 0x3b");
 # 12 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 2
 
 
-extern uint32_t milliseconds_running;
-# 16 "..\\..\\Kernel-NIBObee/kernel.h" 2
+
+
+
+
+ extern uint32_t milliseconds_running;
+# 13 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
 # 11 "..\\..\\AntonAvrLib/kernel/reset_condition.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/led.h" 1
@@ -390,14 +398,14 @@ uint16_t resetStatusBitmask();
 
 
 void blink_reset_condition(PLedGroup leds);
-# 17 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 14 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/anton_std.h" 1
-# 18 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 15 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 
 # 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h" 1
 # 12 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h"
 void schedule_next();
-# 20 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 17 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h" 1
 # 16 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h"
 # 1 "..\\..\\AntonAvrLib/kernel/processes/process.h" 1
@@ -458,7 +466,7 @@ uint16_t getProcessNumber(Process process);
 
 
 void freeProcess(Process process);
-# 21 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 18 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h" 1
 # 13 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h"
 # 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/../process.h" 1
@@ -476,7 +484,7 @@ Process createAperiodicJob(JobEntryPoint entryPoint, uint32_t minimalPeriod, uin
 
 
 void triggerAperiodicJob(Process job);
-# 22 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 19 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h" 1
 # 11 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h"
 # 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/../process.h" 1
@@ -506,8 +514,84 @@ Thread createThread3(ThreadEntryPoint entry, ThreadPriority prio, void *threadPa
 Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter, uint16_t stackSize);
 
 Thread getCurrentThread();
-# 23 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 20 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
+# 16 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 1 "..\\..\\Kernel-NIBObee/twi.h" 1
 
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/../../anton_std.h" 1
+# 5 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 2
+
+
+typedef struct {
+ uint8_t address;
+} TWIDevice;
+
+extern TWIDevice TWIBroadcast;
+
+typedef struct {
+ byte *data;
+ uint16_t size;
+} TWIBuffer;
+
+typedef struct {
+ TWIBuffer buffer;
+ TWIDevice device;
+ enum {
+  TWI_IllegalOperation,
+  TWI_Receive,
+  TWI_Send
+ } operationMode;
+} TWIOperation;
+
+typedef enum {
+ TWI_No_Error,
+
+ TWI_No_Info_Interrupt,
+ TWI_Bus_Error,
+ TWI_Illegal_Status,
+
+ TWI_SlaveAddress_NoAck,
+ TWI_Arbitration_Lost,
+
+ TWI_Master_TooMuchDataTransmitted,
+
+
+
+
+
+
+ TWI_Slave_NotEnoughDataTransmitted,
+ TWI_Slave_TooMuchDataTransmitted,
+ TWI_Slave_NotEnoughDataReceived
+
+
+} TWIError;
+
+extern volatile BOOL twi_running;
+extern TWIError last_twi_error;
+
+
+
+
+void twiSend(TWIDevice targetDevice, TWIBuffer data);
+void twiReceive(TWIDevice targetDevice, TWIBuffer receiveBuffer);
+void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer);
+
+
+
+
+
+
+void twiMultipleOperations(int count, TWIOperation *operations);
+# 6 "..\\..\\Kernel-NIBObee/twi.h" 2
+# 17 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_button.h" 1
 # 11 "..\\..\\Kernel-NIBObee/nibobee_button.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/button.h" 1
@@ -529,7 +613,7 @@ extern Button ButtonRightBackward;
 extern Button ButtonRightForward;
 extern Button ButtonLeftBackward;
 extern Button ButtonLeftForward;
-# 25 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 18 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_led.h" 1
 # 11 "..\\..\\Kernel-NIBObee/nibobee_led.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/led.h" 1
@@ -544,7 +628,7 @@ extern LedGroup YellowLeds;
 extern LedGroup RightLeds;
 extern LedGroup LeftLeds;
 extern LedGroup AllLeds;
-# 26 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 19 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_motor.h" 1
 # 11 "..\\..\\Kernel-NIBObee/nibobee_motor.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h" 1
@@ -695,31 +779,107 @@ void setDirSpeed(PMotor motor, int16_t speed);
 
 extern Motor LeftMotor;
 extern Motor RightMotor;
-# 27 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 20 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 14 "../../Main/Main.c" 2
-# 53 "../../Main/Main.c"
-# 1 "../../Main/main/Main_test_rr_many.c" 1
+# 26 "../../Main/Main.c"
+# 1 "../../Main/device_tests/Main_test_blink_AllLeds.c" 1
+# 27 "../../Main/Main.c" 2
+# 1 "../../Main/device_tests/Main_test_blink_reset_condition.c" 1
+# 28 "../../Main/Main.c" 2
+# 1 "../../Main/device_tests/Main_test_AllLeds.c" 1
 
 
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 1 3
+# 43 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 1 3
+# 40 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+static inline void _delay_loop_1(uint8_t __count) __attribute__((always_inline));
+static inline void _delay_loop_2(uint16_t __count) __attribute__((always_inline));
+# 80 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+void
+_delay_loop_1(uint8_t __count)
+{
+ __asm__ volatile (
+  "1: dec %0" "\n\t"
+  "brne 1b"
+  : "=r" (__count)
+  : "0" (__count)
+ );
+}
+# 102 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+void
+_delay_loop_2(uint16_t __count)
+{
+ __asm__ volatile (
+  "1: sbiw %0,1" "\n\t"
+  "brne 1b"
+  : "=w" (__count)
+  : "0" (__count)
+ );
+}
+# 44 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 2 3
+# 83 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+static inline void _delay_us(double __us) __attribute__((always_inline));
+static inline void _delay_ms(double __ms) __attribute__((always_inline));
+# 131 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+void
+_delay_ms(double __ms)
+{
+ uint16_t __ticks;
+ double __tmp ;
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((20000000) / 1e3) * __ms;
+# 149 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 
 
-volatile unsigned long counters[20];
-Thread threads[20];
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 174 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+}
+# 208 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+void
+_delay_us(double __us)
+{
+ uint8_t __ticks;
+ double __tmp ;
 
-void processEntry(volatile unsigned long *testMyCounter) {
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((20000000) / 1e6) * __us;
+# 226 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 244 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+}
+# 4 "../../Main/device_tests/Main_test_AllLeds.c" 2
+
+int i = 0;
+
+int main() {
  while (1) {
-  (*testMyCounter)++;
+  if (i >= AllLeds.count) i = 0;
+  enableLed(AllLeds.leds[i]);
+  _delay_ms(200);
+  disableLed(AllLeds.leds[i]);
+  _delay_ms(100);
+  i++;
  }
 }
+# 29 "../../Main/Main.c" 2
 
-void before_scheduler() {
- threads[0] = getCurrentThread();
- for (int i = 1; i < 20; i++) {
-  threads[i] = createThread3(processEntry, PrioHigh, (void*) counters + i);
- }
-}
-
-int main(void) {
- processEntry(counters + 0);
-}
-# 54 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_switchProcess.c" 1
+# 31 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_switchProcess_many.c" 1
+# 32 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_rr_two.c" 1
+# 33 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_rr_many.c" 1
+# 34 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_DMS_rr_two.c" 1
+# 35 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_DMS_with_idle.c" 1
+# 36 "../../Main/Main.c" 2

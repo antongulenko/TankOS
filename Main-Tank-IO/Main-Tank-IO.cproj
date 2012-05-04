@@ -23,7 +23,7 @@
     <OutputFileName>Main-Tank-IO</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <ToolchainSettings>
-      <AvrGcc xmlns="">
+      <AvrGcc>
   <avrgcc.compiler.symbols.DefSymbols>
     <ListValues>
       <Value>AVR</Value>

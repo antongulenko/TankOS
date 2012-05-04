@@ -2872,6 +2872,8 @@ typedef enum {
  TRUE
 } BOOL;
 
+typedef uint8_t byte;
+
 asm ("__RAMPZ__ = 0x3b");
 
 #define ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructContent = variableName; for (int __i = 0; __i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }

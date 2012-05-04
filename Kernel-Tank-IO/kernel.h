@@ -12,6 +12,7 @@
 // The modules included here should be analog to tank_kernel_MASTER.c.
 
 #include "shared/kernel_base.h"
+#include "shared/twi.h"
 #include "tank_button.h"
 #include "tank_led.h"
 

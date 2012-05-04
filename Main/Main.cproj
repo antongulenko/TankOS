@@ -107,6 +107,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="device_tests\Main_test_AllLeds.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="device_tests\Main_test_NIBObee_Buttons.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -117,6 +123,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="simulator_tests\Main_test_DMS_rr_two.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="simulator_tests\Main_test_DMS_with_idle.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="simulator_tests\Main_test_rr_many.c">

@@ -2872,6 +2872,8 @@ typedef enum {
  TRUE
 } BOOL;
 
+typedef uint8_t byte;
+
 asm ("__RAMPZ__ = 0x3b");
 
 #define ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructContent = variableName; for (int __i = 0; __i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }
@@ -2930,7 +2932,12 @@ BOOL readPin(PPin pin);
 # 12 "../kernel/devices/button.h" 2
 
 
+#define BUTTON_NORMAL 
+#define BUTTON_INVERTED (1 << 1)
+#define BUTTON_NEEDS_PULLUP (1 << 2)
+
 typedef struct {
+ uint8_t flags;
  PPin pin;
 } Button, *PButton;
 
@@ -2941,7 +2948,7 @@ typedef struct {
 
 
 BOOL buttonStatus(PButton button);
-# 38 "../kernel/devices/button.h"
+# 43 "../kernel/devices/button.h"
 #define DEFINE_BUTTON(buttonName) extern Button buttonName;
 
 #define DEFINE_INTERRUPT_BUTTON(buttonName) extern InterruptButton buttonName;
@@ -2949,5 +2956,7 @@ BOOL buttonStatus(PButton button);
 
 
 BOOL buttonStatus(PButton button) {
- return readPin(button->pin);
+ BOOL val = readPin(button->pin);
+ if (button->flags & (1 << 1)) val = !val;
+ return val;
 }

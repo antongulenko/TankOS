@@ -3,7 +3,7 @@
 # 1 "<command-line>"
 # 1 ".././nibobee_kernel.c"
 # 9 ".././nibobee_kernel.c"
-# 1 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel" 1
+# 1 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 1
 
 
 
@@ -315,9 +315,11 @@ typedef enum {
  TRUE
 } BOOL;
 
+typedef uint8_t byte;
+
 asm ("__RAMPZ__ = 0x3b");
 # 10 "..\\..\\AntonAvrLib/kernel/kernel_init.h" 2
-# 5 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel" 2
+# 5 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
 # 11 "..\\..\\AntonAvrLib/kernel/reset_condition.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/led.h" 1
@@ -389,7 +391,7 @@ uint16_t resetStatusBitmask();
 
 
 void blink_reset_condition(PLedGroup leds);
-# 6 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel" 2
+# 6 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 2
 
 uint8_t current_reset_status = 0;
 
@@ -406,19 +408,19 @@ uint8_t getResetStatus() {
  return current_reset_status;
 }
 # 10 ".././nibobee_kernel.c" 2
-# 1 ".././nibobee_led.kernel" 1
-# 11 ".././nibobee_led.kernel"
-# 1 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel" 1
-# 11 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel"
+# 1 ".././nibobee_led.kernel.h" 1
+# 11 ".././nibobee_led.kernel.h"
+# 1 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel.h" 1
+# 11 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/../kernel_init.h" 1
-# 12 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel" 2
+# 12 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.h" 1
 # 13 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.h"
 Port PortA; Pin PinA0; Pin PinA1; Pin PinA2; Pin PinA3; Pin PinA4; Pin PinA5; Pin PinA6; Pin PinA7;
 Port PortB; Pin PinB0; Pin PinB1; Pin PinB2; Pin PinB3; Pin PinB4; Pin PinB5; Pin PinB6; Pin PinB7;
 Port PortC; Pin PinC0; Pin PinC1; Pin PinC2; Pin PinC3; Pin PinC4; Pin PinC5; Pin PinC6; Pin PinC7;
 Port PortD; Pin PinD0; Pin PinD1; Pin PinD2; Pin PinD3; Pin PinD4; Pin PinD5; Pin PinD6; Pin PinD7;
-# 13 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel" 2
+# 13 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel.h" 2
 
 void init_ports_m1284P() {
  PortA = (Port) { &(*(volatile uint8_t *)((0x02) + 0x20)), &(*(volatile uint8_t *)((0x00) + 0x20)), &(*(volatile uint8_t *)((0x01) + 0x20)) }; PinA0 = (Pin) { &PortA, (1 << (0)) }; PinA1 = (Pin) { &PortA, (1 << (1)) }; PinA2 = (Pin) { &PortA, (1 << (2)) }; PinA3 = (Pin) { &PortA, (1 << (3)) }; PinA4 = (Pin) { &PortA, (1 << (4)) }; PinA5 = (Pin) { &PortA, (1 << (5)) }; PinA6 = (Pin) { &PortA, (1 << (6)) }; PinA7 = (Pin) { &PortA, (1 << (7)) };;
@@ -427,16 +429,16 @@ void init_ports_m1284P() {
  PortD = (Port) { &(*(volatile uint8_t *)((0x0B) + 0x20)), &(*(volatile uint8_t *)((0x09) + 0x20)), &(*(volatile uint8_t *)((0x0A) + 0x20)) }; PinD0 = (Pin) { &PortD, (1 << (0)) }; PinD1 = (Pin) { &PortD, (1 << (1)) }; PinD2 = (Pin) { &PortD, (1 << (2)) }; PinD3 = (Pin) { &PortD, (1 << (3)) }; PinD4 = (Pin) { &PortD, (1 << (4)) }; PinD5 = (Pin) { &PortD, (1 << (5)) }; PinD6 = (Pin) { &PortD, (1 << (6)) }; PinD7 = (Pin) { &PortD, (1 << (7)) };;
 }
 void init_ports_m1284P_kernel_init() __attribute__((naked, section(".init8"))); void init_ports_m1284P_kernel_init() { init_ports_m1284P(); }
-# 12 ".././nibobee_led.kernel" 2
-# 1 "..\\..\\AntonAvrLib/kernel/devices/led.kernel" 1
-# 12 "..\\..\\AntonAvrLib/kernel/devices/led.kernel"
+# 12 ".././nibobee_led.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/devices/led.kernel.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/devices/led.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/led.h" 1
-# 13 "..\\..\\AntonAvrLib/kernel/devices/led.kernel" 2
+# 13 "..\\..\\AntonAvrLib/kernel/devices/led.kernel.h" 2
 
 static void initLed(PLed led) {
  setPinOutput(led->pin);
 }
-# 13 ".././nibobee_led.kernel" 2
+# 13 ".././nibobee_led.kernel.h" 2
 # 1 ".././nibobee_led.h" 1
 # 11 ".././nibobee_led.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/led.h" 1
@@ -451,9 +453,9 @@ LedGroup YellowLeds;
 LedGroup RightLeds;
 LedGroup LeftLeds;
 LedGroup AllLeds;
-# 14 ".././nibobee_led.kernel" 2
+# 14 ".././nibobee_led.kernel.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/kernel_init.h" 1
-# 15 ".././nibobee_led.kernel" 2
+# 15 ".././nibobee_led.kernel.h" 2
 
 PLed redLedsArray[] = { &LeftRed, &RightRed };
 PLed yellowLedsArray[] = { &LeftYellow, &RightYellow };
@@ -475,15 +477,15 @@ void init_nibobee_leds() {
 }
 void init_nibobee_leds_kernel_init() __attribute__((naked, section(".init8"))); void init_nibobee_leds_kernel_init() { init_nibobee_leds(); }
 # 11 ".././nibobee_kernel.c" 2
-# 1 ".././nibobee_button.kernel" 1
-# 13 ".././nibobee_button.kernel"
-# 1 "..\\..\\AntonAvrLib/kernel/devices/button.kernel" 1
-# 12 "..\\..\\AntonAvrLib/kernel/devices/button.kernel"
+# 1 ".././nibobee_button.kernel.h" 1
+# 13 ".././nibobee_button.kernel.h"
+# 1 "..\\..\\AntonAvrLib/kernel/devices/button.kernel.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/devices/button.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/external_interrupts.h" 1
 # 14 "..\\..\\AntonAvrLib/kernel/devices/external_interrupts.h"
 void enablePinChangeInterrupt(uint8_t pcNumber);
 void disblePinChangeInterrupt(uint8_t pcNumber);
-# 13 "..\\..\\AntonAvrLib/kernel/devices/button.kernel" 2
+# 13 "..\\..\\AntonAvrLib/kernel/devices/button.kernel.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/devices/button.h" 1
 # 14 "..\\..\\AntonAvrLib/kernel/devices/button.h"
 typedef struct {
@@ -497,7 +499,7 @@ typedef struct {
 
 
 BOOL buttonStatus(PButton button);
-# 14 "..\\..\\AntonAvrLib/kernel/devices/button.kernel" 2
+# 14 "..\\..\\AntonAvrLib/kernel/devices/button.kernel.h" 2
 
 void initButton(PButton button) {
  setPinInput(button->pin);
@@ -507,7 +509,7 @@ void initInterruptButton(PInterruptButton button) {
  enablePinChangeInterrupt(button->pinChangeInterruptNumber);
  setPinInput(button->button->pin);
 }
-# 14 ".././nibobee_button.kernel" 2
+# 14 ".././nibobee_button.kernel.h" 2
 # 1 ".././nibobee_button.h" 1
 # 11 ".././nibobee_button.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/button.h" 1
@@ -517,7 +519,7 @@ Button ButtonRightBackward;
 Button ButtonRightForward;
 Button ButtonLeftBackward;
 Button ButtonLeftForward;
-# 15 ".././nibobee_button.kernel" 2
+# 15 ".././nibobee_button.kernel.h" 2
 
 void init_nibobee_buttons() {
  ButtonLeftBackward = (Button) { &PinC4 }; initButton(&ButtonLeftBackward);
@@ -527,10 +529,10 @@ void init_nibobee_buttons() {
 }
 void init_nibobee_buttons_kernel_init() __attribute__((naked, section(".init8"))); void init_nibobee_buttons_kernel_init() { init_nibobee_buttons(); }
 # 12 ".././nibobee_kernel.c" 2
-# 1 ".././nibobee_motor.kernel" 1
-# 12 ".././nibobee_motor.kernel"
-# 1 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel" 1
-# 12 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel"
+# 1 ".././nibobee_motor.kernel.h" 1
+# 12 ".././nibobee_motor.kernel.h"
+# 1 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h" 1
 # 11 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/timer.h" 1
@@ -630,9 +632,9 @@ Timer Timer2A;
 Timer Timer2B;
 Timer Timer3A;
 Timer Timer3B;
-# 13 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel" 2
-# 1 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel" 1
-# 14 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel" 2
+# 13 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel.h" 1
+# 14 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 2
 
 void init_timer_m1284P() {
  Timer0 = (TimerConfig) {0, (uint8_t*) &(*(volatile uint8_t *)((0x24) + 0x20)), (uint8_t*) &(*(volatile uint8_t *)((0x25) + 0x20)), &(*(volatile uint8_t *)(0x6E))};
@@ -650,9 +652,9 @@ void init_timer_m1284P() {
  Timer3B = (Timer) {&Timer3, (uint8_t*) &(*(volatile uint16_t *)(0x9A)), TIMER_B, &PinB7};
 }
 void init_timer_m1284P_kernel_init() __attribute__((naked, section(".init8"))); void init_timer_m1284P_kernel_init() { init_timer_m1284P(); }
-# 13 ".././nibobee_motor.kernel" 2
-# 1 "..\\..\\AntonAvrLib/kernel/devices/motor.kernel" 1
-# 12 "..\\..\\AntonAvrLib/kernel/devices/motor.kernel"
+# 13 ".././nibobee_motor.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/devices/motor.kernel.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/devices/motor.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/motor.h" 1
 # 20 "..\\..\\AntonAvrLib/kernel/devices/motor.h"
 typedef struct {
@@ -691,7 +693,7 @@ void setSpeedBackward(PMotor motor, uint16_t speed);
 
 int16_t getDirSpeed(PMotor motor);
 void setDirSpeed(PMotor motor, int16_t speed);
-# 13 "..\\..\\AntonAvrLib/kernel/devices/motor.kernel" 2
+# 13 "..\\..\\AntonAvrLib/kernel/devices/motor.kernel.h" 2
 
 
 void initMotor(PMotor motor) {
@@ -704,7 +706,7 @@ void initMotor2Pins(PMotor2Pins motor) {
  setPinOutput(motor->direction2);
  stopMotor((PMotor) motor);
 }
-# 14 ".././nibobee_motor.kernel" 2
+# 14 ".././nibobee_motor.kernel.h" 2
 # 1 ".././nibobee_motor.h" 1
 # 11 ".././nibobee_motor.h"
 # 1 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h" 1
@@ -714,7 +716,7 @@ void initMotor2Pins(PMotor2Pins motor) {
 
 Motor LeftMotor;
 Motor RightMotor;
-# 15 ".././nibobee_motor.kernel" 2
+# 15 ".././nibobee_motor.kernel.h" 2
 
 void init_nibobee_motors() {
  LeftMotor = (Motor) { 0, &PinD6, &Timer1A }; initMotor(&LeftMotor);
@@ -722,15 +724,319 @@ void init_nibobee_motors() {
 }
 void init_nibobee_motors_kernel_init() __attribute__((naked, section(".init8"))); void init_nibobee_motors_kernel_init() { init_nibobee_motors(); }
 # 13 ".././nibobee_kernel.c" 2
-# 1 ".././shared/base.kernel" 1
-# 11 ".././shared/base.kernel"
-# 1 ".././shared/scheduler.kernel" 1
+# 1 ".././shared/base.kernel.h" 1
+# 14 ".././shared/base.kernel.h"
+# 1 ".././shared/../twi.kernel.h" 1
 
 
 
 
-# 1 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel" 1
-# 11 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel"
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 1
+# 13 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/../../anton_std.h" 1
+# 5 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 2
+
+
+typedef struct {
+ uint8_t address;
+} TWIDevice;
+
+extern TWIDevice TWIBroadcast;
+
+typedef struct {
+ byte *data;
+ uint16_t size;
+} TWIBuffer;
+
+typedef struct {
+ TWIBuffer buffer;
+ TWIDevice device;
+ enum {
+  TWI_IllegalOperation,
+  TWI_Receive,
+  TWI_Send
+ } operationMode;
+} TWIOperation;
+
+typedef enum {
+ TWI_No_Error,
+
+ TWI_No_Info_Interrupt,
+ TWI_Bus_Error,
+ TWI_Illegal_Status,
+
+ TWI_SlaveAddress_NoAck,
+ TWI_Arbitration_Lost,
+
+ TWI_Master_TooMuchDataTransmitted,
+
+
+
+
+
+
+ TWI_Slave_NotEnoughDataTransmitted,
+ TWI_Slave_TooMuchDataTransmitted,
+ TWI_Slave_NotEnoughDataReceived
+
+
+} TWIError;
+
+extern volatile BOOL twi_running;
+extern TWIError last_twi_error;
+
+
+
+
+void twiSend(TWIDevice targetDevice, TWIBuffer data);
+void twiReceive(TWIDevice targetDevice, TWIBuffer receiveBuffer);
+void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer);
+
+
+
+
+
+
+void twiMultipleOperations(int count, TWIOperation *operations);
+# 14 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 2
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h" 1 3
+# 15 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 2
+
+
+ TWIBuffer twi_handleMasterRequest();
+ void twi_handleMasterTransmission(TWIBuffer twi_buffer);
+ byte twi_defaultSlaveBufferData[64];
+ TWIBuffer twi_defaultSlaveBuffer = { twi_defaultSlaveBufferData, 64 };
+
+
+
+
+
+
+
+void twi_unexpectedCondition() __attribute__((weak));
+void twi_unexpectedCondition() { }
+# 38 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+volatile BOOL twi_running;
+TWIDevice twi_address;
+uint16_t alreadyHandled;
+TWIBuffer twi_buffer;
+TWIError error;
+TWIOperation furtherOperations[3];
+int nextTwiOperation;
+
+void init_twi() {
+ (*(volatile uint8_t *)(0xBC)) = (1 << (0)) | (1 << (2));
+ (*(volatile uint8_t *)(0xBB)) = 0xff;
+ (*(volatile uint8_t *)(0xB8)) = 17;
+ (*(volatile uint8_t *)(0xB9)) = 0;
+
+
+
+
+
+  (*(volatile uint8_t *)(0xBA)) = 0x02;
+
+}
+void init_twi_kernel_init() __attribute__((naked, section(".init8"))); void init_twi_kernel_init() { init_twi(); }
+# 68 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+static inline void twi_stop() {
+
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (4)) | (1 << (6));
+  twi_buffer = twi_defaultSlaveBuffer;
+
+
+
+ twi_running = FALSE;
+}
+
+BOOL next_twi_operation() {
+ TWIOperation current;
+ do {
+  current = furtherOperations[nextTwiOperation++];
+ } while (nextTwiOperation < 3 && current.operationMode == TWI_IllegalOperation);
+ if (nextTwiOperation >= 3) return FALSE;
+
+ if (current.operationMode == TWI_Send) {
+  twi_address.address = current.device.address & ~(1 << (1));
+ } else if (current.operationMode == TWI_Send) {
+  twi_address.address = current.device.address | (1 << (1));;
+ }
+ alreadyHandled = 0;
+ twi_buffer = current.buffer;
+ return TRUE;
+}
+
+static inline void twi_stop_or_next() {
+ if (nextTwiOperation >= 3 || !next_twi_operation()) {
+  twi_stop();
+ }
+}
+
+static inline void twi_end() {
+
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
+  twi_buffer = twi_defaultSlaveBuffer;
+
+
+
+ twi_running = FALSE;
+}
+
+void twi_start_master_operation() {
+ error = TWI_No_Error;
+ twi_running = TRUE;
+ nextTwiOperation = 0;
+ next_twi_operation();
+}
+
+static inline void twi_receive_byte() {
+
+ twi_buffer.data[alreadyHandled++] = (*(volatile uint8_t *)(0xBB));
+ if (alreadyHandled < twi_buffer.size - 1) {
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
+ } else {
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
+ }
+}
+
+static inline void twi_init_receive() {
+ if (twi_buffer.size > 0) {
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
+ } else {
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
+ }
+}
+
+void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_26 (void) {
+ switch(((*(volatile uint8_t *)(0xB9)) & ((1 << (7))|(1 << (6))|(1 << (5))|(1 << (4))| (1 << (3))))) {
+
+  case 0x08:
+  case 0x10:
+
+   (*(volatile uint8_t *)(0xBB)) = twi_address.address; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
+   break;
+  case 0x38:
+   error = TWI_Arbitration_Lost;
+   twi_end();
+   break;
+
+  case 0x28:
+  case 0x18:
+
+
+   if (alreadyHandled < twi_buffer.size) {
+    (*(volatile uint8_t *)(0xBB)) = twi_buffer.data[alreadyHandled++]; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
+   } else {
+    twi_stop_or_next();
+   }
+   break;
+  case 0x20:
+   error = TWI_SlaveAddress_NoAck;
+   twi_stop();
+   break;
+  case 0x30:
+   error = TWI_Master_TooMuchDataTransmitted;
+   twi_stop();
+   break;
+
+  case 0x40:
+   twi_init_receive();
+   break;
+  case 0x50:
+   twi_receive_byte();
+   break;
+  case 0x48:
+   error = TWI_SlaveAddress_NoAck;
+   twi_stop();
+   break;
+  case 0x58:
+
+
+   twi_stop_or_next();
+   break;
+
+
+  case 0xA8:
+  case 0xB0:
+   twi_buffer = twi_handleMasterRequest();
+  case 0xB8:
+   if (alreadyHandled < twi_buffer.size - 1) {
+
+    (*(volatile uint8_t *)(0xBB)) = twi_buffer.data[alreadyHandled++]; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
+   } else {
+
+    (*(volatile uint8_t *)(0xBB)) = twi_buffer.data[alreadyHandled++]; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
+   }
+   break;
+  case 0xC8:
+   error = TWI_Slave_NotEnoughDataTransmitted;
+   twi_end();
+   break;
+  case 0xC0:
+   if (alreadyHandled < twi_buffer.size) {
+    error = TWI_Slave_TooMuchDataTransmitted;
+   }
+   twi_end();
+   break;
+
+  case 0x60:
+  case 0x68:
+  case 0x70:
+  case 0x78:
+   twi_init_receive();
+   break;
+  case 0x80:
+  case 0x90:
+   twi_receive_byte();
+   break;
+  case 0xA0:
+
+   error = TWI_Slave_NotEnoughDataReceived;
+  case 0x88:
+  case 0x98:
+
+   twi_handleMasterTransmission((TWIBuffer) { twi_buffer.data, alreadyHandled } );
+   twi_end();
+   break;
+
+
+  case 0xF8:
+   error = TWI_No_Info_Interrupt;
+  case 0x00:
+   error = TWI_Bus_Error;
+  default:
+   error = TWI_Illegal_Status;
+   twi_unexpectedCondition();
+ }
+}
+# 9 ".././shared/../twi.kernel.h" 2
+
+TWIBuffer twi_handleMasterRequest() {
+ TWIBuffer buf;
+ return buf;
+}
+
+void twi_handleMasterTransmission(TWIBuffer twi_buffer) {
+
+}
+# 15 ".././shared/base.kernel.h" 2
+
+
+# 1 ".././shared/scheduler.kernel.h" 1
+
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h" 1
+# 11 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h" 1
 # 16 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h"
 # 1 "..\\..\\AntonAvrLib/kernel/processes/process.h" 1
@@ -791,7 +1097,7 @@ uint16_t getProcessNumber(Process process);
 
 
 void freeProcess(Process process);
-# 12 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel" 2
+# 12 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h" 1
 # 16 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h"
 uint16_t __default_stack_size = 512;
@@ -816,7 +1122,9 @@ typedef struct {
 extern Process __current_process;
 # 48 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h"
 void switchContext(PPCB oldProcess, PPCB newProcess);
-# 13 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel" 2
+# 168 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h"
+void ProcessGraveyard();
+# 13 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h" 2
 
 uint16_t __nextProcessNumber = 1;
 
@@ -828,17 +1136,21 @@ typedef struct {
 
  void *stackTop;
 } PCBExt, *PPCBExt;
-# 39 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel"
-# 1 "..\\..\\AntonAvrLib/kernel/processes/process.kernel" 1
-# 11 "..\\..\\AntonAvrLib/kernel/processes/process.kernel"
+# 39 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h"
+# 1 "..\\..\\AntonAvrLib/kernel/processes/process.kernel.h" 1
+# 11 "..\\..\\AntonAvrLib/kernel/processes/process.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/processes/../kernel_init.h" 1
-# 12 "..\\..\\AntonAvrLib/kernel/processes/process.kernel" 2
+# 12 "..\\..\\AntonAvrLib/kernel/processes/process.kernel.h" 2
 
 
 
 # 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler_internal.h" 1
 # 16 "..\\..\\AntonAvrLib/kernel/processes/scheduler_internal.h"
 extern Process schedule(BOOL invokedFromTimer);
+
+
+
+BOOL do_schedule_next(BOOL invokedFromTimer);
 
 
 void processor_idle();
@@ -848,7 +1160,7 @@ void processor_idle();
 
 
 void processor_loop_idle();
-# 16 "..\\..\\AntonAvrLib/kernel/processes/process.kernel" 2
+# 16 "..\\..\\AntonAvrLib/kernel/processes/process.kernel.h" 2
 
 Process __current_process = ((void *)0);
 
@@ -933,6 +1245,11 @@ void switchContext(PPCB oldProcess, PPCB newProcess) {
  asm volatile("movw r26, r22");
  asm volatile( "ld r0, X+					\n" "out __SP_L__, r0			\n" "ld r0, X+					\n" "out __SP_H__, r0			\n" );
  asm volatile( "pop r31			\n" "pop r30			\n" "pop r29			\n" "pop r28			\n" "pop r27			\n" "pop r26			\n" "pop r25			\n" "pop r24			\n" "pop r23			\n" "pop r22			\n" "pop r21			\n" "pop r20			\n" "pop r19			\n" "pop r18			\n" "pop r17			\n" "pop r16			\n" "pop r15			\n" "pop r14			\n" "pop r13			\n" "pop r12			\n" "pop r11			\n" "pop r10			\n" "pop r9				\n" "pop r8				\n" "pop r7				\n" "pop r6				\n" "pop r5				\n" "pop r4				\n" "pop r3				\n" "pop r2				\n" "pop r1				\n" "pop r0						\n" "out __RAMPZ__, r0			\n" "pop r0						\n" "out __SREG__, r0			\n" "pop r0						\n" );
+
+ __asm__ __volatile__ ("sei" ::: "memory");
+
+
+
 }
 
 inline Process getCurrentProcess() {
@@ -948,8 +1265,8 @@ void switchProcess(Process newProcess) {
 inline void *getProcessMemoryBase(Process proc) {
  return proc + sizeof(PCB);
 }
-# 40 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel" 2
-# 49 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel"
+# 40 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h" 2
+# 49 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h"
 Process createProcess3(ProcessEntryPoint entryPoint, void *processArgument, uint16_t stackSize, uint8_t additionalMemory) {
  Process proc = createProcessBase3(entryPoint, processArgument, stackSize, sizeof(PCBExt) + additionalMemory);
  if (proc == ((Process) ((void *)0))) return proc;
@@ -1008,13 +1325,13 @@ void init_process() {
  initialProcess->stackSize = __default_stack_size;
  initialProcess->stackTop = __malloc_heap_end;
 }
-# 6 ".././shared/scheduler.kernel" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_scheduler.kernel" 1
-# 17 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_scheduler.kernel"
+# 6 ".././shared/scheduler.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_scheduler.kernel.h" 1
+# 17 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_scheduler.kernel.h"
 Process dms_schedule(BOOL invokedFromTimer);
-# 7 ".././shared/scheduler.kernel" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_scheduler.kernel" 1
-# 11 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_scheduler.kernel"
+# 7 ".././shared/scheduler.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_scheduler.kernel.h" 1
+# 11 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_scheduler.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h" 1
 # 11 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h"
 # 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/../process.h" 1
@@ -1044,7 +1361,7 @@ Thread createThread3(ThreadEntryPoint entry, ThreadPriority prio, void *threadPa
 Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter, uint16_t stackSize);
 
 Thread getCurrentThread();
-# 12 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_scheduler.kernel" 2
+# 12 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_scheduler.kernel.h" 2
 
 
 
@@ -1057,39 +1374,66 @@ Process rr_schedule(BOOL invokedFromTimer);
 
 
 void rr_captureMainProcess(ThreadPriority prio);
-# 8 ".././shared/scheduler.kernel" 2
-
-# 1 "..\\..\\AntonAvrLib/kernel/devices/timer.h" 1
-# 10 ".././shared/scheduler.kernel" 2
-
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel" 1
-# 18 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel"
-# 1 "..\\..\\AntonAvrLib/kernel/processes/../millisecond_clock.kernel" 1
+# 8 ".././shared/scheduler.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/processes/idle/idle_scheduler.kernel.h" 1
 
 
 
-
-
-uint32_t milliseconds_running = 0;
-# 19 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel" 2
+# 1 "..\\..\\AntonAvrLib/kernel/processes/idle/../process.h" 1
+# 5 "..\\..\\AntonAvrLib/kernel/processes/idle/idle_scheduler.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/processes/idle/../process_internal.h" 1
+# 6 "..\\..\\AntonAvrLib/kernel/processes/idle/idle_scheduler.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/processes/idle/../../kernel_init.h" 1
+# 7 "..\\..\\AntonAvrLib/kernel/processes/idle/idle_scheduler.kernel.h" 2
 
 
 
 
 
+Process __idle_process;
 
-# 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel" 1
-# 11 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel"
+void init_idle_scheduler() {
+
+ __idle_process = createProcess3(ProcessGraveyard, ((void *)0), 64, 0);
+}
+void init_idle_scheduler_kernel_init() __attribute__((naked, section(".init8"))); void init_idle_scheduler_kernel_init() { init_idle_scheduler(); }
+
+Process idle_schedule(BOOL invokedFromTimer) {
+ return __idle_process;
+}
+# 9 ".././shared/scheduler.kernel.h" 2
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel.h" 1
+# 18 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel.h"
+# 1 "..\\..\\AntonAvrLib/kernel/processes/../millisecond_clock.h" 1
+# 11 "..\\..\\AntonAvrLib/kernel/processes/../millisecond_clock.h"
+# 1 "..\\..\\AntonAvrLib/kernel/processes/../../anton_std.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/processes/../millisecond_clock.h" 2
+
+
+
+ uint32_t milliseconds_running = 0;
+# 19 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel.h" 2
+
+
+
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel.h" 1
+# 11 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h" 1
 # 12 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h"
 void schedule_next();
-# 12 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel" 2
+# 12 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel.h" 2
 
 
 
-# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sleep.h" 1 3
-# 16 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel" 2
+# 1 "..\\..\\AntonAvrLib/kernel/processes/../hardware_reset.h" 1
+# 13 "..\\..\\AntonAvrLib/kernel/processes/../hardware_reset.h"
+void HARDWARE_RESET();
+# 16 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel.h" 2
 
 
 
@@ -1115,8 +1459,10 @@ void __vector_32 (void) __attribute__ ((signal,used, externally_visible)) __attr
  if (__current_process == ((Process) ((void *)0))) {
 
 
-  processor_loop_idle();
+
+  HARDWARE_RESET();
  }
+
  asm volatile("movw r26, r24");
  asm volatile( "ld r0, X+					\n" "out __SP_L__, r0			\n" "ld r0, X+					\n" "out __SP_H__, r0			\n" );
  asm volatile( "pop r31			\n" "pop r30			\n" "pop r29			\n" "pop r28			\n" "pop r27			\n" "pop r26			\n" "pop r25			\n" "pop r24			\n" "pop r23			\n" "pop r22			\n" "pop r21			\n" "pop r20			\n" "pop r19			\n" "pop r18			\n" "pop r17			\n" "pop r16			\n" "pop r15			\n" "pop r14			\n" "pop r13			\n" "pop r12			\n" "pop r11			\n" "pop r10			\n" "pop r9				\n" "pop r8				\n" "pop r7				\n" "pop r6				\n" "pop r5				\n" "pop r4				\n" "pop r3				\n" "pop r2				\n" "pop r1				\n" "pop r0						\n" "out __RAMPZ__, r0			\n" "pop r0						\n" "out __SREG__, r0			\n" "pop r0						\n" );
@@ -1124,10 +1470,10 @@ void __vector_32 (void) __attribute__ ((signal,used, externally_visible)) __attr
 
  asm volatile("reti");
 }
-# 26 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel" 2
-# 13 ".././shared/scheduler.kernel" 2
+# 26 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel.h" 2
+# 12 ".././shared/scheduler.kernel.h" 2
 
-void init_tank_scheduler() {
+void init_scheduler() {
  PTimerConfig timerConf = &Timer3;
  PTimer timer = &Timer3A;
 
@@ -1136,14 +1482,14 @@ void init_tank_scheduler() {
  setTimerClockSelect(timerConf, prescale_8);
 
 }
-void init_tank_scheduler_kernel_init() __attribute__((naked, section(".init8"))); void init_tank_scheduler_kernel_init() { init_tank_scheduler(); }
+void init_scheduler_kernel_init() __attribute__((naked, section(".init8"))); void init_scheduler_kernel_init() { init_scheduler(); }
 
-void start_tank_scheduler() {
+void start_scheduler() {
 
  enableTimerInterrupt(&Timer3A);
  __asm__ __volatile__ ("sei" ::: "memory");
 }
-# 12 ".././shared/base.kernel" 2
+# 18 ".././shared/base.kernel.h" 2
 
 
 
@@ -1153,19 +1499,19 @@ void before_scheduler() {}
 
 # 1 ".././shared/../kernel.h" 1
 # 15 ".././shared/../kernel.h"
+# 1 ".././shared/../shared/kernel_base.h" 1
+# 12 ".././shared/../shared/kernel_base.h"
 # 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
-# 14 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h"
-extern uint32_t milliseconds_running;
-# 16 ".././shared/../kernel.h" 2
+# 13 ".././shared/../shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
-# 17 ".././shared/../kernel.h" 2
+# 14 ".././shared/../shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/anton_std.h" 1
-# 18 ".././shared/../kernel.h" 2
+# 15 ".././shared/../shared/kernel_base.h" 2
 
 # 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h" 1
-# 20 ".././shared/../kernel.h" 2
+# 17 ".././shared/../shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h" 1
-# 21 ".././shared/../kernel.h" 2
+# 18 ".././shared/../shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h" 1
 # 13 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h"
 # 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/../process.h" 1
@@ -1183,21 +1529,30 @@ Process createAperiodicJob(JobEntryPoint entryPoint, uint32_t minimalPeriod, uin
 
 
 void triggerAperiodicJob(Process job);
-# 22 ".././shared/../kernel.h" 2
+# 19 ".././shared/../shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h" 1
-# 23 ".././shared/../kernel.h" 2
+# 20 ".././shared/../shared/kernel_base.h" 2
+# 16 ".././shared/../kernel.h" 2
+# 1 ".././shared/../twi.h" 1
 
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
+# 6 ".././shared/../twi.h" 2
+# 17 ".././shared/../kernel.h" 2
 # 1 ".././shared/../nibobee_button.h" 1
-# 25 ".././shared/../kernel.h" 2
+# 18 ".././shared/../kernel.h" 2
 # 1 ".././shared/../nibobee_led.h" 1
-# 26 ".././shared/../kernel.h" 2
+# 19 ".././shared/../kernel.h" 2
 # 1 ".././shared/../nibobee_motor.h" 1
-# 27 ".././shared/../kernel.h" 2
-# 20 ".././shared/base.kernel" 2
+# 20 ".././shared/../kernel.h" 2
+# 26 ".././shared/base.kernel.h" 2
 
 Process schedule(BOOL fromTimer) {
  Process p = dms_schedule(fromTimer);
  if (!p) p = rr_schedule(fromTimer);
+ if (!p) p = idle_schedule(fromTimer);
  return p;
 }
 
@@ -1223,7 +1578,7 @@ void init_kernel() {
  init_process();
  rr_captureMainProcess(PrioNormal);
  before_scheduler();
- start_tank_scheduler();
+ start_scheduler();
 }
 void init_kernel_kernel_init() __attribute__((naked, section(".init8"))); void init_kernel_kernel_init() { init_kernel(); }
 # 14 ".././nibobee_kernel.c" 2

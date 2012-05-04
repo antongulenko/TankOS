@@ -40,6 +40,11 @@ nibobee_kernel.d nibobee_kernel.o: .././nibobee_kernel.c \
  ..\..\AntonAvrLib/kernel/devices/motor.h .././nibobee_motor.h \
  ..\..\AntonAvrLib/kernel/devices/timer_m1284P.h \
  ..\..\AntonAvrLib/kernel/devices/motor.h .././shared/base.kernel.h \
+ .././shared/../twi.kernel.h \
+ ..\..\AntonAvrLib/kernel/TWI/twi_raw.kernel.h \
+ ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
+ ..\..\AntonAvrLib/kernel/TWI/../../anton_std.h \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h \
  .././shared/scheduler.kernel.h \
  ..\..\AntonAvrLib/kernel/processes/process_ext.kernel.h \
  ..\..\AntonAvrLib/kernel/processes/process_ext.h \
@@ -71,6 +76,7 @@ nibobee_kernel.d nibobee_kernel.o: .././nibobee_kernel.c \
  ..\..\AntonAvrLib/kernel/processes/DMS/dms_api.h \
  ..\..\AntonAvrLib/kernel/processes/DMS/../process.h \
  ..\..\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h \
+ .././shared/../twi.h ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
  .././shared/../nibobee_button.h .././shared/../nibobee_led.h \
  .././shared/../nibobee_motor.h
 
@@ -168,6 +174,16 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 .././shared/base.kernel.h:
 
+.././shared/../twi.kernel.h:
+
+..\..\AntonAvrLib/kernel/TWI/twi_raw.kernel.h:
+
+..\..\AntonAvrLib/kernel/TWI/twi_raw.h:
+
+..\..\AntonAvrLib/kernel/TWI/../../anton_std.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h:
+
 .././shared/scheduler.kernel.h:
 
 ..\..\AntonAvrLib/kernel/processes/process_ext.kernel.h:
@@ -233,6 +249,10 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 ..\..\AntonAvrLib/kernel/processes/DMS/../process.h:
 
 ..\..\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h:
+
+.././shared/../twi.h:
+
+..\..\AntonAvrLib/kernel/TWI/twi_raw.h:
 
 .././shared/../nibobee_button.h:
 

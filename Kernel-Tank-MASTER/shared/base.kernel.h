@@ -8,6 +8,12 @@
 #ifndef _BASE_KERNEL_
 #define _BASE_KERNEL_
 
+#define TWI_Slave
+#define TWI_BIT_RATE_VALUE 17
+#define TWI_PRESCALER_MASK 0
+#include "../twi.kernel.h"
+// => Bit rate value 17 and prescaler zero results in the maximum communication frequency of 400 KHz
+
 #include "scheduler.kernel.h"
 
 // This function can be implemented in user code to have some initialization-code before the timer starts running.

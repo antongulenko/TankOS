@@ -31,11 +31,15 @@ Main.d Main.o: ../../Main/Main.c ..\..\Kernel-Simulator/kernel.h \
  ..\..\AntonAvrLib/kernel/processes/RoundRobin/../process.h \
  ../../Main/device_tests/Main_test_blink_AllLeds.c \
  ../../Main/device_tests/Main_test_blink_reset_condition.c \
+ ../../Main/device_tests/Main_test_AllLeds.c \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h \
  ../../Main/simulator_tests/Main_test_switchProcess.c \
  ../../Main/simulator_tests/Main_test_switchProcess_many.c \
  ../../Main/simulator_tests/Main_test_rr_two.c \
  ../../Main/simulator_tests/Main_test_rr_many.c \
- ../../Main/simulator_tests/Main_test_DMS_rr_two.c
+ ../../Main/simulator_tests/Main_test_DMS_rr_two.c \
+ ../../Main/simulator_tests/Main_test_DMS_with_idle.c
 
 ..\..\Kernel-Simulator/kernel.h:
 
@@ -103,6 +107,12 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 ../../Main/device_tests/Main_test_blink_reset_condition.c:
 
+../../Main/device_tests/Main_test_AllLeds.c:
+
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h:
+
 ../../Main/simulator_tests/Main_test_switchProcess.c:
 
 ../../Main/simulator_tests/Main_test_switchProcess_many.c:
@@ -112,3 +122,5 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 ../../Main/simulator_tests/Main_test_rr_many.c:
 
 ../../Main/simulator_tests/Main_test_DMS_rr_two.c:
+
+../../Main/simulator_tests/Main_test_DMS_with_idle.c:

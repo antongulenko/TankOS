@@ -9,5 +9,7 @@
 #include "port.h"
 
 BOOL buttonStatus(PButton button) {
-	return readPin(button->pin);
+	BOOL val = readPin(button->pin);
+	if (button->flags & BUTTON_INVERTED) val = !val;
+	return val;
 }

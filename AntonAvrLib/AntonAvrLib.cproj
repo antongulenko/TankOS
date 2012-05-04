@@ -75,6 +75,7 @@
     <Folder Include="kernel\processes\DMS\" />
     <Folder Include="kernel\processes\idle" />
     <Folder Include="kernel\processes\RoundRobin" />
+    <Folder Include="kernel\TWI\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="anton_std.h">
@@ -180,6 +181,15 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\reset_condition.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_raw.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_raw.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_raw.kernel.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

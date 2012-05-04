@@ -29,6 +29,8 @@ Main.d Main.o: ../../Main/Main.c ..\..\Kernel-NIBObee/kernel.h \
  ..\..\AntonAvrLib/kernel/processes/DMS/../process.h \
  ..\..\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h \
  ..\..\AntonAvrLib/kernel/processes/RoundRobin/../process.h \
+ ..\..\Kernel-NIBObee/twi.h ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
+ ..\..\AntonAvrLib/kernel/TWI/../../anton_std.h \
  ..\..\Kernel-NIBObee/nibobee_button.h \
  ..\..\AntonAvrLib/kernel/devices/button.h \
  ..\..\Kernel-NIBObee/nibobee_led.h \
@@ -40,11 +42,14 @@ Main.d Main.o: ../../Main/Main.c ..\..\Kernel-NIBObee/kernel.h \
  ..\..\AntonAvrLib/kernel/devices/motor.h \
  ../../Main/device_tests/Main_test_blink_AllLeds.c \
  ../../Main/device_tests/Main_test_blink_reset_condition.c \
+ ../../Main/device_tests/Main_test_AllLeds.c \
+ ../../Main/device_tests/Main_test_NIBObee_Buttons.c \
  ../../Main/simulator_tests/Main_test_switchProcess.c \
  ../../Main/simulator_tests/Main_test_switchProcess_many.c \
  ../../Main/simulator_tests/Main_test_rr_two.c \
  ../../Main/simulator_tests/Main_test_rr_many.c \
- ../../Main/simulator_tests/Main_test_DMS_rr_two.c
+ ../../Main/simulator_tests/Main_test_DMS_rr_two.c \
+ ../../Main/simulator_tests/Main_test_DMS_with_idle.c
 
 ..\..\Kernel-NIBObee/kernel.h:
 
@@ -108,6 +113,12 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 ..\..\AntonAvrLib/kernel/processes/RoundRobin/../process.h:
 
+..\..\Kernel-NIBObee/twi.h:
+
+..\..\AntonAvrLib/kernel/TWI/twi_raw.h:
+
+..\..\AntonAvrLib/kernel/TWI/../../anton_std.h:
+
 ..\..\Kernel-NIBObee/nibobee_button.h:
 
 ..\..\AntonAvrLib/kernel/devices/button.h:
@@ -130,6 +141,10 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 ../../Main/device_tests/Main_test_blink_reset_condition.c:
 
+../../Main/device_tests/Main_test_AllLeds.c:
+
+../../Main/device_tests/Main_test_NIBObee_Buttons.c:
+
 ../../Main/simulator_tests/Main_test_switchProcess.c:
 
 ../../Main/simulator_tests/Main_test_switchProcess_many.c:
@@ -139,3 +154,5 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 ../../Main/simulator_tests/Main_test_rr_many.c:
 
 ../../Main/simulator_tests/Main_test_DMS_rr_two.c:
+
+../../Main/simulator_tests/Main_test_DMS_with_idle.c:

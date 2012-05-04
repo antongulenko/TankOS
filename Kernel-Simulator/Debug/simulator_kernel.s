@@ -4937,31 +4937,31 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1a
+	.uleb128 0x1c
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x20
+	.uleb128 0x22
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x23
+	.uleb128 0x25
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x26
+	.uleb128 0x28
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x27
+	.uleb128 0x29
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x2a
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2c
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2b
+	.uleb128 0x2d
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
@@ -5399,8 +5399,8 @@ init_ports_m1284P:
 .LSM4:
 	ldi r26,lo8(PortA)
 	ldi r27,hi8(PortA)
-	ldi r30,lo8(C.40.2864)
-	ldi r31,hi8(C.40.2864)
+	ldi r30,lo8(C.40.2867)
+	ldi r31,hi8(C.40.2867)
 	ldi r24,lo8(6)
 .L3:
 	ld r0,Z+
@@ -5409,8 +5409,8 @@ init_ports_m1284P:
 	brne .L3
 	ldi r26,lo8(PinA0)
 	ldi r27,hi8(PinA0)
-	ldi r30,lo8(C.41.2865)
-	ldi r31,hi8(C.41.2865)
+	ldi r30,lo8(C.41.2868)
+	ldi r31,hi8(C.41.2868)
 	ldi r24,lo8(3)
 .L4:
 	ld r0,Z+
@@ -5419,8 +5419,8 @@ init_ports_m1284P:
 	brne .L4
 	ldi r26,lo8(PinA1)
 	ldi r27,hi8(PinA1)
-	ldi r30,lo8(C.42.2866)
-	ldi r31,hi8(C.42.2866)
+	ldi r30,lo8(C.42.2869)
+	ldi r31,hi8(C.42.2869)
 	ldi r24,lo8(3)
 .L5:
 	ld r0,Z+
@@ -5429,8 +5429,8 @@ init_ports_m1284P:
 	brne .L5
 	ldi r26,lo8(PinA2)
 	ldi r27,hi8(PinA2)
-	ldi r30,lo8(C.43.2867)
-	ldi r31,hi8(C.43.2867)
+	ldi r30,lo8(C.43.2870)
+	ldi r31,hi8(C.43.2870)
 	ldi r24,lo8(3)
 .L6:
 	ld r0,Z+
@@ -5439,8 +5439,8 @@ init_ports_m1284P:
 	brne .L6
 	ldi r26,lo8(PinA3)
 	ldi r27,hi8(PinA3)
-	ldi r30,lo8(C.44.2868)
-	ldi r31,hi8(C.44.2868)
+	ldi r30,lo8(C.44.2871)
+	ldi r31,hi8(C.44.2871)
 	ldi r24,lo8(3)
 .L7:
 	ld r0,Z+
@@ -5449,8 +5449,8 @@ init_ports_m1284P:
 	brne .L7
 	ldi r26,lo8(PinA4)
 	ldi r27,hi8(PinA4)
-	ldi r30,lo8(C.45.2869)
-	ldi r31,hi8(C.45.2869)
+	ldi r30,lo8(C.45.2872)
+	ldi r31,hi8(C.45.2872)
 	ldi r24,lo8(3)
 .L8:
 	ld r0,Z+
@@ -5459,8 +5459,8 @@ init_ports_m1284P:
 	brne .L8
 	ldi r26,lo8(PinA5)
 	ldi r27,hi8(PinA5)
-	ldi r30,lo8(C.46.2870)
-	ldi r31,hi8(C.46.2870)
+	ldi r30,lo8(C.46.2873)
+	ldi r31,hi8(C.46.2873)
 	ldi r24,lo8(3)
 .L9:
 	ld r0,Z+
@@ -5469,8 +5469,8 @@ init_ports_m1284P:
 	brne .L9
 	ldi r26,lo8(PinA6)
 	ldi r27,hi8(PinA6)
-	ldi r30,lo8(C.47.2871)
-	ldi r31,hi8(C.47.2871)
+	ldi r30,lo8(C.47.2874)
+	ldi r31,hi8(C.47.2874)
 	ldi r24,lo8(3)
 .L10:
 	ld r0,Z+
@@ -5479,8 +5479,8 @@ init_ports_m1284P:
 	brne .L10
 	ldi r26,lo8(PinA7)
 	ldi r27,hi8(PinA7)
-	ldi r30,lo8(C.48.2872)
-	ldi r31,hi8(C.48.2872)
+	ldi r30,lo8(C.48.2875)
+	ldi r31,hi8(C.48.2875)
 	ldi r24,lo8(3)
 .L11:
 	ld r0,Z+
@@ -5490,8 +5490,8 @@ init_ports_m1284P:
 .LSM5:
 	ldi r26,lo8(PortB)
 	ldi r27,hi8(PortB)
-	ldi r30,lo8(C.49.2873)
-	ldi r31,hi8(C.49.2873)
+	ldi r30,lo8(C.49.2876)
+	ldi r31,hi8(C.49.2876)
 	ldi r24,lo8(6)
 .L12:
 	ld r0,Z+
@@ -5500,8 +5500,8 @@ init_ports_m1284P:
 	brne .L12
 	ldi r26,lo8(PinB0)
 	ldi r27,hi8(PinB0)
-	ldi r30,lo8(C.50.2874)
-	ldi r31,hi8(C.50.2874)
+	ldi r30,lo8(C.50.2877)
+	ldi r31,hi8(C.50.2877)
 	ldi r24,lo8(3)
 .L13:
 	ld r0,Z+
@@ -5510,8 +5510,8 @@ init_ports_m1284P:
 	brne .L13
 	ldi r26,lo8(PinB1)
 	ldi r27,hi8(PinB1)
-	ldi r30,lo8(C.51.2875)
-	ldi r31,hi8(C.51.2875)
+	ldi r30,lo8(C.51.2878)
+	ldi r31,hi8(C.51.2878)
 	ldi r24,lo8(3)
 .L14:
 	ld r0,Z+
@@ -5520,8 +5520,8 @@ init_ports_m1284P:
 	brne .L14
 	ldi r26,lo8(PinB2)
 	ldi r27,hi8(PinB2)
-	ldi r30,lo8(C.52.2876)
-	ldi r31,hi8(C.52.2876)
+	ldi r30,lo8(C.52.2879)
+	ldi r31,hi8(C.52.2879)
 	ldi r24,lo8(3)
 .L15:
 	ld r0,Z+
@@ -5530,8 +5530,8 @@ init_ports_m1284P:
 	brne .L15
 	ldi r26,lo8(PinB3)
 	ldi r27,hi8(PinB3)
-	ldi r30,lo8(C.53.2877)
-	ldi r31,hi8(C.53.2877)
+	ldi r30,lo8(C.53.2880)
+	ldi r31,hi8(C.53.2880)
 	ldi r24,lo8(3)
 .L16:
 	ld r0,Z+
@@ -5540,8 +5540,8 @@ init_ports_m1284P:
 	brne .L16
 	ldi r26,lo8(PinB4)
 	ldi r27,hi8(PinB4)
-	ldi r30,lo8(C.54.2878)
-	ldi r31,hi8(C.54.2878)
+	ldi r30,lo8(C.54.2881)
+	ldi r31,hi8(C.54.2881)
 	ldi r24,lo8(3)
 .L17:
 	ld r0,Z+
@@ -5550,8 +5550,8 @@ init_ports_m1284P:
 	brne .L17
 	ldi r26,lo8(PinB5)
 	ldi r27,hi8(PinB5)
-	ldi r30,lo8(C.55.2879)
-	ldi r31,hi8(C.55.2879)
+	ldi r30,lo8(C.55.2882)
+	ldi r31,hi8(C.55.2882)
 	ldi r24,lo8(3)
 .L18:
 	ld r0,Z+
@@ -5560,8 +5560,8 @@ init_ports_m1284P:
 	brne .L18
 	ldi r26,lo8(PinB6)
 	ldi r27,hi8(PinB6)
-	ldi r30,lo8(C.56.2880)
-	ldi r31,hi8(C.56.2880)
+	ldi r30,lo8(C.56.2883)
+	ldi r31,hi8(C.56.2883)
 	ldi r24,lo8(3)
 .L19:
 	ld r0,Z+
@@ -5570,8 +5570,8 @@ init_ports_m1284P:
 	brne .L19
 	ldi r26,lo8(PinB7)
 	ldi r27,hi8(PinB7)
-	ldi r30,lo8(C.57.2881)
-	ldi r31,hi8(C.57.2881)
+	ldi r30,lo8(C.57.2884)
+	ldi r31,hi8(C.57.2884)
 	ldi r24,lo8(3)
 .L20:
 	ld r0,Z+
@@ -5581,8 +5581,8 @@ init_ports_m1284P:
 .LSM6:
 	ldi r26,lo8(PortC)
 	ldi r27,hi8(PortC)
-	ldi r30,lo8(C.58.2882)
-	ldi r31,hi8(C.58.2882)
+	ldi r30,lo8(C.58.2885)
+	ldi r31,hi8(C.58.2885)
 	ldi r24,lo8(6)
 .L21:
 	ld r0,Z+
@@ -5591,8 +5591,8 @@ init_ports_m1284P:
 	brne .L21
 	ldi r26,lo8(PinC0)
 	ldi r27,hi8(PinC0)
-	ldi r30,lo8(C.59.2883)
-	ldi r31,hi8(C.59.2883)
+	ldi r30,lo8(C.59.2886)
+	ldi r31,hi8(C.59.2886)
 	ldi r24,lo8(3)
 .L22:
 	ld r0,Z+
@@ -5601,8 +5601,8 @@ init_ports_m1284P:
 	brne .L22
 	ldi r26,lo8(PinC1)
 	ldi r27,hi8(PinC1)
-	ldi r30,lo8(C.60.2884)
-	ldi r31,hi8(C.60.2884)
+	ldi r30,lo8(C.60.2887)
+	ldi r31,hi8(C.60.2887)
 	ldi r24,lo8(3)
 .L23:
 	ld r0,Z+
@@ -5611,8 +5611,8 @@ init_ports_m1284P:
 	brne .L23
 	ldi r26,lo8(PinC2)
 	ldi r27,hi8(PinC2)
-	ldi r30,lo8(C.61.2885)
-	ldi r31,hi8(C.61.2885)
+	ldi r30,lo8(C.61.2888)
+	ldi r31,hi8(C.61.2888)
 	ldi r24,lo8(3)
 .L24:
 	ld r0,Z+
@@ -5621,8 +5621,8 @@ init_ports_m1284P:
 	brne .L24
 	ldi r26,lo8(PinC3)
 	ldi r27,hi8(PinC3)
-	ldi r30,lo8(C.62.2886)
-	ldi r31,hi8(C.62.2886)
+	ldi r30,lo8(C.62.2889)
+	ldi r31,hi8(C.62.2889)
 	ldi r24,lo8(3)
 .L25:
 	ld r0,Z+
@@ -5631,8 +5631,8 @@ init_ports_m1284P:
 	brne .L25
 	ldi r26,lo8(PinC4)
 	ldi r27,hi8(PinC4)
-	ldi r30,lo8(C.63.2887)
-	ldi r31,hi8(C.63.2887)
+	ldi r30,lo8(C.63.2890)
+	ldi r31,hi8(C.63.2890)
 	ldi r24,lo8(3)
 .L26:
 	ld r0,Z+
@@ -5641,8 +5641,8 @@ init_ports_m1284P:
 	brne .L26
 	ldi r26,lo8(PinC5)
 	ldi r27,hi8(PinC5)
-	ldi r30,lo8(C.64.2888)
-	ldi r31,hi8(C.64.2888)
+	ldi r30,lo8(C.64.2891)
+	ldi r31,hi8(C.64.2891)
 	ldi r24,lo8(3)
 .L27:
 	ld r0,Z+
@@ -5651,8 +5651,8 @@ init_ports_m1284P:
 	brne .L27
 	ldi r26,lo8(PinC6)
 	ldi r27,hi8(PinC6)
-	ldi r30,lo8(C.65.2889)
-	ldi r31,hi8(C.65.2889)
+	ldi r30,lo8(C.65.2892)
+	ldi r31,hi8(C.65.2892)
 	ldi r24,lo8(3)
 .L28:
 	ld r0,Z+
@@ -5661,8 +5661,8 @@ init_ports_m1284P:
 	brne .L28
 	ldi r26,lo8(PinC7)
 	ldi r27,hi8(PinC7)
-	ldi r30,lo8(C.66.2890)
-	ldi r31,hi8(C.66.2890)
+	ldi r30,lo8(C.66.2893)
+	ldi r31,hi8(C.66.2893)
 	ldi r24,lo8(3)
 .L29:
 	ld r0,Z+
@@ -5672,8 +5672,8 @@ init_ports_m1284P:
 .LSM7:
 	ldi r26,lo8(PortD)
 	ldi r27,hi8(PortD)
-	ldi r30,lo8(C.67.2891)
-	ldi r31,hi8(C.67.2891)
+	ldi r30,lo8(C.67.2894)
+	ldi r31,hi8(C.67.2894)
 	ldi r24,lo8(6)
 .L30:
 	ld r0,Z+
@@ -5682,8 +5682,8 @@ init_ports_m1284P:
 	brne .L30
 	ldi r26,lo8(PinD0)
 	ldi r27,hi8(PinD0)
-	ldi r30,lo8(C.68.2892)
-	ldi r31,hi8(C.68.2892)
+	ldi r30,lo8(C.68.2895)
+	ldi r31,hi8(C.68.2895)
 	ldi r24,lo8(3)
 .L31:
 	ld r0,Z+
@@ -5692,8 +5692,8 @@ init_ports_m1284P:
 	brne .L31
 	ldi r26,lo8(PinD1)
 	ldi r27,hi8(PinD1)
-	ldi r30,lo8(C.69.2893)
-	ldi r31,hi8(C.69.2893)
+	ldi r30,lo8(C.69.2896)
+	ldi r31,hi8(C.69.2896)
 	ldi r24,lo8(3)
 .L32:
 	ld r0,Z+
@@ -5702,8 +5702,8 @@ init_ports_m1284P:
 	brne .L32
 	ldi r26,lo8(PinD2)
 	ldi r27,hi8(PinD2)
-	ldi r30,lo8(C.70.2894)
-	ldi r31,hi8(C.70.2894)
+	ldi r30,lo8(C.70.2897)
+	ldi r31,hi8(C.70.2897)
 	ldi r24,lo8(3)
 .L33:
 	ld r0,Z+
@@ -5712,8 +5712,8 @@ init_ports_m1284P:
 	brne .L33
 	ldi r26,lo8(PinD3)
 	ldi r27,hi8(PinD3)
-	ldi r30,lo8(C.71.2895)
-	ldi r31,hi8(C.71.2895)
+	ldi r30,lo8(C.71.2898)
+	ldi r31,hi8(C.71.2898)
 	ldi r24,lo8(3)
 .L34:
 	ld r0,Z+
@@ -5722,8 +5722,8 @@ init_ports_m1284P:
 	brne .L34
 	ldi r26,lo8(PinD4)
 	ldi r27,hi8(PinD4)
-	ldi r30,lo8(C.72.2896)
-	ldi r31,hi8(C.72.2896)
+	ldi r30,lo8(C.72.2899)
+	ldi r31,hi8(C.72.2899)
 	ldi r24,lo8(3)
 .L35:
 	ld r0,Z+
@@ -5732,8 +5732,8 @@ init_ports_m1284P:
 	brne .L35
 	ldi r26,lo8(PinD5)
 	ldi r27,hi8(PinD5)
-	ldi r30,lo8(C.73.2897)
-	ldi r31,hi8(C.73.2897)
+	ldi r30,lo8(C.73.2900)
+	ldi r31,hi8(C.73.2900)
 	ldi r24,lo8(3)
 .L36:
 	ld r0,Z+
@@ -5742,8 +5742,8 @@ init_ports_m1284P:
 	brne .L36
 	ldi r26,lo8(PinD6)
 	ldi r27,hi8(PinD6)
-	ldi r30,lo8(C.74.2898)
-	ldi r31,hi8(C.74.2898)
+	ldi r30,lo8(C.74.2901)
+	ldi r31,hi8(C.74.2901)
 	ldi r24,lo8(3)
 .L37:
 	ld r0,Z+
@@ -5752,8 +5752,8 @@ init_ports_m1284P:
 	brne .L37
 	ldi r26,lo8(PinD7)
 	ldi r27,hi8(PinD7)
-	ldi r30,lo8(C.75.2899)
-	ldi r31,hi8(C.75.2899)
+	ldi r30,lo8(C.75.2902)
+	ldi r31,hi8(C.75.2902)
 	ldi r24,lo8(3)
 .L38:
 	ld r0,Z+
@@ -5793,8 +5793,8 @@ init_timer_m1284P:
 .LSM12:
 	ldi r26,lo8(Timer0)
 	ldi r27,hi8(Timer0)
-	ldi r30,lo8(C.28.2852)
-	ldi r31,hi8(C.28.2852)
+	ldi r30,lo8(C.28.2855)
+	ldi r31,hi8(C.28.2855)
 	ldi r24,lo8(7)
 .L77:
 	ld r0,Z+
@@ -5804,8 +5804,8 @@ init_timer_m1284P:
 .LSM13:
 	ldi r26,lo8(Timer1)
 	ldi r27,hi8(Timer1)
-	ldi r30,lo8(C.29.2853)
-	ldi r31,hi8(C.29.2853)
+	ldi r30,lo8(C.29.2856)
+	ldi r31,hi8(C.29.2856)
 	ldi r24,lo8(7)
 .L78:
 	ld r0,Z+
@@ -5815,8 +5815,8 @@ init_timer_m1284P:
 .LSM14:
 	ldi r26,lo8(Timer2)
 	ldi r27,hi8(Timer2)
-	ldi r30,lo8(C.30.2854)
-	ldi r31,hi8(C.30.2854)
+	ldi r30,lo8(C.30.2857)
+	ldi r31,hi8(C.30.2857)
 	ldi r24,lo8(7)
 .L79:
 	ld r0,Z+
@@ -5826,8 +5826,8 @@ init_timer_m1284P:
 .LSM15:
 	ldi r26,lo8(Timer3)
 	ldi r27,hi8(Timer3)
-	ldi r30,lo8(C.31.2855)
-	ldi r31,hi8(C.31.2855)
+	ldi r30,lo8(C.31.2858)
+	ldi r31,hi8(C.31.2858)
 	ldi r24,lo8(7)
 .L80:
 	ld r0,Z+
@@ -5837,8 +5837,8 @@ init_timer_m1284P:
 .LSM16:
 	ldi r26,lo8(Timer0A)
 	ldi r27,hi8(Timer0A)
-	ldi r30,lo8(C.32.2856)
-	ldi r31,hi8(C.32.2856)
+	ldi r30,lo8(C.32.2859)
+	ldi r31,hi8(C.32.2859)
 	ldi r24,lo8(8)
 .L81:
 	ld r0,Z+
@@ -5848,8 +5848,8 @@ init_timer_m1284P:
 .LSM17:
 	ldi r26,lo8(Timer0B)
 	ldi r27,hi8(Timer0B)
-	ldi r30,lo8(C.33.2857)
-	ldi r31,hi8(C.33.2857)
+	ldi r30,lo8(C.33.2860)
+	ldi r31,hi8(C.33.2860)
 	ldi r24,lo8(8)
 .L82:
 	ld r0,Z+
@@ -5859,8 +5859,8 @@ init_timer_m1284P:
 .LSM18:
 	ldi r26,lo8(Timer1A)
 	ldi r27,hi8(Timer1A)
-	ldi r30,lo8(C.34.2858)
-	ldi r31,hi8(C.34.2858)
+	ldi r30,lo8(C.34.2861)
+	ldi r31,hi8(C.34.2861)
 	ldi r24,lo8(8)
 .L83:
 	ld r0,Z+
@@ -5870,8 +5870,8 @@ init_timer_m1284P:
 .LSM19:
 	ldi r26,lo8(Timer1B)
 	ldi r27,hi8(Timer1B)
-	ldi r30,lo8(C.35.2859)
-	ldi r31,hi8(C.35.2859)
+	ldi r30,lo8(C.35.2862)
+	ldi r31,hi8(C.35.2862)
 	ldi r24,lo8(8)
 .L84:
 	ld r0,Z+
@@ -5881,8 +5881,8 @@ init_timer_m1284P:
 .LSM20:
 	ldi r26,lo8(Timer2A)
 	ldi r27,hi8(Timer2A)
-	ldi r30,lo8(C.36.2860)
-	ldi r31,hi8(C.36.2860)
+	ldi r30,lo8(C.36.2863)
+	ldi r31,hi8(C.36.2863)
 	ldi r24,lo8(8)
 .L85:
 	ld r0,Z+
@@ -5892,8 +5892,8 @@ init_timer_m1284P:
 .LSM21:
 	ldi r26,lo8(Timer2B)
 	ldi r27,hi8(Timer2B)
-	ldi r30,lo8(C.37.2861)
-	ldi r31,hi8(C.37.2861)
+	ldi r30,lo8(C.37.2864)
+	ldi r31,hi8(C.37.2864)
 	ldi r24,lo8(8)
 .L86:
 	ld r0,Z+
@@ -5903,8 +5903,8 @@ init_timer_m1284P:
 .LSM22:
 	ldi r26,lo8(Timer3A)
 	ldi r27,hi8(Timer3A)
-	ldi r30,lo8(C.38.2862)
-	ldi r31,hi8(C.38.2862)
+	ldi r30,lo8(C.38.2865)
+	ldi r31,hi8(C.38.2865)
 	ldi r24,lo8(8)
 .L87:
 	ld r0,Z+
@@ -5914,8 +5914,8 @@ init_timer_m1284P:
 .LSM23:
 	ldi r26,lo8(Timer3B)
 	ldi r27,hi8(Timer3B)
-	ldi r30,lo8(C.39.2863)
-	ldi r31,hi8(C.39.2863)
+	ldi r30,lo8(C.39.2866)
+	ldi r31,hi8(C.39.2866)
 	ldi r24,lo8(8)
 .L88:
 	ld r0,Z+
@@ -7071,15 +7071,11 @@ init_kernel:
 .LSM162:
 	call init_process
 .LSM163:
-	ldi r24,lo8(3)
-	ldi r25,hi8(3)
-	call rr_captureMainProcess
-.LSM164:
 	call before_scheduler
-.LSM165:
+.LSM164:
 	call start_scheduler
 /* epilogue start */
-.LSM166:
+.LSM165:
 	ret
 .LFE33:
 	.size	init_kernel, .-init_kernel
@@ -7088,12 +7084,12 @@ init_kernel:
 	.type	init_kernel_kernel_init, @function
 init_kernel_kernel_init:
 .LFB34:
-.LSM167:
+.LSM166:
 /* prologue: naked */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
-.LSM168:
+.LSM167:
 	call init_kernel
 /* epilogue start */
 .LFE34:
@@ -7130,6 +7126,12 @@ __current_process:
 	.size	milliseconds_running, 4
 milliseconds_running:
 	.skip 4,0
+.global	AllLeds
+.global	AllLeds
+	.type	AllLeds, @object
+	.size	AllLeds, 3
+AllLeds:
+	.skip 3,0
 	.comm PortA,6,1
 	.comm PinA0,3,1
 	.comm PinA1,3,1
@@ -7180,271 +7182,271 @@ milliseconds_running:
 	.comm Timer3B,8,1
 	.comm __idle_process,2,1
 	.data
-	.type	C.39.2863, @object
-	.size	C.39.2863, 8
-C.39.2863:
+	.type	C.39.2866, @object
+	.size	C.39.2866, 8
+C.39.2866:
 	.word	Timer3
 	.word	154
 	.word	1
 	.word	PinB7
-	.type	C.38.2862, @object
-	.size	C.38.2862, 8
-C.38.2862:
+	.type	C.38.2865, @object
+	.size	C.38.2865, 8
+C.38.2865:
 	.word	Timer3
 	.word	152
 	.word	0
 	.word	PinB6
-	.type	C.37.2861, @object
-	.size	C.37.2861, 8
-C.37.2861:
+	.type	C.37.2864, @object
+	.size	C.37.2864, 8
+C.37.2864:
 	.word	Timer2
 	.word	180
 	.word	1
 	.word	PinD6
-	.type	C.36.2860, @object
-	.size	C.36.2860, 8
-C.36.2860:
+	.type	C.36.2863, @object
+	.size	C.36.2863, 8
+C.36.2863:
 	.word	Timer2
 	.word	179
 	.word	0
 	.word	PinD7
-	.type	C.35.2859, @object
-	.size	C.35.2859, 8
-C.35.2859:
+	.type	C.35.2862, @object
+	.size	C.35.2862, 8
+C.35.2862:
 	.word	Timer1
 	.word	138
 	.word	1
 	.word	PinD4
-	.type	C.34.2858, @object
-	.size	C.34.2858, 8
-C.34.2858:
+	.type	C.34.2861, @object
+	.size	C.34.2861, 8
+C.34.2861:
 	.word	Timer1
 	.word	136
 	.word	0
 	.word	PinD5
-	.type	C.33.2857, @object
-	.size	C.33.2857, 8
-C.33.2857:
+	.type	C.33.2860, @object
+	.size	C.33.2860, 8
+C.33.2860:
 	.word	Timer0
 	.word	72
 	.word	1
 	.word	PinB4
-	.type	C.32.2856, @object
-	.size	C.32.2856, 8
-C.32.2856:
+	.type	C.32.2859, @object
+	.size	C.32.2859, 8
+C.32.2859:
 	.word	Timer0
 	.word	71
 	.word	0
 	.word	PinB3
-	.type	C.31.2855, @object
-	.size	C.31.2855, 7
-C.31.2855:
+	.type	C.31.2858, @object
+	.size	C.31.2858, 7
+C.31.2858:
 	.byte	4
 	.word	144
 	.word	145
 	.word	113
-	.type	C.30.2854, @object
-	.size	C.30.2854, 7
-C.30.2854:
+	.type	C.30.2857, @object
+	.size	C.30.2857, 7
+C.30.2857:
 	.byte	2
 	.word	176
 	.word	177
 	.word	112
-	.type	C.29.2853, @object
-	.size	C.29.2853, 7
-C.29.2853:
+	.type	C.29.2856, @object
+	.size	C.29.2856, 7
+C.29.2856:
 	.byte	4
 	.word	128
 	.word	129
 	.word	111
-	.type	C.28.2852, @object
-	.size	C.28.2852, 7
-C.28.2852:
+	.type	C.28.2855, @object
+	.size	C.28.2855, 7
+C.28.2855:
 	.byte	0
 	.word	68
 	.word	69
 	.word	110
-	.type	C.75.2899, @object
-	.size	C.75.2899, 3
-C.75.2899:
+	.type	C.75.2902, @object
+	.size	C.75.2902, 3
+C.75.2902:
 	.word	PortD
 	.byte	-128
-	.type	C.74.2898, @object
-	.size	C.74.2898, 3
-C.74.2898:
+	.type	C.74.2901, @object
+	.size	C.74.2901, 3
+C.74.2901:
 	.word	PortD
 	.byte	64
-	.type	C.73.2897, @object
-	.size	C.73.2897, 3
-C.73.2897:
+	.type	C.73.2900, @object
+	.size	C.73.2900, 3
+C.73.2900:
 	.word	PortD
 	.byte	32
-	.type	C.72.2896, @object
-	.size	C.72.2896, 3
-C.72.2896:
+	.type	C.72.2899, @object
+	.size	C.72.2899, 3
+C.72.2899:
 	.word	PortD
 	.byte	16
-	.type	C.71.2895, @object
-	.size	C.71.2895, 3
-C.71.2895:
+	.type	C.71.2898, @object
+	.size	C.71.2898, 3
+C.71.2898:
 	.word	PortD
 	.byte	8
-	.type	C.70.2894, @object
-	.size	C.70.2894, 3
-C.70.2894:
+	.type	C.70.2897, @object
+	.size	C.70.2897, 3
+C.70.2897:
 	.word	PortD
 	.byte	4
-	.type	C.69.2893, @object
-	.size	C.69.2893, 3
-C.69.2893:
+	.type	C.69.2896, @object
+	.size	C.69.2896, 3
+C.69.2896:
 	.word	PortD
 	.byte	2
-	.type	C.68.2892, @object
-	.size	C.68.2892, 3
-C.68.2892:
+	.type	C.68.2895, @object
+	.size	C.68.2895, 3
+C.68.2895:
 	.word	PortD
 	.byte	1
-	.type	C.67.2891, @object
-	.size	C.67.2891, 6
-C.67.2891:
+	.type	C.67.2894, @object
+	.size	C.67.2894, 6
+C.67.2894:
 	.word	43
 	.word	41
 	.word	42
-	.type	C.66.2890, @object
-	.size	C.66.2890, 3
-C.66.2890:
+	.type	C.66.2893, @object
+	.size	C.66.2893, 3
+C.66.2893:
 	.word	PortC
 	.byte	-128
-	.type	C.65.2889, @object
-	.size	C.65.2889, 3
-C.65.2889:
+	.type	C.65.2892, @object
+	.size	C.65.2892, 3
+C.65.2892:
 	.word	PortC
 	.byte	64
-	.type	C.64.2888, @object
-	.size	C.64.2888, 3
-C.64.2888:
+	.type	C.64.2891, @object
+	.size	C.64.2891, 3
+C.64.2891:
 	.word	PortC
 	.byte	32
-	.type	C.63.2887, @object
-	.size	C.63.2887, 3
-C.63.2887:
+	.type	C.63.2890, @object
+	.size	C.63.2890, 3
+C.63.2890:
 	.word	PortC
 	.byte	16
-	.type	C.62.2886, @object
-	.size	C.62.2886, 3
-C.62.2886:
+	.type	C.62.2889, @object
+	.size	C.62.2889, 3
+C.62.2889:
 	.word	PortC
 	.byte	8
-	.type	C.61.2885, @object
-	.size	C.61.2885, 3
-C.61.2885:
+	.type	C.61.2888, @object
+	.size	C.61.2888, 3
+C.61.2888:
 	.word	PortC
 	.byte	4
-	.type	C.60.2884, @object
-	.size	C.60.2884, 3
-C.60.2884:
+	.type	C.60.2887, @object
+	.size	C.60.2887, 3
+C.60.2887:
 	.word	PortC
 	.byte	2
-	.type	C.59.2883, @object
-	.size	C.59.2883, 3
-C.59.2883:
+	.type	C.59.2886, @object
+	.size	C.59.2886, 3
+C.59.2886:
 	.word	PortC
 	.byte	1
-	.type	C.58.2882, @object
-	.size	C.58.2882, 6
-C.58.2882:
+	.type	C.58.2885, @object
+	.size	C.58.2885, 6
+C.58.2885:
 	.word	40
 	.word	38
 	.word	39
-	.type	C.57.2881, @object
-	.size	C.57.2881, 3
-C.57.2881:
+	.type	C.57.2884, @object
+	.size	C.57.2884, 3
+C.57.2884:
 	.word	PortB
 	.byte	-128
-	.type	C.56.2880, @object
-	.size	C.56.2880, 3
-C.56.2880:
+	.type	C.56.2883, @object
+	.size	C.56.2883, 3
+C.56.2883:
 	.word	PortB
 	.byte	64
-	.type	C.55.2879, @object
-	.size	C.55.2879, 3
-C.55.2879:
+	.type	C.55.2882, @object
+	.size	C.55.2882, 3
+C.55.2882:
 	.word	PortB
 	.byte	32
-	.type	C.54.2878, @object
-	.size	C.54.2878, 3
-C.54.2878:
+	.type	C.54.2881, @object
+	.size	C.54.2881, 3
+C.54.2881:
 	.word	PortB
 	.byte	16
-	.type	C.53.2877, @object
-	.size	C.53.2877, 3
-C.53.2877:
+	.type	C.53.2880, @object
+	.size	C.53.2880, 3
+C.53.2880:
 	.word	PortB
 	.byte	8
-	.type	C.52.2876, @object
-	.size	C.52.2876, 3
-C.52.2876:
+	.type	C.52.2879, @object
+	.size	C.52.2879, 3
+C.52.2879:
 	.word	PortB
 	.byte	4
-	.type	C.51.2875, @object
-	.size	C.51.2875, 3
-C.51.2875:
+	.type	C.51.2878, @object
+	.size	C.51.2878, 3
+C.51.2878:
 	.word	PortB
 	.byte	2
-	.type	C.50.2874, @object
-	.size	C.50.2874, 3
-C.50.2874:
+	.type	C.50.2877, @object
+	.size	C.50.2877, 3
+C.50.2877:
 	.word	PortB
 	.byte	1
-	.type	C.49.2873, @object
-	.size	C.49.2873, 6
-C.49.2873:
+	.type	C.49.2876, @object
+	.size	C.49.2876, 6
+C.49.2876:
 	.word	37
 	.word	35
 	.word	36
-	.type	C.48.2872, @object
-	.size	C.48.2872, 3
-C.48.2872:
+	.type	C.48.2875, @object
+	.size	C.48.2875, 3
+C.48.2875:
 	.word	PortA
 	.byte	-128
-	.type	C.47.2871, @object
-	.size	C.47.2871, 3
-C.47.2871:
+	.type	C.47.2874, @object
+	.size	C.47.2874, 3
+C.47.2874:
 	.word	PortA
 	.byte	64
-	.type	C.46.2870, @object
-	.size	C.46.2870, 3
-C.46.2870:
+	.type	C.46.2873, @object
+	.size	C.46.2873, 3
+C.46.2873:
 	.word	PortA
 	.byte	32
-	.type	C.45.2869, @object
-	.size	C.45.2869, 3
-C.45.2869:
+	.type	C.45.2872, @object
+	.size	C.45.2872, 3
+C.45.2872:
 	.word	PortA
 	.byte	16
-	.type	C.44.2868, @object
-	.size	C.44.2868, 3
-C.44.2868:
+	.type	C.44.2871, @object
+	.size	C.44.2871, 3
+C.44.2871:
 	.word	PortA
 	.byte	8
-	.type	C.43.2867, @object
-	.size	C.43.2867, 3
-C.43.2867:
+	.type	C.43.2870, @object
+	.size	C.43.2870, 3
+C.43.2870:
 	.word	PortA
 	.byte	4
-	.type	C.42.2866, @object
-	.size	C.42.2866, 3
-C.42.2866:
+	.type	C.42.2869, @object
+	.size	C.42.2869, 3
+C.42.2869:
 	.word	PortA
 	.byte	2
-	.type	C.41.2865, @object
-	.size	C.41.2865, 3
-C.41.2865:
+	.type	C.41.2868, @object
+	.size	C.41.2868, 3
+C.41.2868:
 	.word	PortA
 	.byte	1
-	.type	C.40.2864, @object
-	.size	C.40.2864, 6
-C.40.2864:
+	.type	C.40.2867, @object
+	.size	C.40.2867, 6
+C.40.2867:
 	.word	34
 	.word	32
 	.word	33
@@ -8170,6 +8172,15 @@ C.40.2864:
 	.byte	0x69
 	.byte	0x93
 	.uleb128 0x1
+	.long	.LVL53
+	.long	.LFE20
+	.word	0x6
+	.byte	0x6e
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x6f
+	.byte	0x93
+	.uleb128 0x1
 	.long	0x0
 	.long	0x0
 .LLST30:
@@ -8195,15 +8206,6 @@ C.40.2864:
 	.byte	0x93
 	.uleb128 0x1
 	.byte	0x69
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL56
-	.long	.LFE21
-	.word	0x6
-	.byte	0x6e
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x6f
 	.byte	0x93
 	.uleb128 0x1
 	.long	0x0
@@ -8299,15 +8301,15 @@ C.40.2864:
 	.long	0x0
 	.long	0x0
 	.section	.debug_info
-	.long	0x1114
+	.long	0x1151
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF175
+	.long	.LASF173
 	.byte	0x1
-	.long	.LASF176
-	.long	.LASF177
+	.long	.LASF174
+	.long	.LASF175
 	.long	0x0
 	.long	0x0
 	.long	.Ldebug_ranges0+0x30
@@ -8660,7 +8662,7 @@ C.40.2864:
 	.byte	0x2
 	.long	0x259
 	.uleb128 0xd
-	.long	.LASF178
+	.long	.LASF176
 	.byte	0x2
 	.byte	0x1a
 	.byte	0xd
@@ -8753,43 +8755,68 @@ C.40.2864:
 	.uleb128 0xa
 	.byte	0x2
 	.long	0x31e
-	.uleb128 0x5
+	.uleb128 0x7
 	.byte	0x2
-	.byte	0x22
-	.byte	0x12
-	.long	0x395
-	.uleb128 0x6
-	.long	.LASF64
-	.sleb128 0
-	.uleb128 0x6
-	.long	.LASF65
-	.sleb128 1
-	.uleb128 0x6
-	.long	.LASF66
-	.sleb128 2
-	.uleb128 0x6
-	.long	.LASF67
-	.sleb128 3
-	.uleb128 0x6
-	.long	.LASF68
-	.sleb128 4
-	.uleb128 0x6
-	.long	.LASF69
-	.sleb128 5
-	.uleb128 0x6
-	.long	.LASF70
-	.sleb128 6
+	.byte	0x31
+	.byte	0xe
+	.long	0x379
+	.uleb128 0x9
+	.string	"pin"
+	.byte	0x31
+	.byte	0xf
+	.long	0x13b
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
 	.byte	0x0
+	.uleb128 0x3
+	.long	.LASF64
+	.byte	0x31
+	.byte	0x10
+	.long	0x384
+	.uleb128 0xa
+	.byte	0x2
+	.long	0x362
+	.uleb128 0x7
+	.byte	0x3
+	.byte	0x31
+	.byte	0x12
+	.long	0x3af
+	.uleb128 0x8
+	.long	.LASF65
+	.byte	0x31
+	.byte	0x13
+	.long	0x3af
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.uleb128 0x8
+	.long	.LASF66
+	.byte	0x31
+	.byte	0x14
+	.long	0x34
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x2
+	.byte	0x0
+	.uleb128 0xa
+	.byte	0x2
+	.long	0x379
+	.uleb128 0x3
+	.long	.LASF67
+	.byte	0x31
+	.byte	0x15
+	.long	0x38a
 	.uleb128 0x11
-	.long	.LASF179
+	.long	.LASF177
 	.byte	0x1d
 	.byte	0x13
 	.byte	0x1
 	.long	0x2d1
 	.byte	0x1
-	.long	0x3c8
+	.long	0x3f3
 	.uleb128 0x12
-	.long	.LASF71
+	.long	.LASF68
 	.byte	0x1d
 	.byte	0x13
 	.long	0x34
@@ -8799,56 +8826,56 @@ C.40.2864:
 	.byte	0x13
 	.long	0x30b
 	.uleb128 0x13
-	.long	.LASF100
+	.long	.LASF97
 	.byte	0x1d
 	.byte	0x14
 	.long	0x30d
 	.byte	0x0
 	.uleb128 0x14
 	.byte	0x1
-	.long	.LASF180
+	.long	.LASF178
 	.byte	0x1d
 	.byte	0x30
 	.byte	0x1
 	.uleb128 0x15
 	.byte	0x1
-	.long	.LASF73
+	.long	.LASF70
 	.byte	0x1d
 	.byte	0x75
 	.byte	0x1
 	.long	0x30b
 	.byte	0x3
-	.long	0x3ef
+	.long	0x41a
 	.uleb128 0x12
-	.long	.LASF72
+	.long	.LASF69
 	.byte	0x1d
 	.byte	0x75
 	.long	0x2d1
 	.byte	0x0
 	.uleb128 0x16
 	.byte	0x1
-	.long	.LASF181
+	.long	.LASF179
 	.byte	0x1d
 	.byte	0x6b
 	.long	0x2d1
 	.byte	0x3
 	.uleb128 0x15
 	.byte	0x1
-	.long	.LASF74
+	.long	.LASF71
 	.byte	0x24
 	.byte	0x14
 	.byte	0x1
 	.long	0x2d1
 	.byte	0x1
-	.long	0x41a
+	.long	0x445
 	.uleb128 0x12
-	.long	.LASF75
+	.long	.LASF72
 	.byte	0x24
 	.byte	0x14
 	.long	0xa6
 	.byte	0x0
 	.uleb128 0x17
-	.long	0x3c8
+	.long	0x3f3
 	.long	.LFB6
 	.long	.LFE6
 	.byte	0x3
@@ -8857,7 +8884,7 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF76
+	.long	.LASF73
 	.byte	0x17
 	.byte	0xe
 	.long	.LFB0
@@ -8868,7 +8895,7 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF77
+	.long	.LASF74
 	.byte	0x17
 	.byte	0x14
 	.long	.LFB1
@@ -8879,7 +8906,7 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF78
+	.long	.LASF75
 	.byte	0x2
 	.byte	0xf
 	.long	.LFB2
@@ -8890,7 +8917,7 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF79
+	.long	.LASF76
 	.byte	0x2
 	.byte	0x1e
 	.long	.LFB3
@@ -8901,7 +8928,7 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x19
 	.byte	0x1
-	.long	.LASF80
+	.long	.LASF77
 	.byte	0x1d
 	.byte	0x1b
 	.long	.LFB5
@@ -8910,24 +8937,24 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x4c9
+	.long	0x4f4
 	.uleb128 0x1a
-	.long	0x395
+	.long	0x3c0
 	.long	.LBB26
 	.long	.LBE26
 	.byte	0x1d
 	.byte	0x27
 	.uleb128 0x1b
-	.long	0x3b1
+	.long	0x3dc
 	.byte	0x0
 	.uleb128 0x1c
-	.long	0x3a6
+	.long	0x3d1
 	.long	.LLST0
 	.uleb128 0x1d
 	.long	.LBB27
 	.long	.LBE27
 	.uleb128 0x1e
-	.long	0x3bc
+	.long	0x3e7
 	.byte	0x6
 	.byte	0x68
 	.byte	0x93
@@ -8940,7 +8967,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x19
 	.byte	0x1
-	.long	.LASF81
+	.long	.LASF78
 	.byte	0x1d
 	.byte	0x37
 	.long	.LFB7
@@ -8949,9 +8976,9 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x4f1
+	.long	0x51c
 	.uleb128 0x1f
-	.long	0x3c8
+	.long	0x3f3
 	.long	.LBB28
 	.long	.LBE28
 	.byte	0x1d
@@ -8959,7 +8986,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF87
+	.long	.LASF84
 	.byte	0x1d
 	.byte	0x3b
 	.byte	0x1
@@ -8970,15 +8997,15 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x5ac
+	.long	0x5d7
 	.uleb128 0x21
-	.long	.LASF82
+	.long	.LASF79
 	.byte	0x1d
 	.byte	0x3b
-	.long	0x5ac
+	.long	0x5d7
 	.long	.LLST1
 	.uleb128 0x21
-	.long	.LASF83
+	.long	.LASF80
 	.byte	0x1d
 	.byte	0x3b
 	.long	0x30b
@@ -8990,7 +9017,7 @@ C.40.2864:
 	.long	0x4d
 	.long	.LLST3
 	.uleb128 0x21
-	.long	.LASF84
+	.long	.LASF81
 	.byte	0x1d
 	.byte	0x3b
 	.long	0x34
@@ -8999,16 +9026,16 @@ C.40.2864:
 	.long	.LASF62
 	.byte	0x1d
 	.byte	0x40
-	.long	0x5b2
+	.long	0x5dd
 	.long	.LLST5
 	.uleb128 0x22
-	.long	.LASF85
+	.long	.LASF82
 	.byte	0x1d
 	.byte	0x42
-	.long	0x5b2
+	.long	0x5dd
 	.long	.LLST6
 	.uleb128 0x23
-	.long	.LASF86
+	.long	.LASF83
 	.byte	0x1d
 	.byte	0x49
 	.long	0x2d1
@@ -9020,21 +9047,21 @@ C.40.2864:
 	.byte	0x93
 	.uleb128 0x1
 	.uleb128 0x24
-	.long	0x395
+	.long	0x3c0
 	.long	.LBB30
 	.long	.Ldebug_ranges0+0x0
 	.byte	0x1d
 	.byte	0x49
 	.uleb128 0x1c
-	.long	0x3b1
+	.long	0x3dc
 	.long	.LLST7
 	.uleb128 0x1c
-	.long	0x3a6
+	.long	0x3d1
 	.long	.LLST8
 	.uleb128 0x25
 	.long	.Ldebug_ranges0+0x18
 	.uleb128 0x26
-	.long	0x3bc
+	.long	0x3e7
 	.long	.LLST9
 	.byte	0x0
 	.byte	0x0
@@ -9047,7 +9074,7 @@ C.40.2864:
 	.long	0x34
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF88
+	.long	.LASF85
 	.byte	0x1d
 	.byte	0x54
 	.byte	0x1
@@ -9058,15 +9085,15 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x5f4
+	.long	0x61f
 	.uleb128 0x21
-	.long	.LASF82
+	.long	.LASF79
 	.byte	0x1d
 	.byte	0x54
-	.long	0x5ac
+	.long	0x5d7
 	.long	.LLST10
 	.uleb128 0x21
-	.long	.LASF83
+	.long	.LASF80
 	.byte	0x1d
 	.byte	0x54
 	.long	0x30b
@@ -9074,7 +9101,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF89
+	.long	.LASF86
 	.byte	0x1d
 	.byte	0x58
 	.byte	0x1
@@ -9085,17 +9112,17 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x621
+	.long	0x64c
 	.uleb128 0x21
-	.long	.LASF82
+	.long	.LASF79
 	.byte	0x1d
 	.byte	0x58
-	.long	0x5ac
+	.long	0x5d7
 	.long	.LLST12
 	.byte	0x0
 	.uleb128 0x27
 	.byte	0x1
-	.long	.LASF92
+	.long	.LASF89
 	.byte	0x1d
 	.byte	0x5d
 	.byte	0x1
@@ -9105,9 +9132,9 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x65f
+	.long	0x68a
 	.uleb128 0x28
-	.long	.LASF90
+	.long	.LASF87
 	.byte	0x1d
 	.byte	0x5d
 	.long	0x30d
@@ -9119,7 +9146,7 @@ C.40.2864:
 	.byte	0x93
 	.uleb128 0x1
 	.uleb128 0x28
-	.long	.LASF91
+	.long	.LASF88
 	.byte	0x1d
 	.byte	0x5d
 	.long	0x30d
@@ -9132,7 +9159,7 @@ C.40.2864:
 	.uleb128 0x1
 	.byte	0x0
 	.uleb128 0x17
-	.long	0x3ef
+	.long	0x41a
 	.long	.LFB12
 	.long	.LFE12
 	.byte	0x3
@@ -9141,7 +9168,7 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x27
 	.byte	0x1
-	.long	.LASF93
+	.long	.LASF90
 	.byte	0x1d
 	.byte	0x6f
 	.byte	0x1
@@ -9151,15 +9178,15 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x6a8
+	.long	0x6d3
 	.uleb128 0x21
-	.long	.LASF91
+	.long	.LASF88
 	.byte	0x1d
 	.byte	0x6f
 	.long	0x2d1
 	.long	.LLST13
 	.uleb128 0x22
-	.long	.LASF94
+	.long	.LASF91
 	.byte	0x1d
 	.byte	0x70
 	.long	0x2d1
@@ -9167,7 +9194,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF95
+	.long	.LASF92
 	.byte	0x18
 	.byte	0x31
 	.byte	0x1
@@ -9178,15 +9205,15 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x739
+	.long	0x764
 	.uleb128 0x21
-	.long	.LASF82
+	.long	.LASF79
 	.byte	0x18
 	.byte	0x31
-	.long	0x5ac
+	.long	0x5d7
 	.long	.LLST15
 	.uleb128 0x21
-	.long	.LASF96
+	.long	.LASF93
 	.byte	0x18
 	.byte	0x31
 	.long	0x30b
@@ -9198,13 +9225,13 @@ C.40.2864:
 	.long	0x4d
 	.long	.LLST17
 	.uleb128 0x21
-	.long	.LASF71
+	.long	.LASF68
 	.byte	0x18
 	.byte	0x31
 	.long	0x34
 	.long	.LLST18
 	.uleb128 0x22
-	.long	.LASF72
+	.long	.LASF69
 	.byte	0x18
 	.byte	0x32
 	.long	0x2d1
@@ -9216,19 +9243,19 @@ C.40.2864:
 	.long	0x351
 	.long	.LLST20
 	.uleb128 0x1a
-	.long	0x3d1
+	.long	0x3fc
 	.long	.LBB34
 	.long	.LBE34
 	.byte	0x18
 	.byte	0x34
 	.uleb128 0x1c
-	.long	0x3e3
+	.long	0x40e
 	.long	.LLST21
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF97
+	.long	.LASF94
 	.byte	0x18
 	.byte	0x3b
 	.byte	0x1
@@ -9239,15 +9266,15 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x775
+	.long	0x7a0
 	.uleb128 0x21
-	.long	.LASF82
+	.long	.LASF79
 	.byte	0x18
 	.byte	0x3b
-	.long	0x5ac
+	.long	0x5d7
 	.long	.LLST22
 	.uleb128 0x21
-	.long	.LASF96
+	.long	.LASF93
 	.byte	0x18
 	.byte	0x3b
 	.long	0x30b
@@ -9255,7 +9282,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF98
+	.long	.LASF95
 	.byte	0x18
 	.byte	0x3f
 	.byte	0x1
@@ -9266,17 +9293,17 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x7a2
+	.long	0x7cd
 	.uleb128 0x21
-	.long	.LASF82
+	.long	.LASF79
 	.byte	0x18
 	.byte	0x3f
-	.long	0x5ac
+	.long	0x5d7
 	.long	.LLST24
 	.byte	0x0
 	.uleb128 0x27
 	.byte	0x1
-	.long	.LASF99
+	.long	.LASF96
 	.byte	0x18
 	.byte	0x43
 	.byte	0x1
@@ -9286,9 +9313,9 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x7f3
+	.long	0x81e
 	.uleb128 0x21
-	.long	.LASF100
+	.long	.LASF97
 	.byte	0x18
 	.byte	0x43
 	.long	0x2d1
@@ -9300,19 +9327,19 @@ C.40.2864:
 	.long	0x351
 	.long	.LLST26
 	.uleb128 0x1a
-	.long	0x3d1
+	.long	0x3fc
 	.long	.LBB36
 	.long	.LBE36
 	.byte	0x18
 	.byte	0x45
 	.uleb128 0x1c
-	.long	0x3e3
+	.long	0x40e
 	.long	.LLST27
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF101
+	.long	.LASF98
 	.byte	0x18
 	.byte	0x4c
 	.byte	0x1
@@ -9323,9 +9350,9 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x820
+	.long	0x84b
 	.uleb128 0x21
-	.long	.LASF100
+	.long	.LASF97
 	.byte	0x18
 	.byte	0x4c
 	.long	0x2d1
@@ -9333,7 +9360,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF102
+	.long	.LASF99
 	.byte	0x18
 	.byte	0x50
 	.byte	0x1
@@ -9344,9 +9371,9 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x85c
+	.long	0x887
 	.uleb128 0x21
-	.long	.LASF100
+	.long	.LASF97
 	.byte	0x18
 	.byte	0x50
 	.long	0x2d1
@@ -9360,7 +9387,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF103
+	.long	.LASF100
 	.byte	0x18
 	.byte	0x55
 	.byte	0x1
@@ -9371,9 +9398,9 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x889
+	.long	0x8b4
 	.uleb128 0x21
-	.long	.LASF100
+	.long	.LASF97
 	.byte	0x18
 	.byte	0x55
 	.long	0x2d1
@@ -9381,7 +9408,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF104
+	.long	.LASF101
 	.byte	0x18
 	.byte	0x59
 	.byte	0x1
@@ -9392,9 +9419,9 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x8b6
+	.long	0x8e1
 	.uleb128 0x21
-	.long	.LASF72
+	.long	.LASF69
 	.byte	0x18
 	.byte	0x59
 	.long	0x2d1
@@ -9402,7 +9429,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x19
 	.byte	0x1
-	.long	.LASF105
+	.long	.LASF102
 	.byte	0x18
 	.byte	0x61
 	.long	.LFB23
@@ -9411,9 +9438,9 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x8fc
+	.long	0x927
 	.uleb128 0x23
-	.long	.LASF106
+	.long	.LASF103
 	.byte	0x18
 	.byte	0x66
 	.long	0x351
@@ -9425,13 +9452,13 @@ C.40.2864:
 	.byte	0x93
 	.uleb128 0x1
 	.uleb128 0x1a
-	.long	0x3d1
+	.long	0x3fc
 	.long	.LBB38
 	.long	.LBE38
 	.byte	0x18
 	.byte	0x66
 	.uleb128 0x2a
-	.long	0x3e3
+	.long	0x40e
 	.byte	0x5
 	.byte	0x3
 	.long	__current_process
@@ -9439,7 +9466,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF107
+	.long	.LASF104
 	.byte	0x24
 	.byte	0xe
 	.long	.LFB24
@@ -9450,7 +9477,7 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF108
+	.long	.LASF105
 	.byte	0x24
 	.byte	0x12
 	.long	.LFB25
@@ -9460,21 +9487,21 @@ C.40.2864:
 	.uleb128 0x20
 	.sleb128 0
 	.uleb128 0x2b
-	.long	0x3fc
+	.long	0x427
 	.long	.LFB26
 	.long	.LFE26
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x943
+	.long	0x96e
 	.uleb128 0x1c
-	.long	0x40e
+	.long	0x439
 	.long	.LLST33
 	.byte	0x0
 	.uleb128 0x19
 	.byte	0x1
-	.long	.LASF109
+	.long	.LASF106
 	.byte	0x1
 	.byte	0x13
 	.long	.LFB28
@@ -9483,9 +9510,9 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x980
+	.long	0x9ab
 	.uleb128 0x23
-	.long	.LASF110
+	.long	.LASF107
 	.byte	0x1
 	.byte	0x14
 	.long	0x228
@@ -9505,7 +9532,7 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF111
+	.long	.LASF108
 	.byte	0x1
 	.byte	0x1c
 	.long	.LFB29
@@ -9516,7 +9543,7 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF112
+	.long	.LASF109
 	.byte	0x1
 	.byte	0x1e
 	.long	.LFB30
@@ -9527,7 +9554,7 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF113
+	.long	.LASF110
 	.byte	0x1
 	.byte	0x27
 	.long	.LFB31
@@ -9538,7 +9565,7 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF114
+	.long	.LASF111
 	.byte	0x1
 	.byte	0x2c
 	.byte	0x1
@@ -9549,9 +9576,9 @@ C.40.2864:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0xa0b
+	.long	0xa36
 	.uleb128 0x21
-	.long	.LASF115
+	.long	.LASF112
 	.byte	0x1
 	.byte	0x2c
 	.long	0xa6
@@ -9563,18 +9590,18 @@ C.40.2864:
 	.long	0x2d1
 	.long	.LLST35
 	.uleb128 0x1a
-	.long	0x3fc
+	.long	0x427
 	.long	.LBB40
 	.long	.LBE40
 	.byte	0x1
 	.byte	0x2f
 	.uleb128 0x2c
-	.long	0x40e
+	.long	0x439
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x2d
 	.byte	0x1
-	.long	.LASF182
+	.long	.LASF180
 	.byte	0x2a
 	.byte	0x16
 	.byte	0x1
@@ -9586,9 +9613,9 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF116
+	.long	.LASF113
 	.byte	0x1
-	.byte	0x33
+	.byte	0x36
 	.long	.LFB33
 	.long	.LFE33
 	.byte	0x3
@@ -9597,9 +9624,9 @@ C.40.2864:
 	.sleb128 0
 	.uleb128 0x18
 	.byte	0x1
-	.long	.LASF117
+	.long	.LASF114
 	.byte	0x1
-	.byte	0x3a
+	.byte	0x3d
 	.long	.LFB34
 	.long	.LFE34
 	.byte	0x3
@@ -9607,31 +9634,52 @@ C.40.2864:
 	.uleb128 0x20
 	.sleb128 0
 	.uleb128 0x2e
-	.long	.LASF118
+	.long	.LASF115
 	.byte	0x7
 	.word	0x12e
 	.long	0x86
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2e
-	.long	.LASF119
+	.long	.LASF116
 	.byte	0x7
 	.word	0x138
-	.long	0xa64
+	.long	0xa8f
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0xa
 	.byte	0x2
-	.long	0xa6a
+	.long	0xa95
 	.uleb128 0x2
 	.byte	0x1
 	.byte	0x6
+	.long	.LASF117
+	.uleb128 0x2f
+	.long	.LASF118
+	.byte	0x16
+	.byte	0xd
+	.long	0xef
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x2f
+	.long	.LASF119
+	.byte	0x16
+	.byte	0xd
+	.long	0x130
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x2f
 	.long	.LASF120
+	.byte	0x16
+	.byte	0xd
+	.long	0x130
+	.byte	0x1
+	.byte	0x1
 	.uleb128 0x2f
 	.long	.LASF121
 	.byte	0x16
 	.byte	0xd
-	.long	0xef
+	.long	0x130
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
@@ -9672,21 +9720,21 @@ C.40.2864:
 	.uleb128 0x2f
 	.long	.LASF127
 	.byte	0x16
-	.byte	0xd
-	.long	0x130
+	.byte	0xe
+	.long	0xef
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
 	.long	.LASF128
 	.byte	0x16
-	.byte	0xd
+	.byte	0xe
 	.long	0x130
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
 	.long	.LASF129
 	.byte	0x16
-	.byte	0xd
+	.byte	0xe
 	.long	0x130
 	.byte	0x1
 	.byte	0x1
@@ -9694,7 +9742,7 @@ C.40.2864:
 	.long	.LASF130
 	.byte	0x16
 	.byte	0xe
-	.long	0xef
+	.long	0x130
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
@@ -9735,21 +9783,21 @@ C.40.2864:
 	.uleb128 0x2f
 	.long	.LASF136
 	.byte	0x16
-	.byte	0xe
-	.long	0x130
+	.byte	0xf
+	.long	0xef
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
 	.long	.LASF137
 	.byte	0x16
-	.byte	0xe
+	.byte	0xf
 	.long	0x130
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
 	.long	.LASF138
 	.byte	0x16
-	.byte	0xe
+	.byte	0xf
 	.long	0x130
 	.byte	0x1
 	.byte	0x1
@@ -9757,7 +9805,7 @@ C.40.2864:
 	.long	.LASF139
 	.byte	0x16
 	.byte	0xf
-	.long	0xef
+	.long	0x130
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
@@ -9798,21 +9846,21 @@ C.40.2864:
 	.uleb128 0x2f
 	.long	.LASF145
 	.byte	0x16
-	.byte	0xf
-	.long	0x130
+	.byte	0x10
+	.long	0xef
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
 	.long	.LASF146
 	.byte	0x16
-	.byte	0xf
+	.byte	0x10
 	.long	0x130
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
 	.long	.LASF147
 	.byte	0x16
-	.byte	0xf
+	.byte	0x10
 	.long	0x130
 	.byte	0x1
 	.byte	0x1
@@ -9820,7 +9868,7 @@ C.40.2864:
 	.long	.LASF148
 	.byte	0x16
 	.byte	0x10
-	.long	0xef
+	.long	0x130
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
@@ -9860,167 +9908,146 @@ C.40.2864:
 	.byte	0x1
 	.uleb128 0x2f
 	.long	.LASF154
-	.byte	0x16
-	.byte	0x10
-	.long	0x130
-	.byte	0x1
-	.byte	0x1
-	.uleb128 0x2f
-	.long	.LASF155
-	.byte	0x16
-	.byte	0x10
-	.long	0x130
-	.byte	0x1
-	.byte	0x1
-	.uleb128 0x2f
-	.long	.LASF156
-	.byte	0x16
-	.byte	0x10
-	.long	0x130
-	.byte	0x1
-	.byte	0x1
-	.uleb128 0x2f
-	.long	.LASF157
 	.byte	0x13
 	.byte	0xe
 	.long	0x21d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF158
+	.long	.LASF155
 	.byte	0x13
 	.byte	0xf
 	.long	0x21d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF159
+	.long	.LASF156
 	.byte	0x13
 	.byte	0x10
 	.long	0x21d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF160
+	.long	.LASF157
 	.byte	0x13
 	.byte	0x11
 	.long	0x21d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF161
+	.long	.LASF158
 	.byte	0x13
 	.byte	0x13
 	.long	0x29a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF162
+	.long	.LASF159
 	.byte	0x13
 	.byte	0x14
 	.long	0x29a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF163
+	.long	.LASF160
 	.byte	0x13
 	.byte	0x15
 	.long	0x29a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF164
+	.long	.LASF161
 	.byte	0x13
 	.byte	0x16
 	.long	0x29a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF165
+	.long	.LASF162
 	.byte	0x13
 	.byte	0x17
 	.long	0x29a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF166
+	.long	.LASF163
 	.byte	0x13
 	.byte	0x18
 	.long	0x29a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF167
+	.long	.LASF164
 	.byte	0x13
 	.byte	0x19
 	.long	0x29a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF168
+	.long	.LASF165
 	.byte	0x13
 	.byte	0x1a
 	.long	0x29a
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF169
+	.long	.LASF166
 	.byte	0x1c
 	.byte	0x10
 	.long	0x4d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF170
+	.long	.LASF167
 	.byte	0x1c
 	.byte	0x14
 	.long	0x34
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF171
+	.long	.LASF168
 	.byte	0x1c
 	.byte	0x23
 	.long	0x2d1
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF172
+	.long	.LASF169
 	.byte	0x18
 	.byte	0xe
 	.long	0x4d
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF173
+	.long	.LASF170
 	.byte	0x24
 	.byte	0xc
 	.long	0x2d1
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2f
-	.long	.LASF174
+	.long	.LASF171
 	.byte	0x29
 	.byte	0xf
 	.long	0x66
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2e
-	.long	.LASF118
+	.long	.LASF115
 	.byte	0x7
 	.word	0x12e
 	.long	0x86
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x2e
-	.long	.LASF119
+	.long	.LASF116
 	.byte	0x7
 	.word	0x138
-	.long	0xa64
+	.long	0xa8f
 	.byte	0x1
 	.byte	0x1
 	.uleb128 0x30
-	.long	.LASF121
+	.long	.LASF118
 	.byte	0x16
 	.byte	0xd
 	.long	0xef
@@ -10029,7 +10056,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PortA
 	.uleb128 0x30
-	.long	.LASF122
+	.long	.LASF119
 	.byte	0x16
 	.byte	0xd
 	.long	0x130
@@ -10038,7 +10065,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinA0
 	.uleb128 0x30
-	.long	.LASF123
+	.long	.LASF120
 	.byte	0x16
 	.byte	0xd
 	.long	0x130
@@ -10047,7 +10074,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinA1
 	.uleb128 0x30
-	.long	.LASF124
+	.long	.LASF121
 	.byte	0x16
 	.byte	0xd
 	.long	0x130
@@ -10056,7 +10083,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinA2
 	.uleb128 0x30
-	.long	.LASF125
+	.long	.LASF122
 	.byte	0x16
 	.byte	0xd
 	.long	0x130
@@ -10065,7 +10092,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinA3
 	.uleb128 0x30
-	.long	.LASF126
+	.long	.LASF123
 	.byte	0x16
 	.byte	0xd
 	.long	0x130
@@ -10074,7 +10101,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinA4
 	.uleb128 0x30
-	.long	.LASF127
+	.long	.LASF124
 	.byte	0x16
 	.byte	0xd
 	.long	0x130
@@ -10083,7 +10110,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinA5
 	.uleb128 0x30
-	.long	.LASF128
+	.long	.LASF125
 	.byte	0x16
 	.byte	0xd
 	.long	0x130
@@ -10092,7 +10119,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinA6
 	.uleb128 0x30
-	.long	.LASF129
+	.long	.LASF126
 	.byte	0x16
 	.byte	0xd
 	.long	0x130
@@ -10101,7 +10128,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinA7
 	.uleb128 0x30
-	.long	.LASF130
+	.long	.LASF127
 	.byte	0x16
 	.byte	0xe
 	.long	0xef
@@ -10110,7 +10137,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PortB
 	.uleb128 0x30
-	.long	.LASF131
+	.long	.LASF128
 	.byte	0x16
 	.byte	0xe
 	.long	0x130
@@ -10119,7 +10146,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinB0
 	.uleb128 0x30
-	.long	.LASF132
+	.long	.LASF129
 	.byte	0x16
 	.byte	0xe
 	.long	0x130
@@ -10128,7 +10155,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinB1
 	.uleb128 0x30
-	.long	.LASF133
+	.long	.LASF130
 	.byte	0x16
 	.byte	0xe
 	.long	0x130
@@ -10137,7 +10164,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinB2
 	.uleb128 0x30
-	.long	.LASF134
+	.long	.LASF131
 	.byte	0x16
 	.byte	0xe
 	.long	0x130
@@ -10146,7 +10173,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinB3
 	.uleb128 0x30
-	.long	.LASF135
+	.long	.LASF132
 	.byte	0x16
 	.byte	0xe
 	.long	0x130
@@ -10155,7 +10182,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinB4
 	.uleb128 0x30
-	.long	.LASF136
+	.long	.LASF133
 	.byte	0x16
 	.byte	0xe
 	.long	0x130
@@ -10164,7 +10191,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinB5
 	.uleb128 0x30
-	.long	.LASF137
+	.long	.LASF134
 	.byte	0x16
 	.byte	0xe
 	.long	0x130
@@ -10173,7 +10200,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinB6
 	.uleb128 0x30
-	.long	.LASF138
+	.long	.LASF135
 	.byte	0x16
 	.byte	0xe
 	.long	0x130
@@ -10182,7 +10209,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinB7
 	.uleb128 0x30
-	.long	.LASF139
+	.long	.LASF136
 	.byte	0x16
 	.byte	0xf
 	.long	0xef
@@ -10191,7 +10218,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PortC
 	.uleb128 0x30
-	.long	.LASF140
+	.long	.LASF137
 	.byte	0x16
 	.byte	0xf
 	.long	0x130
@@ -10200,7 +10227,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinC0
 	.uleb128 0x30
-	.long	.LASF141
+	.long	.LASF138
 	.byte	0x16
 	.byte	0xf
 	.long	0x130
@@ -10209,7 +10236,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinC1
 	.uleb128 0x30
-	.long	.LASF142
+	.long	.LASF139
 	.byte	0x16
 	.byte	0xf
 	.long	0x130
@@ -10218,7 +10245,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinC2
 	.uleb128 0x30
-	.long	.LASF143
+	.long	.LASF140
 	.byte	0x16
 	.byte	0xf
 	.long	0x130
@@ -10227,7 +10254,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinC3
 	.uleb128 0x30
-	.long	.LASF144
+	.long	.LASF141
 	.byte	0x16
 	.byte	0xf
 	.long	0x130
@@ -10236,7 +10263,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinC4
 	.uleb128 0x30
-	.long	.LASF145
+	.long	.LASF142
 	.byte	0x16
 	.byte	0xf
 	.long	0x130
@@ -10245,7 +10272,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinC5
 	.uleb128 0x30
-	.long	.LASF146
+	.long	.LASF143
 	.byte	0x16
 	.byte	0xf
 	.long	0x130
@@ -10254,7 +10281,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinC6
 	.uleb128 0x30
-	.long	.LASF147
+	.long	.LASF144
 	.byte	0x16
 	.byte	0xf
 	.long	0x130
@@ -10263,7 +10290,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinC7
 	.uleb128 0x30
-	.long	.LASF148
+	.long	.LASF145
 	.byte	0x16
 	.byte	0x10
 	.long	0xef
@@ -10272,7 +10299,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PortD
 	.uleb128 0x30
-	.long	.LASF149
+	.long	.LASF146
 	.byte	0x16
 	.byte	0x10
 	.long	0x130
@@ -10281,7 +10308,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinD0
 	.uleb128 0x30
-	.long	.LASF150
+	.long	.LASF147
 	.byte	0x16
 	.byte	0x10
 	.long	0x130
@@ -10290,7 +10317,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinD1
 	.uleb128 0x30
-	.long	.LASF151
+	.long	.LASF148
 	.byte	0x16
 	.byte	0x10
 	.long	0x130
@@ -10299,7 +10326,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinD2
 	.uleb128 0x30
-	.long	.LASF152
+	.long	.LASF149
 	.byte	0x16
 	.byte	0x10
 	.long	0x130
@@ -10308,7 +10335,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinD3
 	.uleb128 0x30
-	.long	.LASF153
+	.long	.LASF150
 	.byte	0x16
 	.byte	0x10
 	.long	0x130
@@ -10317,7 +10344,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinD4
 	.uleb128 0x30
-	.long	.LASF154
+	.long	.LASF151
 	.byte	0x16
 	.byte	0x10
 	.long	0x130
@@ -10326,7 +10353,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinD5
 	.uleb128 0x30
-	.long	.LASF155
+	.long	.LASF152
 	.byte	0x16
 	.byte	0x10
 	.long	0x130
@@ -10335,7 +10362,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinD6
 	.uleb128 0x30
-	.long	.LASF156
+	.long	.LASF153
 	.byte	0x16
 	.byte	0x10
 	.long	0x130
@@ -10344,7 +10371,7 @@ C.40.2864:
 	.byte	0x3
 	.long	PinD7
 	.uleb128 0x30
-	.long	.LASF157
+	.long	.LASF154
 	.byte	0x13
 	.byte	0xe
 	.long	0x21d
@@ -10353,7 +10380,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer0
 	.uleb128 0x30
-	.long	.LASF158
+	.long	.LASF155
 	.byte	0x13
 	.byte	0xf
 	.long	0x21d
@@ -10362,7 +10389,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer1
 	.uleb128 0x30
-	.long	.LASF159
+	.long	.LASF156
 	.byte	0x13
 	.byte	0x10
 	.long	0x21d
@@ -10371,7 +10398,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer2
 	.uleb128 0x30
-	.long	.LASF160
+	.long	.LASF157
 	.byte	0x13
 	.byte	0x11
 	.long	0x21d
@@ -10380,7 +10407,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer3
 	.uleb128 0x30
-	.long	.LASF161
+	.long	.LASF158
 	.byte	0x13
 	.byte	0x13
 	.long	0x29a
@@ -10389,7 +10416,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer0A
 	.uleb128 0x30
-	.long	.LASF162
+	.long	.LASF159
 	.byte	0x13
 	.byte	0x14
 	.long	0x29a
@@ -10398,7 +10425,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer0B
 	.uleb128 0x30
-	.long	.LASF163
+	.long	.LASF160
 	.byte	0x13
 	.byte	0x15
 	.long	0x29a
@@ -10407,7 +10434,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer1A
 	.uleb128 0x30
-	.long	.LASF164
+	.long	.LASF161
 	.byte	0x13
 	.byte	0x16
 	.long	0x29a
@@ -10416,7 +10443,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer1B
 	.uleb128 0x30
-	.long	.LASF165
+	.long	.LASF162
 	.byte	0x13
 	.byte	0x17
 	.long	0x29a
@@ -10425,7 +10452,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer2A
 	.uleb128 0x30
-	.long	.LASF166
+	.long	.LASF163
 	.byte	0x13
 	.byte	0x18
 	.long	0x29a
@@ -10434,7 +10461,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer2B
 	.uleb128 0x30
-	.long	.LASF167
+	.long	.LASF164
 	.byte	0x13
 	.byte	0x19
 	.long	0x29a
@@ -10443,7 +10470,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer3A
 	.uleb128 0x30
-	.long	.LASF168
+	.long	.LASF165
 	.byte	0x13
 	.byte	0x1a
 	.long	0x29a
@@ -10452,7 +10479,7 @@ C.40.2864:
 	.byte	0x3
 	.long	Timer3B
 	.uleb128 0x30
-	.long	.LASF169
+	.long	.LASF166
 	.byte	0x1c
 	.byte	0x10
 	.long	0x4d
@@ -10461,7 +10488,7 @@ C.40.2864:
 	.byte	0x3
 	.long	__default_stack_size
 	.uleb128 0x30
-	.long	.LASF170
+	.long	.LASF167
 	.byte	0x1c
 	.byte	0x14
 	.long	0x34
@@ -10470,7 +10497,7 @@ C.40.2864:
 	.byte	0x3
 	.long	__main_process_additional_memory
 	.uleb128 0x30
-	.long	.LASF171
+	.long	.LASF168
 	.byte	0x1d
 	.byte	0x11
 	.long	0x2d1
@@ -10479,7 +10506,7 @@ C.40.2864:
 	.byte	0x3
 	.long	__current_process
 	.uleb128 0x30
-	.long	.LASF172
+	.long	.LASF169
 	.byte	0x18
 	.byte	0xe
 	.long	0x4d
@@ -10488,7 +10515,7 @@ C.40.2864:
 	.byte	0x3
 	.long	__nextProcessNumber
 	.uleb128 0x30
-	.long	.LASF173
+	.long	.LASF170
 	.byte	0x24
 	.byte	0xc
 	.long	0x2d1
@@ -10497,7 +10524,7 @@ C.40.2864:
 	.byte	0x3
 	.long	__idle_process
 	.uleb128 0x30
-	.long	.LASF174
+	.long	.LASF171
 	.byte	0x29
 	.byte	0xf
 	.long	0x66
@@ -10505,6 +10532,15 @@ C.40.2864:
 	.byte	0x5
 	.byte	0x3
 	.long	milliseconds_running
+	.uleb128 0x30
+	.long	.LASF172
+	.byte	0x1
+	.byte	0x34
+	.long	0x3b5
+	.byte	0x1
+	.byte	0x5
+	.byte	0x3
+	.long	AllLeds
 	.byte	0x0
 	.section	.debug_abbrev
 	.uleb128 0x1
@@ -11169,190 +11205,192 @@ C.40.2864:
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_pubnames,"",@progbits
-	.long	0x56f
+	.long	0x57b
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x1118
-	.long	0x41a
+	.long	0x1155
+	.long	0x445
 	.string	"ProcessGraveyard"
-	.long	0x42b
+	.long	0x456
 	.string	"init_ports_m1284P"
-	.long	0x43f
+	.long	0x46a
 	.string	"init_ports_m1284P_kernel_init"
-	.long	0x453
+	.long	0x47e
 	.string	"init_timer_m1284P"
-	.long	0x467
+	.long	0x492
 	.string	"init_timer_m1284P_kernel_init"
-	.long	0x47b
+	.long	0x4a6
 	.string	"init_process_base"
-	.long	0x4c9
+	.long	0x4f4
 	.string	"MainProcessEnd"
-	.long	0x4f1
+	.long	0x51c
 	.string	"createProcessBase3"
-	.long	0x5b8
+	.long	0x5e3
 	.string	"createProcessBase2"
-	.long	0x5f4
+	.long	0x61f
 	.string	"createProcessBase"
-	.long	0x621
+	.long	0x64c
 	.string	"switchContext"
-	.long	0x65f
+	.long	0x68a
 	.string	"getCurrentProcess"
-	.long	0x670
+	.long	0x69b
 	.string	"switchProcess"
-	.long	0x6a8
+	.long	0x6d3
 	.string	"createProcess3"
-	.long	0x739
+	.long	0x764
 	.string	"createProcess2"
-	.long	0x775
+	.long	0x7a0
 	.string	"createProcess"
-	.long	0x7a2
+	.long	0x7cd
 	.string	"freeProcess"
-	.long	0x7f3
+	.long	0x81e
 	.string	"getProcessStackSize"
-	.long	0x820
+	.long	0x84b
 	.string	"getFreeProcessStackSize"
-	.long	0x85c
+	.long	0x887
 	.string	"getProcessNumber"
-	.long	0x889
+	.long	0x8b4
 	.string	"getProcessMemory"
-	.long	0x8b6
+	.long	0x8e1
 	.string	"init_process"
-	.long	0x8fc
+	.long	0x927
 	.string	"init_idle_scheduler"
-	.long	0x910
+	.long	0x93b
 	.string	"init_idle_scheduler_kernel_init"
-	.long	0x924
+	.long	0x94f
 	.string	"idle_schedule"
-	.long	0x943
+	.long	0x96e
 	.string	"init_scheduler"
-	.long	0x980
+	.long	0x9ab
 	.string	"init_scheduler_kernel_init"
-	.long	0x994
+	.long	0x9bf
 	.string	"start_scheduler"
-	.long	0x9a8
+	.long	0x9d3
 	.string	"before_scheduler"
-	.long	0x9bc
+	.long	0x9e7
 	.string	"schedule"
-	.long	0xa0b
+	.long	0xa36
 	.string	"__vector_32"
-	.long	0xa20
+	.long	0xa4b
 	.string	"init_kernel"
-	.long	0xa34
+	.long	0xa5f
 	.string	"init_kernel_kernel_init"
-	.long	0xd4b
+	.long	0xd76
 	.string	"PortA"
-	.long	0xd5d
+	.long	0xd88
 	.string	"PinA0"
-	.long	0xd6f
+	.long	0xd9a
 	.string	"PinA1"
-	.long	0xd81
+	.long	0xdac
 	.string	"PinA2"
-	.long	0xd93
+	.long	0xdbe
 	.string	"PinA3"
-	.long	0xda5
+	.long	0xdd0
 	.string	"PinA4"
-	.long	0xdb7
+	.long	0xde2
 	.string	"PinA5"
-	.long	0xdc9
+	.long	0xdf4
 	.string	"PinA6"
-	.long	0xddb
+	.long	0xe06
 	.string	"PinA7"
-	.long	0xded
+	.long	0xe18
 	.string	"PortB"
-	.long	0xdff
+	.long	0xe2a
 	.string	"PinB0"
-	.long	0xe11
+	.long	0xe3c
 	.string	"PinB1"
-	.long	0xe23
+	.long	0xe4e
 	.string	"PinB2"
-	.long	0xe35
+	.long	0xe60
 	.string	"PinB3"
-	.long	0xe47
+	.long	0xe72
 	.string	"PinB4"
-	.long	0xe59
+	.long	0xe84
 	.string	"PinB5"
-	.long	0xe6b
+	.long	0xe96
 	.string	"PinB6"
-	.long	0xe7d
+	.long	0xea8
 	.string	"PinB7"
-	.long	0xe8f
+	.long	0xeba
 	.string	"PortC"
-	.long	0xea1
+	.long	0xecc
 	.string	"PinC0"
-	.long	0xeb3
+	.long	0xede
 	.string	"PinC1"
-	.long	0xec5
+	.long	0xef0
 	.string	"PinC2"
-	.long	0xed7
+	.long	0xf02
 	.string	"PinC3"
-	.long	0xee9
+	.long	0xf14
 	.string	"PinC4"
-	.long	0xefb
+	.long	0xf26
 	.string	"PinC5"
-	.long	0xf0d
+	.long	0xf38
 	.string	"PinC6"
-	.long	0xf1f
+	.long	0xf4a
 	.string	"PinC7"
-	.long	0xf31
+	.long	0xf5c
 	.string	"PortD"
-	.long	0xf43
+	.long	0xf6e
 	.string	"PinD0"
-	.long	0xf55
+	.long	0xf80
 	.string	"PinD1"
-	.long	0xf67
+	.long	0xf92
 	.string	"PinD2"
-	.long	0xf79
+	.long	0xfa4
 	.string	"PinD3"
-	.long	0xf8b
+	.long	0xfb6
 	.string	"PinD4"
-	.long	0xf9d
+	.long	0xfc8
 	.string	"PinD5"
-	.long	0xfaf
+	.long	0xfda
 	.string	"PinD6"
-	.long	0xfc1
+	.long	0xfec
 	.string	"PinD7"
-	.long	0xfd3
+	.long	0xffe
 	.string	"Timer0"
-	.long	0xfe5
+	.long	0x1010
 	.string	"Timer1"
-	.long	0xff7
+	.long	0x1022
 	.string	"Timer2"
-	.long	0x1009
+	.long	0x1034
 	.string	"Timer3"
-	.long	0x101b
+	.long	0x1046
 	.string	"Timer0A"
-	.long	0x102d
+	.long	0x1058
 	.string	"Timer0B"
-	.long	0x103f
+	.long	0x106a
 	.string	"Timer1A"
-	.long	0x1051
+	.long	0x107c
 	.string	"Timer1B"
-	.long	0x1063
+	.long	0x108e
 	.string	"Timer2A"
-	.long	0x1075
+	.long	0x10a0
 	.string	"Timer2B"
-	.long	0x1087
+	.long	0x10b2
 	.string	"Timer3A"
-	.long	0x1099
+	.long	0x10c4
 	.string	"Timer3B"
-	.long	0x10ab
+	.long	0x10d6
 	.string	"__default_stack_size"
-	.long	0x10bd
+	.long	0x10e8
 	.string	"__main_process_additional_memory"
-	.long	0x10cf
+	.long	0x10fa
 	.string	"__current_process"
-	.long	0x10e1
+	.long	0x110c
 	.string	"__nextProcessNumber"
-	.long	0x10f3
+	.long	0x111e
 	.string	"__idle_process"
-	.long	0x1105
+	.long	0x1130
 	.string	"milliseconds_running"
+	.long	0x1142
+	.string	"AllLeds"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
-	.long	0xf6
+	.long	0x10c
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x1118
+	.long	0x1155
 	.long	0x34
 	.string	"uint8_t"
 	.long	0x4d
@@ -11391,6 +11429,10 @@ C.40.2864:
 	.string	"PPCB"
 	.long	0x351
 	.string	"PPCBExt"
+	.long	0x379
+	.string	"PLed"
+	.long	0x3b5
+	.string	"LedGroup"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
 	.long	0x11c
@@ -12944,7 +12986,7 @@ C.40.2864:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM161
-	.byte	0x46
+	.byte	0x49
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -12954,7 +12996,7 @@ C.40.2864:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM163
-	.byte	0x15
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -12968,11 +13010,6 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM166
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
 	.long	.LFE33
 	.byte	0x0
 	.uleb128 0x1
@@ -12980,12 +13017,12 @@ C.40.2864:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM167
-	.byte	0x4d
+	.long	.LSM166
+	.byte	0x50
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM168
+	.long	.LSM167
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
@@ -12998,43 +13035,45 @@ C.40.2864:
 	.section	.debug_macinfo
 	.byte	0x0
 	.section	.debug_str,"MS",@progbits,1
-.LASF89:
+.LASF86:
 	.string	"createProcessBase"
+.LASF66:
+	.string	"count"
 .LASF46:
 	.string	"TIMER_A"
 .LASF47:
 	.string	"TIMER_B"
-.LASF169:
+.LASF166:
 	.string	"__default_stack_size"
-.LASF174:
+.LASF171:
 	.string	"milliseconds_running"
-.LASF157:
+.LASF154:
 	.string	"Timer0"
-.LASF158:
+.LASF155:
 	.string	"Timer1"
 .LASF10:
 	.string	"size_t"
 .LASF33:
 	.string	"prescale_32"
-.LASF76:
+.LASF73:
 	.string	"init_ports_m1284P"
-.LASF81:
+.LASF78:
 	.string	"MainProcessEnd"
-.LASF118:
+.LASF115:
 	.string	"__malloc_margin"
-.LASF132:
+.LASF129:
 	.string	"PinB1"
-.LASF133:
+.LASF130:
 	.string	"PinB2"
-.LASF134:
+.LASF131:
 	.string	"PinB3"
-.LASF98:
+.LASF95:
 	.string	"createProcess"
 .LASF51:
 	.string	"type"
-.LASF137:
+.LASF134:
 	.string	"PinB6"
-.LASF138:
+.LASF135:
 	.string	"PinB7"
 .LASF16:
 	.string	"PPort"
@@ -13042,19 +13081,19 @@ C.40.2864:
 	.string	"stackPointer"
 .LASF9:
 	.string	"long long unsigned int"
-.LASF116:
+.LASF113:
 	.string	"init_kernel"
-.LASF97:
+.LASF94:
 	.string	"createProcess2"
-.LASF95:
+.LASF92:
 	.string	"createProcess3"
-.LASF173:
+.LASF170:
 	.string	"__idle_process"
-.LASF141:
+.LASF138:
 	.string	"PinC1"
-.LASF142:
+.LASF139:
 	.string	"PinC2"
-.LASF144:
+.LASF141:
 	.string	"PinC4"
 .LASF19:
 	.string	"wgm_normal"
@@ -13062,63 +13101,59 @@ C.40.2864:
 	.string	"long long int"
 .LASF0:
 	.string	"signed char"
-.LASF66:
-	.string	"PrioBelowNormal"
-.LASF106:
+.LASF103:
 	.string	"initialProcess"
-.LASF65:
-	.string	"PrioLow"
-.LASF79:
+.LASF76:
 	.string	"init_timer_m1284P_kernel_init"
 .LASF50:
 	.string	"outputCompareRegister"
-.LASF182:
+.LASF180:
 	.string	"__vector_32"
-.LASF140:
+.LASF137:
 	.string	"PinC0"
 .LASF63:
 	.string	"PPCBExt"
 .LASF5:
 	.string	"long int"
-.LASF143:
+.LASF140:
 	.string	"PinC3"
 .LASF37:
 	.string	"prescale_1024"
-.LASF145:
+.LASF142:
 	.string	"PinC5"
-.LASF146:
+.LASF143:
 	.string	"PinC6"
-.LASF147:
+.LASF144:
 	.string	"PinC7"
-.LASF83:
+.LASF80:
 	.string	"parameter"
-.LASF117:
+.LASF114:
 	.string	"init_kernel_kernel_init"
 .LASF3:
 	.string	"uint16_t"
 .LASF18:
 	.string	"PPin"
-.LASF100:
+.LASF97:
 	.string	"process"
-.LASF78:
+.LASF75:
 	.string	"init_timer_m1284P"
 .LASF56:
 	.string	"Process"
 .LASF38:
 	.string	"external_falling_edge"
-.LASF71:
+.LASF68:
 	.string	"additionalMemory"
 .LASF27:
 	.string	"pwm_fast_9bit"
 .LASF17:
 	.string	"mask"
-.LASF92:
+.LASF89:
 	.string	"switchContext"
-.LASF121:
+.LASF118:
 	.string	"PortA"
-.LASF130:
+.LASF127:
 	.string	"PortB"
-.LASF88:
+.LASF85:
 	.string	"createProcessBase2"
 .LASF60:
 	.string	"processNumber"
@@ -13126,56 +13161,54 @@ C.40.2864:
 	.string	"port"
 .LASF62:
 	.string	"stackTop"
-.LASF149:
+.LASF146:
 	.string	"PinD0"
-.LASF150:
+.LASF147:
 	.string	"PinD1"
 .LASF4:
 	.string	"unsigned int"
-.LASF152:
+.LASF149:
 	.string	"PinD3"
-.LASF153:
+.LASF150:
 	.string	"PinD4"
-.LASF154:
+.LASF151:
 	.string	"PinD5"
-.LASF155:
+.LASF152:
 	.string	"PinD6"
-.LASF72:
+.LASF69:
 	.string	"proc"
-.LASF112:
+.LASF109:
 	.string	"start_scheduler"
 .LASF44:
 	.string	"TimerConfig"
-.LASF108:
+.LASF105:
 	.string	"init_idle_scheduler_kernel_init"
 .LASF7:
 	.string	"long unsigned int"
 .LASF24:
 	.string	"pwm_fast"
-.LASF74:
+.LASF71:
 	.string	"idle_schedule"
-.LASF67:
-	.string	"PrioNormal"
-.LASF114:
+.LASF111:
 	.string	"schedule"
 .LASF39:
 	.string	"external_rising_edge"
-.LASF109:
+.LASF106:
 	.string	"init_scheduler"
-.LASF119:
+.LASF116:
 	.string	"__malloc_heap_end"
-.LASF75:
+.LASF72:
 	.string	"invokedFromTimer"
 .LASF59:
 	.string	"PPCB"
-.LASF85:
+.LASF82:
 	.string	"stackBottom"
-.LASF64:
-	.string	"PrioLowest"
+.LASF108:
+	.string	"init_scheduler_kernel_init"
 .LASF45:
 	.string	"PTimerConfig"
-.LASF156:
-	.string	"PinD7"
+.LASF64:
+	.string	"PLed"
 .LASF35:
 	.string	"prescale_128"
 .LASF34:
@@ -13184,93 +13217,97 @@ C.40.2864:
 	.string	"PTimer"
 .LASF31:
 	.string	"prescale_1"
-.LASF94:
+.LASF91:
 	.string	"oldCurrentProcess"
-.LASF151:
+.LASF148:
 	.string	"PinD2"
-.LASF181:
+.LASF179:
 	.string	"getCurrentProcess"
-.LASF159:
+.LASF156:
 	.string	"Timer2"
 .LASF32:
 	.string	"prescale_8"
 .LASF13:
 	.string	"BOOL"
-.LASF110:
+.LASF107:
 	.string	"timerConf"
-.LASF179:
+.LASF177:
 	.string	"initializeProcessInternal"
-.LASF113:
+.LASF110:
 	.string	"before_scheduler"
-.LASF148:
+.LASF145:
 	.string	"PortD"
-.LASF93:
+.LASF90:
 	.string	"switchProcess"
-.LASF163:
+.LASF160:
 	.string	"Timer1A"
 .LASF53:
 	.string	"Timer"
 .LASF55:
 	.string	"unused"
-.LASF177:
+.LASF175:
 	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\Kernel-Simulator\\\\Debug"
-.LASF82:
+.LASF79:
 	.string	"entryPoint"
 .LASF21:
 	.string	"pwm_fast_FF"
 .LASF49:
 	.string	"timer"
-.LASF80:
+.LASF77:
 	.string	"init_process_base"
-.LASF162:
+.LASF159:
 	.string	"Timer0B"
-.LASF107:
+.LASF104:
 	.string	"init_idle_scheduler"
-.LASF103:
+.LASF100:
 	.string	"getProcessNumber"
 .LASF28:
 	.string	"pwm_fast_10bit"
-.LASF122:
+.LASF119:
 	.string	"PinA0"
-.LASF73:
+.LASF70:
 	.string	"getProcessMemoryBase"
-.LASF96:
+.LASF93:
 	.string	"processArgument"
-.LASF84:
+.LASF81:
 	.string	"additionalMem"
 .LASF11:
 	.string	"FALSE"
-.LASF125:
+.LASF122:
 	.string	"PinA3"
-.LASF111:
-	.string	"init_scheduler_kernel_init"
-.LASF105:
+.LASF102:
 	.string	"init_process"
 .LASF48:
 	.string	"TIMER_TYPE"
 .LASF36:
 	.string	"prescale_256"
+.LASF153:
+	.string	"PinD7"
 .LASF1:
 	.string	"unsigned char"
-.LASF99:
+.LASF96:
 	.string	"freeProcess"
 .LASF52:
 	.string	"outputComparePin"
-.LASF176:
+.LASF174:
 	.string	".././simulator_kernel.c"
 .LASF23:
 	.string	"pwm_phase_correct"
-.LASF171:
+.LASF172:
+	.string	"AllLeds"
+.LASF168:
 	.string	"__current_process"
 .LASF26:
 	.string	"pwm_phase_correct_10bit"
-.LASF164:
+.LASF161:
 	.string	"Timer1B"
 .LASF25:
 	.string	"pwm_phase_correct_9bit"
+.LASF65:
+	.string	"leds"
 .LASF12:
 	.string	"TRUE"
-.LASF115:
+.LASF112:
 	.string	"fromTimer"
 .LASF6:
 	.string	"uint32_t"
@@ -13278,27 +13315,25 @@ C.40.2864:
 	.string	"controlRegisterA"
 .LASF42:
 	.string	"controlRegisterB"
-.LASF87:
+.LASF84:
 	.string	"createProcessBase3"
-.LASF68:
-	.string	"PrioAboveNormal"
-.LASF120:
+.LASF117:
 	.string	"char"
-.LASF160:
+.LASF157:
 	.string	"Timer3"
 .LASF61:
 	.string	"stackSize"
-.LASF69:
-	.string	"PrioHigh"
-.LASF104:
+.LASF101:
 	.string	"getProcessMemory"
-.LASF172:
+.LASF169:
 	.string	"__nextProcessNumber"
+.LASF67:
+	.string	"LedGroup"
 .LASF22:
 	.string	"pwm_phase_correct_FF"
 .LASF43:
 	.string	"interruptMaskRegister"
-.LASF101:
+.LASF98:
 	.string	"getProcessStackSize"
 .LASF30:
 	.string	"no_clock"
@@ -13306,27 +13341,25 @@ C.40.2864:
 	.string	"clear_timer_on_match"
 .LASF15:
 	.string	"Port"
-.LASF180:
+.LASF178:
 	.string	"ProcessGraveyard"
-.LASF90:
+.LASF87:
 	.string	"oldProcess"
-.LASF139:
+.LASF136:
 	.string	"PortC"
-.LASF131:
+.LASF128:
 	.string	"PinB0"
-.LASF70:
-	.string	"PrioHighest"
-.LASF165:
+.LASF162:
 	.string	"Timer2A"
-.LASF161:
+.LASF158:
 	.string	"Timer0A"
-.LASF166:
+.LASF163:
 	.string	"Timer2B"
-.LASF135:
+.LASF132:
 	.string	"PinB4"
 .LASF29:
 	.string	"pwm_phase_and_frequency_correct"
-.LASF136:
+.LASF133:
 	.string	"PinB5"
 .LASF57:
 	.string	"ProcessEntryPoint"
@@ -13334,35 +13367,35 @@ C.40.2864:
 	.string	"uint8_t"
 .LASF40:
 	.string	"flags"
-.LASF170:
-	.string	"__main_process_additional_memory"
-.LASF175:
-	.string	"GNU C 4.5.1"
-.LASF123:
-	.string	"PinA1"
-.LASF124:
-	.string	"PinA2"
-.LASF91:
-	.string	"newProcess"
-.LASF126:
-	.string	"PinA4"
-.LASF127:
-	.string	"PinA5"
-.LASF128:
-	.string	"PinA6"
-.LASF129:
-	.string	"PinA7"
 .LASF167:
+	.string	"__main_process_additional_memory"
+.LASF173:
+	.string	"GNU C 4.5.1"
+.LASF120:
+	.string	"PinA1"
+.LASF121:
+	.string	"PinA2"
+.LASF88:
+	.string	"newProcess"
+.LASF123:
+	.string	"PinA4"
+.LASF124:
+	.string	"PinA5"
+.LASF125:
+	.string	"PinA6"
+.LASF126:
+	.string	"PinA7"
+.LASF164:
 	.string	"Timer3A"
-.LASF168:
+.LASF165:
 	.string	"Timer3B"
-.LASF86:
+.LASF83:
 	.string	"result"
-.LASF77:
+.LASF74:
 	.string	"init_ports_m1284P_kernel_init"
-.LASF102:
+.LASF99:
 	.string	"getFreeProcessStackSize"
-.LASF178:
+.LASF176:
 	.string	"Process__"
 .global __do_copy_data
 .global __do_clear_bss

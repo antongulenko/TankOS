@@ -4934,31 +4934,31 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1a
+	.uleb128 0x1c
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x20
+	.uleb128 0x22
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x23
+	.uleb128 0x25
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x26
+	.uleb128 0x28
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x27
+	.uleb128 0x29
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x2a
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2c
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2b
+	.uleb128 0x2d
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
@@ -4975,10 +4975,19 @@ __zero_reg__ = 1
 	.string	"port,4) DEFINE_PIN(port,5) DEFINE_PIN(port,6) DEFINE_PIN(port,7)"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x26
+	.uleb128 0xe
+	.string	"BUTTON_NORMAL "
+	.byte	0x1
+	.uleb128 0xf
+	.string	"BUTTON_INVERTED (1 << 1)"
+	.byte	0x1
+	.uleb128 0x10
+	.string	"BUTTON_NEEDS_PULLUP (1 << 2)"
+	.byte	0x1
+	.uleb128 0x2b
 	.string	"DEFINE_BUTTON(buttonName) extern Button buttonName;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x2d
 	.ascii	"DEFINE"
 	.string	"_INTERRUPT_BUTTON(buttonName) extern InterruptButton buttonName;"
 	.byte	0x4
@@ -4993,19 +5002,43 @@ buttonStatus:
 .LFB0:
 .LSM0:
 .LVL0:
+	push r28
+	push r29
 /* prologue: function */
 /* frame size = 0 */
-/* stack size = 0 */
-.L__stack_usage = 0
+/* stack size = 2 */
+.L__stack_usage = 2
+	movw r28,r24
 .LSM1:
-	movw r30,r24
-	ld r24,Z
-	ldd r25,Z+1
+	ldd r24,Y+1
+	ldd r25,Y+2
 .LVL1:
 	call readPin
+	movw r18,r24
 .LVL2:
-/* epilogue start */
 .LSM2:
+	ld r24,Y
+.LVL3:
+	sbrs r24,1
+	rjmp .L2
+.LSM3:
+	ldi r24,lo8(1)
+	ldi r25,hi8(1)
+	cp r18,__zero_reg__
+	cpc r19,__zero_reg__
+	breq .L3
+	ldi r24,lo8(0)
+	ldi r25,hi8(0)
+.L3:
+	movw r18,r24
+.LVL4:
+.L2:
+.LSM4:
+	movw r24,r18
+/* epilogue start */
+	pop r29
+	pop r28
+.LVL5:
 	ret
 .LFE0:
 	.size	buttonStatus, .-buttonStatus
@@ -5047,26 +5080,56 @@ buttonStatus:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL1
-	.long	.LVL2-1
+	.long	.LVL5
 	.word	0x6
-	.byte	0x6e
+	.byte	0x6c
 	.byte	0x93
 	.uleb128 0x1
-	.byte	0x6f
+	.byte	0x6d
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST1:
+	.long	.LVL2
+	.long	.LVL3
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL3
+	.long	.LVL4
+	.word	0x6
+	.byte	0x62
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x63
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL4
+	.long	.LFE0
+	.word	0x6
+	.byte	0x62
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x63
 	.byte	0x93
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
 	.section	.debug_info
-	.long	0x163
+	.long	0x180
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF16
-	.byte	0x1
 	.long	.LASF17
+	.byte	0x1
 	.long	.LASF18
+	.long	.LASF19
 	.long	0x0
 	.long	0x0
 	.long	.Ldebug_ranges0+0x0
@@ -5200,30 +5263,38 @@ buttonStatus:
 	.byte	0x2
 	.long	0xdf
 	.uleb128 0x7
+	.byte	0x3
 	.byte	0x2
+	.byte	0x12
+	.long	0x13a
+	.uleb128 0x8
+	.long	.LASF15
 	.byte	0x2
-	.byte	0xe
-	.long	0x12c
-	.uleb128 0x9
-	.string	"pin"
-	.byte	0x2
-	.byte	0xf
-	.long	0x104
+	.byte	0x13
+	.long	0x34
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
+	.uleb128 0x9
+	.string	"pin"
+	.byte	0x2
+	.byte	0x14
+	.long	0x104
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x1
 	.byte	0x0
 	.uleb128 0x3
-	.long	.LASF15
+	.long	.LASF16
 	.byte	0x2
-	.byte	0x10
-	.long	0x137
+	.byte	0x15
+	.long	0x145
 	.uleb128 0xa
 	.byte	0x2
 	.long	0x115
 	.uleb128 0xc
 	.byte	0x1
-	.long	.LASF19
+	.long	.LASF20
 	.byte	0x1
 	.byte	0xb
 	.byte	0x1
@@ -5235,11 +5306,17 @@ buttonStatus:
 	.uleb128 0x20
 	.sleb128 0
 	.uleb128 0xd
-	.long	.LASF20
+	.long	.LASF21
 	.byte	0x1
 	.byte	0xb
-	.long	0x12c
+	.long	0x13a
 	.long	.LLST0
+	.uleb128 0xe
+	.string	"val"
+	.byte	0x1
+	.byte	0xc
+	.long	0x85
+	.long	.LLST1
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_abbrev
@@ -5420,20 +5497,35 @@ buttonStatus:
 	.uleb128 0x6
 	.byte	0x0
 	.byte	0x0
+	.uleb128 0xe
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x6
+	.byte	0x0
+	.byte	0x0
 	.byte	0x0
 	.section	.debug_pubnames,"",@progbits
 	.long	0x1f
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x167
-	.long	0x13d
+	.long	0x184
+	.long	0x14b
 	.string	"buttonStatus"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
 	.long	0x42
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x167
+	.long	0x184
 	.long	0x34
 	.string	"uint8_t"
 	.long	0x85
@@ -5442,7 +5534,7 @@ buttonStatus:
 	.string	"PPort"
 	.long	0x104
 	.string	"PPin"
-	.long	0x12c
+	.long	0x13a
 	.string	"PButton"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
@@ -5599,6 +5691,16 @@ buttonStatus:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
+	.long	.LSM3
+	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM4
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
 	.long	.LFE0
 	.byte	0x0
 	.uleb128 0x1
@@ -5607,15 +5709,15 @@ buttonStatus:
 	.section	.debug_macinfo
 	.byte	0x0
 	.section	.debug_str,"MS",@progbits,1
-.LASF19:
+.LASF20:
 	.string	"buttonStatus"
-.LASF16:
+.LASF17:
 	.string	"GNU C 4.5.1"
 .LASF8:
 	.string	"TRUE"
 .LASF10:
 	.string	"BOOL"
-.LASF18:
+.LASF19:
 	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\AntonAvrLib\\\\Debug"
 .LASF1:
 	.string	"unsigned char"
@@ -5625,6 +5727,8 @@ buttonStatus:
 	.string	"FALSE"
 .LASF2:
 	.string	"unsigned int"
+.LASF15:
+	.string	"flags"
 .LASF6:
 	.string	"long long unsigned int"
 .LASF9:
@@ -5637,15 +5741,15 @@ buttonStatus:
 	.string	"mask"
 .LASF11:
 	.string	"port"
-.LASF17:
+.LASF18:
 	.string	"../kernel/devices/button.c"
 .LASF3:
 	.string	"long int"
-.LASF20:
+.LASF21:
 	.string	"button"
 .LASF0:
 	.string	"signed char"
-.LASF15:
+.LASF16:
 	.string	"PButton"
 .LASF14:
 	.string	"PPin"

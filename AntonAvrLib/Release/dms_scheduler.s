@@ -94,18 +94,18 @@ dms_schedule:
 	brne .L12
 	rjmp .L7
 .L9:
-	ldd r22,Y+11
-	ldd r23,Y+12
-	ldd r24,Y+13
-	ldd r25,Y+14
+	ldd r22,Z+11
+	ldd r23,Z+12
+	ldd r24,Z+13
+	ldd r25,Z+14
 	lds r18,milliseconds_running
 	lds r19,milliseconds_running+1
 	lds r20,milliseconds_running+2
 	lds r21,milliseconds_running+3
-	cp r22,r18
-	cpc r23,r19
-	cpc r24,r20
-	cpc r25,r21
+	cp r18,r22
+	cpc r19,r23
+	cpc r20,r24
+	cpc r21,r25
 	brsh .L7
 .L8:
 	ldd r28,Z+3
@@ -123,8 +123,8 @@ dms_schedule:
 	cpi r24,1
 	cpc r25,__zero_reg__
 	brne .L8
-	ldd r24,Y+11
-	ldd r25,Y+12
+	ldd r24,Z+11
+	ldd r25,Z+12
 	cpi r24,1
 	cpc r25,__zero_reg__
 	brne .L8

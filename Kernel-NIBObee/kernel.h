@@ -13,6 +13,7 @@
 
 // All other kernel-API-includes are included over the nibobee_* includes.
 #include "shared/kernel_base.h"
+#include "twi.h"
 #include "nibobee_button.h"
 #include "nibobee_led.h"
 #include "nibobee_motor.h"

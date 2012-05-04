@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+kernel\hardware_reset.c
+
 kernel\devices\button.c
 
 kernel\devices\external_interrupts.c
@@ -21,4 +23,6 @@ kernel\processes\RoundRobin\rr_scheduler.c
 kernel\processes\scheduler.c
 
 kernel\reset_condition.c
+
+kernel\TWI\twi_raw.c
 

@@ -11,7 +11,12 @@
 #include "port.h"
 #include "../../anton_std.h"
 
+#define BUTTON_NORMAL
+#define BUTTON_INVERTED (1 << 1)
+#define BUTTON_NEEDS_PULLUP (1 << 2)
+
 typedef struct {
+	uint8_t flags;
 	PPin pin;
 } Button, *PButton;
 
@@ -28,11 +33,11 @@ BOOL buttonStatus(PButton button);
 		Button buttonName;
 #	define DEFINE_INTERRUPT_BUTTON(buttonName)	\
 		InterruptButton buttonName;
-#	define INIT_BUTTON(buttonName, pinName)	\
-		buttonName = (Button) { &pinName };			\
+#	define INIT_BUTTON(buttonName, pinName, flags)	\
+		buttonName = (Button) { flags, &pinName };	\
 		initButton(&buttonName);
-#	define INIT_INTERRUPT_BUTTON(buttonName, pinName, interruptNumber)	\
-		buttonName = (InterruptButton) { &pinName, interruptNumber };						\
+#	define INIT_INTERRUPT_BUTTON(buttonName, pinName, flags, interruptNumber)	\
+		buttonName = (InterruptButton) { flags, &pinName, interruptNumber };	\
 		initInterruptButton(&buttonName);
 #else
 #	define DEFINE_BUTTON(buttonName)	\

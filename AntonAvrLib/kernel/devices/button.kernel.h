@@ -14,11 +14,13 @@
 
 void initButton(PButton button) {
 	setPinInput(button->pin);
+	if (button->flags & BUTTON_NEEDS_PULLUP)
+		setPinOne(button->pin); // Enable intern pull up resistor
 }
 
 void initInterruptButton(PInterruptButton button) {
+	initButton(button->button);
 	enablePinChangeInterrupt(button->pinChangeInterruptNumber);
-	setPinInput(button->button->pin);
 }
 
 #endif

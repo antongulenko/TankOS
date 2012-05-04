@@ -21,6 +21,8 @@ typedef enum {
 	TRUE
 } BOOL;
 
+typedef uint8_t byte;
+
 asm ("__RAMPZ__ = 0x3b");
 
 #define ZERO_STRUCT(variableName, structName)				\

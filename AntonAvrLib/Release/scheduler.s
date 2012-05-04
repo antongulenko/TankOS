@@ -40,10 +40,10 @@ processor_idle:
 	andi r24,lo8(-15)
 	out 83-32,r24
 /* #APP */
- ;  27 "../kernel/processes/scheduler.c" 1
+ ;  28 "../kernel/processes/scheduler.c" 1
 	sei
  ;  0 "" 2
- ;  28 "../kernel/processes/scheduler.c" 1
+ ;  29 "../kernel/processes/scheduler.c" 1
 	sleep
 	
  ;  0 "" 2
@@ -67,10 +67,10 @@ processor_loop_idle:
 	andi r24,lo8(-15)
 	out 83-32,r24
 /* #APP */
- ;  27 "../kernel/processes/scheduler.c" 1
+ ;  28 "../kernel/processes/scheduler.c" 1
 	sei
  ;  0 "" 2
- ;  28 "../kernel/processes/scheduler.c" 1
+ ;  29 "../kernel/processes/scheduler.c" 1
 	sleep
 	
  ;  0 "" 2

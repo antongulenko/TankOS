@@ -4934,31 +4934,31 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1a
+	.uleb128 0x1c
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x20
+	.uleb128 0x22
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x23
+	.uleb128 0x25
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x26
+	.uleb128 0x28
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x27
+	.uleb128 0x29
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x2a
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2c
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2b
+	.uleb128 0x2d
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
@@ -5035,11 +5035,10 @@ insertThreadIntoQueue:
 	st X,r31
 	st -X,r30
 	sbiw r26,2
-.LVL6:
 .L2:
 .LSM7:
 	movw r30,r28
-.LVL7:
+.LVL6:
 	lsl r30
 	rol r31
 	lsl r30
@@ -5065,10 +5064,10 @@ insertThreadIntoQueue:
 .LSM10:
 	pop r29
 	pop r28
-.LVL8:
+.LVL7:
 	pop r17
 	pop r16
-.LVL9:
+.LVL8:
 	ret
 .LFE0:
 	.size	insertThreadIntoQueue, .-insertThreadIntoQueue
@@ -5078,7 +5077,7 @@ insertThreadIntoQueue:
 createThread2:
 .LFB2:
 .LSM11:
-.LVL10:
+.LVL9:
 	push r16
 	push r17
 	push r28
@@ -5090,9 +5089,9 @@ createThread2:
 	movw r28,r22
 .LSM12:
 	call createProcess
-.LVL11:
+.LVL10:
 	movw r16,r24
-.LVL12:
+.LVL11:
 .LSM13:
 	movw r22,r28
 	call insertThreadIntoQueue
@@ -5101,9 +5100,9 @@ createThread2:
 /* epilogue start */
 	pop r29
 	pop r28
-.LVL13:
+.LVL12:
 	pop r17
-.LVL14:
+.LVL13:
 	pop r16
 	ret
 .LFE2:
@@ -5114,7 +5113,7 @@ createThread2:
 createThread:
 .LFB1:
 .LSM15:
-.LVL15:
+.LVL14:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
@@ -5123,7 +5122,7 @@ createThread:
 	ldi r22,lo8(3)
 	ldi r23,hi8(3)
 	call createThread2
-.LVL16:
+.LVL15:
 /* epilogue start */
 .LSM17:
 	ret
@@ -5135,7 +5134,7 @@ createThread:
 createThread3:
 .LFB3:
 .LSM18:
-.LVL17:
+.LVL16:
 	push r16
 	push r17
 	push r28
@@ -5146,12 +5145,12 @@ createThread3:
 .L__stack_usage = 4
 	movw r28,r22
 	movw r22,r20
-.LVL18:
+.LVL17:
 .LSM19:
 	call createProcess2
-.LVL19:
+.LVL18:
 	movw r16,r24
-.LVL20:
+.LVL19:
 .LSM20:
 	movw r22,r28
 	call insertThreadIntoQueue
@@ -5160,9 +5159,9 @@ createThread3:
 /* epilogue start */
 	pop r29
 	pop r28
-.LVL21:
+.LVL20:
 	pop r17
-.LVL22:
+.LVL21:
 	pop r16
 	ret
 .LFE3:
@@ -5173,7 +5172,7 @@ createThread3:
 createThread4:
 .LFB4:
 .LSM22:
-.LVL23:
+.LVL22:
 	push r16
 	push r17
 	push r28
@@ -5184,16 +5183,16 @@ createThread4:
 .L__stack_usage = 4
 	movw r28,r22
 	movw r22,r20
-.LVL24:
+.LVL23:
 .LSM23:
 	movw r20,r18
-.LVL25:
+.LVL24:
 	ldi r18,lo8(0)
-.LVL26:
+.LVL25:
 	call createProcess3
-.LVL27:
+.LVL26:
 	movw r16,r24
-.LVL28:
+.LVL27:
 .LSM24:
 	movw r22,r28
 	call insertThreadIntoQueue
@@ -5202,9 +5201,9 @@ createThread4:
 /* epilogue start */
 	pop r29
 	pop r28
-.LVL29:
+.LVL28:
 	pop r17
-.LVL30:
+.LVL29:
 	pop r16
 	ret
 .LFE4:
@@ -5215,7 +5214,7 @@ createThread4:
 rr_schedule:
 .LFB5:
 .LSM26:
-.LVL31:
+.LVL30:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
@@ -5223,7 +5222,7 @@ rr_schedule:
 .LSM27:
 	lds r24,highestPrio
 	lds r25,highestPrio+1
-.LVL32:
+.LVL31:
 .LSM28:
 	rjmp .L9
 .L12:
@@ -5254,7 +5253,7 @@ rr_schedule:
 	sts highestPrio,r24
 	sts highestPrio+1,r25
 .L11:
-.LVL33:
+.LVL32:
 .LSM33:
 	movw r30,r24
 	lsl r30
@@ -5271,7 +5270,7 @@ rr_schedule:
 .LSM34:
 	ldd r26,Z+2
 	ldd r27,Z+3
-.LVL34:
+.LVL33:
 .LSM35:
 	adiw r26,2
 	ld __tmp_reg__,X+
@@ -5283,7 +5282,7 @@ rr_schedule:
 	ld r26,Z
 	ldd r27,Z+1
 .L14:
-.LVL35:
+.LVL34:
 .LSM37:
 	movw r30,r24
 	lsl r30
@@ -5301,7 +5300,7 @@ rr_schedule:
 	ld r19,X
 	sbiw r26,1
 	rjmp .L13
-.LVL36:
+.LVL35:
 .L15:
 .LSM39:
 	ldi r18,lo8(0)
@@ -5309,7 +5308,7 @@ rr_schedule:
 .L13:
 .LSM40:
 	movw r24,r18
-.LVL37:
+.LVL36:
 /* epilogue start */
 	ret
 .LFE5:
@@ -5320,7 +5319,7 @@ rr_schedule:
 rr_captureMainProcess:
 .LFB6:
 .LSM41:
-.LVL38:
+.LVL37:
 	push r28
 	push r29
 /* prologue: function */
@@ -5330,14 +5329,14 @@ rr_captureMainProcess:
 	movw r28,r24
 .LSM42:
 	call getCurrentProcess
-.LVL39:
+.LVL38:
 	movw r22,r28
 	call insertThreadIntoQueue
 /* epilogue start */
 .LSM43:
 	pop r29
 	pop r28
-.LVL40:
+.LVL39:
 	ret
 .LFE6:
 	.size	rr_captureMainProcess, .-rr_captureMainProcess
@@ -5460,7 +5459,7 @@ highestPrio:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL2
-	.long	.LVL9
+	.long	.LVL8
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5468,7 +5467,7 @@ highestPrio:
 	.byte	0x61
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL9
+	.long	.LVL8
 	.long	.LFE0
 	.word	0x4
 	.byte	0x8a
@@ -5487,8 +5486,8 @@ highestPrio:
 	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL6
-	.long	.LVL8
+	.long	.LVL3
+	.long	.LVL7
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5511,7 +5510,7 @@ highestPrio:
 	.byte	0x22
 	.byte	0x9f
 	.long	.LVL3
-	.long	.LVL8
+	.long	.LVL7
 	.word	0xb
 	.byte	0x8c
 	.sleb128 0
@@ -5534,7 +5533,7 @@ highestPrio:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL5
-	.long	.LVL7
+	.long	.LVL6
 	.word	0x6
 	.byte	0x6e
 	.byte	0x93
@@ -5542,7 +5541,7 @@ highestPrio:
 	.byte	0x6f
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL7
+	.long	.LVL6
 	.long	.LFE0
 	.word	0x2
 	.byte	0x8a
@@ -5550,8 +5549,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST4:
-	.long	.LVL10
-	.long	.LVL11-1
+	.long	.LVL9
+	.long	.LVL10-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5562,8 +5561,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST5:
-	.long	.LVL10
-	.long	.LVL11-1
+	.long	.LVL9
+	.long	.LVL10-1
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5571,8 +5570,8 @@ highestPrio:
 	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL11-1
-	.long	.LVL13
+	.long	.LVL10-1
+	.long	.LVL12
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5583,8 +5582,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST6:
-	.long	.LVL12
-	.long	.LVL14
+	.long	.LVL11
+	.long	.LVL13
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5595,8 +5594,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST7:
-	.long	.LVL15
-	.long	.LVL16-1
+	.long	.LVL14
+	.long	.LVL15-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5607,8 +5606,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST8:
-	.long	.LVL17
-	.long	.LVL19-1
+	.long	.LVL16
+	.long	.LVL18-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5619,8 +5618,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST9:
+	.long	.LVL16
 	.long	.LVL17
-	.long	.LVL18
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5628,8 +5627,8 @@ highestPrio:
 	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL18
-	.long	.LVL21
+	.long	.LVL17
+	.long	.LVL20
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5640,8 +5639,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST10:
-	.long	.LVL17
-	.long	.LVL19-1
+	.long	.LVL16
+	.long	.LVL18-1
 	.word	0x6
 	.byte	0x64
 	.byte	0x93
@@ -5652,8 +5651,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST11:
-	.long	.LVL20
-	.long	.LVL22
+	.long	.LVL19
+	.long	.LVL21
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5664,8 +5663,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST12:
-	.long	.LVL23
-	.long	.LVL27-1
+	.long	.LVL22
+	.long	.LVL26-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5676,8 +5675,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST13:
+	.long	.LVL22
 	.long	.LVL23
-	.long	.LVL24
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5685,8 +5684,8 @@ highestPrio:
 	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL24
-	.long	.LVL29
+	.long	.LVL23
+	.long	.LVL28
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5697,8 +5696,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST14:
-	.long	.LVL23
-	.long	.LVL25
+	.long	.LVL22
+	.long	.LVL24
 	.word	0x6
 	.byte	0x64
 	.byte	0x93
@@ -5706,8 +5705,8 @@ highestPrio:
 	.byte	0x65
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL25
-	.long	.LVL27-1
+	.long	.LVL24
+	.long	.LVL26-1
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5718,8 +5717,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST15:
-	.long	.LVL23
-	.long	.LVL26
+	.long	.LVL22
+	.long	.LVL25
 	.word	0x6
 	.byte	0x62
 	.byte	0x93
@@ -5727,8 +5726,8 @@ highestPrio:
 	.byte	0x63
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL26
-	.long	.LVL27-1
+	.long	.LVL25
+	.long	.LVL26-1
 	.word	0x6
 	.byte	0x64
 	.byte	0x93
@@ -5739,8 +5738,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST16:
-	.long	.LVL28
-	.long	.LVL30
+	.long	.LVL27
+	.long	.LVL29
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5751,8 +5750,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST17:
+	.long	.LVL30
 	.long	.LVL31
-	.long	.LVL32
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5763,8 +5762,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST18:
-	.long	.LVL33
-	.long	.LVL37
+	.long	.LVL32
+	.long	.LVL36
 	.word	0xb
 	.byte	0x88
 	.sleb128 0
@@ -5777,13 +5776,13 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST19:
+	.long	.LVL33
 	.long	.LVL34
-	.long	.LVL35
 	.word	0x2
 	.byte	0x8e
 	.sleb128 2
+	.long	.LVL34
 	.long	.LVL35
-	.long	.LVL36
 	.word	0x6
 	.byte	0x6a
 	.byte	0x93
@@ -5794,8 +5793,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST20:
-	.long	.LVL38
-	.long	.LVL39-1
+	.long	.LVL37
+	.long	.LVL38-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5803,8 +5802,8 @@ highestPrio:
 	.byte	0x69
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL39-1
-	.long	.LVL40
+	.long	.LVL38-1
+	.long	.LVL39
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93

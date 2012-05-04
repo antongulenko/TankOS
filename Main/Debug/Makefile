@@ -37,10 +37,13 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../device_tests/Main_test_AllLeds.c \
+../device_tests/Main_test_NIBObee_Buttons.c \
 ../Main.c \
 ../device_tests/Main_test_blink_reset_condition.c \
 ../device_tests/Main_test_blink_AllLeds.c \
 ../simulator_tests/Main_test_DMS_rr_two.c \
+../simulator_tests/Main_test_DMS_with_idle.c \
 ../simulator_tests/Main_test_rr_many.c \
 ../simulator_tests/Main_test_rr_two.c \
 ../simulator_tests/Main_test_switchProcess.c \
@@ -54,10 +57,13 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+device_tests/Main_test_AllLeds.o \
+device_tests/Main_test_NIBObee_Buttons.o \
 Main.o \
 device_tests/Main_test_blink_reset_condition.o \
 device_tests/Main_test_blink_AllLeds.o \
 simulator_tests/Main_test_DMS_rr_two.o \
+simulator_tests/Main_test_DMS_with_idle.o \
 simulator_tests/Main_test_rr_many.o \
 simulator_tests/Main_test_rr_two.o \
 simulator_tests/Main_test_switchProcess.o \
@@ -65,10 +71,13 @@ simulator_tests/Main_test_switchProcess_many.o
 
 
 OBJS_AS_ARGS +=  \
+device_tests/Main_test_AllLeds.o \
+device_tests/Main_test_NIBObee_Buttons.o \
 Main.o \
 device_tests/Main_test_blink_reset_condition.o \
 device_tests/Main_test_blink_AllLeds.o \
 simulator_tests/Main_test_DMS_rr_two.o \
+simulator_tests/Main_test_DMS_with_idle.o \
 simulator_tests/Main_test_rr_many.o \
 simulator_tests/Main_test_rr_two.o \
 simulator_tests/Main_test_switchProcess.o \
@@ -76,10 +85,13 @@ simulator_tests/Main_test_switchProcess_many.o
 
 
 C_DEPS +=  \
+device_tests/Main_test_AllLeds.d \
+device_tests/Main_test_NIBObee_Buttons.d \
 Main.d \
 device_tests/Main_test_blink_reset_condition.d \
 device_tests/Main_test_blink_AllLeds.d \
 simulator_tests/Main_test_DMS_rr_two.d \
+simulator_tests/Main_test_DMS_with_idle.d \
 simulator_tests/Main_test_rr_many.d \
 simulator_tests/Main_test_rr_two.d \
 simulator_tests/Main_test_switchProcess.d \
@@ -87,10 +99,13 @@ simulator_tests/Main_test_switchProcess_many.d
 
 
 C_DEPS_AS_ARGS +=  \
+device_tests/Main_test_AllLeds.d \
+device_tests/Main_test_NIBObee_Buttons.d \
 Main.d \
 device_tests/Main_test_blink_reset_condition.d \
 device_tests/Main_test_blink_AllLeds.d \
 simulator_tests/Main_test_DMS_rr_two.d \
+simulator_tests/Main_test_DMS_with_idle.d \
 simulator_tests/Main_test_rr_many.d \
 simulator_tests/Main_test_rr_two.d \
 simulator_tests/Main_test_switchProcess.d \
@@ -123,13 +138,19 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 
 
 
-./%.o: .././%.c
+
+
+
+
+
+
+device_tests/%.o: ../device_tests/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DF_CPU=20000000 -DAVR  -I"..\..\AntonAvrLib"  -Os -ffunction-sections -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
-device_tests/%.o: ../device_tests/%.c
+./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DF_CPU=20000000 -DAVR  -I"..\..\AntonAvrLib"  -Os -ffunction-sections -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 

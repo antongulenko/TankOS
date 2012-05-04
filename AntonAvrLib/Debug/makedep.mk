@@ -24,3 +24,5 @@ kernel\processes\scheduler.c
 
 kernel\reset_condition.c
 
+kernel\TWI\twi_raw.c
+

@@ -4940,31 +4940,31 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1a
+	.uleb128 0x1c
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x20
+	.uleb128 0x22
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x23
+	.uleb128 0x25
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x26
+	.uleb128 0x28
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x27
+	.uleb128 0x29
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x2a
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2c
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2b
+	.uleb128 0x2d
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x4
@@ -5070,11 +5070,35 @@ __zero_reg__ = 1
 	.uleb128 0xf
 	.uleb128 0x21
 	.byte	0x1
+	.uleb128 0x3
+	.string	"TWI_H_ "
+	.byte	0x3
+	.uleb128 0x5
+	.uleb128 0x22
+	.byte	0x1
+	.uleb128 0x2
+	.string	"TWI_RAW_H_ "
+	.byte	0x3
+	.uleb128 0x4
+	.uleb128 0x23
+	.byte	0x4
+	.byte	0x1
+	.uleb128 0x36
+	.string	"WAIT_FOR_TWI() while (twi_running) ;"
+	.byte	0x1
+	.uleb128 0x3e
+	.string	"NUM_TWI_OPERATIONS 3"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x10
+	.uleb128 0x24
+	.byte	0x1
 	.uleb128 0x9
 	.string	"TANK_BUTTON_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x22
+	.uleb128 0x25
 	.byte	0x1
 	.uleb128 0x9
 	.string	"BUTTON_H_ "
@@ -5088,8 +5112,8 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x10
-	.uleb128 0x23
+	.uleb128 0x11
+	.uleb128 0x26
 	.byte	0x1
 	.uleb128 0x9
 	.string	"NIBOBEE_LED_H_ "
@@ -5106,117 +5130,158 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x16
-	.string	"Main_test_DMS_rr_two "
-	.byte	0x3
 	.uleb128 0x18
-	.uleb128 0x24
-	.byte	0x4
+	.string	"Main_test_AllLeds "
 	.byte	0x3
-	.uleb128 0x19
-	.uleb128 0x25
-	.byte	0x4
-	.byte	0x3
-	.uleb128 0x1b
-	.uleb128 0x26
-	.byte	0x4
-	.byte	0x3
-	.uleb128 0x1c
+	.uleb128 0x1a
 	.uleb128 0x27
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x1d
+	.uleb128 0x1b
 	.uleb128 0x28
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x1e
+	.uleb128 0x1c
 	.uleb128 0x29
+	.byte	0x3
+	.uleb128 0x3
+	.uleb128 0x2a
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_UTIL_DELAY_H_ 1"
+	.byte	0x1
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0x2b
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x1e
+	.uleb128 0x2c
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x1f
-	.uleb128 0x2a
+	.uleb128 0x2d
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x20
+	.uleb128 0x2e
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x21
+	.uleb128 0x2f
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x22
+	.uleb128 0x30
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x23
+	.uleb128 0x31
 	.byte	0x4
 	.byte	0x4
 /* #APP */
 	__RAMPZ__ = 0x3b
 /* #NOAPP */
-	.section	.text.MyPeriodicJob,"ax",@progbits
-.global	MyPeriodicJob
-	.type	MyPeriodicJob, @function
-MyPeriodicJob:
-.LFB0:
+	.section	.text.main,"ax",@progbits
+.global	main
+	.type	main, @function
+main:
+.LFB4:
 .LSM0:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
+.L3:
 .LSM1:
-	lds r24,counter
-	lds r25,counter+1
-	adiw r24,1
-	sts counter+1,r25
-	sts counter,r24
-/* epilogue start */
+	lds r24,AllLeds+2
+	ldi r25,lo8(0)
+	lds r18,i
+	lds r19,i+1
+	cp r18,r24
+	cpc r19,r25
+	brlt .L2
 .LSM2:
-	ret
-.LFE0:
-	.size	MyPeriodicJob, .-MyPeriodicJob
-	.section	.text.before_scheduler,"ax",@progbits
-.global	before_scheduler
-	.type	before_scheduler, @function
-before_scheduler:
-.LFB1:
+	sts i+1,__zero_reg__
+	sts i,__zero_reg__
+.L2:
 .LSM3:
-/* prologue: function */
-/* frame size = 0 */
-/* stack size = 0 */
-.L__stack_usage = 0
+	lds r24,i
+	lds r25,i+1
+	lsl r24
+	rol r25
+	lds r30,AllLeds
+	lds r31,AllLeds+1
+	add r30,r24
+	adc r31,r25
+	ld r24,Z
+	ldd r25,Z+1
+	call enableLed
+.LVL0:
+.LBB6:
+.LBB7:
 .LSM4:
-	ldi r24,lo8(gs(MyPeriodicJob))
-	ldi r25,hi8(gs(MyPeriodicJob))
-	ldi r20,lo8(50)
-	ldi r21,hi8(50)
-	ldi r22,hlo8(50)
-	ldi r23,hhi8(50)
-	ldi r18,lo8(0)
-	call createPeriodicJob
-/* epilogue start */
+	 ldi r24,lo8(799999)
+    ldi r25,hi8(799999)
+    ldi r26,hlo8(799999)
+    1:subi r24,1
+    sbci r25,0
+    sbci r26,0
+    brne 1b
+	rjmp .
+	nop
+.LBE7:
+.LBE6:
 .LSM5:
-	ret
-.LFE1:
-	.size	before_scheduler, .-before_scheduler
-	.section	.text.main,"ax",@progbits
-.global	main
-	.type	main, @function
-main:
-.LFB2:
+	lds r24,i
+	lds r25,i+1
+	lsl r24
+	rol r25
+	lds r30,AllLeds
+	lds r31,AllLeds+1
+	add r30,r24
+	adc r31,r25
+	ld r24,Z
+	ldd r25,Z+1
+	call disableLed
+.LVL1:
+.LBB8:
+.LBB9:
 .LSM6:
-/* prologue: function */
-/* frame size = 0 */
-/* stack size = 0 */
-.L__stack_usage = 0
-.L4:
+	 ldi r24,lo8(399999)
+    ldi r25,hi8(399999)
+    ldi r26,hlo8(399999)
+    1:subi r24,1
+    sbci r25,0
+    sbci r26,0
+    brne 1b
+	rjmp .
+	nop
+.LBE9:
+.LBE8:
 .LSM7:
-	lds r24,main_counter
-	lds r25,main_counter+1
+	lds r24,i
+	lds r25,i+1
 	adiw r24,1
-	sts main_counter+1,r25
-	sts main_counter,r24
-	rjmp .L4
-.LFE2:
+	sts i+1,r25
+	sts i,r24
+.LSM8:
+	rjmp .L3
+.LFE4:
 	.size	main, .-main
-.global	counter
-.global	counter
+.global	i
+.global	i
 	.section .bss
-	.type	counter, @object
-	.size	counter, 2
-counter:
-	.skip 2,0
-.global	main_counter
-.global	main_counter
-	.type	main_counter, @object
-	.size	main_counter, 2
-main_counter:
+	.type	i, @object
+	.size	i, 2
+i:
 	.skip 2,0
 	.section	.debug_frame,"",@progbits
 .Lframe0:
@@ -5237,38 +5302,22 @@ main_counter:
 	.long	.LEFDE0-.LASFDE0
 .LASFDE0:
 	.long	.Lframe0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.p2align	2
 .LEFDE0:
-.LSFDE2:
-	.long	.LEFDE2-.LASFDE2
-.LASFDE2:
-	.long	.Lframe0
-	.long	.LFB1
-	.long	.LFE1-.LFB1
-	.p2align	2
-.LEFDE2:
-.LSFDE4:
-	.long	.LEFDE4-.LASFDE4
-.LASFDE4:
-	.long	.Lframe0
-	.long	.LFB2
-	.long	.LFE2-.LFB2
-	.p2align	2
-.LEFDE4:
 	.text
 .Letext0:
 	.section	.debug_info
-	.long	0xf0
+	.long	0x2b5
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF11
+	.long	.LASF25
 	.byte	0x1
-	.long	.LASF12
-	.long	.LASF13
+	.long	.LASF26
+	.long	.LASF27
 	.long	0x0
 	.long	0x0
 	.long	.Ldebug_ranges0+0x0
@@ -5278,107 +5327,333 @@ main_counter:
 	.byte	0x1
 	.byte	0x6
 	.long	.LASF0
+	.uleb128 0x3
+	.long	.LASF2
+	.byte	0x7
+	.byte	0x7a
+	.long	0x3f
 	.uleb128 0x2
 	.byte	0x1
 	.byte	0x8
 	.long	.LASF1
-	.uleb128 0x3
+	.uleb128 0x4
 	.byte	0x2
 	.byte	0x5
 	.string	"int"
-	.uleb128 0x4
-	.long	.LASF14
+	.uleb128 0x3
+	.long	.LASF3
 	.byte	0x7
 	.byte	0x7c
-	.long	0x4d
+	.long	0x58
 	.uleb128 0x2
 	.byte	0x2
 	.byte	0x7
-	.long	.LASF2
-	.uleb128 0x2
-	.byte	0x4
-	.byte	0x5
-	.long	.LASF3
-	.uleb128 0x2
-	.byte	0x4
-	.byte	0x7
 	.long	.LASF4
 	.uleb128 0x2
-	.byte	0x8
+	.byte	0x4
 	.byte	0x5
 	.long	.LASF5
+	.uleb128 0x3
+	.long	.LASF6
+	.byte	0x7
+	.byte	0x7e
+	.long	0x71
+	.uleb128 0x2
+	.byte	0x4
+	.byte	0x7
+	.long	.LASF7
+	.uleb128 0x2
+	.byte	0x8
+	.byte	0x5
+	.long	.LASF8
 	.uleb128 0x2
 	.byte	0x8
 	.byte	0x7
-	.long	.LASF6
+	.long	.LASF9
 	.uleb128 0x5
-	.byte	0x1
-	.long	.LASF7
-	.byte	0x2a
 	.byte	0x6
-	.long	.LFB0
-	.long	.LFE0
-	.byte	0x3
-	.byte	0x92
-	.uleb128 0x20
-	.sleb128 0
-	.uleb128 0x5
-	.byte	0x1
-	.long	.LASF8
-	.byte	0x2a
-	.byte	0xa
-	.long	.LFB1
-	.long	.LFE1
-	.byte	0x3
-	.byte	0x92
-	.uleb128 0x20
-	.sleb128 0
+	.byte	0x16
+	.byte	0xd
+	.long	0xb9
 	.uleb128 0x6
-	.byte	0x1
-	.long	.LASF15
-	.byte	0x2a
+	.long	.LASF10
+	.byte	0x16
 	.byte	0xe
-	.long	0x3b
-	.long	.LFB2
-	.long	.LFE2
+	.long	0xb9
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.uleb128 0x7
+	.string	"pin"
+	.byte	0x16
+	.byte	0xf
+	.long	0xb9
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x2
+	.uleb128 0x7
+	.string	"ddr"
+	.byte	0x16
+	.byte	0x10
+	.long	0xb9
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x4
+	.byte	0x0
+	.uleb128 0x8
+	.byte	0x2
+	.long	0xbf
+	.uleb128 0x9
+	.long	0x34
+	.uleb128 0x3
+	.long	.LASF11
+	.byte	0x16
+	.byte	0x11
+	.long	0xcf
+	.uleb128 0x8
+	.byte	0x2
+	.long	0x86
+	.uleb128 0x5
+	.byte	0x3
+	.byte	0x16
+	.byte	0x13
+	.long	0xfa
+	.uleb128 0x6
+	.long	.LASF10
+	.byte	0x16
+	.byte	0x14
+	.long	0xc4
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.uleb128 0x6
+	.long	.LASF12
+	.byte	0x16
+	.byte	0x15
+	.long	0x34
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x2
+	.byte	0x0
+	.uleb128 0x3
+	.long	.LASF13
+	.byte	0x16
+	.byte	0x16
+	.long	0x105
+	.uleb128 0x8
+	.byte	0x2
+	.long	0xd5
+	.uleb128 0x5
+	.byte	0x2
+	.byte	0x15
+	.byte	0xe
+	.long	0x122
+	.uleb128 0x7
+	.string	"pin"
+	.byte	0x15
+	.byte	0xf
+	.long	0xfa
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.byte	0x0
+	.uleb128 0x3
+	.long	.LASF14
+	.byte	0x15
+	.byte	0x10
+	.long	0x12d
+	.uleb128 0x8
+	.byte	0x2
+	.long	0x10b
+	.uleb128 0x5
+	.byte	0x3
+	.byte	0x15
+	.byte	0x12
+	.long	0x158
+	.uleb128 0x6
+	.long	.LASF15
+	.byte	0x15
+	.byte	0x13
+	.long	0x158
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.uleb128 0x6
+	.long	.LASF16
+	.byte	0x15
+	.byte	0x14
+	.long	0x34
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x2
+	.byte	0x0
+	.uleb128 0x8
+	.byte	0x2
+	.long	0x122
+	.uleb128 0x3
+	.long	.LASF17
+	.byte	0x15
+	.byte	0x15
+	.long	0x133
+	.uleb128 0xa
+	.long	.LASF28
+	.byte	0x2a
+	.byte	0x84
+	.byte	0x1
+	.byte	0x3
+	.long	0x1e3
+	.uleb128 0xb
+	.long	.LASF29
+	.byte	0x2a
+	.byte	0x84
+	.long	0x1e3
+	.uleb128 0xc
+	.long	.LASF18
+	.byte	0x2a
+	.byte	0x86
+	.long	0x4d
+	.uleb128 0xc
+	.long	.LASF19
+	.byte	0x2a
+	.byte	0x87
+	.long	0x1e3
+	.uleb128 0xc
+	.long	.LASF20
+	.byte	0x2a
+	.byte	0x89
+	.long	0x66
+	.uleb128 0xd
+	.byte	0x1
+	.long	.LASF21
+	.byte	0x2a
+	.byte	0x8a
+	.byte	0x1
+	.byte	0x1
+	.long	0x1b6
+	.uleb128 0xe
+	.long	0x71
+	.byte	0x0
+	.uleb128 0xf
+	.byte	0x1
+	.long	.LASF30
+	.byte	0x32
+	.byte	0x0
+	.byte	0x1
+	.long	0x1e3
+	.byte	0x1
+	.long	0x1ce
+	.uleb128 0xe
+	.long	0x1e3
+	.byte	0x0
+	.uleb128 0x10
+	.byte	0x1
+	.long	.LASF22
+	.byte	0x32
+	.byte	0x0
+	.byte	0x1
+	.long	0x1e3
+	.byte	0x1
+	.uleb128 0xe
+	.long	0x1e3
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x2
+	.byte	0x4
+	.byte	0x4
+	.long	.LASF23
+	.uleb128 0x11
+	.byte	0x1
+	.long	.LASF31
+	.byte	0x29
+	.byte	0x7
+	.long	0x46
+	.long	.LFB4
+	.long	.LFE4
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.uleb128 0x7
-	.long	.LASF9
-	.byte	0x2a
-	.byte	0x3
-	.long	0xbd
-	.byte	0x1
-	.byte	0x1
-	.uleb128 0x8
-	.long	0x42
-	.uleb128 0x7
-	.long	.LASF10
-	.byte	0x2a
+	.long	0x283
+	.uleb128 0x12
+	.long	0x169
+	.long	.LBB6
+	.long	.LBE6
+	.byte	0x29
+	.byte	0xb
+	.long	0x246
+	.uleb128 0x13
+	.long	0x176
 	.byte	0x4
-	.long	0xbd
+	.long	0x43480000
+	.uleb128 0x14
+	.long	.LBB7
+	.long	.LBE7
+	.uleb128 0x15
+	.long	0x181
+	.uleb128 0x16
+	.long	0x18c
+	.byte	0x4
+	.long	0x4a742400
+	.uleb128 0x17
+	.long	0x197
+	.long	0x3d0900
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x18
+	.long	0x169
+	.long	.LBB8
+	.long	.LBE8
+	.byte	0x29
+	.byte	0xd
+	.uleb128 0x13
+	.long	0x176
+	.byte	0x4
+	.long	0x42c80000
+	.uleb128 0x14
+	.long	.LBB9
+	.long	.LBE9
+	.uleb128 0x15
+	.long	0x181
+	.uleb128 0x16
+	.long	0x18c
+	.byte	0x4
+	.long	0x49f42400
+	.uleb128 0x17
+	.long	0x197
+	.long	0x1e8480
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x19
+	.long	.LASF24
+	.byte	0x26
+	.byte	0x24
+	.long	0x15e
 	.byte	0x1
 	.byte	0x1
-	.uleb128 0x9
-	.long	.LASF9
-	.byte	0x2a
-	.byte	0x3
-	.long	0xbd
+	.uleb128 0x1a
+	.string	"i"
+	.byte	0x29
+	.byte	0x5
+	.long	0x46
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x19
+	.long	.LASF24
+	.byte	0x26
+	.byte	0x24
+	.long	0x15e
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x1b
+	.string	"i"
+	.byte	0x29
+	.byte	0x5
+	.long	0x46
 	.byte	0x1
 	.byte	0x5
 	.byte	0x3
-	.long	counter
-	.uleb128 0x9
-	.long	.LASF10
-	.byte	0x2a
-	.byte	0x4
-	.long	0xbd
-	.byte	0x1
-	.byte	0x5
-	.byte	0x3
-	.long	main_counter
+	.long	i
 	.byte	0x0
 	.section	.debug_abbrev
 	.uleb128 0x1
@@ -5416,17 +5691,6 @@ main_counter:
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x3
-	.uleb128 0x24
-	.byte	0x0
-	.uleb128 0xb
-	.uleb128 0xb
-	.uleb128 0x3e
-	.uleb128 0xb
-	.uleb128 0x3
-	.uleb128 0x8
-	.byte	0x0
-	.byte	0x0
-	.uleb128 0x4
 	.uleb128 0x16
 	.byte	0x0
 	.uleb128 0x3
@@ -5439,9 +5703,122 @@ main_counter:
 	.uleb128 0x13
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0x5
-	.uleb128 0x2e
+	.uleb128 0x4
+	.uleb128 0x24
 	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0x8
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x5
+	.uleb128 0x13
+	.byte	0x1
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x6
+	.uleb128 0xd
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x38
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x7
+	.uleb128 0xd
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x38
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x8
+	.uleb128 0xf
+	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x9
+	.uleb128 0x35
+	.byte	0x0
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xa
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0xc
+	.uleb128 0x20
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0x5
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xc
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xd
+	.uleb128 0x2e
+	.byte	0x1
 	.uleb128 0x3f
 	.uleb128 0xc
 	.uleb128 0x3
@@ -5450,17 +5827,64 @@ main_counter:
 	.uleb128 0xb
 	.uleb128 0x3b
 	.uleb128 0xb
-	.uleb128 0x11
+	.uleb128 0x27
+	.uleb128 0xc
+	.uleb128 0x3c
+	.uleb128 0xc
 	.uleb128 0x1
-	.uleb128 0x12
-	.uleb128 0x1
-	.uleb128 0x40
-	.uleb128 0xa
+	.uleb128 0x13
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0x6
+	.uleb128 0xe
+	.uleb128 0x5
+	.byte	0x0
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xf
 	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0xc
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3c
+	.uleb128 0xc
+	.uleb128 0x1
+	.uleb128 0x13
 	.byte	0x0
+	.byte	0x0
+	.uleb128 0x10
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0xc
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3c
+	.uleb128 0xc
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x11
+	.uleb128 0x2e
+	.byte	0x1
 	.uleb128 0x3f
 	.uleb128 0xc
 	.uleb128 0x3
@@ -5477,9 +5901,86 @@ main_counter:
 	.uleb128 0x1
 	.uleb128 0x40
 	.uleb128 0xa
+	.uleb128 0x1
+	.uleb128 0x13
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0x7
+	.uleb128 0x12
+	.uleb128 0x1d
+	.byte	0x1
+	.uleb128 0x31
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x58
+	.uleb128 0xb
+	.uleb128 0x59
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x13
+	.uleb128 0x5
+	.byte	0x0
+	.uleb128 0x31
+	.uleb128 0x13
+	.uleb128 0x1c
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x14
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x15
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x31
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x16
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x31
+	.uleb128 0x13
+	.uleb128 0x1c
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x17
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x31
+	.uleb128 0x13
+	.uleb128 0x1c
+	.uleb128 0x6
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x18
+	.uleb128 0x1d
+	.byte	0x1
+	.uleb128 0x31
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x58
+	.uleb128 0xb
+	.uleb128 0x59
+	.uleb128 0xb
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x19
 	.uleb128 0x34
 	.byte	0x0
 	.uleb128 0x3
@@ -5496,18 +5997,28 @@ main_counter:
 	.uleb128 0xc
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0x8
-	.uleb128 0x35
-	.byte	0x0
-	.uleb128 0x49
-	.uleb128 0x13
-	.byte	0x0
-	.byte	0x0
-	.uleb128 0x9
+	.uleb128 0x1a
 	.uleb128 0x34
 	.byte	0x0
 	.uleb128 0x3
-	.uleb128 0xe
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3c
+	.uleb128 0xc
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x1b
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x8
 	.uleb128 0x3a
 	.uleb128 0xb
 	.uleb128 0x3b
@@ -5522,53 +6033,51 @@ main_counter:
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_pubnames,"",@progbits
-	.long	0x5b
+	.long	0x1d
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0xf4
-	.long	0x70
-	.string	"MyPeriodicJob"
-	.long	0x84
-	.string	"before_scheduler"
-	.long	0x98
+	.long	0x2b9
+	.long	0x1ea
 	.string	"main"
-	.long	0xcf
-	.string	"counter"
-	.long	0xe1
-	.string	"main_counter"
+	.long	0x2a8
+	.string	"i"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
-	.long	0x1b
+	.long	0x5d
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0xf4
-	.long	0x42
+	.long	0x2b9
+	.long	0x34
+	.string	"uint8_t"
+	.long	0x4d
 	.string	"uint16_t"
+	.long	0x66
+	.string	"uint32_t"
+	.long	0xc4
+	.string	"PPort"
+	.long	0xfa
+	.string	"PPin"
+	.long	0x122
+	.string	"PLed"
+	.long	0x15e
+	.string	"LedGroup"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
-	.long	0x2c
+	.long	0x1c
 	.word	0x2
 	.long	.Ldebug_info0
 	.byte	0x4
 	.byte	0x0
 	.word	0x0
 	.word	0x0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
-	.long	.LFB1
-	.long	.LFE1-.LFB1
-	.long	.LFB2
-	.long	.LFE2-.LFB2
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
 .Ldebug_ranges0:
-	.long	.LFB0
-	.long	.LFE0
-	.long	.LFB1
-	.long	.LFE1
-	.long	.LFB2
-	.long	.LFE2
+	.long	.LFB4
+	.long	.LFE4
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -5603,6 +6112,10 @@ main_counter:
 	.byte	0
 	.ascii	"..\\..\\AntonAvrLib/kernel/.."
 	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/TWI"
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/TWI/../.."
+	.byte	0
 	.ascii	"..\\..\\AntonAvrLib/kernel/devices"
 	.byte	0
 	.ascii	"..\\..\\AntonAvrLib/kernel/devices/../.."
@@ -5633,6 +6146,10 @@ main_counter:
 	.byte	0
 	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
 	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/../../../../avr/include/util"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
 	.ascii	"/4.5.1/include"
 	.byte	0
 	.byte	0x0
@@ -5641,11 +6158,11 @@ main_counter:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"kernel.h"
-	.uleb128 0xf
+	.uleb128 0x11
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"shared/kernel_base.h"
-	.uleb128 0xf
+	.uleb128 0x11
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"millisecond_clock.h"
@@ -5657,59 +6174,59 @@ main_counter:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
-	.uleb128 0x13
+	.uleb128 0x16
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
-	.uleb128 0x11
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"stdlib.h"
-	.uleb128 0x11
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"stddef.h"
 	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
+	.string	"stdlib.h"
+	.uleb128 0x13
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"stddef.h"
+	.uleb128 0x16
+	.uleb128 0x0
+	.uleb128 0x0
 	.string	"avr/io.h"
-	.uleb128 0x11
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/sfr_defs.h"
-	.uleb128 0x11
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"inttypes.h"
-	.uleb128 0x11
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/iom1284p.h"
-	.uleb128 0x11
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/portpins.h"
-	.uleb128 0x11
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/common.h"
-	.uleb128 0x11
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/version.h"
-	.uleb128 0x11
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/fuse.h"
-	.uleb128 0x11
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/lock.h"
-	.uleb128 0x11
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/interrupt.h"
-	.uleb128 0x11
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"reset_condition.h"
@@ -5733,39 +6250,51 @@ main_counter:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"scheduler.h"
-	.uleb128 0x9
+	.uleb128 0xb
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"process_ext.h"
-	.uleb128 0x9
+	.uleb128 0xb
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"process.h"
-	.uleb128 0x9
+	.uleb128 0xb
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"../../anton_std.h"
-	.uleb128 0x9
+	.uleb128 0xb
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"DMS/dms_api.h"
-	.uleb128 0x9
+	.uleb128 0xb
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"DMS/../process.h"
-	.uleb128 0x9
+	.uleb128 0xb
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"RoundRobin/rr_api.h"
-	.uleb128 0x9
+	.uleb128 0xb
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"RoundRobin/../process.h"
-	.uleb128 0x9
+	.uleb128 0xb
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"shared/twi.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"TWI/twi_raw.h"
+	.uleb128 0x5
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"TWI/../../anton_std.h"
+	.uleb128 0x5
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"tank_button.h"
-	.uleb128 0xf
+	.uleb128 0x11
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"devices/button.h"
@@ -5773,7 +6302,7 @@ main_counter:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"tank_led.h"
-	.uleb128 0xf
+	.uleb128 0x11
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"Main_test_blink_AllLeds.c"
@@ -5782,6 +6311,18 @@ main_counter:
 	.uleb128 0x0
 	.string	"Main_test_blink_reset_condition.c"
 	.uleb128 0x2
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_AllLeds.c"
+	.uleb128 0x2
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay.h"
+	.uleb128 0x13
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay_basic.h"
+	.uleb128 0x13
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"Main_test_switchProcess.c"
@@ -5804,6 +6345,14 @@ main_counter:
 	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
+	.string	"Main_test_DMS_with_idle.c"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"<built-in>"
+	.uleb128 0x0
+	.uleb128 0x0
+	.uleb128 0x0
 	.byte	0x0
 .LELTP0:
 	.byte	0x0
@@ -5818,48 +6367,38 @@ main_counter:
 	.byte	0x2
 	.long	.LSM0
 	.byte	0x4
-	.uleb128 0x2a
-	.byte	0x19
+	.uleb128 0x29
+	.byte	0x1a
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM1
-	.byte	0x15
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM2
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LFE0
-	.byte	0x0
-	.uleb128 0x1
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM3
-	.byte	0x4
-	.uleb128 0x2a
-	.byte	0x1d
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM4
-	.byte	0x15
+	.byte	0x4
+	.uleb128 0x2a
+	.byte	0xa2
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM5
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LFE1
-	.byte	0x0
-	.uleb128 0x1
+	.byte	0x4
+	.uleb128 0x29
+	.byte	0x3
+	.sleb128 -140
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
@@ -5867,16 +6406,25 @@ main_counter:
 	.long	.LSM6
 	.byte	0x4
 	.uleb128 0x2a
-	.byte	0x21
+	.byte	0xa0
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM7
-	.byte	0x17
+	.byte	0x4
+	.uleb128 0x29
+	.byte	0x3
+	.sleb128 -138
+	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE2
+	.long	.LSM8
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LFE4
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -5884,36 +6432,68 @@ main_counter:
 	.section	.debug_macinfo
 	.byte	0x0
 	.section	.debug_str,"MS",@progbits,1
-.LASF5:
-	.string	"long long int"
-.LASF11:
-	.string	"GNU C 4.5.1"
-.LASF2:
-	.string	"unsigned int"
-.LASF12:
-	.string	"../../Main/Main.c"
-.LASF10:
-	.string	"main_counter"
-.LASF6:
-	.string	"long long unsigned int"
-.LASF7:
-	.string	"MyPeriodicJob"
-.LASF13:
+.LASF21:
+	.string	"__builtin_avr_delay_cycles"
+.LASF30:
+	.string	"ceil"
+.LASF19:
+	.string	"__tmp"
+.LASF15:
+	.string	"leds"
+.LASF31:
+	.string	"main"
+.LASF17:
+	.string	"LedGroup"
+.LASF27:
 	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\Main-Tank-IO\\\\Debug"
+.LASF2:
+	.string	"uint8_t"
+.LASF16:
+	.string	"count"
+.LASF8:
+	.string	"long long int"
+.LASF5:
+	.string	"long int"
+.LASF28:
+	.string	"_delay_ms"
 .LASF1:
 	.string	"unsigned char"
-.LASF15:
-	.string	"main"
-.LASF3:
-	.string	"long int"
-.LASF4:
-	.string	"long unsigned int"
-.LASF9:
-	.string	"counter"
+.LASF22:
+	.string	"fabs"
 .LASF0:
 	.string	"signed char"
-.LASF14:
+.LASF9:
+	.string	"long long unsigned int"
+.LASF6:
+	.string	"uint32_t"
+.LASF4:
+	.string	"unsigned int"
+.LASF3:
 	.string	"uint16_t"
-.LASF8:
-	.string	"before_scheduler"
+.LASF24:
+	.string	"AllLeds"
+.LASF13:
+	.string	"PPin"
+.LASF26:
+	.string	"../../Main/Main.c"
+.LASF10:
+	.string	"port"
+.LASF7:
+	.string	"long unsigned int"
+.LASF23:
+	.string	"double"
+.LASF25:
+	.string	"GNU C 4.5.1"
+.LASF12:
+	.string	"mask"
+.LASF29:
+	.string	"__ms"
+.LASF18:
+	.string	"__ticks"
+.LASF20:
+	.string	"__ticks_dc"
+.LASF11:
+	.string	"PPort"
+.LASF14:
+	.string	"PLed"
 .global __do_clear_bss

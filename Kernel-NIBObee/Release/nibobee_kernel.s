@@ -69,8 +69,8 @@ init_ports_m1284P:
 .L__stack_usage = 0
 	ldi r26,lo8(PortA)
 	ldi r27,hi8(PortA)
-	ldi r30,lo8(C.47.3035)
-	ldi r31,hi8(C.47.3035)
+	ldi r30,lo8(C.55.3273)
+	ldi r31,hi8(C.55.3273)
 	ldi r24,lo8(6)
 .L6:
 	ld r0,Z+
@@ -79,8 +79,8 @@ init_ports_m1284P:
 	brne .L6
 	ldi r26,lo8(PinA0)
 	ldi r27,hi8(PinA0)
-	ldi r30,lo8(C.48.3036)
-	ldi r31,hi8(C.48.3036)
+	ldi r30,lo8(C.56.3274)
+	ldi r31,hi8(C.56.3274)
 	ldi r24,lo8(3)
 .L7:
 	ld r0,Z+
@@ -89,8 +89,8 @@ init_ports_m1284P:
 	brne .L7
 	ldi r26,lo8(PinA1)
 	ldi r27,hi8(PinA1)
-	ldi r30,lo8(C.49.3037)
-	ldi r31,hi8(C.49.3037)
+	ldi r30,lo8(C.57.3275)
+	ldi r31,hi8(C.57.3275)
 	ldi r24,lo8(3)
 .L8:
 	ld r0,Z+
@@ -99,8 +99,8 @@ init_ports_m1284P:
 	brne .L8
 	ldi r26,lo8(PinA2)
 	ldi r27,hi8(PinA2)
-	ldi r30,lo8(C.50.3038)
-	ldi r31,hi8(C.50.3038)
+	ldi r30,lo8(C.58.3276)
+	ldi r31,hi8(C.58.3276)
 	ldi r24,lo8(3)
 .L9:
 	ld r0,Z+
@@ -109,8 +109,8 @@ init_ports_m1284P:
 	brne .L9
 	ldi r26,lo8(PinA3)
 	ldi r27,hi8(PinA3)
-	ldi r30,lo8(C.51.3039)
-	ldi r31,hi8(C.51.3039)
+	ldi r30,lo8(C.59.3277)
+	ldi r31,hi8(C.59.3277)
 	ldi r24,lo8(3)
 .L10:
 	ld r0,Z+
@@ -119,8 +119,8 @@ init_ports_m1284P:
 	brne .L10
 	ldi r26,lo8(PinA4)
 	ldi r27,hi8(PinA4)
-	ldi r30,lo8(C.52.3040)
-	ldi r31,hi8(C.52.3040)
+	ldi r30,lo8(C.60.3278)
+	ldi r31,hi8(C.60.3278)
 	ldi r24,lo8(3)
 .L11:
 	ld r0,Z+
@@ -129,8 +129,8 @@ init_ports_m1284P:
 	brne .L11
 	ldi r26,lo8(PinA5)
 	ldi r27,hi8(PinA5)
-	ldi r30,lo8(C.53.3041)
-	ldi r31,hi8(C.53.3041)
+	ldi r30,lo8(C.61.3279)
+	ldi r31,hi8(C.61.3279)
 	ldi r24,lo8(3)
 .L12:
 	ld r0,Z+
@@ -139,8 +139,8 @@ init_ports_m1284P:
 	brne .L12
 	ldi r26,lo8(PinA6)
 	ldi r27,hi8(PinA6)
-	ldi r30,lo8(C.54.3042)
-	ldi r31,hi8(C.54.3042)
+	ldi r30,lo8(C.62.3280)
+	ldi r31,hi8(C.62.3280)
 	ldi r24,lo8(3)
 .L13:
 	ld r0,Z+
@@ -149,8 +149,8 @@ init_ports_m1284P:
 	brne .L13
 	ldi r26,lo8(PinA7)
 	ldi r27,hi8(PinA7)
-	ldi r30,lo8(C.55.3043)
-	ldi r31,hi8(C.55.3043)
+	ldi r30,lo8(C.63.3281)
+	ldi r31,hi8(C.63.3281)
 	ldi r24,lo8(3)
 .L14:
 	ld r0,Z+
@@ -159,8 +159,8 @@ init_ports_m1284P:
 	brne .L14
 	ldi r26,lo8(PortB)
 	ldi r27,hi8(PortB)
-	ldi r30,lo8(C.56.3044)
-	ldi r31,hi8(C.56.3044)
+	ldi r30,lo8(C.64.3282)
+	ldi r31,hi8(C.64.3282)
 	ldi r24,lo8(6)
 .L15:
 	ld r0,Z+
@@ -169,8 +169,8 @@ init_ports_m1284P:
 	brne .L15
 	ldi r26,lo8(PinB0)
 	ldi r27,hi8(PinB0)
-	ldi r30,lo8(C.57.3045)
-	ldi r31,hi8(C.57.3045)
+	ldi r30,lo8(C.65.3283)
+	ldi r31,hi8(C.65.3283)
 	ldi r24,lo8(3)
 .L16:
 	ld r0,Z+
@@ -179,8 +179,8 @@ init_ports_m1284P:
 	brne .L16
 	ldi r26,lo8(PinB1)
 	ldi r27,hi8(PinB1)
-	ldi r30,lo8(C.58.3046)
-	ldi r31,hi8(C.58.3046)
+	ldi r30,lo8(C.66.3284)
+	ldi r31,hi8(C.66.3284)
 	ldi r24,lo8(3)
 .L17:
 	ld r0,Z+
@@ -189,8 +189,8 @@ init_ports_m1284P:
 	brne .L17
 	ldi r26,lo8(PinB2)
 	ldi r27,hi8(PinB2)
-	ldi r30,lo8(C.59.3047)
-	ldi r31,hi8(C.59.3047)
+	ldi r30,lo8(C.67.3285)
+	ldi r31,hi8(C.67.3285)
 	ldi r24,lo8(3)
 .L18:
 	ld r0,Z+
@@ -199,8 +199,8 @@ init_ports_m1284P:
 	brne .L18
 	ldi r26,lo8(PinB3)
 	ldi r27,hi8(PinB3)
-	ldi r30,lo8(C.60.3048)
-	ldi r31,hi8(C.60.3048)
+	ldi r30,lo8(C.68.3286)
+	ldi r31,hi8(C.68.3286)
 	ldi r24,lo8(3)
 .L19:
 	ld r0,Z+
@@ -209,8 +209,8 @@ init_ports_m1284P:
 	brne .L19
 	ldi r26,lo8(PinB4)
 	ldi r27,hi8(PinB4)
-	ldi r30,lo8(C.61.3049)
-	ldi r31,hi8(C.61.3049)
+	ldi r30,lo8(C.69.3287)
+	ldi r31,hi8(C.69.3287)
 	ldi r24,lo8(3)
 .L20:
 	ld r0,Z+
@@ -219,8 +219,8 @@ init_ports_m1284P:
 	brne .L20
 	ldi r26,lo8(PinB5)
 	ldi r27,hi8(PinB5)
-	ldi r30,lo8(C.62.3050)
-	ldi r31,hi8(C.62.3050)
+	ldi r30,lo8(C.70.3288)
+	ldi r31,hi8(C.70.3288)
 	ldi r24,lo8(3)
 .L21:
 	ld r0,Z+
@@ -229,8 +229,8 @@ init_ports_m1284P:
 	brne .L21
 	ldi r26,lo8(PinB6)
 	ldi r27,hi8(PinB6)
-	ldi r30,lo8(C.63.3051)
-	ldi r31,hi8(C.63.3051)
+	ldi r30,lo8(C.71.3289)
+	ldi r31,hi8(C.71.3289)
 	ldi r24,lo8(3)
 .L22:
 	ld r0,Z+
@@ -239,8 +239,8 @@ init_ports_m1284P:
 	brne .L22
 	ldi r26,lo8(PinB7)
 	ldi r27,hi8(PinB7)
-	ldi r30,lo8(C.64.3052)
-	ldi r31,hi8(C.64.3052)
+	ldi r30,lo8(C.72.3290)
+	ldi r31,hi8(C.72.3290)
 	ldi r24,lo8(3)
 .L23:
 	ld r0,Z+
@@ -249,8 +249,8 @@ init_ports_m1284P:
 	brne .L23
 	ldi r26,lo8(PortC)
 	ldi r27,hi8(PortC)
-	ldi r30,lo8(C.65.3053)
-	ldi r31,hi8(C.65.3053)
+	ldi r30,lo8(C.73.3291)
+	ldi r31,hi8(C.73.3291)
 	ldi r24,lo8(6)
 .L24:
 	ld r0,Z+
@@ -259,8 +259,8 @@ init_ports_m1284P:
 	brne .L24
 	ldi r26,lo8(PinC0)
 	ldi r27,hi8(PinC0)
-	ldi r30,lo8(C.66.3054)
-	ldi r31,hi8(C.66.3054)
+	ldi r30,lo8(C.74.3292)
+	ldi r31,hi8(C.74.3292)
 	ldi r24,lo8(3)
 .L25:
 	ld r0,Z+
@@ -269,8 +269,8 @@ init_ports_m1284P:
 	brne .L25
 	ldi r26,lo8(PinC1)
 	ldi r27,hi8(PinC1)
-	ldi r30,lo8(C.67.3055)
-	ldi r31,hi8(C.67.3055)
+	ldi r30,lo8(C.75.3293)
+	ldi r31,hi8(C.75.3293)
 	ldi r24,lo8(3)
 .L26:
 	ld r0,Z+
@@ -279,8 +279,8 @@ init_ports_m1284P:
 	brne .L26
 	ldi r26,lo8(PinC2)
 	ldi r27,hi8(PinC2)
-	ldi r30,lo8(C.68.3056)
-	ldi r31,hi8(C.68.3056)
+	ldi r30,lo8(C.76.3294)
+	ldi r31,hi8(C.76.3294)
 	ldi r24,lo8(3)
 .L27:
 	ld r0,Z+
@@ -289,8 +289,8 @@ init_ports_m1284P:
 	brne .L27
 	ldi r26,lo8(PinC3)
 	ldi r27,hi8(PinC3)
-	ldi r30,lo8(C.69.3057)
-	ldi r31,hi8(C.69.3057)
+	ldi r30,lo8(C.77.3295)
+	ldi r31,hi8(C.77.3295)
 	ldi r24,lo8(3)
 .L28:
 	ld r0,Z+
@@ -299,8 +299,8 @@ init_ports_m1284P:
 	brne .L28
 	ldi r26,lo8(PinC4)
 	ldi r27,hi8(PinC4)
-	ldi r30,lo8(C.70.3058)
-	ldi r31,hi8(C.70.3058)
+	ldi r30,lo8(C.78.3296)
+	ldi r31,hi8(C.78.3296)
 	ldi r24,lo8(3)
 .L29:
 	ld r0,Z+
@@ -309,8 +309,8 @@ init_ports_m1284P:
 	brne .L29
 	ldi r26,lo8(PinC5)
 	ldi r27,hi8(PinC5)
-	ldi r30,lo8(C.71.3059)
-	ldi r31,hi8(C.71.3059)
+	ldi r30,lo8(C.79.3297)
+	ldi r31,hi8(C.79.3297)
 	ldi r24,lo8(3)
 .L30:
 	ld r0,Z+
@@ -319,8 +319,8 @@ init_ports_m1284P:
 	brne .L30
 	ldi r26,lo8(PinC6)
 	ldi r27,hi8(PinC6)
-	ldi r30,lo8(C.72.3060)
-	ldi r31,hi8(C.72.3060)
+	ldi r30,lo8(C.80.3298)
+	ldi r31,hi8(C.80.3298)
 	ldi r24,lo8(3)
 .L31:
 	ld r0,Z+
@@ -329,8 +329,8 @@ init_ports_m1284P:
 	brne .L31
 	ldi r26,lo8(PinC7)
 	ldi r27,hi8(PinC7)
-	ldi r30,lo8(C.73.3061)
-	ldi r31,hi8(C.73.3061)
+	ldi r30,lo8(C.81.3299)
+	ldi r31,hi8(C.81.3299)
 	ldi r24,lo8(3)
 .L32:
 	ld r0,Z+
@@ -339,8 +339,8 @@ init_ports_m1284P:
 	brne .L32
 	ldi r26,lo8(PortD)
 	ldi r27,hi8(PortD)
-	ldi r30,lo8(C.74.3062)
-	ldi r31,hi8(C.74.3062)
+	ldi r30,lo8(C.82.3300)
+	ldi r31,hi8(C.82.3300)
 	ldi r24,lo8(6)
 .L33:
 	ld r0,Z+
@@ -349,8 +349,8 @@ init_ports_m1284P:
 	brne .L33
 	ldi r26,lo8(PinD0)
 	ldi r27,hi8(PinD0)
-	ldi r30,lo8(C.75.3063)
-	ldi r31,hi8(C.75.3063)
+	ldi r30,lo8(C.83.3301)
+	ldi r31,hi8(C.83.3301)
 	ldi r24,lo8(3)
 .L34:
 	ld r0,Z+
@@ -359,8 +359,8 @@ init_ports_m1284P:
 	brne .L34
 	ldi r26,lo8(PinD1)
 	ldi r27,hi8(PinD1)
-	ldi r30,lo8(C.76.3064)
-	ldi r31,hi8(C.76.3064)
+	ldi r30,lo8(C.84.3302)
+	ldi r31,hi8(C.84.3302)
 	ldi r24,lo8(3)
 .L35:
 	ld r0,Z+
@@ -369,8 +369,8 @@ init_ports_m1284P:
 	brne .L35
 	ldi r26,lo8(PinD2)
 	ldi r27,hi8(PinD2)
-	ldi r30,lo8(C.77.3065)
-	ldi r31,hi8(C.77.3065)
+	ldi r30,lo8(C.85.3303)
+	ldi r31,hi8(C.85.3303)
 	ldi r24,lo8(3)
 .L36:
 	ld r0,Z+
@@ -379,8 +379,8 @@ init_ports_m1284P:
 	brne .L36
 	ldi r26,lo8(PinD3)
 	ldi r27,hi8(PinD3)
-	ldi r30,lo8(C.78.3066)
-	ldi r31,hi8(C.78.3066)
+	ldi r30,lo8(C.86.3304)
+	ldi r31,hi8(C.86.3304)
 	ldi r24,lo8(3)
 .L37:
 	ld r0,Z+
@@ -389,8 +389,8 @@ init_ports_m1284P:
 	brne .L37
 	ldi r26,lo8(PinD4)
 	ldi r27,hi8(PinD4)
-	ldi r30,lo8(C.79.3067)
-	ldi r31,hi8(C.79.3067)
+	ldi r30,lo8(C.87.3305)
+	ldi r31,hi8(C.87.3305)
 	ldi r24,lo8(3)
 .L38:
 	ld r0,Z+
@@ -399,8 +399,8 @@ init_ports_m1284P:
 	brne .L38
 	ldi r26,lo8(PinD5)
 	ldi r27,hi8(PinD5)
-	ldi r30,lo8(C.80.3068)
-	ldi r31,hi8(C.80.3068)
+	ldi r30,lo8(C.88.3306)
+	ldi r31,hi8(C.88.3306)
 	ldi r24,lo8(3)
 .L39:
 	ld r0,Z+
@@ -409,8 +409,8 @@ init_ports_m1284P:
 	brne .L39
 	ldi r26,lo8(PinD6)
 	ldi r27,hi8(PinD6)
-	ldi r30,lo8(C.81.3069)
-	ldi r31,hi8(C.81.3069)
+	ldi r30,lo8(C.89.3307)
+	ldi r31,hi8(C.89.3307)
 	ldi r24,lo8(3)
 .L40:
 	ld r0,Z+
@@ -419,8 +419,8 @@ init_ports_m1284P:
 	brne .L40
 	ldi r26,lo8(PinD7)
 	ldi r27,hi8(PinD7)
-	ldi r30,lo8(C.82.3070)
-	ldi r31,hi8(C.82.3070)
+	ldi r30,lo8(C.90.3308)
+	ldi r31,hi8(C.90.3308)
 	ldi r24,lo8(3)
 .L41:
 	ld r0,Z+
@@ -471,8 +471,8 @@ init_nibobee_leds:
 	call setPinOutput
 	ldi r26,lo8(RedLeds)
 	ldi r27,hi8(RedLeds)
-	ldi r30,lo8(C.42.3029)
-	ldi r31,hi8(C.42.3029)
+	ldi r30,lo8(C.50.3267)
+	ldi r31,hi8(C.50.3267)
 	ldi r24,lo8(3)
 .L81:
 	ld r0,Z+
@@ -481,8 +481,8 @@ init_nibobee_leds:
 	brne .L81
 	ldi r26,lo8(YellowLeds)
 	ldi r27,hi8(YellowLeds)
-	ldi r30,lo8(C.43.3030)
-	ldi r31,hi8(C.43.3030)
+	ldi r30,lo8(C.51.3268)
+	ldi r31,hi8(C.51.3268)
 	ldi r24,lo8(3)
 .L82:
 	ld r0,Z+
@@ -491,8 +491,8 @@ init_nibobee_leds:
 	brne .L82
 	ldi r26,lo8(RightLeds)
 	ldi r27,hi8(RightLeds)
-	ldi r30,lo8(C.44.3031)
-	ldi r31,hi8(C.44.3031)
+	ldi r30,lo8(C.52.3269)
+	ldi r31,hi8(C.52.3269)
 	ldi r24,lo8(3)
 .L83:
 	ld r0,Z+
@@ -501,8 +501,8 @@ init_nibobee_leds:
 	brne .L83
 	ldi r26,lo8(LeftLeds)
 	ldi r27,hi8(LeftLeds)
-	ldi r30,lo8(C.45.3032)
-	ldi r31,hi8(C.45.3032)
+	ldi r30,lo8(C.53.3270)
+	ldi r31,hi8(C.53.3270)
 	ldi r24,lo8(3)
 .L84:
 	ld r0,Z+
@@ -511,8 +511,8 @@ init_nibobee_leds:
 	brne .L84
 	ldi r26,lo8(AllLeds)
 	ldi r27,hi8(AllLeds)
-	ldi r30,lo8(C.46.3033)
-	ldi r31,hi8(C.46.3033)
+	ldi r30,lo8(C.54.3271)
+	ldi r31,hi8(C.54.3271)
 	ldi r24,lo8(3)
 .L85:
 	ld r0,Z+
@@ -552,8 +552,8 @@ init_nibobee_leds_kernel_init:
 	call setPinOutput
 	ldi r26,lo8(RedLeds)
 	ldi r27,hi8(RedLeds)
-	ldi r30,lo8(C.42.3029)
-	ldi r31,hi8(C.42.3029)
+	ldi r30,lo8(C.50.3267)
+	ldi r31,hi8(C.50.3267)
 	ldi r24,lo8(3)
 .L92:
 	ld r0,Z+
@@ -562,8 +562,8 @@ init_nibobee_leds_kernel_init:
 	brne .L92
 	ldi r26,lo8(YellowLeds)
 	ldi r27,hi8(YellowLeds)
-	ldi r30,lo8(C.43.3030)
-	ldi r31,hi8(C.43.3030)
+	ldi r30,lo8(C.51.3268)
+	ldi r31,hi8(C.51.3268)
 	ldi r24,lo8(3)
 .L93:
 	ld r0,Z+
@@ -572,8 +572,8 @@ init_nibobee_leds_kernel_init:
 	brne .L93
 	ldi r26,lo8(RightLeds)
 	ldi r27,hi8(RightLeds)
-	ldi r30,lo8(C.44.3031)
-	ldi r31,hi8(C.44.3031)
+	ldi r30,lo8(C.52.3269)
+	ldi r31,hi8(C.52.3269)
 	ldi r24,lo8(3)
 .L94:
 	ld r0,Z+
@@ -582,8 +582,8 @@ init_nibobee_leds_kernel_init:
 	brne .L94
 	ldi r26,lo8(LeftLeds)
 	ldi r27,hi8(LeftLeds)
-	ldi r30,lo8(C.45.3032)
-	ldi r31,hi8(C.45.3032)
+	ldi r30,lo8(C.53.3270)
+	ldi r31,hi8(C.53.3270)
 	ldi r24,lo8(3)
 .L95:
 	ld r0,Z+
@@ -592,8 +592,8 @@ init_nibobee_leds_kernel_init:
 	brne .L95
 	ldi r26,lo8(AllLeds)
 	ldi r27,hi8(AllLeds)
-	ldi r30,lo8(C.46.3033)
-	ldi r31,hi8(C.46.3033)
+	ldi r30,lo8(C.54.3271)
+	ldi r31,hi8(C.54.3271)
 	ldi r24,lo8(3)
 .L96:
 	ld r0,Z+
@@ -711,8 +711,8 @@ init_timer_m1284P:
 .L__stack_usage = 0
 	ldi r26,lo8(Timer0)
 	ldi r27,hi8(Timer0)
-	ldi r30,lo8(C.30.3013)
-	ldi r31,hi8(C.30.3013)
+	ldi r30,lo8(C.38.3251)
+	ldi r31,hi8(C.38.3251)
 	ldi r24,lo8(7)
 .L107:
 	ld r0,Z+
@@ -721,8 +721,8 @@ init_timer_m1284P:
 	brne .L107
 	ldi r26,lo8(Timer1)
 	ldi r27,hi8(Timer1)
-	ldi r30,lo8(C.31.3014)
-	ldi r31,hi8(C.31.3014)
+	ldi r30,lo8(C.39.3252)
+	ldi r31,hi8(C.39.3252)
 	ldi r24,lo8(7)
 .L108:
 	ld r0,Z+
@@ -731,8 +731,8 @@ init_timer_m1284P:
 	brne .L108
 	ldi r26,lo8(Timer2)
 	ldi r27,hi8(Timer2)
-	ldi r30,lo8(C.32.3015)
-	ldi r31,hi8(C.32.3015)
+	ldi r30,lo8(C.40.3253)
+	ldi r31,hi8(C.40.3253)
 	ldi r24,lo8(7)
 .L109:
 	ld r0,Z+
@@ -741,8 +741,8 @@ init_timer_m1284P:
 	brne .L109
 	ldi r26,lo8(Timer3)
 	ldi r27,hi8(Timer3)
-	ldi r30,lo8(C.33.3016)
-	ldi r31,hi8(C.33.3016)
+	ldi r30,lo8(C.41.3254)
+	ldi r31,hi8(C.41.3254)
 	ldi r24,lo8(7)
 .L110:
 	ld r0,Z+
@@ -751,8 +751,8 @@ init_timer_m1284P:
 	brne .L110
 	ldi r26,lo8(Timer0A)
 	ldi r27,hi8(Timer0A)
-	ldi r30,lo8(C.34.3017)
-	ldi r31,hi8(C.34.3017)
+	ldi r30,lo8(C.42.3255)
+	ldi r31,hi8(C.42.3255)
 	ldi r24,lo8(8)
 .L111:
 	ld r0,Z+
@@ -761,8 +761,8 @@ init_timer_m1284P:
 	brne .L111
 	ldi r26,lo8(Timer0B)
 	ldi r27,hi8(Timer0B)
-	ldi r30,lo8(C.35.3018)
-	ldi r31,hi8(C.35.3018)
+	ldi r30,lo8(C.43.3256)
+	ldi r31,hi8(C.43.3256)
 	ldi r24,lo8(8)
 .L112:
 	ld r0,Z+
@@ -771,8 +771,8 @@ init_timer_m1284P:
 	brne .L112
 	ldi r26,lo8(Timer1A)
 	ldi r27,hi8(Timer1A)
-	ldi r30,lo8(C.36.3019)
-	ldi r31,hi8(C.36.3019)
+	ldi r30,lo8(C.44.3257)
+	ldi r31,hi8(C.44.3257)
 	ldi r24,lo8(8)
 .L113:
 	ld r0,Z+
@@ -781,8 +781,8 @@ init_timer_m1284P:
 	brne .L113
 	ldi r26,lo8(Timer1B)
 	ldi r27,hi8(Timer1B)
-	ldi r30,lo8(C.37.3020)
-	ldi r31,hi8(C.37.3020)
+	ldi r30,lo8(C.45.3258)
+	ldi r31,hi8(C.45.3258)
 	ldi r24,lo8(8)
 .L114:
 	ld r0,Z+
@@ -791,8 +791,8 @@ init_timer_m1284P:
 	brne .L114
 	ldi r26,lo8(Timer2A)
 	ldi r27,hi8(Timer2A)
-	ldi r30,lo8(C.38.3021)
-	ldi r31,hi8(C.38.3021)
+	ldi r30,lo8(C.46.3259)
+	ldi r31,hi8(C.46.3259)
 	ldi r24,lo8(8)
 .L115:
 	ld r0,Z+
@@ -801,8 +801,8 @@ init_timer_m1284P:
 	brne .L115
 	ldi r26,lo8(Timer2B)
 	ldi r27,hi8(Timer2B)
-	ldi r30,lo8(C.39.3022)
-	ldi r31,hi8(C.39.3022)
+	ldi r30,lo8(C.47.3260)
+	ldi r31,hi8(C.47.3260)
 	ldi r24,lo8(8)
 .L116:
 	ld r0,Z+
@@ -811,8 +811,8 @@ init_timer_m1284P:
 	brne .L116
 	ldi r26,lo8(Timer3A)
 	ldi r27,hi8(Timer3A)
-	ldi r30,lo8(C.40.3023)
-	ldi r31,hi8(C.40.3023)
+	ldi r30,lo8(C.48.3261)
+	ldi r31,hi8(C.48.3261)
 	ldi r24,lo8(8)
 .L117:
 	ld r0,Z+
@@ -821,8 +821,8 @@ init_timer_m1284P:
 	brne .L117
 	ldi r26,lo8(Timer3B)
 	ldi r27,hi8(Timer3B)
-	ldi r30,lo8(C.41.3024)
-	ldi r31,hi8(C.41.3024)
+	ldi r30,lo8(C.49.3262)
+	ldi r31,hi8(C.49.3262)
 	ldi r24,lo8(8)
 .L118:
 	ld r0,Z+
@@ -842,8 +842,8 @@ init_timer_m1284P_kernel_init:
 .L__stack_usage = 0
 	ldi r26,lo8(Timer0)
 	ldi r27,hi8(Timer0)
-	ldi r30,lo8(C.30.3013)
-	ldi r31,hi8(C.30.3013)
+	ldi r30,lo8(C.38.3251)
+	ldi r31,hi8(C.38.3251)
 	ldi r24,lo8(7)
 .L132:
 	ld r0,Z+
@@ -852,8 +852,8 @@ init_timer_m1284P_kernel_init:
 	brne .L132
 	ldi r26,lo8(Timer1)
 	ldi r27,hi8(Timer1)
-	ldi r30,lo8(C.31.3014)
-	ldi r31,hi8(C.31.3014)
+	ldi r30,lo8(C.39.3252)
+	ldi r31,hi8(C.39.3252)
 	ldi r24,lo8(7)
 .L133:
 	ld r0,Z+
@@ -862,8 +862,8 @@ init_timer_m1284P_kernel_init:
 	brne .L133
 	ldi r26,lo8(Timer2)
 	ldi r27,hi8(Timer2)
-	ldi r30,lo8(C.32.3015)
-	ldi r31,hi8(C.32.3015)
+	ldi r30,lo8(C.40.3253)
+	ldi r31,hi8(C.40.3253)
 	ldi r24,lo8(7)
 .L134:
 	ld r0,Z+
@@ -872,8 +872,8 @@ init_timer_m1284P_kernel_init:
 	brne .L134
 	ldi r26,lo8(Timer3)
 	ldi r27,hi8(Timer3)
-	ldi r30,lo8(C.33.3016)
-	ldi r31,hi8(C.33.3016)
+	ldi r30,lo8(C.41.3254)
+	ldi r31,hi8(C.41.3254)
 	ldi r24,lo8(7)
 .L135:
 	ld r0,Z+
@@ -882,8 +882,8 @@ init_timer_m1284P_kernel_init:
 	brne .L135
 	ldi r26,lo8(Timer0A)
 	ldi r27,hi8(Timer0A)
-	ldi r30,lo8(C.34.3017)
-	ldi r31,hi8(C.34.3017)
+	ldi r30,lo8(C.42.3255)
+	ldi r31,hi8(C.42.3255)
 	ldi r24,lo8(8)
 .L136:
 	ld r0,Z+
@@ -892,8 +892,8 @@ init_timer_m1284P_kernel_init:
 	brne .L136
 	ldi r26,lo8(Timer0B)
 	ldi r27,hi8(Timer0B)
-	ldi r30,lo8(C.35.3018)
-	ldi r31,hi8(C.35.3018)
+	ldi r30,lo8(C.43.3256)
+	ldi r31,hi8(C.43.3256)
 	ldi r24,lo8(8)
 .L137:
 	ld r0,Z+
@@ -902,8 +902,8 @@ init_timer_m1284P_kernel_init:
 	brne .L137
 	ldi r26,lo8(Timer1A)
 	ldi r27,hi8(Timer1A)
-	ldi r30,lo8(C.36.3019)
-	ldi r31,hi8(C.36.3019)
+	ldi r30,lo8(C.44.3257)
+	ldi r31,hi8(C.44.3257)
 	ldi r24,lo8(8)
 .L138:
 	ld r0,Z+
@@ -912,8 +912,8 @@ init_timer_m1284P_kernel_init:
 	brne .L138
 	ldi r26,lo8(Timer1B)
 	ldi r27,hi8(Timer1B)
-	ldi r30,lo8(C.37.3020)
-	ldi r31,hi8(C.37.3020)
+	ldi r30,lo8(C.45.3258)
+	ldi r31,hi8(C.45.3258)
 	ldi r24,lo8(8)
 .L139:
 	ld r0,Z+
@@ -922,8 +922,8 @@ init_timer_m1284P_kernel_init:
 	brne .L139
 	ldi r26,lo8(Timer2A)
 	ldi r27,hi8(Timer2A)
-	ldi r30,lo8(C.38.3021)
-	ldi r31,hi8(C.38.3021)
+	ldi r30,lo8(C.46.3259)
+	ldi r31,hi8(C.46.3259)
 	ldi r24,lo8(8)
 .L140:
 	ld r0,Z+
@@ -932,8 +932,8 @@ init_timer_m1284P_kernel_init:
 	brne .L140
 	ldi r26,lo8(Timer2B)
 	ldi r27,hi8(Timer2B)
-	ldi r30,lo8(C.39.3022)
-	ldi r31,hi8(C.39.3022)
+	ldi r30,lo8(C.47.3260)
+	ldi r31,hi8(C.47.3260)
 	ldi r24,lo8(8)
 .L141:
 	ld r0,Z+
@@ -942,8 +942,8 @@ init_timer_m1284P_kernel_init:
 	brne .L141
 	ldi r26,lo8(Timer3A)
 	ldi r27,hi8(Timer3A)
-	ldi r30,lo8(C.40.3023)
-	ldi r31,hi8(C.40.3023)
+	ldi r30,lo8(C.48.3261)
+	ldi r31,hi8(C.48.3261)
 	ldi r24,lo8(8)
 .L142:
 	ld r0,Z+
@@ -952,8 +952,8 @@ init_timer_m1284P_kernel_init:
 	brne .L142
 	ldi r26,lo8(Timer3B)
 	ldi r27,hi8(Timer3B)
-	ldi r30,lo8(C.41.3024)
-	ldi r31,hi8(C.41.3024)
+	ldi r30,lo8(C.49.3262)
+	ldi r31,hi8(C.49.3262)
 	ldi r24,lo8(8)
 .L143:
 	ld r0,Z+
@@ -1025,8 +1025,8 @@ init_nibobee_motors:
 .L__stack_usage = 0
 	ldi r26,lo8(LeftMotor)
 	ldi r27,hi8(LeftMotor)
-	ldi r30,lo8(C.27.3007)
-	ldi r31,hi8(C.27.3007)
+	ldi r30,lo8(C.35.3245)
+	ldi r31,hi8(C.35.3245)
 	ldi r24,lo8(5)
 .L159:
 	ld r0,Z+
@@ -1043,8 +1043,8 @@ init_nibobee_motors:
 	call setPinOutput
 	ldi r26,lo8(RightMotor)
 	ldi r27,hi8(RightMotor)
-	ldi r30,lo8(C.28.3008)
-	ldi r31,hi8(C.28.3008)
+	ldi r30,lo8(C.36.3246)
+	ldi r31,hi8(C.36.3246)
 	ldi r24,lo8(5)
 .L160:
 	ld r0,Z+
@@ -1072,8 +1072,8 @@ init_nibobee_motors_kernel_init:
 .L__stack_usage = 0
 	ldi r26,lo8(LeftMotor)
 	ldi r27,hi8(LeftMotor)
-	ldi r30,lo8(C.27.3007)
-	ldi r31,hi8(C.27.3007)
+	ldi r30,lo8(C.35.3245)
+	ldi r31,hi8(C.35.3245)
 	ldi r24,lo8(5)
 .L164:
 	ld r0,Z+
@@ -1090,8 +1090,8 @@ init_nibobee_motors_kernel_init:
 	call setPinOutput
 	ldi r26,lo8(RightMotor)
 	ldi r27,hi8(RightMotor)
-	ldi r30,lo8(C.28.3008)
-	ldi r31,hi8(C.28.3008)
+	ldi r30,lo8(C.36.3246)
+	ldi r31,hi8(C.36.3246)
 	ldi r24,lo8(5)
 .L165:
 	ld r0,Z+
@@ -1108,6 +1108,848 @@ init_nibobee_motors_kernel_init:
 	call setPinOutput
 /* epilogue start */
 	.size	init_nibobee_motors_kernel_init, .-init_nibobee_motors_kernel_init
+	.section	.text.twi_unexpectedCondition,"ax",@progbits
+	.weak	twi_unexpectedCondition
+	.type	twi_unexpectedCondition, @function
+twi_unexpectedCondition:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+/* epilogue start */
+	ret
+	.size	twi_unexpectedCondition, .-twi_unexpectedCondition
+	.section	.text.init_twi,"ax",@progbits
+.global	init_twi
+	.type	init_twi, @function
+init_twi:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	ldi r24,lo8(5)
+	sts 188,r24
+	ldi r24,lo8(-1)
+	sts 187,r24
+	ldi r24,lo8(17)
+	sts 184,r24
+	sts 185,__zero_reg__
+	ldi r24,lo8(2)
+	sts 186,r24
+/* epilogue start */
+	ret
+	.size	init_twi, .-init_twi
+	.section	.init8
+.global	init_twi_kernel_init
+	.type	init_twi_kernel_init, @function
+init_twi_kernel_init:
+/* prologue: naked */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	ldi r24,lo8(5)
+	sts 188,r24
+	ldi r24,lo8(-1)
+	sts 187,r24
+	ldi r24,lo8(17)
+	sts 184,r24
+	sts 185,__zero_reg__
+	ldi r24,lo8(2)
+	sts 186,r24
+/* epilogue start */
+	.size	init_twi_kernel_init, .-init_twi_kernel_init
+	.section	.text.next_twi_operation,"ax",@progbits
+.global	next_twi_operation
+	.type	next_twi_operation, @function
+next_twi_operation:
+	push r16
+	push r17
+	push r29
+	push r28
+	in r28,__SP_L__
+	in r29,__SP_H__
+	sbiw r28,7
+	in __tmp_reg__,__SREG__
+	cli
+	out __SP_H__,r29
+	out __SREG__,__tmp_reg__
+	out __SP_L__,r28
+/* prologue: function */
+/* frame size = 7 */
+/* stack size = 11 */
+.L__stack_usage = 11
+	lds r20,nextTwiOperation
+	lds r21,nextTwiOperation+1
+	movw r30,r20
+	lsl r30
+	rol r31
+	lsl r30
+	rol r31
+	lsl r30
+	rol r31
+	sub r30,r20
+	sbc r31,r21
+	subi r30,lo8(-(furtherOperations))
+	sbci r31,hi8(-(furtherOperations))
+	movw r18,r28
+	subi r18,lo8(-(1))
+	sbci r19,hi8(-(1))
+.L174:
+	movw r24,r18
+	movw r16,r30
+	ldi r22,lo8(7)
+.L172:
+	movw r26,r16
+	ld r0,X+
+	movw r16,r26
+	movw r26,r24
+	st X+,r0
+	movw r24,r26
+	subi r22,lo8(-(-1))
+	brne .L172
+	ldd r22,Z+4
+	ldd r24,Z+5
+	ldd r25,Z+6
+	subi r20,lo8(-(1))
+	sbci r21,hi8(-(1))
+	sts nextTwiOperation+1,r21
+	sts nextTwiOperation,r20
+	cpi r20,3
+	cpc r21,__zero_reg__
+	brge .L178
+	adiw r30,7
+	sbiw r24,0
+	breq .L174
+	cpi r24,2
+	cpc r25,__zero_reg__
+	breq .L182
+.L177:
+	sts alreadyHandled+1,__zero_reg__
+	sts alreadyHandled,__zero_reg__
+	ldd r24,Y+1
+	ldd r25,Y+2
+	ldd r26,Y+3
+	ldd r27,Y+4
+	sts twi_buffer,r24
+	sts twi_buffer+1,r25
+	sts twi_buffer+2,r26
+	sts twi_buffer+3,r27
+	ldi r18,lo8(1)
+	ldi r19,hi8(1)
+.L173:
+	movw r24,r18
+/* epilogue start */
+	adiw r28,7
+	in __tmp_reg__,__SREG__
+	cli
+	out __SP_H__,r29
+	out __SREG__,__tmp_reg__
+	out __SP_L__,r28
+	pop r28
+	pop r29
+	pop r17
+	pop r16
+	ret
+.L178:
+	ldi r18,lo8(0)
+	ldi r19,hi8(0)
+	rjmp .L173
+.L182:
+	andi r22,lo8(-3)
+	sts twi_address,r22
+	rjmp .L177
+	.size	next_twi_operation, .-next_twi_operation
+	.section	.text.twi_start_master_operation,"ax",@progbits
+.global	twi_start_master_operation
+	.type	twi_start_master_operation, @function
+twi_start_master_operation:
+	push r29
+	push r28
+	in r28,__SP_L__
+	in r29,__SP_H__
+	sbiw r28,7
+	in __tmp_reg__,__SREG__
+	cli
+	out __SP_H__,r29
+	out __SREG__,__tmp_reg__
+	out __SP_L__,r28
+/* prologue: function */
+/* frame size = 7 */
+/* stack size = 9 */
+.L__stack_usage = 9
+	sts error+1,__zero_reg__
+	sts error,__zero_reg__
+	ldi r24,lo8(1)
+	ldi r25,hi8(1)
+	sts twi_running+1,r25
+	sts twi_running,r24
+	movw r24,r28
+	adiw r24,1
+	movw r26,r24
+	ldi r30,lo8(furtherOperations)
+	ldi r31,hi8(furtherOperations)
+	ldi r18,lo8(7)
+.L184:
+	ld r0,Z+
+	st X+,r0
+	subi r18,lo8(-(-1))
+	brne .L184
+	lds r22,furtherOperations+4
+	lds r18,furtherOperations+5
+	lds r19,furtherOperations+5+1
+	ldi r20,lo8(1)
+	ldi r21,hi8(1)
+	sts nextTwiOperation+1,r21
+	sts nextTwiOperation,r20
+	cp r18,__zero_reg__
+	cpc r19,__zero_reg__
+	brne .L185
+	movw r26,r24
+	ldi r30,lo8(furtherOperations+7)
+	ldi r31,hi8(furtherOperations+7)
+	ldi r24,lo8(7)
+.L186:
+	ld r0,Z+
+	st X+,r0
+	subi r24,lo8(-(-1))
+	brne .L186
+	lds r22,furtherOperations+11
+	lds r18,furtherOperations+12
+	lds r19,furtherOperations+12+1
+	ldi r24,lo8(2)
+	ldi r25,hi8(2)
+	sts nextTwiOperation+1,r25
+	sts nextTwiOperation,r24
+	cp r18,__zero_reg__
+	cpc r19,__zero_reg__
+	brne .L185
+	ldi r24,lo8(3)
+	ldi r25,hi8(3)
+	sts nextTwiOperation+1,r25
+	sts nextTwiOperation,r24
+.L183:
+/* epilogue start */
+	adiw r28,7
+	in __tmp_reg__,__SREG__
+	cli
+	out __SP_H__,r29
+	out __SREG__,__tmp_reg__
+	out __SP_L__,r28
+	pop r28
+	pop r29
+	ret
+.L185:
+	cpi r18,2
+	cpc r19,__zero_reg__
+	breq .L192
+.L189:
+	sts alreadyHandled+1,__zero_reg__
+	sts alreadyHandled,__zero_reg__
+	ldd r24,Y+1
+	ldd r25,Y+2
+	ldd r26,Y+3
+	ldd r27,Y+4
+	sts twi_buffer,r24
+	sts twi_buffer+1,r25
+	sts twi_buffer+2,r26
+	sts twi_buffer+3,r27
+	rjmp .L183
+.L192:
+	andi r22,lo8(-3)
+	sts twi_address,r22
+	rjmp .L189
+	.size	twi_start_master_operation, .-twi_start_master_operation
+	.section	.text.__vector_26,"ax",@progbits
+.global	__vector_26
+	.type	__vector_26, @function
+__vector_26:
+	push __zero_reg__
+	push r0
+	in r0,__SREG__
+	push r0
+	in r0,91-32
+	push r0
+	clr __zero_reg__
+	push r16
+	push r17
+	push r18
+	push r19
+	push r20
+	push r21
+	push r22
+	push r23
+	push r24
+	push r25
+	push r26
+	push r27
+	push r30
+	push r31
+	push r29
+	push r28
+	in r28,__SP_L__
+	in r29,__SP_H__
+	sbiw r28,7
+	out __SP_H__, r29
+	out __SP_L__, r28
+/* prologue: Signal */
+/* frame size = 7 */
+/* stack size = 27 */
+.L__stack_usage = 27
+	lds r30,185
+	ldi r31,lo8(0)
+	andi r30,lo8(248)
+	andi r31,hi8(248)
+	sbiw r30,8
+	cpi r30,193
+	cpc r31,__zero_reg__
+	brlo .L244
+.L194:
+	ldi r24,lo8(3)
+	ldi r25,hi8(3)
+	sts error+1,r25
+	sts error,r24
+	call twi_unexpectedCondition
+.L193:
+/* epilogue start */
+	adiw r28,7
+	out __SP_H__, r29
+	out __SP_L__, r28
+	pop r28
+	pop r29
+	pop r31
+	pop r30
+	pop r27
+	pop r26
+	pop r25
+	pop r24
+	pop r23
+	pop r22
+	pop r21
+	pop r20
+	pop r19
+	pop r18
+	pop r17
+	pop r16
+	pop r0
+	out 91-32,r0
+	pop r0
+	out __SREG__,r0
+	pop r0
+	pop __zero_reg__
+	reti
+.L244:
+	subi r30,lo8(-(gs(.L212)))
+	sbci r31,hi8(-(gs(.L212)))
+	lsl r30
+	rol r31
+	lpm __tmp_reg__,Z+
+	lpm r31,Z
+	mov r30,__tmp_reg__
+	ijmp
+	.data
+	.section .progmem.gcc_sw_table, "a", @progbits
+	.p2align 1
+.L212:
+	.data
+	.section .progmem.gcc_sw_table, "a", @progbits
+	.p2align 1
+	.word gs(.L195)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L195)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L196)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L197)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L196)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L198)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L199)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L204)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L197)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L205)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L203)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L204)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L204)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L204)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L204)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L205)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L206)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L205)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L206)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L207)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L208)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L208)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L209)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L210)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L194)
+	.word gs(.L211)
+	.section	.text.__vector_26
+.L207:
+	ldi r24,lo8(9)
+	ldi r25,hi8(9)
+	sts error+1,r25
+	sts error,r24
+.L206:
+	ldi r24,lo8(-59)
+	sts 188,r24
+	lds r24,twi_defaultSlaveBuffer
+	lds r25,twi_defaultSlaveBuffer+1
+	lds r26,twi_defaultSlaveBuffer+2
+	lds r27,twi_defaultSlaveBuffer+3
+	sts twi_buffer,r24
+	sts twi_buffer+1,r25
+	sts twi_buffer+2,r26
+	sts twi_buffer+3,r27
+	sts twi_running+1,__zero_reg__
+	sts twi_running,__zero_reg__
+	rjmp .L193
+.L205:
+	lds r18,alreadyHandled
+	lds r19,alreadyHandled+1
+	lds r24,187
+	lds r30,twi_buffer
+	lds r31,twi_buffer+1
+	add r30,r18
+	adc r31,r19
+	st Z,r24
+	subi r18,lo8(-(1))
+	sbci r19,hi8(-(1))
+	sts alreadyHandled+1,r19
+	sts alreadyHandled,r18
+	lds r24,twi_buffer+2
+	lds r25,twi_buffer+2+1
+	sbiw r24,1
+	cp r18,r24
+	cpc r19,r25
+	brlo .L239
+.L228:
+	ldi r24,lo8(-123)
+	sts 188,r24
+	rjmp .L193
+.L197:
+	ldi r24,lo8(4)
+	ldi r25,hi8(4)
+	sts error+1,r25
+	sts error,r24
+.L240:
+	ldi r24,lo8(-43)
+	sts 188,r24
+	lds r24,twi_defaultSlaveBuffer
+	lds r25,twi_defaultSlaveBuffer+1
+	lds r26,twi_defaultSlaveBuffer+2
+	lds r27,twi_defaultSlaveBuffer+3
+	sts twi_buffer,r24
+	sts twi_buffer+1,r25
+	sts twi_buffer+2,r26
+	sts twi_buffer+3,r27
+	sts twi_running+1,__zero_reg__
+	sts twi_running,__zero_reg__
+	rjmp .L193
+.L204:
+	lds r24,twi_buffer+2
+	lds r25,twi_buffer+2+1
+	sbiw r24,0
+	breq .L228
+.L239:
+	ldi r24,lo8(-59)
+	sts 188,r24
+	rjmp .L193
+.L208:
+	sts twi_buffer,__zero_reg__
+	sts twi_buffer+1,__zero_reg__
+	sts twi_buffer+2,__zero_reg__
+	sts twi_buffer+3,__zero_reg__
+.L209:
+	lds r24,alreadyHandled
+	lds r25,alreadyHandled+1
+	lds r18,twi_buffer+2
+	lds r19,twi_buffer+2+1
+	subi r18,lo8(-(-1))
+	sbci r19,hi8(-(-1))
+	cp r24,r18
+	cpc r25,r19
+	brlo .+2
+	rjmp .L225
+	lds r30,twi_buffer
+	lds r31,twi_buffer+1
+	add r30,r24
+	adc r31,r25
+	ld r18,Z
+	sts 187,r18
+	adiw r24,1
+	sts alreadyHandled+1,r25
+	sts alreadyHandled,r24
+	ldi r24,lo8(-59)
+	sts 188,r24
+	rjmp .L193
+.L210:
+	lds r18,twi_buffer+2
+	lds r19,twi_buffer+2+1
+	lds r24,alreadyHandled
+	lds r25,alreadyHandled+1
+	cp r24,r18
+	cpc r25,r19
+	brlo .+2
+	rjmp .L206
+	ldi r24,lo8(8)
+	ldi r25,hi8(8)
+	sts error+1,r25
+	sts error,r24
+	rjmp .L206
+.L211:
+	ldi r24,lo8(7)
+	ldi r25,hi8(7)
+	sts error+1,r25
+	sts error,r24
+	rjmp .L206
+.L195:
+	lds r24,twi_address
+	sts 187,r24
+	ldi r24,lo8(-123)
+	sts 188,r24
+	rjmp .L193
+.L196:
+	lds r24,alreadyHandled
+	lds r25,alreadyHandled+1
+	lds r18,twi_buffer+2
+	lds r19,twi_buffer+2+1
+	cp r24,r18
+	cpc r25,r19
+	brlo .+2
+	rjmp .L214
+.L225:
+	lds r30,twi_buffer
+	lds r31,twi_buffer+1
+	add r30,r24
+	adc r31,r25
+	ld r18,Z
+	sts 187,r18
+	adiw r24,1
+	sts alreadyHandled+1,r25
+	sts alreadyHandled,r24
+	ldi r24,lo8(-123)
+	sts 188,r24
+	rjmp .L193
+.L203:
+	lds r18,nextTwiOperation
+	lds r19,nextTwiOperation+1
+	cpi r18,3
+	cpc r19,__zero_reg__
+	brlt .+2
+	rjmp .L240
+	movw r30,r18
+	lsl r30
+	rol r31
+	lsl r30
+	rol r31
+	lsl r30
+	rol r31
+	sub r30,r18
+	sbc r31,r19
+	subi r30,lo8(-(furtherOperations))
+	sbci r31,hi8(-(furtherOperations))
+	movw r20,r28
+	subi r20,lo8(-(1))
+	sbci r21,hi8(-(1))
+.L223:
+	movw r24,r20
+	movw r16,r30
+	ldi r22,lo8(7)
+.L222:
+	movw r26,r16
+	ld r0,X+
+	movw r16,r26
+	movw r26,r24
+	st X+,r0
+	movw r24,r26
+	subi r22,lo8(-(-1))
+	brne .L222
+	ldd r22,Z+4
+	ldd r24,Z+5
+	ldd r25,Z+6
+	subi r18,lo8(-(1))
+	sbci r19,hi8(-(1))
+	sts nextTwiOperation+1,r19
+	sts nextTwiOperation,r18
+	cpi r18,3
+	cpc r19,__zero_reg__
+	brlt .+2
+	rjmp .L240
+	adiw r30,7
+	sbiw r24,0
+	breq .L223
+.L238:
+	cpi r24,2
+	cpc r25,__zero_reg__
+	brne .+2
+	rjmp .L245
+.L232:
+	sts alreadyHandled+1,__zero_reg__
+	sts alreadyHandled,__zero_reg__
+	ldd r24,Y+1
+	ldd r25,Y+2
+	ldd r26,Y+3
+	ldd r27,Y+4
+	sts twi_buffer,r24
+	sts twi_buffer+1,r25
+	sts twi_buffer+2,r26
+	sts twi_buffer+3,r27
+	rjmp .L193
+.L198:
+	ldi r24,lo8(6)
+	ldi r25,hi8(6)
+	sts error+1,r25
+	sts error,r24
+	rjmp .L240
+.L199:
+	ldi r24,lo8(5)
+	ldi r25,hi8(5)
+	sts error+1,r25
+	sts error,r24
+	rjmp .L206
+.L214:
+	lds r18,nextTwiOperation
+	lds r19,nextTwiOperation+1
+	cpi r18,3
+	cpc r19,__zero_reg__
+	brlt .+2
+	rjmp .L240
+	movw r30,r18
+	lsl r30
+	rol r31
+	lsl r30
+	rol r31
+	lsl r30
+	rol r31
+	sub r30,r18
+	sbc r31,r19
+	subi r30,lo8(-(furtherOperations))
+	sbci r31,hi8(-(furtherOperations))
+	movw r20,r28
+	subi r20,lo8(-(1))
+	sbci r21,hi8(-(1))
+.L217:
+	movw r24,r20
+	movw r16,r30
+	ldi r22,lo8(7)
+.L216:
+	movw r26,r16
+	ld r0,X+
+	movw r16,r26
+	movw r26,r24
+	st X+,r0
+	movw r24,r26
+	subi r22,lo8(-(-1))
+	brne .L216
+	ldd r22,Z+4
+	ldd r24,Z+5
+	ldd r25,Z+6
+	subi r18,lo8(-(1))
+	sbci r19,hi8(-(1))
+	sts nextTwiOperation+1,r19
+	sts nextTwiOperation,r18
+	cpi r18,3
+	cpc r19,__zero_reg__
+	brlt .+2
+	rjmp .L240
+	adiw r30,7
+	sbiw r24,0
+	breq .L217
+	rjmp .L238
+.L245:
+	andi r22,lo8(-3)
+	sts twi_address,r22
+	rjmp .L232
+	.size	__vector_26, .-__vector_26
+	.section	.text.twi_handleMasterRequest,"ax",@progbits
+.global	twi_handleMasterRequest
+	.type	twi_handleMasterRequest, @function
+twi_handleMasterRequest:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	ldi r22,lo8(0)
+	ldi r23,lo8(0)
+	ldi r24,lo8(0)
+	ldi r25,lo8(0)
+/* epilogue start */
+	ret
+	.size	twi_handleMasterRequest, .-twi_handleMasterRequest
+	.section	.text.twi_handleMasterTransmission,"ax",@progbits
+.global	twi_handleMasterTransmission
+	.type	twi_handleMasterTransmission, @function
+twi_handleMasterTransmission:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+/* epilogue start */
+	ret
+	.size	twi_handleMasterTransmission, .-twi_handleMasterTransmission
 	.section	.text.init_process_base,"ax",@progbits
 .global	init_process_base
 	.type	init_process_base, @function
@@ -1135,14 +1977,14 @@ init_process_base:
 	call calloc
 	movw r30,r24
 	sbiw r24,0
-	breq .L170
+	breq .L250
 	std Z+1,__zero_reg__
 	st Z,__zero_reg__
 	sts __current_process+1,r31
 	sts __current_process,r30
 /* epilogue start */
 	ret
-.L170:
+.L250:
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
 	sts __current_process+1,r31
@@ -1195,7 +2037,7 @@ createProcessBase3:
 	movw r16,r24
 	ldd r18,Y+1
 	sbiw r24,0
-	breq .L177
+	breq .L257
 	movw r20,r10
 	subi r20,lo8(-(-1))
 	sbci r21,hi8(-(-1))
@@ -1227,15 +2069,15 @@ createProcessBase3:
 	ldd r20,Y+1
 	ldd r21,Y+2
 	sbiw r24,0
-	breq .L174
+	breq .L254
 	movw r24,r20
 	sbiw r24,38
 	std Z+1,r25
 	st Z,r24
 	cp r14,__zero_reg__
 	cpc r15,__zero_reg__
-	breq .L179
-.L175:
+	breq .L259
+.L255:
 	movw r26,r20
 	sbiw r26,30
 	st X,r14
@@ -1243,7 +2085,7 @@ createProcessBase3:
 	sbci r21,hi8(-(-31))
 	movw r26,r20
 	st X,r15
-.L173:
+.L253:
 	movw r24,r30
 /* epilogue start */
 	pop __tmp_reg__
@@ -1259,19 +2101,19 @@ createProcessBase3:
 	pop r11
 	pop r10
 	ret
-.L177:
+.L257:
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
-	rjmp .L173
-.L179:
+	rjmp .L253
+.L259:
 	movw r14,r30
-	rjmp .L175
-.L174:
+	rjmp .L255
+.L254:
 	movw r24,r16
 	call free
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
-	rjmp .L173
+	rjmp .L253
 	.size	createProcessBase3, .-createProcessBase3
 	.section	.text.createProcessBase2,"ax",@progbits
 .global	createProcessBase2
@@ -1299,7 +2141,7 @@ createProcessBase2:
 	call calloc
 	movw r16,r24
 	sbiw r24,0
-	breq .L185
+	breq .L265
 	sbiw r28,1
 	add r28,r24
 	adc r29,r25
@@ -1322,21 +2164,21 @@ createProcessBase2:
 	call calloc
 	movw r30,r24
 	sbiw r24,0
-	breq .L182
+	breq .L262
 	movw r24,r28
 	sbiw r24,38
 	std Z+1,r25
 	st Z,r24
 	cp r14,__zero_reg__
 	cpc r15,__zero_reg__
-	breq .L187
-.L183:
+	breq .L267
+.L263:
 	movw r26,r28
 	sbiw r26,30
 	st X,r14
 	sbiw r28,31
 	st Y,r15
-.L181:
+.L261:
 	movw r24,r30
 /* epilogue start */
 	pop r29
@@ -1348,19 +2190,19 @@ createProcessBase2:
 	pop r13
 	pop r12
 	ret
-.L185:
+.L265:
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
-	rjmp .L181
-.L187:
+	rjmp .L261
+.L267:
 	movw r14,r30
-	rjmp .L183
-.L182:
+	rjmp .L263
+.L262:
 	movw r24,r16
 	call free
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
-	rjmp .L181
+	rjmp .L261
 	.size	createProcessBase2, .-createProcessBase2
 	.section	.text.createProcessBase,"ax",@progbits
 .global	createProcessBase
@@ -1385,7 +2227,7 @@ createProcessBase:
 	call calloc
 	movw r16,r24
 	sbiw r24,0
-	breq .L191
+	breq .L271
 	sbiw r28,1
 	add r28,r24
 	adc r29,r25
@@ -1408,7 +2250,7 @@ createProcessBase:
 	call calloc
 	movw r30,r24
 	sbiw r24,0
-	breq .L190
+	breq .L270
 	movw r24,r28
 	sbiw r24,38
 	std Z+1,r25
@@ -1418,7 +2260,7 @@ createProcessBase:
 	st X,r30
 	sbiw r28,31
 	st Y,r31
-.L189:
+.L269:
 	movw r24,r30
 /* epilogue start */
 	pop r29
@@ -1428,7 +2270,7 @@ createProcessBase:
 	pop r15
 	pop r14
 	ret
-.L191:
+.L271:
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
 	movw r24,r30
@@ -1440,12 +2282,12 @@ createProcessBase:
 	pop r15
 	pop r14
 	ret
-.L190:
+.L270:
 	movw r24,r16
 	call free
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
-	rjmp .L189
+	rjmp .L269
 	.size	createProcessBase, .-createProcessBase
 	.section	.text.switchContext,"ax",@progbits
 .global	switchContext
@@ -1456,7 +2298,7 @@ switchContext:
 /* stack size = 0 */
 .L__stack_usage = 0
 /* #APP */
- ;  94 "..\..\AntonAvrLib/kernel/processes/process.kernel" 1
+ ;  94 "..\..\AntonAvrLib/kernel/processes/process.kernel.h" 1
 	push r0				
 in r0, __SREG__		
 cli					
@@ -1497,27 +2339,27 @@ push r30
 push r31			
 
  ;  0 "" 2
- ;  95 "..\..\AntonAvrLib/kernel/processes/process.kernel" 1
+ ;  95 "..\..\AntonAvrLib/kernel/processes/process.kernel.h" 1
 	movw r26, r24
  ;  0 "" 2
- ;  96 "..\..\AntonAvrLib/kernel/processes/process.kernel" 1
+ ;  96 "..\..\AntonAvrLib/kernel/processes/process.kernel.h" 1
 	in r0, __SP_L__			
 st X+, r0					
 in r0, __SP_H__			
 st X+, r0					
 
  ;  0 "" 2
- ;  97 "..\..\AntonAvrLib/kernel/processes/process.kernel" 1
+ ;  97 "..\..\AntonAvrLib/kernel/processes/process.kernel.h" 1
 	movw r26, r22
  ;  0 "" 2
- ;  98 "..\..\AntonAvrLib/kernel/processes/process.kernel" 1
+ ;  98 "..\..\AntonAvrLib/kernel/processes/process.kernel.h" 1
 	ld r0, X+					
 out __SP_L__, r0			
 ld r0, X+					
 out __SP_H__, r0			
 
  ;  0 "" 2
- ;  99 "..\..\AntonAvrLib/kernel/processes/process.kernel" 1
+ ;  99 "..\..\AntonAvrLib/kernel/processes/process.kernel.h" 1
 	pop r31			
 pop r30			
 pop r29			
@@ -1555,6 +2397,9 @@ pop r0
 out __SREG__, r0			
 pop r0						
 
+ ;  0 "" 2
+ ;  101 "..\..\AntonAvrLib/kernel/processes/process.kernel.h" 1
+	sei
  ;  0 "" 2
 /* epilogue start */
 /* #NOAPP */
@@ -1624,7 +2469,7 @@ createProcess3:
 	ldd r18,Y+1
 	sbiw r24,0
 	brne .+2
-	rjmp .L200
+	rjmp .L280
 	movw r20,r16
 	subi r20,lo8(-(-1))
 	sbci r21,hi8(-(-1))
@@ -1658,7 +2503,7 @@ createProcess3:
 	ldd r21,Y+2
 	sbiw r24,0
 	brne .+2
-	rjmp .L197
+	rjmp .L277
 	movw r24,r20
 	sbiw r24,38
 	std Z+1,r25
@@ -1666,8 +2511,8 @@ createProcess3:
 	movw r18,r30
 	cp r12,__zero_reg__
 	cpc r13,__zero_reg__
-	breq .L202
-.L198:
+	breq .L282
+.L278:
 	movw r26,r20
 	sbiw r26,30
 	st X,r12
@@ -1700,7 +2545,7 @@ createProcess3:
 	st X,r25
 	st -X,r24
 	sbiw r26,4
-.L196:
+.L276:
 	movw r24,r18
 /* epilogue start */
 	pop __tmp_reg__
@@ -1716,19 +2561,19 @@ createProcess3:
 	pop r11
 	pop r10
 	ret
-.L200:
+.L280:
 	ldi r18,lo8(0)
 	ldi r19,hi8(0)
-	rjmp .L196
-.L202:
+	rjmp .L276
+.L282:
 	movw r12,r30
-	rjmp .L198
-.L197:
+	rjmp .L278
+.L277:
 	movw r24,r14
 	call free
 	ldi r18,lo8(0)
 	ldi r19,hi8(0)
-	rjmp .L196
+	rjmp .L276
 	.size	createProcess3, .-createProcess3
 	.section	.text.createProcess2,"ax",@progbits
 .global	createProcess2
@@ -1759,7 +2604,7 @@ createProcess2:
 	movw r14,r24
 	sbiw r24,0
 	brne .+2
-	rjmp .L208
+	rjmp .L288
 	movw r28,r16
 	sbiw r28,1
 	add r28,r24
@@ -1783,7 +2628,7 @@ createProcess2:
 	call calloc
 	movw r30,r24
 	sbiw r24,0
-	breq .L205
+	breq .L285
 	movw r24,r28
 	sbiw r24,38
 	std Z+1,r25
@@ -1791,8 +2636,8 @@ createProcess2:
 	movw r18,r30
 	cp r12,__zero_reg__
 	cpc r13,__zero_reg__
-	breq .L210
-.L206:
+	breq .L290
+.L286:
 	movw r26,r28
 	sbiw r26,30
 	st X,r12
@@ -1823,7 +2668,7 @@ createProcess2:
 	st X,r25
 	st -X,r24
 	sbiw r26,4
-.L204:
+.L284:
 	movw r24,r18
 /* epilogue start */
 	pop r29
@@ -1837,19 +2682,19 @@ createProcess2:
 	pop r11
 	pop r10
 	ret
-.L208:
+.L288:
 	ldi r18,lo8(0)
 	ldi r19,hi8(0)
-	rjmp .L204
-.L210:
+	rjmp .L284
+.L290:
 	movw r12,r30
-	rjmp .L206
-.L205:
+	rjmp .L286
+.L285:
 	movw r24,r14
 	call free
 	ldi r18,lo8(0)
 	ldi r19,hi8(0)
-	rjmp .L204
+	rjmp .L284
 	.size	createProcess2, .-createProcess2
 	.section	.text.createProcess,"ax",@progbits
 .global	createProcess
@@ -1877,7 +2722,7 @@ createProcess:
 	movw r14,r24
 	sbiw r24,0
 	brne .+2
-	rjmp .L214
+	rjmp .L294
 	movw r28,r16
 	sbiw r28,1
 	add r28,r24
@@ -1901,7 +2746,7 @@ createProcess:
 	call calloc
 	movw r30,r24
 	sbiw r24,0
-	breq .L213
+	breq .L293
 	movw r24,r28
 	sbiw r24,38
 	std Z+1,r25
@@ -1936,7 +2781,7 @@ createProcess:
 	st X,r25
 	st -X,r24
 	sbiw r26,4
-.L212:
+.L292:
 	movw r24,r30
 /* epilogue start */
 	pop r29
@@ -1948,16 +2793,16 @@ createProcess:
 	pop r13
 	pop r12
 	ret
-.L214:
+.L294:
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
-	rjmp .L212
-.L213:
+	rjmp .L292
+.L293:
 	movw r24,r14
 	call free
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
-	rjmp .L212
+	rjmp .L292
 	.size	createProcess, .-createProcess
 	.section	.text.freeProcess,"ax",@progbits
 .global	freeProcess
@@ -1974,26 +2819,26 @@ freeProcess:
 	lds r25,__current_process+1
 	cp r28,r24
 	cpc r29,r25
-	breq .L215
+	breq .L295
 	movw r30,r28
 	adiw r30,4
 	ldd r24,Y+4
 	ldd r25,Y+5
 	sbiw r24,0
-	brne .L218
-.L217:
+	brne .L298
+.L297:
 	movw r24,r28
 	call free
-.L215:
+.L295:
 /* epilogue start */
 	pop r29
 	pop r28
 	ret
-.L218:
+.L298:
 	ldd r24,Z+4
 	ldd r25,Z+5
 	call free
-	rjmp .L217
+	rjmp .L297
 	.size	freeProcess, .-freeProcess
 	.section	.text.getProcessStackSize,"ax",@progbits
 .global	getProcessStackSize
@@ -2089,12 +2934,12 @@ init_process:
 	call calloc
 	movw r30,r24
 	sbiw r24,0
-	breq .L225
+	breq .L305
 	std Z+1,__zero_reg__
 	st Z,__zero_reg__
 	movw r26,r24
 	adiw r26,4
-.L224:
+.L304:
 	sts __current_process+1,r31
 	sts __current_process,r30
 	adiw r26,1
@@ -2114,13 +2959,184 @@ init_process:
 	pop r17
 	pop r16
 	ret
-.L225:
+.L305:
 	ldi r26,lo8(4)
 	ldi r27,hi8(4)
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
-	rjmp .L224
+	rjmp .L304
 	.size	init_process, .-init_process
+	.section	.text.init_idle_scheduler,"ax",@progbits
+.global	init_idle_scheduler
+	.type	init_idle_scheduler, @function
+init_idle_scheduler:
+	push r14
+	push r15
+	push r28
+	push r29
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 4 */
+.L__stack_usage = 4
+	ldi r24,lo8(64)
+	ldi r25,hi8(64)
+	ldi r22,lo8(1)
+	ldi r23,hi8(1)
+	call calloc
+	mov r14,r24
+	movw r28,r14
+	movw r14,r28
+	mov r15,r25
+	movw r28,r14
+	sbiw r28,0
+	breq .L307
+	ldi r24,lo8(gs(ProcessGraveyard))
+	ldi r25,hi8(gs(ProcessGraveyard))
+	std Y+63,r24
+	std Y+62,r25
+	std Y+61,r24
+	std Y+60,r25
+	ldi r24,lo8(1)
+	ldi r25,hi8(1)
+	ldi r22,lo8(8)
+	ldi r23,hi8(8)
+	call calloc
+	movw r30,r24
+	sbiw r24,0
+	breq .L308
+	movw r24,r14
+	adiw r24,25
+	std Z+1,r25
+	st Z,r24
+	std Y+33,r30
+	std Y+32,r31
+	movw r26,r30
+	adiw r26,4
+	lds r24,__nextProcessNumber
+	lds r25,__nextProcessNumber+1
+	std Z+5,r25
+	std Z+4,r24
+	adiw r24,1
+	sts __nextProcessNumber+1,r25
+	sts __nextProcessNumber,r24
+	ldi r24,lo8(64)
+	ldi r25,hi8(64)
+	adiw r26,2+1
+	st X,r25
+	st -X,r24
+	sbiw r26,2
+	ld r24,Z
+	ldd r25,Z+1
+	sbiw r24,25
+	adiw r26,4+1
+	st X,r25
+	st -X,r24
+	sbiw r26,4
+.L309:
+	sts __idle_process+1,r31
+	sts __idle_process,r30
+/* epilogue start */
+	pop r29
+	pop r28
+	pop r15
+	pop r14
+	ret
+.L308:
+	movw r24,r14
+	call free
+.L307:
+	ldi r30,lo8(0)
+	ldi r31,hi8(0)
+	rjmp .L309
+	.size	init_idle_scheduler, .-init_idle_scheduler
+	.section	.init8
+.global	init_idle_scheduler_kernel_init
+	.type	init_idle_scheduler_kernel_init, @function
+init_idle_scheduler_kernel_init:
+/* prologue: naked */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	ldi r24,lo8(64)
+	ldi r25,hi8(64)
+	ldi r22,lo8(1)
+	ldi r23,hi8(1)
+	call calloc
+	mov r14,r24
+	movw r28,r14
+	movw r14,r28
+	mov r15,r25
+	movw r28,r14
+	sbiw r28,0
+	breq .L311
+	ldi r24,lo8(gs(ProcessGraveyard))
+	ldi r25,hi8(gs(ProcessGraveyard))
+	std Y+63,r24
+	std Y+62,r25
+	std Y+61,r24
+	std Y+60,r25
+	ldi r24,lo8(1)
+	ldi r25,hi8(1)
+	ldi r22,lo8(8)
+	ldi r23,hi8(8)
+	call calloc
+	movw r30,r24
+	sbiw r24,0
+	breq .L312
+	movw r24,r14
+	adiw r24,25
+	std Z+1,r25
+	st Z,r24
+	std Y+33,r30
+	std Y+32,r31
+	movw r26,r30
+	adiw r26,4
+	lds r24,__nextProcessNumber
+	lds r25,__nextProcessNumber+1
+	std Z+5,r25
+	std Z+4,r24
+	adiw r24,1
+	sts __nextProcessNumber+1,r25
+	sts __nextProcessNumber,r24
+	ldi r24,lo8(64)
+	ldi r25,hi8(64)
+	adiw r26,2+1
+	st X,r25
+	st -X,r24
+	sbiw r26,2
+	ld r24,Z
+	ldd r25,Z+1
+	sbiw r24,25
+	adiw r26,4+1
+	st X,r25
+	st -X,r24
+	sbiw r26,4
+	sts __idle_process+1,r31
+	sts __idle_process,r30
+/* epilogue start */
+.L312:
+	movw r24,r14
+	call free
+.L311:
+	ldi r30,lo8(0)
+	ldi r31,hi8(0)
+	sts __idle_process+1,r31
+	sts __idle_process,r30
+/* epilogue start */
+	.size	init_idle_scheduler_kernel_init, .-init_idle_scheduler_kernel_init
+	.section	.text.idle_schedule,"ax",@progbits
+.global	idle_schedule
+	.type	idle_schedule, @function
+idle_schedule:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	lds r24,__idle_process
+	lds r25,__idle_process+1
+/* epilogue start */
+	ret
+	.size	idle_schedule, .-idle_schedule
 	.section	.text.__vector_32,"ax",@progbits
 .global	__vector_32
 	.type	__vector_32, @function
@@ -2130,7 +3146,7 @@ __vector_32:
 /* stack size = 0 */
 .L__stack_usage = 0
 /* #APP */
- ;  25 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel" 1
+ ;  25 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel.h" 1
 	push r0				
 in r0, __SREG__		
 cli					
@@ -2184,13 +3200,13 @@ push r31
 	sts milliseconds_running+2,r26
 	sts milliseconds_running+3,r27
 /* #APP */
- ;  33 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel" 1
+ ;  33 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel.h" 1
 	lds r26, __current_process
  ;  0 "" 2
- ;  34 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel" 1
+ ;  34 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel.h" 1
 	lds r27, __current_process + 1
  ;  0 "" 2
- ;  35 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel" 1
+ ;  35 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel.h" 1
 	in r0, __SP_L__			
 st X+, r0					
 in r0, __SP_H__			
@@ -2203,22 +3219,23 @@ st X+, r0
 	call dms_schedule
 	sbiw r24,0
 	brne .+2
-	rjmp .L229
+	rjmp .L318
+.L316:
 	sts __current_process+1,r25
 	sts __current_process,r24
-.L228:
+.L317:
 /* #APP */
- ;  43 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel" 1
+ ;  45 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel.h" 1
 	movw r26, r24
  ;  0 "" 2
- ;  44 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel" 1
+ ;  46 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel.h" 1
 	ld r0, X+					
 out __SP_L__, r0			
 ld r0, X+					
 out __SP_H__, r0			
 
  ;  0 "" 2
- ;  45 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel" 1
+ ;  47 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel.h" 1
 	pop r31			
 pop r30			
 pop r29			
@@ -2257,27 +3274,32 @@ out __SREG__, r0
 pop r0						
 
  ;  0 "" 2
- ;  48 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel" 1
+ ;  50 "..\..\AntonAvrLib/kernel/processes/scheduler.kernel.h" 1
 	reti
  ;  0 "" 2
 /* epilogue start */
 /* #NOAPP */
-.L229:
+.L318:
 	ldi r24,lo8(1)
 	ldi r25,hi8(1)
 	call rr_schedule
+	sbiw r24,0
+	breq .+2
+	rjmp .L316
+	lds r24,__idle_process
+	lds r25,__idle_process+1
 	sts __current_process+1,r25
 	sts __current_process,r24
 	sbiw r24,0
 	breq .+2
-	rjmp .L228
-	call processor_loop_idle
-	rjmp .L228
+	rjmp .L317
+	call HARDWARE_RESET
+	rjmp .L317
 	.size	__vector_32, .-__vector_32
-	.section	.text.init_tank_scheduler,"ax",@progbits
-.global	init_tank_scheduler
-	.type	init_tank_scheduler, @function
-init_tank_scheduler:
+	.section	.text.init_scheduler,"ax",@progbits
+.global	init_scheduler
+	.type	init_scheduler, @function
+init_scheduler:
 	push r28
 	push r29
 /* prologue: function */
@@ -2303,11 +3325,11 @@ init_tank_scheduler:
 	pop r29
 	pop r28
 	ret
-	.size	init_tank_scheduler, .-init_tank_scheduler
+	.size	init_scheduler, .-init_scheduler
 	.section	.init8
-.global	init_tank_scheduler_kernel_init
-	.type	init_tank_scheduler_kernel_init, @function
-init_tank_scheduler_kernel_init:
+.global	init_scheduler_kernel_init
+	.type	init_scheduler_kernel_init, @function
+init_scheduler_kernel_init:
 /* prologue: naked */
 /* frame size = 0 */
 /* stack size = 0 */
@@ -2328,11 +3350,11 @@ init_tank_scheduler_kernel_init:
 	ldi r23,hi8(2)
 	call setTimerClockSelect
 /* epilogue start */
-	.size	init_tank_scheduler_kernel_init, .-init_tank_scheduler_kernel_init
-	.section	.text.start_tank_scheduler,"ax",@progbits
-.global	start_tank_scheduler
-	.type	start_tank_scheduler, @function
-start_tank_scheduler:
+	.size	init_scheduler_kernel_init, .-init_scheduler_kernel_init
+	.section	.text.start_scheduler,"ax",@progbits
+.global	start_scheduler
+	.type	start_scheduler, @function
+start_scheduler:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
@@ -2341,13 +3363,13 @@ start_tank_scheduler:
 	ldi r25,hi8(Timer3A)
 	call enableTimerInterrupt
 /* #APP */
- ;  28 ".././shared/scheduler.kernel" 1
+ ;  27 ".././shared/scheduler.kernel.h" 1
 	sei
  ;  0 "" 2
 /* epilogue start */
 /* #NOAPP */
 	ret
-	.size	start_tank_scheduler, .-start_tank_scheduler
+	.size	start_scheduler, .-start_scheduler
 	.section	.text.before_scheduler,"ax",@progbits
 	.weak	before_scheduler
 	.type	before_scheduler, @function
@@ -2373,16 +3395,21 @@ schedule:
 	call dms_schedule
 	movw r18,r24
 	sbiw r24,0
-	breq .L236
+	breq .L325
+.L324:
 	movw r24,r18
 /* epilogue start */
 	pop r29
 	pop r28
 	ret
-.L236:
+.L325:
 	movw r24,r28
 	call rr_schedule
 	movw r18,r24
+	sbiw r24,0
+	brne .L324
+	lds r18,__idle_process
+	lds r19,__idle_process+1
 	movw r24,r18
 /* epilogue start */
 	pop r29
@@ -2433,12 +3460,12 @@ init_kernel:
 	call calloc
 	movw r30,r24
 	sbiw r24,0
-	breq .L239
+	breq .L328
 	std Z+1,__zero_reg__
 	st Z,__zero_reg__
 	movw r26,r24
 	adiw r26,4
-.L238:
+.L327:
 	sts __current_process+1,r31
 	sts __current_process,r30
 	adiw r26,1
@@ -2460,7 +3487,7 @@ init_kernel:
 	ldi r25,hi8(Timer3A)
 	call enableTimerInterrupt
 /* #APP */
- ;  28 ".././shared/scheduler.kernel" 1
+ ;  27 ".././shared/scheduler.kernel.h" 1
 	sei
  ;  0 "" 2
 /* epilogue start */
@@ -2470,12 +3497,12 @@ init_kernel:
 	pop r17
 	pop r16
 	ret
-.L239:
+.L328:
 	ldi r26,lo8(4)
 	ldi r27,hi8(4)
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
-	rjmp .L238
+	rjmp .L327
 	.size	init_kernel, .-init_kernel
 	.section	.init8
 .global	init_kernel_kernel_init
@@ -2517,12 +3544,12 @@ init_kernel_kernel_init:
 	call calloc
 	movw r30,r24
 	sbiw r24,0
-	breq .L242
+	breq .L331
 	std Z+1,__zero_reg__
 	st Z,__zero_reg__
 	movw r26,r24
 	adiw r26,4
-.L241:
+.L330:
 	sts __current_process+1,r31
 	sts __current_process,r30
 	adiw r26,1
@@ -2544,17 +3571,17 @@ init_kernel_kernel_init:
 	ldi r25,hi8(Timer3A)
 	call enableTimerInterrupt
 /* #APP */
- ;  28 ".././shared/scheduler.kernel" 1
+ ;  27 ".././shared/scheduler.kernel.h" 1
 	sei
  ;  0 "" 2
 /* epilogue start */
 /* #NOAPP */
-.L242:
+.L331:
 	ldi r26,lo8(4)
 	ldi r27,hi8(4)
 	ldi r30,lo8(0)
 	ldi r31,hi8(0)
-	rjmp .L241
+	rjmp .L330
 	.size	init_kernel_kernel_init, .-init_kernel_kernel_init
 .global	current_reset_status
 .global	current_reset_status
@@ -2596,6 +3623,12 @@ allLedsArray:
 	.word	LeftRed
 	.word	RightYellow
 	.word	RightRed
+.global	twi_defaultSlaveBuffer
+	.type	twi_defaultSlaveBuffer, @object
+	.size	twi_defaultSlaveBuffer, 4
+twi_defaultSlaveBuffer:
+	.word	twi_defaultSlaveBufferData
+	.word	64
 .global	__default_stack_size
 	.type	__default_stack_size, @object
 	.size	__default_stack_size, 2
@@ -2690,309 +3723,318 @@ milliseconds_running:
 	.comm Timer3B,8,1
 	.comm LeftMotor,5,1
 	.comm RightMotor,5,1
+	.comm twi_running,2,1
+	.comm twi_defaultSlaveBufferData,64,1
+	.comm twi_address,1,1
+	.comm alreadyHandled,2,1
+	.comm twi_buffer,4,1
+	.comm error,2,1
+	.comm furtherOperations,21,1
+	.comm nextTwiOperation,2,1
+	.comm __idle_process,2,1
 	.data
-	.type	C.28.3008, @object
-	.size	C.28.3008, 5
-C.28.3008:
+	.type	C.36.3246, @object
+	.size	C.36.3246, 5
+C.36.3246:
 	.byte	0
 	.word	PinD7
 	.word	Timer1B
-	.type	C.27.3007, @object
-	.size	C.27.3007, 5
-C.27.3007:
+	.type	C.35.3245, @object
+	.size	C.35.3245, 5
+C.35.3245:
 	.byte	0
 	.word	PinD6
 	.word	Timer1A
-	.type	C.41.3024, @object
-	.size	C.41.3024, 8
-C.41.3024:
+	.type	C.49.3262, @object
+	.size	C.49.3262, 8
+C.49.3262:
 	.word	Timer3
 	.word	154
 	.word	1
 	.word	PinB7
-	.type	C.40.3023, @object
-	.size	C.40.3023, 8
-C.40.3023:
+	.type	C.48.3261, @object
+	.size	C.48.3261, 8
+C.48.3261:
 	.word	Timer3
 	.word	152
 	.word	0
 	.word	PinB6
-	.type	C.39.3022, @object
-	.size	C.39.3022, 8
-C.39.3022:
+	.type	C.47.3260, @object
+	.size	C.47.3260, 8
+C.47.3260:
 	.word	Timer2
 	.word	180
 	.word	1
 	.word	PinD6
-	.type	C.38.3021, @object
-	.size	C.38.3021, 8
-C.38.3021:
+	.type	C.46.3259, @object
+	.size	C.46.3259, 8
+C.46.3259:
 	.word	Timer2
 	.word	179
 	.word	0
 	.word	PinD7
-	.type	C.37.3020, @object
-	.size	C.37.3020, 8
-C.37.3020:
+	.type	C.45.3258, @object
+	.size	C.45.3258, 8
+C.45.3258:
 	.word	Timer1
 	.word	138
 	.word	1
 	.word	PinD4
-	.type	C.36.3019, @object
-	.size	C.36.3019, 8
-C.36.3019:
+	.type	C.44.3257, @object
+	.size	C.44.3257, 8
+C.44.3257:
 	.word	Timer1
 	.word	136
 	.word	0
 	.word	PinD5
-	.type	C.35.3018, @object
-	.size	C.35.3018, 8
-C.35.3018:
+	.type	C.43.3256, @object
+	.size	C.43.3256, 8
+C.43.3256:
 	.word	Timer0
 	.word	72
 	.word	1
 	.word	PinB4
-	.type	C.34.3017, @object
-	.size	C.34.3017, 8
-C.34.3017:
+	.type	C.42.3255, @object
+	.size	C.42.3255, 8
+C.42.3255:
 	.word	Timer0
 	.word	71
 	.word	0
 	.word	PinB3
-	.type	C.33.3016, @object
-	.size	C.33.3016, 7
-C.33.3016:
+	.type	C.41.3254, @object
+	.size	C.41.3254, 7
+C.41.3254:
 	.byte	4
 	.word	144
 	.word	145
 	.word	113
-	.type	C.32.3015, @object
-	.size	C.32.3015, 7
-C.32.3015:
+	.type	C.40.3253, @object
+	.size	C.40.3253, 7
+C.40.3253:
 	.byte	2
 	.word	176
 	.word	177
 	.word	112
-	.type	C.31.3014, @object
-	.size	C.31.3014, 7
-C.31.3014:
+	.type	C.39.3252, @object
+	.size	C.39.3252, 7
+C.39.3252:
 	.byte	4
 	.word	128
 	.word	129
 	.word	111
-	.type	C.30.3013, @object
-	.size	C.30.3013, 7
-C.30.3013:
+	.type	C.38.3251, @object
+	.size	C.38.3251, 7
+C.38.3251:
 	.byte	0
 	.word	68
 	.word	69
 	.word	110
-	.type	C.46.3033, @object
-	.size	C.46.3033, 3
-C.46.3033:
+	.type	C.54.3271, @object
+	.size	C.54.3271, 3
+C.54.3271:
 	.word	allLedsArray
 	.byte	4
-	.type	C.45.3032, @object
-	.size	C.45.3032, 3
-C.45.3032:
+	.type	C.53.3270, @object
+	.size	C.53.3270, 3
+C.53.3270:
 	.word	leftLedsArray
 	.byte	2
-	.type	C.44.3031, @object
-	.size	C.44.3031, 3
-C.44.3031:
+	.type	C.52.3269, @object
+	.size	C.52.3269, 3
+C.52.3269:
 	.word	rightLedsArray
 	.byte	2
-	.type	C.43.3030, @object
-	.size	C.43.3030, 3
-C.43.3030:
+	.type	C.51.3268, @object
+	.size	C.51.3268, 3
+C.51.3268:
 	.word	yellowLedsArray
 	.byte	2
-	.type	C.42.3029, @object
-	.size	C.42.3029, 3
-C.42.3029:
+	.type	C.50.3267, @object
+	.size	C.50.3267, 3
+C.50.3267:
 	.word	redLedsArray
 	.byte	2
-	.type	C.82.3070, @object
-	.size	C.82.3070, 3
-C.82.3070:
+	.type	C.90.3308, @object
+	.size	C.90.3308, 3
+C.90.3308:
 	.word	PortD
 	.byte	-128
-	.type	C.81.3069, @object
-	.size	C.81.3069, 3
-C.81.3069:
+	.type	C.89.3307, @object
+	.size	C.89.3307, 3
+C.89.3307:
 	.word	PortD
 	.byte	64
-	.type	C.80.3068, @object
-	.size	C.80.3068, 3
-C.80.3068:
+	.type	C.88.3306, @object
+	.size	C.88.3306, 3
+C.88.3306:
 	.word	PortD
 	.byte	32
-	.type	C.79.3067, @object
-	.size	C.79.3067, 3
-C.79.3067:
+	.type	C.87.3305, @object
+	.size	C.87.3305, 3
+C.87.3305:
 	.word	PortD
 	.byte	16
-	.type	C.78.3066, @object
-	.size	C.78.3066, 3
-C.78.3066:
+	.type	C.86.3304, @object
+	.size	C.86.3304, 3
+C.86.3304:
 	.word	PortD
 	.byte	8
-	.type	C.77.3065, @object
-	.size	C.77.3065, 3
-C.77.3065:
+	.type	C.85.3303, @object
+	.size	C.85.3303, 3
+C.85.3303:
 	.word	PortD
 	.byte	4
-	.type	C.76.3064, @object
-	.size	C.76.3064, 3
-C.76.3064:
+	.type	C.84.3302, @object
+	.size	C.84.3302, 3
+C.84.3302:
 	.word	PortD
 	.byte	2
-	.type	C.75.3063, @object
-	.size	C.75.3063, 3
-C.75.3063:
+	.type	C.83.3301, @object
+	.size	C.83.3301, 3
+C.83.3301:
 	.word	PortD
 	.byte	1
-	.type	C.74.3062, @object
-	.size	C.74.3062, 6
-C.74.3062:
+	.type	C.82.3300, @object
+	.size	C.82.3300, 6
+C.82.3300:
 	.word	43
 	.word	41
 	.word	42
-	.type	C.73.3061, @object
-	.size	C.73.3061, 3
-C.73.3061:
+	.type	C.81.3299, @object
+	.size	C.81.3299, 3
+C.81.3299:
 	.word	PortC
 	.byte	-128
-	.type	C.72.3060, @object
-	.size	C.72.3060, 3
-C.72.3060:
+	.type	C.80.3298, @object
+	.size	C.80.3298, 3
+C.80.3298:
 	.word	PortC
 	.byte	64
-	.type	C.71.3059, @object
-	.size	C.71.3059, 3
-C.71.3059:
+	.type	C.79.3297, @object
+	.size	C.79.3297, 3
+C.79.3297:
 	.word	PortC
 	.byte	32
-	.type	C.70.3058, @object
-	.size	C.70.3058, 3
-C.70.3058:
+	.type	C.78.3296, @object
+	.size	C.78.3296, 3
+C.78.3296:
 	.word	PortC
 	.byte	16
-	.type	C.69.3057, @object
-	.size	C.69.3057, 3
-C.69.3057:
+	.type	C.77.3295, @object
+	.size	C.77.3295, 3
+C.77.3295:
 	.word	PortC
 	.byte	8
-	.type	C.68.3056, @object
-	.size	C.68.3056, 3
-C.68.3056:
+	.type	C.76.3294, @object
+	.size	C.76.3294, 3
+C.76.3294:
 	.word	PortC
 	.byte	4
-	.type	C.67.3055, @object
-	.size	C.67.3055, 3
-C.67.3055:
+	.type	C.75.3293, @object
+	.size	C.75.3293, 3
+C.75.3293:
 	.word	PortC
 	.byte	2
-	.type	C.66.3054, @object
-	.size	C.66.3054, 3
-C.66.3054:
+	.type	C.74.3292, @object
+	.size	C.74.3292, 3
+C.74.3292:
 	.word	PortC
 	.byte	1
-	.type	C.65.3053, @object
-	.size	C.65.3053, 6
-C.65.3053:
+	.type	C.73.3291, @object
+	.size	C.73.3291, 6
+C.73.3291:
 	.word	40
 	.word	38
 	.word	39
-	.type	C.64.3052, @object
-	.size	C.64.3052, 3
-C.64.3052:
+	.type	C.72.3290, @object
+	.size	C.72.3290, 3
+C.72.3290:
 	.word	PortB
 	.byte	-128
-	.type	C.63.3051, @object
-	.size	C.63.3051, 3
-C.63.3051:
+	.type	C.71.3289, @object
+	.size	C.71.3289, 3
+C.71.3289:
 	.word	PortB
 	.byte	64
-	.type	C.62.3050, @object
-	.size	C.62.3050, 3
-C.62.3050:
+	.type	C.70.3288, @object
+	.size	C.70.3288, 3
+C.70.3288:
 	.word	PortB
 	.byte	32
-	.type	C.61.3049, @object
-	.size	C.61.3049, 3
-C.61.3049:
+	.type	C.69.3287, @object
+	.size	C.69.3287, 3
+C.69.3287:
 	.word	PortB
 	.byte	16
-	.type	C.60.3048, @object
-	.size	C.60.3048, 3
-C.60.3048:
+	.type	C.68.3286, @object
+	.size	C.68.3286, 3
+C.68.3286:
 	.word	PortB
 	.byte	8
-	.type	C.59.3047, @object
-	.size	C.59.3047, 3
-C.59.3047:
+	.type	C.67.3285, @object
+	.size	C.67.3285, 3
+C.67.3285:
 	.word	PortB
 	.byte	4
-	.type	C.58.3046, @object
-	.size	C.58.3046, 3
-C.58.3046:
+	.type	C.66.3284, @object
+	.size	C.66.3284, 3
+C.66.3284:
 	.word	PortB
 	.byte	2
-	.type	C.57.3045, @object
-	.size	C.57.3045, 3
-C.57.3045:
+	.type	C.65.3283, @object
+	.size	C.65.3283, 3
+C.65.3283:
 	.word	PortB
 	.byte	1
-	.type	C.56.3044, @object
-	.size	C.56.3044, 6
-C.56.3044:
+	.type	C.64.3282, @object
+	.size	C.64.3282, 6
+C.64.3282:
 	.word	37
 	.word	35
 	.word	36
-	.type	C.55.3043, @object
-	.size	C.55.3043, 3
-C.55.3043:
+	.type	C.63.3281, @object
+	.size	C.63.3281, 3
+C.63.3281:
 	.word	PortA
 	.byte	-128
-	.type	C.54.3042, @object
-	.size	C.54.3042, 3
-C.54.3042:
+	.type	C.62.3280, @object
+	.size	C.62.3280, 3
+C.62.3280:
 	.word	PortA
 	.byte	64
-	.type	C.53.3041, @object
-	.size	C.53.3041, 3
-C.53.3041:
+	.type	C.61.3279, @object
+	.size	C.61.3279, 3
+C.61.3279:
 	.word	PortA
 	.byte	32
-	.type	C.52.3040, @object
-	.size	C.52.3040, 3
-C.52.3040:
+	.type	C.60.3278, @object
+	.size	C.60.3278, 3
+C.60.3278:
 	.word	PortA
 	.byte	16
-	.type	C.51.3039, @object
-	.size	C.51.3039, 3
-C.51.3039:
+	.type	C.59.3277, @object
+	.size	C.59.3277, 3
+C.59.3277:
 	.word	PortA
 	.byte	8
-	.type	C.50.3038, @object
-	.size	C.50.3038, 3
-C.50.3038:
+	.type	C.58.3276, @object
+	.size	C.58.3276, 3
+C.58.3276:
 	.word	PortA
 	.byte	4
-	.type	C.49.3037, @object
-	.size	C.49.3037, 3
-C.49.3037:
+	.type	C.57.3275, @object
+	.size	C.57.3275, 3
+C.57.3275:
 	.word	PortA
 	.byte	2
-	.type	C.48.3036, @object
-	.size	C.48.3036, 3
-C.48.3036:
+	.type	C.56.3274, @object
+	.size	C.56.3274, 3
+C.56.3274:
 	.word	PortA
 	.byte	1
-	.type	C.47.3035, @object
-	.size	C.47.3035, 6
-C.47.3035:
+	.type	C.55.3273, @object
+	.size	C.55.3273, 6
+C.55.3273:
 	.word	34
 	.word	32
 	.word	33

@@ -1,6 +1,15 @@
 #ifdef Main_test_blink_AllLeds
 
+// Funktioniert noch nicht! Der timer läuft scheinbar nicht los.
+
+#include <util/delay.h>
+
 uint32_t nextBlink = 0;
+
+void before_scheduler() {
+	enableLed(&LeftYellow);
+	_delay_ms(500);
+}
 
 int main() {
 	while (1) {

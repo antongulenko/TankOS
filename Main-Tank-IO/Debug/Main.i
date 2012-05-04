@@ -2874,6 +2874,8 @@ typedef enum {
  TRUE
 } BOOL;
 
+typedef uint8_t byte;
+
 asm ("__RAMPZ__ = 0x3b");
 
 #define ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructContent = variableName; for (int __i = 0; __i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }
@@ -3125,6 +3127,82 @@ Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadPa
 Thread getCurrentThread();
 # 20 "..\\..\\Kernel-Tank-IO/shared/kernel_base.h" 2
 # 15 "..\\..\\Kernel-Tank-IO/kernel.h" 2
+# 1 "..\\..\\Kernel-Tank-IO/shared/twi.h" 1
+
+
+#define TWI_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
+
+#define TWI_RAW_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/../../anton_std.h" 1
+# 5 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 2
+
+
+typedef struct {
+ uint8_t address;
+} TWIDevice;
+
+extern TWIDevice TWIBroadcast;
+
+typedef struct {
+ byte *data;
+ uint16_t size;
+} TWIBuffer;
+
+typedef struct {
+ TWIBuffer buffer;
+ TWIDevice device;
+ enum {
+  TWI_IllegalOperation,
+  TWI_Receive,
+  TWI_Send
+ } operationMode;
+} TWIOperation;
+
+typedef enum {
+ TWI_No_Error,
+
+ TWI_No_Info_Interrupt,
+ TWI_Bus_Error,
+ TWI_Illegal_Status,
+
+ TWI_SlaveAddress_NoAck,
+ TWI_Arbitration_Lost,
+
+ TWI_Master_TooMuchDataTransmitted,
+
+
+
+
+
+
+ TWI_Slave_NotEnoughDataTransmitted,
+ TWI_Slave_TooMuchDataTransmitted,
+ TWI_Slave_NotEnoughDataReceived
+
+
+} TWIError;
+
+extern volatile BOOL twi_running;
+extern TWIError last_twi_error;
+#define WAIT_FOR_TWI() while (twi_running) ;
+
+
+
+void twiSend(TWIDevice targetDevice, TWIBuffer data);
+void twiReceive(TWIDevice targetDevice, TWIBuffer receiveBuffer);
+void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer);
+
+#define NUM_TWI_OPERATIONS 3
+
+
+
+
+void twiMultipleOperations(int count, TWIOperation *operations);
+# 6 "..\\..\\Kernel-Tank-IO/shared/twi.h" 2
+# 16 "..\\..\\Kernel-Tank-IO/kernel.h" 2
 # 1 "..\\..\\Kernel-Tank-IO/tank_button.h" 1
 # 9 "..\\..\\Kernel-Tank-IO/tank_button.h"
 #define TANK_BUTTON_H_ 
@@ -3158,7 +3236,7 @@ extern Button Button2;
 extern Button Button3;
 extern Button Button4;
 extern Button ButtonSwitch;
-# 16 "..\\..\\Kernel-Tank-IO/kernel.h" 2
+# 17 "..\\..\\Kernel-Tank-IO/kernel.h" 2
 # 1 "..\\..\\Kernel-Tank-IO/tank_led.h" 1
 # 9 "..\\..\\Kernel-Tank-IO/tank_led.h"
 #define NIBOBEE_LED_H_ 
@@ -3193,42 +3271,121 @@ extern LedGroup AllLeds;
 
 #define LeftLeds WhiteLeds
 #define RightLeds RedLeds
-# 17 "..\\..\\Kernel-Tank-IO/kernel.h" 2
+# 18 "..\\..\\Kernel-Tank-IO/kernel.h" 2
 # 14 "../../Main/Main.c" 2
-# 22 "../../Main/Main.c"
-#define Main_test_DMS_rr_two 
+# 24 "../../Main/Main.c"
+#define Main_test_AllLeds 
 
 # 1 "../../Main/device_tests/Main_test_blink_AllLeds.c" 1
-# 25 "../../Main/Main.c" 2
+# 27 "../../Main/Main.c" 2
 # 1 "../../Main/device_tests/Main_test_blink_reset_condition.c" 1
-# 26 "../../Main/Main.c" 2
-
-# 1 "../../Main/simulator_tests/Main_test_switchProcess.c" 1
 # 28 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_switchProcess_many.c" 1
-# 29 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_rr_two.c" 1
-# 30 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_rr_many.c" 1
-# 31 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_DMS_rr_two.c" 1
+# 1 "../../Main/device_tests/Main_test_AllLeds.c" 1
 
 
-volatile uint16_t counter = 0;
-volatile uint16_t main_counter = 0;
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 1 3
+# 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+#define _UTIL_DELAY_H_ 1
 
-void MyPeriodicJob() {
- counter++;
+
+#define __HAS_DELAY_CYCLES 1
+
+
+
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 1 3
+# 35 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+#define _UTIL_DELAY_BASIC_H_ 1
+
+
+
+
+static inline void _delay_loop_1(uint8_t __count) __attribute__((always_inline));
+static inline void _delay_loop_2(uint16_t __count) __attribute__((always_inline));
+# 80 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+void
+_delay_loop_1(uint8_t __count)
+{
+ __asm__ volatile (
+  "1: dec %0" "\n\t"
+  "brne 1b"
+  : "=r" (__count)
+  : "0" (__count)
+ );
 }
-
-void before_scheduler() {
- createPeriodicJob(&MyPeriodicJob, 50, 0);
+# 102 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+void
+_delay_loop_2(uint16_t __count)
+{
+ __asm__ volatile (
+  "1: sbiw %0,1" "\n\t"
+  "brne 1b"
+  : "=w" (__count)
+  : "0" (__count)
+ );
 }
+# 44 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 2 3
+# 83 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+static inline void _delay_us(double __us) __attribute__((always_inline));
+static inline void _delay_ms(double __ms) __attribute__((always_inline));
+# 131 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+void
+_delay_ms(double __ms)
+{
+ uint16_t __ticks;
+ double __tmp ;
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((20000000) / 1e3) * __ms;
+# 149 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 174 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+}
+# 208 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+void
+_delay_us(double __us)
+{
+ uint8_t __ticks;
+ double __tmp ;
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((20000000) / 1e6) * __us;
+# 226 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 244 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+}
+# 4 "../../Main/device_tests/Main_test_AllLeds.c" 2
+
+int i = 0;
 
 int main() {
-
  while (1) {
-  main_counter++;
+  if (i >= AllLeds.count) i = 0;
+  enableLed(AllLeds.leds[i]);
+  _delay_ms(200);
+  disableLed(AllLeds.leds[i]);
+  _delay_ms(100);
+  i++;
  }
 }
+# 29 "../../Main/Main.c" 2
+
+# 1 "../../Main/simulator_tests/Main_test_switchProcess.c" 1
+# 31 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_switchProcess_many.c" 1
 # 32 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_rr_two.c" 1
+# 33 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_rr_many.c" 1
+# 34 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_DMS_rr_two.c" 1
+# 35 "../../Main/Main.c" 2
+# 1 "../../Main/simulator_tests/Main_test_DMS_with_idle.c" 1
+# 36 "../../Main/Main.c" 2
