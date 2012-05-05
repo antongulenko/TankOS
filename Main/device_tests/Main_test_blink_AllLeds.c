@@ -1,21 +1,19 @@
 #ifdef Main_test_blink_AllLeds
 
-// Funktioniert noch nicht! Der timer läuft scheinbar nicht los.
+// Funktioniert.
 
 #include <util/delay.h>
-
-uint32_t nextBlink = 0;
-
-void before_scheduler() {
-	enableLed(&LeftYellow);
-	_delay_ms(500);
-}
+#include <util/atomic.h>
 
 int main() {
+	uint32_t nextBlink = 0;
 	while (1) {
-		while (nextBlink > milliseconds_running) ;
-		blinkAllLeds(&AllLeds, 2);
-		nextBlink = milliseconds_running + 1000;
+		while (nextBlink > get_milliseconds_running()) ;
+		enableLeds(&AllLeds);
+		nextBlink = get_milliseconds_running() + 1000;
+		while (nextBlink > get_milliseconds_running()) ;
+		disableLeds(&AllLeds);
+		nextBlink = get_milliseconds_running() + 1000;
 	}
 }
 

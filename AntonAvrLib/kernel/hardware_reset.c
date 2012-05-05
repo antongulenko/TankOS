@@ -7,11 +7,12 @@
 
 #include "../anton_std.h"
 #include "hardware_reset.h"
+#include <avr/wdt.h>
 
 void HARDWARE_RESET() {
 	cli();
-	MCUSR &= _BV(WDRF); // Clear this bit to enable WDE
-	WDTCSR = _BV(WDCE);
-	WDTCSR = _BV(WDE); // All prescaler bits set to zero -> shortest possible timeout.
+	// Clear this bit to enable WDE. Should already be 0, but make sure.
+	MCUSR &= ~_BV(WDRF);
+	wdt_enable(WDTO_15MS); // Shortest possilbe value.
 	while(1) ;
 }

@@ -1348,20 +1348,14 @@ __zero_reg__ = 1
 	.uleb128 0x10
 	.uleb128 0x9
 	.byte	0x1
-	.uleb128 0x61
-	.string	"_AVR_IO_H_ "
-	.byte	0x3
-	.uleb128 0x63
-	.uleb128 0xa
-	.byte	0x1
 	.uleb128 0x24
-	.string	"_AVR_SFR_DEFS_H_ 1"
+	.string	"_UTIL_DELAY_H_ 1"
 	.byte	0x1
-	.uleb128 0x79
-	.string	"_SFR_ASM_COMPAT 0"
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
 	.byte	0x3
-	.uleb128 0x7e
-	.uleb128 0xb
+	.uleb128 0x2a
+	.uleb128 0xa
 	.byte	0x1
 	.uleb128 0x23
 	.string	"__INTTYPES_H_ "
@@ -1651,6 +1645,29 @@ __zero_reg__ = 1
 	.uleb128 0x20d
 	.string	"SCNxPTR SCNx16"
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x11
+	.uleb128 0xc
+	.byte	0x1
+	.uleb128 0x61
+	.string	"_AVR_IO_H_ "
+	.byte	0x3
+	.uleb128 0x63
+	.uleb128 0xd
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_AVR_SFR_DEFS_H_ 1"
+	.byte	0x1
+	.uleb128 0x79
+	.string	"_SFR_ASM_COMPAT 0"
 	.byte	0x1
 	.uleb128 0x80
 	.string	"_MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))"
@@ -1722,7 +1739,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa2
-	.uleb128 0xc
+	.uleb128 0xe
 	.byte	0x1
 	.uleb128 0x2b
 	.string	"_AVR_IOXXX_H_ \"iom1284p.h\""
@@ -4520,7 +4537,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x216
-	.uleb128 0xd
+	.uleb128 0xf
 	.byte	0x1
 	.uleb128 0x22
 	.string	"_AVR_PORTPINS_H_ 1"
@@ -4695,7 +4712,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x218
-	.uleb128 0xe
+	.uleb128 0x10
 	.byte	0x1
 	.uleb128 0x23
 	.string	"_AVR_COMMON_H "
@@ -4789,7 +4806,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21a
-	.uleb128 0xf
+	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x36
 	.string	"_AVR_VERSION_H_ "
@@ -4817,7 +4834,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21d
-	.uleb128 0x10
+	.uleb128 0x12
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_FUSE_H_ 1"
@@ -4830,7 +4847,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x220
-	.uleb128 0x11
+	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_LOCK_H_ 1"
@@ -4879,8 +4896,8 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
 	.uleb128 0x12
+	.uleb128 0x14
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_INTERRUPT_H_ "
@@ -4934,31 +4951,31 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x22
+	.uleb128 0x23
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x25
+	.uleb128 0x26
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x29
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x29
+	.uleb128 0x2a
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2c
+	.uleb128 0x2d
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x2e
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
@@ -4976,7 +4993,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0xe
-	.string	"BUTTON_NORMAL "
+	.string	"BUTTON_NORMAL 0"
 	.byte	0x1
 	.uleb128 0xf
 	.string	"BUTTON_INVERTED (1 << 1)"
@@ -4999,7 +5016,7 @@ __zero_reg__ = 1
 .global	buttonStatus
 	.type	buttonStatus, @function
 buttonStatus:
-.LFB0:
+.LFB4:
 .LSM0:
 .LVL0:
 	push r28
@@ -5040,7 +5057,7 @@ buttonStatus:
 	pop r28
 .LVL5:
 	ret
-.LFE0:
+.LFE4:
 	.size	buttonStatus, .-buttonStatus
 	.section	.debug_frame,"",@progbits
 .Lframe0:
@@ -5061,8 +5078,8 @@ buttonStatus:
 	.long	.LEFDE0-.LASFDE0
 .LASFDE0:
 	.long	.Lframe0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.p2align	2
 .LEFDE0:
 	.text
@@ -5110,7 +5127,7 @@ buttonStatus:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL4
-	.long	.LFE0
+	.long	.LFE4
 	.word	0x6
 	.byte	0x62
 	.byte	0x93
@@ -5175,7 +5192,7 @@ buttonStatus:
 	.uleb128 0x5
 	.byte	0x2
 	.byte	0x4
-	.byte	0x13
+	.byte	0x14
 	.long	0x85
 	.uleb128 0x6
 	.long	.LASF7
@@ -5187,7 +5204,7 @@ buttonStatus:
 	.uleb128 0x3
 	.long	.LASF10
 	.byte	0x4
-	.byte	0x16
+	.byte	0x17
 	.long	0x70
 	.uleb128 0x7
 	.byte	0x6
@@ -5299,8 +5316,8 @@ buttonStatus:
 	.byte	0xb
 	.byte	0x1
 	.long	0x85
-	.long	.LFB0
-	.long	.LFE0
+	.long	.LFB4
+	.long	.LFE4
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5545,14 +5562,14 @@ buttonStatus:
 	.byte	0x0
 	.word	0x0
 	.word	0x0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
 .Ldebug_ranges0:
-	.long	.LFB0
-	.long	.LFE0
+	.long	.LFB4
+	.long	.LFE4
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -5589,6 +5606,10 @@ buttonStatus:
 	.byte	0
 	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
 	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/../../../../avr/include/util"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
 	.ascii	"/4.5.1/include"
 	.byte	0
 	.byte	0x0
@@ -5609,7 +5630,7 @@ buttonStatus:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
-	.uleb128 0x5
+	.uleb128 0x6
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
@@ -5621,7 +5642,19 @@ buttonStatus:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stddef.h"
-	.uleb128 0x5
+	.uleb128 0x6
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"inttypes.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay_basic.h"
+	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/io.h"
@@ -5629,10 +5662,6 @@ buttonStatus:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/sfr_defs.h"
-	.uleb128 0x3
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"inttypes.h"
 	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
@@ -5701,7 +5730,7 @@ buttonStatus:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE0
+	.long	.LFE4
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1

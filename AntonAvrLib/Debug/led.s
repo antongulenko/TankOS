@@ -1348,20 +1348,14 @@ __zero_reg__ = 1
 	.uleb128 0x10
 	.uleb128 0x9
 	.byte	0x1
-	.uleb128 0x61
-	.string	"_AVR_IO_H_ "
-	.byte	0x3
-	.uleb128 0x63
-	.uleb128 0xa
-	.byte	0x1
 	.uleb128 0x24
-	.string	"_AVR_SFR_DEFS_H_ 1"
+	.string	"_UTIL_DELAY_H_ 1"
 	.byte	0x1
-	.uleb128 0x79
-	.string	"_SFR_ASM_COMPAT 0"
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
 	.byte	0x3
-	.uleb128 0x7e
-	.uleb128 0xb
+	.uleb128 0x2a
+	.uleb128 0xa
 	.byte	0x1
 	.uleb128 0x23
 	.string	"__INTTYPES_H_ "
@@ -1651,6 +1645,29 @@ __zero_reg__ = 1
 	.uleb128 0x20d
 	.string	"SCNxPTR SCNx16"
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x11
+	.uleb128 0xc
+	.byte	0x1
+	.uleb128 0x61
+	.string	"_AVR_IO_H_ "
+	.byte	0x3
+	.uleb128 0x63
+	.uleb128 0xd
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_AVR_SFR_DEFS_H_ 1"
+	.byte	0x1
+	.uleb128 0x79
+	.string	"_SFR_ASM_COMPAT 0"
 	.byte	0x1
 	.uleb128 0x80
 	.string	"_MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))"
@@ -1722,7 +1739,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa2
-	.uleb128 0xc
+	.uleb128 0xe
 	.byte	0x1
 	.uleb128 0x2b
 	.string	"_AVR_IOXXX_H_ \"iom1284p.h\""
@@ -4520,7 +4537,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x216
-	.uleb128 0xd
+	.uleb128 0xf
 	.byte	0x1
 	.uleb128 0x22
 	.string	"_AVR_PORTPINS_H_ 1"
@@ -4695,7 +4712,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x218
-	.uleb128 0xe
+	.uleb128 0x10
 	.byte	0x1
 	.uleb128 0x23
 	.string	"_AVR_COMMON_H "
@@ -4789,7 +4806,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21a
-	.uleb128 0xf
+	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x36
 	.string	"_AVR_VERSION_H_ "
@@ -4817,7 +4834,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21d
-	.uleb128 0x10
+	.uleb128 0x12
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_FUSE_H_ 1"
@@ -4830,7 +4847,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x220
-	.uleb128 0x11
+	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_LOCK_H_ 1"
@@ -4879,8 +4896,8 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
 	.uleb128 0x12
+	.uleb128 0x14
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_INTERRUPT_H_ "
@@ -4934,31 +4951,31 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x22
+	.uleb128 0x23
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x25
+	.uleb128 0x26
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x29
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x29
+	.uleb128 0x2a
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2c
+	.uleb128 0x2d
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x2e
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
@@ -4980,23 +4997,6 @@ __zero_reg__ = 1
 	.byte	0x1
 	.uleb128 0x2f
 	.string	"DEFINE_LED_GROUP(groupName) extern LedGroup groupName;"
-	.byte	0x4
-	.byte	0x3
-	.uleb128 0xa
-	.uleb128 0x13
-	.byte	0x1
-	.uleb128 0x24
-	.string	"_UTIL_DELAY_H_ 1"
-	.byte	0x1
-	.uleb128 0x27
-	.string	"__HAS_DELAY_CYCLES 1"
-	.byte	0x3
-	.uleb128 0x2b
-	.uleb128 0x14
-	.byte	0x1
-	.uleb128 0x23
-	.string	"_UTIL_DELAY_BASIC_H_ 1"
-	.byte	0x4
 	.byte	0x4
 	.byte	0x4
 /* #APP */
@@ -5096,80 +5096,94 @@ setLeds:
 /* frame size = 0 */
 /* stack size = 10 */
 .L__stack_usage = 10
-	movw r14,r24
-	movw r12,r22
-.LVL10:
-.LBB10:
+	movw r12,r24
+	movw r10,r22
 .LSM10:
 	movw r26,r24
 	adiw r26,2
-	ld r10,X
+	ld r16,X
 	sbiw r26,2
-	clr r11
+	ldi r17,lo8(0)
+	ldi r24,lo8(16)
+	ldi r25,hi8(16)
+.LVL10:
+	sub r24,r16
+	sbc r25,r17
+	ldi r28,lo8(1)
+	ldi r29,hi8(1)
+	rjmp 2f
+1:	lsl r28
+	rol r29
+2:	dec r24
+	brpl 1b
 .LVL11:
-	ldi r28,lo8(0)
-	ldi r29,hi8(0)
+.LBB10:
 .LSM11:
-	ldi r16,lo8(1)
-	ldi r17,hi8(1)
-.LSM12:
-	rjmp .L5
+	subi r16,lo8(-(-1))
+	sbci r17,hi8(-(-1))
 .LVL12:
+	movw r14,r16
+	lsl r14
+	rol r15
+	rjmp .L5
+.LVL13:
 .L6:
-.LSM13:
-	movw r24,r28
-	lsl r24
-	rol r25
-	movw r26,r14
+.LSM12:
+	movw r26,r12
 	ld r30,X+
 	ld r31,X
-	add r30,r24
-	adc r31,r25
+	add r30,r14
+	adc r31,r15
 .LBB11:
 .LBB12:
-.LSM14:
+.LSM13:
 	ld __tmp_reg__,Z+
 	ld r31,Z
 	mov r30,__tmp_reg__
 .LBE12:
 .LBE11:
-.LSM15:
-	movw r22,r16
-	and r22,r12
-	and r23,r13
+.LSM14:
+	movw r22,r28
+	and r22,r10
+	and r23,r11
 .LBB14:
 .LBB13:
-.LSM16:
+.LSM15:
 	ld r24,Z
 	ldd r25,Z+1
 	call writePin
-.LVL13:
+.LVL14:
 .LBE13:
 .LBE14:
-.LSM17:
-	lsl r16
-	rol r17
-.LVL14:
-.LSM18:
-	adiw r28,1
+.LSM16:
+	lsl r28
+	rol r29
 .LVL15:
+.LSM17:
+	subi r16,lo8(-(-1))
+	sbci r17,hi8(-(-1))
+.LVL16:
+	ldi r30,lo8(-2)
+	ldi r31,hi8(-2)
+	add r14,r30
+	adc r15,r31
 .L5:
-.LSM19:
-	cp r28,r10
-	cpc r29,r11
-	brlt .L6
+.LSM18:
+	ldi r31,hi8(-1)
+	cpi r16,lo8(-1)
+	cpc r17,r31
+	brne .L6
 /* epilogue start */
 .LBE10:
-.LSM20:
+.LSM19:
 	pop r29
 	pop r28
-.LVL16:
+.LVL17:
 	pop r17
 	pop r16
-.LVL17:
+.LVL18:
 	pop r15
 	pop r14
-.LVL18:
 	pop r13
 	pop r12
 .LVL19:
@@ -5184,7 +5198,7 @@ setLeds:
 	.type	enableLeds, @function
 enableLeds:
 .LFB8:
-.LSM21:
+.LSM20:
 .LVL21:
 	push r14
 	push r15
@@ -5199,7 +5213,7 @@ enableLeds:
 	movw r16,r24
 .LVL22:
 .LBB15:
-.LSM22:
+.LSM21:
 	movw r26,r24
 	adiw r26,2
 	ld r14,X
@@ -5211,7 +5225,7 @@ enableLeds:
 	rjmp .L8
 .LVL24:
 .L9:
-.LSM23:
+.LSM22:
 	movw r24,r28
 	lsl r24
 	rol r25
@@ -5223,17 +5237,17 @@ enableLeds:
 	ld r24,Z
 	ldd r25,Z+1
 	call enableLed
-.LSM24:
+.LSM23:
 	adiw r28,1
 .LVL25:
 .L8:
-.LSM25:
+.LSM24:
 	cp r28,r14
 	cpc r29,r15
 	brlt .L9
 /* epilogue start */
 .LBE15:
-.LSM26:
+.LSM25:
 	pop r29
 	pop r28
 .LVL26:
@@ -5251,7 +5265,7 @@ enableLeds:
 	.type	disableLeds, @function
 disableLeds:
 .LFB9:
-.LSM27:
+.LSM26:
 .LVL29:
 	push r14
 	push r15
@@ -5266,7 +5280,7 @@ disableLeds:
 	movw r16,r24
 .LVL30:
 .LBB16:
-.LSM28:
+.LSM27:
 	movw r26,r24
 	adiw r26,2
 	ld r14,X
@@ -5278,7 +5292,7 @@ disableLeds:
 	rjmp .L11
 .LVL32:
 .L12:
-.LSM29:
+.LSM28:
 	movw r24,r28
 	lsl r24
 	rol r25
@@ -5290,17 +5304,17 @@ disableLeds:
 	ld r24,Z
 	ldd r25,Z+1
 	call disableLed
-.LSM30:
+.LSM29:
 	adiw r28,1
 .LVL33:
 .L11:
-.LSM31:
+.LSM30:
 	cp r28,r14
 	cpc r29,r15
 	brlt .L12
 /* epilogue start */
 .LBE16:
-.LSM32:
+.LSM31:
 	pop r29
 	pop r28
 .LVL34:
@@ -5318,7 +5332,7 @@ disableLeds:
 	.type	blinkLeds, @function
 blinkLeds:
 .LFB10:
-.LSM33:
+.LSM32:
 .LVL37:
 	push r12
 	push r13
@@ -5338,12 +5352,12 @@ blinkLeds:
 	movw r16,r22
 .LVL38:
 .LBB17:
-.LSM34:
+.LSM33:
 	clr r15
 	rjmp .L14
 .LVL39:
 .L15:
-.LSM35:
+.LSM34:
 	movw r24,r12
 	movw r22,r16
 	std Y+1,r20
@@ -5351,7 +5365,7 @@ blinkLeds:
 .LVL40:
 .LBB18:
 .LBB19:
-.LSM36:
+.LSM35:
 	 ldi r24,lo8(799999)
     ldi r25,hi8(799999)
     ldi r26,hlo8(799999)
@@ -5363,13 +5377,13 @@ blinkLeds:
 	nop
 .LBE19:
 .LBE18:
-.LSM37:
+.LSM36:
 	movw r24,r12
 	call disableLeds
 .LVL41:
 .LBB20:
 .LBB21:
-.LSM38:
+.LSM37:
 	 ldi r24,lo8(799999)
     ldi r25,hi8(799999)
     ldi r26,hlo8(799999)
@@ -5381,18 +5395,18 @@ blinkLeds:
 	nop
 .LBE21:
 .LBE20:
-.LSM39:
+.LSM38:
 	inc r15
 .LVL42:
 	ldd r20,Y+1
 .LVL43:
 .L14:
-.LSM40:
+.LSM39:
 	cp r15,r20
 	brlo .L15
 /* epilogue start */
 .LBE17:
-.LSM41:
+.LSM40:
 	pop __tmp_reg__
 	pop r28
 	pop r29
@@ -5412,21 +5426,21 @@ blinkLeds:
 	.type	blinkAllLeds, @function
 blinkAllLeds:
 .LFB11:
-.LSM42:
+.LSM41:
 .LVL47:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
 	mov r20,r22
-.LSM43:
+.LSM42:
 	ldi r22,lo8(-1)
 	ldi r23,hi8(-1)
 .LVL48:
 	call blinkLeds
 .LVL49:
 /* epilogue start */
-.LSM44:
+.LSM43:
 	ret
 .LFE11:
 	.size	blinkAllLeds, .-blinkAllLeds
@@ -5590,7 +5604,7 @@ blinkAllLeds:
 	.long	0x0
 .LLST4:
 	.long	.LVL9
-	.long	.LVL12
+	.long	.LVL10
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5598,28 +5612,7 @@ blinkAllLeds:
 	.byte	0x69
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL12
-	.long	.LVL18
-	.word	0x6
-	.byte	0x5e
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x5f
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST5:
-	.long	.LVL9
-	.long	.LVL12
-	.word	0x6
-	.byte	0x66
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x67
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL12
+	.long	.LVL10
 	.long	.LVL19
 	.word	0x6
 	.byte	0x5c
@@ -5630,69 +5623,17 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST6:
-	.long	.LVL10
-	.long	.LVL12
-	.word	0x2
-	.byte	0x31
-	.byte	0x9f
-	.long	.LVL12
-	.long	.LVL14
+.LLST5:
+	.long	.LVL9
+	.long	.LVL13
 	.word	0x6
-	.byte	0x60
+	.byte	0x66
 	.byte	0x93
 	.uleb128 0x1
-	.byte	0x61
+	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL14
-	.long	.LVL15
-	.word	0x6
-	.byte	0x60
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x61
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL15
-	.long	.LVL17
-	.word	0x6
-	.byte	0x60
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x61
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST7:
-	.long	.LVL10
-	.long	.LVL12
-	.word	0x2
-	.byte	0x30
-	.byte	0x9f
-	.long	.LVL12
-	.long	.LVL15
-	.word	0x6
-	.byte	0x6c
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x6d
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL15
-	.long	.LVL16
-	.word	0x6
-	.byte	0x6c
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x6d
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST8:
-	.long	.LVL11
+	.long	.LVL13
 	.long	.LVL20
 	.word	0x6
 	.byte	0x5a
@@ -5703,34 +5644,74 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST9:
-	.long	.LVL12
-	.long	.LVL14
+.LLST6:
+	.long	.LVL11
+	.long	.LVL15
 	.word	0x6
-	.byte	0x80
+	.byte	0x6c
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x6d
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL15
+	.long	.LVL17
+	.word	0x6
+	.byte	0x6c
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x6d
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST7:
+	.long	.LVL12
+	.long	.LVL16
+	.word	0x6
+	.byte	0x60
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x61
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL16
+	.long	.LVL18
+	.word	0x6
+	.byte	0x60
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x61
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST8:
+	.long	.LVL13
+	.long	.LVL15
+	.word	0x6
+	.byte	0x8c
 	.sleb128 0
-	.byte	0x7c
+	.byte	0x7a
 	.sleb128 0
 	.byte	0x1a
 	.byte	0x9f
 	.long	0x0
 	.long	0x0
-.LLST10:
-	.long	.LVL12
-	.long	.LVL13-1
-	.word	0x9
-	.byte	0x8c
-	.sleb128 0
-	.byte	0x31
-	.byte	0x24
-	.byte	0x7e
+.LLST9:
+	.long	.LVL13
+	.long	.LVL14-1
+	.word	0x7
+	.byte	0x7c
 	.sleb128 0
 	.byte	0x94
 	.byte	0x2
+	.byte	0x7e
+	.sleb128 0
 	.byte	0x22
 	.long	0x0
 	.long	0x0
-.LLST11:
+.LLST10:
 	.long	.LVL21
 	.long	.LVL24
 	.word	0x6
@@ -5751,7 +5732,7 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST12:
+.LLST11:
 	.long	.LVL22
 	.long	.LVL24
 	.word	0x2
@@ -5777,7 +5758,7 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST13:
+.LLST12:
 	.long	.LVL23
 	.long	.LVL28
 	.word	0x6
@@ -5789,7 +5770,7 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST14:
+.LLST13:
 	.long	.LVL29
 	.long	.LVL32
 	.word	0x6
@@ -5810,7 +5791,7 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST15:
+.LLST14:
 	.long	.LVL30
 	.long	.LVL32
 	.word	0x2
@@ -5836,7 +5817,7 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST16:
+.LLST15:
 	.long	.LVL31
 	.long	.LVL36
 	.word	0x6
@@ -5848,7 +5829,7 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST17:
+.LLST16:
 	.long	.LVL37
 	.long	.LVL39
 	.word	0x6
@@ -5869,7 +5850,7 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST18:
+.LLST17:
 	.long	.LVL37
 	.long	.LVL39
 	.word	0x6
@@ -5890,14 +5871,14 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST19:
+.LLST18:
 	.long	.LVL37
 	.long	.LVL39
 	.word	0x1
 	.byte	0x64
 	.long	0x0
 	.long	0x0
-.LLST20:
+.LLST19:
 	.long	.LVL38
 	.long	.LVL39
 	.word	0x2
@@ -5917,7 +5898,7 @@ blinkAllLeds:
 	.byte	0x5f
 	.long	0x0
 	.long	0x0
-.LLST21:
+.LLST20:
 	.long	.LVL40
 	.long	.LVL43
 	.word	0x6
@@ -5926,7 +5907,7 @@ blinkAllLeds:
 	.long	0x43480000
 	.long	0x0
 	.long	0x0
-.LLST22:
+.LLST21:
 	.long	.LVL40
 	.long	.LVL43
 	.word	0x6
@@ -5935,13 +5916,22 @@ blinkAllLeds:
 	.long	0x4a742400
 	.long	0x0
 	.long	0x0
-.LLST23:
+.LLST22:
 	.long	.LVL40
 	.long	.LVL43
 	.word	0x6
 	.byte	0xc
 	.long	0x3d0900
 	.byte	0x9f
+	.long	0x0
+	.long	0x0
+.LLST23:
+	.long	.LVL41
+	.long	.LVL43
+	.word	0x6
+	.byte	0x9e
+	.uleb128 0x4
+	.long	0x43480000
 	.long	0x0
 	.long	0x0
 .LLST24:
@@ -5950,19 +5940,10 @@ blinkAllLeds:
 	.word	0x6
 	.byte	0x9e
 	.uleb128 0x4
-	.long	0x43480000
-	.long	0x0
-	.long	0x0
-.LLST25:
-	.long	.LVL41
-	.long	.LVL43
-	.word	0x6
-	.byte	0x9e
-	.uleb128 0x4
 	.long	0x4a742400
 	.long	0x0
 	.long	0x0
-.LLST26:
+.LLST25:
 	.long	.LVL41
 	.long	.LVL43
 	.word	0x6
@@ -5971,7 +5952,7 @@ blinkAllLeds:
 	.byte	0x9f
 	.long	0x0
 	.long	0x0
-.LLST27:
+.LLST26:
 	.long	.LVL47
 	.long	.LVL49-1
 	.word	0x6
@@ -5983,7 +5964,7 @@ blinkAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST28:
+.LLST27:
 	.long	.LVL47
 	.long	.LVL48
 	.word	0x1
@@ -5995,7 +5976,7 @@ blinkAllLeds:
 	.long	0x0
 	.long	0x0
 	.section	.debug_info
-	.long	0x4e8
+	.long	0x4d9
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
@@ -6059,7 +6040,7 @@ blinkAllLeds:
 	.uleb128 0x5
 	.byte	0x2
 	.byte	0x4
-	.byte	0x13
+	.byte	0x14
 	.long	0x9b
 	.uleb128 0x6
 	.long	.LASF10
@@ -6071,7 +6052,7 @@ blinkAllLeds:
 	.uleb128 0x3
 	.long	.LASF12
 	.byte	0x4
-	.byte	0x16
+	.byte	0x17
 	.long	0x86
 	.uleb128 0x7
 	.byte	0x6
@@ -6222,35 +6203,35 @@ blinkAllLeds:
 	.byte	0x0
 	.uleb128 0xf
 	.long	.LASF44
-	.byte	0x13
+	.byte	0x9
 	.byte	0x84
 	.byte	0x1
 	.byte	0x3
 	.long	0x22e
 	.uleb128 0xe
 	.long	.LASF22
-	.byte	0x13
+	.byte	0x9
 	.byte	0x84
 	.long	0x22e
 	.uleb128 0x10
 	.long	.LASF23
-	.byte	0x13
+	.byte	0x9
 	.byte	0x86
 	.long	0x4d
 	.uleb128 0x10
 	.long	.LASF24
-	.byte	0x13
+	.byte	0x9
 	.byte	0x87
 	.long	0x22e
 	.uleb128 0x10
 	.long	.LASF25
-	.byte	0x13
+	.byte	0x9
 	.byte	0x89
 	.long	0x66
 	.uleb128 0x11
 	.byte	0x1
 	.long	.LASF27
-	.byte	0x13
+	.byte	0x9
 	.byte	0x8a
 	.byte	0x1
 	.byte	0x1
@@ -6354,7 +6335,7 @@ blinkAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x33e
+	.long	0x32f
 	.uleb128 0x19
 	.long	.LASF18
 	.byte	0x1
@@ -6382,12 +6363,6 @@ blinkAllLeds:
 	.byte	0x1a
 	.long	0x46
 	.long	.LLST7
-	.uleb128 0x1c
-	.string	"max"
-	.byte	0x1
-	.byte	0x1a
-	.long	0x46
-	.long	.LLST8
 	.uleb128 0x1d
 	.long	0x18f
 	.long	.LBB11
@@ -6396,10 +6371,10 @@ blinkAllLeds:
 	.byte	0x1b
 	.uleb128 0x18
 	.long	0x1a8
-	.long	.LLST9
+	.long	.LLST8
 	.uleb128 0x18
 	.long	0x19d
-	.long	.LLST10
+	.long	.LLST9
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
@@ -6415,13 +6390,13 @@ blinkAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x38d
+	.long	0x37e
 	.uleb128 0x19
 	.long	.LASF18
 	.byte	0x1
 	.byte	0x20
 	.long	0x17e
-	.long	.LLST11
+	.long	.LLST10
 	.uleb128 0x1b
 	.long	.LBB15
 	.long	.LBE15
@@ -6430,13 +6405,13 @@ blinkAllLeds:
 	.byte	0x1
 	.byte	0x21
 	.long	0x46
-	.long	.LLST12
+	.long	.LLST11
 	.uleb128 0x1c
 	.string	"max"
 	.byte	0x1
 	.byte	0x21
 	.long	0x46
-	.long	.LLST13
+	.long	.LLST12
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x15
@@ -6451,13 +6426,13 @@ blinkAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x3dc
+	.long	0x3cd
 	.uleb128 0x19
 	.long	.LASF18
 	.byte	0x1
 	.byte	0x26
 	.long	0x17e
-	.long	.LLST14
+	.long	.LLST13
 	.uleb128 0x1b
 	.long	.LBB16
 	.long	.LBE16
@@ -6466,13 +6441,13 @@ blinkAllLeds:
 	.byte	0x1
 	.byte	0x27
 	.long	0x46
-	.long	.LLST15
+	.long	.LLST14
 	.uleb128 0x1c
 	.string	"max"
 	.byte	0x1
 	.byte	0x27
 	.long	0x46
-	.long	.LLST16
+	.long	.LLST15
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x15
@@ -6487,25 +6462,25 @@ blinkAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x4b2
+	.long	0x4a3
 	.uleb128 0x19
 	.long	.LASF18
 	.byte	0x1
 	.byte	0x2c
 	.long	0x17e
-	.long	.LLST17
+	.long	.LLST16
 	.uleb128 0x19
 	.long	.LASF37
 	.byte	0x1
 	.byte	0x2c
 	.long	0x4d
-	.long	.LLST18
+	.long	.LLST17
 	.uleb128 0x19
 	.long	.LASF38
 	.byte	0x1
 	.byte	0x2c
-	.long	0x4b2
-	.long	.LLST19
+	.long	0x4a3
+	.long	.LLST18
 	.uleb128 0x1b
 	.long	.LBB17
 	.long	.LBE17
@@ -6514,17 +6489,17 @@ blinkAllLeds:
 	.byte	0x1
 	.byte	0x2d
 	.long	0x34
-	.long	.LLST20
+	.long	.LLST19
 	.uleb128 0x1e
 	.long	0x1b4
 	.long	.LBB18
 	.long	.LBE18
 	.byte	0x1
 	.byte	0x2f
-	.long	0x476
+	.long	0x467
 	.uleb128 0x18
 	.long	0x1c1
-	.long	.LLST21
+	.long	.LLST20
 	.uleb128 0x1b
 	.long	.LBB19
 	.long	.LBE19
@@ -6532,10 +6507,10 @@ blinkAllLeds:
 	.long	0x1cc
 	.uleb128 0x20
 	.long	0x1d7
-	.long	.LLST22
+	.long	.LLST21
 	.uleb128 0x20
 	.long	0x1e2
-	.long	.LLST23
+	.long	.LLST22
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x21
@@ -6546,7 +6521,7 @@ blinkAllLeds:
 	.byte	0x31
 	.uleb128 0x18
 	.long	0x1c1
-	.long	.LLST24
+	.long	.LLST23
 	.uleb128 0x1b
 	.long	.LBB21
 	.long	.LBE21
@@ -6554,10 +6529,10 @@ blinkAllLeds:
 	.long	0x1cc
 	.uleb128 0x20
 	.long	0x1d7
-	.long	.LLST25
+	.long	.LLST24
 	.uleb128 0x20
 	.long	0x1e2
-	.long	.LLST26
+	.long	.LLST25
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
@@ -6581,13 +6556,13 @@ blinkAllLeds:
 	.byte	0x1
 	.byte	0x35
 	.long	0x17e
-	.long	.LLST27
+	.long	.LLST26
 	.uleb128 0x19
 	.long	.LASF38
 	.byte	0x1
 	.byte	0x35
-	.long	0x4b2
-	.long	.LLST28
+	.long	0x4a3
+	.long	.LLST27
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_abbrev
@@ -7083,7 +7058,7 @@ blinkAllLeds:
 	.long	0x80
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x4ec
+	.long	0x4dd
 	.long	0x235
 	.string	"enableLed"
 	.long	0x25e
@@ -7092,20 +7067,20 @@ blinkAllLeds:
 	.string	"setLed"
 	.long	0x2af
 	.string	"setLeds"
-	.long	0x33e
+	.long	0x32f
 	.string	"enableLeds"
-	.long	0x38d
+	.long	0x37e
 	.string	"disableLeds"
-	.long	0x3dc
+	.long	0x3cd
 	.string	"blinkLeds"
-	.long	0x4b7
+	.long	0x4a8
 	.string	"blinkAllLeds"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
 	.long	0x67
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x4ec
+	.long	0x4dd
 	.long	0x34
 	.string	"uint8_t"
 	.long	0x4d
@@ -7248,15 +7223,23 @@ blinkAllLeds:
 	.uleb128 0x6
 	.uleb128 0x0
 	.uleb128 0x0
+	.string	"util/delay.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"inttypes.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay_basic.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
 	.string	"avr/io.h"
 	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/sfr_defs.h"
-	.uleb128 0x3
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"inttypes.h"
 	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
@@ -7285,14 +7268,6 @@ blinkAllLeds:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/interrupt.h"
-	.uleb128 0x3
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"util/delay.h"
-	.uleb128 0x3
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"util/delay_basic.h"
 	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
@@ -7384,12 +7359,12 @@ blinkAllLeds:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM10
-	.byte	0x16
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM11
-	.byte	0x13
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7399,41 +7374,36 @@ blinkAllLeds:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM13
-	.byte	0x15
+	.byte	0xe
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM14
-	.byte	0xe
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM15
 	.byte	0x1a
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM16
+	.long	.LSM15
 	.byte	0xe
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM17
+	.long	.LSM16
 	.byte	0x1b
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM18
+	.long	.LSM17
 	.byte	0x12
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM19
+	.long	.LSM18
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM20
+	.long	.LSM19
 	.byte	0x18
 	.byte	0x0
 	.uleb128 0x5
@@ -7445,8 +7415,13 @@ blinkAllLeds:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM21
+	.long	.LSM20
 	.byte	0x33
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM21
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7456,21 +7431,16 @@ blinkAllLeds:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM23
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM24
 	.byte	0x13
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM25
+	.long	.LSM24
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM26
+	.long	.LSM25
 	.byte	0x17
 	.byte	0x0
 	.uleb128 0x5
@@ -7482,8 +7452,13 @@ blinkAllLeds:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM27
+	.long	.LSM26
 	.byte	0x39
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM27
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7493,21 +7468,16 @@ blinkAllLeds:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM29
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM30
 	.byte	0x13
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM31
+	.long	.LSM30
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM32
+	.long	.LSM31
 	.byte	0x17
 	.byte	0x0
 	.uleb128 0x5
@@ -7519,8 +7489,13 @@ blinkAllLeds:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM33
+	.long	.LSM32
 	.byte	0x3f
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM33
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7530,18 +7505,13 @@ blinkAllLeds:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM35
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM36
 	.byte	0x4
-	.uleb128 0x13
+	.uleb128 0x9
 	.byte	0x7e
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM37
+	.long	.LSM36
 	.byte	0x4
 	.uleb128 0x1
 	.byte	0x3
@@ -7550,14 +7520,14 @@ blinkAllLeds:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM38
+	.long	.LSM37
 	.byte	0x4
-	.uleb128 0x13
+	.uleb128 0x9
 	.byte	0x7c
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM39
+	.long	.LSM38
 	.byte	0x4
 	.uleb128 0x1
 	.byte	0x3
@@ -7566,12 +7536,12 @@ blinkAllLeds:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM40
+	.long	.LSM39
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM41
+	.long	.LSM40
 	.byte	0x1a
 	.byte	0x0
 	.uleb128 0x5
@@ -7583,17 +7553,17 @@ blinkAllLeds:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM42
+	.long	.LSM41
 	.byte	0x48
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM43
+	.long	.LSM42
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM44
+	.long	.LSM43
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5

@@ -5,17 +5,19 @@
  *  Author: Anton
  */ 
 
-#ifndef TANK_BASE_H_
-#define TANK_BASE_H_
+#ifndef KERNEL_BASE_H_
+#define KERNEL_BASE_H_
 
 // All other kernel-API-includes are included over the tank_* includes.
 #include <kernel/millisecond_clock.h>
 #include <kernel/reset_condition.h>
 #include <anton_std.h>
 
-#include <kernel/processes/scheduler.h>
-#include <kernel/processes/process_ext.h>
-#include <kernel/processes/DMS/dms_api.h>
-#include <kernel/processes/RoundRobin/rr_api.h>
+#ifdef USE_SCHEDULER
+	#include <kernel/processes/scheduler.h>
+	#include <kernel/processes/process_ext.h>
+	#include <kernel/processes/DMS/dms_api.h>
+	#include <kernel/processes/RoundRobin/rr_api.h>
+#endif
 
 #endif /* TANK_BASE_H_ */

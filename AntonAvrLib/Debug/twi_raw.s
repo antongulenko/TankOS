@@ -1342,20 +1342,14 @@ __zero_reg__ = 1
 	.uleb128 0x10
 	.uleb128 0x8
 	.byte	0x1
-	.uleb128 0x61
-	.string	"_AVR_IO_H_ "
-	.byte	0x3
-	.uleb128 0x63
-	.uleb128 0x9
-	.byte	0x1
 	.uleb128 0x24
-	.string	"_AVR_SFR_DEFS_H_ 1"
+	.string	"_UTIL_DELAY_H_ 1"
 	.byte	0x1
-	.uleb128 0x79
-	.string	"_SFR_ASM_COMPAT 0"
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
 	.byte	0x3
-	.uleb128 0x7e
-	.uleb128 0xa
+	.uleb128 0x2a
+	.uleb128 0x9
 	.byte	0x1
 	.uleb128 0x23
 	.string	"__INTTYPES_H_ "
@@ -1645,6 +1639,29 @@ __zero_reg__ = 1
 	.uleb128 0x20d
 	.string	"SCNxPTR SCNx16"
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0xa
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x11
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x61
+	.string	"_AVR_IO_H_ "
+	.byte	0x3
+	.uleb128 0x63
+	.uleb128 0xc
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_AVR_SFR_DEFS_H_ 1"
+	.byte	0x1
+	.uleb128 0x79
+	.string	"_SFR_ASM_COMPAT 0"
 	.byte	0x1
 	.uleb128 0x80
 	.string	"_MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))"
@@ -1716,7 +1733,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa2
-	.uleb128 0xb
+	.uleb128 0xd
 	.byte	0x1
 	.uleb128 0x2b
 	.string	"_AVR_IOXXX_H_ \"iom1284p.h\""
@@ -4514,7 +4531,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x216
-	.uleb128 0xc
+	.uleb128 0xe
 	.byte	0x1
 	.uleb128 0x22
 	.string	"_AVR_PORTPINS_H_ 1"
@@ -4689,7 +4706,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x218
-	.uleb128 0xd
+	.uleb128 0xf
 	.byte	0x1
 	.uleb128 0x23
 	.string	"_AVR_COMMON_H "
@@ -4783,7 +4800,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21a
-	.uleb128 0xe
+	.uleb128 0x10
 	.byte	0x1
 	.uleb128 0x36
 	.string	"_AVR_VERSION_H_ "
@@ -4811,7 +4828,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21d
-	.uleb128 0xf
+	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_FUSE_H_ 1"
@@ -4824,7 +4841,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x220
-	.uleb128 0x10
+	.uleb128 0x12
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_LOCK_H_ 1"
@@ -4873,8 +4890,8 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
-	.uleb128 0x11
+	.uleb128 0x12
+	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_INTERRUPT_H_ "
@@ -4928,43 +4945,43 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x22
+	.uleb128 0x23
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x25
+	.uleb128 0x26
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x29
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x29
+	.uleb128 0x2a
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2c
+	.uleb128 0x2d
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x2e
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x36
+	.uleb128 0x37
 	.string	"WAIT_FOR_TWI() while (twi_running) ;"
 	.byte	0x1
-	.uleb128 0x3e
+	.uleb128 0x3f
 	.string	"NUM_TWI_OPERATIONS 3"
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x3
-	.uleb128 0x12
+	.uleb128 0x14
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_UTIL_TWI_H_ 1"
@@ -5068,7 +5085,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x4
-	.uleb128 0x13
+	.uleb128 0x15
 	.byte	0x1
 	.uleb128 0x1f
 	.string	"_STDARG_H "
@@ -5120,7 +5137,7 @@ __zero_reg__ = 1
 .global	twiMultipleOperations
 	.type	twiMultipleOperations, @function
 twiMultipleOperations:
-.LFB3:
+.LFB7:
 .LSM0:
 .LVL0:
 	push r17
@@ -5206,13 +5223,13 @@ twiMultipleOperations:
 .LSM12:
 	pop r17
 	ret
-.LFE3:
+.LFE7:
 	.size	twiMultipleOperations, .-twiMultipleOperations
 	.section	.text.twiSendReceive,"ax",@progbits
 .global	twiSendReceive
 	.type	twiSendReceive, @function
 twiSendReceive:
-.LFB2:
+.LFB6:
 .LSM13:
 .LVL10:
 	push r16
@@ -5278,13 +5295,13 @@ twiSendReceive:
 	pop r16
 .LVL13:
 	ret
-.LFE2:
+.LFE6:
 	.size	twiSendReceive, .-twiSendReceive
 	.section	.text.twiReceive,"ax",@progbits
 .global	twiReceive
 	.type	twiReceive, @function
 twiReceive:
-.LFB1:
+.LFB5:
 .LSM17:
 .LVL14:
 	push r29
@@ -5334,13 +5351,13 @@ twiReceive:
 	pop r28
 	pop r29
 	ret
-.LFE1:
+.LFE5:
 	.size	twiReceive, .-twiReceive
 	.section	.text.twiSend,"ax",@progbits
 .global	twiSend
 	.type	twiSend, @function
 twiSend:
-.LFB0:
+.LFB4:
 .LSM21:
 .LVL17:
 	push r29
@@ -5392,7 +5409,7 @@ twiSend:
 	pop r28
 	pop r29
 	ret
-.LFE0:
+.LFE4:
 	.size	twiSend, .-twiSend
 .global	TWIBroadcast
 .global	TWIBroadcast
@@ -5420,32 +5437,32 @@ TWIBroadcast:
 	.long	.LEFDE0-.LASFDE0
 .LASFDE0:
 	.long	.Lframe0
-	.long	.LFB3
-	.long	.LFE3-.LFB3
+	.long	.LFB7
+	.long	.LFE7-.LFB7
 	.p2align	2
 .LEFDE0:
 .LSFDE2:
 	.long	.LEFDE2-.LASFDE2
 .LASFDE2:
 	.long	.Lframe0
-	.long	.LFB2
-	.long	.LFE2-.LFB2
+	.long	.LFB6
+	.long	.LFE6-.LFB6
 	.p2align	2
 .LEFDE2:
 .LSFDE4:
 	.long	.LEFDE4-.LASFDE4
 .LASFDE4:
 	.long	.Lframe0
-	.long	.LFB1
-	.long	.LFE1-.LFB1
+	.long	.LFB5
+	.long	.LFE5-.LFB5
 	.p2align	2
 .LEFDE4:
 .LSFDE6:
 	.long	.LEFDE6-.LASFDE6
 .LASFDE6:
 	.long	.Lframe0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.p2align	2
 .LEFDE6:
 	.text
@@ -5682,7 +5699,7 @@ TWIBroadcast:
 	.uleb128 0x3
 	.long	.LASF9
 	.byte	0x3
-	.byte	0x18
+	.byte	0x19
 	.long	0x34
 	.uleb128 0x5
 	.byte	0x1
@@ -5789,8 +5806,8 @@ TWIBroadcast:
 	.byte	0x1
 	.byte	0x1e
 	.byte	0x1
-	.long	.LFB3
-	.long	.LFE3
+	.long	.LFB7
+	.long	.LFE7
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5824,8 +5841,8 @@ TWIBroadcast:
 	.byte	0x1
 	.byte	0x16
 	.byte	0x1
-	.long	.LFB2
-	.long	.LFE2
+	.long	.LFB6
+	.long	.LFE6
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5871,8 +5888,8 @@ TWIBroadcast:
 	.byte	0x1
 	.byte	0x11
 	.byte	0x1
-	.long	.LFB1
-	.long	.LFE1
+	.long	.LFB5
+	.long	.LFE5
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5912,8 +5929,8 @@ TWIBroadcast:
 	.byte	0x1
 	.byte	0xc
 	.byte	0x1
-	.long	.LFB0
-	.long	.LFE0
+	.long	.LFB4
+	.long	.LFE4
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6252,26 +6269,26 @@ TWIBroadcast:
 	.byte	0x0
 	.word	0x0
 	.word	0x0
-	.long	.LFB3
-	.long	.LFE3-.LFB3
-	.long	.LFB2
-	.long	.LFE2-.LFB2
-	.long	.LFB1
-	.long	.LFE1-.LFB1
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB7
+	.long	.LFE7-.LFB7
+	.long	.LFB6
+	.long	.LFE6-.LFB6
+	.long	.LFB5
+	.long	.LFE5-.LFB5
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
 .Ldebug_ranges0:
-	.long	.LFB3
-	.long	.LFE3
-	.long	.LFB2
-	.long	.LFE2
-	.long	.LFB1
-	.long	.LFE1
-	.long	.LFB0
-	.long	.LFE0
+	.long	.LFB7
+	.long	.LFE7
+	.long	.LFB6
+	.long	.LFE6
+	.long	.LFB5
+	.long	.LFE5
+	.long	.LFB4
+	.long	.LFE4
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -6343,15 +6360,23 @@ TWIBroadcast:
 	.uleb128 0x6
 	.uleb128 0x0
 	.uleb128 0x0
+	.string	"util/delay.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"inttypes.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay_basic.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
 	.string	"avr/io.h"
 	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/sfr_defs.h"
-	.uleb128 0x3
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"inttypes.h"
 	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
@@ -6468,7 +6493,7 @@ TWIBroadcast:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE3
+	.long	.LFE7
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6495,7 +6520,7 @@ TWIBroadcast:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE2
+	.long	.LFE6
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6522,7 +6547,7 @@ TWIBroadcast:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE1
+	.long	.LFE5
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6549,7 +6574,7 @@ TWIBroadcast:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE0
+	.long	.LFE4
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1

@@ -973,7 +973,7 @@ __zero_reg__ = 1
 	.uleb128 0x3
 	.byte	0x1
 	.uleb128 0x9
-	.string	"TANK_BASE_H_ "
+	.string	"KERNEL_BASE_H_ "
 	.byte	0x3
 	.uleb128 0xc
 	.uleb128 0x4
@@ -1354,20 +1354,14 @@ __zero_reg__ = 1
 	.uleb128 0x10
 	.uleb128 0xa
 	.byte	0x1
-	.uleb128 0x61
-	.string	"_AVR_IO_H_ "
-	.byte	0x3
-	.uleb128 0x63
-	.uleb128 0xb
-	.byte	0x1
 	.uleb128 0x24
-	.string	"_AVR_SFR_DEFS_H_ 1"
+	.string	"_UTIL_DELAY_H_ 1"
 	.byte	0x1
-	.uleb128 0x79
-	.string	"_SFR_ASM_COMPAT 0"
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
 	.byte	0x3
-	.uleb128 0x7e
-	.uleb128 0xc
+	.uleb128 0x2a
+	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x23
 	.string	"__INTTYPES_H_ "
@@ -1657,6 +1651,29 @@ __zero_reg__ = 1
 	.uleb128 0x20d
 	.string	"SCNxPTR SCNx16"
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0xc
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x11
+	.uleb128 0xd
+	.byte	0x1
+	.uleb128 0x61
+	.string	"_AVR_IO_H_ "
+	.byte	0x3
+	.uleb128 0x63
+	.uleb128 0xe
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_AVR_SFR_DEFS_H_ 1"
+	.byte	0x1
+	.uleb128 0x79
+	.string	"_SFR_ASM_COMPAT 0"
 	.byte	0x1
 	.uleb128 0x80
 	.string	"_MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))"
@@ -1728,7 +1745,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa2
-	.uleb128 0xd
+	.uleb128 0xf
 	.byte	0x1
 	.uleb128 0x2b
 	.string	"_AVR_IOXXX_H_ \"iom1284p.h\""
@@ -4526,7 +4543,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x216
-	.uleb128 0xe
+	.uleb128 0x10
 	.byte	0x1
 	.uleb128 0x22
 	.string	"_AVR_PORTPINS_H_ 1"
@@ -4701,7 +4718,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x218
-	.uleb128 0xf
+	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x23
 	.string	"_AVR_COMMON_H "
@@ -4795,7 +4812,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21a
-	.uleb128 0x10
+	.uleb128 0x12
 	.byte	0x1
 	.uleb128 0x36
 	.string	"_AVR_VERSION_H_ "
@@ -4823,7 +4840,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21d
-	.uleb128 0x11
+	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_FUSE_H_ 1"
@@ -4836,7 +4853,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x220
-	.uleb128 0x12
+	.uleb128 0x14
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_LOCK_H_ 1"
@@ -4885,8 +4902,8 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
-	.uleb128 0x13
+	.uleb128 0x12
+	.uleb128 0x15
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_INTERRUPT_H_ "
@@ -4940,55 +4957,55 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x22
+	.uleb128 0x23
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x25
+	.uleb128 0x26
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x29
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x29
+	.uleb128 0x2a
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2c
+	.uleb128 0x2d
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x2e
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xd
-	.uleb128 0x14
+	.uleb128 0x16
 	.byte	0x1
 	.uleb128 0x9
 	.string	"RESET_CONDITION_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x15
+	.uleb128 0x17
 	.byte	0x1
 	.uleb128 0x9
 	.string	"LED_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x16
+	.uleb128 0x18
 	.byte	0x1
 	.uleb128 0x9
 	.string	"PORT_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x17
+	.uleb128 0x19
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0x3f
@@ -5013,30 +5030,30 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xe
-	.uleb128 0x18
+	.uleb128 0x1a
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x10
-	.uleb128 0x19
+	.uleb128 0x12
+	.uleb128 0x1b
 	.byte	0x1
 	.uleb128 0x9
 	.string	"SCHEDULER_H_ "
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
-	.uleb128 0x1a
+	.uleb128 0x13
+	.uleb128 0x1c
 	.byte	0x1
 	.uleb128 0x9
 	.string	"PROCESS_EXT_H_ "
 	.byte	0x3
 	.uleb128 0x10
-	.uleb128 0x1b
+	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x9
 	.string	"PROCESS_API_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x1c
+	.uleb128 0x1e
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0xe
@@ -5044,67 +5061,77 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x12
-	.uleb128 0x1d
+	.uleb128 0x14
+	.uleb128 0x1f
 	.byte	0x1
 	.uleb128 0xb
 	.string	"DMS_API_H_ "
 	.byte	0x3
 	.uleb128 0xd
-	.uleb128 0x1e
+	.uleb128 0x20
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x13
-	.uleb128 0x1f
+	.uleb128 0x15
+	.uleb128 0x21
 	.byte	0x1
 	.uleb128 0x9
 	.string	"RR_API_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x20
+	.uleb128 0x22
 	.byte	0x4
 	.byte	0x4
 	.byte	0x4
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x18
-	.string	"Main_test_AllLeds "
-	.byte	0x3
-	.uleb128 0x1a
-	.uleb128 0x21
-	.byte	0x4
+	.uleb128 0x10
+	.string	"Main_test_blink_AllLeds "
 	.byte	0x3
 	.uleb128 0x1b
-	.uleb128 0x22
+	.uleb128 0x23
+	.byte	0x3
+	.uleb128 0x6
+	.uleb128 0x24
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_ATOMIC_H_ 1"
+	.byte	0x1
+	.uleb128 0xcd
+	.ascii	"ATOMIC_BLOCK("
+	.string	"type) for ( type, __ToDo = __iCliRetVal(); __ToDo ; __ToDo = 0 )"
+	.byte	0x1
+	.uleb128 0xe2
+	.ascii	"NONATOMIC_BLOCK("
+	.string	"type) for ( type, __ToDo = __iSeiRetVal(); __ToDo ; __ToDo = 0 )"
+	.byte	0x1
+	.uleb128 0xf4
+	.ascii	"ATOMIC_RESTORESTATE u"
+	.string	"int8_t sreg_save __attribute__((__cleanup__(__iRestore))) = SREG"
+	.byte	0x1
+	.uleb128 0x109
+	.ascii	"ATOMIC_FORCEON"
+	.string	" uint8_t sreg_save __attribute__((__cleanup__(__iSeiParam))) = 0"
+	.byte	0x1
+	.uleb128 0x11b
+	.ascii	"NONATOMIC_RESTORESTATE u"
+	.string	"int8_t sreg_save __attribute__((__cleanup__(__iRestore))) = SREG"
+	.byte	0x1
+	.uleb128 0x130
+	.ascii	"NONATOMIC_FORCEOFF"
+	.string	" uint8_t sreg_save __attribute__((__cleanup__(__iCliParam))) = 0"
+	.byte	0x4
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x1c
-	.uleb128 0x23
-	.byte	0x3
-	.uleb128 0x3
-	.uleb128 0x24
-	.byte	0x1
-	.uleb128 0x24
-	.string	"_UTIL_DELAY_H_ 1"
-	.byte	0x1
-	.uleb128 0x27
-	.string	"__HAS_DELAY_CYCLES 1"
-	.byte	0x3
-	.uleb128 0x2b
 	.uleb128 0x25
-	.byte	0x1
-	.uleb128 0x23
-	.string	"_UTIL_DELAY_BASIC_H_ 1"
-	.byte	0x4
-	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x1e
+	.uleb128 0x1d
 	.uleb128 0x26
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x1f
+	.uleb128 0x1e
 	.uleb128 0x27
 	.byte	0x4
 	.byte	0x3
@@ -5123,4 +5150,1103 @@ __zero_reg__ = 1
 	.uleb128 0x23
 	.uleb128 0x2b
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x24
+	.uleb128 0x2c
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x25
+	.uleb128 0x2d
+	.byte	0x4
+	.byte	0x4
+/* #APP */
+	__RAMPZ__ = 0x3b
+/* #NOAPP */
+	.section	.text.in_scheduler_tick,"ax",@progbits
+.global	in_scheduler_tick
+	.type	in_scheduler_tick, @function
+in_scheduler_tick:
+.LFB9:
+.LSM0:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+/* epilogue start */
+.LSM1:
+	ret
+.LFE9:
+	.size	in_scheduler_tick, .-in_scheduler_tick
+	.section	.text.before_scheduler,"ax",@progbits
+.global	before_scheduler
+	.type	before_scheduler, @function
+before_scheduler:
+.LFB10:
+.LSM2:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+/* epilogue start */
+.LSM3:
+	ret
+.LFE10:
+	.size	before_scheduler, .-before_scheduler
+	.section	.text.main,"ax",@progbits
+.global	main
+	.type	main, @function
+main:
+.LFB11:
+.LSM4:
+	push r14
+	push r15
+	push r16
+	push r17
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 4 */
+.L__stack_usage = 4
+.LVL0:
+.LSM5:
+	clr r14
+	clr r15
+	movw r16,r14
+.LVL1:
+.L10:
+.LSM6:
+	call get_milliseconds_running
+	cp r22,r14
+	cpc r23,r15
+	cpc r24,r16
+	cpc r25,r17
+	brlo .L10
+.LSM7:
+	ldi r24,lo8(AllLeds)
+	ldi r25,hi8(AllLeds)
+	call enableLeds
+.LSM8:
+	call get_milliseconds_running
+	movw r14,r22
+	movw r16,r24
+.LVL2:
+	ldi r24,lo8(1000)
+	ldi r25,hi8(1000)
+	ldi r26,hlo8(1000)
+	ldi r27,hhi8(1000)
+	add r14,r24
+	adc r15,r25
+	adc r16,r26
+	adc r17,r27
+.LVL3:
+.L5:
+.LSM9:
+	call get_milliseconds_running
+	cp r22,r14
+	cpc r23,r15
+	cpc r24,r16
+	cpc r25,r17
+	brlo .L5
+.LSM10:
+	ldi r24,lo8(AllLeds)
+	ldi r25,hi8(AllLeds)
+	call disableLeds
+.LSM11:
+	call get_milliseconds_running
+	movw r14,r22
+	movw r16,r24
+.LVL4:
+	ldi r24,lo8(1000)
+	ldi r25,hi8(1000)
+	ldi r26,hlo8(1000)
+	ldi r27,hhi8(1000)
+	add r14,r24
+	adc r15,r25
+	adc r16,r26
+	adc r17,r27
+.LVL5:
+	rjmp .L10
+.LFE11:
+	.size	main, .-main
+	.section	.debug_frame,"",@progbits
+.Lframe0:
+	.long	.LECIE0-.LSCIE0
+.LSCIE0:
+	.long	0xffffffff
+	.byte	0x1
+	.string	""
+	.uleb128 0x1
+	.sleb128 -1
+	.byte	0x24
+	.byte	0xc
+	.uleb128 0x20
+	.uleb128 0x0
+	.p2align	2
+.LECIE0:
+.LSFDE0:
+	.long	.LEFDE0-.LASFDE0
+.LASFDE0:
+	.long	.Lframe0
+	.long	.LFB9
+	.long	.LFE9-.LFB9
+	.p2align	2
+.LEFDE0:
+.LSFDE2:
+	.long	.LEFDE2-.LASFDE2
+.LASFDE2:
+	.long	.Lframe0
+	.long	.LFB10
+	.long	.LFE10-.LFB10
+	.p2align	2
+.LEFDE2:
+.LSFDE4:
+	.long	.LEFDE4-.LASFDE4
+.LASFDE4:
+	.long	.Lframe0
+	.long	.LFB11
+	.long	.LFE11-.LFB11
+	.p2align	2
+.LEFDE4:
+	.text
+.Letext0:
+	.section	.debug_loc,"",@progbits
+.Ldebug_loc0:
+.LLST0:
+	.long	.LVL0
+	.long	.LVL1
+	.word	0x2
+	.byte	0x30
+	.byte	0x9f
+	.long	.LVL1
+	.long	.LVL2
+	.word	0xc
+	.byte	0x5e
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x5f
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x60
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x61
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL3
+	.long	.LVL4
+	.word	0xc
+	.byte	0x5e
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x5f
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x60
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x61
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL5
+	.long	.LFE11
+	.word	0xc
+	.byte	0x5e
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x5f
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x60
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x61
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+	.section	.debug_info
+	.long	0x1c9
+	.word	0x2
+	.long	.Ldebug_abbrev0
+	.byte	0x4
+	.uleb128 0x1
+	.long	.LASF20
+	.byte	0x1
+	.long	.LASF21
+	.long	.LASF22
+	.long	0x0
+	.long	0x0
+	.long	.Ldebug_ranges0+0x0
+	.long	.Ldebug_line0
+	.long	.Ldebug_macinfo0
+	.uleb128 0x2
+	.byte	0x1
+	.byte	0x6
+	.long	.LASF0
+	.uleb128 0x3
+	.long	.LASF4
+	.byte	0x7
+	.byte	0x7a
+	.long	0x3f
+	.uleb128 0x2
+	.byte	0x1
+	.byte	0x8
+	.long	.LASF1
+	.uleb128 0x4
+	.byte	0x2
+	.byte	0x5
+	.string	"int"
+	.uleb128 0x2
+	.byte	0x2
+	.byte	0x7
+	.long	.LASF2
+	.uleb128 0x2
+	.byte	0x4
+	.byte	0x5
+	.long	.LASF3
+	.uleb128 0x3
+	.long	.LASF5
+	.byte	0x7
+	.byte	0x7e
+	.long	0x66
+	.uleb128 0x2
+	.byte	0x4
+	.byte	0x7
+	.long	.LASF6
+	.uleb128 0x2
+	.byte	0x8
+	.byte	0x5
+	.long	.LASF7
+	.uleb128 0x2
+	.byte	0x8
+	.byte	0x7
+	.long	.LASF8
+	.uleb128 0x5
+	.byte	0x6
+	.byte	0x18
+	.byte	0xd
+	.long	0xae
+	.uleb128 0x6
+	.long	.LASF9
+	.byte	0x18
+	.byte	0xe
+	.long	0xae
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.uleb128 0x7
+	.string	"pin"
+	.byte	0x18
+	.byte	0xf
+	.long	0xae
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x2
+	.uleb128 0x7
+	.string	"ddr"
+	.byte	0x18
+	.byte	0x10
+	.long	0xae
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x4
+	.byte	0x0
+	.uleb128 0x8
+	.byte	0x2
+	.long	0xb4
+	.uleb128 0x9
+	.long	0x34
+	.uleb128 0x3
+	.long	.LASF10
+	.byte	0x18
+	.byte	0x11
+	.long	0xc4
+	.uleb128 0x8
+	.byte	0x2
+	.long	0x7b
+	.uleb128 0x5
+	.byte	0x3
+	.byte	0x18
+	.byte	0x13
+	.long	0xef
+	.uleb128 0x6
+	.long	.LASF9
+	.byte	0x18
+	.byte	0x14
+	.long	0xb9
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.uleb128 0x6
+	.long	.LASF11
+	.byte	0x18
+	.byte	0x15
+	.long	0x34
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x2
+	.byte	0x0
+	.uleb128 0x3
+	.long	.LASF12
+	.byte	0x18
+	.byte	0x16
+	.long	0xfa
+	.uleb128 0x8
+	.byte	0x2
+	.long	0xca
+	.uleb128 0x5
+	.byte	0x2
+	.byte	0x17
+	.byte	0xe
+	.long	0x117
+	.uleb128 0x7
+	.string	"pin"
+	.byte	0x17
+	.byte	0xf
+	.long	0xef
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.byte	0x0
+	.uleb128 0x3
+	.long	.LASF13
+	.byte	0x17
+	.byte	0x10
+	.long	0x122
+	.uleb128 0x8
+	.byte	0x2
+	.long	0x100
+	.uleb128 0x5
+	.byte	0x3
+	.byte	0x17
+	.byte	0x12
+	.long	0x14d
+	.uleb128 0x6
+	.long	.LASF14
+	.byte	0x17
+	.byte	0x13
+	.long	0x14d
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.uleb128 0x6
+	.long	.LASF15
+	.byte	0x17
+	.byte	0x14
+	.long	0x34
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x2
+	.byte	0x0
+	.uleb128 0x8
+	.byte	0x2
+	.long	0x117
+	.uleb128 0x3
+	.long	.LASF16
+	.byte	0x17
+	.byte	0x15
+	.long	0x128
+	.uleb128 0xa
+	.byte	0x1
+	.long	.LASF17
+	.byte	0x23
+	.byte	0x8
+	.long	.LFB9
+	.long	.LFE9
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.uleb128 0xa
+	.byte	0x1
+	.long	.LASF18
+	.byte	0x23
+	.byte	0x1a
+	.long	.LFB10
+	.long	.LFE10
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.uleb128 0xb
+	.byte	0x1
+	.long	.LASF23
+	.byte	0x23
+	.byte	0x1e
+	.long	0x46
+	.long	.LFB11
+	.long	.LFE11
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x1b2
+	.uleb128 0xc
+	.long	.LASF24
+	.byte	0x23
+	.byte	0x1f
+	.long	0x5b
+	.long	.LLST0
+	.byte	0x0
+	.uleb128 0xd
+	.long	.LASF19
+	.byte	0x2
+	.byte	0xe
+	.long	0x153
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0xd
+	.long	.LASF19
+	.byte	0x2
+	.byte	0xe
+	.long	0x153
+	.byte	0x1
+	.byte	0x1
+	.byte	0x0
+	.section	.debug_abbrev
+	.uleb128 0x1
+	.uleb128 0x11
+	.byte	0x1
+	.uleb128 0x25
+	.uleb128 0xe
+	.uleb128 0x13
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x1b
+	.uleb128 0xe
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x52
+	.uleb128 0x1
+	.uleb128 0x55
+	.uleb128 0x6
+	.uleb128 0x10
+	.uleb128 0x6
+	.uleb128 0x43
+	.uleb128 0x6
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x2
+	.uleb128 0x24
+	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0xe
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x16
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x4
+	.uleb128 0x24
+	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0x8
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x5
+	.uleb128 0x13
+	.byte	0x1
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x6
+	.uleb128 0xd
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x38
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x7
+	.uleb128 0xd
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x38
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x8
+	.uleb128 0xf
+	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x9
+	.uleb128 0x35
+	.byte	0x0
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xa
+	.uleb128 0x2e
+	.byte	0x0
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x40
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x40
+	.uleb128 0xa
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xc
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x6
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xd
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3c
+	.uleb128 0xc
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.section	.debug_pubnames,"",@progbits
+	.long	0x42
+	.word	0x2
+	.long	.Ldebug_info0
+	.long	0x1cd
+	.long	0x15e
+	.string	"in_scheduler_tick"
+	.long	0x172
+	.string	"before_scheduler"
+	.long	0x186
+	.string	"main"
+	.long	0x0
+	.section	.debug_pubtypes,"",@progbits
+	.long	0x50
+	.word	0x2
+	.long	.Ldebug_info0
+	.long	0x1cd
+	.long	0x34
+	.string	"uint8_t"
+	.long	0x5b
+	.string	"uint32_t"
+	.long	0xb9
+	.string	"PPort"
+	.long	0xef
+	.string	"PPin"
+	.long	0x117
+	.string	"PLed"
+	.long	0x153
+	.string	"LedGroup"
+	.long	0x0
+	.section	.debug_aranges,"",@progbits
+	.long	0x2c
+	.word	0x2
+	.long	.Ldebug_info0
+	.byte	0x4
+	.byte	0x0
+	.word	0x0
+	.word	0x0
+	.long	.LFB9
+	.long	.LFE9-.LFB9
+	.long	.LFB10
+	.long	.LFE10-.LFB10
+	.long	.LFB11
+	.long	.LFE11-.LFB11
+	.long	0x0
+	.long	0x0
+	.section	.debug_ranges,"",@progbits
+.Ldebug_ranges0:
+	.long	.LFB9
+	.long	.LFE9
+	.long	.LFB10
+	.long	.LFE10
+	.long	.LFB11
+	.long	.LFE11
+	.long	0x0
+	.long	0x0
+	.section	.debug_line
+	.long	.LELT0-.LSLT0
+.LSLT0:
+	.word	0x2
+	.long	.LELTP0-.LASLTP0
+.LASLTP0:
+	.byte	0x1
+	.byte	0x1
+	.byte	0xf6
+	.byte	0xf5
+	.byte	0xa
+	.byte	0x0
+	.byte	0x1
+	.byte	0x1
+	.byte	0x1
+	.byte	0x1
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x1
+	.ascii	"../../Main"
+	.byte	0
+	.ascii	"../../Main/device_tests"
+	.byte	0
+	.ascii	"../../Main/simulator_tests"
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib"
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel"
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/.."
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/devices"
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/devices/../.."
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/processes"
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/processes/../.."
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/processes/DMS"
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/processes/DMS/.."
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/processes/RoundRobin"
+	.byte	0
+	.ascii	"..\\..\\AntonAvrLib/kernel/processes/RoundRobin/.."
+	.byte	0
+	.ascii	"..\\..\\Kernel-Simulator"
+	.byte	0
+	.ascii	"..\\..\\Kernel-Simulator/shared"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/../../../../avr/include"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/../../../../avr/include/avr"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/../../../../avr/include/util"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/include"
+	.byte	0
+	.byte	0x0
+	.string	"Main.c"
+	.uleb128 0x1
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"kernel.h"
+	.uleb128 0xf
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"shared/kernel_base.h"
+	.uleb128 0xf
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"millisecond_clock.h"
+	.uleb128 0x5
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"../anton_std.h"
+	.uleb128 0x5
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"stdint.h"
+	.uleb128 0x14
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"stdint.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"stdlib.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"stddef.h"
+	.uleb128 0x14
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"inttypes.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay_basic.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"avr/io.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"avr/sfr_defs.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"avr/iom1284p.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"avr/portpins.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"avr/common.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"avr/version.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"avr/fuse.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"avr/lock.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"avr/interrupt.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"reset_condition.h"
+	.uleb128 0x5
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"devices/led.h"
+	.uleb128 0x5
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"devices/port.h"
+	.uleb128 0x5
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"devices/../../anton_std.h"
+	.uleb128 0x5
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"anton_std.h"
+	.uleb128 0x4
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"scheduler.h"
+	.uleb128 0x9
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"process_ext.h"
+	.uleb128 0x9
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"process.h"
+	.uleb128 0x9
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"../../anton_std.h"
+	.uleb128 0x9
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"DMS/dms_api.h"
+	.uleb128 0x9
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"DMS/../process.h"
+	.uleb128 0x9
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"RoundRobin/rr_api.h"
+	.uleb128 0x9
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"RoundRobin/../process.h"
+	.uleb128 0x9
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_blink_AllLeds.c"
+	.uleb128 0x2
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/atomic.h"
+	.uleb128 0x11
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_blink_reset_condition.c"
+	.uleb128 0x2
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_AllLeds.c"
+	.uleb128 0x2
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_NIBObee_Buttons.c"
+	.uleb128 0x2
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_switchProcess.c"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_switchProcess_many.c"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_rr_two.c"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_rr_many.c"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_DMS_rr_two.c"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"Main_test_DMS_with_idle.c"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.byte	0x0
+.LELTP0:
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.Letext0
+	.byte	0x0
+	.uleb128 0x1
+	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM0
+	.byte	0x4
+	.uleb128 0x23
+	.byte	0x1b
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM1
+	.byte	0x24
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LFE9
+	.byte	0x0
+	.uleb128 0x1
+	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM2
+	.byte	0x4
+	.uleb128 0x23
+	.byte	0x2d
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM3
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LFE10
+	.byte	0x0
+	.uleb128 0x1
+	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM4
+	.byte	0x4
+	.uleb128 0x23
+	.byte	0x31
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM5
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM6
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM7
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM8
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM9
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM10
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM11
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LFE11
+	.byte	0x0
+	.uleb128 0x1
+	.byte	0x1
+.LELT0:
+	.section	.debug_macinfo
+	.byte	0x0
+	.section	.debug_str,"MS",@progbits,1
+.LASF14:
+	.string	"leds"
+.LASF20:
+	.string	"GNU C 4.5.1"
+.LASF15:
+	.string	"count"
+.LASF18:
+	.string	"before_scheduler"
+.LASF19:
+	.string	"AllLeds"
+.LASF16:
+	.string	"LedGroup"
+.LASF1:
+	.string	"unsigned char"
+.LASF6:
+	.string	"long unsigned int"
+.LASF22:
+	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\Main-Simulator\\\\Debug"
+.LASF12:
+	.string	"PPin"
+.LASF23:
+	.string	"main"
+.LASF2:
+	.string	"unsigned int"
+.LASF8:
+	.string	"long long unsigned int"
+.LASF4:
+	.string	"uint8_t"
+.LASF21:
+	.string	"../../Main/Main.c"
+.LASF10:
+	.string	"PPort"
+.LASF7:
+	.string	"long long int"
+.LASF11:
+	.string	"mask"
+.LASF9:
+	.string	"port"
+.LASF17:
+	.string	"in_scheduler_tick"
+.LASF24:
+	.string	"nextBlink"
+.LASF13:
+	.string	"PLed"
+.LASF5:
+	.string	"uint32_t"
+.LASF3:
+	.string	"long int"
+.LASF0:
+	.string	"signed char"

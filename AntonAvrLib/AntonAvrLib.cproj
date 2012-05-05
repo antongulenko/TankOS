@@ -90,6 +90,9 @@
     <Compile Include="kernel\hardware_reset.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\millisecond_clock.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\millisecond_clock.h">
       <SubType>compile</SubType>
     </Compile>
@@ -183,6 +186,12 @@
     <Compile Include="kernel\reset_condition.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\simple_timer.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\timer_base.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\TWI\twi_raw.c">
       <SubType>compile</SubType>
     </Compile>
@@ -190,6 +199,15 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\twi_raw.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_rpc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_rpc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_rpc.kernel.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
@@ -219,9 +237,6 @@
       <SubType>compile</SubType>
     </None>
     <None Include="kernel\processes\scheduler.kernel.h">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="kernel\processes\timed_scheduler.kernel.h">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>

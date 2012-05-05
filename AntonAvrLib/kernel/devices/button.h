@@ -11,7 +11,7 @@
 #include "port.h"
 #include "../../anton_std.h"
 
-#define BUTTON_NORMAL
+#define BUTTON_NORMAL 0
 #define BUTTON_INVERTED (1 << 1)
 #define BUTTON_NEEDS_PULLUP (1 << 2)
 

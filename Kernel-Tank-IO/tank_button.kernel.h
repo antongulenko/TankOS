@@ -21,7 +21,7 @@ void init_tank_buttons() {
 	INIT_BUTTON(Button2, PinA2, BUTTON_NORMAL)
 	INIT_BUTTON(Button3, PinA3, BUTTON_NORMAL)
 	INIT_BUTTON(Button4, PinA4, BUTTON_NORMAL)
-	INIT_BUTTON(ButtonSwitch, PinA5)
+	INIT_BUTTON(ButtonSwitch, PinA5, BUTTON_NORMAL)
 }
 KERNEL_INIT(init_tank_buttons)
 

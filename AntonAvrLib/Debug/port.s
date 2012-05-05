@@ -1345,20 +1345,14 @@ __zero_reg__ = 1
 	.uleb128 0x10
 	.uleb128 0x8
 	.byte	0x1
-	.uleb128 0x61
-	.string	"_AVR_IO_H_ "
-	.byte	0x3
-	.uleb128 0x63
-	.uleb128 0x9
-	.byte	0x1
 	.uleb128 0x24
-	.string	"_AVR_SFR_DEFS_H_ 1"
+	.string	"_UTIL_DELAY_H_ 1"
 	.byte	0x1
-	.uleb128 0x79
-	.string	"_SFR_ASM_COMPAT 0"
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
 	.byte	0x3
-	.uleb128 0x7e
-	.uleb128 0xa
+	.uleb128 0x2a
+	.uleb128 0x9
 	.byte	0x1
 	.uleb128 0x23
 	.string	"__INTTYPES_H_ "
@@ -1648,6 +1642,29 @@ __zero_reg__ = 1
 	.uleb128 0x20d
 	.string	"SCNxPTR SCNx16"
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0xa
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x11
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x61
+	.string	"_AVR_IO_H_ "
+	.byte	0x3
+	.uleb128 0x63
+	.uleb128 0xc
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_AVR_SFR_DEFS_H_ 1"
+	.byte	0x1
+	.uleb128 0x79
+	.string	"_SFR_ASM_COMPAT 0"
 	.byte	0x1
 	.uleb128 0x80
 	.string	"_MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))"
@@ -1719,7 +1736,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa2
-	.uleb128 0xb
+	.uleb128 0xd
 	.byte	0x1
 	.uleb128 0x2b
 	.string	"_AVR_IOXXX_H_ \"iom1284p.h\""
@@ -4517,7 +4534,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x216
-	.uleb128 0xc
+	.uleb128 0xe
 	.byte	0x1
 	.uleb128 0x22
 	.string	"_AVR_PORTPINS_H_ 1"
@@ -4692,7 +4709,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x218
-	.uleb128 0xd
+	.uleb128 0xf
 	.byte	0x1
 	.uleb128 0x23
 	.string	"_AVR_COMMON_H "
@@ -4786,7 +4803,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21a
-	.uleb128 0xe
+	.uleb128 0x10
 	.byte	0x1
 	.uleb128 0x36
 	.string	"_AVR_VERSION_H_ "
@@ -4814,7 +4831,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21d
-	.uleb128 0xf
+	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_FUSE_H_ 1"
@@ -4827,7 +4844,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x220
-	.uleb128 0x10
+	.uleb128 0x12
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_LOCK_H_ 1"
@@ -4876,8 +4893,8 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
-	.uleb128 0x11
+	.uleb128 0x12
+	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_INTERRUPT_H_ "
@@ -4931,31 +4948,31 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x22
+	.uleb128 0x23
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x25
+	.uleb128 0x26
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x29
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x29
+	.uleb128 0x2a
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2c
+	.uleb128 0x2d
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x2e
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
@@ -4979,7 +4996,7 @@ __zero_reg__ = 1
 .global	setPortOutput
 	.type	setPortOutput, @function
 setPortOutput:
-.LFB0:
+.LFB4:
 .LSM0:
 .LVL0:
 /* prologue: function */
@@ -4998,13 +5015,13 @@ setPortOutput:
 /* epilogue start */
 .LSM2:
 	ret
-.LFE0:
+.LFE4:
 	.size	setPortOutput, .-setPortOutput
 	.section	.text.setPortInput,"ax",@progbits
 .global	setPortInput
 	.type	setPortInput, @function
 setPortInput:
-.LFB1:
+.LFB5:
 .LSM3:
 .LVL2:
 /* prologue: function */
@@ -5021,13 +5038,13 @@ setPortInput:
 /* epilogue start */
 .LSM5:
 	ret
-.LFE1:
+.LFE5:
 	.size	setPortInput, .-setPortInput
 	.section	.text.setPinOutput,"ax",@progbits
 .global	setPinOutput
 	.type	setPinOutput, @function
 setPinOutput:
-.LFB2:
+.LFB6:
 .LSM6:
 .LVL3:
 /* prologue: function */
@@ -5052,13 +5069,13 @@ setPinOutput:
 /* epilogue start */
 .LSM8:
 	ret
-.LFE2:
+.LFE6:
 	.size	setPinOutput, .-setPinOutput
 	.section	.text.setPinInput,"ax",@progbits
 .global	setPinInput
 	.type	setPinInput, @function
 setPinInput:
-.LFB3:
+.LFB7:
 .LSM9:
 .LVL5:
 /* prologue: function */
@@ -5084,13 +5101,13 @@ setPinInput:
 /* epilogue start */
 .LSM11:
 	ret
-.LFE3:
+.LFE7:
 	.size	setPinInput, .-setPinInput
 	.section	.text.writePort,"ax",@progbits
 .global	writePort
 	.type	writePort, @function
 writePort:
-.LFB4:
+.LFB8:
 .LSM12:
 .LVL7:
 /* prologue: function */
@@ -5106,13 +5123,13 @@ writePort:
 /* epilogue start */
 .LSM14:
 	ret
-.LFE4:
+.LFE8:
 	.size	writePort, .-writePort
 	.section	.text.readPort,"ax",@progbits
 .global	readPort
 	.type	readPort, @function
 readPort:
-.LFB5:
+.LFB9:
 .LSM15:
 .LVL8:
 /* prologue: function */
@@ -5130,13 +5147,13 @@ readPort:
 /* epilogue start */
 .LSM17:
 	ret
-.LFE5:
+.LFE9:
 	.size	readPort, .-readPort
 	.section	.text.setPinOne,"ax",@progbits
 .global	setPinOne
 	.type	setPinOne, @function
 setPinOne:
-.LFB7:
+.LFB11:
 .LSM18:
 .LVL10:
 /* prologue: function */
@@ -5161,13 +5178,13 @@ setPinOne:
 /* epilogue start */
 .LSM20:
 	ret
-.LFE7:
+.LFE11:
 	.size	setPinOne, .-setPinOne
 	.section	.text.setPinZero,"ax",@progbits
 .global	setPinZero
 	.type	setPinZero, @function
 setPinZero:
-.LFB8:
+.LFB12:
 .LSM21:
 .LVL12:
 /* prologue: function */
@@ -5193,13 +5210,13 @@ setPinZero:
 /* epilogue start */
 .LSM23:
 	ret
-.LFE8:
+.LFE12:
 	.size	setPinZero, .-setPinZero
 	.section	.text.writePin,"ax",@progbits
 .global	writePin
 	.type	writePin, @function
 writePin:
-.LFB6:
+.LFB10:
 .LSM24:
 .LVL14:
 /* prologue: function */
@@ -5220,13 +5237,13 @@ writePin:
 	call setPinZero
 .LVL17:
 	ret
-.LFE6:
+.LFE10:
 	.size	writePin, .-writePin
 	.section	.text.readPin,"ax",@progbits
 .global	readPin
 	.type	readPin, @function
 readPin:
-.LFB9:
+.LFB13:
 .LSM28:
 .LVL18:
 /* prologue: function */
@@ -5256,7 +5273,7 @@ readPin:
 	movw r24,r18
 /* epilogue start */
 	ret
-.LFE9:
+.LFE13:
 	.size	readPin, .-readPin
 	.section	.debug_frame,"",@progbits
 .Lframe0:
@@ -5277,80 +5294,80 @@ readPin:
 	.long	.LEFDE0-.LASFDE0
 .LASFDE0:
 	.long	.Lframe0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.p2align	2
 .LEFDE0:
 .LSFDE2:
 	.long	.LEFDE2-.LASFDE2
 .LASFDE2:
 	.long	.Lframe0
-	.long	.LFB1
-	.long	.LFE1-.LFB1
+	.long	.LFB5
+	.long	.LFE5-.LFB5
 	.p2align	2
 .LEFDE2:
 .LSFDE4:
 	.long	.LEFDE4-.LASFDE4
 .LASFDE4:
 	.long	.Lframe0
-	.long	.LFB2
-	.long	.LFE2-.LFB2
+	.long	.LFB6
+	.long	.LFE6-.LFB6
 	.p2align	2
 .LEFDE4:
 .LSFDE6:
 	.long	.LEFDE6-.LASFDE6
 .LASFDE6:
 	.long	.Lframe0
-	.long	.LFB3
-	.long	.LFE3-.LFB3
+	.long	.LFB7
+	.long	.LFE7-.LFB7
 	.p2align	2
 .LEFDE6:
 .LSFDE8:
 	.long	.LEFDE8-.LASFDE8
 .LASFDE8:
 	.long	.Lframe0
-	.long	.LFB4
-	.long	.LFE4-.LFB4
+	.long	.LFB8
+	.long	.LFE8-.LFB8
 	.p2align	2
 .LEFDE8:
 .LSFDE10:
 	.long	.LEFDE10-.LASFDE10
 .LASFDE10:
 	.long	.Lframe0
-	.long	.LFB5
-	.long	.LFE5-.LFB5
+	.long	.LFB9
+	.long	.LFE9-.LFB9
 	.p2align	2
 .LEFDE10:
 .LSFDE12:
 	.long	.LEFDE12-.LASFDE12
 .LASFDE12:
 	.long	.Lframe0
-	.long	.LFB7
-	.long	.LFE7-.LFB7
+	.long	.LFB11
+	.long	.LFE11-.LFB11
 	.p2align	2
 .LEFDE12:
 .LSFDE14:
 	.long	.LEFDE14-.LASFDE14
 .LASFDE14:
 	.long	.Lframe0
-	.long	.LFB8
-	.long	.LFE8-.LFB8
+	.long	.LFB12
+	.long	.LFE12-.LFB12
 	.p2align	2
 .LEFDE14:
 .LSFDE16:
 	.long	.LEFDE16-.LASFDE16
 .LASFDE16:
 	.long	.Lframe0
-	.long	.LFB6
-	.long	.LFE6-.LFB6
+	.long	.LFB10
+	.long	.LFE10-.LFB10
 	.p2align	2
 .LEFDE16:
 .LSFDE18:
 	.long	.LEFDE18-.LASFDE18
 .LASFDE18:
 	.long	.Lframe0
-	.long	.LFB9
-	.long	.LFE9-.LFB9
+	.long	.LFB13
+	.long	.LFE13-.LFB13
 	.p2align	2
 .LEFDE18:
 	.text
@@ -5368,7 +5385,7 @@ readPin:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL1
-	.long	.LFE0
+	.long	.LFE4
 	.word	0x6
 	.byte	0x6a
 	.byte	0x93
@@ -5389,7 +5406,7 @@ readPin:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL4
-	.long	.LFE2
+	.long	.LFE6
 	.word	0x6
 	.byte	0x6a
 	.byte	0x93
@@ -5410,7 +5427,7 @@ readPin:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL6
-	.long	.LFE3
+	.long	.LFE7
 	.word	0x6
 	.byte	0x6a
 	.byte	0x93
@@ -5431,7 +5448,7 @@ readPin:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL9
-	.long	.LFE5
+	.long	.LFE9
 	.word	0x6
 	.byte	0x6a
 	.byte	0x93
@@ -5452,7 +5469,7 @@ readPin:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL11
-	.long	.LFE7
+	.long	.LFE11
 	.word	0x6
 	.byte	0x6a
 	.byte	0x93
@@ -5473,7 +5490,7 @@ readPin:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL13
-	.long	.LFE8
+	.long	.LFE12
 	.word	0x6
 	.byte	0x6a
 	.byte	0x93
@@ -5536,7 +5553,7 @@ readPin:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL19
-	.long	.LFE9
+	.long	.LFE13
 	.word	0x6
 	.byte	0x6e
 	.byte	0x93
@@ -5601,7 +5618,7 @@ readPin:
 	.uleb128 0x5
 	.byte	0x2
 	.byte	0x3
-	.byte	0x13
+	.byte	0x14
 	.long	0x85
 	.uleb128 0x6
 	.long	.LASF7
@@ -5613,7 +5630,7 @@ readPin:
 	.uleb128 0x3
 	.long	.LASF10
 	.byte	0x3
-	.byte	0x16
+	.byte	0x17
 	.long	0x70
 	.uleb128 0x7
 	.byte	0x6
@@ -5694,8 +5711,8 @@ readPin:
 	.byte	0x1
 	.byte	0xd
 	.byte	0x1
-	.long	.LFB0
-	.long	.LFE0
+	.long	.LFB4
+	.long	.LFE4
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5714,8 +5731,8 @@ readPin:
 	.byte	0x1
 	.byte	0x11
 	.byte	0x1
-	.long	.LFB1
-	.long	.LFE1
+	.long	.LFB5
+	.long	.LFE5
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5740,8 +5757,8 @@ readPin:
 	.byte	0x1
 	.byte	0x15
 	.byte	0x1
-	.long	.LFB2
-	.long	.LFE2
+	.long	.LFB6
+	.long	.LFE6
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5760,8 +5777,8 @@ readPin:
 	.byte	0x1
 	.byte	0x19
 	.byte	0x1
-	.long	.LFB3
-	.long	.LFE3
+	.long	.LFB7
+	.long	.LFE7
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5780,8 +5797,8 @@ readPin:
 	.byte	0x1
 	.byte	0x1d
 	.byte	0x1
-	.long	.LFB4
-	.long	.LFE4
+	.long	.LFB8
+	.long	.LFE8
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5814,8 +5831,8 @@ readPin:
 	.byte	0x21
 	.byte	0x1
 	.long	0x34
-	.long	.LFB5
-	.long	.LFE5
+	.long	.LFB9
+	.long	.LFE9
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5834,8 +5851,8 @@ readPin:
 	.byte	0x1
 	.byte	0x2a
 	.byte	0x1
-	.long	.LFB7
-	.long	.LFE7
+	.long	.LFB11
+	.long	.LFE11
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5854,8 +5871,8 @@ readPin:
 	.byte	0x1
 	.byte	0x2e
 	.byte	0x1
-	.long	.LFB8
-	.long	.LFE8
+	.long	.LFB12
+	.long	.LFE12
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5874,8 +5891,8 @@ readPin:
 	.byte	0x1
 	.byte	0x25
 	.byte	0x1
-	.long	.LFB6
-	.long	.LFE6
+	.long	.LFB10
+	.long	.LFE10
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5901,8 +5918,8 @@ readPin:
 	.byte	0x32
 	.byte	0x1
 	.long	0x85
-	.long	.LFB9
-	.long	.LFE9
+	.long	.LFB13
+	.long	.LFE13
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6220,50 +6237,50 @@ readPin:
 	.byte	0x0
 	.word	0x0
 	.word	0x0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
-	.long	.LFB1
-	.long	.LFE1-.LFB1
-	.long	.LFB2
-	.long	.LFE2-.LFB2
-	.long	.LFB3
-	.long	.LFE3-.LFB3
 	.long	.LFB4
 	.long	.LFE4-.LFB4
 	.long	.LFB5
 	.long	.LFE5-.LFB5
+	.long	.LFB6
+	.long	.LFE6-.LFB6
 	.long	.LFB7
 	.long	.LFE7-.LFB7
 	.long	.LFB8
 	.long	.LFE8-.LFB8
-	.long	.LFB6
-	.long	.LFE6-.LFB6
 	.long	.LFB9
 	.long	.LFE9-.LFB9
+	.long	.LFB11
+	.long	.LFE11-.LFB11
+	.long	.LFB12
+	.long	.LFE12-.LFB12
+	.long	.LFB10
+	.long	.LFE10-.LFB10
+	.long	.LFB13
+	.long	.LFE13-.LFB13
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
 .Ldebug_ranges0:
-	.long	.LFB0
-	.long	.LFE0
-	.long	.LFB1
-	.long	.LFE1
-	.long	.LFB2
-	.long	.LFE2
-	.long	.LFB3
-	.long	.LFE3
 	.long	.LFB4
 	.long	.LFE4
 	.long	.LFB5
 	.long	.LFE5
+	.long	.LFB6
+	.long	.LFE6
 	.long	.LFB7
 	.long	.LFE7
 	.long	.LFB8
 	.long	.LFE8
-	.long	.LFB6
-	.long	.LFE6
 	.long	.LFB9
 	.long	.LFE9
+	.long	.LFB11
+	.long	.LFE11
+	.long	.LFB12
+	.long	.LFE12
+	.long	.LFB10
+	.long	.LFE10
+	.long	.LFB13
+	.long	.LFE13
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -6300,6 +6317,10 @@ readPin:
 	.byte	0
 	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
 	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/../../../../avr/include/util"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
 	.ascii	"/4.5.1/include"
 	.byte	0
 	.byte	0x0
@@ -6316,7 +6337,7 @@ readPin:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
-	.uleb128 0x5
+	.uleb128 0x6
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
@@ -6328,7 +6349,19 @@ readPin:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stddef.h"
-	.uleb128 0x5
+	.uleb128 0x6
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"inttypes.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay_basic.h"
+	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/io.h"
@@ -6336,10 +6369,6 @@ readPin:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/sfr_defs.h"
-	.uleb128 0x3
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"inttypes.h"
 	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
@@ -6398,7 +6427,7 @@ readPin:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE0
+	.long	.LFE4
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6420,7 +6449,7 @@ readPin:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE1
+	.long	.LFE5
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6442,7 +6471,7 @@ readPin:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE2
+	.long	.LFE6
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6464,7 +6493,7 @@ readPin:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE3
+	.long	.LFE7
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6486,7 +6515,7 @@ readPin:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE4
+	.long	.LFE8
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6508,7 +6537,7 @@ readPin:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE5
+	.long	.LFE9
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6530,7 +6559,7 @@ readPin:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE7
+	.long	.LFE11
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6552,7 +6581,7 @@ readPin:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE8
+	.long	.LFE12
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6579,7 +6608,7 @@ readPin:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE6
+	.long	.LFE10
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6606,7 +6635,7 @@ readPin:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE9
+	.long	.LFE13
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1

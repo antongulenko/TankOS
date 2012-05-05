@@ -8,6 +8,8 @@
 #ifndef KERNEL_H_
 #define KERNEL_H_
 
+// #define USE_SCHEDULER
+
 // This file combines all APIs available on the tank.
 // The modules included here should be analog to tank_kernel_MASTER.c.
 

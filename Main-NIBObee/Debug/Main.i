@@ -326,9 +326,11 @@
 
 
 
+
+
 # 1 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 1
 # 9 "..\\..\\Kernel-NIBObee/shared/kernel_base.h"
-#define TANK_BASE_H_ 
+#define KERNEL_BASE_H_ 
 
 
 # 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
@@ -981,17 +983,12 @@ extern char *dtostre(double __val, char *__s, unsigned char __prec,
 extern char *dtostrf(double __val, signed char __width,
                      unsigned char __prec, char *__s);
 # 16 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
-# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 1 3
-# 97 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 3
-#define _AVR_IO_H_ 
-
-# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 1 3
-# 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 3
-#define _AVR_SFR_DEFS_H_ 1
-# 121 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 3
-#define _SFR_ASM_COMPAT 0
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 1 3
+# 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+#define _UTIL_DELAY_H_ 1
 
 
+#define __HAS_DELAY_CYCLES 1
 
 
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/inttypes.h" 1 3
@@ -1312,7 +1309,91 @@ typedef uint32_t uint_farptr_t;
 
 
 #define SCNxPTR SCNx16
-# 127 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 2 3
+# 43 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 2 3
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 1 3
+# 35 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+#define _UTIL_DELAY_BASIC_H_ 1
+
+
+
+
+static inline void _delay_loop_1(uint8_t __count) __attribute__((always_inline));
+static inline void _delay_loop_2(uint16_t __count) __attribute__((always_inline));
+# 80 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+void
+_delay_loop_1(uint8_t __count)
+{
+ __asm__ volatile (
+  "1: dec %0" "\n\t"
+  "brne 1b"
+  : "=r" (__count)
+  : "0" (__count)
+ );
+}
+# 102 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+void
+_delay_loop_2(uint16_t __count)
+{
+ __asm__ volatile (
+  "1: sbiw %0,1" "\n\t"
+  "brne 1b"
+  : "=w" (__count)
+  : "0" (__count)
+ );
+}
+# 44 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 2 3
+# 83 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+static inline void _delay_us(double __us) __attribute__((always_inline));
+static inline void _delay_ms(double __ms) __attribute__((always_inline));
+# 131 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+void
+_delay_ms(double __ms)
+{
+ uint16_t __ticks;
+ double __tmp ;
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((20000000) / 1e3) * __ms;
+# 149 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 174 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+}
+# 208 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+void
+_delay_us(double __us)
+{
+ uint8_t __ticks;
+ double __tmp ;
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((20000000) / 1e6) * __us;
+# 226 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 244 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+}
+# 17 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 1 3
+# 97 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 3
+#define _AVR_IO_H_ 
+
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 1 3
+# 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 3
+#define _AVR_SFR_DEFS_H_ 1
+# 121 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 3
+#define _SFR_ASM_COMPAT 0
+
+
+
+
+
 
 #define _MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))
 #define _MMIO_WORD(mem_addr) (*(volatile uint16_t *)(mem_addr))
@@ -2835,7 +2916,7 @@ typedef struct
 # 237 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/lock.h" 3
 #define LOCKBITS_DEFAULT (0xFF)
 # 545 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 2 3
-# 17 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
+# 18 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/interrupt.h" 1 3
 # 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/interrupt.h" 3
 #define _AVR_INTERRUPT_H_ 
@@ -2868,7 +2949,7 @@ typedef struct
 #define ISR_NOBLOCK __attribute__((interrupt))
 #define ISR_NAKED __attribute__((naked))
 #define ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))
-# 18 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
+# 19 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
 
 typedef enum {
  FALSE,
@@ -2904,7 +2985,11 @@ asm ("__RAMPZ__ = 0x3b");
 
 
 
- extern uint32_t milliseconds_running;
+ extern volatile uint32_t milliseconds_running;
+
+
+
+uint32_t get_milliseconds_running();
 # 13 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/reset_condition.h"
@@ -2997,137 +3082,7 @@ void blink_reset_condition(PLedGroup leds);
 # 14 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/anton_std.h" 1
 # 15 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h"
-#define SCHEDULER_H_ 
-
-
-void schedule_next();
-# 17 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h"
-#define PROCESS_EXT_H_ 
-
-
-
-
-
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/process.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/process.h"
-#define PROCESS_API_H_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/../../anton_std.h" 1
-# 12 "..\\..\\AntonAvrLib/kernel/processes/process.h" 2
-
-typedef struct Process__ { uint16_t unused; } *Process;;
-#define InvalidProcess ((Process) NULL)
-
-
-
-typedef void ProcessEntryPoint( );
-
-
-Process getCurrentProcess();
-# 30 "..\\..\\AntonAvrLib/kernel/processes/process.h"
-Process createProcess(ProcessEntryPoint entryPoint);
-
-
-
-
-
-
-Process createProcess2(ProcessEntryPoint entryPoint, void *processArgument);
-
-
-
-
-
-
-
-Process createProcess3(ProcessEntryPoint entryPoint, void *processArgument, uint16_t stackSize, uint8_t additionalMemory);
-
-
-
-void *getProcessMemory(Process proc);
-
-
-
-
-void switchProcess(Process newProcess);
-# 17 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h" 2
-
-
-uint8_t getProcessStackSize(Process process);
-
-
-
-
-uint16_t getFreeProcessStackSize(Process process);
-
-
-
-uint16_t getProcessNumber(Process process);
-
-
-
-
-void freeProcess(Process process);
-# 18 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h" 1
-# 11 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h"
-#define DMS_API_H_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/../process.h" 1
-# 14 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h" 2
-
-typedef void JobEntryPoint();
-# 27 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h"
-Process createPeriodicJob(JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority);
-
-
-
-
-
-Process createAperiodicJob(JobEntryPoint entryPoint, uint32_t minimalPeriod, uint8_t userPriority);
-
-
-void triggerAperiodicJob(Process job);
-# 19 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h"
-#define RR_API_H_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/../process.h" 1
-# 12 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h" 2
-
-
-typedef struct Thread__ { uint16_t unused; } *Thread;
-typedef void ThreadEntryPoint();
-
-
-typedef enum {
- PrioLowest = 0,
- PrioLow,
- PrioBelowNormal,
- PrioNormal,
- PrioAboveNormal,
- PrioHigh,
- PrioHighest
-} ThreadPriority;
-
-
-
-
-Thread createThread(ThreadEntryPoint entry);
-Thread createThread2(ThreadEntryPoint entry, ThreadPriority prio);
-Thread createThread3(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter);
-Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter, uint16_t stackSize);
-
-Thread getCurrentThread();
-# 20 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
-# 16 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 18 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/twi.h" 1
 
 
@@ -3186,6 +3141,7 @@ typedef enum {
 
 } TWIError;
 
+
 extern volatile BOOL twi_running;
 extern TWIError last_twi_error;
 #define WAIT_FOR_TWI() while (twi_running) ;
@@ -3203,7 +3159,7 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
 
 void twiMultipleOperations(int count, TWIOperation *operations);
 # 6 "..\\..\\Kernel-NIBObee/twi.h" 2
-# 17 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 19 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_button.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_button.h"
 #define NIBOBEE_BUTTON_H_ 
@@ -3215,7 +3171,7 @@ void twiMultipleOperations(int count, TWIOperation *operations);
 
 
 
-#define BUTTON_NORMAL 
+#define BUTTON_NORMAL 0
 #define BUTTON_INVERTED (1 << 1)
 #define BUTTON_NEEDS_PULLUP (1 << 2)
 
@@ -3241,7 +3197,7 @@ extern Button ButtonRightBackward;
 extern Button ButtonRightForward;
 extern Button ButtonLeftBackward;
 extern Button ButtonLeftForward;
-# 18 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 20 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_led.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_led.h"
 #define NIBOBEE_LED_H_ 
@@ -3258,7 +3214,7 @@ extern LedGroup YellowLeds;
 extern LedGroup RightLeds;
 extern LedGroup LeftLeds;
 extern LedGroup AllLeds;
-# 19 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 21 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_motor.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_motor.h"
 #define NIBOBEE_MOTOR_H_ 
@@ -3438,31 +3394,36 @@ void setDirSpeed(PMotor motor, int16_t speed);
 
 extern Motor LeftMotor;
 extern Motor RightMotor;
-# 20 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 22 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 14 "../../Main/Main.c" 2
 
 
 
-
-#define Main_test_NIBObee_Buttons 
+#define Main_test_blink_reset_condition 
 # 27 "../../Main/Main.c"
 # 1 "../../Main/device_tests/Main_test_blink_AllLeds.c" 1
 # 28 "../../Main/Main.c" 2
 # 1 "../../Main/device_tests/Main_test_blink_reset_condition.c" 1
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/hardware_reset.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/hardware_reset.h"
+#define HARWARE_RESET_H_ 
+
+
+
+void HARDWARE_RESET();
+# 4 "../../Main/device_tests/Main_test_blink_reset_condition.c" 2
+
+int main() {
+
+ blink_reset_condition(&AllLeds);
+ HARDWARE_RESET();
+}
 # 29 "../../Main/Main.c" 2
 # 1 "../../Main/device_tests/Main_test_AllLeds.c" 1
 # 30 "../../Main/Main.c" 2
 # 1 "../../Main/device_tests/Main_test_NIBObee_Buttons.c" 1
-
-
-int main() {
- while (1) {
-  setLed(&LeftYellow, buttonStatus(&ButtonLeftBackward));
-  setLed(&LeftRed, buttonStatus(&ButtonLeftForward));
-  setLed(&RightYellow, buttonStatus(&ButtonRightBackward));
-  setLed(&RightRed, buttonStatus(&ButtonRightForward));
- }
-}
 # 31 "../../Main/Main.c" 2
 
 # 1 "../../Main/simulator_tests/Main_test_switchProcess.c" 1

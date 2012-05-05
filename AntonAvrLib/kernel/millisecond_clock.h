@@ -12,10 +12,13 @@
 
 #ifdef _KERNEL_
 	// This just defines the variable; it has to be incremented from some timer module in the kernel.
-	uint32_t milliseconds_running = 0;
+	uint32_t volatile milliseconds_running = 0;
 #else
 	// This is a global variable (and not a function) for simplicity, but should not be written!
-	extern uint32_t milliseconds_running;
+	extern volatile uint32_t milliseconds_running;
 #endif
+
+// Retrieve the 4-byte value atomically. No danger, that the value is modified while part of it has already been loaded.
+uint32_t get_milliseconds_running();
 
 #endif /* MILLISECOND_CLOCK_H_ */

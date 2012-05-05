@@ -1336,20 +1336,14 @@ __zero_reg__ = 1
 	.uleb128 0x10
 	.uleb128 0x7
 	.byte	0x1
-	.uleb128 0x61
-	.string	"_AVR_IO_H_ "
-	.byte	0x3
-	.uleb128 0x63
-	.uleb128 0x8
-	.byte	0x1
 	.uleb128 0x24
-	.string	"_AVR_SFR_DEFS_H_ 1"
+	.string	"_UTIL_DELAY_H_ 1"
 	.byte	0x1
-	.uleb128 0x79
-	.string	"_SFR_ASM_COMPAT 0"
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
 	.byte	0x3
-	.uleb128 0x7e
-	.uleb128 0x9
+	.uleb128 0x2a
+	.uleb128 0x8
 	.byte	0x1
 	.uleb128 0x23
 	.string	"__INTTYPES_H_ "
@@ -1639,6 +1633,29 @@ __zero_reg__ = 1
 	.uleb128 0x20d
 	.string	"SCNxPTR SCNx16"
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0x9
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x11
+	.uleb128 0xa
+	.byte	0x1
+	.uleb128 0x61
+	.string	"_AVR_IO_H_ "
+	.byte	0x3
+	.uleb128 0x63
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_AVR_SFR_DEFS_H_ 1"
+	.byte	0x1
+	.uleb128 0x79
+	.string	"_SFR_ASM_COMPAT 0"
 	.byte	0x1
 	.uleb128 0x80
 	.string	"_MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))"
@@ -1710,7 +1727,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa2
-	.uleb128 0xa
+	.uleb128 0xc
 	.byte	0x1
 	.uleb128 0x2b
 	.string	"_AVR_IOXXX_H_ \"iom1284p.h\""
@@ -4508,7 +4525,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x216
-	.uleb128 0xb
+	.uleb128 0xd
 	.byte	0x1
 	.uleb128 0x22
 	.string	"_AVR_PORTPINS_H_ 1"
@@ -4683,7 +4700,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x218
-	.uleb128 0xc
+	.uleb128 0xe
 	.byte	0x1
 	.uleb128 0x23
 	.string	"_AVR_COMMON_H "
@@ -4777,7 +4794,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21a
-	.uleb128 0xd
+	.uleb128 0xf
 	.byte	0x1
 	.uleb128 0x36
 	.string	"_AVR_VERSION_H_ "
@@ -4805,7 +4822,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21d
-	.uleb128 0xe
+	.uleb128 0x10
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_FUSE_H_ 1"
@@ -4818,7 +4835,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x220
-	.uleb128 0xf
+	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_LOCK_H_ 1"
@@ -4867,8 +4884,8 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
-	.uleb128 0x10
+	.uleb128 0x12
+	.uleb128 0x12
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_INTERRUPT_H_ "
@@ -4922,39 +4939,104 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x22
+	.uleb128 0x23
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x25
+	.uleb128 0x26
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x29
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x29
+	.uleb128 0x2a
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2c
+	.uleb128 0x2d
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x2e
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x9
-	.uleb128 0x11
+	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x9
 	.string	"HARWARE_RESET_H_ "
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0xa
+	.uleb128 0x14
+	.byte	0x1
+	.uleb128 0x27
+	.string	"_AVR_WDT_H_ "
+	.byte	0x1
+	.uleb128 0x63
+	.string	"wdt_reset() __asm__ __volatile__ (\"wdr\")"
+	.byte	0x1
+	.uleb128 0x67
+	.string	"_WD_PS3_MASK _BV(WDP3)"
+	.byte	0x1
+	.uleb128 0x6d
+	.string	"_WD_CONTROL_REG WDTCSR"
+	.byte	0x1
+	.uleb128 0x75
+	.string	"_WD_CHANGE_BIT WDCE"
+	.byte	0x1
+	.uleb128 0x146
+	.ascii	"wdt_enable(value) __asm__ __volatile__ ( \"in __tmp_reg__,__"
+	.ascii	"SREG__\" \"\\n\\t\" \"cli\" \"\\n\\t\" \"wdr\" \"\\n\\t\" \""
+	.ascii	"sts %0,%1\" \"\\n\\t\" \"out __SREG__,__tmp_reg__\" \"\\n\\t"
+	.ascii	"\" \"sts %0,%2\" \"\\n\\t\" : : \"M\" (_SFR_MEM_ADDR(_WD_CON"
+	.ascii	"TROL_REG)), \"r\" (_BV(_WD_CHANGE_BIT) | _BV(WDE)), \"r\" (("
+	.ascii	"uint8_t) ((value & 0x0"
+	.string	"8 ? _WD_PS3_MASK : 0x00) | _BV(WDE) | (value & 0x07)) ) : \"r0\" )"
+	.byte	0x1
+	.uleb128 0x156
+	.ascii	"wdt_disable() __asm__ __volatile__ ( \"in __tmp_reg__, __SRE"
+	.ascii	"G__\" \"\\n\\t\" \"cli\" \"\\n\\t\" \"sts %0, %1\" \"\\n\\t\""
+	.ascii	" \"sts %0, __zero_reg__\" \"\\n\\t\" \"out __SREG__,__tmp_re"
+	.ascii	"g__\" \"\\n\\t\" : : \"M\" (_SFR_MEM_ADDR(_WD_CONTROL"
+	.string	"_REG)), \"r\" ((uint8_t)(_BV(_WD_CHANGE_BIT) | _BV(WDE))) : \"r0\" )"
+	.byte	0x1
+	.uleb128 0x1a5
+	.string	"WDTO_15MS 0"
+	.byte	0x1
+	.uleb128 0x1a9
+	.string	"WDTO_30MS 1"
+	.byte	0x1
+	.uleb128 0x1ad
+	.string	"WDTO_60MS 2"
+	.byte	0x1
+	.uleb128 0x1b1
+	.string	"WDTO_120MS 3"
+	.byte	0x1
+	.uleb128 0x1b5
+	.string	"WDTO_250MS 4"
+	.byte	0x1
+	.uleb128 0x1b9
+	.string	"WDTO_500MS 5"
+	.byte	0x1
+	.uleb128 0x1bd
+	.string	"WDTO_1S 6"
+	.byte	0x1
+	.uleb128 0x1c1
+	.string	"WDTO_2S 7"
+	.byte	0x1
+	.uleb128 0x1d8
+	.string	"WDTO_4S 8"
+	.byte	0x1
+	.uleb128 0x1f1
+	.string	"WDTO_8S 9"
 	.byte	0x4
 	.byte	0x4
 /* #APP */
@@ -4964,7 +5046,7 @@ __zero_reg__ = 1
 .global	HARDWARE_RESET
 	.type	HARDWARE_RESET, @function
 HARDWARE_RESET:
-.LFB0:
+.LFB4:
 .LSM0:
 /* prologue: function */
 /* frame size = 0 */
@@ -4972,23 +5054,32 @@ HARDWARE_RESET:
 .L__stack_usage = 0
 .LSM1:
 /* #APP */
- ;  12 "../kernel/hardware_reset.c" 1
+ ;  13 "../kernel/hardware_reset.c" 1
 	cli
  ;  0 "" 2
 .LSM2:
 /* #NOAPP */
 	in r24,84-32
-	andi r24,lo8(8)
+	andi r24,lo8(-9)
 	out 84-32,r24
 .LSM3:
-	ldi r24,lo8(16)
+	ldi r18,lo8(8)
+	ldi r24,lo8(24)
+	ldi r25,hi8(24)
+/* #APP */
+ ;  16 "../kernel/hardware_reset.c" 1
+	in __tmp_reg__,__SREG__
+	cli
+	wdr
 	sts 96,r24
-.LSM4:
-	ldi r24,lo8(8)
-	sts 96,r24
+	out __SREG__,__tmp_reg__
+	sts 96,r18
+	
+ ;  0 "" 2
+/* #NOAPP */
 .L2:
 	rjmp .L2
-.LFE0:
+.LFE4:
 	.size	HARDWARE_RESET, .-HARDWARE_RESET
 	.section	.debug_frame,"",@progbits
 .Lframe0:
@@ -5009,22 +5100,22 @@ HARDWARE_RESET:
 	.long	.LEFDE0-.LASFDE0
 .LASFDE0:
 	.long	.Lframe0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.p2align	2
 .LEFDE0:
 	.text
 .Letext0:
 	.section	.debug_info
-	.long	0x81
+	.long	0x8c
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF7
-	.byte	0x1
-	.long	.LASF8
 	.long	.LASF9
+	.byte	0x1
+	.long	.LASF10
+	.long	.LASF11
 	.long	0x0
 	.long	0x0
 	.long	.Ldebug_ranges0+0x0
@@ -5035,7 +5126,7 @@ HARDWARE_RESET:
 	.byte	0x6
 	.long	.LASF0
 	.uleb128 0x3
-	.long	.LASF10
+	.long	.LASF2
 	.byte	0x4
 	.byte	0x7a
 	.long	0x3f
@@ -5047,33 +5138,38 @@ HARDWARE_RESET:
 	.byte	0x2
 	.byte	0x5
 	.string	"int"
+	.uleb128 0x3
+	.long	.LASF3
+	.byte	0x4
+	.byte	0x7c
+	.long	0x58
 	.uleb128 0x2
 	.byte	0x2
 	.byte	0x7
-	.long	.LASF2
-	.uleb128 0x2
-	.byte	0x4
-	.byte	0x5
-	.long	.LASF3
-	.uleb128 0x2
-	.byte	0x4
-	.byte	0x7
 	.long	.LASF4
 	.uleb128 0x2
-	.byte	0x8
+	.byte	0x4
 	.byte	0x5
 	.long	.LASF5
 	.uleb128 0x2
-	.byte	0x8
+	.byte	0x4
 	.byte	0x7
 	.long	.LASF6
+	.uleb128 0x2
+	.byte	0x8
+	.byte	0x5
+	.long	.LASF7
+	.uleb128 0x2
+	.byte	0x8
+	.byte	0x7
+	.long	.LASF8
 	.uleb128 0x5
 	.byte	0x1
-	.long	.LASF11
+	.long	.LASF12
 	.byte	0x1
-	.byte	0xb
-	.long	.LFB0
-	.long	.LFE0
+	.byte	0xc
+	.long	.LFB4
+	.long	.LFE4
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5162,17 +5258,19 @@ HARDWARE_RESET:
 	.long	0x21
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x85
-	.long	0x70
+	.long	0x90
+	.long	0x7b
 	.string	"HARDWARE_RESET"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
-	.long	0x1a
+	.long	0x27
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x85
+	.long	0x90
 	.long	0x34
 	.string	"uint8_t"
+	.long	0x4d
+	.string	"uint16_t"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
 	.long	0x1c
@@ -5182,14 +5280,14 @@ HARDWARE_RESET:
 	.byte	0x0
 	.word	0x0
 	.word	0x0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
 .Ldebug_ranges0:
-	.long	.LFB0
-	.long	.LFE0
+	.long	.LFB4
+	.long	.LFE4
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -5226,6 +5324,10 @@ HARDWARE_RESET:
 	.byte	0
 	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
 	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/../../../../avr/include/util"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
 	.ascii	"/4.5.1/include"
 	.byte	0
 	.byte	0x0
@@ -5238,7 +5340,7 @@ HARDWARE_RESET:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
-	.uleb128 0x5
+	.uleb128 0x6
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
@@ -5250,7 +5352,19 @@ HARDWARE_RESET:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stddef.h"
-	.uleb128 0x5
+	.uleb128 0x6
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"inttypes.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay_basic.h"
+	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/io.h"
@@ -5258,10 +5372,6 @@ HARDWARE_RESET:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/sfr_defs.h"
-	.uleb128 0x3
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"inttypes.h"
 	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
@@ -5297,6 +5407,10 @@ HARDWARE_RESET:
 	.uleb128 0x1
 	.uleb128 0x0
 	.uleb128 0x0
+	.string	"avr/wdt.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
 	.byte	0x0
 .LELTP0:
 	.byte	0x0
@@ -5310,7 +5424,7 @@ HARDWARE_RESET:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM0
-	.byte	0x1e
+	.byte	0x1f
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -5320,7 +5434,7 @@ HARDWARE_RESET:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM2
-	.byte	0x15
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -5329,12 +5443,7 @@ HARDWARE_RESET:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM4
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LFE0
+	.long	.LFE4
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -5342,27 +5451,29 @@ HARDWARE_RESET:
 	.section	.debug_macinfo
 	.byte	0x0
 	.section	.debug_str,"MS",@progbits,1
-.LASF2:
-	.string	"unsigned int"
-.LASF9:
-	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\AntonAvrLib\\\\Debug"
 .LASF4:
+	.string	"unsigned int"
+.LASF11:
+	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\AntonAvrLib\\\\Debug"
+.LASF6:
 	.string	"long unsigned int"
-.LASF10:
+.LASF2:
 	.string	"uint8_t"
 .LASF0:
 	.string	"signed char"
-.LASF11:
+.LASF12:
 	.string	"HARDWARE_RESET"
-.LASF6:
+.LASF8:
 	.string	"long long unsigned int"
+.LASF3:
+	.string	"uint16_t"
 .LASF1:
 	.string	"unsigned char"
-.LASF3:
-	.string	"long int"
-.LASF7:
-	.string	"GNU C 4.5.1"
-.LASF8:
-	.string	"../kernel/hardware_reset.c"
 .LASF5:
+	.string	"long int"
+.LASF9:
+	.string	"GNU C 4.5.1"
+.LASF10:
+	.string	"../kernel/hardware_reset.c"
+.LASF7:
 	.string	"long long int"

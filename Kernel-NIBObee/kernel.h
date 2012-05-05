@@ -8,6 +8,8 @@
 #ifndef NIBOBEE_H_
 #define NIBOBEE_H_
 
+// #define USE_SCHEDULER
+
 // This file combines all APIs available on the nibobee.
 // The modules included here should be analog to nibobee_kernel.c.
 

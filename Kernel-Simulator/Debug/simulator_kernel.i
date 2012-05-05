@@ -317,12 +317,12 @@
 #define AVR 1
 #define F_CPU 20000000
 # 1 ".././simulator_kernel.c"
-# 10 ".././simulator_kernel.c"
-# 1 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h"
-#define _TIMER_M1284P_KERNEL_ 
+# 11 ".././simulator_kernel.c"
+# 1 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 1
 
-# 1 "..\\..\\AntonAvrLib/kernel/devices/../kernel_init.h" 1
+#define _INIT_RESET_CONDITION_KERNEL_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/kernel_init.h" 1
 
 #define _KERNEL_INIT_H_ 
 
@@ -331,8 +331,8 @@
 #define _KERNEL_ 
 
 
-# 1 "..\\..\\AntonAvrLib/kernel/devices/../../anton_std.h" 1
-# 12 "..\\..\\AntonAvrLib/kernel/devices/../../anton_std.h"
+# 1 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/../anton_std.h"
 #define ANTON_STD_H_ 
 
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stdint.h" 1 3 4
@@ -724,7 +724,7 @@ typedef uint64_t uintmax_t;
 
 
 #define _GCC_WRAP_STDINT_H 
-# 15 "..\\..\\AntonAvrLib/kernel/devices/../../anton_std.h" 2
+# 15 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdlib.h" 1 3
 # 40 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdlib.h" 3
 #define _STDLIB_H_ 1
@@ -976,18 +976,13 @@ extern char *dtostre(double __val, char *__s, unsigned char __prec,
 # 580 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdlib.h" 3
 extern char *dtostrf(double __val, signed char __width,
                      unsigned char __prec, char *__s);
-# 16 "..\\..\\AntonAvrLib/kernel/devices/../../anton_std.h" 2
-# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 1 3
-# 97 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 3
-#define _AVR_IO_H_ 
-
-# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 1 3
-# 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 3
-#define _AVR_SFR_DEFS_H_ 1
-# 121 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 3
-#define _SFR_ASM_COMPAT 0
+# 16 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 1 3
+# 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+#define _UTIL_DELAY_H_ 1
 
 
+#define __HAS_DELAY_CYCLES 1
 
 
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/inttypes.h" 1 3
@@ -1308,7 +1303,91 @@ typedef uint32_t uint_farptr_t;
 
 
 #define SCNxPTR SCNx16
-# 127 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 2 3
+# 43 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 2 3
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 1 3
+# 35 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+#define _UTIL_DELAY_BASIC_H_ 1
+
+
+
+
+static inline void _delay_loop_1(uint8_t __count) __attribute__((always_inline));
+static inline void _delay_loop_2(uint16_t __count) __attribute__((always_inline));
+# 80 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+void
+_delay_loop_1(uint8_t __count)
+{
+ __asm__ volatile (
+  "1: dec %0" "\n\t"
+  "brne 1b"
+  : "=r" (__count)
+  : "0" (__count)
+ );
+}
+# 102 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h" 3
+void
+_delay_loop_2(uint16_t __count)
+{
+ __asm__ volatile (
+  "1: sbiw %0,1" "\n\t"
+  "brne 1b"
+  : "=w" (__count)
+  : "0" (__count)
+ );
+}
+# 44 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 2 3
+# 83 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+static inline void _delay_us(double __us) __attribute__((always_inline));
+static inline void _delay_ms(double __ms) __attribute__((always_inline));
+# 131 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+void
+_delay_ms(double __ms)
+{
+ uint16_t __ticks;
+ double __tmp ;
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((20000000) / 1e3) * __ms;
+# 149 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 174 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+}
+# 208 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+void
+_delay_us(double __us)
+{
+ uint8_t __ticks;
+ double __tmp ;
+
+ uint32_t __ticks_dc;
+ extern void __builtin_avr_delay_cycles(unsigned long);
+ __tmp = ((20000000) / 1e6) * __us;
+# 226 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+  __ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+
+
+ __builtin_avr_delay_cycles(__ticks_dc);
+# 244 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
+}
+# 17 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 1 3
+# 97 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 3
+#define _AVR_IO_H_ 
+
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 1 3
+# 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 3
+#define _AVR_SFR_DEFS_H_ 1
+# 121 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h" 3
+#define _SFR_ASM_COMPAT 0
+
+
+
+
+
 
 #define _MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))
 #define _MMIO_WORD(mem_addr) (*(volatile uint16_t *)(mem_addr))
@@ -2831,7 +2910,7 @@ typedef struct
 # 237 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/lock.h" 3
 #define LOCKBITS_DEFAULT (0xFF)
 # 545 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 2 3
-# 17 "..\\..\\AntonAvrLib/kernel/devices/../../anton_std.h" 2
+# 18 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/interrupt.h" 1 3
 # 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/interrupt.h" 3
 #define _AVR_INTERRUPT_H_ 
@@ -2864,7 +2943,7 @@ typedef struct
 #define ISR_NOBLOCK __attribute__((interrupt))
 #define ISR_NAKED __attribute__((naked))
 #define ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))
-# 18 "..\\..\\AntonAvrLib/kernel/devices/../../anton_std.h" 2
+# 19 "..\\..\\AntonAvrLib/kernel/../anton_std.h" 2
 
 typedef enum {
  FALSE,
@@ -2893,25 +2972,24 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
-# 10 "..\\..\\AntonAvrLib/kernel/devices/../kernel_init.h" 2
-# 18 "..\\..\\AntonAvrLib/kernel/devices/../kernel_init.h"
+# 10 "..\\..\\AntonAvrLib/kernel/kernel_init.h" 2
+# 18 "..\\..\\AntonAvrLib/kernel/kernel_init.h"
 #define KERNEL_INIT(functionName) void functionName ##_kernel_init() __attribute__((naked, section(".init8"))); void functionName ##_kernel_init() { functionName(); }
-# 12 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h"
-#define TIMER_M1284P_H_ 
+# 5 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/reset_condition.h"
+#define RESET_CONDITION_H_ 
 
-# 1 "..\\..\\AntonAvrLib/kernel/devices/timer.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/devices/timer.h"
-#define _TIMER_H_ 
+# 1 "..\\..\\AntonAvrLib/kernel/devices/led.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/devices/led.h"
+#define LED_H_ 
 
-# 1 "..\\..\\AntonAvrLib/kernel/devices/../../anton_std.h" 1
-# 12 "..\\..\\AntonAvrLib/kernel/devices/timer.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/devices/port.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/devices/port.h"
 #define PORT_H_ 
 
-
+# 1 "..\\..\\AntonAvrLib/kernel/devices/../../anton_std.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/devices/port.h" 2
 
 typedef struct {
  volatile uint8_t *port;
@@ -2955,13 +3033,105 @@ BOOL readPin(PPin pin);
 #define INIT_PORT_AND_PINS(port) INIT_PORT(port) INIT_PIN(port,0) INIT_PIN(port,1) INIT_PIN(port,2) INIT_PIN(port,3) INIT_PIN(port,4) INIT_PIN(port,5) INIT_PIN(port,6) INIT_PIN(port,7)
 # 69 "..\\..\\AntonAvrLib/kernel/devices/port.h"
 #define DEFINE_PORT_AND_PINS(port) DEFINE_PORT(port) DEFINE_PIN(port,0) DEFINE_PIN(port,1) DEFINE_PIN(port,2) DEFINE_PIN(port,3) DEFINE_PIN(port,4) DEFINE_PIN(port,5) DEFINE_PIN(port,6) DEFINE_PIN(port,7)
-# 13 "..\\..\\AntonAvrLib/kernel/devices/timer.h" 2
+# 12 "..\\..\\AntonAvrLib/kernel/devices/led.h" 2
+
+
+typedef struct {
+ PPin pin;
+} Led, *PLed;
+
+typedef struct {
+ PLed *leds;
+ uint8_t count;
+} LedGroup, *PLedGroup;
+
+void enableLed(PLed led);
+void disableLed(PLed led);
+void setLed(PLed led, BOOL value);
+
+
+void setLeds(PLedGroup leds, uint16_t mask);
+
+void enableLeds(PLedGroup leds);
+void disableLeds(PLedGroup leds);
+
+void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
+void blinkAllLeds(PLedGroup leds, const uint8_t times);
+
+
+#define DEFINE_LED(ledName) Led ledName;
+#define DEFINE_LED_GROUP(groupName) LedGroup groupName;
+
+#define INIT_LED(ledName,pinName) ledName = (Led) { &pinName }; initLed(&ledName);
+
+
+#define INIT_LED_GROUP(groupName,groupArrayPointer,count) groupName = (LedGroup) { groupArrayPointer, count };
+# 12 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 2
+
+
+uint8_t getResetStatus();
+
+
+uint16_t resetStatusBitmask();
 
 
 
 
 
+void blink_reset_condition(PLedGroup leds);
+# 6 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 2
 
+uint8_t current_reset_status = 0;
+
+void init_reset_condition() {
+
+
+
+ current_reset_status = (*(volatile uint8_t *)((0x34) + 0x20));
+ (*(volatile uint8_t *)((0x34) + 0x20)) = 0;
+}
+void init_reset_condition_kernel_init() __attribute__((naked, section(".init8"))); void init_reset_condition_kernel_init() { init_reset_condition(); }
+
+uint8_t getResetStatus() {
+ return current_reset_status;
+}
+# 12 ".././simulator_kernel.c" 2
+# 1 ".././shared/base.kernel.h" 1
+# 9 ".././shared/base.kernel.h"
+#define _BASE_KERNEL_ 
+
+
+
+#define TWI_Slave 
+#define TWI_BIT_RATE_VALUE 17
+#define TWI_PRESCALER_MASK 0
+# 1 ".././shared/../twi.kernel.h" 1
+# 17 ".././shared/base.kernel.h" 2
+
+
+
+
+# 1 ".././shared/timer.kernel.h" 1
+
+#define _TIMER_KERNEL_KERNEL_ 
+
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h"
+#define _TIMER_M1284P_KERNEL_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/devices/../kernel_init.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h"
+#define TIMER_M1284P_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/devices/timer.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/devices/timer.h"
+#define _TIMER_H_ 
+# 19 "..\\..\\AntonAvrLib/kernel/devices/timer.h"
 typedef enum {
  wgm_normal,
  clear_timer_on_match,
@@ -3109,11 +3279,98 @@ void init_timer_m1284P() {
  Timer3B = (Timer) {&Timer3, (uint8_t*) &(*(volatile uint16_t *)(0x9A)), TIMER_B, &PinB7};
 }
 void init_timer_m1284P_kernel_init() __attribute__((naked, section(".init8"))); void init_timer_m1284P_kernel_init() { init_timer_m1284P(); }
-# 11 ".././simulator_kernel.c" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h"
-#define _PROCESS_EXT_KERNEL_ 
+# 8 ".././shared/timer.kernel.h" 2
 
+#define CLOCKISR TIMER3_COMPA_vect
+
+void init_timer() {
+ PTimerConfig timerConf = &Timer3;
+ PTimer timer = &Timer3A;
+
+ setWaveformGenerationMode(timerConf, clear_timer_on_match);
+ setTimerCompareValue(timer, 2500);
+ setTimerClockSelect(timerConf, prescale_8);
+
+}
+void init_timer_kernel_init() __attribute__((naked, section(".init8"))); void init_timer_kernel_init() { init_timer(); }
+
+void start_timer() {
+
+ enableTimerInterrupt(&Timer3A);
+ __asm__ __volatile__ ("sei" ::: "memory");
+}
+
+# 1 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h"
+#define TIMED_SCHEDULER_KERNEL_ 
+# 23 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h"
+# 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h"
+#define MILLISECOND_CLOCK_H_ 
+
+
+
+
+
+ uint32_t volatile milliseconds_running = 0;
+
+
+
+
+
+
+uint32_t get_milliseconds_running();
+# 24 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h" 2
+#define TIMER_TICK_ISR_NAKED ISR(CLOCKISR, __attribute__((naked)))
+#define TIMER_TICK_ISR ISR(CLOCKISR)
+
+
+void in_timer_tick() __attribute__((weak));
+void in_timer_tick() {};
+
+
+#define TIMER_TICK_ACTION milliseconds_running++; in_timer_tick();
+# 29 ".././shared/timer.kernel.h" 2
+# 22 ".././shared/base.kernel.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/simple_timer.kernel.h" 1
+# 23 ".././shared/base.kernel.h" 2
+#define INITIALIZE_SCHEDULER 
+
+
+
+
+
+
+
+void before_timer() __attribute__((weak));
+void before_timer() {}
+
+
+# 1 ".././shared/../kernel.h" 1
+# 9 ".././shared/../kernel.h"
+#define KERNEL_H_ 
+
+# 1 ".././shared/../shared/kernel_base.h" 1
+# 9 ".././shared/../shared/kernel_base.h"
+#define KERNEL_BASE_H_ 
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
+# 13 ".././shared/../shared/kernel_base.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
+# 14 ".././shared/../shared/kernel_base.h" 2
+# 1 "..\\..\\AntonAvrLib/anton_std.h" 1
+# 15 ".././shared/../shared/kernel_base.h" 2
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h"
+#define SCHEDULER_H_ 
+
+
+void schedule_next();
+# 19 ".././shared/../shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h"
 #define PROCESS_EXT_H_ 
@@ -3183,299 +3440,27 @@ uint16_t getProcessNumber(Process process);
 
 
 void freeProcess(Process process);
-# 12 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h"
-#define PROCESS_INTERNAL_H_ 
+# 20 ".././shared/../shared/kernel_base.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h" 1
+# 11 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h"
+#define DMS_API_H_ 
 
+# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/../process.h" 1
+# 14 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h" 2
 
+typedef void JobEntryPoint();
+# 27 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h"
+Process createPeriodicJob(JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority);
 
 
 
 
-uint16_t __default_stack_size = 512;
 
+Process createAperiodicJob(JobEntryPoint entryPoint, uint32_t minimalPeriod, uint8_t userPriority);
 
 
-uint8_t __main_process_additional_memory = 0;
-
-
-
-
-
-
-
-typedef struct {
- void *stackPointer;
-
-
-} PCB, *PPCB;
-
-
-extern Process __current_process;
-# 48 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h"
-void switchContext(PPCB oldProcess, PPCB newProcess);
-
-
-#define CONTEXT_STACK_SIZE 34
-
-
-#define INITIAL_STACK_SIZE (CONTEXT_STACK_SIZE + 4)
-
-
-
-
-#define PushProcessContext() asm volatile ( "push r0				\n" "in r0, __SREG__		\n" "cli					\n" "push r0				\n" "in r0, __RAMPZ__		\n" "push r0				\n" "push r1				\n" "clr r1				\n" "push r2			\n" "push r3			\n" "push r4			\n" "push r5			\n" "push r6			\n" "push r7			\n" "push r8			\n" "push r9			\n" "push r10			\n" "push r11			\n" "push r12			\n" "push r13			\n" "push r14			\n" "push r15			\n" "push r16			\n" "push r17			\n" "push r18			\n" "push r19			\n" "push r20			\n" "push r21			\n" "push r22			\n" "push r23			\n" "push r24			\n" "push r25			\n" "push r26			\n" "push r27			\n" "push r28			\n" "push r29			\n" "push r30			\n" "push r31			\n" );
-# 103 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h"
-#define StoreContextStack() asm volatile ( "in r0, __SP_L__			\n" "st X+, r0					\n" "in r0, __SP_H__			\n" "st X+, r0					\n" );
-# 113 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h"
-#define RestoreContextStack() asm volatile( "ld r0, X+					\n" "out __SP_L__, r0			\n" "ld r0, X+					\n" "out __SP_H__, r0			\n" );
-# 125 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h"
-#define PopProcessContext() asm volatile( "pop r31			\n" "pop r30			\n" "pop r29			\n" "pop r28			\n" "pop r27			\n" "pop r26			\n" "pop r25			\n" "pop r24			\n" "pop r23			\n" "pop r22			\n" "pop r21			\n" "pop r20			\n" "pop r19			\n" "pop r18			\n" "pop r17			\n" "pop r16			\n" "pop r15			\n" "pop r14			\n" "pop r13			\n" "pop r12			\n" "pop r11			\n" "pop r10			\n" "pop r9				\n" "pop r8				\n" "pop r7				\n" "pop r6				\n" "pop r5				\n" "pop r4				\n" "pop r3				\n" "pop r2				\n" "pop r1				\n" "pop r0						\n" "out __RAMPZ__, r0			\n" "pop r0						\n" "out __SREG__, r0			\n" "pop r0						\n" );
-# 168 "..\\..\\AntonAvrLib/kernel/processes/process_internal.h"
-void ProcessGraveyard();
-# 13 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h" 2
-
-uint16_t __nextProcessNumber = 1;
-
-
-typedef struct {
- uint16_t processNumber;
- uint16_t stackSize;
-
-
- void *stackTop;
-} PCBExt, *PPCBExt;
-
-#define ADDITIONAL_MEMORY sizeof(PCBExt)
-# 34 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h"
-#define createProcess createProcessBase
-#define createProcess2 createProcessBase2
-#define createProcess3 createProcessBase3
-#define getProcessMemory getProcessMemoryBase
-#define init_process init_process_base
-# 1 "..\\..\\AntonAvrLib/kernel/processes/process.kernel.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/process.kernel.h"
-#define _PROCESS_KERNEL_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/../kernel_init.h" 1
-# 12 "..\\..\\AntonAvrLib/kernel/processes/process.kernel.h" 2
-
-
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler_internal.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/scheduler_internal.h"
-#define SCHEDULER_INTERNAL_H_ 
-
-
-
-
-
-
-extern Process schedule(BOOL invokedFromTimer);
-
-
-
-BOOL do_schedule_next(BOOL invokedFromTimer);
-
-
-void processor_idle();
-
-
-
-
-
-void processor_loop_idle();
-# 16 "..\\..\\AntonAvrLib/kernel/processes/process.kernel.h" 2
-
-Process __current_process = ((void *)0);
-
-static Process initializeProcessInternal(uint8_t additionalMemory, void *stackPointer) {
- PPCB process = (PPCB) calloc(1, sizeof(PCB) + additionalMemory);
- if (!process) { return ((Process) ((void *)0)); }
- process->stackPointer = stackPointer;
- return (Process) process;
-}
-
-
-void init_process_base() {
-
-
-
-
-
-
- __malloc_heap_end = (void*) (0x40FF - __default_stack_size);
- __malloc_margin = 0;
-
-
-
- __current_process = initializeProcessInternal(__main_process_additional_memory, ((void *)0));
-}
-
-
-
-
-
-
-
-void ProcessGraveyard() {
- processor_loop_idle();
-}
-
-
-
-void MainProcessEnd() __attribute__((section (".fini1")));
-void MainProcessEnd() {
- ProcessGraveyard();
-}
-
-Process createProcessBase3(ProcessEntryPoint entryPoint, void *parameter, uint16_t stackSize, uint8_t additionalMem) {
-
-
-
-
- uint8_t *stackTop = (uint8_t*) calloc(stackSize, sizeof(uint8_t));
- if (!stackTop) { return ((Process) ((void *)0)); }
- uint8_t *stackBottom = stackTop + stackSize - 1;
-
- *(stackBottom - 0) = (uint8_t)((uint16_t)(uint16_t) ProcessGraveyard);
- *(stackBottom - 1) = (uint8_t)(((uint16_t)(uint16_t) ProcessGraveyard)>>8);
- *(stackBottom - 2) = (uint8_t)((uint16_t)(uint16_t) entryPoint);
- *(stackBottom - 3) = (uint8_t)(((uint16_t)(uint16_t) entryPoint)>>8);
-
- Process result = initializeProcessInternal(additionalMem, (void*) (stackBottom - (34 + 4)));
- if (result == ((Process) ((void *)0))) { free(stackTop); return ((Process) ((void *)0)); }
-
-
-
- if (!parameter) parameter = result;
- *(stackBottom - (6 + 24)) = (uint8_t)((uint16_t)(uint16_t) parameter);
- *(stackBottom - (6 + 25)) = (uint8_t)(((uint16_t)(uint16_t) parameter)>>8);
- return result;
-}
-
-Process createProcessBase2(ProcessEntryPoint entryPoint, void *parameter) {
- return createProcessBase3(entryPoint, parameter, __default_stack_size, 0);
-}
-
-Process createProcessBase(ProcessEntryPoint entryPoint) {
- return createProcessBase2(entryPoint, ((void *)0));
-}
-
-
-void switchContext(PPCB oldProcess, PPCB newProcess) {
- asm volatile ( "push r0				\n" "in r0, __SREG__		\n" "cli					\n" "push r0				\n" "in r0, __RAMPZ__		\n" "push r0				\n" "push r1				\n" "clr r1				\n" "push r2			\n" "push r3			\n" "push r4			\n" "push r5			\n" "push r6			\n" "push r7			\n" "push r8			\n" "push r9			\n" "push r10			\n" "push r11			\n" "push r12			\n" "push r13			\n" "push r14			\n" "push r15			\n" "push r16			\n" "push r17			\n" "push r18			\n" "push r19			\n" "push r20			\n" "push r21			\n" "push r22			\n" "push r23			\n" "push r24			\n" "push r25			\n" "push r26			\n" "push r27			\n" "push r28			\n" "push r29			\n" "push r30			\n" "push r31			\n" );
- asm volatile("movw r26, r24");
- asm volatile ( "in r0, __SP_L__			\n" "st X+, r0					\n" "in r0, __SP_H__			\n" "st X+, r0					\n" );
- asm volatile("movw r26, r22");
- asm volatile( "ld r0, X+					\n" "out __SP_L__, r0			\n" "ld r0, X+					\n" "out __SP_H__, r0			\n" );
- asm volatile( "pop r31			\n" "pop r30			\n" "pop r29			\n" "pop r28			\n" "pop r27			\n" "pop r26			\n" "pop r25			\n" "pop r24			\n" "pop r23			\n" "pop r22			\n" "pop r21			\n" "pop r20			\n" "pop r19			\n" "pop r18			\n" "pop r17			\n" "pop r16			\n" "pop r15			\n" "pop r14			\n" "pop r13			\n" "pop r12			\n" "pop r11			\n" "pop r10			\n" "pop r9				\n" "pop r8				\n" "pop r7				\n" "pop r6				\n" "pop r5				\n" "pop r4				\n" "pop r3				\n" "pop r2				\n" "pop r1				\n" "pop r0						\n" "out __RAMPZ__, r0			\n" "pop r0						\n" "out __SREG__, r0			\n" "pop r0						\n" );
-
- __asm__ __volatile__ ("sei" ::: "memory");
-
-
-
-}
-
-inline Process getCurrentProcess() {
- return (Process) __current_process;
-}
-
-void switchProcess(Process newProcess) {
- Process oldCurrentProcess = __current_process;
- __current_process = newProcess;
- switchContext((PPCB) oldCurrentProcess, (PPCB) newProcess);
-}
-
-inline void *getProcessMemoryBase(Process proc) {
- return proc + sizeof(PCB);
-}
-# 40 "..\\..\\AntonAvrLib/kernel/processes/process_ext.kernel.h" 2
-#undef createProcess
-#undef createProcess2
-#undef createProcess3
-#undef getProcessMemory
-#undef init_process
-
-#define ProcMem(proc) ((PPCBExt)getProcessMemoryBase((Process) proc))
-#define StackPointer(proc) ((uint8_t*)((PPCB)proc)->stackPointer)
-
-Process createProcess3(ProcessEntryPoint entryPoint, void *processArgument, uint16_t stackSize, uint8_t additionalMemory) {
- Process proc = createProcessBase3(entryPoint, processArgument, stackSize, sizeof(PCBExt) + additionalMemory);
- if (proc == ((Process) ((void *)0))) return proc;
- PPCBExt ext = ((PPCBExt)getProcessMemoryBase((Process) proc));
- ext->processNumber = __nextProcessNumber++;
- ext->stackSize = stackSize;
- ext->stackTop = ((uint8_t*)((PPCB)proc)->stackPointer) + (34 + 4) - stackSize + 1;
- return proc;
-}
-
-Process createProcess2(ProcessEntryPoint entryPoint, void *processArgument) {
- return createProcess3(entryPoint, processArgument, __default_stack_size, 0);
-}
-
-Process createProcess(ProcessEntryPoint entryPoint) {
- return createProcess2(entryPoint, ((void *)0));
-}
-
-void freeProcess(Process process) {
- if (process == getCurrentProcess()) return;
- PPCBExt pcb = ((PPCBExt)getProcessMemoryBase((Process) process));
- if (pcb->processNumber != 0) {
-  free(pcb->stackTop);
- }
- free(process);
-}
-
-uint8_t getProcessStackSize(Process process) {
- return ((PPCBExt)getProcessMemoryBase((Process) process))->stackSize;
-}
-
-uint16_t getFreeProcessStackSize(Process process) {
- PPCBExt pcb = ((PPCBExt)getProcessMemoryBase((Process) process));
- return (uint16_t) ((uint8_t*) pcb->stackTop - ((uint8_t*)((PPCB)process)->stackPointer));
-}
-
-uint16_t getProcessNumber(Process process) {
- return ((PPCBExt)getProcessMemoryBase((Process) process))->processNumber;
-}
-
-inline void *getProcessMemory(Process proc) {
- return ((PPCBExt)getProcessMemoryBase((Process) proc)) + sizeof(PCBExt);
-}
-
-
-
-
-
-void init_process() {
-
-
- __main_process_additional_memory += sizeof(PCBExt);
- init_process_base();
- PPCBExt initialProcess = ((PPCBExt)getProcessMemoryBase((Process) __current_process));
- initialProcess->processNumber = 0;
- initialProcess->stackSize = __default_stack_size;
- initialProcess->stackTop = __malloc_heap_end;
-}
-# 12 ".././simulator_kernel.c" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_scheduler.kernel.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_scheduler.kernel.h"
-#define _DMS_SCHEDULER_KERNEL_ 
-
-
-
-
-
-
-
-Process dms_schedule(BOOL invokedFromTimer);
-# 13 ".././simulator_kernel.c" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_scheduler.kernel.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_scheduler.kernel.h"
-#define _RR_SCHEDULER_KERNEL_ 
-
+void triggerAperiodicJob(Process job);
+# 21 ".././shared/../shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h"
 #define RR_API_H_ 
@@ -3507,267 +3492,40 @@ Thread createThread3(ThreadEntryPoint entry, ThreadPriority prio, void *threadPa
 Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter, uint16_t stackSize);
 
 Thread getCurrentThread();
-# 12 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_scheduler.kernel.h" 2
+# 22 ".././shared/../shared/kernel_base.h" 2
+# 12 ".././shared/../kernel.h" 2
 
 
+extern LedGroup AllLeds;
+# 36 ".././shared/base.kernel.h" 2
 
-
-
-
-
-Process rr_schedule(BOOL invokedFromTimer);
-
-
-
-void rr_captureMainProcess(ThreadPriority prio);
-# 14 ".././simulator_kernel.c" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/idle/idle_scheduler.kernel.h" 1
-
-#define _IDLE_SCHEDULER_KERNEL_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/idle/../process.h" 1
-# 5 "..\\..\\AntonAvrLib/kernel/processes/idle/idle_scheduler.kernel.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/idle/../process_internal.h" 1
-# 6 "..\\..\\AntonAvrLib/kernel/processes/idle/idle_scheduler.kernel.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/idle/../../kernel_init.h" 1
-# 7 "..\\..\\AntonAvrLib/kernel/processes/idle/idle_scheduler.kernel.h" 2
-
-
-
-
-
-Process __idle_process;
-
-void init_idle_scheduler() {
-
- __idle_process = createProcess3(ProcessGraveyard, ((void *)0), 64, 0);
-}
-void init_idle_scheduler_kernel_init() __attribute__((naked, section(".init8"))); void init_idle_scheduler_kernel_init() { init_idle_scheduler(); }
-
-Process idle_schedule(BOOL invokedFromTimer) {
- return __idle_process;
-}
-# 15 ".././simulator_kernel.c" 2
-
-#define CLOCKISR TIMER3_COMPA_vect
-# 1 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel.h"
-#define TIMED_SCHEDULER_KERNEL_ 
-# 18 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel.h"
-# 1 "..\\..\\AntonAvrLib/kernel/processes/../millisecond_clock.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/../millisecond_clock.h"
-#define MILLISECOND_CLOCK_H_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/../../anton_std.h" 1
-# 12 "..\\..\\AntonAvrLib/kernel/processes/../millisecond_clock.h" 2
-
-
-
- uint32_t milliseconds_running = 0;
-# 19 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel.h" 2
-#define SCHEDULER_TICK_ISR ISR(CLOCKISR, __attribute__((naked)))
-
-
-
-#define SCHEDULER_TICK_ISR_CONTEXT_PUSHED milliseconds_running++;
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel.h"
-#define _SCHEDULER_KERNEL_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h"
-#define SCHEDULER_H_ 
-
-
-void schedule_next();
-# 12 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel.h" 2
-
-
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/../hardware_reset.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/../hardware_reset.h"
-#define HARWARE_RESET_H_ 
-
-
-
-void HARDWARE_RESET();
-# 16 "..\\..\\AntonAvrLib/kernel/processes/scheduler.kernel.h" 2
-
-
-
-
-
-
-void __vector_32 (void) __attribute__ ((signal,used, externally_visible)) __attribute__((naked)); void __vector_32 (void) {
-
-
- asm volatile ( "push r0				\n" "in r0, __SREG__		\n" "cli					\n" "push r0				\n" "in r0, __RAMPZ__		\n" "push r0				\n" "push r1				\n" "clr r1				\n" "push r2			\n" "push r3			\n" "push r4			\n" "push r5			\n" "push r6			\n" "push r7			\n" "push r8			\n" "push r9			\n" "push r10			\n" "push r11			\n" "push r12			\n" "push r13			\n" "push r14			\n" "push r15			\n" "push r16			\n" "push r17			\n" "push r18			\n" "push r19			\n" "push r20			\n" "push r21			\n" "push r22			\n" "push r23			\n" "push r24			\n" "push r25			\n" "push r26			\n" "push r27			\n" "push r28			\n" "push r29			\n" "push r30			\n" "push r31			\n" );
-
-
-
- milliseconds_running++;
-
-
-
- asm volatile("lds r26, __current_process");
- asm volatile("lds r27, __current_process + 1");
- asm volatile ( "in r0, __SP_L__			\n" "st X+, r0					\n" "in r0, __SP_H__			\n" "st X+, r0					\n" );
-
- __current_process = schedule(TRUE);
- if (__current_process == ((Process) ((void *)0))) {
-
-
-
-  HARDWARE_RESET();
- }
-
- asm volatile("movw r26, r24");
- asm volatile( "ld r0, X+					\n" "out __SP_L__, r0			\n" "ld r0, X+					\n" "out __SP_H__, r0			\n" );
- asm volatile( "pop r31			\n" "pop r30			\n" "pop r29			\n" "pop r28			\n" "pop r27			\n" "pop r26			\n" "pop r25			\n" "pop r24			\n" "pop r23			\n" "pop r22			\n" "pop r21			\n" "pop r20			\n" "pop r19			\n" "pop r18			\n" "pop r17			\n" "pop r16			\n" "pop r15			\n" "pop r14			\n" "pop r13			\n" "pop r12			\n" "pop r11			\n" "pop r10			\n" "pop r9				\n" "pop r8				\n" "pop r7				\n" "pop r6				\n" "pop r5				\n" "pop r4				\n" "pop r3				\n" "pop r2				\n" "pop r1				\n" "pop r0						\n" "out __RAMPZ__, r0			\n" "pop r0						\n" "out __SREG__, r0			\n" "pop r0						\n" );
-
-
- asm volatile("reti");
-}
-# 26 "..\\..\\AntonAvrLib/kernel/processes/timed_scheduler.kernel.h" 2
-# 18 ".././simulator_kernel.c" 2
-
-void init_scheduler() {
- PTimerConfig timerConf = &Timer3;
- PTimer timer = &Timer3A;
-
- setWaveformGenerationMode(timerConf, clear_timer_on_match);
- setTimerCompareValue(timer, 250);
- setTimerClockSelect(timerConf, prescale_8);
-
-}
-void init_scheduler_kernel_init() __attribute__((naked, section(".init8"))); void init_scheduler_kernel_init() { init_scheduler(); }
-
-void start_scheduler() {
-
- enableTimerInterrupt(&Timer3A);
- __asm__ __volatile__ ("sei" ::: "memory");
-}
-
-
-
-void before_scheduler() __attribute__((weak));
-void before_scheduler() {}
-
-
-# 1 ".././kernel.h" 1
-# 9 ".././kernel.h"
-#define KERNEL_H_ 
-
-# 1 ".././shared/kernel_base.h" 1
-# 9 ".././shared/kernel_base.h"
-#define TANK_BASE_H_ 
-
-
-# 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
-# 13 ".././shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/reset_condition.h"
-#define RESET_CONDITION_H_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/devices/led.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/devices/led.h"
-#define LED_H_ 
-
-
-
-
-typedef struct {
- PPin pin;
-} Led, *PLed;
-
-typedef struct {
- PLed *leds;
- uint8_t count;
-} LedGroup, *PLedGroup;
-
-void enableLed(PLed led);
-void disableLed(PLed led);
-void setLed(PLed led, BOOL value);
-
-
-void setLeds(PLedGroup leds, uint16_t mask);
-
-void enableLeds(PLedGroup leds);
-void disableLeds(PLedGroup leds);
-
-void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
-void blinkAllLeds(PLedGroup leds, const uint8_t times);
-
-
-#define DEFINE_LED(ledName) Led ledName;
-#define DEFINE_LED_GROUP(groupName) LedGroup groupName;
-
-#define INIT_LED(ledName,pinName) ledName = (Led) { &pinName }; initLed(&ledName);
-
-
-#define INIT_LED_GROUP(groupName,groupArrayPointer,count) groupName = (LedGroup) { groupArrayPointer, count };
-# 12 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 2
-
-
-uint8_t getResetStatus();
-
-
-uint16_t resetStatusBitmask();
-
-
-
-
-
-void blink_reset_condition(PLedGroup leds);
-# 14 ".././shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/anton_std.h" 1
-# 15 ".././shared/kernel_base.h" 2
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h" 1
-# 17 ".././shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h" 1
-# 18 ".././shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h" 1
-# 11 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h"
-#define DMS_API_H_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/../process.h" 1
-# 14 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h" 2
-
-typedef void JobEntryPoint();
-# 27 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h"
-Process createPeriodicJob(JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority);
-
-
-
-
-
-Process createAperiodicJob(JobEntryPoint entryPoint, uint32_t minimalPeriod, uint8_t userPriority);
-
-
-void triggerAperiodicJob(Process job);
-# 19 ".././shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h" 1
-# 20 ".././shared/kernel_base.h" 2
-# 12 ".././kernel.h" 2
-# 43 ".././simulator_kernel.c" 2
-
-Process schedule(BOOL fromTimer) {
- Process p = dms_schedule(fromTimer);
- if (!p) p = rr_schedule(fromTimer);
- if (!p) p = idle_schedule(fromTimer);
- return p;
-}
-
-
-LedGroup AllLeds = { 0 };
 
 void init_kernel() {
 
- init_process();
+ (*(volatile uint8_t *)((0x30) + 0x20)) |= (1 << (7));
+ (*(volatile uint8_t *)(0x64)) |= (1 << (5)) | (1 << (6));
 
- before_scheduler();
- start_scheduler();
+
+
+
+ (*(volatile uint8_t *)(0x60)) = (1 << (4));
+
+ (*(volatile uint8_t *)(0x60)) |=
+   (1 << (2)) |
+
+   (1 << (0));
+
+
+
+
+
+
+
+ before_timer();
+ start_timer();
 }
 void init_kernel_kernel_init() __attribute__((naked, section(".init8"))); void init_kernel_kernel_init() { init_kernel(); }
+# 13 ".././simulator_kernel.c" 2
+
+
+LedGroup AllLeds = { 0 };

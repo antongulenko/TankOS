@@ -1342,20 +1342,14 @@ __zero_reg__ = 1
 	.uleb128 0x10
 	.uleb128 0x8
 	.byte	0x1
-	.uleb128 0x61
-	.string	"_AVR_IO_H_ "
-	.byte	0x3
-	.uleb128 0x63
-	.uleb128 0x9
-	.byte	0x1
 	.uleb128 0x24
-	.string	"_AVR_SFR_DEFS_H_ 1"
+	.string	"_UTIL_DELAY_H_ 1"
 	.byte	0x1
-	.uleb128 0x79
-	.string	"_SFR_ASM_COMPAT 0"
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
 	.byte	0x3
-	.uleb128 0x7e
-	.uleb128 0xa
+	.uleb128 0x2a
+	.uleb128 0x9
 	.byte	0x1
 	.uleb128 0x23
 	.string	"__INTTYPES_H_ "
@@ -1645,6 +1639,29 @@ __zero_reg__ = 1
 	.uleb128 0x20d
 	.string	"SCNxPTR SCNx16"
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0xa
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x11
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x61
+	.string	"_AVR_IO_H_ "
+	.byte	0x3
+	.uleb128 0x63
+	.uleb128 0xc
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_AVR_SFR_DEFS_H_ 1"
+	.byte	0x1
+	.uleb128 0x79
+	.string	"_SFR_ASM_COMPAT 0"
 	.byte	0x1
 	.uleb128 0x80
 	.string	"_MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))"
@@ -1716,7 +1733,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa2
-	.uleb128 0xb
+	.uleb128 0xd
 	.byte	0x1
 	.uleb128 0x2b
 	.string	"_AVR_IOXXX_H_ \"iom1284p.h\""
@@ -4514,7 +4531,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x216
-	.uleb128 0xc
+	.uleb128 0xe
 	.byte	0x1
 	.uleb128 0x22
 	.string	"_AVR_PORTPINS_H_ 1"
@@ -4689,7 +4706,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x218
-	.uleb128 0xd
+	.uleb128 0xf
 	.byte	0x1
 	.uleb128 0x23
 	.string	"_AVR_COMMON_H "
@@ -4783,7 +4800,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21a
-	.uleb128 0xe
+	.uleb128 0x10
 	.byte	0x1
 	.uleb128 0x36
 	.string	"_AVR_VERSION_H_ "
@@ -4811,7 +4828,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21d
-	.uleb128 0xf
+	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_FUSE_H_ 1"
@@ -4824,7 +4841,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x220
-	.uleb128 0x10
+	.uleb128 0x12
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_LOCK_H_ 1"
@@ -4873,8 +4890,8 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
-	.uleb128 0x11
+	.uleb128 0x12
+	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_INTERRUPT_H_ "
@@ -4928,36 +4945,36 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x22
+	.uleb128 0x23
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x25
+	.uleb128 0x26
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x29
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x29
+	.uleb128 0x2a
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2c
+	.uleb128 0x2d
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x2e
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xc
-	.uleb128 0x12
+	.uleb128 0x14
 	.byte	0x1
 	.uleb128 0x9
 	.string	"PORT_H_ "
@@ -4998,7 +5015,7 @@ __zero_reg__ = 1
 .global	setCompareMatchOutputMode
 	.type	setCompareMatchOutputMode, @function
 setCompareMatchOutputMode:
-.LFB0:
+.LFB4:
 .LSM0:
 .LVL0:
 /* prologue: function */
@@ -5071,13 +5088,13 @@ setCompareMatchOutputMode:
 /* epilogue start */
 .LSM7:
 	ret
-.LFE0:
+.LFE4:
 	.size	setCompareMatchOutputMode, .-setCompareMatchOutputMode
 	.section	.text.setTimerClockSelect,"ax",@progbits
 .global	setTimerClockSelect
 	.type	setTimerClockSelect, @function
 setTimerClockSelect:
-.LFB1:
+.LFB5:
 .LSM8:
 .LVL12:
 /* prologue: function */
@@ -5257,13 +5274,13 @@ setTimerClockSelect:
 	st Z,r24
 .L5:
 	ret
-.LFE1:
+.LFE5:
 	.size	setTimerClockSelect, .-setTimerClockSelect
 	.section	.text.setWaveformGenerationMode,"ax",@progbits
 .global	setWaveformGenerationMode
 	.type	setWaveformGenerationMode, @function
 setWaveformGenerationMode:
-.LFB2:
+.LFB6:
 .LSM39:
 .LVL35:
 /* prologue: function */
@@ -5557,13 +5574,13 @@ setWaveformGenerationMode:
 	st Z,r24
 .L29:
 	ret
-.LFE2:
+.LFE6:
 	.size	setWaveformGenerationMode, .-setWaveformGenerationMode
 	.section	.text.enableTimerInterrupt,"ax",@progbits
 .global	enableTimerInterrupt
 	.type	enableTimerInterrupt, @function
 enableTimerInterrupt:
-.LFB3:
+.LFB7:
 .LSM98:
 .LVL67:
 /* prologue: function */
@@ -5597,13 +5614,13 @@ enableTimerInterrupt:
 /* epilogue start */
 .LSM101:
 	ret
-.LFE3:
+.LFE7:
 	.size	enableTimerInterrupt, .-enableTimerInterrupt
 	.section	.text.enableOutputCompare,"ax",@progbits
 .global	enableOutputCompare
 	.type	enableOutputCompare, @function
 enableOutputCompare:
-.LFB4:
+.LFB8:
 .LSM102:
 .LVL69:
 	push r28
@@ -5629,13 +5646,13 @@ enableOutputCompare:
 	pop r28
 .LVL71:
 	ret
-.LFE4:
+.LFE8:
 	.size	enableOutputCompare, .-enableOutputCompare
 	.section	.text.disableOutputCompare,"ax",@progbits
 .global	disableOutputCompare
 	.type	disableOutputCompare, @function
 disableOutputCompare:
-.LFB5:
+.LFB9:
 .LSM106:
 .LVL72:
 /* prologue: function */
@@ -5650,13 +5667,13 @@ disableOutputCompare:
 /* epilogue start */
 .LSM108:
 	ret
-.LFE5:
+.LFE9:
 	.size	disableOutputCompare, .-disableOutputCompare
 	.section	.text.setTimerCompareValue,"ax",@progbits
 .global	setTimerCompareValue
 	.type	setTimerCompareValue, @function
 setTimerCompareValue:
-.LFB6:
+.LFB10:
 .LSM109:
 .LVL74:
 /* prologue: function */
@@ -5706,13 +5723,13 @@ setTimerCompareValue:
 .LVL79:
 	st Z,r23
 	ret
-.LFE6:
+.LFE10:
 	.size	setTimerCompareValue, .-setTimerCompareValue
 	.section	.text.getTimerCompareValue,"ax",@progbits
 .global	getTimerCompareValue
 	.type	getTimerCompareValue, @function
 getTimerCompareValue:
-.LFB7:
+.LFB11:
 .LSM117:
 .LVL80:
 /* prologue: function */
@@ -5761,7 +5778,7 @@ getTimerCompareValue:
 .LVL87:
 .LSM124:
 	ret
-.LFE7:
+.LFE11:
 	.size	getTimerCompareValue, .-getTimerCompareValue
 	.data
 	.type	CSWTCH.6, @object
@@ -5797,64 +5814,64 @@ CSWTCH.7:
 	.long	.LEFDE0-.LASFDE0
 .LASFDE0:
 	.long	.Lframe0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.p2align	2
 .LEFDE0:
 .LSFDE2:
 	.long	.LEFDE2-.LASFDE2
 .LASFDE2:
 	.long	.Lframe0
-	.long	.LFB1
-	.long	.LFE1-.LFB1
+	.long	.LFB5
+	.long	.LFE5-.LFB5
 	.p2align	2
 .LEFDE2:
 .LSFDE4:
 	.long	.LEFDE4-.LASFDE4
 .LASFDE4:
 	.long	.Lframe0
-	.long	.LFB2
-	.long	.LFE2-.LFB2
+	.long	.LFB6
+	.long	.LFE6-.LFB6
 	.p2align	2
 .LEFDE4:
 .LSFDE6:
 	.long	.LEFDE6-.LASFDE6
 .LASFDE6:
 	.long	.Lframe0
-	.long	.LFB3
-	.long	.LFE3-.LFB3
+	.long	.LFB7
+	.long	.LFE7-.LFB7
 	.p2align	2
 .LEFDE6:
 .LSFDE8:
 	.long	.LEFDE8-.LASFDE8
 .LASFDE8:
 	.long	.Lframe0
-	.long	.LFB4
-	.long	.LFE4-.LFB4
+	.long	.LFB8
+	.long	.LFE8-.LFB8
 	.p2align	2
 .LEFDE8:
 .LSFDE10:
 	.long	.LEFDE10-.LASFDE10
 .LASFDE10:
 	.long	.Lframe0
-	.long	.LFB5
-	.long	.LFE5-.LFB5
+	.long	.LFB9
+	.long	.LFE9-.LFB9
 	.p2align	2
 .LEFDE10:
 .LSFDE12:
 	.long	.LEFDE12-.LASFDE12
 .LASFDE12:
 	.long	.Lframe0
-	.long	.LFB6
-	.long	.LFE6-.LFB6
+	.long	.LFB10
+	.long	.LFE10-.LFB10
 	.p2align	2
 .LEFDE12:
 .LSFDE14:
 	.long	.LEFDE14-.LASFDE14
 .LASFDE14:
 	.long	.Lframe0
-	.long	.LFB7
-	.long	.LFE7-.LFB7
+	.long	.LFB11
+	.long	.LFE11-.LFB11
 	.p2align	2
 .LEFDE14:
 	.text
@@ -5955,7 +5972,7 @@ CSWTCH.7:
 	.word	0x1
 	.byte	0x63
 	.long	.LVL7
-	.long	.LFE0
+	.long	.LFE4
 	.word	0x1
 	.byte	0x63
 	.long	0x0
@@ -6481,7 +6498,7 @@ CSWTCH.7:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL68
-	.long	.LFE3
+	.long	.LFE7
 	.word	0x6
 	.byte	0x6a
 	.byte	0x93
@@ -6604,7 +6621,7 @@ CSWTCH.7:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL87
-	.long	.LFE7
+	.long	.LFE11
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -6681,7 +6698,7 @@ CSWTCH.7:
 	.uleb128 0x5
 	.byte	0x2
 	.byte	0x3
-	.byte	0x13
+	.byte	0x14
 	.long	0x90
 	.uleb128 0x6
 	.long	.LASF9
@@ -6693,16 +6710,16 @@ CSWTCH.7:
 	.uleb128 0x3
 	.long	.LASF11
 	.byte	0x3
-	.byte	0x16
+	.byte	0x17
 	.long	0x7b
 	.uleb128 0x7
 	.byte	0x6
-	.byte	0x12
+	.byte	0x14
 	.byte	0xd
 	.long	0xce
 	.uleb128 0x8
 	.long	.LASF12
-	.byte	0x12
+	.byte	0x14
 	.byte	0xe
 	.long	0xce
 	.byte	0x2
@@ -6710,7 +6727,7 @@ CSWTCH.7:
 	.uleb128 0x0
 	.uleb128 0x9
 	.string	"pin"
-	.byte	0x12
+	.byte	0x14
 	.byte	0xf
 	.long	0xce
 	.byte	0x2
@@ -6718,7 +6735,7 @@ CSWTCH.7:
 	.uleb128 0x2
 	.uleb128 0x9
 	.string	"ddr"
-	.byte	0x12
+	.byte	0x14
 	.byte	0x10
 	.long	0xce
 	.byte	0x2
@@ -6732,7 +6749,7 @@ CSWTCH.7:
 	.long	0x34
 	.uleb128 0x3
 	.long	.LASF13
-	.byte	0x12
+	.byte	0x14
 	.byte	0x11
 	.long	0xe4
 	.uleb128 0xa
@@ -6740,12 +6757,12 @@ CSWTCH.7:
 	.long	0x9b
 	.uleb128 0x7
 	.byte	0x3
-	.byte	0x12
+	.byte	0x14
 	.byte	0x13
 	.long	0x10f
 	.uleb128 0x8
 	.long	.LASF12
-	.byte	0x12
+	.byte	0x14
 	.byte	0x14
 	.long	0xd9
 	.byte	0x2
@@ -6753,7 +6770,7 @@ CSWTCH.7:
 	.uleb128 0x0
 	.uleb128 0x8
 	.long	.LASF14
-	.byte	0x12
+	.byte	0x14
 	.byte	0x15
 	.long	0x34
 	.byte	0x2
@@ -6762,7 +6779,7 @@ CSWTCH.7:
 	.byte	0x0
 	.uleb128 0x3
 	.long	.LASF15
-	.byte	0x12
+	.byte	0x14
 	.byte	0x16
 	.long	0x11a
 	.uleb128 0xa
@@ -6991,8 +7008,8 @@ CSWTCH.7:
 	.byte	0x1
 	.byte	0xb
 	.byte	0x1
-	.long	.LFB0
-	.long	.LFE0
+	.long	.LFB4
+	.long	.LFE4
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -7029,8 +7046,8 @@ CSWTCH.7:
 	.byte	0x1
 	.byte	0x28
 	.byte	0x1
-	.long	.LFB1
-	.long	.LFE1
+	.long	.LFB5
+	.long	.LFE5
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -7079,8 +7096,8 @@ CSWTCH.7:
 	.byte	0x1
 	.byte	0x69
 	.byte	0x1
-	.long	.LFB2
-	.long	.LFE2
+	.long	.LFB6
+	.long	.LFE6
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -7135,8 +7152,8 @@ CSWTCH.7:
 	.byte	0x1
 	.byte	0xd3
 	.byte	0x1
-	.long	.LFB3
-	.long	.LFE3
+	.long	.LFB7
+	.long	.LFE7
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -7155,8 +7172,8 @@ CSWTCH.7:
 	.byte	0x1
 	.byte	0xd8
 	.byte	0x1
-	.long	.LFB4
-	.long	.LFE4
+	.long	.LFB8
+	.long	.LFE8
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -7175,8 +7192,8 @@ CSWTCH.7:
 	.byte	0x1
 	.byte	0xdd
 	.byte	0x1
-	.long	.LFB5
-	.long	.LFE5
+	.long	.LFB9
+	.long	.LFE9
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -7195,8 +7212,8 @@ CSWTCH.7:
 	.byte	0x1
 	.byte	0xe1
 	.byte	0x1
-	.long	.LFB6
-	.long	.LFE6
+	.long	.LFB10
+	.long	.LFE10
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -7238,8 +7255,8 @@ CSWTCH.7:
 	.byte	0xf2
 	.byte	0x1
 	.long	0x4d
-	.long	.LFB7
-	.long	.LFE7
+	.long	.LFB11
+	.long	.LFE11
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -7597,14 +7614,6 @@ CSWTCH.7:
 	.byte	0x0
 	.word	0x0
 	.word	0x0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
-	.long	.LFB1
-	.long	.LFE1-.LFB1
-	.long	.LFB2
-	.long	.LFE2-.LFB2
-	.long	.LFB3
-	.long	.LFE3-.LFB3
 	.long	.LFB4
 	.long	.LFE4-.LFB4
 	.long	.LFB5
@@ -7613,18 +7622,18 @@ CSWTCH.7:
 	.long	.LFE6-.LFB6
 	.long	.LFB7
 	.long	.LFE7-.LFB7
+	.long	.LFB8
+	.long	.LFE8-.LFB8
+	.long	.LFB9
+	.long	.LFE9-.LFB9
+	.long	.LFB10
+	.long	.LFE10-.LFB10
+	.long	.LFB11
+	.long	.LFE11-.LFB11
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
 .Ldebug_ranges0:
-	.long	.LFB0
-	.long	.LFE0
-	.long	.LFB1
-	.long	.LFE1
-	.long	.LFB2
-	.long	.LFE2
-	.long	.LFB3
-	.long	.LFE3
 	.long	.LFB4
 	.long	.LFE4
 	.long	.LFB5
@@ -7633,6 +7642,14 @@ CSWTCH.7:
 	.long	.LFE6
 	.long	.LFB7
 	.long	.LFE7
+	.long	.LFB8
+	.long	.LFE8
+	.long	.LFB9
+	.long	.LFE9
+	.long	.LFB10
+	.long	.LFE10
+	.long	.LFB11
+	.long	.LFE11
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -7669,6 +7686,10 @@ CSWTCH.7:
 	.byte	0
 	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
 	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/../../../../avr/include/util"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
 	.ascii	"/4.5.1/include"
 	.byte	0
 	.byte	0x0
@@ -7685,7 +7706,7 @@ CSWTCH.7:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
-	.uleb128 0x5
+	.uleb128 0x6
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
@@ -7697,7 +7718,19 @@ CSWTCH.7:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stddef.h"
-	.uleb128 0x5
+	.uleb128 0x6
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"inttypes.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay_basic.h"
+	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/io.h"
@@ -7705,10 +7738,6 @@ CSWTCH.7:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/sfr_defs.h"
-	.uleb128 0x3
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"inttypes.h"
 	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
@@ -7796,7 +7825,7 @@ CSWTCH.7:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE0
+	.long	.LFE4
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -7960,7 +7989,7 @@ CSWTCH.7:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE1
+	.long	.LFE5
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -8282,7 +8311,7 @@ CSWTCH.7:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE2
+	.long	.LFE6
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -8309,7 +8338,7 @@ CSWTCH.7:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE3
+	.long	.LFE7
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -8336,7 +8365,7 @@ CSWTCH.7:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE4
+	.long	.LFE8
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -8358,7 +8387,7 @@ CSWTCH.7:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE5
+	.long	.LFE9
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -8405,7 +8434,7 @@ CSWTCH.7:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE6
+	.long	.LFE10
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -8454,7 +8483,7 @@ CSWTCH.7:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE7
+	.long	.LFE11
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1

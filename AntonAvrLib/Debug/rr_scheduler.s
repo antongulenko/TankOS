@@ -1348,20 +1348,14 @@ __zero_reg__ = 1
 	.uleb128 0x10
 	.uleb128 0x9
 	.byte	0x1
-	.uleb128 0x61
-	.string	"_AVR_IO_H_ "
-	.byte	0x3
-	.uleb128 0x63
-	.uleb128 0xa
-	.byte	0x1
 	.uleb128 0x24
-	.string	"_AVR_SFR_DEFS_H_ 1"
+	.string	"_UTIL_DELAY_H_ 1"
 	.byte	0x1
-	.uleb128 0x79
-	.string	"_SFR_ASM_COMPAT 0"
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
 	.byte	0x3
-	.uleb128 0x7e
-	.uleb128 0xb
+	.uleb128 0x2a
+	.uleb128 0xa
 	.byte	0x1
 	.uleb128 0x23
 	.string	"__INTTYPES_H_ "
@@ -1651,6 +1645,29 @@ __zero_reg__ = 1
 	.uleb128 0x20d
 	.string	"SCNxPTR SCNx16"
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x11
+	.uleb128 0xc
+	.byte	0x1
+	.uleb128 0x61
+	.string	"_AVR_IO_H_ "
+	.byte	0x3
+	.uleb128 0x63
+	.uleb128 0xd
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_AVR_SFR_DEFS_H_ 1"
+	.byte	0x1
+	.uleb128 0x79
+	.string	"_SFR_ASM_COMPAT 0"
 	.byte	0x1
 	.uleb128 0x80
 	.string	"_MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))"
@@ -1722,7 +1739,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa2
-	.uleb128 0xc
+	.uleb128 0xe
 	.byte	0x1
 	.uleb128 0x2b
 	.string	"_AVR_IOXXX_H_ \"iom1284p.h\""
@@ -4520,7 +4537,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x216
-	.uleb128 0xd
+	.uleb128 0xf
 	.byte	0x1
 	.uleb128 0x22
 	.string	"_AVR_PORTPINS_H_ 1"
@@ -4695,7 +4712,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x218
-	.uleb128 0xe
+	.uleb128 0x10
 	.byte	0x1
 	.uleb128 0x23
 	.string	"_AVR_COMMON_H "
@@ -4789,7 +4806,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21a
-	.uleb128 0xf
+	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x36
 	.string	"_AVR_VERSION_H_ "
@@ -4817,7 +4834,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21d
-	.uleb128 0x10
+	.uleb128 0x12
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_FUSE_H_ 1"
@@ -4830,7 +4847,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x220
-	.uleb128 0x11
+	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_LOCK_H_ 1"
@@ -4879,8 +4896,8 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
 	.uleb128 0x12
+	.uleb128 0x14
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_INTERRUPT_H_ "
@@ -4934,31 +4951,31 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x22
+	.uleb128 0x23
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x25
+	.uleb128 0x26
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x29
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x29
+	.uleb128 0x2a
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2c
+	.uleb128 0x2d
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x2e
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
@@ -4977,7 +4994,7 @@ __zero_reg__ = 1
 .global	insertThreadIntoQueue
 	.type	insertThreadIntoQueue, @function
 insertThreadIntoQueue:
-.LFB0:
+.LFB4:
 .LSM0:
 .LVL0:
 	push r16
@@ -5035,10 +5052,11 @@ insertThreadIntoQueue:
 	st X,r31
 	st -X,r30
 	sbiw r26,2
+.LVL6:
 .L2:
 .LSM7:
 	movw r30,r28
-.LVL6:
+.LVL7:
 	lsl r30
 	rol r31
 	lsl r30
@@ -5064,20 +5082,20 @@ insertThreadIntoQueue:
 .LSM10:
 	pop r29
 	pop r28
-.LVL7:
+.LVL8:
 	pop r17
 	pop r16
-.LVL8:
+.LVL9:
 	ret
-.LFE0:
+.LFE4:
 	.size	insertThreadIntoQueue, .-insertThreadIntoQueue
 	.section	.text.createThread2,"ax",@progbits
 .global	createThread2
 	.type	createThread2, @function
 createThread2:
-.LFB2:
+.LFB6:
 .LSM11:
-.LVL9:
+.LVL10:
 	push r16
 	push r17
 	push r28
@@ -5089,9 +5107,9 @@ createThread2:
 	movw r28,r22
 .LSM12:
 	call createProcess
-.LVL10:
-	movw r16,r24
 .LVL11:
+	movw r16,r24
+.LVL12:
 .LSM13:
 	movw r22,r28
 	call insertThreadIntoQueue
@@ -5100,20 +5118,20 @@ createThread2:
 /* epilogue start */
 	pop r29
 	pop r28
-.LVL12:
-	pop r17
 .LVL13:
+	pop r17
+.LVL14:
 	pop r16
 	ret
-.LFE2:
+.LFE6:
 	.size	createThread2, .-createThread2
 	.section	.text.createThread,"ax",@progbits
 .global	createThread
 	.type	createThread, @function
 createThread:
-.LFB1:
+.LFB5:
 .LSM15:
-.LVL14:
+.LVL15:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
@@ -5122,19 +5140,19 @@ createThread:
 	ldi r22,lo8(3)
 	ldi r23,hi8(3)
 	call createThread2
-.LVL15:
+.LVL16:
 /* epilogue start */
 .LSM17:
 	ret
-.LFE1:
+.LFE5:
 	.size	createThread, .-createThread
 	.section	.text.createThread3,"ax",@progbits
 .global	createThread3
 	.type	createThread3, @function
 createThread3:
-.LFB3:
+.LFB7:
 .LSM18:
-.LVL16:
+.LVL17:
 	push r16
 	push r17
 	push r28
@@ -5145,12 +5163,12 @@ createThread3:
 .L__stack_usage = 4
 	movw r28,r22
 	movw r22,r20
-.LVL17:
+.LVL18:
 .LSM19:
 	call createProcess2
-.LVL18:
-	movw r16,r24
 .LVL19:
+	movw r16,r24
+.LVL20:
 .LSM20:
 	movw r22,r28
 	call insertThreadIntoQueue
@@ -5159,20 +5177,20 @@ createThread3:
 /* epilogue start */
 	pop r29
 	pop r28
-.LVL20:
-	pop r17
 .LVL21:
+	pop r17
+.LVL22:
 	pop r16
 	ret
-.LFE3:
+.LFE7:
 	.size	createThread3, .-createThread3
 	.section	.text.createThread4,"ax",@progbits
 .global	createThread4
 	.type	createThread4, @function
 createThread4:
-.LFB4:
+.LFB8:
 .LSM22:
-.LVL22:
+.LVL23:
 	push r16
 	push r17
 	push r28
@@ -5183,16 +5201,16 @@ createThread4:
 .L__stack_usage = 4
 	movw r28,r22
 	movw r22,r20
-.LVL23:
+.LVL24:
 .LSM23:
 	movw r20,r18
-.LVL24:
-	ldi r18,lo8(0)
 .LVL25:
-	call createProcess3
+	ldi r18,lo8(0)
 .LVL26:
-	movw r16,r24
+	call createProcess3
 .LVL27:
+	movw r16,r24
+.LVL28:
 .LSM24:
 	movw r22,r28
 	call insertThreadIntoQueue
@@ -5201,20 +5219,20 @@ createThread4:
 /* epilogue start */
 	pop r29
 	pop r28
-.LVL28:
-	pop r17
 .LVL29:
+	pop r17
+.LVL30:
 	pop r16
 	ret
-.LFE4:
+.LFE8:
 	.size	createThread4, .-createThread4
 	.section	.text.rr_schedule,"ax",@progbits
 .global	rr_schedule
 	.type	rr_schedule, @function
 rr_schedule:
-.LFB5:
+.LFB9:
 .LSM26:
-.LVL30:
+.LVL31:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
@@ -5222,7 +5240,7 @@ rr_schedule:
 .LSM27:
 	lds r24,highestPrio
 	lds r25,highestPrio+1
-.LVL31:
+.LVL32:
 .LSM28:
 	rjmp .L9
 .L12:
@@ -5253,7 +5271,7 @@ rr_schedule:
 	sts highestPrio,r24
 	sts highestPrio+1,r25
 .L11:
-.LVL32:
+.LVL33:
 .LSM33:
 	movw r30,r24
 	lsl r30
@@ -5270,7 +5288,7 @@ rr_schedule:
 .LSM34:
 	ldd r26,Z+2
 	ldd r27,Z+3
-.LVL33:
+.LVL34:
 .LSM35:
 	adiw r26,2
 	ld __tmp_reg__,X+
@@ -5282,7 +5300,7 @@ rr_schedule:
 	ld r26,Z
 	ldd r27,Z+1
 .L14:
-.LVL34:
+.LVL35:
 .LSM37:
 	movw r30,r24
 	lsl r30
@@ -5300,7 +5318,7 @@ rr_schedule:
 	ld r19,X
 	sbiw r26,1
 	rjmp .L13
-.LVL35:
+.LVL36:
 .L15:
 .LSM39:
 	ldi r18,lo8(0)
@@ -5308,18 +5326,18 @@ rr_schedule:
 .L13:
 .LSM40:
 	movw r24,r18
-.LVL36:
+.LVL37:
 /* epilogue start */
 	ret
-.LFE5:
+.LFE9:
 	.size	rr_schedule, .-rr_schedule
 	.section	.text.rr_captureMainProcess,"ax",@progbits
 .global	rr_captureMainProcess
 	.type	rr_captureMainProcess, @function
 rr_captureMainProcess:
-.LFB6:
+.LFB10:
 .LSM41:
-.LVL37:
+.LVL38:
 	push r28
 	push r29
 /* prologue: function */
@@ -5329,22 +5347,22 @@ rr_captureMainProcess:
 	movw r28,r24
 .LSM42:
 	call getCurrentProcess
-.LVL38:
+.LVL39:
 	movw r22,r28
 	call insertThreadIntoQueue
 /* epilogue start */
 .LSM43:
 	pop r29
 	pop r28
-.LVL39:
+.LVL40:
 	ret
-.LFE6:
+.LFE10:
 	.size	rr_captureMainProcess, .-rr_captureMainProcess
 	.section	.text.getCurrentThread,"ax",@progbits
 .global	getCurrentThread
 	.type	getCurrentThread, @function
 getCurrentThread:
-.LFB7:
+.LFB11:
 .LSM44:
 /* prologue: function */
 /* frame size = 0 */
@@ -5355,7 +5373,7 @@ getCurrentThread:
 /* epilogue start */
 .LSM46:
 	ret
-.LFE7:
+.LFE11:
 	.size	getCurrentThread, .-getCurrentThread
 .global	highestPrio
 .global	highestPrio
@@ -5384,64 +5402,64 @@ highestPrio:
 	.long	.LEFDE0-.LASFDE0
 .LASFDE0:
 	.long	.Lframe0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.p2align	2
 .LEFDE0:
 .LSFDE2:
 	.long	.LEFDE2-.LASFDE2
 .LASFDE2:
 	.long	.Lframe0
-	.long	.LFB2
-	.long	.LFE2-.LFB2
+	.long	.LFB6
+	.long	.LFE6-.LFB6
 	.p2align	2
 .LEFDE2:
 .LSFDE4:
 	.long	.LEFDE4-.LASFDE4
 .LASFDE4:
 	.long	.Lframe0
-	.long	.LFB1
-	.long	.LFE1-.LFB1
+	.long	.LFB5
+	.long	.LFE5-.LFB5
 	.p2align	2
 .LEFDE4:
 .LSFDE6:
 	.long	.LEFDE6-.LASFDE6
 .LASFDE6:
 	.long	.Lframe0
-	.long	.LFB3
-	.long	.LFE3-.LFB3
+	.long	.LFB7
+	.long	.LFE7-.LFB7
 	.p2align	2
 .LEFDE6:
 .LSFDE8:
 	.long	.LEFDE8-.LASFDE8
 .LASFDE8:
 	.long	.Lframe0
-	.long	.LFB4
-	.long	.LFE4-.LFB4
+	.long	.LFB8
+	.long	.LFE8-.LFB8
 	.p2align	2
 .LEFDE8:
 .LSFDE10:
 	.long	.LEFDE10-.LASFDE10
 .LASFDE10:
 	.long	.Lframe0
-	.long	.LFB5
-	.long	.LFE5-.LFB5
+	.long	.LFB9
+	.long	.LFE9-.LFB9
 	.p2align	2
 .LEFDE10:
 .LSFDE12:
 	.long	.LEFDE12-.LASFDE12
 .LASFDE12:
 	.long	.Lframe0
-	.long	.LFB6
-	.long	.LFE6-.LFB6
+	.long	.LFB10
+	.long	.LFE10-.LFB10
 	.p2align	2
 .LEFDE12:
 .LSFDE14:
 	.long	.LEFDE14-.LASFDE14
 .LASFDE14:
 	.long	.Lframe0
-	.long	.LFB7
-	.long	.LFE7-.LFB7
+	.long	.LFB11
+	.long	.LFE11-.LFB11
 	.p2align	2
 .LEFDE14:
 	.text
@@ -5459,7 +5477,7 @@ highestPrio:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL2
-	.long	.LVL8
+	.long	.LVL9
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5467,8 +5485,8 @@ highestPrio:
 	.byte	0x61
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL8
-	.long	.LFE0
+	.long	.LVL9
+	.long	.LFE4
 	.word	0x4
 	.byte	0x8a
 	.sleb128 0
@@ -5486,8 +5504,8 @@ highestPrio:
 	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL3
-	.long	.LVL7
+	.long	.LVL6
+	.long	.LVL8
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5510,7 +5528,7 @@ highestPrio:
 	.byte	0x22
 	.byte	0x9f
 	.long	.LVL3
-	.long	.LVL7
+	.long	.LVL8
 	.word	0xb
 	.byte	0x8c
 	.sleb128 0
@@ -5533,7 +5551,7 @@ highestPrio:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL5
-	.long	.LVL6
+	.long	.LVL7
 	.word	0x6
 	.byte	0x6e
 	.byte	0x93
@@ -5541,16 +5559,16 @@ highestPrio:
 	.byte	0x6f
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL6
-	.long	.LFE0
+	.long	.LVL7
+	.long	.LFE4
 	.word	0x2
 	.byte	0x8a
 	.sleb128 0
 	.long	0x0
 	.long	0x0
 .LLST4:
-	.long	.LVL9
-	.long	.LVL10-1
+	.long	.LVL10
+	.long	.LVL11-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5561,8 +5579,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST5:
-	.long	.LVL9
-	.long	.LVL10-1
+	.long	.LVL10
+	.long	.LVL11-1
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5570,8 +5588,8 @@ highestPrio:
 	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL10-1
-	.long	.LVL12
+	.long	.LVL11-1
+	.long	.LVL13
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5582,8 +5600,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST6:
-	.long	.LVL11
-	.long	.LVL13
+	.long	.LVL12
+	.long	.LVL14
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5594,8 +5612,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST7:
-	.long	.LVL14
-	.long	.LVL15-1
+	.long	.LVL15
+	.long	.LVL16-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5606,8 +5624,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST8:
-	.long	.LVL16
-	.long	.LVL18-1
+	.long	.LVL17
+	.long	.LVL19-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5618,8 +5636,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST9:
-	.long	.LVL16
 	.long	.LVL17
+	.long	.LVL18
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5627,8 +5645,8 @@ highestPrio:
 	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL17
-	.long	.LVL20
+	.long	.LVL18
+	.long	.LVL21
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5639,8 +5657,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST10:
-	.long	.LVL16
-	.long	.LVL18-1
+	.long	.LVL17
+	.long	.LVL19-1
 	.word	0x6
 	.byte	0x64
 	.byte	0x93
@@ -5651,8 +5669,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST11:
-	.long	.LVL19
-	.long	.LVL21
+	.long	.LVL20
+	.long	.LVL22
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5663,8 +5681,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST12:
-	.long	.LVL22
-	.long	.LVL26-1
+	.long	.LVL23
+	.long	.LVL27-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5675,8 +5693,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST13:
-	.long	.LVL22
 	.long	.LVL23
+	.long	.LVL24
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5684,8 +5702,8 @@ highestPrio:
 	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL23
-	.long	.LVL28
+	.long	.LVL24
+	.long	.LVL29
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5696,8 +5714,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST14:
-	.long	.LVL22
-	.long	.LVL24
+	.long	.LVL23
+	.long	.LVL25
 	.word	0x6
 	.byte	0x64
 	.byte	0x93
@@ -5705,8 +5723,8 @@ highestPrio:
 	.byte	0x65
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL24
-	.long	.LVL26-1
+	.long	.LVL25
+	.long	.LVL27-1
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5717,8 +5735,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST15:
-	.long	.LVL22
-	.long	.LVL25
+	.long	.LVL23
+	.long	.LVL26
 	.word	0x6
 	.byte	0x62
 	.byte	0x93
@@ -5726,8 +5744,8 @@ highestPrio:
 	.byte	0x63
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL25
-	.long	.LVL26-1
+	.long	.LVL26
+	.long	.LVL27-1
 	.word	0x6
 	.byte	0x64
 	.byte	0x93
@@ -5738,8 +5756,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST16:
-	.long	.LVL27
-	.long	.LVL29
+	.long	.LVL28
+	.long	.LVL30
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5750,8 +5768,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST17:
-	.long	.LVL30
 	.long	.LVL31
+	.long	.LVL32
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5762,8 +5780,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST18:
-	.long	.LVL32
-	.long	.LVL36
+	.long	.LVL33
+	.long	.LVL37
 	.word	0xb
 	.byte	0x88
 	.sleb128 0
@@ -5776,13 +5794,13 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST19:
-	.long	.LVL33
 	.long	.LVL34
+	.long	.LVL35
 	.word	0x2
 	.byte	0x8e
 	.sleb128 2
-	.long	.LVL34
 	.long	.LVL35
+	.long	.LVL36
 	.word	0x6
 	.byte	0x6a
 	.byte	0x93
@@ -5793,8 +5811,8 @@ highestPrio:
 	.long	0x0
 	.long	0x0
 .LLST20:
-	.long	.LVL37
-	.long	.LVL38-1
+	.long	.LVL38
+	.long	.LVL39-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5802,8 +5820,8 @@ highestPrio:
 	.byte	0x69
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL38-1
-	.long	.LVL39
+	.long	.LVL39-1
+	.long	.LVL40
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5873,7 +5891,7 @@ highestPrio:
 	.uleb128 0x5
 	.byte	0x2
 	.byte	0x4
-	.byte	0x13
+	.byte	0x14
 	.long	0x90
 	.uleb128 0x6
 	.long	.LASF9
@@ -5885,7 +5903,7 @@ highestPrio:
 	.uleb128 0x3
 	.long	.LASF11
 	.byte	0x4
-	.byte	0x16
+	.byte	0x17
 	.long	0x7b
 	.uleb128 0x7
 	.long	.LASF13
@@ -6054,8 +6072,8 @@ highestPrio:
 	.byte	0x1
 	.byte	0x1a
 	.byte	0x1
-	.long	.LFB0
-	.long	.LFE0
+	.long	.LFB4
+	.long	.LFE4
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6093,8 +6111,8 @@ highestPrio:
 	.byte	0x2b
 	.byte	0x1
 	.long	0xe9
-	.long	.LFB2
-	.long	.LFE2
+	.long	.LFB6
+	.long	.LFE6
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6129,8 +6147,8 @@ highestPrio:
 	.byte	0x27
 	.byte	0x1
 	.long	0xe9
-	.long	.LFB1
-	.long	.LFE1
+	.long	.LFB5
+	.long	.LFE5
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6150,8 +6168,8 @@ highestPrio:
 	.byte	0x31
 	.byte	0x1
 	.long	0xe9
-	.long	.LFB3
-	.long	.LFE3
+	.long	.LFB7
+	.long	.LFE7
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6191,8 +6209,8 @@ highestPrio:
 	.byte	0x37
 	.byte	0x1
 	.long	0xe9
-	.long	.LFB4
-	.long	.LFE4
+	.long	.LFB8
+	.long	.LFE8
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6236,8 +6254,8 @@ highestPrio:
 	.byte	0x3d
 	.byte	0x1
 	.long	0xb6
-	.long	.LFB5
-	.long	.LFE5
+	.long	.LFB9
+	.long	.LFE9
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6268,8 +6286,8 @@ highestPrio:
 	.byte	0x1
 	.byte	0x4d
 	.byte	0x1
-	.long	.LFB6
-	.long	.LFE6
+	.long	.LFB10
+	.long	.LFE10
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6288,8 +6306,8 @@ highestPrio:
 	.byte	0x1
 	.byte	0x51
 	.long	0xe9
-	.long	.LFB7
-	.long	.LFE7
+	.long	.LFB11
+	.long	.LFE11
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6704,42 +6722,42 @@ highestPrio:
 	.byte	0x0
 	.word	0x0
 	.word	0x0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
-	.long	.LFB2
-	.long	.LFE2-.LFB2
-	.long	.LFB1
-	.long	.LFE1-.LFB1
-	.long	.LFB3
-	.long	.LFE3-.LFB3
 	.long	.LFB4
 	.long	.LFE4-.LFB4
-	.long	.LFB5
-	.long	.LFE5-.LFB5
 	.long	.LFB6
 	.long	.LFE6-.LFB6
+	.long	.LFB5
+	.long	.LFE5-.LFB5
 	.long	.LFB7
 	.long	.LFE7-.LFB7
+	.long	.LFB8
+	.long	.LFE8-.LFB8
+	.long	.LFB9
+	.long	.LFE9-.LFB9
+	.long	.LFB10
+	.long	.LFE10-.LFB10
+	.long	.LFB11
+	.long	.LFE11-.LFB11
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
 .Ldebug_ranges0:
-	.long	.LFB0
-	.long	.LFE0
-	.long	.LFB2
-	.long	.LFE2
-	.long	.LFB1
-	.long	.LFE1
-	.long	.LFB3
-	.long	.LFE3
 	.long	.LFB4
 	.long	.LFE4
-	.long	.LFB5
-	.long	.LFE5
 	.long	.LFB6
 	.long	.LFE6
+	.long	.LFB5
+	.long	.LFE5
 	.long	.LFB7
 	.long	.LFE7
+	.long	.LFB8
+	.long	.LFE8
+	.long	.LFB9
+	.long	.LFE9
+	.long	.LFB10
+	.long	.LFE10
+	.long	.LFB11
+	.long	.LFE11
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -6778,6 +6796,10 @@ highestPrio:
 	.byte	0
 	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
 	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/../../../../avr/include/util"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
 	.ascii	"/4.5.1/include"
 	.byte	0
 	.byte	0x0
@@ -6798,7 +6820,7 @@ highestPrio:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
-	.uleb128 0x6
+	.uleb128 0x7
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
@@ -6810,7 +6832,19 @@ highestPrio:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stddef.h"
-	.uleb128 0x6
+	.uleb128 0x7
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay.h"
+	.uleb128 0x4
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"inttypes.h"
+	.uleb128 0x4
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay_basic.h"
+	.uleb128 0x4
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/io.h"
@@ -6818,10 +6852,6 @@ highestPrio:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/sfr_defs.h"
-	.uleb128 0x4
-	.uleb128 0x0
-	.uleb128 0x0
-	.string	"inttypes.h"
 	.uleb128 0x4
 	.uleb128 0x0
 	.uleb128 0x0
@@ -6920,7 +6950,7 @@ highestPrio:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE0
+	.long	.LFE4
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6947,7 +6977,7 @@ highestPrio:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE2
+	.long	.LFE6
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6969,7 +6999,7 @@ highestPrio:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE1
+	.long	.LFE5
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -6996,7 +7026,7 @@ highestPrio:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE3
+	.long	.LFE7
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -7023,7 +7053,7 @@ highestPrio:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE4
+	.long	.LFE8
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -7105,7 +7135,7 @@ highestPrio:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE5
+	.long	.LFE9
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -7127,7 +7157,7 @@ highestPrio:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE6
+	.long	.LFE10
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -7149,7 +7179,7 @@ highestPrio:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE7
+	.long	.LFE11
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1

@@ -17,7 +17,7 @@ PLed redLedsArray[] = { &LeftRed, &RightRed };
 PLed yellowLedsArray[] = { &LeftYellow, &RightYellow };
 PLed rightLedsArray[] = { &RightYellow, &RightRed };
 PLed leftLedsArray[] = { &LeftYellow, &LeftRed };
-PLed allLedsArray[] = { &LeftYellow, &LeftRed, &RightYellow, &RightRed };
+PLed allLedsArray[] = { &LeftYellow, &LeftRed, &RightRed, &RightYellow };
 
 void init_nibobee_leds() {
 	INIT_LED(LeftYellow, PinB0)

@@ -6,9 +6,11 @@ Main.d Main.o: ../../Main/Main.c ..\..\Kernel-NIBObee/kernel.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/stdint.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/stdlib.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/include/stddef.h \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/inttypes.h \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h \
- c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/inttypes.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/iom1284p.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/portpins.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/common.h \
@@ -20,16 +22,8 @@ Main.d Main.o: ../../Main/Main.c ..\..\Kernel-NIBObee/kernel.h \
  ..\..\AntonAvrLib/kernel/devices/led.h \
  ..\..\AntonAvrLib/kernel/devices/port.h \
  ..\..\AntonAvrLib/kernel/devices/../../anton_std.h \
- ..\..\AntonAvrLib/anton_std.h \
- ..\..\AntonAvrLib/kernel/processes/scheduler.h \
- ..\..\AntonAvrLib/kernel/processes/process_ext.h \
- ..\..\AntonAvrLib/kernel/processes/process.h \
- ..\..\AntonAvrLib/kernel/processes/../../anton_std.h \
- ..\..\AntonAvrLib/kernel/processes/DMS/dms_api.h \
- ..\..\AntonAvrLib/kernel/processes/DMS/../process.h \
- ..\..\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h \
- ..\..\AntonAvrLib/kernel/processes/RoundRobin/../process.h \
- ..\..\Kernel-NIBObee/twi.h ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
+ ..\..\AntonAvrLib/anton_std.h ..\..\Kernel-NIBObee/twi.h \
+ ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
  ..\..\AntonAvrLib/kernel/TWI/../../anton_std.h \
  ..\..\Kernel-NIBObee/nibobee_button.h \
  ..\..\AntonAvrLib/kernel/devices/button.h \
@@ -42,6 +36,7 @@ Main.d Main.o: ../../Main/Main.c ..\..\Kernel-NIBObee/kernel.h \
  ..\..\AntonAvrLib/kernel/devices/motor.h \
  ../../Main/device_tests/Main_test_blink_AllLeds.c \
  ../../Main/device_tests/Main_test_blink_reset_condition.c \
+ ..\..\AntonAvrLib/kernel/hardware_reset.h \
  ../../Main/device_tests/Main_test_AllLeds.c \
  ../../Main/device_tests/Main_test_NIBObee_Buttons.c \
  ../../Main/simulator_tests/Main_test_switchProcess.c \
@@ -67,11 +62,15 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/include/stddef.h:
 
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/inttypes.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay_basic.h:
+
 c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/sfr_defs.h:
-
-c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/inttypes.h:
 
 c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/iom1284p.h:
 
@@ -96,22 +95,6 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 ..\..\AntonAvrLib/kernel/devices/../../anton_std.h:
 
 ..\..\AntonAvrLib/anton_std.h:
-
-..\..\AntonAvrLib/kernel/processes/scheduler.h:
-
-..\..\AntonAvrLib/kernel/processes/process_ext.h:
-
-..\..\AntonAvrLib/kernel/processes/process.h:
-
-..\..\AntonAvrLib/kernel/processes/../../anton_std.h:
-
-..\..\AntonAvrLib/kernel/processes/DMS/dms_api.h:
-
-..\..\AntonAvrLib/kernel/processes/DMS/../process.h:
-
-..\..\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h:
-
-..\..\AntonAvrLib/kernel/processes/RoundRobin/../process.h:
 
 ..\..\Kernel-NIBObee/twi.h:
 
@@ -140,6 +123,8 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 ../../Main/device_tests/Main_test_blink_AllLeds.c:
 
 ../../Main/device_tests/Main_test_blink_reset_condition.c:
+
+..\..\AntonAvrLib/kernel/hardware_reset.h:
 
 ../../Main/device_tests/Main_test_AllLeds.c:
 

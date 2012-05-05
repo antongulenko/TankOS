@@ -95,10 +95,22 @@
     <Compile Include="kernel.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="shared\base.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="shared\kernel_base.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="shared\scheduler.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\timer.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="simulator_kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="twi.kernel.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

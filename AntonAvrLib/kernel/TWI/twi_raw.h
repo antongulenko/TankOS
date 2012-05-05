@@ -49,6 +49,7 @@ typedef enum {
 	
 } TWIError;
 
+// The whole TWI-library is not reentrant! should be used by only one process or strictly atomic (disabled interrupts).
 extern volatile BOOL twi_running; // Can be looped on until the completion of current operation.
 extern TWIError last_twi_error; // Can be checked for success of the operation afterwards.
 #define WAIT_FOR_TWI() while (twi_running) ;

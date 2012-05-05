@@ -8,6 +8,10 @@
 #ifndef _SCHEDULER_KERNEL_
 #define _SCHEDULER_KERNEL_
 
+// This should (bot does not have to) be included after
+// timer_base.kernel.h
+
+#include "../../anton_std.h"
 #include "scheduler.h"
 #include "scheduler_internal.h"
 #include "process.h"
@@ -16,19 +20,19 @@
 
 // This is defined in timed_scheduler.kernel to be the ISR of the timer-interrupt.
 // If not yet defined, the scheduler-ISR will just be a regular function.
-#ifndef SCHEDULER_TICK_ISR
+#ifndef SCHEDULER_TICK_ISR_NAKED
 void scheduler_tick() {
 #else
-SCHEDULER_TICK_ISR {
+SCHEDULER_TICK_ISR_NAKED {
 #endif
 	// First push the current context, before any register may be modified.
 	PushProcessContext()
-
+	
 	// Can be defined before including this file, to include some additional action here
-	#ifdef SCHEDULER_TICK_ISR_CONTEXT_PUSHED
-	SCHEDULER_TICK_ISR_CONTEXT_PUSHED
+	#ifdef TIMER_TICK_ACTION
+	TIMER_TICK_ACTION
 	#endif
-
+	
 	// Place current process in the X-register, store the stack-pointer.
 	asm volatile("lds r26, __current_process");
 	asm volatile("lds r27, __current_process + 1");

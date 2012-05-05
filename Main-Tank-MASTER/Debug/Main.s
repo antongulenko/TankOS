@@ -973,7 +973,7 @@ __zero_reg__ = 1
 	.uleb128 0x3
 	.byte	0x1
 	.uleb128 0x9
-	.string	"TANK_BASE_H_ "
+	.string	"KERNEL_BASE_H_ "
 	.byte	0x3
 	.uleb128 0xc
 	.uleb128 0x4
@@ -1354,20 +1354,14 @@ __zero_reg__ = 1
 	.uleb128 0x10
 	.uleb128 0xa
 	.byte	0x1
-	.uleb128 0x61
-	.string	"_AVR_IO_H_ "
-	.byte	0x3
-	.uleb128 0x63
-	.uleb128 0xb
-	.byte	0x1
 	.uleb128 0x24
-	.string	"_AVR_SFR_DEFS_H_ 1"
+	.string	"_UTIL_DELAY_H_ 1"
 	.byte	0x1
-	.uleb128 0x79
-	.string	"_SFR_ASM_COMPAT 0"
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
 	.byte	0x3
-	.uleb128 0x7e
-	.uleb128 0xc
+	.uleb128 0x2a
+	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x23
 	.string	"__INTTYPES_H_ "
@@ -1657,6 +1651,29 @@ __zero_reg__ = 1
 	.uleb128 0x20d
 	.string	"SCNxPTR SCNx16"
 	.byte	0x4
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0xc
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x11
+	.uleb128 0xd
+	.byte	0x1
+	.uleb128 0x61
+	.string	"_AVR_IO_H_ "
+	.byte	0x3
+	.uleb128 0x63
+	.uleb128 0xe
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_AVR_SFR_DEFS_H_ 1"
+	.byte	0x1
+	.uleb128 0x79
+	.string	"_SFR_ASM_COMPAT 0"
 	.byte	0x1
 	.uleb128 0x80
 	.string	"_MMIO_BYTE(mem_addr) (*(volatile uint8_t *)(mem_addr))"
@@ -1728,7 +1745,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa2
-	.uleb128 0xd
+	.uleb128 0xf
 	.byte	0x1
 	.uleb128 0x2b
 	.string	"_AVR_IOXXX_H_ \"iom1284p.h\""
@@ -4526,7 +4543,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x216
-	.uleb128 0xe
+	.uleb128 0x10
 	.byte	0x1
 	.uleb128 0x22
 	.string	"_AVR_PORTPINS_H_ 1"
@@ -4701,7 +4718,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x218
-	.uleb128 0xf
+	.uleb128 0x11
 	.byte	0x1
 	.uleb128 0x23
 	.string	"_AVR_COMMON_H "
@@ -4795,7 +4812,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21a
-	.uleb128 0x10
+	.uleb128 0x12
 	.byte	0x1
 	.uleb128 0x36
 	.string	"_AVR_VERSION_H_ "
@@ -4823,7 +4840,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x21d
-	.uleb128 0x11
+	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_FUSE_H_ 1"
@@ -4836,7 +4853,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x220
-	.uleb128 0x12
+	.uleb128 0x14
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_LOCK_H_ 1"
@@ -4885,8 +4902,8 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
-	.uleb128 0x13
+	.uleb128 0x12
+	.uleb128 0x15
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_INTERRUPT_H_ "
@@ -4940,55 +4957,55 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x22
+	.uleb128 0x23
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x25
+	.uleb128 0x26
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x29
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x29
+	.uleb128 0x2a
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2c
+	.uleb128 0x2d
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x2e
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xd
-	.uleb128 0x14
+	.uleb128 0x16
 	.byte	0x1
 	.uleb128 0x9
 	.string	"RESET_CONDITION_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x15
+	.uleb128 0x17
 	.byte	0x1
 	.uleb128 0x9
 	.string	"LED_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x16
+	.uleb128 0x18
 	.byte	0x1
 	.uleb128 0x9
 	.string	"PORT_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x17
+	.uleb128 0x19
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0x3f
@@ -5013,30 +5030,30 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xe
-	.uleb128 0x18
+	.uleb128 0x1a
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x10
-	.uleb128 0x19
+	.uleb128 0x12
+	.uleb128 0x1b
 	.byte	0x1
 	.uleb128 0x9
 	.string	"SCHEDULER_H_ "
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x11
-	.uleb128 0x1a
+	.uleb128 0x13
+	.uleb128 0x1c
 	.byte	0x1
 	.uleb128 0x9
 	.string	"PROCESS_EXT_H_ "
 	.byte	0x3
 	.uleb128 0x10
-	.uleb128 0x1b
+	.uleb128 0x1d
 	.byte	0x1
 	.uleb128 0x9
 	.string	"PROCESS_API_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x1c
+	.uleb128 0x1e
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0xe
@@ -5044,67 +5061,67 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x12
-	.uleb128 0x1d
+	.uleb128 0x14
+	.uleb128 0x1f
 	.byte	0x1
 	.uleb128 0xb
 	.string	"DMS_API_H_ "
 	.byte	0x3
 	.uleb128 0xd
-	.uleb128 0x1e
+	.uleb128 0x20
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x13
-	.uleb128 0x1f
+	.uleb128 0x15
+	.uleb128 0x21
 	.byte	0x1
 	.uleb128 0x9
 	.string	"RR_API_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x20
+	.uleb128 0x22
 	.byte	0x4
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xf
-	.uleb128 0x21
+	.uleb128 0x23
 	.byte	0x1
 	.uleb128 0x3
 	.string	"TWI_H_ "
 	.byte	0x3
 	.uleb128 0x5
-	.uleb128 0x22
+	.uleb128 0x24
 	.byte	0x1
 	.uleb128 0x2
 	.string	"TWI_RAW_H_ "
 	.byte	0x3
 	.uleb128 0x4
-	.uleb128 0x23
+	.uleb128 0x25
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x36
+	.uleb128 0x37
 	.string	"WAIT_FOR_TWI() while (twi_running) ;"
 	.byte	0x1
-	.uleb128 0x3e
+	.uleb128 0x3f
 	.string	"NUM_TWI_OPERATIONS 3"
 	.byte	0x4
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x10
-	.uleb128 0x24
+	.uleb128 0x26
 	.byte	0x1
 	.uleb128 0x9
 	.string	"TANK_MOTOR_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x25
+	.uleb128 0x27
 	.byte	0x1
 	.uleb128 0x9
 	.string	"TIMER_M1284P_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x26
+	.uleb128 0x28
 	.byte	0x1
 	.uleb128 0x9
 	.string	"_TIMER_H_ "
@@ -5126,7 +5143,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xc
-	.uleb128 0x27
+	.uleb128 0x29
 	.byte	0x1
 	.uleb128 0x9
 	.string	"PORT_M1284P_H_ "
@@ -5134,7 +5151,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xc
-	.uleb128 0x28
+	.uleb128 0x2a
 	.byte	0x1
 	.uleb128 0x9
 	.string	"MOTOR_H_ "
@@ -5160,43 +5177,53 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x18
-	.string	"Main_test_AllLeds "
-	.byte	0x3
-	.uleb128 0x1a
-	.uleb128 0x29
-	.byte	0x4
+	.uleb128 0x10
+	.string	"Main_test_blink_AllLeds "
 	.byte	0x3
 	.uleb128 0x1b
-	.uleb128 0x2a
+	.uleb128 0x2b
+	.byte	0x3
+	.uleb128 0x6
+	.uleb128 0x2c
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_ATOMIC_H_ 1"
+	.byte	0x1
+	.uleb128 0xcd
+	.ascii	"ATOMIC_BLOCK("
+	.string	"type) for ( type, __ToDo = __iCliRetVal(); __ToDo ; __ToDo = 0 )"
+	.byte	0x1
+	.uleb128 0xe2
+	.ascii	"NONATOMIC_BLOCK("
+	.string	"type) for ( type, __ToDo = __iSeiRetVal(); __ToDo ; __ToDo = 0 )"
+	.byte	0x1
+	.uleb128 0xf4
+	.ascii	"ATOMIC_RESTORESTATE u"
+	.string	"int8_t sreg_save __attribute__((__cleanup__(__iRestore))) = SREG"
+	.byte	0x1
+	.uleb128 0x109
+	.ascii	"ATOMIC_FORCEON"
+	.string	" uint8_t sreg_save __attribute__((__cleanup__(__iSeiParam))) = 0"
+	.byte	0x1
+	.uleb128 0x11b
+	.ascii	"NONATOMIC_RESTORESTATE u"
+	.string	"int8_t sreg_save __attribute__((__cleanup__(__iRestore))) = SREG"
+	.byte	0x1
+	.uleb128 0x130
+	.ascii	"NONATOMIC_FORCEOFF"
+	.string	" uint8_t sreg_save __attribute__((__cleanup__(__iCliParam))) = 0"
+	.byte	0x4
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x1c
-	.uleb128 0x2b
-	.byte	0x3
-	.uleb128 0x3
-	.uleb128 0x2c
-	.byte	0x1
-	.uleb128 0x24
-	.string	"_UTIL_DELAY_H_ 1"
-	.byte	0x1
-	.uleb128 0x27
-	.string	"__HAS_DELAY_CYCLES 1"
-	.byte	0x3
-	.uleb128 0x2b
 	.uleb128 0x2d
-	.byte	0x1
-	.uleb128 0x23
-	.string	"_UTIL_DELAY_BASIC_H_ 1"
-	.byte	0x4
-	.byte	0x4
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x1e
+	.uleb128 0x1d
 	.uleb128 0x2e
 	.byte	0x4
 	.byte	0x3
-	.uleb128 0x1f
+	.uleb128 0x1e
 	.uleb128 0x2f
 	.byte	0x4
 	.byte	0x3
@@ -5214,5 +5241,13 @@ __zero_reg__ = 1
 	.byte	0x3
 	.uleb128 0x23
 	.uleb128 0x33
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x24
+	.uleb128 0x34
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x25
+	.uleb128 0x35
 	.byte	0x4
 	.byte	0x4

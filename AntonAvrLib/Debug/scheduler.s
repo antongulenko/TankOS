@@ -4928,8 +4928,25 @@ __zero_reg__ = 1
 	.string	"DTOSTR_UPPERCASE 0x04"
 	.byte	0x4
 	.byte	0x3
+	.uleb128 0x10
 	.uleb128 0x11
-	.uleb128 0x11
+	.byte	0x1
+	.uleb128 0x24
+	.string	"_UTIL_DELAY_H_ 1"
+	.byte	0x1
+	.uleb128 0x27
+	.string	"__HAS_DELAY_CYCLES 1"
+	.byte	0x3
+	.uleb128 0x2b
+	.uleb128 0x12
+	.byte	0x1
+	.uleb128 0x23
+	.string	"_UTIL_DELAY_BASIC_H_ 1"
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x12
+	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x24
 	.string	"_AVR_INTERRUPT_H_ "
@@ -4983,49 +5000,49 @@ __zero_reg__ = 1
 	.string	"ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.ascii	"ZERO_STRUCT(variableName,structName) uint8_t *___tmpStructCo"
 	.ascii	"ntent = variableName; for (int __i = 0; "
 	.string	"__i < sizeof(structName); __i++) { ___tmpStructContent[i] = 0; }"
 	.byte	0x1
-	.uleb128 0x22
+	.uleb128 0x23
 	.string	"__CONCAT__(A,B) A ##B"
 	.byte	0x1
-	.uleb128 0x25
+	.uleb128 0x26
 	.ascii	"DEFINE_H"
 	.string	"ANDLE(name) typedef struct name ##__ { uint16_t unused; } *name;"
 	.byte	0x1
-	.uleb128 0x28
+	.uleb128 0x29
 	.string	"LOBYTE(x) (uint8_t)((uint16_t)x)"
 	.byte	0x1
-	.uleb128 0x29
+	.uleb128 0x2a
 	.string	"HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)"
 	.byte	0x1
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2c
+	.uleb128 0x2d
 	.string	"enable_interrupts() sei()"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x2e
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa
-	.uleb128 0x12
+	.uleb128 0x14
 	.byte	0x1
 	.uleb128 0x9
 	.string	"SCHEDULER_H_ "
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x13
+	.uleb128 0x15
 	.byte	0x1
 	.uleb128 0x9
 	.string	"SCHEDULER_INTERNAL_H_ "
 	.byte	0x3
 	.uleb128 0xb
-	.uleb128 0x14
+	.uleb128 0x16
 	.byte	0x1
 	.uleb128 0x9
 	.string	"PROCESS_API_H_ "
@@ -5042,7 +5059,7 @@ __zero_reg__ = 1
 .global	schedule_next
 	.type	schedule_next, @function
 schedule_next:
-.LFB0:
+.LFB4:
 .LSM0:
 /* prologue: function */
 /* frame size = 0 */
@@ -5061,13 +5078,13 @@ schedule_next:
 .LVL1:
 .L1:
 	ret
-.LFE0:
+.LFE4:
 	.size	schedule_next, .-schedule_next
 	.section	.text.processor_idle,"ax",@progbits
 .global	processor_idle
 	.type	processor_idle, @function
 processor_idle:
-.LFB1:
+.LFB5:
 .LSM4:
 /* prologue: function */
 /* frame size = 0 */
@@ -5095,13 +5112,13 @@ processor_idle:
 .LSM9:
 /* #NOAPP */
 	ret
-.LFE1:
+.LFE5:
 	.size	processor_idle, .-processor_idle
 	.section	.text.processor_loop_idle,"ax",@progbits
 .global	processor_loop_idle
 	.type	processor_loop_idle, @function
 processor_loop_idle:
-.LFB2:
+.LFB6:
 .LSM10:
 /* prologue: function */
 /* frame size = 0 */
@@ -5111,7 +5128,7 @@ processor_loop_idle:
 .LSM11:
 	call processor_idle
 	rjmp .L5
-.LFE2:
+.LFE6:
 	.size	processor_loop_idle, .-processor_loop_idle
 	.section	.debug_frame,"",@progbits
 .Lframe0:
@@ -5132,24 +5149,24 @@ processor_loop_idle:
 	.long	.LEFDE0-.LASFDE0
 .LASFDE0:
 	.long	.Lframe0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
+	.long	.LFB4
+	.long	.LFE4-.LFB4
 	.p2align	2
 .LEFDE0:
 .LSFDE2:
 	.long	.LEFDE2-.LASFDE2
 .LASFDE2:
 	.long	.Lframe0
-	.long	.LFB1
-	.long	.LFE1-.LFB1
+	.long	.LFB5
+	.long	.LFE5-.LFB5
 	.p2align	2
 .LEFDE2:
 .LSFDE4:
 	.long	.LEFDE4-.LASFDE4
 .LASFDE4:
 	.long	.Lframe0
-	.long	.LFB2
-	.long	.LFE2-.LFB2
+	.long	.LFB6
+	.long	.LFE6-.LFB6
 	.p2align	2
 .LEFDE4:
 	.text
@@ -5228,7 +5245,7 @@ processor_loop_idle:
 	.uleb128 0x5
 	.byte	0x2
 	.byte	0xe
-	.byte	0x13
+	.byte	0x14
 	.long	0x90
 	.uleb128 0x6
 	.long	.LASF9
@@ -5240,12 +5257,12 @@ processor_loop_idle:
 	.uleb128 0x7
 	.long	.LASF17
 	.byte	0x2
-	.byte	0x14
+	.byte	0x16
 	.byte	0xd
 	.long	0xab
 	.uleb128 0x8
 	.long	.LASF18
-	.byte	0x14
+	.byte	0x16
 	.byte	0xd
 	.long	0x4d
 	.byte	0x2
@@ -5254,7 +5271,7 @@ processor_loop_idle:
 	.byte	0x0
 	.uleb128 0x3
 	.long	.LASF11
-	.byte	0x14
+	.byte	0x16
 	.byte	0xd
 	.long	0xb6
 	.uleb128 0x9
@@ -5265,8 +5282,8 @@ processor_loop_idle:
 	.long	.LASF19
 	.byte	0x1
 	.byte	0x12
-	.long	.LFB0
-	.long	.LFE0
+	.long	.LFB4
+	.long	.LFE4
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5284,8 +5301,8 @@ processor_loop_idle:
 	.long	.LASF12
 	.byte	0x1
 	.byte	0x19
-	.long	.LFB1
-	.long	.LFE1
+	.long	.LFB5
+	.long	.LFE5
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5295,8 +5312,8 @@ processor_loop_idle:
 	.long	.LASF13
 	.byte	0x1
 	.byte	0x20
-	.long	.LFB2
-	.long	.LFE2
+	.long	.LFB6
+	.long	.LFE6
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -5512,22 +5529,22 @@ processor_loop_idle:
 	.byte	0x0
 	.word	0x0
 	.word	0x0
-	.long	.LFB0
-	.long	.LFE0-.LFB0
-	.long	.LFB1
-	.long	.LFE1-.LFB1
-	.long	.LFB2
-	.long	.LFE2-.LFB2
+	.long	.LFB4
+	.long	.LFE4-.LFB4
+	.long	.LFB5
+	.long	.LFE5-.LFB5
+	.long	.LFB6
+	.long	.LFE6-.LFB6
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
 .Ldebug_ranges0:
-	.long	.LFB0
-	.long	.LFE0
-	.long	.LFB1
-	.long	.LFE1
-	.long	.LFB2
-	.long	.LFE2
+	.long	.LFB4
+	.long	.LFE4
+	.long	.LFB5
+	.long	.LFE5
+	.long	.LFB6
+	.long	.LFE6
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -5564,6 +5581,10 @@ processor_loop_idle:
 	.byte	0
 	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
 	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
+	.ascii	"/4.5.1/../../../../avr/include/util"
+	.byte	0
+	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
+	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
 	.ascii	"/4.5.1/include"
 	.byte	0
 	.byte	0x0
@@ -5588,7 +5609,7 @@ processor_loop_idle:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
-	.uleb128 0x5
+	.uleb128 0x6
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stdint.h"
@@ -5628,7 +5649,15 @@ processor_loop_idle:
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"stddef.h"
-	.uleb128 0x5
+	.uleb128 0x6
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay.h"
+	.uleb128 0x3
+	.uleb128 0x0
+	.uleb128 0x0
+	.string	"util/delay_basic.h"
+	.uleb128 0x3
 	.uleb128 0x0
 	.uleb128 0x0
 	.string	"avr/interrupt.h"
@@ -5679,7 +5708,7 @@ processor_loop_idle:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE0
+	.long	.LFE4
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -5716,7 +5745,7 @@ processor_loop_idle:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE1
+	.long	.LFE5
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -5733,7 +5762,7 @@ processor_loop_idle:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE2
+	.long	.LFE6
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1

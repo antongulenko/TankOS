@@ -11,6 +11,8 @@
 // This file combines all APIs available on the tank.
 // The modules included here should be analog to tank_kernel_MASTER.c.
 
+// #define USE_SCHEDULER
+
 #include "shared/kernel_base.h"
 #include "shared/twi.h"
 #include "tank_button.h"

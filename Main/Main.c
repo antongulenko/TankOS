@@ -14,8 +14,8 @@
 
 // #define Main_test_AllLeds
 // #define Main_test_blink_AllLeds
-// #define Main_test_blink_reset_condition
-#define Main_test_NIBObee_Buttons
+#define Main_test_blink_reset_condition
+// #define Main_test_NIBObee_Buttons
 
 // #define Main_test_switchProcess
 // #define Main_test_switchProcess_many

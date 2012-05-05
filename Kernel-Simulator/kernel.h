@@ -8,6 +8,8 @@
 #ifndef KERNEL_H_
 #define KERNEL_H_
 
+// #define USE_SCHEDULER
+
 #include "shared/kernel_base.h"
 
 #endif /* KERNEL_H_ */

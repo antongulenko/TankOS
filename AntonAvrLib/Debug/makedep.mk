@@ -4,6 +4,8 @@
 
 kernel\hardware_reset.c
 
+kernel\millisecond_clock.c
+
 kernel\devices\button.c
 
 kernel\devices\external_interrupts.c
@@ -25,4 +27,6 @@ kernel\processes\scheduler.c
 kernel\reset_condition.c
 
 kernel\TWI\twi_raw.c
+
+kernel\TWI\twi_rpc.c
 
