@@ -40,7 +40,9 @@ void twi_handleRpcRequest(byte operation, TWIBuffer *arguments) {
 #define TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)						\
 	TwiFunction funcName##_function = { operationByte, funcName##_handler, {0} };	\
 	void funcName##_register_function() {											\
-		/* HASH_ADD_INT(twiRpcFunctions, operationByte, &funcName##_function) */	\
+		/* The second macro parameter 'operation' is the name of the key-field in */\
+		/* the TwiFunction struct! Do not change to operationByte. */				\
+		HASH_ADD_INT(twiRpcFunctions, operation, &funcName##_function);				\
 	}																				\
 	KERNEL_INIT(funcName##_register_function)
 

@@ -14,7 +14,6 @@
 // #define USE_SCHEDULER
 
 #include "shared/kernel_base.h"
-#include "shared/tank_twi.h"
 #include "tank_button.h"
 #include "tank_led.h"
 #include "shared/twi_bgx1.h"

@@ -3546,10 +3546,11 @@ uint32_t get_milliseconds_running();
 # 1 "..\\..\\AntonAvrLib/anton_std.h" 1
 # 16 ".././shared/../shared/kernel_base.h" 2
 # 17 ".././shared/../kernel.h" 2
-# 1 ".././shared/../shared/tank_twi.h" 1
+# 1 ".././shared/../tank_motor.h" 1
+# 18 ".././shared/../kernel.h" 2
+# 1 ".././shared/../shared/twi_bgx1.h" 1
 
-
-#define TWI_H_ 
+#define TWI_BGX1_H_ 
 
 # 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
 
@@ -3621,15 +3622,7 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
 
 
 void twiMultipleOperations(int count, TWIOperation *operations);
-# 6 ".././shared/../shared/tank_twi.h" 2
-# 18 ".././shared/../kernel.h" 2
-# 1 ".././shared/../tank_motor.h" 1
-# 19 ".././shared/../kernel.h" 2
-# 1 ".././shared/../shared/twi_bgx1.h" 1
-
-#define TWI_BGX1_H_ 
-
-
+# 5 ".././shared/../shared/twi_bgx1.h" 2
 
 TWIDevice bgx1 = { 11 << 1 };
 
@@ -3981,7 +3974,7 @@ void bgx1_termPrint_P(const prog_char * argument);
 
 Point bgx1_drawBitmap(uint8_t width, uint8_t height, uint8_t *bitmap);
 Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, const prog_char * bitmap);
-# 20 ".././shared/../kernel.h" 2
+# 19 ".././shared/../kernel.h" 2
 # 1 ".././shared/../twi_tank_IO.h" 1
 
 #define TWI_TANK_IO_H_ 
@@ -4013,7 +4006,7 @@ TWIDevice tank_IO = { (11 << 2) };
 
 uint8_t tankIO_readButtons() { uint8_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(tank_IO, TANK_IO_readButtons, argBuf, resBuf); while (twi_running) ; return result; }
 void tankIO_writeLeds(uint16_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint16_t) }; twi_rpc_oneway(tank_IO, TANK_IO_writeLeds, buf); while (twi_running) ; }
-# 21 ".././shared/../kernel.h" 2
+# 20 ".././shared/../kernel.h" 2
 # 13 ".././shared/base_before.kernel.h" 2
 
 

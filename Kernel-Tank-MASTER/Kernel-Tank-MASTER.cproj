@@ -96,9 +96,6 @@
     <Compile Include="shared\timer.kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="shared\tank_twi.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="shared\twi_bgx1.c">
       <SubType>compile</SubType>
     </Compile>
@@ -112,9 +109,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_motor.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="twi.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="twi_tank_IO.h">

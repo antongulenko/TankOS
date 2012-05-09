@@ -42,10 +42,9 @@ tank_kernel_MASTER.d tank_kernel_MASTER.o: .././tank_kernel_MASTER.c \
  ..\..\AntonAvrLib/kernel/millisecond_clock.h \
  ..\..\AntonAvrLib/kernel/reset_condition.h \
  ..\..\AntonAvrLib/kernel/processes/mutex/mutex.h \
- ..\..\AntonAvrLib/anton_std.h .././shared/../shared/tank_twi.h \
- ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
+ ..\..\AntonAvrLib/anton_std.h .././shared/../tank_motor.h \
+ .././shared/../shared/twi_bgx1.h ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
  ..\..\AntonAvrLib/kernel/TWI/../../anton_std.h \
- .././shared/../tank_motor.h .././shared/../shared/twi_bgx1.h \
  ..\..\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h \
  ..\..\AntonAvrLib/kernel/TWI/twi_rpc.h \
  ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
@@ -160,15 +159,13 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 ..\..\AntonAvrLib/anton_std.h:
 
-.././shared/../shared/tank_twi.h:
+.././shared/../tank_motor.h:
+
+.././shared/../shared/twi_bgx1.h:
 
 ..\..\AntonAvrLib/kernel/TWI/twi_raw.h:
 
 ..\..\AntonAvrLib/kernel/TWI/../../anton_std.h:
-
-.././shared/../tank_motor.h:
-
-.././shared/../shared/twi_bgx1.h:
 
 ..\..\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h:
 

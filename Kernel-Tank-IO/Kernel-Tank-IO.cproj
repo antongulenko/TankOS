@@ -94,9 +94,6 @@
     <Compile Include="shared\tank_IO_protocol.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="shared\tank_twi.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="shared\twi_bgx1.c">
       <SubType>compile</SubType>
     </Compile>
