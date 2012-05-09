@@ -2992,10 +2992,10 @@ void setPinOne(PPin pin);
 void setPinZero(PPin pin);
 
 BOOL readPin(PPin pin);
-# 63 "../kernel/devices/port.h"
-#define DEFINE_PIN(port,pin) extern Pin Pin ##port ##pin;
+# 61 "../kernel/devices/port.h"
+#define DEFINE_PIN(port,pin) extern const PPin Pin ##port ##pin;
 
-#define DEFINE_PORT(suffix) extern Port Port ##suffix;
+#define DEFINE_PORT(suffix) extern const PPort Port ##suffix;
 
 
 

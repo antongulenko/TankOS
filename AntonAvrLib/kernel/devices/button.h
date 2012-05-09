@@ -29,21 +29,23 @@ typedef struct {
 BOOL buttonStatus(PButton button);
 
 #ifdef _KERNEL_
-#	define DEFINE_BUTTON(buttonName)	\
-		Button buttonName;
-#	define DEFINE_INTERRUPT_BUTTON(buttonName)	\
-		InterruptButton buttonName;
-#	define INIT_BUTTON(buttonName, pinName, flags)	\
-		buttonName = (Button) { flags, &pinName };	\
-		initButton(&buttonName);
+#	define DEFINE_BUTTON(buttonName)						\
+		Button buttonName##_;								\
+		const PButton buttonName = &buttonName##_;
+#	define DEFINE_INTERRUPT_BUTTON(buttonName)				\
+		InterruptButton buttonName##_;						\
+		const PInterruptButton buttonName = &buttonName##_;
+#	define INIT_BUTTON(buttonName, pinName, flags)			\
+		buttonName##_ = (Button) { flags, pinName };		\
+		initButton(buttonName);
 #	define INIT_INTERRUPT_BUTTON(buttonName, pinName, flags, interruptNumber)	\
-		buttonName = (InterruptButton) { flags, &pinName, interruptNumber };	\
-		initInterruptButton(&buttonName);
+		buttonName##_ = (InterruptButton) { flags, pinName, interruptNumber };	\
+		initInterruptButton(buttonName);
 #else
 #	define DEFINE_BUTTON(buttonName)	\
-		extern Button buttonName;
+		extern const PButton buttonName;
 #	define DEFINE_INTERRUPT_BUTTON(buttonName)	\
-		extern InterruptButton buttonName;
+		extern const PInterruptButton buttonName;
 #endif
 
 #endif /* BUTTON_H_ */

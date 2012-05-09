@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+kernel\devices\motor_smooth.c
+
 kernel\hardware_reset.c
 
 kernel\millisecond_clock.c
@@ -25,8 +27,4 @@ kernel\processes\RoundRobin\rr_scheduler.c
 kernel\processes\scheduler.c
 
 kernel\reset_condition.c
-
-kernel\TWI\twi_raw.c
-
-kernel\TWI\twi_rpc.c
 

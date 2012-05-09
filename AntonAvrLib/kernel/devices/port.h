@@ -38,17 +38,15 @@ BOOL readPin(PPin pin);
 
 #ifdef _KERNEL_
 #	define DEFINE_PIN(port,pin)					\
-		Pin Pin##port##pin;
+		Pin Pin##port##pin##_;					\
+		const PPin Pin##port##pin = &Pin##port##pin##_;
 #	define DEFINE_PORT(port)					\
-		Port Port##port;
+		Port Port##port##_;						\
+		const PPort Port##port = &Port##port##_;
 #	define INIT_PIN(port, pin)					\
-		Pin##port##pin = (Pin) {				\
-			&Port##port, _BV(PIN##port##pin)	\
-		};
+		Pin##port##pin##_ = (Pin) {	Port##port, _BV(PIN##port##pin)	};
 #	define INIT_PORT(port)						\
-		Port##port = (Port) {					\
-			&PORT##port, &PIN##port, &DDR##port	\
-		};
+		Port##port##_ = (Port) { &PORT##port, &PIN##port, &DDR##port };
 #	define INIT_PORT_AND_PINS(port)	\
 		INIT_PORT(port)				\
 		INIT_PIN(port,0)			\
@@ -61,9 +59,9 @@ BOOL readPin(PPin pin);
 		INIT_PIN(port,7)
 #else
 #	define DEFINE_PIN(port, pin)	\
-		extern Pin Pin##port##pin;
-#	define DEFINE_PORT(suffix)	\
-		extern Port Port##suffix;
+		extern const PPin Pin##port##pin;
+#	define DEFINE_PORT(suffix)		\
+		extern const PPort Port##suffix;
 #endif
 
 #define DEFINE_PORT_AND_PINS(port)	\

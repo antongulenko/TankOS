@@ -3001,10 +3001,10 @@ void setPinOne(PPin pin);
 void setPinZero(PPin pin);
 
 BOOL readPin(PPin pin);
-# 63 "../kernel/devices/port.h"
-#define DEFINE_PIN(port,pin) extern Pin Pin ##port ##pin;
+# 61 "../kernel/devices/port.h"
+#define DEFINE_PIN(port,pin) extern const PPin Pin ##port ##pin;
 
-#define DEFINE_PORT(suffix) extern Port Port ##suffix;
+#define DEFINE_PORT(suffix) extern const PPort Port ##suffix;
 
 
 
@@ -3025,14 +3025,12 @@ typedef enum {
  pwm_phase_correct_FF,
 
 
+
+
  pwm_phase_correct,
  pwm_fast,
 
 
- pwm_phase_correct_9bit,
- pwm_phase_correct_10bit,
- pwm_fast_9bit,
- pwm_fast_10bit,
  pwm_phase_and_frequency_correct
 } WaveformGenerationMode;
 
@@ -3061,12 +3059,18 @@ typedef enum {
 #define TIMER_ASYNCHRONOUS (1 << 1)
 #define TIMER_16bit (1 << 2)
 
+
+
+
+#define TIMER_RESOLUTION_9bit (1 << 4)
+#define TIMER_RESOLUTION_10bit (1 << 5)
+
 typedef struct {
  uint8_t flags;
  volatile uint8_t *controlRegisterA;
  volatile uint8_t *controlRegisterB;
  volatile uint8_t *interruptMaskRegister;
-} TimerConfig, *PTimerConfig;
+} TimerPair, *PTimerPair;
 
 typedef enum {
  TIMER_A,
@@ -3074,19 +3078,20 @@ typedef enum {
 } TIMER_TYPE;
 
 typedef struct {
- PTimerConfig timer;
+ PTimerPair timer;
  volatile uint8_t *outputCompareRegister;
  TIMER_TYPE type;
  PPin outputComparePin;
 } Timer, *PTimer;
 
 
-void setTimerClockSelect(PTimerConfig timer, TimerClockSelect cs);
-void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm);
+void setTimerClockSelect(PTimerPair timer, TimerClockSelect cs);
+void setWaveformGenerationMode(PTimerPair timer, WaveformGenerationMode wgm);
 
 void setCompareMatchOutputMode(PTimer timer, CompareMatchOutputMode com);
 
 void enableTimerInterrupt(PTimer timer);
+void disableTimerInterrupt(PTimer timer);
 void enableOutputCompare(PTimer timer);
 void disableOutputCompare(PTimer timer);
 
@@ -3095,10 +3100,10 @@ void setTimerCompareValue(PTimer timer, uint16_t value);
 
 
 uint16_t getTimerCompareValue(PTimer timer);
-# 109 "../kernel/devices/timer.h"
-#define DEFINE_TIMER_CONFIG(configName) extern TimerConfig configName;
+# 116 "../kernel/devices/timer.h"
+#define DEFINE_TIMER_CONFIG(configName) extern const PTimerPair configName;
 
-#define DEFINE_TIMER(timerName) extern Timer timerName;
+#define DEFINE_TIMER(timerName) extern const PTimer timerName;
 # 9 "../kernel/devices/timer.c" 2
 
 
@@ -3108,30 +3113,31 @@ void setCompareMatchOutputMode(PTimer timer, CompareMatchOutputMode com) {
  uint8_t oneBits = 0;
  switch(com) {
   case no_output:
-   zeroBits = (1 << (7)) | (1 << (6));
+   zeroBits = (1 << (5)) | (1 << (4));
    break;
   case toggle_on_match:
-   zeroBits = (1 << (7));
-   oneBits = (1 << (6));
+   zeroBits = (1 << (5));
+   oneBits = (1 << (4));
    break;
   case set_on_match:
-   oneBits = (1 << (7));
-   zeroBits = (1 << (6));
+   oneBits = (1 << (5));
+   zeroBits = (1 << (4));
    break;
   case clear_on_match:
-   oneBits = (1 << (7)) | (1 << (6));
+   oneBits = (1 << (5)) | (1 << (4));
    break;
  }
- if (timer->type == TIMER_B) {
+ if (timer->type == TIMER_A) {
 
-  oneBits = oneBits >> 2;
-  zeroBits = zeroBits >> 2;
+
+  oneBits = oneBits << 2;
+  zeroBits = zeroBits << 2;
  }
  *timer->timer->controlRegisterA |= oneBits;
  *timer->timer->controlRegisterA &= ~zeroBits;
 }
 
-void setTimerClockSelect(PTimerConfig timer, TimerClockSelect cs) {
+void setTimerClockSelect(PTimerPair timer, TimerClockSelect cs) {
  BOOL asyncTimer = timer->flags & (1 << 1);
  uint8_t zeroBits = 0;
  uint8_t oneBits = 0;
@@ -3196,7 +3202,7 @@ void setTimerClockSelect(PTimerConfig timer, TimerClockSelect cs) {
  *timer->controlRegisterB &= ~zeroBits;
 }
 
-void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
+void setWaveformGenerationMode(PTimerPair timer, WaveformGenerationMode wgm) {
  uint8_t zeroBitsA = 0;
  uint8_t zeroBitsB = 0;
  uint8_t oneBitsA = 0;
@@ -3220,8 +3226,19 @@ void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
     oneBitsB = (1 << (3));
     break;
    case pwm_fast:
-    oneBitsA = (1 << (1)) | (1 << (0));
-    oneBitsB = (1 << (4)) | (1 << (3));
+    if (timer->flags & (1 << 4)) {
+     oneBitsA = (1 << (1));
+     zeroBitsA = (1 << (0));
+     oneBitsB = (1 << (3));
+     zeroBitsB = (1 << (4));
+    } else if (timer->flags & (1 << 5)) {
+     oneBitsA = (1 << (0)) | (1 << (1));
+     oneBitsB = (1 << (3));
+     zeroBitsB = (1 << (4));
+    } else {
+     oneBitsA = (1 << (1)) | (1 << (0));
+     oneBitsB = (1 << (4)) | (1 << (3));
+    }
     break;
    case pwm_phase_correct_FF:
     zeroBitsA = (1 << (1));
@@ -3229,35 +3246,24 @@ void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm) {
     zeroBitsB = (1 << (4)) | (1 << (3));
     break;
    case pwm_phase_correct:
-    oneBitsA = (1 << (0)) | (1 << (1));
-    zeroBitsB = (1 << (3));
-    oneBitsB = (1 << (4));
+    if (timer->flags & (1 << 4)) {
+     zeroBitsA = (1 << (0));
+     oneBitsA = (1 << (1));
+     zeroBitsB = (1 << (4)) | (1 << (3));
+    } else if (timer->flags & (1 << 5)) {
+     oneBitsA = (1 << (1)) | (1 << (0));
+     zeroBitsB = (1 << (4)) | (1 << (3));
+    } else {
+     oneBitsA = (1 << (0)) | (1 << (1));
+     zeroBitsB = (1 << (3));
+     oneBitsB = (1 << (4));
+    }
     break;
    case pwm_phase_and_frequency_correct:
     oneBitsA = (1 << (0));
     zeroBitsA = (1 << (1));
     oneBitsB = (1 << (4));
     zeroBitsB = (1 << (3));
-    break;
-   case pwm_fast_9bit:
-    oneBitsA = (1 << (1));
-    zeroBitsA = (1 << (0));
-    oneBitsB = (1 << (3));
-    zeroBitsB = (1 << (4));
-    break;
-   case pwm_fast_10bit:
-    oneBitsA = (1 << (0)) | (1 << (1));
-    oneBitsB = (1 << (3));
-    zeroBitsB = (1 << (4));
-    break;
-   case pwm_phase_correct_9bit:
-    zeroBitsA = (1 << (0));
-    oneBitsA = (1 << (1));
-    zeroBitsB = (1 << (4)) | (1 << (3));
-    break;
-   case pwm_phase_correct_10bit:
-    oneBitsA = (1 << (1)) | (1 << (0));
-    zeroBitsB = (1 << (4)) | (1 << (3));
     break;
    default:
     return;
@@ -3307,9 +3313,13 @@ void enableTimerInterrupt(PTimer timer) {
  *timer->timer->interruptMaskRegister |= (1 << (timer->type == TIMER_A ? 1 : 2));
 }
 
+void disableTimerInterrupt(PTimer timer) {
+ *timer->timer->interruptMaskRegister &= ~(1 << (timer->type == TIMER_A ? 1 : 2));
+}
+
 void enableOutputCompare(PTimer timer) {
  setPinOutput(timer->outputComparePin);
- setCompareMatchOutputMode(timer, toggle_on_match);
+ setCompareMatchOutputMode(timer, set_on_match);
 }
 
 void disableOutputCompare(PTimer timer) {
@@ -3322,6 +3332,12 @@ void setTimerCompareValue(PTimer timer, uint16_t value) {
 
 
   uint8_t sreg = (*(volatile uint8_t *)((0x3F) + 0x20));
+
+  if (timer->timer->flags & (1 << 4)) {
+   value = value >> (16 - 9);
+  } else if (timer->timer->flags & (1 << 5)) {
+   value = value >> (16 - 10);
+  }
   __asm__ __volatile__ ("cli" ::: "memory");
 
 
@@ -3342,6 +3358,13 @@ uint16_t getTimerCompareValue(PTimer timer) {
 
   result = *((uint16_t*) timer->outputCompareRegister);
   (*(volatile uint8_t *)((0x3F) + 0x20)) = sreg;
+
+
+  if (timer->timer->flags & (1 << 4)) {
+   result = result << (16 - 9);
+  } else if (timer->timer->flags & (1 << 5)) {
+   result = result << (16 - 10);
+  }
  } else {
 
   result = ((*timer->outputCompareRegister*0x100)+0x0);

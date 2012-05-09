@@ -11,16 +11,23 @@
 #include "../kernel_init.h"
 #include "motor.h"
 
-// This must be called from another init-routine, after the motors have been initialized.
 void initMotor(PMotor motor) {
+	// Configure the timer. These are configurations,
+	// that should work fine for motors, but might also be changed elsewhere.
+	setTimerClockSelect(Timer1, prescale_1);
+	setWaveformGenerationMode(motor->pwmTimer->timer, pwm_phase_correct);
+	
 	setTimerCompareValue(motor->pwmTimer, 0);
 	setPinOutput(motor->direction);
+	if (!(motor->flags & MOTOR_TWO_DIR_PINS))
+		setPinOne(motor->direction);
 }
 
 void initMotor2Pins(PMotor2Pins motor) {
 	initMotor((PMotor) motor);
 	setPinOutput(motor->direction2);
-	stopMotor((PMotor) motor); // For the sake of setting both direction pins to zero. Not necessary for 1-pin-motors.
+	setPinZero(motor->motor.direction);
+	setPinZero(motor->direction2);
 }
 
 #endif

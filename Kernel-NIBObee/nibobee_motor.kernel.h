@@ -14,8 +14,15 @@
 #include "nibobee_motor.h"
 
 void init_nibobee_motors() {
-	INIT_MOTOR(LeftMotor, MOTOR_NORMAL, PinD6, Timer1A)
-	INIT_MOTOR(RightMotor, MOTOR_NORMAL, PinD7, Timer1B)
+	Timer1->flags |= TIMER_RESOLUTION_9bit;
+	
+	INIT_MOTOR(LeftMotorBase, MOTOR_NORMAL, PinD6, Timer1A)
+	INIT_MOTOR(RightMotorBase, MOTOR_INVERSE_DIRECTION, PinD7, Timer1B)
+	
+	// Don't know why, but the lib does this... Seems to enable internal PullUp.
+	// Pins will be controlled by the timer anyways.
+	setPinOne(RightMotorBase->pwmTimer->outputComparePin);
+	setPinOne(LeftMotorBase->pwmTimer->outputComparePin);
 }
 KERNEL_INIT(init_nibobee_motors)
 

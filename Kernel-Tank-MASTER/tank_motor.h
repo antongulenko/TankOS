@@ -10,8 +10,11 @@
 
 #include <kernel/devices/timer_m1284P.h>
 #include <kernel/devices/motor.h>
+#include <kernel/devices/motor_smooth.h>
 
-DEFINE_2DirPins_MOTOR(LeftMotor)
-DEFINE_2DirPins_MOTOR(RightMotor)
+DEFINE_2DirPins_MOTOR(LeftMotorBase)
+DEFINE_2DirPins_MOTOR(RightMotorBase)
+DEFINE_SMOOTH_MOTOR(LeftMotor)
+DEFINE_SMOOTH_MOTOR(RightMotor)
 
 #endif /* TANK_MOTOR_H_ */

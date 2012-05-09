@@ -78,12 +78,6 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="analog_ext.c_">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="analog_ext.h_">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel.h">
       <SubType>compile</SubType>
     </Compile>
@@ -99,16 +93,25 @@
     <Compile Include="nibobee_motor.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="shared\base_after.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\base_before.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="shared\kernel_base.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\motor_smooth.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="shared\timer.kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="twi.h">
+    <Compile Include="shared\twi_bgx1.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="twi.kernel.h">
+    <Compile Include="shared\twi_bgx1.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
@@ -120,9 +123,6 @@
       <SubType>compile</SubType>
     </None>
     <None Include="nibobee_motor.kernel.h">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="shared\base.kernel.h">
       <SubType>compile</SubType>
     </None>
     <None Include="shared\scheduler.kernel.h">

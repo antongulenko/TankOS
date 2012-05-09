@@ -95,7 +95,10 @@
     <Compile Include="kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="shared\base.kernel.h">
+    <Compile Include="shared\base_after.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\base_before.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="shared\kernel_base.h">
@@ -110,17 +113,9 @@
     <Compile Include="simulator_kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="twi.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="shared\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="shared\readme.txt">
-      <SubType>compile</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

@@ -13,11 +13,11 @@
 #include "nibobee_led.h"
 #include <kernel/kernel_init.h>
 
-PLed redLedsArray[] = { &LeftRed, &RightRed };
-PLed yellowLedsArray[] = { &LeftYellow, &RightYellow };
-PLed rightLedsArray[] = { &RightYellow, &RightRed };
-PLed leftLedsArray[] = { &LeftYellow, &LeftRed };
-PLed allLedsArray[] = { &LeftYellow, &LeftRed, &RightRed, &RightYellow };
+PLed redLedsArray[] = { &LeftRed_, &RightRed_ };
+PLed yellowLedsArray[] = { &LeftYellow_, &RightYellow_ };
+PLed rightLedsArray[] = { &RightYellow_, &RightRed_ };
+PLed leftLedsArray[] = { &LeftYellow_, &LeftRed_ };
+PLed allLedsArray[] = { &LeftYellow_, &LeftRed_, &RightRed_, &RightYellow_ };
 
 void init_nibobee_leds() {
 	INIT_LED(LeftYellow, PinB0)

@@ -1,30 +1,24 @@
 #ifndef _TIMER_KERNEL_KERNEL_
 #define _TIMER_KERNEL_KERNEL_
 
-// This module sets up a timer and defines CLOCKISR.
-// No service routine is bound to that timer here.
+// This module sets up timers and defines CLOCKISR macros.
+// No service routine is bound to the timers here.
 
 #include <kernel/devices/timer_m1284P.kernel.h>
 
-#define CLOCKISR TIMER3_COMPA_vect
+#define CLOCKISR_A TIMER3_COMPA_vect
+#define CLOCKISR_B TIMER3_COMPB_vect
+#define CLOCKTIMER_A Timer3A
+#define CLOCKTIMER_B Timer3B
 
 void init_timer() {
-	PTimerConfig timerConf = &Timer3;
-	PTimer timer = &Timer3A;
+	setWaveformGenerationMode(Timer3, clear_timer_on_match);
+	setTimerClockSelect(Timer3, prescale_8);
 	
-	setWaveformGenerationMode(timerConf, clear_timer_on_match);
-	setTimerCompareValue(timer, 2500);
-	setTimerClockSelect(timerConf, prescale_8);
 	// --> 8 * 2500 = 20000, resulting in one compare-match every millisecond
+	setTimerCompareValue(Timer3A, 2500);
+	setTimerCompareValue(Timer3B, 2500);
 }
 KERNEL_INIT(init_timer)
-
-void start_timer() {
-	// Enabling the interrupt will start invoking the scheduler.
-	enableTimerInterrupt(&Timer3A);
-	sei();
-}
-
-#include <kernel/timer_base.kernel.h>
 
 #endif

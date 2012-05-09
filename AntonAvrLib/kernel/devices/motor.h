@@ -29,8 +29,8 @@ typedef struct {
 } Motor2Pins, *PMotor2Pins;
 
 typedef enum {
-	FORWARD = 0,
-	BACKWARD = 1,
+	BACKWARD = 0, // It's important that this is zero.
+	FORWARD = 1,
 	MOTOR_STOPPED = 2
 } MotorDirection;
 
@@ -56,20 +56,22 @@ void setDirSpeed(PMotor motor, int16_t speed);
 
 #ifdef _KERNEL_
 #	define DEFINE_MOTOR(motorName)	\
-		Motor motorName;
+		Motor motorName##_;			\
+		const PMotor motorName = &motorName##_;
 #	define INIT_MOTOR(motorName, flags, directionPin, pwmTimer)		\
-		motorName = (Motor) { flags, &directionPin, &pwmTimer };	\
-		initMotor(&motorName);
-#	define DEFINE_2DirPins_MOTOR(motorName)	\
-		Motor2Pins motorName;
-#	define INIT_2DirPins_MOTOR(motorName, flags, directionPin, pwmTimer, directionPin2)						\
-		motorName = (Motor2Pins) { { flags | MOTOR_TWO_DIR_PINS, &directionPin, &pwmTimer }, &directionPin2 };	\
-		initMotor2Pins(&motorName);
+		motorName##_ = (Motor) { flags, directionPin, pwmTimer };	\
+		initMotor(motorName);
+#	define DEFINE_2DirPins_MOTOR(motorName)		\
+		Motor2Pins motorName##_;				\
+		const PMotor motorName = (PMotor) &motorName##_;
+#	define INIT_2DirPins_MOTOR(motorName, flags, directionPin, pwmTimer, directionPin2)								\
+		motorName##_ = (Motor2Pins) { { flags | MOTOR_TWO_DIR_PINS, directionPin, pwmTimer }, directionPin2 };	\
+		initMotor2Pins(&motorName##_);
 #else
 #	define DEFINE_MOTOR(motorName)	\
-		extern Motor motorName;
+		extern const PMotor motorName;
 #	define DEFINE_2DirPins_MOTOR(motorName)	\
-		extern Motor2Pins motorName;
+		extern const PMotor motorName;
 #endif
 
 #endif /* MOTOR_H_ */

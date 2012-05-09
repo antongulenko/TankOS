@@ -36,6 +36,7 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../shared/twi_bgx1.c \
 ../tank_kernel_MASTER.c
 
 
@@ -46,18 +47,22 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+shared/twi_bgx1.o \
 tank_kernel_MASTER.o
 
 
 OBJS_AS_ARGS +=  \
+shared/twi_bgx1.o \
 tank_kernel_MASTER.o
 
 
 C_DEPS +=  \
+shared/twi_bgx1.d \
 tank_kernel_MASTER.d
 
 
 C_DEPS_AS_ARGS +=  \
+shared/twi_bgx1.d \
 tank_kernel_MASTER.d
 
 
@@ -72,6 +77,14 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 # AVR32/GNU C Compiler
 
 
+
+
+
+shared/%.o: ../shared/%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DAVR -DF_CPU=20000000  -I"..\..\AntonAvrLib"  -Os -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	@echo Finished building: $<
 
 ./%.o: .././%.c
 	@echo Building file: $<

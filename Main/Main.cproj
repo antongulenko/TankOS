@@ -107,37 +107,52 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="device_tests\Main_test_AllLeds.c">
+    <Compile Include="device_tests\Main_bgx1_print.c.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="device_tests\Main_test_NIBObee_Buttons.c">
+    <Compile Include="device_tests\Main_test_AllLeds.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="device_tests\Main_test_Motors_Changing.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="device_tests\Main_test_Motors_Forward.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="device_tests\Main_test_Motors_NIBObee.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="device_tests\Main_test_Motors_NIBObee_Steps.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="device_tests\Main_test_NIBObee_Buttons.c.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="device_tests\Main_test_blink_reset_condition.c">
+    <Compile Include="device_tests\Main_test_blink_reset_condition.c.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="device_tests\Main_test_blink_AllLeds.c">
+    <Compile Include="device_tests\Main_test_blink_AllLeds.c.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="simulator_tests\Main_test_DMS_rr_two.c">
+    <Compile Include="simulator_tests\Main_test_DMS_rr_two.c.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="simulator_tests\Main_test_DMS_with_idle.c">
+    <Compile Include="simulator_tests\Main_test_DMS_with_idle.c.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="simulator_tests\Main_test_rr_many.c">
+    <Compile Include="simulator_tests\Main_test_rr_many.c.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="simulator_tests\Main_test_rr_two.c">
+    <Compile Include="simulator_tests\Main_test_rr_two.c.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="simulator_tests\Main_test_switchProcess.c">
+    <Compile Include="simulator_tests\Main_test_switchProcess.c.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="simulator_tests\Main_test_switchProcess_many.c">
+    <Compile Include="simulator_tests\Main_test_switchProcess_many.c.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

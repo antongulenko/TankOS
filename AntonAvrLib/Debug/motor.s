@@ -4985,33 +4985,40 @@ __zero_reg__ = 1
 	.uleb128 0x9
 	.string	"PORT_H_ "
 	.byte	0x1
+	.uleb128 0x3d
+	.string	"DEFINE_PIN(port,pin) extern const PPin Pin ##port ##pin;"
+	.byte	0x1
 	.uleb128 0x3f
-	.string	"DEFINE_PIN(port,pin) extern Pin Pin ##port ##pin;"
+	.string	"DEFINE_PORT(suffix) extern const PPort Port ##suffix;"
 	.byte	0x1
-	.uleb128 0x41
-	.string	"DEFINE_PORT(suffix) extern Port Port ##suffix;"
-	.byte	0x1
-	.uleb128 0x45
+	.uleb128 0x43
 	.ascii	"DEFINE_PORT_AND_PINS(port) DEFINE_PORT(port) DEFINE_PIN(port"
 	.ascii	",0) DEFINE_PIN(port,1) DEFINE_PIN(port,2) DEFINE_PIN(port,3)"
 	.ascii	" DEFINE_PIN("
 	.string	"port,4) DEFINE_PIN(port,5) DEFINE_PIN(port,6) DEFINE_PIN(port,7)"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x3c
+	.uleb128 0x3a
 	.string	"TIMER_NORMAL 0"
 	.byte	0x1
-	.uleb128 0x3d
+	.uleb128 0x3b
 	.string	"TIMER_ASYNCHRONOUS (1 << 1)"
 	.byte	0x1
-	.uleb128 0x3e
+	.uleb128 0x3c
 	.string	"TIMER_16bit (1 << 2)"
 	.byte	0x1
-	.uleb128 0x6d
-	.string	"DEFINE_TIMER_CONFIG(configName) extern TimerConfig configName;"
+	.uleb128 0x41
+	.string	"TIMER_RESOLUTION_9bit (1 << 4)"
 	.byte	0x1
-	.uleb128 0x6f
-	.string	"DEFINE_TIMER(timerName) extern Timer timerName;"
+	.uleb128 0x42
+	.string	"TIMER_RESOLUTION_10bit (1 << 5)"
+	.byte	0x1
+	.uleb128 0x74
+	.ascii	"DEF"
+	.string	"INE_TIMER_CONFIG(configName) extern const PTimerPair configName;"
+	.byte	0x1
+	.uleb128 0x76
+	.string	"DEFINE_TIMER(timerName) extern const PTimer timerName;"
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0xe
@@ -5026,11 +5033,11 @@ __zero_reg__ = 1
 	.uleb128 0x11
 	.string	"MOTOR_TWO_DIR_PINS (1 << 3)"
 	.byte	0x1
-	.uleb128 0x45
-	.string	"DEFINE_MOTOR(motorName) extern Motor motorName;"
-	.byte	0x1
 	.uleb128 0x47
-	.string	"DEFINE_2DirPins_MOTOR(motorName) extern Motor2Pins motorName;"
+	.string	"DEFINE_MOTOR(motorName) extern const PMotor motorName;"
+	.byte	0x1
+	.uleb128 0x49
+	.string	"DEFINE_2DirPins_MOTOR(motorName) extern const PMotor motorName;"
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0xb
@@ -5057,28 +5064,24 @@ stopMotor:
 	ldd r24,Y+3
 	ldd r25,Y+4
 .LVL1:
-	call disableOutputCompare
-.LSM2:
-	ldd r24,Y+3
-	ldd r25,Y+4
 	ldi r22,lo8(0)
 	ldi r23,hi8(0)
 	call setTimerCompareValue
-.LSM3:
+.LSM2:
 	ld r24,Y
 	sbrs r24,3
 	rjmp .L1
-.LSM4:
+.LSM3:
 	ldd r24,Y+1
 	ldd r25,Y+2
 	call setPinZero
-.LSM5:
+.LSM4:
 	ldd r24,Y+5
 	ldd r25,Y+6
 	call setPinZero
 .L1:
 /* epilogue start */
-.LSM6:
+.LSM5:
 	pop r29
 	pop r28
 .LVL2:
@@ -5090,13 +5093,13 @@ stopMotor:
 	.type	getSpeed, @function
 getSpeed:
 .LFB5:
-.LSM7:
+.LSM6:
 .LVL3:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
-.LSM8:
+.LSM7:
 	movw r30,r24
 	ldd r24,Z+3
 	ldd r25,Z+4
@@ -5104,7 +5107,7 @@ getSpeed:
 	call getTimerCompareValue
 .LVL5:
 /* epilogue start */
-.LSM9:
+.LSM8:
 	ret
 .LFE5:
 	.size	getSpeed, .-getSpeed
@@ -5113,7 +5116,7 @@ getSpeed:
 	.type	getDirection, @function
 getDirection:
 .LFB6:
-.LSM10:
+.LSM9:
 .LVL6:
 	push r16
 	push r17
@@ -5124,7 +5127,7 @@ getDirection:
 /* stack size = 4 */
 .L__stack_usage = 4
 	movw r28,r24
-.LSM11:
+.LSM10:
 	ld r18,Y
 	ldd r24,Y+1
 	ldd r25,Y+2
@@ -5132,47 +5135,47 @@ getDirection:
 	sbrs r18,3
 	rjmp .L5
 .LBB4:
-.LSM12:
+.LSM11:
 	call readPin
 	movw r16,r24
 .LVL8:
-.LSM13:
+.LSM12:
 	ldd r24,Y+5
 	ldd r25,Y+6
 .LVL9:
 	call readPin
 .LVL10:
-.LSM14:
+.LSM13:
 	cp r16,__zero_reg__
 	cpc r17,__zero_reg__
 	breq .L6
-.LSM15:
+.LSM14:
 	sbiw r24,0
 	breq .L11
 	rjmp .L13
 .L6:
-.LSM16:
+.LSM15:
 	sbiw r24,0
 	brne .L12
 .L13:
-.LSM17:
+.LSM16:
 	ldi r18,lo8(2)
 	ldi r19,hi8(2)
 	rjmp .L8
 .LVL11:
 .L5:
 .LBE4:
-.LSM18:
+.LSM17:
 	call readPin
 	movw r18,r24
 .LVL12:
-.LSM19:
+.LSM18:
 	cpi r24,2
 	cpc r25,__zero_reg__
 	breq .L8
 .LVL13:
 .L10:
-.LSM20:
+.LSM19:
 	ld r24,Y
 	sbrs r24,2
 	rjmp .L8
@@ -5187,7 +5190,7 @@ getDirection:
 	movw r18,r24
 .LVL14:
 .L8:
-.LSM21:
+.LSM20:
 	movw r24,r18
 /* epilogue start */
 	pop r29
@@ -5199,14 +5202,14 @@ getDirection:
 .LVL16:
 .L11:
 .LBB5:
+.LSM21:
+	ldi r18,lo8(1)
+	ldi r19,hi8(1)
+	rjmp .L10
+.L12:
 .LSM22:
 	ldi r18,lo8(0)
 	ldi r19,hi8(0)
-	rjmp .L10
-.L12:
-.LSM23:
-	ldi r18,lo8(1)
-	ldi r19,hi8(1)
 .LVL17:
 	rjmp .L10
 .LBE5:
@@ -5217,7 +5220,7 @@ getDirection:
 	.type	setSpeed, @function
 setSpeed:
 .LFB7:
-.LSM24:
+.LSM23:
 .LVL18:
 	push r16
 	push r17
@@ -5231,29 +5234,29 @@ setSpeed:
 	movw r16,r22
 	movw r22,r20
 .LVL19:
-.LSM25:
+.LSM24:
 	cpi r20,2
 	cpc r21,__zero_reg__
 	breq .L15
-.LSM26:
+.LSM25:
 	cp r16,__zero_reg__
 	cpc r17,__zero_reg__
 	brne .L16
 .L15:
-.LSM27:
+.LSM26:
 	movw r24,r28
 .LVL20:
 	call stopMotor
 .LVL21:
-.LSM28:
+.LSM27:
 	rjmp .L14
 .LVL22:
 .L16:
-.LSM29:
+.LSM28:
 	ld r18,Y
 	sbrs r18,2
 	rjmp .L18
-.LSM30:
+.LSM29:
 	ldi r24,lo8(1)
 	ldi r25,hi8(1)
 	cp r20,__zero_reg__
@@ -5265,59 +5268,68 @@ setSpeed:
 	movw r22,r24
 .LVL23:
 .L18:
-.LSM31:
+.LSM30:
 	sbrs r18,3
 	rjmp .L20
 	ldd r24,Y+1
 	ldd r25,Y+2
-.LSM32:
-	cp r22,__zero_reg__
+.LSM31:
+	cpi r22,1
 	cpc r23,__zero_reg__
 	brne .L21
-.LSM33:
+.LSM32:
 	call setPinOne
 .LVL24:
-.LSM34:
+.LSM33:
 	ldd r24,Y+5
 	ldd r25,Y+6
 	call setPinZero
 	rjmp .L22
 .LVL25:
 .L21:
-.LSM35:
+.LSM34:
 	call setPinZero
 .LVL26:
-.LSM36:
+.LSM35:
 	ldd r24,Y+5
 	ldd r25,Y+6
 	call setPinOne
 	rjmp .L22
 .LVL27:
 .L20:
-.LSM37:
+.LSM36:
 	ldd r24,Y+1
 	ldd r25,Y+2
 	call writePin
 .LVL28:
 .L22:
+.LSM37:
+	ld r24,Y
+	sbrs r24,1
+	rjmp .L23
 .LSM38:
+	com r16
+	com r17
+.LVL29:
+.L23:
+.LSM39:
 	ldd r24,Y+3
 	ldd r25,Y+4
 	movw r22,r16
 	call setTimerCompareValue
-.LSM39:
+.LSM40:
 	ldd r24,Y+3
 	ldd r25,Y+4
 	call enableOutputCompare
 .L14:
 /* epilogue start */
-.LSM40:
+.LSM41:
 	pop r29
 	pop r28
-.LVL29:
+.LVL30:
 	pop r17
 	pop r16
-.LVL30:
+.LVL31:
 	ret
 .LFE7:
 	.size	setSpeed, .-setSpeed
@@ -5326,19 +5338,19 @@ setSpeed:
 	.type	setSpeedForward, @function
 setSpeedForward:
 .LFB8:
-.LSM41:
-.LVL31:
+.LSM42:
+.LVL32:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
-.LSM42:
-	ldi r20,lo8(0)
-	ldi r21,hi8(0)
-	call setSpeed
-.LVL32:
-/* epilogue start */
 .LSM43:
+	ldi r20,lo8(1)
+	ldi r21,hi8(1)
+	call setSpeed
+.LVL33:
+/* epilogue start */
+.LSM44:
 	ret
 .LFE8:
 	.size	setSpeedForward, .-setSpeedForward
@@ -5347,19 +5359,19 @@ setSpeedForward:
 	.type	setSpeedBackward, @function
 setSpeedBackward:
 .LFB9:
-.LSM44:
-.LVL33:
+.LSM45:
+.LVL34:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
-.LSM45:
-	ldi r20,lo8(1)
-	ldi r21,hi8(1)
-	call setSpeed
-.LVL34:
-/* epilogue start */
 .LSM46:
+	ldi r20,lo8(0)
+	ldi r21,hi8(0)
+	call setSpeed
+.LVL35:
+/* epilogue start */
+.LSM47:
 	ret
 .LFE9:
 	.size	setSpeedBackward, .-setSpeedBackward
@@ -5368,8 +5380,8 @@ setSpeedBackward:
 	.type	getDirSpeed, @function
 getDirSpeed:
 .LFB10:
-.LSM47:
-.LVL35:
+.LSM48:
+.LVL36:
 	push r16
 	push r17
 	push r28
@@ -5379,94 +5391,141 @@ getDirSpeed:
 /* stack size = 4 */
 .L__stack_usage = 4
 	movw r16,r24
-.LSM48:
-	call getDirection
-.LVL36:
-	movw r28,r24
-.LVL37:
 .LSM49:
+	call getDirection
+.LVL37:
+	movw r28,r24
+.LVL38:
+.LSM50:
 	cpi r24,2
 	cpc r25,__zero_reg__
-	breq .L28
-.LVL38:
+	breq .L29
+.LVL39:
 .LBB6:
 .LBB7:
-.LSM50:
+.LSM51:
 	movw r30,r16
 	ldd r24,Z+3
 	ldd r25,Z+4
-.LVL39:
+.LVL40:
 	call getTimerCompareValue
 .LBE7:
 .LBE6:
-.LSM51:
+.LSM52:
 	movw r18,r24
 	lsr r19
 	ror r18
-.LVL40:
-.LSM52:
-	cpi r28,1
-	cpc r29,__zero_reg__
-	brne .L26
+.LVL41:
 .LSM53:
+	sbiw r28,0
+	brne .L27
+.LSM54:
 	com r19
 	neg r18
 	sbci r19,lo8(-1)
-.LVL41:
-	rjmp .L26
 .LVL42:
-.L28:
-.LSM54:
+	rjmp .L27
+.LVL43:
+.L29:
+.LSM55:
 	ldi r18,lo8(0)
 	ldi r19,hi8(0)
-.L26:
-.LSM55:
+.L27:
+.LSM56:
 	movw r24,r18
 /* epilogue start */
 	pop r29
 	pop r28
-.LVL43:
+.LVL44:
 	pop r17
 	pop r16
-.LVL44:
+.LVL45:
 	ret
 .LFE10:
 	.size	getDirSpeed, .-getDirSpeed
-	.section	.text.setDirSpeed,"ax",@progbits
-.global	setDirSpeed
-	.type	setDirSpeed, @function
-setDirSpeed:
+	.section	.text.motor_toUnsignedSpeed,"ax",@progbits
+.global	motor_toUnsignedSpeed
+	.type	motor_toUnsignedSpeed, @function
+motor_toUnsignedSpeed:
 .LFB11:
-.LSM56:
-.LVL45:
+.LSM57:
+.LVL46:
 /* prologue: function */
 /* frame size = 0 */
 /* stack size = 0 */
 .L__stack_usage = 0
-	mov r20,r23
-.LSM57:
-	sbrs r23,7
-	rjmp .L30
-	com r23
-	neg r22
-	sbci r23,lo8(-1)
-.LVL46:
-.L30:
 .LSM58:
-	lsl r22
-	rol r23
+	mov r18,r24
+	mov r19,r25
+	sbrs r19,7
+	rjmp .L31
+	com r19
+	neg r18
+	sbci r19,lo8(-1)
+.L31:
 .LVL47:
 .LSM59:
+	lsl r18
+	rol r19
+.LVL48:
+.LSM60:
+	movw r24,r18
+.LVL49:
+/* epilogue start */
+	ret
+.LFE11:
+	.size	motor_toUnsignedSpeed, .-motor_toUnsignedSpeed
+	.section	.text.setDirSpeed,"ax",@progbits
+.global	setDirSpeed
+	.type	setDirSpeed, @function
+setDirSpeed:
+.LFB12:
+.LSM61:
+.LVL50:
+	push r16
+	push r17
+	push r28
+	push r29
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 4 */
+.L__stack_usage = 4
+	movw r28,r24
+	movw r16,r22
+.LSM62:
+	cp r22,__zero_reg__
+	cpc r23,__zero_reg__
+	brne .L33
+.LVL51:
+.LSM63:
+	call stopMotor
+.LVL52:
+.LSM64:
+	rjmp .L32
+.L33:
+.LSM65:
+	movw r24,r22
+	call motor_toUnsignedSpeed
+	movw r22,r24
+	mov r20,r17
+	com r20
 	rol r20
 	clr r20
 	rol r20
+	movw r24,r28
 	ldi r21,lo8(0)
 	call setSpeed
-.LVL48:
+.L32:
 /* epilogue start */
-.LSM60:
+.LSM66:
+	pop r29
+	pop r28
+.LVL53:
+	pop r17
+	pop r16
+.LVL54:
 	ret
-.LFE11:
+.LFE12:
 	.size	setDirSpeed, .-setDirSpeed
 	.section	.debug_frame,"",@progbits
 .Lframe0:
@@ -5547,6 +5606,14 @@ setDirSpeed:
 	.long	.LFE11-.LFB11
 	.p2align	2
 .LEFDE14:
+.LSFDE16:
+	.long	.LEFDE16-.LASFDE16
+.LASFDE16:
+	.long	.Lframe0
+	.long	.LFB12
+	.long	.LFE12-.LFB12
+	.p2align	2
+.LEFDE16:
 	.text
 .Letext0:
 	.section	.debug_loc,"",@progbits
@@ -5645,7 +5712,7 @@ setDirSpeed:
 	.long	.LVL17
 	.long	.LFE6
 	.word	0x2
-	.byte	0x31
+	.byte	0x30
 	.byte	0x9f
 	.long	0x0
 	.long	0x0
@@ -5711,7 +5778,7 @@ setDirSpeed:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL20
-	.long	.LVL29
+	.long	.LVL30
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5732,7 +5799,16 @@ setDirSpeed:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL19
-	.long	.LVL30
+	.long	.LVL29
+	.word	0x6
+	.byte	0x60
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x61
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL29
+	.long	.LVL31
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5791,8 +5867,8 @@ setDirSpeed:
 	.long	0x0
 	.long	0x0
 .LLST9:
-	.long	.LVL31
-	.long	.LVL32-1
+	.long	.LVL32
+	.long	.LVL33-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5803,8 +5879,8 @@ setDirSpeed:
 	.long	0x0
 	.long	0x0
 .LLST10:
-	.long	.LVL31
-	.long	.LVL32-1
+	.long	.LVL32
+	.long	.LVL33-1
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5815,8 +5891,8 @@ setDirSpeed:
 	.long	0x0
 	.long	0x0
 .LLST11:
-	.long	.LVL33
-	.long	.LVL34-1
+	.long	.LVL34
+	.long	.LVL35-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5827,8 +5903,8 @@ setDirSpeed:
 	.long	0x0
 	.long	0x0
 .LLST12:
-	.long	.LVL33
-	.long	.LVL34-1
+	.long	.LVL34
+	.long	.LVL35-1
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5839,8 +5915,8 @@ setDirSpeed:
 	.long	0x0
 	.long	0x0
 .LLST13:
-	.long	.LVL35
-	.long	.LVL36-1
+	.long	.LVL36
+	.long	.LVL37-1
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5848,8 +5924,8 @@ setDirSpeed:
 	.byte	0x69
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL36-1
-	.long	.LVL44
+	.long	.LVL37-1
+	.long	.LVL45
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5860,8 +5936,8 @@ setDirSpeed:
 	.long	0x0
 	.long	0x0
 .LLST14:
-	.long	.LVL37
-	.long	.LVL39
+	.long	.LVL38
+	.long	.LVL40
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5869,8 +5945,8 @@ setDirSpeed:
 	.byte	0x69
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL39
-	.long	.LVL43
+	.long	.LVL40
+	.long	.LVL44
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5881,8 +5957,8 @@ setDirSpeed:
 	.long	0x0
 	.long	0x0
 .LLST15:
-	.long	.LVL40
 	.long	.LVL41
+	.long	.LVL42
 	.word	0x6
 	.byte	0x62
 	.byte	0x93
@@ -5890,8 +5966,8 @@ setDirSpeed:
 	.byte	0x63
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL41
 	.long	.LVL42
+	.long	.LVL43
 	.word	0x6
 	.byte	0x62
 	.byte	0x93
@@ -5902,8 +5978,8 @@ setDirSpeed:
 	.long	0x0
 	.long	0x0
 .LLST16:
-	.long	.LVL38
-	.long	.LVL42
+	.long	.LVL39
+	.long	.LVL43
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -5914,8 +5990,8 @@ setDirSpeed:
 	.long	0x0
 	.long	0x0
 .LLST17:
-	.long	.LVL45
-	.long	.LVL48-1
+	.long	.LVL46
+	.long	.LVL49
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5926,28 +6002,49 @@ setDirSpeed:
 	.long	0x0
 	.long	0x0
 .LLST18:
-	.long	.LVL45
-	.long	.LVL46
+	.long	.LVL47
+	.long	.LVL48
+	.word	0x5
+	.byte	0x82
+	.sleb128 0
+	.byte	0x31
+	.byte	0x24
+	.byte	0x9f
+	.long	.LVL48
+	.long	.LFE11
 	.word	0x6
-	.byte	0x66
+	.byte	0x62
 	.byte	0x93
 	.uleb128 0x1
-	.byte	0x67
+	.byte	0x63
 	.byte	0x93
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
 .LLST19:
-	.long	.LVL46
-	.long	.LVL47
-	.word	0x5
-	.byte	0x86
-	.sleb128 0
-	.byte	0x31
-	.byte	0x24
-	.byte	0x9f
-	.long	.LVL47
-	.long	.LVL48-1
+	.long	.LVL50
+	.long	.LVL52-1
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL52-1
+	.long	.LVL53
+	.word	0x6
+	.byte	0x6c
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x6d
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST20:
+	.long	.LVL50
+	.long	.LVL51
 	.word	0x6
 	.byte	0x66
 	.byte	0x93
@@ -5955,18 +6052,27 @@ setDirSpeed:
 	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
+	.long	.LVL51
+	.long	.LVL54
+	.word	0x6
+	.byte	0x60
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x61
+	.byte	0x93
+	.uleb128 0x1
 	.long	0x0
 	.long	0x0
 	.section	.debug_info
-	.long	0x4bb
+	.long	0x4e8
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF53
-	.byte	0x1
 	.long	.LASF54
+	.byte	0x1
 	.long	.LASF55
+	.long	.LASF56
 	.long	0x0
 	.long	0x0
 	.long	.Ldebug_ranges0+0x18
@@ -6112,12 +6218,12 @@ setDirSpeed:
 	.uleb128 0x7
 	.byte	0x7
 	.byte	0x14
-	.byte	0x40
+	.byte	0x44
 	.long	0x16c
 	.uleb128 0x8
 	.long	.LASF17
 	.byte	0x14
-	.byte	0x41
+	.byte	0x45
 	.long	0x34
 	.byte	0x2
 	.byte	0x23
@@ -6125,7 +6231,7 @@ setDirSpeed:
 	.uleb128 0x8
 	.long	.LASF18
 	.byte	0x14
-	.byte	0x42
+	.byte	0x46
 	.long	0xd9
 	.byte	0x2
 	.byte	0x23
@@ -6133,7 +6239,7 @@ setDirSpeed:
 	.uleb128 0x8
 	.long	.LASF19
 	.byte	0x14
-	.byte	0x43
+	.byte	0x47
 	.long	0xd9
 	.byte	0x2
 	.byte	0x23
@@ -6141,7 +6247,7 @@ setDirSpeed:
 	.uleb128 0x8
 	.long	.LASF20
 	.byte	0x14
-	.byte	0x44
+	.byte	0x48
 	.long	0xd9
 	.byte	0x2
 	.byte	0x23
@@ -6150,7 +6256,7 @@ setDirSpeed:
 	.uleb128 0x3
 	.long	.LASF21
 	.byte	0x14
-	.byte	0x45
+	.byte	0x49
 	.long	0x177
 	.uleb128 0xa
 	.byte	0x2
@@ -6158,7 +6264,7 @@ setDirSpeed:
 	.uleb128 0x5
 	.byte	0x2
 	.byte	0x14
-	.byte	0x47
+	.byte	0x4b
 	.long	0x192
 	.uleb128 0x6
 	.long	.LASF22
@@ -6170,17 +6276,17 @@ setDirSpeed:
 	.uleb128 0x3
 	.long	.LASF24
 	.byte	0x14
-	.byte	0x4a
+	.byte	0x4e
 	.long	0x17d
 	.uleb128 0x7
 	.byte	0x8
 	.byte	0x14
-	.byte	0x4c
+	.byte	0x50
 	.long	0x1de
 	.uleb128 0x8
 	.long	.LASF25
 	.byte	0x14
-	.byte	0x4d
+	.byte	0x51
 	.long	0x16c
 	.byte	0x2
 	.byte	0x23
@@ -6188,7 +6294,7 @@ setDirSpeed:
 	.uleb128 0x8
 	.long	.LASF26
 	.byte	0x14
-	.byte	0x4e
+	.byte	0x52
 	.long	0xd9
 	.byte	0x2
 	.byte	0x23
@@ -6196,7 +6302,7 @@ setDirSpeed:
 	.uleb128 0x8
 	.long	.LASF27
 	.byte	0x14
-	.byte	0x4f
+	.byte	0x53
 	.long	0x192
 	.byte	0x2
 	.byte	0x23
@@ -6204,7 +6310,7 @@ setDirSpeed:
 	.uleb128 0x8
 	.long	.LASF28
 	.byte	0x14
-	.byte	0x50
+	.byte	0x54
 	.long	0x11a
 	.byte	0x2
 	.byte	0x23
@@ -6213,7 +6319,7 @@ setDirSpeed:
 	.uleb128 0x3
 	.long	.LASF29
 	.byte	0x14
-	.byte	0x51
+	.byte	0x55
 	.long	0x1e9
 	.uleb128 0xa
 	.byte	0x2
@@ -6313,9 +6419,9 @@ setDirSpeed:
 	.long	0x274
 	.uleb128 0xc
 	.byte	0x1
-	.long	.LASF50
+	.long	.LASF52
 	.byte	0x1
-	.byte	0x18
+	.byte	0x1a
 	.byte	0x1
 	.long	0x58
 	.byte	0x1
@@ -6323,7 +6429,7 @@ setDirSpeed:
 	.uleb128 0xd
 	.long	.LASF34
 	.byte	0x1
-	.byte	0x18
+	.byte	0x1a
 	.long	0x22d
 	.byte	0x0
 	.uleb128 0xe
@@ -6363,7 +6469,7 @@ setDirSpeed:
 	.byte	0x1
 	.long	.LASF48
 	.byte	0x1
-	.byte	0x1c
+	.byte	0x1e
 	.byte	0x1
 	.long	0x28f
 	.long	.LFB6
@@ -6376,13 +6482,13 @@ setDirSpeed:
 	.uleb128 0xf
 	.long	.LASF34
 	.byte	0x1
-	.byte	0x1c
+	.byte	0x1e
 	.long	0x22d
 	.long	.LLST2
 	.uleb128 0x13
 	.string	"val"
 	.byte	0x1
-	.byte	0x1d
+	.byte	0x1f
 	.long	0x28f
 	.long	.LLST3
 	.uleb128 0x14
@@ -6390,13 +6496,13 @@ setDirSpeed:
 	.uleb128 0x15
 	.long	.LASF41
 	.byte	0x1
-	.byte	0x1f
+	.byte	0x21
 	.long	0x9b
 	.long	.LLST4
 	.uleb128 0x15
 	.long	.LASF42
 	.byte	0x1
-	.byte	0x20
+	.byte	0x22
 	.long	0x9b
 	.long	.LLST5
 	.byte	0x0
@@ -6405,7 +6511,7 @@ setDirSpeed:
 	.byte	0x1
 	.long	.LASF44
 	.byte	0x1
-	.byte	0x2b
+	.byte	0x2d
 	.byte	0x1
 	.long	.LFB7
 	.long	.LFE7
@@ -6417,19 +6523,19 @@ setDirSpeed:
 	.uleb128 0xf
 	.long	.LASF34
 	.byte	0x1
-	.byte	0x2b
+	.byte	0x2d
 	.long	0x22d
 	.long	.LLST6
 	.uleb128 0xf
 	.long	.LASF45
 	.byte	0x1
-	.byte	0x2b
+	.byte	0x2d
 	.long	0x58
 	.long	.LLST7
 	.uleb128 0xf
 	.long	.LASF30
 	.byte	0x1
-	.byte	0x2b
+	.byte	0x2d
 	.long	0x28f
 	.long	.LLST8
 	.byte	0x0
@@ -6437,7 +6543,7 @@ setDirSpeed:
 	.byte	0x1
 	.long	.LASF46
 	.byte	0x1
-	.byte	0x41
+	.byte	0x44
 	.byte	0x1
 	.long	.LFB8
 	.long	.LFE8
@@ -6449,13 +6555,13 @@ setDirSpeed:
 	.uleb128 0xf
 	.long	.LASF34
 	.byte	0x1
-	.byte	0x41
+	.byte	0x44
 	.long	0x22d
 	.long	.LLST9
 	.uleb128 0xf
 	.long	.LASF45
 	.byte	0x1
-	.byte	0x41
+	.byte	0x44
 	.long	0x58
 	.long	.LLST10
 	.byte	0x0
@@ -6463,7 +6569,7 @@ setDirSpeed:
 	.byte	0x1
 	.long	.LASF47
 	.byte	0x1
-	.byte	0x45
+	.byte	0x48
 	.byte	0x1
 	.long	.LFB9
 	.long	.LFE9
@@ -6475,13 +6581,13 @@ setDirSpeed:
 	.uleb128 0xf
 	.long	.LASF34
 	.byte	0x1
-	.byte	0x45
+	.byte	0x48
 	.long	0x22d
 	.long	.LLST11
 	.uleb128 0xf
 	.long	.LASF45
 	.byte	0x1
-	.byte	0x45
+	.byte	0x48
 	.long	0x58
 	.long	.LLST12
 	.byte	0x0
@@ -6489,7 +6595,7 @@ setDirSpeed:
 	.byte	0x1
 	.long	.LASF49
 	.byte	0x1
-	.byte	0x49
+	.byte	0x4c
 	.byte	0x1
 	.long	0x46
 	.long	.LFB10
@@ -6502,19 +6608,19 @@ setDirSpeed:
 	.uleb128 0xf
 	.long	.LASF34
 	.byte	0x1
-	.byte	0x49
+	.byte	0x4c
 	.long	0x22d
 	.long	.LLST13
 	.uleb128 0x13
 	.string	"dir"
 	.byte	0x1
-	.byte	0x4a
+	.byte	0x4d
 	.long	0x28f
 	.long	.LLST14
 	.uleb128 0x13
 	.string	"val"
 	.byte	0x1
-	.byte	0x4c
+	.byte	0x4f
 	.long	0x46
 	.long	.LLST15
 	.uleb128 0x16
@@ -6522,20 +6628,47 @@ setDirSpeed:
 	.long	.LBB6
 	.long	.LBE6
 	.byte	0x1
-	.byte	0x4c
+	.byte	0x4f
 	.uleb128 0x11
 	.long	0x2ac
 	.long	.LLST16
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0x17
+	.uleb128 0x12
 	.byte	0x1
-	.long	.LASF51
+	.long	.LASF50
 	.byte	0x1
-	.byte	0x52
+	.byte	0x55
 	.byte	0x1
+	.long	0x58
 	.long	.LFB11
 	.long	.LFE11
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x4b7
+	.uleb128 0xf
+	.long	.LASF45
+	.byte	0x1
+	.byte	0x55
+	.long	0x46
+	.long	.LLST17
+	.uleb128 0x15
+	.long	.LASF51
+	.byte	0x1
+	.byte	0x56
+	.long	0x58
+	.long	.LLST18
+	.byte	0x0
+	.uleb128 0x17
+	.byte	0x1
+	.long	.LASF53
+	.byte	0x1
+	.byte	0x5c
+	.byte	0x1
+	.long	.LFB12
+	.long	.LFE12
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
@@ -6543,21 +6676,15 @@ setDirSpeed:
 	.uleb128 0xf
 	.long	.LASF34
 	.byte	0x1
-	.byte	0x52
+	.byte	0x5c
 	.long	0x22d
-	.long	.LLST17
+	.long	.LLST19
 	.uleb128 0xf
 	.long	.LASF45
 	.byte	0x1
-	.byte	0x52
+	.byte	0x5c
 	.long	0x46
-	.long	.LLST18
-	.uleb128 0x15
-	.long	.LASF52
-	.byte	0x1
-	.byte	0x53
-	.long	0x58
-	.long	.LLST19
+	.long	.LLST20
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_abbrev
@@ -6896,10 +7023,10 @@ setDirSpeed:
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_pubnames,"",@progbits
-	.long	0x90
+	.long	0xaa
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x4bf
+	.long	0x4ec
 	.long	0x2b8
 	.string	"stopMotor"
 	.long	0x2e1
@@ -6915,13 +7042,15 @@ setDirSpeed:
 	.long	0x417
 	.string	"getDirSpeed"
 	.long	0x47b
+	.string	"motor_toUnsignedSpeed"
+	.long	0x4b7
 	.string	"setDirSpeed"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
-	.long	0xb2
+	.long	0xb0
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x4bf
+	.long	0x4ec
 	.long	0x34
 	.string	"uint8_t"
 	.long	0x46
@@ -6935,7 +7064,7 @@ setDirSpeed:
 	.long	0x11a
 	.string	"PPin"
 	.long	0x16c
-	.string	"PTimerConfig"
+	.string	"PTimerPair"
 	.long	0x192
 	.string	"TIMER_TYPE"
 	.long	0x1de
@@ -6950,7 +7079,7 @@ setDirSpeed:
 	.string	"MotorDirection"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
-	.long	0x54
+	.long	0x5c
 	.word	0x2
 	.long	.Ldebug_info0
 	.byte	0x4
@@ -6973,6 +7102,8 @@ setDirSpeed:
 	.long	.LFE10-.LFB10
 	.long	.LFB11
 	.long	.LFE11-.LFB11
+	.long	.LFB12
+	.long	.LFE12-.LFB12
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
@@ -6999,6 +7130,8 @@ setDirSpeed:
 	.long	.LFE10
 	.long	.LFB11
 	.long	.LFE11
+	.long	.LFB12
+	.long	.LFE12
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -7144,31 +7277,26 @@ setDirSpeed:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM1
-	.byte	0x15
+	.byte	0x19
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM2
-	.byte	0x16
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM3
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM4
 	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM5
+	.long	.LSM4
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM6
+	.long	.LSM5
 	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
@@ -7180,17 +7308,17 @@ setDirSpeed:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM7
-	.byte	0x2b
+	.long	.LSM6
+	.byte	0x2d
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM8
+	.long	.LSM7
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM9
+	.long	.LSM8
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
@@ -7202,13 +7330,18 @@ setDirSpeed:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
+	.long	.LSM9
+	.byte	0x31
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
 	.long	.LSM10
-	.byte	0x2f
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM11
-	.byte	0x16
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7223,51 +7356,46 @@ setDirSpeed:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM14
-	.byte	0x15
+	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM15
-	.byte	0x1
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM16
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM17
+	.long	.LSM16
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM18
+	.long	.LSM17
 	.byte	0x17
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM19
+	.long	.LSM18
 	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM20
+	.long	.LSM19
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM21
+	.long	.LSM20
 	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM22
+	.long	.LSM21
 	.byte	0xc
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM23
+	.long	.LSM22
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
@@ -7279,18 +7407,23 @@ setDirSpeed:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM24
-	.byte	0x3e
+	.long	.LSM23
+	.byte	0x40
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM25
+	.long	.LSM24
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM26
+	.long	.LSM25
 	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM26
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7300,22 +7433,22 @@ setDirSpeed:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM28
-	.byte	0x15
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM29
-	.byte	0x16
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM30
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM31
+	.long	.LSM30
 	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM31
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7330,27 +7463,27 @@ setDirSpeed:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM34
-	.byte	0x15
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM35
-	.byte	0x16
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM36
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM37
+	.long	.LSM36
 	.byte	0x17
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM38
+	.long	.LSM37
 	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM38
+	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7364,6 +7497,11 @@ setDirSpeed:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
+	.long	.LSM41
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
 	.long	.LFE7
 	.byte	0x0
 	.uleb128 0x1
@@ -7371,17 +7509,17 @@ setDirSpeed:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM41
-	.byte	0x54
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
 	.long	.LSM42
-	.byte	0x15
+	.byte	0x57
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM43
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM44
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
@@ -7393,17 +7531,17 @@ setDirSpeed:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM44
-	.byte	0x58
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
 	.long	.LSM45
-	.byte	0x15
+	.byte	0x5b
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM46
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM47
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
@@ -7415,13 +7553,8 @@ setDirSpeed:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM47
-	.byte	0x5c
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
 	.long	.LSM48
-	.byte	0x15
+	.byte	0x5f
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7431,19 +7564,19 @@ setDirSpeed:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM50
-	.byte	0x3
-	.sleb128 -50
-	.byte	0x1
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM51
-	.byte	0x47
+	.byte	0x3
+	.sleb128 -51
+	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM52
-	.byte	0x15
+	.byte	0x48
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7453,11 +7586,16 @@ setDirSpeed:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM54
-	.byte	0x11
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM55
+	.byte	0x11
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM56
 	.byte	0x19
 	.byte	0x0
 	.uleb128 0x5
@@ -7469,32 +7607,64 @@ setDirSpeed:
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LSM56
-	.byte	0x65
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
 	.long	.LSM57
-	.byte	0x15
+	.byte	0x68
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM58
-	.byte	0x16
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM59
-	.byte	0x15
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM60
-	.byte	0x15
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LFE11
+	.byte	0x0
+	.uleb128 0x1
+	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM61
+	.byte	0x6f
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM62
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM63
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM64
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM65
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM66
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LFE12
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -7522,7 +7692,7 @@ setDirSpeed:
 	.string	"interruptMaskRegister"
 .LASF29:
 	.string	"PTimer"
-.LASF38:
+.LASF37:
 	.string	"BACKWARD"
 .LASF30:
 	.string	"direction"
@@ -7534,13 +7704,17 @@ setDirSpeed:
 	.string	"timer"
 .LASF49:
 	.string	"getDirSpeed"
+.LASF50:
+	.string	"motor_toUnsignedSpeed"
+.LASF21:
+	.string	"PTimerPair"
 .LASF8:
 	.string	"long long int"
-.LASF54:
+.LASF55:
 	.string	"../kernel/devices/motor.c"
 .LASF23:
 	.string	"TIMER_B"
-.LASF37:
+.LASF38:
 	.string	"FORWARD"
 .LASF28:
 	.string	"outputComparePin"
@@ -7574,16 +7748,14 @@ setDirSpeed:
 	.string	"TIMER_A"
 .LASF16:
 	.string	"PPin"
-.LASF51:
+.LASF53:
 	.string	"setDirSpeed"
-.LASF52:
+.LASF51:
 	.string	"absv"
 .LASF6:
 	.string	"long int"
 .LASF26:
 	.string	"outputCompareRegister"
-.LASF21:
-	.string	"PTimerConfig"
 .LASF3:
 	.string	"int16_t"
 .LASF34:
@@ -7592,15 +7764,15 @@ setDirSpeed:
 	.string	"port"
 .LASF7:
 	.string	"long unsigned int"
-.LASF53:
+.LASF54:
 	.string	"GNU C 4.5.1"
 .LASF47:
 	.string	"setSpeedBackward"
 .LASF15:
 	.string	"mask"
-.LASF55:
+.LASF56:
 	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\AntonAvrLib\\\\Debug"
-.LASF50:
+.LASF52:
 	.string	"getSpeed"
 .LASF14:
 	.string	"PPort"

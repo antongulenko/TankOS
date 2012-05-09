@@ -3031,10 +3031,10 @@ void setPinOne(PPin pin);
 void setPinZero(PPin pin);
 
 BOOL readPin(PPin pin);
-# 63 "..\\..\\AntonAvrLib/kernel/devices/port.h"
-#define DEFINE_PIN(port,pin) extern Pin Pin ##port ##pin;
+# 61 "..\\..\\AntonAvrLib/kernel/devices/port.h"
+#define DEFINE_PIN(port,pin) extern const PPin Pin ##port ##pin;
 
-#define DEFINE_PORT(suffix) extern Port Port ##suffix;
+#define DEFINE_PORT(suffix) extern const PPort Port ##suffix;
 
 
 
@@ -3063,9 +3063,10 @@ void disableLeds(PLedGroup leds);
 
 void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
 void blinkAllLeds(PLedGroup leds, const uint8_t times);
-# 46 "..\\..\\AntonAvrLib/kernel/devices/led.h"
-#define DEFINE_LED(ledName) extern Led ledName;
-#define DEFINE_LED_GROUP(groupName) extern LedGroup groupName;
+# 49 "..\\..\\AntonAvrLib/kernel/devices/led.h"
+#define DEFINE_LED(ledName) extern const PLed ledName;
+
+#define DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;
 # 12 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 2
 
 
@@ -3080,8 +3081,24 @@ uint16_t resetStatusBitmask();
 
 void blink_reset_condition(PLedGroup leds);
 # 14 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/anton_std.h" 1
+# 1 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h"
+#define MUTEX_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/processes/mutex/../../../anton_std.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h" 2
+
+
+typedef struct Mutex__ { uint16_t unused; } *Mutex;
+
+Mutex mutex_create();
+
+void mutex_lock(Mutex mutex);
+BOOL mutex_trylock(Mutex mutex);
+void mutex_release(Mutex mutex);
 # 15 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
+# 1 "..\\..\\AntonAvrLib/anton_std.h" 1
+# 16 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 18 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/twi.h" 1
 
@@ -3187,16 +3204,16 @@ typedef struct {
 
 
 BOOL buttonStatus(PButton button);
-# 43 "..\\..\\AntonAvrLib/kernel/devices/button.h"
-#define DEFINE_BUTTON(buttonName) extern Button buttonName;
+# 45 "..\\..\\AntonAvrLib/kernel/devices/button.h"
+#define DEFINE_BUTTON(buttonName) extern const PButton buttonName;
 
-#define DEFINE_INTERRUPT_BUTTON(buttonName) extern InterruptButton buttonName;
+#define DEFINE_INTERRUPT_BUTTON(buttonName) extern const PInterruptButton buttonName;
 # 12 "..\\..\\Kernel-NIBObee/nibobee_button.h" 2
 
-extern Button ButtonRightBackward;
-extern Button ButtonRightForward;
-extern Button ButtonLeftBackward;
-extern Button ButtonLeftForward;
+extern const PButton ButtonRightBackward;
+extern const PButton ButtonRightForward;
+extern const PButton ButtonLeftBackward;
+extern const PButton ButtonLeftForward;
 # 20 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_led.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_led.h"
@@ -3205,15 +3222,15 @@ extern Button ButtonLeftForward;
 # 1 "..\\..\\AntonAvrLib/kernel/devices/led.h" 1
 # 12 "..\\..\\Kernel-NIBObee/nibobee_led.h" 2
 
-extern Led LeftYellow;
-extern Led LeftRed;
-extern Led RightRed;
-extern Led RightYellow;
-extern LedGroup RedLeds;
-extern LedGroup YellowLeds;
-extern LedGroup RightLeds;
-extern LedGroup LeftLeds;
-extern LedGroup AllLeds;
+extern const PLed LeftYellow;
+extern const PLed LeftRed;
+extern const PLed RightRed;
+extern const PLed RightYellow;
+extern const PLedGroup RedLeds;
+extern const PLedGroup YellowLeds;
+extern const PLedGroup RightLeds;
+extern const PLedGroup LeftLeds;
+extern const PLedGroup AllLeds;
 # 21 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_motor.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_motor.h"
@@ -3236,14 +3253,12 @@ typedef enum {
  pwm_phase_correct_FF,
 
 
+
+
  pwm_phase_correct,
  pwm_fast,
 
 
- pwm_phase_correct_9bit,
- pwm_phase_correct_10bit,
- pwm_fast_9bit,
- pwm_fast_10bit,
  pwm_phase_and_frequency_correct
 } WaveformGenerationMode;
 
@@ -3272,12 +3287,18 @@ typedef enum {
 #define TIMER_ASYNCHRONOUS (1 << 1)
 #define TIMER_16bit (1 << 2)
 
+
+
+
+#define TIMER_RESOLUTION_9bit (1 << 4)
+#define TIMER_RESOLUTION_10bit (1 << 5)
+
 typedef struct {
  uint8_t flags;
  volatile uint8_t *controlRegisterA;
  volatile uint8_t *controlRegisterB;
  volatile uint8_t *interruptMaskRegister;
-} TimerConfig, *PTimerConfig;
+} TimerPair, *PTimerPair;
 
 typedef enum {
  TIMER_A,
@@ -3285,19 +3306,20 @@ typedef enum {
 } TIMER_TYPE;
 
 typedef struct {
- PTimerConfig timer;
+ PTimerPair timer;
  volatile uint8_t *outputCompareRegister;
  TIMER_TYPE type;
  PPin outputComparePin;
 } Timer, *PTimer;
 
 
-void setTimerClockSelect(PTimerConfig timer, TimerClockSelect cs);
-void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm);
+void setTimerClockSelect(PTimerPair timer, TimerClockSelect cs);
+void setWaveformGenerationMode(PTimerPair timer, WaveformGenerationMode wgm);
 
 void setCompareMatchOutputMode(PTimer timer, CompareMatchOutputMode com);
 
 void enableTimerInterrupt(PTimer timer);
+void disableTimerInterrupt(PTimer timer);
 void enableOutputCompare(PTimer timer);
 void disableOutputCompare(PTimer timer);
 
@@ -3306,10 +3328,10 @@ void setTimerCompareValue(PTimer timer, uint16_t value);
 
 
 uint16_t getTimerCompareValue(PTimer timer);
-# 109 "..\\..\\AntonAvrLib/kernel/devices/timer.h"
-#define DEFINE_TIMER_CONFIG(configName) extern TimerConfig configName;
+# 116 "..\\..\\AntonAvrLib/kernel/devices/timer.h"
+#define DEFINE_TIMER_CONFIG(configName) extern const PTimerPair configName;
 
-#define DEFINE_TIMER(timerName) extern Timer timerName;
+#define DEFINE_TIMER(timerName) extern const PTimer timerName;
 # 12 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.h"
@@ -3317,25 +3339,25 @@ uint16_t getTimerCompareValue(PTimer timer);
 
 
 
-extern Port PortA; extern Pin PinA0; extern Pin PinA1; extern Pin PinA2; extern Pin PinA3; extern Pin PinA4; extern Pin PinA5; extern Pin PinA6; extern Pin PinA7;
-extern Port PortB; extern Pin PinB0; extern Pin PinB1; extern Pin PinB2; extern Pin PinB3; extern Pin PinB4; extern Pin PinB5; extern Pin PinB6; extern Pin PinB7;
-extern Port PortC; extern Pin PinC0; extern Pin PinC1; extern Pin PinC2; extern Pin PinC3; extern Pin PinC4; extern Pin PinC5; extern Pin PinC6; extern Pin PinC7;
-extern Port PortD; extern Pin PinD0; extern Pin PinD1; extern Pin PinD2; extern Pin PinD3; extern Pin PinD4; extern Pin PinD5; extern Pin PinD6; extern Pin PinD7;
+extern const PPort PortA; extern const PPin PinA0; extern const PPin PinA1; extern const PPin PinA2; extern const PPin PinA3; extern const PPin PinA4; extern const PPin PinA5; extern const PPin PinA6; extern const PPin PinA7;
+extern const PPort PortB; extern const PPin PinB0; extern const PPin PinB1; extern const PPin PinB2; extern const PPin PinB3; extern const PPin PinB4; extern const PPin PinB5; extern const PPin PinB6; extern const PPin PinB7;
+extern const PPort PortC; extern const PPin PinC0; extern const PPin PinC1; extern const PPin PinC2; extern const PPin PinC3; extern const PPin PinC4; extern const PPin PinC5; extern const PPin PinC6; extern const PPin PinC7;
+extern const PPort PortD; extern const PPin PinD0; extern const PPin PinD1; extern const PPin PinD2; extern const PPin PinD3; extern const PPin PinD4; extern const PPin PinD5; extern const PPin PinD6; extern const PPin PinD7;
 # 13 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h" 2
 
-extern TimerConfig Timer0;
-extern TimerConfig Timer1;
-extern TimerConfig Timer2;
-extern TimerConfig Timer3;
+extern const PTimerPair Timer0;
+extern const PTimerPair Timer1;
+extern const PTimerPair Timer2;
+extern const PTimerPair Timer3;
 
-extern Timer Timer0A;
-extern Timer Timer0B;
-extern Timer Timer1A;
-extern Timer Timer1B;
-extern Timer Timer2A;
-extern Timer Timer2B;
-extern Timer Timer3A;
-extern Timer Timer3B;
+extern const PTimer Timer0A;
+extern const PTimer Timer0B;
+extern const PTimer Timer1A;
+extern const PTimer Timer1B;
+extern const PTimer Timer2A;
+extern const PTimer Timer2B;
+extern const PTimer Timer3A;
+extern const PTimer Timer3B;
 # 12 "..\\..\\Kernel-NIBObee/nibobee_motor.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/devices/motor.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/devices/motor.h"
@@ -3362,8 +3384,8 @@ typedef struct {
 } Motor2Pins, *PMotor2Pins;
 
 typedef enum {
- FORWARD = 0,
- BACKWARD = 1,
+ BACKWARD = 0,
+ FORWARD = 1,
  MOTOR_STOPPED = 2
 } MotorDirection;
 
@@ -3386,55 +3408,103 @@ void setSpeedBackward(PMotor motor, uint16_t speed);
 
 int16_t getDirSpeed(PMotor motor);
 void setDirSpeed(PMotor motor, int16_t speed);
-# 69 "..\\..\\AntonAvrLib/kernel/devices/motor.h"
-#define DEFINE_MOTOR(motorName) extern Motor motorName;
+# 71 "..\\..\\AntonAvrLib/kernel/devices/motor.h"
+#define DEFINE_MOTOR(motorName) extern const PMotor motorName;
 
-#define DEFINE_2DirPins_MOTOR(motorName) extern Motor2Pins motorName;
+#define DEFINE_2DirPins_MOTOR(motorName) extern const PMotor motorName;
 # 13 "..\\..\\Kernel-NIBObee/nibobee_motor.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.h"
+#define MOTOR_SMOOTH_H_ 
 
-extern Motor LeftMotor;
-extern Motor RightMotor;
+# 1 "..\\..\\AntonAvrLib/kernel/devices/motor.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/devices/../processes/mutex/mutex.h" 1
+# 13 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.h" 2
+
+
+
+typedef struct {
+ PMotor motor;
+
+
+ uint16_t currentSpeed;
+ MotorDirection currentDirection;
+
+
+ uint16_t targetSpeed;
+ MotorDirection targetDirection;
+
+
+ BOOL tickRunning;
+ uint16_t adjustmentFrequency;
+ uint16_t adjustmentStep;
+ Mutex mutex;
+} SmoothMotor, *PSmoothMotor;
+
+
+
+void regulateStopMotor(PSmoothMotor motor);
+
+void regulateSpeed(PSmoothMotor motor, uint16_t speed, MotorDirection direction);
+void regulateSpeedForward(PSmoothMotor motor, uint16_t speed);
+void regulateSpeedBackward(PSmoothMotor motor, uint16_t speed);
+
+void regulateDirSpeed(PSmoothMotor motor, int16_t speed);
+# 52 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.h"
+#define DEFINE_SMOOTH_MOTOR(motorName) extern PSmoothMotor motorName;
+# 14 "..\\..\\Kernel-NIBObee/nibobee_motor.h" 2
+
+extern const PMotor LeftMotorBase;
+extern const PMotor RightMotorBase;
+extern PSmoothMotor LeftMotor;
+extern PSmoothMotor RightMotor;
 # 22 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 14 "../../Main/Main.c" 2
+# 22 "../../Main/Main.c"
+# 1 "../../Main/device_tests/Main_test_Motors_Forward.c.h" 1
 
+#define PUFFER 3000
+#define CHANGE_INTERVAL 20
+uint16_t speed = 3000;
+byte motor = 1;
+byte direction = 1;
+byte growing = 1;
 
-
-#define Main_test_blink_reset_condition 
-# 27 "../../Main/Main.c"
-# 1 "../../Main/device_tests/Main_test_blink_AllLeds.c" 1
-# 28 "../../Main/Main.c" 2
-# 1 "../../Main/device_tests/Main_test_blink_reset_condition.c" 1
-
-
-# 1 "..\\..\\AntonAvrLib/kernel/hardware_reset.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/hardware_reset.h"
-#define HARWARE_RESET_H_ 
-
-
-
-void HARDWARE_RESET();
-# 4 "../../Main/device_tests/Main_test_blink_reset_condition.c" 2
+uint16_t next = 0;
 
 int main() {
+ while (1) {
 
- blink_reset_condition(&AllLeds);
- HARDWARE_RESET();
+  while (next > milliseconds_running) ;
+
+  if (growing) speed += 260;
+  else speed -= 260;
+
+  PMotor theMotor;
+  if (motor) theMotor = LeftMotorBase;
+  else theMotor = RightMotorBase;
+  if (direction) {
+   setSpeedForward(theMotor, speed);
+  } else {
+   setSpeedBackward(theMotor, speed);
+  }
+  if (motor) stopMotor(RightMotorBase);
+  else stopMotor(LeftMotorBase);
+
+  if (speed >= 0xFFFF - 3000 || speed <= 3000) {
+   if (!growing) {
+    speed = 3000;
+    if (!direction) motor = !motor;
+    direction = !direction;
+    stopMotor(LeftMotorBase);
+    stopMotor(RightMotorBase);
+    _delay_ms(100);
+   }
+   growing = !growing;
+  }
+
+  next = milliseconds_running + 20;
+ }
 }
-# 29 "../../Main/Main.c" 2
-# 1 "../../Main/device_tests/Main_test_AllLeds.c" 1
-# 30 "../../Main/Main.c" 2
-# 1 "../../Main/device_tests/Main_test_NIBObee_Buttons.c" 1
-# 31 "../../Main/Main.c" 2
-
-# 1 "../../Main/simulator_tests/Main_test_switchProcess.c" 1
-# 33 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_switchProcess_many.c" 1
-# 34 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_rr_two.c" 1
-# 35 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_rr_many.c" 1
-# 36 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_DMS_rr_two.c" 1
-# 37 "../../Main/Main.c" 2
-# 1 "../../Main/simulator_tests/Main_test_DMS_with_idle.c" 1
-# 38 "../../Main/Main.c" 2
+# 23 "../../Main/Main.c" 2

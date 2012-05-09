@@ -3,7 +3,7 @@
 
 // Makros relevant for this kernel-module
 // - TWI_Slave -- Optional. Defines an external function to handle requests from Master devices.
-// - TWI_Slave_Buffer_Size -- Mandatory for Slave-devices. Defines number of bytes reserved for receiving 
+// - TWI_Buffer_Size -- Mandatory for Slave-devices. Defines number of bytes reserved for receiving 
 //	 requests from Master devices.
 // - TWI_BIT_RATE_VALUE -- Mandatory. Bitrate value. Controls communication-frequency. See manual.
 //							-> 0..255!
@@ -13,20 +13,22 @@
 #include "twi_raw.h"
 #include <util/twi.h>
 
+TWIDevice TWIBroadcast = { 0 };
+
 #ifdef TWI_Slave
 	TWIBuffer twi_handleMasterRequest();
 	void twi_handleMasterTransmission(TWIBuffer twi_buffer);
-	byte twi_defaultSlaveBufferData[TWI_Slave_Buffer_Size];
-	TWIBuffer twi_defaultSlaveBuffer = { twi_defaultSlaveBufferData, TWI_Slave_Buffer_Size };
+	byte twi_defaultSlaveBufferData[TWI_Buffer_Size];
+	TWIBuffer twi_defaultSlaveBuffer = { twi_defaultSlaveBufferData, TWI_Buffer_Size };
 #else
 	// Define empty functions
-	TWIBuffer twi_handleMasterRequest() {}
+	TWIBuffer twi_handleMasterRequest() { return (TWIBuffer) { 0 }; }
 	void twi_handleMasterTransmission(TWIBuffer twi_buffer) {}
 #endif
 
 // This can be implemented by the application code to handle unexpected conditions in TWI traffic.
 void twi_unexpectedCondition() __attribute__((weak));
-void twi_unexpectedCondition() { }
+void twi_unexpectedCondition() {}
 
 #ifndef TWI_BIT_RATE_VALUE
 #error This module requires TWI_BIT_RATE_VALUE to be defined!
@@ -95,6 +97,9 @@ BOOL next_twi_operation() {
 static inline void twi_stop_or_next() {
 	if (nextTwiOperation >= NUM_TWI_OPERATIONS || !next_twi_operation()) {
 		twi_stop();
+	} else {
+		// Next operation, without releasing the bus. Repeated START condition!
+		twi_start();
 	}
 }
 
@@ -234,6 +239,35 @@ ISR(TWI_vect) {
 			error = TWI_Illegal_Status;
 			twi_unexpectedCondition();
 	}
+}
+
+void twiSend(TWIDevice targetDevice, TWIBuffer data) {
+	TWIOperation op[1] = { (TWIOperation) { data, targetDevice, TWI_Send} };
+	twiMultipleOperations(1, op);
+}
+
+void twiReceive(TWIDevice targetDevice, TWIBuffer receiveBuffer) {
+	TWIOperation op[1] = { (TWIOperation) { receiveBuffer, targetDevice, TWI_Receive} };
+	twiMultipleOperations(1, op);
+}
+
+void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer) {
+	TWIOperation ops[2] = {
+		(TWIOperation) { sendData, targetDevice, TWI_Send },
+		(TWIOperation) { receiveBuffer, targetDevice, TWI_Receive }
+	};
+	twiMultipleOperations(2, ops);
+}
+
+void twiMultipleOperations(int count, TWIOperation *operations) {
+	int i = 0;
+	for (; i < count && i < NUM_TWI_OPERATIONS; i++) {
+		furtherOperations[i] = operations[i];
+	}
+	for (; i < NUM_TWI_OPERATIONS; i++) {
+		furtherOperations[i].operationMode = TWI_IllegalOperation;
+	}
+	twi_start_master_operation();
 }
 
 #endif

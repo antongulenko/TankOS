@@ -42,20 +42,36 @@ nibobee_kernel.d nibobee_kernel.o: .././nibobee_kernel.c \
  ..\..\AntonAvrLib/kernel/devices/motor.kernel.h \
  ..\..\AntonAvrLib/kernel/devices/motor.h .././nibobee_motor.h \
  ..\..\AntonAvrLib/kernel/devices/timer_m1284P.h \
- ..\..\AntonAvrLib/kernel/devices/motor.h .././shared/base.kernel.h \
- .././shared/../kernel.h .././shared/../shared/kernel_base.h \
+ ..\..\AntonAvrLib/kernel/devices/motor.h \
+ ..\..\AntonAvrLib/kernel/devices/motor_smooth.h \
+ ..\..\AntonAvrLib/kernel/devices/../processes/mutex/mutex.h \
+ ..\..\AntonAvrLib/kernel/devices/../processes/mutex/../../../anton_std.h \
+ .././shared/base_before.kernel.h .././shared/../kernel.h \
+ .././shared/../shared/kernel_base.h \
  ..\..\AntonAvrLib/kernel/millisecond_clock.h \
- ..\..\AntonAvrLib/kernel/reset_condition.h ..\..\AntonAvrLib/anton_std.h \
- .././shared/../twi.h ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
+ ..\..\AntonAvrLib/kernel/reset_condition.h \
+ ..\..\AntonAvrLib/kernel/processes/mutex/mutex.h \
+ ..\..\AntonAvrLib/anton_std.h .././shared/../nibobee_button.h \
+ .././shared/../nibobee_led.h .././shared/../nibobee_motor.h \
+ .././shared/../shared/twi_bgx1.h ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
  ..\..\AntonAvrLib/kernel/TWI/../../anton_std.h \
- .././shared/../nibobee_button.h .././shared/../nibobee_led.h \
- .././shared/../nibobee_motor.h .././shared/../twi.kernel.h \
- ..\..\AntonAvrLib/kernel/TWI/twi_raw.kernel.h \
+ ..\..\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h \
+ ..\..\AntonAvrLib/kernel/TWI/twi_rpc.h \
  ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
- c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h \
  .././shared/timer.kernel.h ..\..\AntonAvrLib/kernel/timer_base.kernel.h \
  ..\..\AntonAvrLib/kernel/millisecond_clock.h \
- ..\..\AntonAvrLib/kernel/simple_timer.kernel.h
+ ..\..\AntonAvrLib/kernel/simple_timer.kernel.h \
+ ..\..\AntonAvrLib/kernel/processes/mutex/atomic_mutex.kernel.h \
+ .././shared/motor_smooth.kernel.h \
+ ..\..\AntonAvrLib/kernel/devices/motor_smooth_pair.kernel.h \
+ ..\..\AntonAvrLib/kernel/devices/motor_smooth.kernel.h \
+ ..\..\AntonAvrLib/kernel/devices/motor.kernel.h \
+ ..\..\AntonAvrLib/kernel/TWI/twi_rpc.kernel.h \
+ ..\..\AntonAvrLib/kernel/TWI/twi_raw.kernel.h \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/string.h \
+ .././shared/twi_bgx1.h .././shared/base_after.kernel.h
 
 ..\..\AntonAvrLib/kernel/reset_condition.kernel.h:
 
@@ -155,7 +171,13 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 ..\..\AntonAvrLib/kernel/devices/motor.h:
 
-.././shared/base.kernel.h:
+..\..\AntonAvrLib/kernel/devices/motor_smooth.h:
+
+..\..\AntonAvrLib/kernel/devices/../processes/mutex/mutex.h:
+
+..\..\AntonAvrLib/kernel/devices/../processes/mutex/../../../anton_std.h:
+
+.././shared/base_before.kernel.h:
 
 .././shared/../kernel.h:
 
@@ -165,13 +187,9 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 ..\..\AntonAvrLib/kernel/reset_condition.h:
 
+..\..\AntonAvrLib/kernel/processes/mutex/mutex.h:
+
 ..\..\AntonAvrLib/anton_std.h:
-
-.././shared/../twi.h:
-
-..\..\AntonAvrLib/kernel/TWI/twi_raw.h:
-
-..\..\AntonAvrLib/kernel/TWI/../../anton_std.h:
 
 .././shared/../nibobee_button.h:
 
@@ -179,13 +197,19 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 .././shared/../nibobee_motor.h:
 
-.././shared/../twi.kernel.h:
-
-..\..\AntonAvrLib/kernel/TWI/twi_raw.kernel.h:
+.././shared/../shared/twi_bgx1.h:
 
 ..\..\AntonAvrLib/kernel/TWI/twi_raw.h:
 
-c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h:
+..\..\AntonAvrLib/kernel/TWI/../../anton_std.h:
+
+..\..\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h:
+
+..\..\AntonAvrLib/kernel/TWI/twi_rpc.h:
+
+..\..\AntonAvrLib/kernel/TWI/twi_raw.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h:
 
 .././shared/timer.kernel.h:
 
@@ -194,3 +218,25 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 ..\..\AntonAvrLib/kernel/millisecond_clock.h:
 
 ..\..\AntonAvrLib/kernel/simple_timer.kernel.h:
+
+..\..\AntonAvrLib/kernel/processes/mutex/atomic_mutex.kernel.h:
+
+.././shared/motor_smooth.kernel.h:
+
+..\..\AntonAvrLib/kernel/devices/motor_smooth_pair.kernel.h:
+
+..\..\AntonAvrLib/kernel/devices/motor_smooth.kernel.h:
+
+..\..\AntonAvrLib/kernel/devices/motor.kernel.h:
+
+..\..\AntonAvrLib/kernel/TWI/twi_rpc.kernel.h:
+
+..\..\AntonAvrLib/kernel/TWI/twi_raw.kernel.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h:
+
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/string.h:
+
+.././shared/twi_bgx1.h:
+
+.././shared/base_after.kernel.h:

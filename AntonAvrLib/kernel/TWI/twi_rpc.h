@@ -1,17 +1,12 @@
-#ifndef _TWI_RPC_KERNEL_
-#define _TWI_RPC_KERNEL_
+#ifndef TWI_RPC_H_
+#define TWI_RPC_H_
 
-#include <math.h>
+#include "twi_raw.h"
 
-typedef struct {
-	
-	
-} TwiInterface, *PTwiInterface;
-
-#ifndef TWI_RPC_INTERFACE_NAME
-#error This header requires TWI_RPC_INTERFACE_NAME to be defined.
-#endif
-
-
+// The contents of the parameters-buffer will be copied into a dedicated buffer
+// before sending the data. This way, the data can (and should) passed into here 
+// from the stack. The resultBuffer must be allocate elsewhere.
+void twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
+void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer);
 
 #endif

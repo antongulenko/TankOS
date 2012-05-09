@@ -3000,10 +3000,10 @@ void setPinOne(PPin pin);
 void setPinZero(PPin pin);
 
 BOOL readPin(PPin pin);
-# 63 "../kernel/devices/port.h"
-#define DEFINE_PIN(port,pin) extern Pin Pin ##port ##pin;
+# 61 "../kernel/devices/port.h"
+#define DEFINE_PIN(port,pin) extern const PPin Pin ##port ##pin;
 
-#define DEFINE_PORT(suffix) extern Port Port ##suffix;
+#define DEFINE_PORT(suffix) extern const PPort Port ##suffix;
 
 
 
@@ -3032,9 +3032,10 @@ void disableLeds(PLedGroup leds);
 
 void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
 void blinkAllLeds(PLedGroup leds, const uint8_t times);
-# 46 "../kernel/devices/led.h"
-#define DEFINE_LED(ledName) extern Led ledName;
-#define DEFINE_LED_GROUP(groupName) extern LedGroup groupName;
+# 49 "../kernel/devices/led.h"
+#define DEFINE_LED(ledName) extern const PLed ledName;
+
+#define DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;
 # 9 "../kernel/devices/led.c" 2
 
 

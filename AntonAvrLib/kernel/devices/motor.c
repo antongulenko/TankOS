@@ -11,8 +11,10 @@
 #define Dir2(motor) (((PMotor2Pins) motor)->direction2)
 
 void stopMotor(PMotor motor) {
-	disableOutputCompare(motor->pwmTimer);
-	// This is mainly to still read the speed as zero.
+	// TODO -- unclear how to stop the motor.
+	// TCCR1A &= ~(_BV(COM1A0) | _BV(COM1A1) | _BV(COM1B0) | _BV(COM1B1));
+	// disableOutputCompare(motor->pwmTimer);
+	// setPinZero(motor->pwmTimer->outputComparePin);
 	setTimerCompareValue(motor->pwmTimer, 0);
 	if (motor->flags & MOTOR_TWO_DIR_PINS) {
 		// Also set direction-pins to zero.
@@ -58,6 +60,7 @@ void setSpeed(PMotor motor, uint16_t speed, MotorDirection direction) {
 	} else {
 		writePin(motor->direction, (BOOL) direction);
 	}
+	if (motor->flags & MOTOR_INVERSE_SPEED) speed = 0xFFFF - speed;
 	setTimerCompareValue(motor->pwmTimer, speed);
 	enableOutputCompare(motor->pwmTimer);
 }
@@ -79,9 +82,17 @@ int16_t getDirSpeed(PMotor motor) {
 	return val;
 }
 
-void setDirSpeed(PMotor motor, int16_t speed) {
+uint16_t motor_toUnsignedSpeed(int16_t speed) {
 	uint16_t absv = abs(speed);
 	// This if-clause is just to avoid making the value smaller.
 	if (!(absv & (1 << 15))) absv = absv << 1;
-	setSpeed(motor, absv, speed < 0 ? BACKWARD : FORWARD);
+	return absv;
+}
+
+void setDirSpeed(PMotor motor, int16_t speed) {
+	if (speed == 0) {
+		stopMotor(motor);
+		return;
+	}
+	setSpeed(motor, motor_toUnsignedSpeed(speed), speed < 0 ? BACKWARD : FORWARD);
 }

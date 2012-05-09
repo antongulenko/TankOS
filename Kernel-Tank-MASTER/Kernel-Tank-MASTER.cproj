@@ -78,13 +78,31 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="shared\base_after.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\base_before.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="shared\kernel_base.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\motor_smooth.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\tank_IO_protocol.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="shared\timer.kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="shared\twi.h">
+    <Compile Include="shared\tank_twi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\twi_bgx1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\twi_bgx1.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_kernel_MASTER.c">
@@ -99,11 +117,11 @@
     <Compile Include="twi.kernel.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="twi_tank_IO.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shared\base.kernel.h">
-      <SubType>compile</SubType>
-    </None>
     <None Include="shared\scheduler.kernel.h">
       <SubType>compile</SubType>
     </None>

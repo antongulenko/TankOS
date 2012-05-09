@@ -4979,24 +4979,24 @@ __zero_reg__ = 1
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
+	.uleb128 0x3d
+	.string	"DEFINE_PIN(port,pin) extern const PPin Pin ##port ##pin;"
+	.byte	0x1
 	.uleb128 0x3f
-	.string	"DEFINE_PIN(port,pin) extern Pin Pin ##port ##pin;"
+	.string	"DEFINE_PORT(suffix) extern const PPort Port ##suffix;"
 	.byte	0x1
-	.uleb128 0x41
-	.string	"DEFINE_PORT(suffix) extern Port Port ##suffix;"
-	.byte	0x1
-	.uleb128 0x45
+	.uleb128 0x43
 	.ascii	"DEFINE_PORT_AND_PINS(port) DEFINE_PORT(port) DEFINE_PIN(port"
 	.ascii	",0) DEFINE_PIN(port,1) DEFINE_PIN(port,2) DEFINE_PIN(port,3)"
 	.ascii	" DEFINE_PIN("
 	.string	"port,4) DEFINE_PIN(port,5) DEFINE_PIN(port,6) DEFINE_PIN(port,7)"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x2e
-	.string	"DEFINE_LED(ledName) extern Led ledName;"
+	.uleb128 0x31
+	.string	"DEFINE_LED(ledName) extern const PLed ledName;"
 	.byte	0x1
-	.uleb128 0x2f
-	.string	"DEFINE_LED_GROUP(groupName) extern LedGroup groupName;"
+	.uleb128 0x33
+	.string	"DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;"
 	.byte	0x4
 	.byte	0x4
 /* #APP */

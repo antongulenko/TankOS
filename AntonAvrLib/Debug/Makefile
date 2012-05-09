@@ -36,12 +36,15 @@ SUBDIRS :=  \
 ../kernel/processes/ \
 ../kernel/processes/DMS/ \
 ../kernel/processes/idle \
+../kernel/processes/mutex/ \
 ../kernel/processes/RoundRobin \
-../kernel/TWI/
+../kernel/TWI/ \
+../uthash/
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../kernel/devices/motor_smooth.c \
 ../kernel/hardware_reset.c \
 ../kernel/millisecond_clock.c \
 ../kernel/devices/button.c \
@@ -53,9 +56,7 @@ C_SRCS +=  \
 ../kernel/processes/DMS/dms_scheduler.c \
 ../kernel/processes/RoundRobin/rr_scheduler.c \
 ../kernel/processes/scheduler.c \
-../kernel/reset_condition.c \
-../kernel/TWI/twi_raw.c \
-../kernel/TWI/twi_rpc.c
+../kernel/reset_condition.c
 
 
 PREPROCESSING_SRCS += 
@@ -65,6 +66,7 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+kernel/devices/motor_smooth.o \
 kernel/hardware_reset.o \
 kernel/millisecond_clock.o \
 kernel/devices/button.o \
@@ -76,12 +78,11 @@ kernel/devices/timer.o \
 kernel/processes/DMS/dms_scheduler.o \
 kernel/processes/RoundRobin/rr_scheduler.o \
 kernel/processes/scheduler.o \
-kernel/reset_condition.o \
-kernel/TWI/twi_raw.o \
-kernel/TWI/twi_rpc.o
+kernel/reset_condition.o
 
 
 OBJS_AS_ARGS +=  \
+kernel/devices/motor_smooth.o \
 kernel/hardware_reset.o \
 kernel/millisecond_clock.o \
 kernel/devices/button.o \
@@ -93,12 +94,11 @@ kernel/devices/timer.o \
 kernel/processes/DMS/dms_scheduler.o \
 kernel/processes/RoundRobin/rr_scheduler.o \
 kernel/processes/scheduler.o \
-kernel/reset_condition.o \
-kernel/TWI/twi_raw.o \
-kernel/TWI/twi_rpc.o
+kernel/reset_condition.o
 
 
 C_DEPS +=  \
+kernel/devices/motor_smooth.d \
 kernel/hardware_reset.d \
 kernel/millisecond_clock.d \
 kernel/devices/button.d \
@@ -110,12 +110,11 @@ kernel/devices/timer.d \
 kernel/processes/DMS/dms_scheduler.d \
 kernel/processes/RoundRobin/rr_scheduler.d \
 kernel/processes/scheduler.d \
-kernel/reset_condition.d \
-kernel/TWI/twi_raw.d \
-kernel/TWI/twi_rpc.d
+kernel/reset_condition.d
 
 
 C_DEPS_AS_ARGS +=  \
+kernel/devices/motor_smooth.d \
 kernel/hardware_reset.d \
 kernel/millisecond_clock.d \
 kernel/devices/button.d \
@@ -127,9 +126,7 @@ kernel/devices/timer.d \
 kernel/processes/DMS/dms_scheduler.d \
 kernel/processes/RoundRobin/rr_scheduler.d \
 kernel/processes/scheduler.d \
-kernel/reset_condition.d \
-kernel/TWI/twi_raw.d \
-kernel/TWI/twi_rpc.d
+kernel/reset_condition.d
 
 
 OUTPUT_FILE_PATH +=libAntonAvrLib.a
@@ -168,15 +165,13 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 
 
 
-
-
-kernel/%.o: ../kernel/%.c
+kernel/devices/%.o: ../kernel/devices/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DAVR -DF_CPU=20000000  -Os -ffunction-sections -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
-kernel/devices/%.o: ../kernel/devices/%.c
+kernel/%.o: ../kernel/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DAVR -DF_CPU=20000000  -Os -ffunction-sections -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
@@ -195,12 +190,6 @@ kernel/processes/RoundRobin/%.o: ../kernel/processes/RoundRobin/%.c
 	@echo Finished building: $<
 
 kernel/processes/%.o: ../kernel/processes/%.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler
-	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DAVR -DF_CPU=20000000  -Os -ffunction-sections -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
-	@echo Finished building: $<
-
-kernel/TWI/%.o: ../kernel/TWI/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DAVR -DF_CPU=20000000  -Os -ffunction-sections -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 

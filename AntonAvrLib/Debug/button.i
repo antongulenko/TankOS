@@ -3000,10 +3000,10 @@ void setPinOne(PPin pin);
 void setPinZero(PPin pin);
 
 BOOL readPin(PPin pin);
-# 63 "../kernel/devices/port.h"
-#define DEFINE_PIN(port,pin) extern Pin Pin ##port ##pin;
+# 61 "../kernel/devices/port.h"
+#define DEFINE_PIN(port,pin) extern const PPin Pin ##port ##pin;
 
-#define DEFINE_PORT(suffix) extern Port Port ##suffix;
+#define DEFINE_PORT(suffix) extern const PPort Port ##suffix;
 
 
 
@@ -3027,10 +3027,10 @@ typedef struct {
 
 
 BOOL buttonStatus(PButton button);
-# 43 "../kernel/devices/button.h"
-#define DEFINE_BUTTON(buttonName) extern Button buttonName;
+# 45 "../kernel/devices/button.h"
+#define DEFINE_BUTTON(buttonName) extern const PButton buttonName;
 
-#define DEFINE_INTERRUPT_BUTTON(buttonName) extern InterruptButton buttonName;
+#define DEFINE_INTERRUPT_BUTTON(buttonName) extern const PInterruptButton buttonName;
 # 9 "../kernel/devices/button.c" 2
 
 

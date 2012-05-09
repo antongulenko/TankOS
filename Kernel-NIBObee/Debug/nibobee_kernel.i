@@ -3018,20 +3018,18 @@ void setPinZero(PPin pin);
 BOOL readPin(PPin pin);
 
 
-#define DEFINE_PIN(port,pin) Pin Pin ##port ##pin;
-
-#define DEFINE_PORT(port) Port Port ##port;
-
-#define INIT_PIN(port,pin) Pin ##port ##pin = (Pin) { &Port ##port, _BV(PIN ##port ##pin) };
+#define DEFINE_PIN(port,pin) Pin Pin ##port ##pin ##_; const PPin Pin ##port ##pin = &Pin ##port ##pin ##_;
 
 
+#define DEFINE_PORT(port) Port Port ##port ##_; const PPort Port ##port = &Port ##port ##_;
 
-#define INIT_PORT(port) Port ##port = (Port) { &PORT ##port, &PIN ##port, &DDR ##port };
 
+#define INIT_PIN(port,pin) Pin ##port ##pin ##_ = (Pin) { Port ##port, _BV(PIN ##port ##pin) };
 
+#define INIT_PORT(port) Port ##port ##_ = (Port) { &PORT ##port, &PIN ##port, &DDR ##port };
 
 #define INIT_PORT_AND_PINS(port) INIT_PORT(port) INIT_PIN(port,0) INIT_PIN(port,1) INIT_PIN(port,2) INIT_PIN(port,3) INIT_PIN(port,4) INIT_PIN(port,5) INIT_PIN(port,6) INIT_PIN(port,7)
-# 69 "..\\..\\AntonAvrLib/kernel/devices/port.h"
+# 67 "..\\..\\AntonAvrLib/kernel/devices/port.h"
 #define DEFINE_PORT_AND_PINS(port) DEFINE_PORT(port) DEFINE_PIN(port,0) DEFINE_PIN(port,1) DEFINE_PIN(port,2) DEFINE_PIN(port,3) DEFINE_PIN(port,4) DEFINE_PIN(port,5) DEFINE_PIN(port,6) DEFINE_PIN(port,7)
 # 12 "..\\..\\AntonAvrLib/kernel/devices/led.h" 2
 
@@ -3059,13 +3057,16 @@ void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
 void blinkAllLeds(PLedGroup leds, const uint8_t times);
 
 
-#define DEFINE_LED(ledName) Led ledName;
-#define DEFINE_LED_GROUP(groupName) LedGroup groupName;
-
-#define INIT_LED(ledName,pinName) ledName = (Led) { &pinName }; initLed(&ledName);
+#define DEFINE_LED(ledName) Led ledName ##_; const PLed ledName = &ledName ##_;
 
 
-#define INIT_LED_GROUP(groupName,groupArrayPointer,count) groupName = (LedGroup) { groupArrayPointer, count };
+#define DEFINE_LED_GROUP(groupName) LedGroup groupName ##_; const PLedGroup groupName = &groupName ##_;
+
+
+#define INIT_LED(ledName,pinName) ledName ##_ = (Led) { pinName }; initLed(ledName);
+
+
+#define INIT_LED_GROUP(groupName,groupArrayPointer,count) groupName ##_ = (LedGroup) { groupArrayPointer, count };
 # 12 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 2
 
 
@@ -3177,17 +3178,17 @@ uint8_t getResetStatus() {
 
 
 
-Port PortA; Pin PinA0; Pin PinA1; Pin PinA2; Pin PinA3; Pin PinA4; Pin PinA5; Pin PinA6; Pin PinA7;
-Port PortB; Pin PinB0; Pin PinB1; Pin PinB2; Pin PinB3; Pin PinB4; Pin PinB5; Pin PinB6; Pin PinB7;
-Port PortC; Pin PinC0; Pin PinC1; Pin PinC2; Pin PinC3; Pin PinC4; Pin PinC5; Pin PinC6; Pin PinC7;
-Port PortD; Pin PinD0; Pin PinD1; Pin PinD2; Pin PinD3; Pin PinD4; Pin PinD5; Pin PinD6; Pin PinD7;
+Port PortA_; const PPort PortA = &PortA_; Pin PinA0_; const PPin PinA0 = &PinA0_; Pin PinA1_; const PPin PinA1 = &PinA1_; Pin PinA2_; const PPin PinA2 = &PinA2_; Pin PinA3_; const PPin PinA3 = &PinA3_; Pin PinA4_; const PPin PinA4 = &PinA4_; Pin PinA5_; const PPin PinA5 = &PinA5_; Pin PinA6_; const PPin PinA6 = &PinA6_; Pin PinA7_; const PPin PinA7 = &PinA7_;
+Port PortB_; const PPort PortB = &PortB_; Pin PinB0_; const PPin PinB0 = &PinB0_; Pin PinB1_; const PPin PinB1 = &PinB1_; Pin PinB2_; const PPin PinB2 = &PinB2_; Pin PinB3_; const PPin PinB3 = &PinB3_; Pin PinB4_; const PPin PinB4 = &PinB4_; Pin PinB5_; const PPin PinB5 = &PinB5_; Pin PinB6_; const PPin PinB6 = &PinB6_; Pin PinB7_; const PPin PinB7 = &PinB7_;
+Port PortC_; const PPort PortC = &PortC_; Pin PinC0_; const PPin PinC0 = &PinC0_; Pin PinC1_; const PPin PinC1 = &PinC1_; Pin PinC2_; const PPin PinC2 = &PinC2_; Pin PinC3_; const PPin PinC3 = &PinC3_; Pin PinC4_; const PPin PinC4 = &PinC4_; Pin PinC5_; const PPin PinC5 = &PinC5_; Pin PinC6_; const PPin PinC6 = &PinC6_; Pin PinC7_; const PPin PinC7 = &PinC7_;
+Port PortD_; const PPort PortD = &PortD_; Pin PinD0_; const PPin PinD0 = &PinD0_; Pin PinD1_; const PPin PinD1 = &PinD1_; Pin PinD2_; const PPin PinD2 = &PinD2_; Pin PinD3_; const PPin PinD3 = &PinD3_; Pin PinD4_; const PPin PinD4 = &PinD4_; Pin PinD5_; const PPin PinD5 = &PinD5_; Pin PinD6_; const PPin PinD6 = &PinD6_; Pin PinD7_; const PPin PinD7 = &PinD7_;
 # 13 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel.h" 2
 
 void init_ports_m1284P() {
- PortA = (Port) { &(*(volatile uint8_t *)((0x02) + 0x20)), &(*(volatile uint8_t *)((0x00) + 0x20)), &(*(volatile uint8_t *)((0x01) + 0x20)) }; PinA0 = (Pin) { &PortA, (1 << (0)) }; PinA1 = (Pin) { &PortA, (1 << (1)) }; PinA2 = (Pin) { &PortA, (1 << (2)) }; PinA3 = (Pin) { &PortA, (1 << (3)) }; PinA4 = (Pin) { &PortA, (1 << (4)) }; PinA5 = (Pin) { &PortA, (1 << (5)) }; PinA6 = (Pin) { &PortA, (1 << (6)) }; PinA7 = (Pin) { &PortA, (1 << (7)) };;
- PortB = (Port) { &(*(volatile uint8_t *)((0x05) + 0x20)), &(*(volatile uint8_t *)((0x03) + 0x20)), &(*(volatile uint8_t *)((0x04) + 0x20)) }; PinB0 = (Pin) { &PortB, (1 << (0)) }; PinB1 = (Pin) { &PortB, (1 << (1)) }; PinB2 = (Pin) { &PortB, (1 << (2)) }; PinB3 = (Pin) { &PortB, (1 << (3)) }; PinB4 = (Pin) { &PortB, (1 << (4)) }; PinB5 = (Pin) { &PortB, (1 << (5)) }; PinB6 = (Pin) { &PortB, (1 << (6)) }; PinB7 = (Pin) { &PortB, (1 << (7)) };;
- PortC = (Port) { &(*(volatile uint8_t *)((0x08) + 0x20)), &(*(volatile uint8_t *)((0x06) + 0x20)), &(*(volatile uint8_t *)((0x07) + 0x20)) }; PinC0 = (Pin) { &PortC, (1 << (0)) }; PinC1 = (Pin) { &PortC, (1 << (1)) }; PinC2 = (Pin) { &PortC, (1 << (2)) }; PinC3 = (Pin) { &PortC, (1 << (3)) }; PinC4 = (Pin) { &PortC, (1 << (4)) }; PinC5 = (Pin) { &PortC, (1 << (5)) }; PinC6 = (Pin) { &PortC, (1 << (6)) }; PinC7 = (Pin) { &PortC, (1 << (7)) };;
- PortD = (Port) { &(*(volatile uint8_t *)((0x0B) + 0x20)), &(*(volatile uint8_t *)((0x09) + 0x20)), &(*(volatile uint8_t *)((0x0A) + 0x20)) }; PinD0 = (Pin) { &PortD, (1 << (0)) }; PinD1 = (Pin) { &PortD, (1 << (1)) }; PinD2 = (Pin) { &PortD, (1 << (2)) }; PinD3 = (Pin) { &PortD, (1 << (3)) }; PinD4 = (Pin) { &PortD, (1 << (4)) }; PinD5 = (Pin) { &PortD, (1 << (5)) }; PinD6 = (Pin) { &PortD, (1 << (6)) }; PinD7 = (Pin) { &PortD, (1 << (7)) };;
+ PortA_ = (Port) { &(*(volatile uint8_t *)((0x02) + 0x20)), &(*(volatile uint8_t *)((0x00) + 0x20)), &(*(volatile uint8_t *)((0x01) + 0x20)) }; PinA0_ = (Pin) { PortA, (1 << (0)) }; PinA1_ = (Pin) { PortA, (1 << (1)) }; PinA2_ = (Pin) { PortA, (1 << (2)) }; PinA3_ = (Pin) { PortA, (1 << (3)) }; PinA4_ = (Pin) { PortA, (1 << (4)) }; PinA5_ = (Pin) { PortA, (1 << (5)) }; PinA6_ = (Pin) { PortA, (1 << (6)) }; PinA7_ = (Pin) { PortA, (1 << (7)) };;
+ PortB_ = (Port) { &(*(volatile uint8_t *)((0x05) + 0x20)), &(*(volatile uint8_t *)((0x03) + 0x20)), &(*(volatile uint8_t *)((0x04) + 0x20)) }; PinB0_ = (Pin) { PortB, (1 << (0)) }; PinB1_ = (Pin) { PortB, (1 << (1)) }; PinB2_ = (Pin) { PortB, (1 << (2)) }; PinB3_ = (Pin) { PortB, (1 << (3)) }; PinB4_ = (Pin) { PortB, (1 << (4)) }; PinB5_ = (Pin) { PortB, (1 << (5)) }; PinB6_ = (Pin) { PortB, (1 << (6)) }; PinB7_ = (Pin) { PortB, (1 << (7)) };;
+ PortC_ = (Port) { &(*(volatile uint8_t *)((0x08) + 0x20)), &(*(volatile uint8_t *)((0x06) + 0x20)), &(*(volatile uint8_t *)((0x07) + 0x20)) }; PinC0_ = (Pin) { PortC, (1 << (0)) }; PinC1_ = (Pin) { PortC, (1 << (1)) }; PinC2_ = (Pin) { PortC, (1 << (2)) }; PinC3_ = (Pin) { PortC, (1 << (3)) }; PinC4_ = (Pin) { PortC, (1 << (4)) }; PinC5_ = (Pin) { PortC, (1 << (5)) }; PinC6_ = (Pin) { PortC, (1 << (6)) }; PinC7_ = (Pin) { PortC, (1 << (7)) };;
+ PortD_ = (Port) { &(*(volatile uint8_t *)((0x0B) + 0x20)), &(*(volatile uint8_t *)((0x09) + 0x20)), &(*(volatile uint8_t *)((0x0A) + 0x20)) }; PinD0_ = (Pin) { PortD, (1 << (0)) }; PinD1_ = (Pin) { PortD, (1 << (1)) }; PinD2_ = (Pin) { PortD, (1 << (2)) }; PinD3_ = (Pin) { PortD, (1 << (3)) }; PinD4_ = (Pin) { PortD, (1 << (4)) }; PinD5_ = (Pin) { PortD, (1 << (5)) }; PinD6_ = (Pin) { PortD, (1 << (6)) }; PinD7_ = (Pin) { PortD, (1 << (7)) };;
 }
 void init_ports_m1284P_kernel_init() __attribute__((naked, section(".init8"))); void init_ports_m1284P_kernel_init() { init_ports_m1284P(); }
 # 12 ".././nibobee_led.kernel.h" 2
@@ -3210,36 +3211,36 @@ static void initLed(PLed led) {
 # 1 "..\\..\\AntonAvrLib/kernel/devices/led.h" 1
 # 12 ".././nibobee_led.h" 2
 
-Led LeftYellow;
-Led LeftRed;
-Led RightRed;
-Led RightYellow;
-LedGroup RedLeds;
-LedGroup YellowLeds;
-LedGroup RightLeds;
-LedGroup LeftLeds;
-LedGroup AllLeds;
+Led LeftYellow_; const PLed LeftYellow = &LeftYellow_;
+Led LeftRed_; const PLed LeftRed = &LeftRed_;
+Led RightRed_; const PLed RightRed = &RightRed_;
+Led RightYellow_; const PLed RightYellow = &RightYellow_;
+LedGroup RedLeds_; const PLedGroup RedLeds = &RedLeds_;
+LedGroup YellowLeds_; const PLedGroup YellowLeds = &YellowLeds_;
+LedGroup RightLeds_; const PLedGroup RightLeds = &RightLeds_;
+LedGroup LeftLeds_; const PLedGroup LeftLeds = &LeftLeds_;
+LedGroup AllLeds_; const PLedGroup AllLeds = &AllLeds_;
 # 14 ".././nibobee_led.kernel.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/kernel_init.h" 1
 # 15 ".././nibobee_led.kernel.h" 2
 
-PLed redLedsArray[] = { &LeftRed, &RightRed };
-PLed yellowLedsArray[] = { &LeftYellow, &RightYellow };
-PLed rightLedsArray[] = { &RightYellow, &RightRed };
-PLed leftLedsArray[] = { &LeftYellow, &LeftRed };
-PLed allLedsArray[] = { &LeftYellow, &LeftRed, &RightRed, &RightYellow };
+PLed redLedsArray[] = { &LeftRed_, &RightRed_ };
+PLed yellowLedsArray[] = { &LeftYellow_, &RightYellow_ };
+PLed rightLedsArray[] = { &RightYellow_, &RightRed_ };
+PLed leftLedsArray[] = { &LeftYellow_, &LeftRed_ };
+PLed allLedsArray[] = { &LeftYellow_, &LeftRed_, &RightRed_, &RightYellow_ };
 
 void init_nibobee_leds() {
- LeftYellow = (Led) { &PinB0 }; initLed(&LeftYellow);
- LeftRed = (Led) { &PinB1 }; initLed(&LeftRed);
- RightRed = (Led) { &PinB2 }; initLed(&RightRed);
- RightYellow = (Led) { &PinB3 }; initLed(&RightYellow);
+ LeftYellow_ = (Led) { PinB0 }; initLed(LeftYellow);
+ LeftRed_ = (Led) { PinB1 }; initLed(LeftRed);
+ RightRed_ = (Led) { PinB2 }; initLed(RightRed);
+ RightYellow_ = (Led) { PinB3 }; initLed(RightYellow);
 
- RedLeds = (LedGroup) { redLedsArray, 2 };
- YellowLeds = (LedGroup) { yellowLedsArray, 2 };
- RightLeds = (LedGroup) { rightLedsArray, 2 };
- LeftLeds = (LedGroup) { leftLedsArray, 2 };
- AllLeds = (LedGroup) { allLedsArray, 4 };
+ RedLeds_ = (LedGroup) { redLedsArray, 2 };
+ YellowLeds_ = (LedGroup) { yellowLedsArray, 2 };
+ RightLeds_ = (LedGroup) { rightLedsArray, 2 };
+ LeftLeds_ = (LedGroup) { leftLedsArray, 2 };
+ AllLeds_ = (LedGroup) { allLedsArray, 4 };
 }
 void init_nibobee_leds_kernel_init() __attribute__((naked, section(".init8"))); void init_nibobee_leds_kernel_init() { init_nibobee_leds(); }
 # 11 ".././nibobee_kernel.c" 2
@@ -3289,14 +3290,16 @@ typedef struct {
 BOOL buttonStatus(PButton button);
 
 
-#define DEFINE_BUTTON(buttonName) Button buttonName;
-
-#define DEFINE_INTERRUPT_BUTTON(buttonName) InterruptButton buttonName;
-
-#define INIT_BUTTON(buttonName,pinName,flags) buttonName = (Button) { flags, &pinName }; initButton(&buttonName);
+#define DEFINE_BUTTON(buttonName) Button buttonName ##_; const PButton buttonName = &buttonName ##_;
 
 
-#define INIT_INTERRUPT_BUTTON(buttonName,pinName,flags,interruptNumber) buttonName = (InterruptButton) { flags, &pinName, interruptNumber }; initInterruptButton(&buttonName);
+#define DEFINE_INTERRUPT_BUTTON(buttonName) InterruptButton buttonName ##_; const PInterruptButton buttonName = &buttonName ##_;
+
+
+#define INIT_BUTTON(buttonName,pinName,flags) buttonName ##_ = (Button) { flags, pinName }; initButton(buttonName);
+
+
+#define INIT_INTERRUPT_BUTTON(buttonName,pinName,flags,interruptNumber) buttonName ##_ = (InterruptButton) { flags, pinName, interruptNumber }; initInterruptButton(buttonName);
 # 14 "..\\..\\AntonAvrLib/kernel/devices/button.kernel.h" 2
 
 void initButton(PButton button) {
@@ -3317,17 +3320,17 @@ void initInterruptButton(PInterruptButton button) {
 # 1 "..\\..\\AntonAvrLib/kernel/devices/button.h" 1
 # 12 ".././nibobee_button.h" 2
 
-Button ButtonRightBackward;
-Button ButtonRightForward;
-Button ButtonLeftBackward;
-Button ButtonLeftForward;
+Button ButtonRightBackward_; const PButton ButtonRightBackward = &ButtonRightBackward_;
+Button ButtonRightForward_; const PButton ButtonRightForward = &ButtonRightForward_;
+Button ButtonLeftBackward_; const PButton ButtonLeftBackward = &ButtonLeftBackward_;
+Button ButtonLeftForward_; const PButton ButtonLeftForward = &ButtonLeftForward_;
 # 15 ".././nibobee_button.kernel.h" 2
 
 void init_nibobee_buttons() {
- ButtonLeftBackward = (Button) { (1 << 2) | (1 << 1), &PinC5 }; initButton(&ButtonLeftBackward);
- ButtonLeftForward = (Button) { (1 << 2) | (1 << 1), &PinC4 }; initButton(&ButtonLeftForward);
- ButtonRightBackward = (Button) { (1 << 2) | (1 << 1), &PinC7 }; initButton(&ButtonRightBackward);
- ButtonRightForward = (Button) { (1 << 2) | (1 << 1), &PinC6 }; initButton(&ButtonRightForward);
+ ButtonLeftBackward_ = (Button) { (1 << 2) | (1 << 1), PinC5 }; initButton(ButtonLeftBackward);
+ ButtonLeftForward_ = (Button) { (1 << 2) | (1 << 1), PinC4 }; initButton(ButtonLeftForward);
+ ButtonRightBackward_ = (Button) { (1 << 2) | (1 << 1), PinC7 }; initButton(ButtonRightBackward);
+ ButtonRightForward_ = (Button) { (1 << 2) | (1 << 1), PinC6 }; initButton(ButtonRightForward);
 }
 void init_nibobee_buttons_kernel_init() __attribute__((naked, section(".init8"))); void init_nibobee_buttons_kernel_init() { init_nibobee_buttons(); }
 # 12 ".././nibobee_kernel.c" 2
@@ -3358,14 +3361,12 @@ typedef enum {
  pwm_phase_correct_FF,
 
 
+
+
  pwm_phase_correct,
  pwm_fast,
 
 
- pwm_phase_correct_9bit,
- pwm_phase_correct_10bit,
- pwm_fast_9bit,
- pwm_fast_10bit,
  pwm_phase_and_frequency_correct
 } WaveformGenerationMode;
 
@@ -3394,12 +3395,18 @@ typedef enum {
 #define TIMER_ASYNCHRONOUS (1 << 1)
 #define TIMER_16bit (1 << 2)
 
+
+
+
+#define TIMER_RESOLUTION_9bit (1 << 4)
+#define TIMER_RESOLUTION_10bit (1 << 5)
+
 typedef struct {
  uint8_t flags;
  volatile uint8_t *controlRegisterA;
  volatile uint8_t *controlRegisterB;
  volatile uint8_t *interruptMaskRegister;
-} TimerConfig, *PTimerConfig;
+} TimerPair, *PTimerPair;
 
 typedef enum {
  TIMER_A,
@@ -3407,19 +3414,20 @@ typedef enum {
 } TIMER_TYPE;
 
 typedef struct {
- PTimerConfig timer;
+ PTimerPair timer;
  volatile uint8_t *outputCompareRegister;
  TIMER_TYPE type;
  PPin outputComparePin;
 } Timer, *PTimer;
 
 
-void setTimerClockSelect(PTimerConfig timer, TimerClockSelect cs);
-void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm);
+void setTimerClockSelect(PTimerPair timer, TimerClockSelect cs);
+void setWaveformGenerationMode(PTimerPair timer, WaveformGenerationMode wgm);
 
 void setCompareMatchOutputMode(PTimer timer, CompareMatchOutputMode com);
 
 void enableTimerInterrupt(PTimer timer);
+void disableTimerInterrupt(PTimer timer);
 void enableOutputCompare(PTimer timer);
 void disableOutputCompare(PTimer timer);
 
@@ -3430,47 +3438,49 @@ void setTimerCompareValue(PTimer timer, uint16_t value);
 uint16_t getTimerCompareValue(PTimer timer);
 
 
-#define DEFINE_TIMER_CONFIG(configName) TimerConfig configName;
+#define DEFINE_TIMER_CONFIG(configName) TimerPair configName ##_; const PTimerPair configName = &configName ##_;
 
-#define DEFINE_TIMER(timerName) Timer timerName;
 
-#define INIT_TIMER_CONFIG(configName,flags,regA,regB,interrReg) configName = (TimerConfig) {flags, (uint8_t*) &regA, (uint8_t*) &regB, &interrReg};
+#define DEFINE_TIMER(timerName) Timer timerName ##_; const PTimer timerName = &timerName ##_;
 
-#define INIT_TIMER(timerName,configName,ocr,timerType,ocPin) timerName = (Timer) {&configName, (uint8_t*) &ocr, timerType, &ocPin};
+
+#define INIT_TIMER_CONFIG(configName,flags,regA,regB,interrReg) configName ##_ = (TimerPair) {flags, (uint8_t*) &regA, (uint8_t*) &regB, &interrReg};
+
+#define INIT_TIMER(timerName,configName,ocr,timerType,ocPin) timerName ##_ = (Timer) {configName, (uint8_t*) &ocr, timerType, ocPin};
 # 12 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h" 2
 
 
-TimerConfig Timer0;
-TimerConfig Timer1;
-TimerConfig Timer2;
-TimerConfig Timer3;
+TimerPair Timer0_; const PTimerPair Timer0 = &Timer0_;
+TimerPair Timer1_; const PTimerPair Timer1 = &Timer1_;
+TimerPair Timer2_; const PTimerPair Timer2 = &Timer2_;
+TimerPair Timer3_; const PTimerPair Timer3 = &Timer3_;
 
-Timer Timer0A;
-Timer Timer0B;
-Timer Timer1A;
-Timer Timer1B;
-Timer Timer2A;
-Timer Timer2B;
-Timer Timer3A;
-Timer Timer3B;
+Timer Timer0A_; const PTimer Timer0A = &Timer0A_;
+Timer Timer0B_; const PTimer Timer0B = &Timer0B_;
+Timer Timer1A_; const PTimer Timer1A = &Timer1A_;
+Timer Timer1B_; const PTimer Timer1B = &Timer1B_;
+Timer Timer2A_; const PTimer Timer2A = &Timer2A_;
+Timer Timer2B_; const PTimer Timer2B = &Timer2B_;
+Timer Timer3A_; const PTimer Timer3A = &Timer3A_;
+Timer Timer3B_; const PTimer Timer3B = &Timer3B_;
 # 13 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel.h" 1
 # 14 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 2
 
 void init_timer_m1284P() {
- Timer0 = (TimerConfig) {0, (uint8_t*) &(*(volatile uint8_t *)((0x24) + 0x20)), (uint8_t*) &(*(volatile uint8_t *)((0x25) + 0x20)), &(*(volatile uint8_t *)(0x6E))};
- Timer1 = (TimerConfig) {(1 << 2), (uint8_t*) &(*(volatile uint8_t *)(0x80)), (uint8_t*) &(*(volatile uint8_t *)(0x81)), &(*(volatile uint8_t *)(0x6F))};
- Timer2 = (TimerConfig) {(1 << 1), (uint8_t*) &(*(volatile uint8_t *)(0xB0)), (uint8_t*) &(*(volatile uint8_t *)(0xB1)), &(*(volatile uint8_t *)(0x70))};
- Timer3 = (TimerConfig) {(1 << 2), (uint8_t*) &(*(volatile uint8_t *)(0x90)), (uint8_t*) &(*(volatile uint8_t *)(0x91)), &(*(volatile uint8_t *)(0x71))};
+ Timer0_ = (TimerPair) {0, (uint8_t*) &(*(volatile uint8_t *)((0x24) + 0x20)), (uint8_t*) &(*(volatile uint8_t *)((0x25) + 0x20)), &(*(volatile uint8_t *)(0x6E))};
+ Timer1_ = (TimerPair) {(1 << 2), (uint8_t*) &(*(volatile uint8_t *)(0x80)), (uint8_t*) &(*(volatile uint8_t *)(0x81)), &(*(volatile uint8_t *)(0x6F))};
+ Timer2_ = (TimerPair) {(1 << 1), (uint8_t*) &(*(volatile uint8_t *)(0xB0)), (uint8_t*) &(*(volatile uint8_t *)(0xB1)), &(*(volatile uint8_t *)(0x70))};
+ Timer3_ = (TimerPair) {(1 << 2), (uint8_t*) &(*(volatile uint8_t *)(0x90)), (uint8_t*) &(*(volatile uint8_t *)(0x91)), &(*(volatile uint8_t *)(0x71))};
 
- Timer0A = (Timer) {&Timer0, (uint8_t*) &(*(volatile uint8_t *)((0x27) + 0x20)), TIMER_A, &PinB3};
- Timer0B = (Timer) {&Timer0, (uint8_t*) &(*(volatile uint8_t *)((0x28) + 0x20)), TIMER_B, &PinB4};
- Timer1A = (Timer) {&Timer1, (uint8_t*) &(*(volatile uint16_t *)(0x88)), TIMER_A, &PinD5};
- Timer1B = (Timer) {&Timer1, (uint8_t*) &(*(volatile uint16_t *)(0x8A)), TIMER_B, &PinD4};
- Timer2A = (Timer) {&Timer2, (uint8_t*) &(*(volatile uint8_t *)(0xB3)), TIMER_A, &PinD7};
- Timer2B = (Timer) {&Timer2, (uint8_t*) &(*(volatile uint8_t *)(0xB4)), TIMER_B, &PinD6};
- Timer3A = (Timer) {&Timer3, (uint8_t*) &(*(volatile uint16_t *)(0x98)), TIMER_A, &PinB6};
- Timer3B = (Timer) {&Timer3, (uint8_t*) &(*(volatile uint16_t *)(0x9A)), TIMER_B, &PinB7};
+ Timer0A_ = (Timer) {Timer0, (uint8_t*) &(*(volatile uint8_t *)((0x27) + 0x20)), TIMER_A, PinB3};
+ Timer0B_ = (Timer) {Timer0, (uint8_t*) &(*(volatile uint8_t *)((0x28) + 0x20)), TIMER_B, PinB4};
+ Timer1A_ = (Timer) {Timer1, (uint8_t*) &(*(volatile uint16_t *)(0x88)), TIMER_A, PinD5};
+ Timer1B_ = (Timer) {Timer1, (uint8_t*) &(*(volatile uint16_t *)(0x8A)), TIMER_B, PinD4};
+ Timer2A_ = (Timer) {Timer2, (uint8_t*) &(*(volatile uint8_t *)(0xB3)), TIMER_A, PinD7};
+ Timer2B_ = (Timer) {Timer2, (uint8_t*) &(*(volatile uint8_t *)(0xB4)), TIMER_B, PinD6};
+ Timer3A_ = (Timer) {Timer3, (uint8_t*) &(*(volatile uint16_t *)(0x98)), TIMER_A, PinB6};
+ Timer3B_ = (Timer) {Timer3, (uint8_t*) &(*(volatile uint16_t *)(0x9A)), TIMER_B, PinB7};
 }
 void init_timer_m1284P_kernel_init() __attribute__((naked, section(".init8"))); void init_timer_m1284P_kernel_init() { init_timer_m1284P(); }
 # 13 ".././nibobee_motor.kernel.h" 2
@@ -3504,8 +3514,8 @@ typedef struct {
 } Motor2Pins, *PMotor2Pins;
 
 typedef enum {
- FORWARD = 0,
- BACKWARD = 1,
+ BACKWARD = 0,
+ FORWARD = 1,
  MOTOR_STOPPED = 2
 } MotorDirection;
 
@@ -3530,26 +3540,35 @@ int16_t getDirSpeed(PMotor motor);
 void setDirSpeed(PMotor motor, int16_t speed);
 
 
-#define DEFINE_MOTOR(motorName) Motor motorName;
-
-#define INIT_MOTOR(motorName,flags,directionPin,pwmTimer) motorName = (Motor) { flags, &directionPin, &pwmTimer }; initMotor(&motorName);
+#define DEFINE_MOTOR(motorName) Motor motorName ##_; const PMotor motorName = &motorName ##_;
 
 
-#define DEFINE_2DirPins_MOTOR(motorName) Motor2Pins motorName;
+#define INIT_MOTOR(motorName,flags,directionPin,pwmTimer) motorName ##_ = (Motor) { flags, directionPin, pwmTimer }; initMotor(motorName);
 
-#define INIT_2DirPins_MOTOR(motorName,flags,directionPin,pwmTimer,directionPin2) motorName = (Motor2Pins) { { flags | MOTOR_TWO_DIR_PINS, &directionPin, &pwmTimer }, &directionPin2 }; initMotor2Pins(&motorName);
+
+#define DEFINE_2DirPins_MOTOR(motorName) Motor2Pins motorName ##_; const PMotor motorName = (PMotor) &motorName ##_;
+
+
+#define INIT_2DirPins_MOTOR(motorName,flags,directionPin,pwmTimer,directionPin2) motorName ##_ = (Motor2Pins) { { flags | MOTOR_TWO_DIR_PINS, directionPin, pwmTimer }, directionPin2 }; initMotor2Pins(&motorName ##_);
 # 13 "..\\..\\AntonAvrLib/kernel/devices/motor.kernel.h" 2
 
-
 void initMotor(PMotor motor) {
+
+
+ setTimerClockSelect(Timer1, prescale_1);
+ setWaveformGenerationMode(motor->pwmTimer->timer, pwm_phase_correct);
+
  setTimerCompareValue(motor->pwmTimer, 0);
  setPinOutput(motor->direction);
+ if (!(motor->flags & (1 << 3)))
+  setPinOne(motor->direction);
 }
 
 void initMotor2Pins(PMotor2Pins motor) {
  initMotor((PMotor) motor);
  setPinOutput(motor->direction2);
- stopMotor((PMotor) motor);
+ setPinZero(motor->motor.direction);
+ setPinZero(motor->direction2);
 }
 # 14 ".././nibobee_motor.kernel.h" 2
 # 1 ".././nibobee_motor.h" 1
@@ -3560,20 +3579,87 @@ void initMotor2Pins(PMotor2Pins motor) {
 # 12 ".././nibobee_motor.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/devices/motor.h" 1
 # 13 ".././nibobee_motor.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.h"
+#define MOTOR_SMOOTH_H_ 
 
-Motor LeftMotor;
-Motor RightMotor;
+
+# 1 "..\\..\\AntonAvrLib/kernel/devices/../processes/mutex/mutex.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/devices/../processes/mutex/mutex.h"
+#define MUTEX_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/devices/../processes/mutex/../../../anton_std.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/devices/../processes/mutex/mutex.h" 2
+
+
+typedef struct Mutex__ { uint16_t unused; } *Mutex;
+
+Mutex mutex_create();
+
+void mutex_lock(Mutex mutex);
+BOOL mutex_trylock(Mutex mutex);
+void mutex_release(Mutex mutex);
+# 13 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.h" 2
+
+
+
+typedef struct {
+ PMotor motor;
+
+
+ uint16_t currentSpeed;
+ MotorDirection currentDirection;
+
+
+ uint16_t targetSpeed;
+ MotorDirection targetDirection;
+
+
+ BOOL tickRunning;
+ uint16_t adjustmentFrequency;
+ uint16_t adjustmentStep;
+ Mutex mutex;
+} SmoothMotor, *PSmoothMotor;
+
+
+
+void regulateStopMotor(PSmoothMotor motor);
+
+void regulateSpeed(PSmoothMotor motor, uint16_t speed, MotorDirection direction);
+void regulateSpeedForward(PSmoothMotor motor, uint16_t speed);
+void regulateSpeedBackward(PSmoothMotor motor, uint16_t speed);
+
+void regulateDirSpeed(PSmoothMotor motor, int16_t speed);
+
+
+#define DEFINE_SMOOTH_MOTOR(motorName) SmoothMotor motorName ##_; const PSmoothMotor motorName = &motorName ##_;
+
+
+#define INIT_SMOOTH_MOTOR(motorName,realMotor,adjustmentFreq,adjustmentStep) motorName ##_ = (SmoothMotor) { realMotor, 0, FORWARD, 0, FORWARD, FALSE, adjustmentFreq, adjustmentStep, 0 }; initSmoothMotor(motorName);
+# 14 ".././nibobee_motor.h" 2
+
+Motor LeftMotorBase_; const PMotor LeftMotorBase = &LeftMotorBase_;
+Motor RightMotorBase_; const PMotor RightMotorBase = &RightMotorBase_;
+SmoothMotor LeftMotor_; const PSmoothMotor LeftMotor = &LeftMotor_;
+SmoothMotor RightMotor_; const PSmoothMotor RightMotor = &RightMotor_;
 # 15 ".././nibobee_motor.kernel.h" 2
 
 void init_nibobee_motors() {
- LeftMotor = (Motor) { 0, &PinD6, &Timer1A }; initMotor(&LeftMotor);
- RightMotor = (Motor) { 0, &PinD7, &Timer1B }; initMotor(&RightMotor);
+ Timer1->flags |= (1 << 4);
+
+ LeftMotorBase_ = (Motor) { 0, PinD6, Timer1A }; initMotor(LeftMotorBase);
+ RightMotorBase_ = (Motor) { (1 << 2), PinD7, Timer1B }; initMotor(RightMotorBase);
+
+
+
+ setPinOne(RightMotorBase->pwmTimer->outputComparePin);
+ setPinOne(LeftMotorBase->pwmTimer->outputComparePin);
 }
 void init_nibobee_motors_kernel_init() __attribute__((naked, section(".init8"))); void init_nibobee_motors_kernel_init() { init_nibobee_motors(); }
 # 13 ".././nibobee_kernel.c" 2
-# 1 ".././shared/base.kernel.h" 1
-# 9 ".././shared/base.kernel.h"
-#define _BASE_KERNEL_ 
+# 1 ".././shared/base_before.kernel.h" 1
+# 9 ".././shared/base_before.kernel.h"
+#define _BASE_BEFORE_KERNEL_ 
 
 
 # 1 ".././shared/../kernel.h" 1
@@ -3610,13 +3696,20 @@ uint32_t get_milliseconds_running();
 # 13 ".././shared/../shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
 # 14 ".././shared/../shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/anton_std.h" 1
+# 1 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h" 1
 # 15 ".././shared/../shared/kernel_base.h" 2
+# 1 "..\\..\\AntonAvrLib/anton_std.h" 1
+# 16 ".././shared/../shared/kernel_base.h" 2
 # 18 ".././shared/../kernel.h" 2
-# 1 ".././shared/../twi.h" 1
+# 1 ".././shared/../nibobee_button.h" 1
+# 19 ".././shared/../kernel.h" 2
+# 1 ".././shared/../nibobee_led.h" 1
+# 20 ".././shared/../kernel.h" 2
+# 1 ".././shared/../nibobee_motor.h" 1
+# 21 ".././shared/../kernel.h" 2
+# 1 ".././shared/../shared/twi_bgx1.h" 1
 
-
-#define TWI_H_ 
+#define TWI_BGX1_H_ 
 
 # 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
 
@@ -3688,34 +3781,543 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
 
 
 void twiMultipleOperations(int count, TWIOperation *operations);
-# 6 ".././shared/../twi.h" 2
-# 19 ".././shared/../kernel.h" 2
-# 1 ".././shared/../nibobee_button.h" 1
-# 20 ".././shared/../kernel.h" 2
-# 1 ".././shared/../nibobee_led.h" 1
-# 21 ".././shared/../kernel.h" 2
-# 1 ".././shared/../nibobee_motor.h" 1
+# 5 ".././shared/../shared/twi_bgx1.h" 2
+
+TWIDevice bgx1 = { 11 << 1 };
+
+
+
+
+
+
+#define TWI_DEVICE bgx1
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 1
+
+#define TWI_RPC_HASH_CLIENT_H_ 
+
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc.h" 1
+
+#define TWI_RPC_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
+# 5 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc.h" 2
+
+
+
+
+void twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
+void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer);
+# 8 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 2
+# 20 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
+#define TWI_RPC_FUNCTION_VAR(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() }
+
+
+
+
+
+
+
+#define TWI_RPC_FUNCTION_VARARGS(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; ResStruct result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() return result; }
+# 38 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
+#define TWI_RPC_FUNCTION_VARRES(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() }
+
+
+
+
+
+
+
+#define TWI_RPC_FUNCTION(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(ArgStruct) }; ResStruct result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() return result; }
+# 60 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
+#define TWI_RPC_FUNCTION_VOID_VAR(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters, uint16_t argSize) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize }; twi_rpc_oneway(TWI_DEVICE, operationByte, buf); WAIT_FOR_TWI() }
+
+
+
+
+
+
+#define TWI_RPC_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(ArgStruct) }; twi_rpc_oneway(TWI_DEVICE, operationByte, buf); WAIT_FOR_TWI() }
+# 78 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
+#define TWI_RPC_FUNCTION_NOARGS(funcName,operationByte,ResStruct) ResStruct funcName() { ResStruct result; TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() return result; }
+# 88 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
+#define TWI_RPC_FUNCTION_NOARGS_VAR(funcName,operationByte,ResStruct) void funcName(ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() }
+# 100 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
+#define TWI_RPC_FUNCTION_NOTIFY(funcName,operationByte) void funcName() { TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; twi_rpc_oneway(TWI_DEVICE, operationByte, argBuf); WAIT_FOR_TWI() }
+# 16 ".././shared/../shared/twi_bgx1.h" 2
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 1 3
+# 83 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __PGMSPACE_H_ 1
+
+#define __need_size_t 
+
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stddef.h" 1 3 4
+# 233 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 406 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stddef.h" 3 4
+#undef __need_NULL
+# 88 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 2 3
+
+
+
+
+
+
+
+#define __ATTR_PROGMEM__ __attribute__((__progmem__))
+# 109 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define PROGMEM __ATTR_PROGMEM__
+# 217 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+typedef void prog_void __attribute__((__progmem__));
+typedef char prog_char __attribute__((__progmem__));
+typedef unsigned char prog_uchar __attribute__((__progmem__));
+
+typedef int8_t prog_int8_t __attribute__((__progmem__));
+typedef uint8_t prog_uint8_t __attribute__((__progmem__));
+typedef int16_t prog_int16_t __attribute__((__progmem__));
+typedef uint16_t prog_uint16_t __attribute__((__progmem__));
+typedef int32_t prog_int32_t __attribute__((__progmem__));
+typedef uint32_t prog_uint32_t __attribute__((__progmem__));
+
+typedef int64_t prog_int64_t __attribute__((__progmem__));
+typedef uint64_t prog_uint64_t __attribute__((__progmem__));
+# 255 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define PSTR(s) (__extension__({static const char __c[] PROGMEM = (s); &__c[0];}))
+
+
+#define __LPM_classic__(addr) (__extension__({ uint16_t __addr16 = (uint16_t)(addr); uint8_t __result; __asm__ ( "lpm" "\n\t" "mov %0, r0" "\n\t" : "=r" (__result) : "z" (__addr16) : "r0" ); __result; }))
+# 273 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __LPM_enhanced__(addr) (__extension__({ uint16_t __addr16 = (uint16_t)(addr); uint8_t __result; __asm__ ( "lpm %0, Z" "\n\t" : "=r" (__result) : "z" (__addr16) ); __result; }))
+# 286 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __LPM_word_classic__(addr) (__extension__({ uint16_t __addr16 = (uint16_t)(addr); uint16_t __result; __asm__ ( "lpm" "\n\t" "mov %A0, r0" "\n\t" "adiw r30, 1" "\n\t" "lpm" "\n\t" "mov %B0, r0" "\n\t" : "=r" (__result), "=z" (__addr16) : "1" (__addr16) : "r0" ); __result; }))
+# 304 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __LPM_word_enhanced__(addr) (__extension__({ uint16_t __addr16 = (uint16_t)(addr); uint16_t __result; __asm__ ( "lpm %A0, Z+" "\n\t" "lpm %B0, Z" "\n\t" : "=r" (__result), "=z" (__addr16) : "1" (__addr16) ); __result; }))
+# 318 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __LPM_dword_classic__(addr) (__extension__({ uint16_t __addr16 = (uint16_t)(addr); uint32_t __result; __asm__ ( "lpm" "\n\t" "mov %A0, r0" "\n\t" "adiw r30, 1" "\n\t" "lpm" "\n\t" "mov %B0, r0" "\n\t" "adiw r30, 1" "\n\t" "lpm" "\n\t" "mov %C0, r0" "\n\t" "adiw r30, 1" "\n\t" "lpm" "\n\t" "mov %D0, r0" "\n\t" : "=r" (__result), "=z" (__addr16) : "1" (__addr16) : "r0" ); __result; }))
+# 342 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __LPM_dword_enhanced__(addr) (__extension__({ uint16_t __addr16 = (uint16_t)(addr); uint32_t __result; __asm__ ( "lpm %A0, Z+" "\n\t" "lpm %B0, Z+" "\n\t" "lpm %C0, Z+" "\n\t" "lpm %D0, Z" "\n\t" : "=r" (__result), "=z" (__addr16) : "1" (__addr16) ); __result; }))
+# 358 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __LPM_float_classic__(addr) (__extension__({ uint16_t __addr16 = (uint16_t)(addr); float __result; __asm__ ( "lpm" "\n\t" "mov %A0, r0" "\n\t" "adiw r30, 1" "\n\t" "lpm" "\n\t" "mov %B0, r0" "\n\t" "adiw r30, 1" "\n\t" "lpm" "\n\t" "mov %C0, r0" "\n\t" "adiw r30, 1" "\n\t" "lpm" "\n\t" "mov %D0, r0" "\n\t" : "=r" (__result), "=z" (__addr16) : "1" (__addr16) : "r0" ); __result; }))
+# 382 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __LPM_float_enhanced__(addr) (__extension__({ uint16_t __addr16 = (uint16_t)(addr); float __result; __asm__ ( "lpm %A0, Z+" "\n\t" "lpm %B0, Z+" "\n\t" "lpm %C0, Z+" "\n\t" "lpm %D0, Z" "\n\t" : "=r" (__result), "=z" (__addr16) : "1" (__addr16) ); __result; }))
+# 399 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __LPM(addr) __LPM_enhanced__(addr)
+#define __LPM_word(addr) __LPM_word_enhanced__(addr)
+#define __LPM_dword(addr) __LPM_dword_enhanced__(addr)
+#define __LPM_float(addr) __LPM_float_enhanced__(addr)
+# 416 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_read_byte_near(address_short) __LPM((uint16_t)(address_short))
+
+
+
+
+
+
+
+#define pgm_read_word_near(address_short) __LPM_word((uint16_t)(address_short))
+
+
+
+
+
+
+
+#define pgm_read_dword_near(address_short) __LPM_dword((uint16_t)(address_short))
+# 441 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_read_float_near(address_short) __LPM_float((uint16_t)(address_short))
+# 452 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_classic__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); uint8_t __result; __asm__ ( "out %2, %C1" "\n\t" "mov r31, %B1" "\n\t" "mov r30, %A1" "\n\t" "elpm" "\n\t" "mov %0, r0" "\n\t" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r0", "r30", "r31" ); __result; }))
+# 471 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_enhanced__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); uint8_t __result; __asm__ ( "out %2, %C1" "\n\t" "movw r30, %1" "\n\t" "elpm %0, Z+" "\n\t" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r30", "r31" ); __result; }))
+# 488 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_xmega__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); uint8_t __result; __asm__ ( "in __tmp_reg__, %2" "\n\t" "out %2, %C1" "\n\t" "movw r30, %1" "\n\t" "elpm %0, Z+" "\n\t" "out %2, __tmp_reg__" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r30", "r31" ); __result; }))
+# 507 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_word_classic__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); uint16_t __result; __asm__ ( "out %2, %C1" "\n\t" "mov r31, %B1" "\n\t" "mov r30, %A1" "\n\t" "elpm" "\n\t" "mov %A0, r0" "\n\t" "in r0, %2" "\n\t" "adiw r30, 1" "\n\t" "adc r0, __zero_reg__" "\n\t" "out %2, r0" "\n\t" "elpm" "\n\t" "mov %B0, r0" "\n\t" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r0", "r30", "r31" ); __result; }))
+# 532 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_word_enhanced__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); uint16_t __result; __asm__ ( "out %2, %C1" "\n\t" "movw r30, %1" "\n\t" "elpm %A0, Z+" "\n\t" "elpm %B0, Z" "\n\t" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r30", "r31" ); __result; }))
+# 550 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_word_xmega__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); uint16_t __result; __asm__ ( "in __tmp_reg__, %2" "\n\t" "out %2, %C1" "\n\t" "movw r30, %1" "\n\t" "elpm %A0, Z+" "\n\t" "elpm %B0, Z" "\n\t" "out %2, __tmp_reg__" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r30", "r31" ); __result; }))
+# 570 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_dword_classic__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); uint32_t __result; __asm__ ( "out %2, %C1" "\n\t" "mov r31, %B1" "\n\t" "mov r30, %A1" "\n\t" "elpm" "\n\t" "mov %A0, r0" "\n\t" "in r0, %2" "\n\t" "adiw r30, 1" "\n\t" "adc r0, __zero_reg__" "\n\t" "out %2, r0" "\n\t" "elpm" "\n\t" "mov %B0, r0" "\n\t" "in r0, %2" "\n\t" "adiw r30, 1" "\n\t" "adc r0, __zero_reg__" "\n\t" "out %2, r0" "\n\t" "elpm" "\n\t" "mov %C0, r0" "\n\t" "in r0, %2" "\n\t" "adiw r30, 1" "\n\t" "adc r0, __zero_reg__" "\n\t" "out %2, r0" "\n\t" "elpm" "\n\t" "mov %D0, r0" "\n\t" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r0", "r30", "r31" ); __result; }))
+# 607 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_dword_enhanced__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); uint32_t __result; __asm__ ( "out %2, %C1" "\n\t" "movw r30, %1" "\n\t" "elpm %A0, Z+" "\n\t" "elpm %B0, Z+" "\n\t" "elpm %C0, Z+" "\n\t" "elpm %D0, Z" "\n\t" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r30", "r31" ); __result; }))
+# 627 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_dword_xmega__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); uint32_t __result; __asm__ ( "in __tmp_reg__, %2" "\n\t" "out %2, %C1" "\n\t" "movw r30, %1" "\n\t" "elpm %A0, Z+" "\n\t" "elpm %B0, Z+" "\n\t" "elpm %C0, Z+" "\n\t" "elpm %D0, Z" "\n\t" "out %2, __tmp_reg__" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r30", "r31" ); __result; }))
+# 649 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_float_classic__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); float __result; __asm__ ( "out %2, %C1" "\n\t" "mov r31, %B1" "\n\t" "mov r30, %A1" "\n\t" "elpm" "\n\t" "mov %A0, r0" "\n\t" "in r0, %2" "\n\t" "adiw r30, 1" "\n\t" "adc r0, __zero_reg__" "\n\t" "out %2, r0" "\n\t" "elpm" "\n\t" "mov %B0, r0" "\n\t" "in r0, %2" "\n\t" "adiw r30, 1" "\n\t" "adc r0, __zero_reg__" "\n\t" "out %2, r0" "\n\t" "elpm" "\n\t" "mov %C0, r0" "\n\t" "in r0, %2" "\n\t" "adiw r30, 1" "\n\t" "adc r0, __zero_reg__" "\n\t" "out %2, r0" "\n\t" "elpm" "\n\t" "mov %D0, r0" "\n\t" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r0", "r30", "r31" ); __result; }))
+# 686 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_float_enhanced__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); float __result; __asm__ ( "out %2, %C1" "\n\t" "movw r30, %1" "\n\t" "elpm %A0, Z+" "\n\t" "elpm %B0, Z+" "\n\t" "elpm %C0, Z+" "\n\t" "elpm %D0, Z" "\n\t" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r30", "r31" ); __result; }))
+# 706 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM_float_xmega__(addr) (__extension__({ uint32_t __addr32 = (uint32_t)(addr); float __result; __asm__ ( "in __tmp_reg__, %2" "\n\t" "out %2, %C1" "\n\t" "movw r30, %1" "\n\t" "elpm %A0, Z+" "\n\t" "elpm %B0, Z+" "\n\t" "elpm %C0, Z+" "\n\t" "elpm %D0, Z" "\n\t" "out %2, __tmp_reg__" : "=r" (__result) : "r" (__addr32), "I" (_SFR_IO_ADDR(RAMPZ)) : "r30", "r31" ); __result; }))
+# 744 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define __ELPM(addr) __ELPM_enhanced__(addr)
+#define __ELPM_word(addr) __ELPM_word_enhanced__(addr)
+#define __ELPM_dword(addr) __ELPM_dword_enhanced__(addr)
+#define __ELPM_float(addr) __ELPM_float_enhanced__(addr)
+# 768 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_read_byte_far(address_long) __ELPM((uint32_t)(address_long))
+# 777 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_read_word_far(address_long) __ELPM_word((uint32_t)(address_long))
+# 786 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_read_dword_far(address_long) __ELPM_dword((uint32_t)(address_long))
+# 795 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_read_float_far(address_long) __ELPM_float((uint32_t)(address_long))
+# 806 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_read_byte(address_short) pgm_read_byte_near(address_short)
+# 815 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_read_word(address_short) pgm_read_word_near(address_short)
+# 824 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_read_dword(address_short) pgm_read_dword_near(address_short)
+# 833 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_read_float(address_short) pgm_read_float_near(address_short)
+# 842 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define PGM_P const prog_char *
+# 851 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define PGM_VOID_P const prog_void *
+# 888 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+#define pgm_get_far_address(var) ({ uint_farptr_t tmp; __asm__ __volatile__( "ldi	%A0, lo8(%1)" "\n\t" "ldi	%B0, hi8(%1)" "\n\t" "ldi	%C0, hh8(%1)" "\n\t" "clr	%D0" "\n\t" : "=d" (tmp) : "p" (&(var)) ); tmp; })
+# 907 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
+extern const prog_void * memchr_P(const prog_void *, int __val, size_t __len) __attribute__((__const__));
+extern int memcmp_P(const void *, const prog_void *, size_t) __attribute__((__pure__));
+extern void *memccpy_P(void *, const prog_void *, int __val, size_t);
+extern void *memcpy_P(void *, const prog_void *, size_t);
+extern void *memmem_P(const void *, size_t, const prog_void *, size_t) __attribute__((__pure__));
+extern const prog_void * memrchr_P(const prog_void *, int __val, size_t __len) __attribute__((__const__));
+extern char *strcat_P(char *, const prog_char *);
+extern const prog_char * strchr_P(const prog_char *, int __val) __attribute__((__const__));
+extern const prog_char * strchrnul_P(const prog_char *, int __val) __attribute__((__const__));
+extern int strcmp_P(const char *, const prog_char *) __attribute__((__pure__));
+extern char *strcpy_P(char *, const prog_char *);
+extern int strcasecmp_P(const char *, const prog_char *) __attribute__((__pure__));
+extern char *strcasestr_P(const char *, const prog_char *) __attribute__((__pure__));
+extern size_t strcspn_P(const char *__s, const prog_char * __reject) __attribute__((__pure__));
+extern size_t strlcat_P (char *, const prog_char *, size_t );
+extern size_t strlcpy_P (char *, const prog_char *, size_t );
+extern size_t strlen_P(const prog_char *) __attribute__((__const__));
+extern size_t strnlen_P(const prog_char *, size_t) __attribute__((__const__));
+extern int strncmp_P(const char *, const prog_char *, size_t) __attribute__((__pure__));
+extern int strncasecmp_P(const char *, const prog_char *, size_t) __attribute__((__pure__));
+extern char *strncat_P(char *, const prog_char *, size_t);
+extern char *strncpy_P(char *, const prog_char *, size_t);
+extern char *strpbrk_P(const char *__s, const prog_char * __accept) __attribute__((__pure__));
+extern const prog_char * strrchr_P(const prog_char *, int __val) __attribute__((__const__));
+extern char *strsep_P(char **__sp, const prog_char * __delim);
+extern size_t strspn_P(const char *__s, const prog_char * __accept) __attribute__((__pure__));
+extern char *strstr_P(const char *, const prog_char *) __attribute__((__pure__));
+extern char *strtok_P(char *__s, const prog_char * __delim);
+extern char *strtok_rP(char *__s, const prog_char * __delim, char **__last);
+
+extern size_t strlen_PF (uint_farptr_t src) __attribute__((__const__));
+extern size_t strnlen_PF (uint_farptr_t src, size_t len) __attribute__((__const__));
+extern void *memcpy_PF (void *dest, uint_farptr_t src, size_t len);
+extern char *strcpy_PF (char *dest, uint_farptr_t src);
+extern char *strncpy_PF (char *dest, uint_farptr_t src, size_t len);
+extern char *strcat_PF (char *dest, uint_farptr_t src);
+extern size_t strlcat_PF (char *dst, uint_farptr_t src, size_t siz);
+extern char *strncat_PF (char *dest, uint_farptr_t src, size_t len);
+extern int strcmp_PF (const char *s1, uint_farptr_t s2) __attribute__((__pure__));
+extern int strncmp_PF (const char *s1, uint_farptr_t s2, size_t n) __attribute__((__pure__));
+extern int strcasecmp_PF (const char *s1, uint_farptr_t s2) __attribute__((__pure__));
+extern int strncasecmp_PF (const char *s1, uint_farptr_t s2, size_t n) __attribute__((__pure__));
+extern char *strstr_PF (const char *s1, uint_farptr_t s2);
+extern size_t strlcpy_PF (char *dst, uint_farptr_t src, size_t siz);
+extern int memcmp_PF(const void *, uint_farptr_t, size_t) __attribute__((__pure__));
+# 17 ".././shared/../shared/twi_bgx1.h" 2
+
+
+enum {
+
+  CMD_Reset = 0x00,
+  CMD_GetVersion = 0x01,
+  CMD_GetStatus = 0x02,
+  CMD_SetStatus = 0x03,
+
+
+
+
+  CMD_Move = 0x10,
+  CMD_Mode = 0x11,
+  CMD_FillAll = 0x12,
+  CMD_Print = 0x13,
+  CMD_TextWidth = 0x14,
+  CMD_SelectFont = 0x15,
+  CMD_HLine = 0x16,
+  CMD_VLine = 0x17,
+  CMD_Box = 0x18,
+  CMD_Bitmap = 0x19,
+  CMD_EmbeddedImage = 0x1a,
+  CMD_LineTo = 0x1b,
+
+
+  CMD_TermClear = 0x30,
+  CMD_TermGoto = 0x31,
+  CMD_TermScroll = 0x32,
+  CMD_TermPrint = 0x33,
+
+
+  CMD_SyncPort = 0x40,
+  CMD_GetAnalog = 0x41,
+  CMD_SyncInterface = 0x42,
+  CMD_SetIllumination = 0x43,
+
+  CMD_INVALID = 0xff
+};
+
+
+void bgx1_reset() { TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; twi_rpc_oneway(bgx1, CMD_Reset, argBuf); while (twi_running) ; }
+uint16_t bgx1_getVersion() { uint16_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint16_t) }; twi_rpc(bgx1, CMD_GetVersion, argBuf, resBuf); while (twi_running) ; return result; }
+uint8_t bgx1_getStatus() { uint8_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_GetStatus, argBuf, resBuf); while (twi_running) ; return result; }
+void bgx1_setStatus(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_SetStatus, buf); while (twi_running) ; }
+
+typedef struct {
+ uint8_t x;
+ uint8_t y;
+} Point, *PPoint, Rect, *PRect;
+
+typedef struct {
+ uint8_t width;
+ uint8_t height;
+
+
+} BitmapArguments, *PBitmapArguments;
+
+
+
+
+
+typedef struct {
+ uint8_t len;
+
+} StringArg, *PStringArg;
+
+
+void bgx1_move(Point *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_Move, buf); while (twi_running) ; }
+void bgx1_mode(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_Mode, buf); while (twi_running) ; }
+void bgx1_fillAll(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_FillAll, buf); while (twi_running) ; }
+Point bgx1_print_base(StringArg *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Print, argBuf, resBuf); while (twi_running) ; return result; }
+uint8_t bgx1_textWidth_base(StringArg *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_TextWidth, argBuf, resBuf); while (twi_running) ; return result; }
+void bgx1_selectFont(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_SelectFont, buf); while (twi_running) ; }
+Point bgx1_hLine(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_HLine, argBuf, resBuf); while (twi_running) ; return result; }
+Point bgx1_vLine(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_VLine, argBuf, resBuf); while (twi_running) ; return result; }
+Point bgx1_box(Rect *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(Rect) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Box, argBuf, resBuf); while (twi_running) ; return result; }
+Point bgx1_drawBitmap_base(BitmapArguments *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Bitmap, argBuf, resBuf); while (twi_running) ; return result; }
+Point bgx1_embeddedImage(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_EmbeddedImage, argBuf, resBuf); while (twi_running) ; return result; }
+void bgx1_lineTo(Point *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_LineTo, buf); while (twi_running) ; }
+
+
+void bgx1_termClear() { TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; twi_rpc_oneway(bgx1, CMD_TermClear, argBuf); while (twi_running) ; }
+void bgx1_termGoto(Point *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_TermGoto, buf); while (twi_running) ; }
+void bgx1_termScroll(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_TermScroll, buf); while (twi_running) ; }
+void bgx1_termPrint_base(StringArg *parameters, uint16_t argSize) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize }; twi_rpc_oneway(bgx1, CMD_TermPrint, buf); while (twi_running) ; }
+
+typedef struct {
+ uint8_t ddr;
+ uint8_t port;
+} SyncPortArgs, *PSyncPortArgs;
+
+
+uint8_t bgx1_syncPort(SyncPortArgs *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(SyncPortArgs) }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_SyncPort, argBuf, resBuf); while (twi_running) ; return result; }
+uint16_t bgx1_getAnalog(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; uint16_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint16_t) }; twi_rpc(bgx1, CMD_GetAnalog, argBuf, resBuf); while (twi_running) ; return result; }
+uint8_t bgx1_syncInterface(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_SyncInterface, argBuf, resBuf); while (twi_running) ; return result; }
+void bgx1_setIllumination(uint16_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint16_t) }; twi_rpc_oneway(bgx1, CMD_SetIllumination, buf); while (twi_running) ; }
+
+Point bgx1_print(char *argument);
+Point bgx1_print_P(const prog_char * argument);
+uint8_t bgx1_textWidth(char *argument);
+uint8_t bgx1_textWidth_P(const prog_char * argument);
+void bgx1_termPrint(char *argument);
+void bgx1_termPrint_P(const prog_char * argument);
+
+Point bgx1_drawBitmap(uint8_t width, uint8_t height, uint8_t *bitmap);
+Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, const prog_char * bitmap);
 # 22 ".././shared/../kernel.h" 2
-# 13 ".././shared/base.kernel.h" 2
+# 13 ".././shared/base_before.kernel.h" 2
 
 
-#define TWI_Slave 
+
 #define TWI_BIT_RATE_VALUE 17
 #define TWI_PRESCALER_MASK 0
-# 1 ".././shared/../twi.kernel.h" 1
+#define TWI_Buffer_Size 255
 
 
-#define _TWI_KERNEL_KERNEL_ 
 
-#define TWI_Slave_Address 0x02
-#define TWI_Slave_Buffer_Size 64
+
+
+# 1 ".././shared/timer.kernel.h" 1
+
+#define _TIMER_KERNEL_KERNEL_ 
+
+
+
+
+
+
+#define CLOCKISR_A TIMER3_COMPA_vect
+#define CLOCKISR_B TIMER3_COMPB_vect
+#define CLOCKTIMER_A Timer3A
+#define CLOCKTIMER_B Timer3B
+
+void init_timer() {
+ setWaveformGenerationMode(Timer3, clear_timer_on_match);
+ setTimerClockSelect(Timer3, prescale_8);
+
+
+ setTimerCompareValue(Timer3A, 2500);
+ setTimerCompareValue(Timer3B, 2500);
+}
+void init_timer_kernel_init() __attribute__((naked, section(".init8"))); void init_timer_kernel_init() { init_timer(); }
+# 25 ".././shared/base_before.kernel.h" 2
+#define CLOCKISR CLOCKISR_A
+# 1 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h"
+#define _TIMER_BASE_KERNEL_ 
+# 23 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h"
+# 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
+# 24 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h" 2
+#define TIMER_TICK_ISR_NAKED ISR(CLOCKISR, __attribute__((naked)))
+#define TIMER_TICK_ISR ISR(CLOCKISR)
+
+
+void in_timer_tick() __attribute__((weak));
+void in_timer_tick() {};
+
+
+#define TIMER_TICK_ACTION milliseconds_running++; in_timer_tick();
+# 27 ".././shared/base_before.kernel.h" 2
+
+
+
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/simple_timer.kernel.h" 1
+
+#define _SIMPLE_TIMER_KERNEL_ 
+
+
+
+
+void __vector_32 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_32 (void) {
+ milliseconds_running++; in_timer_tick();
+}
+# 33 ".././shared/base_before.kernel.h" 2
+#define INITIALIZE_SCHEDULER 
+
+# 1 "..\\..\\AntonAvrLib/kernel/processes/mutex/atomic_mutex.kernel.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/processes/mutex/atomic_mutex.kernel.h"
+#define _ATOMIC_MUTEX_KERNEL_ 
+
+
+
+
+Mutex mutex_create() {
+ return ((void *)0);
+}
+
+void mutex_lock(Mutex mutex) {
+ __asm__ __volatile__ ("cli" ::: "memory");
+}
+
+BOOL mutex_trylock(Mutex mutex) {
+ __asm__ __volatile__ ("cli" ::: "memory");
+ return TRUE;
+}
+
+void mutex_release(Mutex mutex) {
+ __asm__ __volatile__ ("sei" ::: "memory");
+}
+# 36 ".././shared/base_before.kernel.h" 2
+# 14 ".././nibobee_kernel.c" 2
+# 1 ".././shared/motor_smooth.kernel.h" 1
+
+#define _MOTOR_SMOOTH_KERNEL_KERNEL_ 
+
+#define SMOOTH_TICK_FREQ 1000
+#define SMOOTH_MOTOR_A LeftMotor
+#define SMOOTH_MOTOR_B RightMotor
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth_pair.kernel.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth_pair.kernel.h"
+#define _MOTOR_SMOOTH_PAIR_KERNEL_ 
+# 20 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth_pair.kernel.h"
+# 1 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.kernel.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.kernel.h"
+#define _MOTOR_SMOOTH_KERNEL_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/devices/motor.kernel.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.kernel.h" 2
+
+
+extern void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond);
+void motor_smooth_tick(PSmoothMotor motor);
+
+void initSmoothMotor(PSmoothMotor motor) {
+ motor->mutex = mutex_create();
+}
+# 21 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth_pair.kernel.h" 2
+
+
+void smooth_motor_stopped(PSmoothMotor motor) __attribute__((weak));
+void smooth_motor_stopped(PSmoothMotor motor);
+
+void smooth_enable_millisecond_tick(BOOL enabled);
+
+uint16_t smooth_ticks = 0;
+uint16_t target_motor_A = 0;
+uint16_t target_motor_B = 0;
+BOOL motor_A_running = FALSE;
+BOOL motor_B_running = FALSE;
+
+extern void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond) {
+ BOOL wasRunning = motor_A_running || motor_B_running;
+ if (motor == LeftMotor) {
+  motor_A_running = timesPerSecond != 0;
+  target_motor_A = motor_A_running ? timesPerSecond : 1000 / timesPerSecond;
+ } else if (motor == RightMotor) {
+  motor_B_running = timesPerSecond != 0;
+  target_motor_B = motor_B_running ? timesPerSecond : 1000 / timesPerSecond;
+ } else {
+  return;
+ }
+ BOOL isRunning = motor_A_running || motor_B_running;
+ if (wasRunning != isRunning) smooth_enable_millisecond_tick(isRunning);
+}
+
+void smooth_millisecond_tick() {
+ if (motor_A_running && smooth_ticks % target_motor_A == 0)
+  motor_smooth_tick(LeftMotor);
+ if (motor_B_running && smooth_ticks % target_motor_B == 0)
+  motor_smooth_tick(RightMotor);
+
+}
+# 10 ".././shared/motor_smooth.kernel.h" 2
+
+void smooth_enable_millisecond_tick(BOOL enabled) {
+ if (enabled) enableTimerInterrupt(Timer3B);
+ else disableTimerInterrupt(Timer3B);
+}
+
+void __vector_33 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_33 (void) {
+ smooth_millisecond_tick();
+}
+
+void init_smooth_motors() {
+ LeftMotor_ = (SmoothMotor) { LeftMotorBase, 0, FORWARD, 0, FORWARD, FALSE, 40, 3000, 0 }; initSmoothMotor(LeftMotor);
+ RightMotor_ = (SmoothMotor) { RightMotorBase, 0, FORWARD, 0, FORWARD, FALSE, 40, 3000, 0 }; initSmoothMotor(RightMotor);
+}
+void init_smooth_motors_kernel_init() __attribute__((naked, section(".init8"))); void init_smooth_motors_kernel_init() { init_smooth_motors(); }
+# 15 ".././nibobee_kernel.c" 2
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc.kernel.h" 1
+
+#define _TWI_RPC_KERNEL_ 
 
 # 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 1
 
 #define _TWI_RAW_KERNEL_ 
-# 13 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
-# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 1
-# 14 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 2
+# 14 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h" 1 3
 # 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h" 3
 #define _UTIL_TWI_H_ 1
@@ -3880,21 +4482,16 @@ void twiMultipleOperations(int count, TWIOperation *operations);
 #define TW_WRITE 0
 # 15 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 2
 
-
- TWIBuffer twi_handleMasterRequest();
- void twi_handleMasterTransmission(TWIBuffer twi_buffer);
- byte twi_defaultSlaveBufferData[64];
- TWIBuffer twi_defaultSlaveBuffer = { twi_defaultSlaveBufferData, 64 };
-
-
-
-
+TWIDevice TWIBroadcast = { 0 };
+# 25 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+ TWIBuffer twi_handleMasterRequest() { return (TWIBuffer) { 0 }; }
+ void twi_handleMasterTransmission(TWIBuffer twi_buffer) {}
 
 
 
 void twi_unexpectedCondition() __attribute__((weak));
-void twi_unexpectedCondition() { }
-# 38 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+void twi_unexpectedCondition() {}
+# 40 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
 volatile BOOL twi_running;
 TWIDevice twi_address;
 uint16_t alreadyHandled;
@@ -3913,7 +4510,7 @@ void init_twi() {
 
 
 
-  (*(volatile uint8_t *)(0xBA)) = 0x02;
+
 
 }
 void init_twi_kernel_init() __attribute__((naked, section(".init8"))); void init_twi_kernel_init() { init_twi(); }
@@ -3927,10 +4524,10 @@ void init_twi_kernel_init() __attribute__((naked, section(".init8"))); void init
 
 static inline void twi_stop() {
 
-  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (4)) | (1 << (6));
-  twi_buffer = twi_defaultSlaveBuffer;
 
 
+
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (4));
 
  twi_running = FALSE;
 }
@@ -3955,15 +4552,18 @@ BOOL next_twi_operation() {
 static inline void twi_stop_or_next() {
  if (nextTwiOperation >= 3 || !next_twi_operation()) {
   twi_stop();
+ } else {
+
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (5));
  }
 }
 
 static inline void twi_end() {
 
-  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
-  twi_buffer = twi_defaultSlaveBuffer;
 
 
+
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
 
  twi_running = FALSE;
 }
@@ -4040,52 +4640,7 @@ void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void
 
    twi_stop_or_next();
    break;
-
-
-  case 0xA8:
-  case 0xB0:
-   twi_buffer = twi_handleMasterRequest();
-  case 0xB8:
-   if (alreadyHandled < twi_buffer.size - 1) {
-
-    (*(volatile uint8_t *)(0xBB)) = twi_buffer.data[alreadyHandled++]; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
-   } else {
-
-    (*(volatile uint8_t *)(0xBB)) = twi_buffer.data[alreadyHandled++]; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
-   }
-   break;
-  case 0xC8:
-   error = TWI_Slave_NotEnoughDataTransmitted;
-   twi_end();
-   break;
-  case 0xC0:
-   if (alreadyHandled < twi_buffer.size) {
-    error = TWI_Slave_TooMuchDataTransmitted;
-   }
-   twi_end();
-   break;
-
-  case 0x60:
-  case 0x68:
-  case 0x70:
-  case 0x78:
-   twi_init_receive();
-   break;
-  case 0x80:
-  case 0x90:
-   twi_receive_byte();
-   break;
-  case 0xA0:
-
-   error = TWI_Slave_NotEnoughDataReceived;
-  case 0x88:
-  case 0x98:
-
-   twi_handleMasterTransmission((TWIBuffer) { twi_buffer.data, alreadyHandled } );
-   twi_end();
-   break;
-
-
+# 234 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
   case 0xF8:
    error = TWI_No_Info_Interrupt;
   case 0x00:
@@ -4095,82 +4650,131 @@ void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void
    twi_unexpectedCondition();
  }
 }
-# 9 ".././shared/../twi.kernel.h" 2
 
-TWIBuffer twi_handleMasterRequest() {
- TWIBuffer buf;
- return buf;
+void twiSend(TWIDevice targetDevice, TWIBuffer data) {
+ TWIOperation op[1] = { (TWIOperation) { data, targetDevice, TWI_Send} };
+ twiMultipleOperations(1, op);
 }
 
-void twi_handleMasterTransmission(TWIBuffer twi_buffer) {
-
-}
-# 19 ".././shared/base.kernel.h" 2
-
-
-
-
-
-
-
-# 1 ".././shared/timer.kernel.h" 1
-
-#define _TIMER_KERNEL_KERNEL_ 
-
-
-
-
-
-
-#define CLOCKISR TIMER3_COMPA_vect
-
-void init_timer() {
- PTimerConfig timerConf = &Timer3;
- PTimer timer = &Timer3A;
-
- setWaveformGenerationMode(timerConf, clear_timer_on_match);
- setTimerCompareValue(timer, 2500);
- setTimerClockSelect(timerConf, prescale_8);
-
-}
-void init_timer_kernel_init() __attribute__((naked, section(".init8"))); void init_timer_kernel_init() { init_timer(); }
-
-void start_timer() {
-
- enableTimerInterrupt(&Timer3A);
- __asm__ __volatile__ ("sei" ::: "memory");
+void twiReceive(TWIDevice targetDevice, TWIBuffer receiveBuffer) {
+ TWIOperation op[1] = { (TWIOperation) { receiveBuffer, targetDevice, TWI_Receive} };
+ twiMultipleOperations(1, op);
 }
 
-# 1 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h"
-#define _TIMER_BASE_KERNEL_ 
-# 23 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h"
-# 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
-# 24 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h" 2
-#define TIMER_TICK_ISR_NAKED ISR(CLOCKISR, __attribute__((naked)))
-#define TIMER_TICK_ISR ISR(CLOCKISR)
-
-
-void in_timer_tick() __attribute__((weak));
-void in_timer_tick() {};
-
-
-#define TIMER_TICK_ACTION milliseconds_running++; in_timer_tick();
-# 29 ".././shared/timer.kernel.h" 2
-# 27 ".././shared/base.kernel.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/simple_timer.kernel.h" 1
-
-#define _SIMPLE_TIMER_KERNEL_ 
-
-
-
-
-void __vector_32 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_32 (void) {
- milliseconds_running++; in_timer_tick();
+void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer) {
+ TWIOperation ops[2] = {
+  (TWIOperation) { sendData, targetDevice, TWI_Send },
+  (TWIOperation) { receiveBuffer, targetDevice, TWI_Receive }
+ };
+ twiMultipleOperations(2, ops);
 }
-# 28 ".././shared/base.kernel.h" 2
-#define INITIALIZE_SCHEDULER 
 
+void twiMultipleOperations(int count, TWIOperation *operations) {
+ int i = 0;
+ for (; i < count && i < 3; i++) {
+  furtherOperations[i] = operations[i];
+ }
+ for (; i < 3; i++) {
+  furtherOperations[i].operationMode = TWI_IllegalOperation;
+ }
+ twi_start_master_operation();
+}
+# 5 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc.kernel.h" 2
+
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/string.h" 1 3
+# 41 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/string.h" 3
+#define _STRING_H_ 1
+
+#define __need_NULL 
+#define __need_size_t 
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stddef.h" 1 3 4
+# 233 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stddef.h" 3 4
+#undef __need_size_t
+# 395 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stddef.h" 3 4
+#undef NULL
+
+
+
+
+#define NULL ((void *)0)
+
+
+
+
+
+#undef __need_NULL
+# 46 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/string.h" 2 3
+# 91 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/string.h" 3
+#define _FFS(x) (1 + (((x) & 1) == 0) + (((x) & 3) == 0) + (((x) & 7) == 0) + (((x) & 017) == 0) + (((x) & 037) == 0) + (((x) & 077) == 0) + (((x) & 0177) == 0) + (((x) & 0377) == 0) + (((x) & 0777) == 0) + (((x) & 01777) == 0) + (((x) & 03777) == 0) + (((x) & 07777) == 0) + (((x) & 017777) == 0) + (((x) & 037777) == 0) + (((x) & 077777) == 0) - (((x) & 0177777) == 0) * 16)
+# 111 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/string.h" 3
+extern int ffs (int __val) __attribute__((__const__));
+extern int ffsl (long __val) __attribute__((__const__));
+extern int ffsll (long long __val) __attribute__((__const__));
+extern void *memccpy(void *, const void *, int, size_t);
+extern void *memchr(const void *, int, size_t) __attribute__((__pure__));
+extern int memcmp(const void *, const void *, size_t) __attribute__((__pure__));
+extern void *memcpy(void *, const void *, size_t);
+extern void *memmem(const void *, size_t, const void *, size_t) __attribute__((__pure__));
+extern void *memmove(void *, const void *, size_t);
+extern void *memrchr(const void *, int, size_t) __attribute__((__pure__));
+extern void *memset(void *, int, size_t);
+extern char *strcat(char *, const char *);
+extern char *strchr(const char *, int) __attribute__((__pure__));
+extern char *strchrnul(const char *, int) __attribute__((__pure__));
+extern int strcmp(const char *, const char *) __attribute__((__pure__));
+extern char *strcpy(char *, const char *);
+extern int strcasecmp(const char *, const char *) __attribute__((__pure__));
+extern char *strcasestr(const char *, const char *) __attribute__((__pure__));
+extern size_t strcspn(const char *__s, const char *__reject) __attribute__((__pure__));
+extern char *strdup(const char *s1);
+extern size_t strlcat(char *, const char *, size_t);
+extern size_t strlcpy(char *, const char *, size_t);
+extern size_t strlen(const char *) __attribute__((__pure__));
+extern char *strlwr(char *);
+extern char *strncat(char *, const char *, size_t);
+extern int strncmp(const char *, const char *, size_t) __attribute__((__pure__));
+extern char *strncpy(char *, const char *, size_t);
+extern int strncasecmp(const char *, const char *, size_t) __attribute__((__pure__));
+extern size_t strnlen(const char *, size_t) __attribute__((__pure__));
+extern char *strpbrk(const char *__s, const char *__accept) __attribute__((__pure__));
+extern char *strrchr(const char *, int) __attribute__((__pure__));
+extern char *strrev(char *);
+extern char *strsep(char **, const char *);
+extern size_t strspn(const char *__s, const char *__accept) __attribute__((__pure__));
+extern char *strstr(const char *, const char *) __attribute__((__pure__));
+extern char *strtok(char *, const char *);
+extern char *strtok_r(char *, const char *, char **);
+extern char *strupr(char *);
+# 7 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc.kernel.h" 2
+
+
+
+
+
+byte sendBufferData[255];
+TWIBuffer sendBuffer = { sendBufferData, 255 };
+# 43 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc.kernel.h"
+static inline void fillSendBuffer(byte operation, TWIBuffer parameters) {
+ sendBuffer.data[0] = operation;
+ sendBuffer.size = parameters.size;
+ memcpy(sendBuffer.data + 1, parameters.data, parameters.size);
+}
+
+void twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters) {
+ fillSendBuffer(operation, parameters);
+ twiSend(device, sendBuffer);
+}
+
+void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer) {
+ fillSendBuffer(operation, parameters);
+ twiSendReceive(device, sendBuffer, resultBuffer);
+}
+# 16 ".././nibobee_kernel.c" 2
+# 1 ".././shared/twi_bgx1.h" 1
+# 17 ".././nibobee_kernel.c" 2
+# 1 ".././shared/base_after.kernel.h" 1
+# 9 ".././shared/base_after.kernel.h"
+#define _BASE_AFTER_KERNEL_ 
 
 
 
@@ -4182,10 +4786,11 @@ void init_kernel() {
 
  (*(volatile uint8_t *)((0x30) + 0x20)) |= (1 << (7));
  (*(volatile uint8_t *)(0x64)) |= (1 << (5)) | (1 << (6));
-# 50 ".././shared/base.kernel.h"
+# 29 ".././shared/base_after.kernel.h"
 
  before_timer();
- start_timer();
+ enableTimerInterrupt(Timer3A);
+ __asm__ __volatile__ ("sei" ::: "memory");
 }
 void init_kernel_kernel_init() __attribute__((naked, section(".init8"))); void init_kernel_kernel_init() { init_kernel(); }
-# 14 ".././nibobee_kernel.c" 2
+# 18 ".././nibobee_kernel.c" 2

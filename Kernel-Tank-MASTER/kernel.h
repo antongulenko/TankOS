@@ -14,7 +14,9 @@
 // The modules included here should be analog to tank_kernel_MASTER.c.
 
 #include "shared/kernel_base.h"
-#include "shared/twi.h"
+#include "shared/tank_twi.h"
 #include "tank_motor.h"
+#include "shared/twi_bgx1.h"
+#include "twi_tank_IO.h"
 
 #endif /* KERNEL_H_ */

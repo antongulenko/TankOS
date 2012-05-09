@@ -3006,10 +3006,10 @@ void setPinOne(PPin pin);
 void setPinZero(PPin pin);
 
 BOOL readPin(PPin pin);
-# 63 "../kernel/devices/port.h"
-#define DEFINE_PIN(port,pin) extern Pin Pin ##port ##pin;
+# 61 "../kernel/devices/port.h"
+#define DEFINE_PIN(port,pin) extern const PPin Pin ##port ##pin;
 
-#define DEFINE_PORT(suffix) extern Port Port ##suffix;
+#define DEFINE_PORT(suffix) extern const PPort Port ##suffix;
 
 
 
@@ -3030,14 +3030,12 @@ typedef enum {
  pwm_phase_correct_FF,
 
 
+
+
  pwm_phase_correct,
  pwm_fast,
 
 
- pwm_phase_correct_9bit,
- pwm_phase_correct_10bit,
- pwm_fast_9bit,
- pwm_fast_10bit,
  pwm_phase_and_frequency_correct
 } WaveformGenerationMode;
 
@@ -3066,12 +3064,18 @@ typedef enum {
 #define TIMER_ASYNCHRONOUS (1 << 1)
 #define TIMER_16bit (1 << 2)
 
+
+
+
+#define TIMER_RESOLUTION_9bit (1 << 4)
+#define TIMER_RESOLUTION_10bit (1 << 5)
+
 typedef struct {
  uint8_t flags;
  volatile uint8_t *controlRegisterA;
  volatile uint8_t *controlRegisterB;
  volatile uint8_t *interruptMaskRegister;
-} TimerConfig, *PTimerConfig;
+} TimerPair, *PTimerPair;
 
 typedef enum {
  TIMER_A,
@@ -3079,19 +3083,20 @@ typedef enum {
 } TIMER_TYPE;
 
 typedef struct {
- PTimerConfig timer;
+ PTimerPair timer;
  volatile uint8_t *outputCompareRegister;
  TIMER_TYPE type;
  PPin outputComparePin;
 } Timer, *PTimer;
 
 
-void setTimerClockSelect(PTimerConfig timer, TimerClockSelect cs);
-void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm);
+void setTimerClockSelect(PTimerPair timer, TimerClockSelect cs);
+void setWaveformGenerationMode(PTimerPair timer, WaveformGenerationMode wgm);
 
 void setCompareMatchOutputMode(PTimer timer, CompareMatchOutputMode com);
 
 void enableTimerInterrupt(PTimer timer);
+void disableTimerInterrupt(PTimer timer);
 void enableOutputCompare(PTimer timer);
 void disableOutputCompare(PTimer timer);
 
@@ -3100,10 +3105,10 @@ void setTimerCompareValue(PTimer timer, uint16_t value);
 
 
 uint16_t getTimerCompareValue(PTimer timer);
-# 109 "../kernel/devices/timer.h"
-#define DEFINE_TIMER_CONFIG(configName) extern TimerConfig configName;
+# 116 "../kernel/devices/timer.h"
+#define DEFINE_TIMER_CONFIG(configName) extern const PTimerPair configName;
 
-#define DEFINE_TIMER(timerName) extern Timer timerName;
+#define DEFINE_TIMER(timerName) extern const PTimer timerName;
 # 13 "../kernel/devices/motor.h" 2
 
 #define MOTOR_NORMAL 0
@@ -3124,8 +3129,8 @@ typedef struct {
 } Motor2Pins, *PMotor2Pins;
 
 typedef enum {
- FORWARD = 0,
- BACKWARD = 1,
+ BACKWARD = 0,
+ FORWARD = 1,
  MOTOR_STOPPED = 2
 } MotorDirection;
 
@@ -3148,17 +3153,19 @@ void setSpeedBackward(PMotor motor, uint16_t speed);
 
 int16_t getDirSpeed(PMotor motor);
 void setDirSpeed(PMotor motor, int16_t speed);
-# 69 "../kernel/devices/motor.h"
-#define DEFINE_MOTOR(motorName) extern Motor motorName;
+# 71 "../kernel/devices/motor.h"
+#define DEFINE_MOTOR(motorName) extern const PMotor motorName;
 
-#define DEFINE_2DirPins_MOTOR(motorName) extern Motor2Pins motorName;
+#define DEFINE_2DirPins_MOTOR(motorName) extern const PMotor motorName;
 # 9 "../kernel/devices/motor.c" 2
 
 
 #define Dir2(motor) (((PMotor2Pins) motor)->direction2)
 
 void stopMotor(PMotor motor) {
- disableOutputCompare(motor->pwmTimer);
+
+
+
 
  setTimerCompareValue(motor->pwmTimer, 0);
  if (motor->flags & (1 << 3)) {
@@ -3205,6 +3212,7 @@ void setSpeed(PMotor motor, uint16_t speed, MotorDirection direction) {
  } else {
   writePin(motor->direction, (BOOL) direction);
  }
+ if (motor->flags & (1 << 1)) speed = 0xFFFF - speed;
  setTimerCompareValue(motor->pwmTimer, speed);
  enableOutputCompare(motor->pwmTimer);
 }
@@ -3226,9 +3234,17 @@ int16_t getDirSpeed(PMotor motor) {
  return val;
 }
 
-void setDirSpeed(PMotor motor, int16_t speed) {
+uint16_t motor_toUnsignedSpeed(int16_t speed) {
  uint16_t absv = __builtin_abs(speed);
 
  if (!(absv & (1 << 15))) absv = absv << 1;
- setSpeed(motor, absv, speed < 0 ? BACKWARD : FORWARD);
+ return absv;
+}
+
+void setDirSpeed(PMotor motor, int16_t speed) {
+ if (speed == 0) {
+  stopMotor(motor);
+  return;
+ }
+ setSpeed(motor, motor_toUnsignedSpeed(speed), speed < 0 ? BACKWARD : FORWARD);
 }

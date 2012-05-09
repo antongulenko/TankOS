@@ -321,7 +321,7 @@
 # 1 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 1
 
 #define _INIT_RESET_CONDITION_KERNEL_ 
-
+# 12 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/kernel_init.h" 1
 
 #define _KERNEL_INIT_H_ 
@@ -2975,7 +2975,7 @@ asm ("__RAMPZ__ = 0x3b");
 # 10 "..\\..\\AntonAvrLib/kernel/kernel_init.h" 2
 # 18 "..\\..\\AntonAvrLib/kernel/kernel_init.h"
 #define KERNEL_INIT(functionName) void functionName ##_kernel_init() __attribute__((naked, section(".init8"))); void functionName ##_kernel_init() { functionName(); }
-# 5 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 2
+# 13 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/reset_condition.h"
 #define RESET_CONDITION_H_ 
@@ -3018,20 +3018,18 @@ void setPinZero(PPin pin);
 BOOL readPin(PPin pin);
 
 
-#define DEFINE_PIN(port,pin) Pin Pin ##port ##pin;
-
-#define DEFINE_PORT(port) Port Port ##port;
-
-#define INIT_PIN(port,pin) Pin ##port ##pin = (Pin) { &Port ##port, _BV(PIN ##port ##pin) };
+#define DEFINE_PIN(port,pin) Pin Pin ##port ##pin ##_; const PPin Pin ##port ##pin = &Pin ##port ##pin ##_;
 
 
+#define DEFINE_PORT(port) Port Port ##port ##_; const PPort Port ##port = &Port ##port ##_;
 
-#define INIT_PORT(port) Port ##port = (Port) { &PORT ##port, &PIN ##port, &DDR ##port };
 
+#define INIT_PIN(port,pin) Pin ##port ##pin ##_ = (Pin) { Port ##port, _BV(PIN ##port ##pin) };
 
+#define INIT_PORT(port) Port ##port ##_ = (Port) { &PORT ##port, &PIN ##port, &DDR ##port };
 
 #define INIT_PORT_AND_PINS(port) INIT_PORT(port) INIT_PIN(port,0) INIT_PIN(port,1) INIT_PIN(port,2) INIT_PIN(port,3) INIT_PIN(port,4) INIT_PIN(port,5) INIT_PIN(port,6) INIT_PIN(port,7)
-# 69 "..\\..\\AntonAvrLib/kernel/devices/port.h"
+# 67 "..\\..\\AntonAvrLib/kernel/devices/port.h"
 #define DEFINE_PORT_AND_PINS(port) DEFINE_PORT(port) DEFINE_PIN(port,0) DEFINE_PIN(port,1) DEFINE_PIN(port,2) DEFINE_PIN(port,3) DEFINE_PIN(port,4) DEFINE_PIN(port,5) DEFINE_PIN(port,6) DEFINE_PIN(port,7)
 # 12 "..\\..\\AntonAvrLib/kernel/devices/led.h" 2
 
@@ -3059,13 +3057,16 @@ void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
 void blinkAllLeds(PLedGroup leds, const uint8_t times);
 
 
-#define DEFINE_LED(ledName) Led ledName;
-#define DEFINE_LED_GROUP(groupName) LedGroup groupName;
-
-#define INIT_LED(ledName,pinName) ledName = (Led) { &pinName }; initLed(&ledName);
+#define DEFINE_LED(ledName) Led ledName ##_; const PLed ledName = &ledName ##_;
 
 
-#define INIT_LED_GROUP(groupName,groupArrayPointer,count) groupName = (LedGroup) { groupArrayPointer, count };
+#define DEFINE_LED_GROUP(groupName) LedGroup groupName ##_; const PLedGroup groupName = &groupName ##_;
+
+
+#define INIT_LED(ledName,pinName) ledName ##_ = (Led) { pinName }; initLed(ledName);
+
+
+#define INIT_LED_GROUP(groupName,groupArrayPointer,count) groupName ##_ = (LedGroup) { groupArrayPointer, count };
 # 12 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 2
 
 
@@ -3079,7 +3080,69 @@ uint16_t resetStatusBitmask();
 
 
 void blink_reset_condition(PLedGroup leds);
-# 6 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 2
+# 14 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 2
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 1 3
+# 39 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 3
+#define _AVR_WDT_H_ 
+# 99 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 3
+#define wdt_reset() __asm__ __volatile__ ("wdr")
+
+
+
+#define _WD_PS3_MASK _BV(WDP3)
+
+
+
+
+
+#define _WD_CONTROL_REG WDTCSR
+
+
+
+
+
+
+
+#define _WD_CHANGE_BIT WDCE
+# 326 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 3
+#define wdt_enable(value) __asm__ __volatile__ ( "in __tmp_reg__,__SREG__" "\n\t" "cli" "\n\t" "wdr" "\n\t" "sts %0,%1" "\n\t" "out __SREG__,__tmp_reg__" "\n\t" "sts %0,%2" "\n\t" : : "M" (_SFR_MEM_ADDR(_WD_CONTROL_REG)), "r" (_BV(_WD_CHANGE_BIT) | _BV(WDE)), "r" ((uint8_t) ((value & 0x08 ? _WD_PS3_MASK : 0x00) | _BV(WDE) | (value & 0x07)) ) : "r0" )
+# 342 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 3
+#define wdt_disable() __asm__ __volatile__ ( "in __tmp_reg__, __SREG__" "\n\t" "cli" "\n\t" "sts %0, %1" "\n\t" "sts %0, __zero_reg__" "\n\t" "out __SREG__,__tmp_reg__" "\n\t" : : "M" (_SFR_MEM_ADDR(_WD_CONTROL_REG)), "r" ((uint8_t)(_BV(_WD_CHANGE_BIT) | _BV(WDE))) : "r0" )
+# 421 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 3
+#define WDTO_15MS 0
+
+
+
+#define WDTO_30MS 1
+
+
+
+#define WDTO_60MS 2
+
+
+
+#define WDTO_120MS 3
+
+
+
+#define WDTO_250MS 4
+
+
+
+#define WDTO_500MS 5
+
+
+
+#define WDTO_1S 6
+
+
+
+#define WDTO_2S 7
+# 472 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 3
+#define WDTO_4S 8
+# 497 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 3
+#define WDTO_8S 9
+# 15 "..\\..\\AntonAvrLib/kernel/reset_condition.kernel.h" 2
 
 uint8_t current_reset_status = 0;
 
@@ -3089,6 +3152,9 @@ void init_reset_condition() {
 
  current_reset_status = (*(volatile uint8_t *)((0x34) + 0x20));
  (*(volatile uint8_t *)((0x34) + 0x20)) = 0;
+
+  __asm__ __volatile__ ( "in __tmp_reg__, __SREG__" "\n\t" "cli" "\n\t" "sts %0, %1" "\n\t" "sts %0, __zero_reg__" "\n\t" "out __SREG__,__tmp_reg__" "\n\t" : : "M" (((uint16_t) &((*(volatile uint8_t *)(0x60))))), "r" ((uint8_t)((1 << (4)) | (1 << (3)))) : "r0" );
+
 }
 void init_reset_condition_kernel_init() __attribute__((naked, section(".init8"))); void init_reset_condition_kernel_init() { init_reset_condition(); }
 
@@ -3096,17 +3162,68 @@ uint8_t getResetStatus() {
  return current_reset_status;
 }
 # 12 ".././simulator_kernel.c" 2
-# 1 ".././shared/base.kernel.h" 1
-# 9 ".././shared/base.kernel.h"
-#define _BASE_KERNEL_ 
+# 1 ".././shared/base_before.kernel.h" 1
+# 9 ".././shared/base_before.kernel.h"
+#define _BASE_BEFORE_KERNEL_ 
+
+
+# 1 ".././shared/../kernel.h" 1
+# 9 ".././shared/../kernel.h"
+#define KERNEL_H_ 
 
 
 
-#define TWI_Slave 
+# 1 ".././shared/../shared/kernel_base.h" 1
+# 9 ".././shared/../shared/kernel_base.h"
+#define KERNEL_BASE_H_ 
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h"
+#define MILLISECOND_CLOCK_H_ 
+
+
+
+
+
+ uint32_t volatile milliseconds_running = 0;
+
+
+
+
+
+
+uint32_t get_milliseconds_running();
+# 13 ".././shared/../shared/kernel_base.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
+# 14 ".././shared/../shared/kernel_base.h" 2
+# 1 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h"
+#define MUTEX_H_ 
+
+# 1 "..\\..\\AntonAvrLib/kernel/processes/mutex/../../../anton_std.h" 1
+# 12 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h" 2
+
+
+typedef struct Mutex__ { uint16_t unused; } *Mutex;
+
+Mutex mutex_create();
+
+void mutex_lock(Mutex mutex);
+BOOL mutex_trylock(Mutex mutex);
+void mutex_release(Mutex mutex);
+# 15 ".././shared/../shared/kernel_base.h" 2
+# 1 "..\\..\\AntonAvrLib/anton_std.h" 1
+# 16 ".././shared/../shared/kernel_base.h" 2
+# 14 ".././shared/../kernel.h" 2
+# 13 ".././shared/base_before.kernel.h" 2
+
+
+
 #define TWI_BIT_RATE_VALUE 17
 #define TWI_PRESCALER_MASK 0
-# 1 ".././shared/../twi.kernel.h" 1
-# 17 ".././shared/base.kernel.h" 2
+#define TWI_Buffer_Size 255
+
 
 
 
@@ -3141,14 +3258,12 @@ typedef enum {
  pwm_phase_correct_FF,
 
 
+
+
  pwm_phase_correct,
  pwm_fast,
 
 
- pwm_phase_correct_9bit,
- pwm_phase_correct_10bit,
- pwm_fast_9bit,
- pwm_fast_10bit,
  pwm_phase_and_frequency_correct
 } WaveformGenerationMode;
 
@@ -3177,12 +3292,18 @@ typedef enum {
 #define TIMER_ASYNCHRONOUS (1 << 1)
 #define TIMER_16bit (1 << 2)
 
+
+
+
+#define TIMER_RESOLUTION_9bit (1 << 4)
+#define TIMER_RESOLUTION_10bit (1 << 5)
+
 typedef struct {
  uint8_t flags;
  volatile uint8_t *controlRegisterA;
  volatile uint8_t *controlRegisterB;
  volatile uint8_t *interruptMaskRegister;
-} TimerConfig, *PTimerConfig;
+} TimerPair, *PTimerPair;
 
 typedef enum {
  TIMER_A,
@@ -3190,19 +3311,20 @@ typedef enum {
 } TIMER_TYPE;
 
 typedef struct {
- PTimerConfig timer;
+ PTimerPair timer;
  volatile uint8_t *outputCompareRegister;
  TIMER_TYPE type;
  PPin outputComparePin;
 } Timer, *PTimer;
 
 
-void setTimerClockSelect(PTimerConfig timer, TimerClockSelect cs);
-void setWaveformGenerationMode(PTimerConfig timer, WaveformGenerationMode wgm);
+void setTimerClockSelect(PTimerPair timer, TimerClockSelect cs);
+void setWaveformGenerationMode(PTimerPair timer, WaveformGenerationMode wgm);
 
 void setCompareMatchOutputMode(PTimer timer, CompareMatchOutputMode com);
 
 void enableTimerInterrupt(PTimer timer);
+void disableTimerInterrupt(PTimer timer);
 void enableOutputCompare(PTimer timer);
 void disableOutputCompare(PTimer timer);
 
@@ -3213,13 +3335,15 @@ void setTimerCompareValue(PTimer timer, uint16_t value);
 uint16_t getTimerCompareValue(PTimer timer);
 
 
-#define DEFINE_TIMER_CONFIG(configName) TimerConfig configName;
+#define DEFINE_TIMER_CONFIG(configName) TimerPair configName ##_; const PTimerPair configName = &configName ##_;
 
-#define DEFINE_TIMER(timerName) Timer timerName;
 
-#define INIT_TIMER_CONFIG(configName,flags,regA,regB,interrReg) configName = (TimerConfig) {flags, (uint8_t*) &regA, (uint8_t*) &regB, &interrReg};
+#define DEFINE_TIMER(timerName) Timer timerName ##_; const PTimer timerName = &timerName ##_;
 
-#define INIT_TIMER(timerName,configName,ocr,timerType,ocPin) timerName = (Timer) {&configName, (uint8_t*) &ocr, timerType, &ocPin};
+
+#define INIT_TIMER_CONFIG(configName,flags,regA,regB,interrReg) configName ##_ = (TimerPair) {flags, (uint8_t*) &regA, (uint8_t*) &regB, &interrReg};
+
+#define INIT_TIMER(timerName,configName,ocr,timerType,ocPin) timerName ##_ = (Timer) {configName, (uint8_t*) &ocr, timerType, ocPin};
 # 12 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.h"
@@ -3227,25 +3351,25 @@ uint16_t getTimerCompareValue(PTimer timer);
 
 
 
-Port PortA; Pin PinA0; Pin PinA1; Pin PinA2; Pin PinA3; Pin PinA4; Pin PinA5; Pin PinA6; Pin PinA7;
-Port PortB; Pin PinB0; Pin PinB1; Pin PinB2; Pin PinB3; Pin PinB4; Pin PinB5; Pin PinB6; Pin PinB7;
-Port PortC; Pin PinC0; Pin PinC1; Pin PinC2; Pin PinC3; Pin PinC4; Pin PinC5; Pin PinC6; Pin PinC7;
-Port PortD; Pin PinD0; Pin PinD1; Pin PinD2; Pin PinD3; Pin PinD4; Pin PinD5; Pin PinD6; Pin PinD7;
+Port PortA_; const PPort PortA = &PortA_; Pin PinA0_; const PPin PinA0 = &PinA0_; Pin PinA1_; const PPin PinA1 = &PinA1_; Pin PinA2_; const PPin PinA2 = &PinA2_; Pin PinA3_; const PPin PinA3 = &PinA3_; Pin PinA4_; const PPin PinA4 = &PinA4_; Pin PinA5_; const PPin PinA5 = &PinA5_; Pin PinA6_; const PPin PinA6 = &PinA6_; Pin PinA7_; const PPin PinA7 = &PinA7_;
+Port PortB_; const PPort PortB = &PortB_; Pin PinB0_; const PPin PinB0 = &PinB0_; Pin PinB1_; const PPin PinB1 = &PinB1_; Pin PinB2_; const PPin PinB2 = &PinB2_; Pin PinB3_; const PPin PinB3 = &PinB3_; Pin PinB4_; const PPin PinB4 = &PinB4_; Pin PinB5_; const PPin PinB5 = &PinB5_; Pin PinB6_; const PPin PinB6 = &PinB6_; Pin PinB7_; const PPin PinB7 = &PinB7_;
+Port PortC_; const PPort PortC = &PortC_; Pin PinC0_; const PPin PinC0 = &PinC0_; Pin PinC1_; const PPin PinC1 = &PinC1_; Pin PinC2_; const PPin PinC2 = &PinC2_; Pin PinC3_; const PPin PinC3 = &PinC3_; Pin PinC4_; const PPin PinC4 = &PinC4_; Pin PinC5_; const PPin PinC5 = &PinC5_; Pin PinC6_; const PPin PinC6 = &PinC6_; Pin PinC7_; const PPin PinC7 = &PinC7_;
+Port PortD_; const PPort PortD = &PortD_; Pin PinD0_; const PPin PinD0 = &PinD0_; Pin PinD1_; const PPin PinD1 = &PinD1_; Pin PinD2_; const PPin PinD2 = &PinD2_; Pin PinD3_; const PPin PinD3 = &PinD3_; Pin PinD4_; const PPin PinD4 = &PinD4_; Pin PinD5_; const PPin PinD5 = &PinD5_; Pin PinD6_; const PPin PinD6 = &PinD6_; Pin PinD7_; const PPin PinD7 = &PinD7_;
 # 13 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.h" 2
 
-TimerConfig Timer0;
-TimerConfig Timer1;
-TimerConfig Timer2;
-TimerConfig Timer3;
+TimerPair Timer0_; const PTimerPair Timer0 = &Timer0_;
+TimerPair Timer1_; const PTimerPair Timer1 = &Timer1_;
+TimerPair Timer2_; const PTimerPair Timer2 = &Timer2_;
+TimerPair Timer3_; const PTimerPair Timer3 = &Timer3_;
 
-Timer Timer0A;
-Timer Timer0B;
-Timer Timer1A;
-Timer Timer1B;
-Timer Timer2A;
-Timer Timer2B;
-Timer Timer3A;
-Timer Timer3B;
+Timer Timer0A_; const PTimer Timer0A = &Timer0A_;
+Timer Timer0B_; const PTimer Timer0B = &Timer0B_;
+Timer Timer1A_; const PTimer Timer1A = &Timer1A_;
+Timer Timer1B_; const PTimer Timer1B = &Timer1B_;
+Timer Timer2A_; const PTimer Timer2A = &Timer2A_;
+Timer Timer2B_; const PTimer Timer2B = &Timer2B_;
+Timer Timer3A_; const PTimer Timer3A = &Timer3A_;
+Timer Timer3B_; const PTimer Timer3B = &Timer3B_;
 # 13 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/devices/port_m1284P.kernel.h"
@@ -3255,71 +3379,53 @@ Timer Timer3B;
 
 
 void init_ports_m1284P() {
- PortA = (Port) { &(*(volatile uint8_t *)((0x02) + 0x20)), &(*(volatile uint8_t *)((0x00) + 0x20)), &(*(volatile uint8_t *)((0x01) + 0x20)) }; PinA0 = (Pin) { &PortA, (1 << (0)) }; PinA1 = (Pin) { &PortA, (1 << (1)) }; PinA2 = (Pin) { &PortA, (1 << (2)) }; PinA3 = (Pin) { &PortA, (1 << (3)) }; PinA4 = (Pin) { &PortA, (1 << (4)) }; PinA5 = (Pin) { &PortA, (1 << (5)) }; PinA6 = (Pin) { &PortA, (1 << (6)) }; PinA7 = (Pin) { &PortA, (1 << (7)) };;
- PortB = (Port) { &(*(volatile uint8_t *)((0x05) + 0x20)), &(*(volatile uint8_t *)((0x03) + 0x20)), &(*(volatile uint8_t *)((0x04) + 0x20)) }; PinB0 = (Pin) { &PortB, (1 << (0)) }; PinB1 = (Pin) { &PortB, (1 << (1)) }; PinB2 = (Pin) { &PortB, (1 << (2)) }; PinB3 = (Pin) { &PortB, (1 << (3)) }; PinB4 = (Pin) { &PortB, (1 << (4)) }; PinB5 = (Pin) { &PortB, (1 << (5)) }; PinB6 = (Pin) { &PortB, (1 << (6)) }; PinB7 = (Pin) { &PortB, (1 << (7)) };;
- PortC = (Port) { &(*(volatile uint8_t *)((0x08) + 0x20)), &(*(volatile uint8_t *)((0x06) + 0x20)), &(*(volatile uint8_t *)((0x07) + 0x20)) }; PinC0 = (Pin) { &PortC, (1 << (0)) }; PinC1 = (Pin) { &PortC, (1 << (1)) }; PinC2 = (Pin) { &PortC, (1 << (2)) }; PinC3 = (Pin) { &PortC, (1 << (3)) }; PinC4 = (Pin) { &PortC, (1 << (4)) }; PinC5 = (Pin) { &PortC, (1 << (5)) }; PinC6 = (Pin) { &PortC, (1 << (6)) }; PinC7 = (Pin) { &PortC, (1 << (7)) };;
- PortD = (Port) { &(*(volatile uint8_t *)((0x0B) + 0x20)), &(*(volatile uint8_t *)((0x09) + 0x20)), &(*(volatile uint8_t *)((0x0A) + 0x20)) }; PinD0 = (Pin) { &PortD, (1 << (0)) }; PinD1 = (Pin) { &PortD, (1 << (1)) }; PinD2 = (Pin) { &PortD, (1 << (2)) }; PinD3 = (Pin) { &PortD, (1 << (3)) }; PinD4 = (Pin) { &PortD, (1 << (4)) }; PinD5 = (Pin) { &PortD, (1 << (5)) }; PinD6 = (Pin) { &PortD, (1 << (6)) }; PinD7 = (Pin) { &PortD, (1 << (7)) };;
+ PortA_ = (Port) { &(*(volatile uint8_t *)((0x02) + 0x20)), &(*(volatile uint8_t *)((0x00) + 0x20)), &(*(volatile uint8_t *)((0x01) + 0x20)) }; PinA0_ = (Pin) { PortA, (1 << (0)) }; PinA1_ = (Pin) { PortA, (1 << (1)) }; PinA2_ = (Pin) { PortA, (1 << (2)) }; PinA3_ = (Pin) { PortA, (1 << (3)) }; PinA4_ = (Pin) { PortA, (1 << (4)) }; PinA5_ = (Pin) { PortA, (1 << (5)) }; PinA6_ = (Pin) { PortA, (1 << (6)) }; PinA7_ = (Pin) { PortA, (1 << (7)) };;
+ PortB_ = (Port) { &(*(volatile uint8_t *)((0x05) + 0x20)), &(*(volatile uint8_t *)((0x03) + 0x20)), &(*(volatile uint8_t *)((0x04) + 0x20)) }; PinB0_ = (Pin) { PortB, (1 << (0)) }; PinB1_ = (Pin) { PortB, (1 << (1)) }; PinB2_ = (Pin) { PortB, (1 << (2)) }; PinB3_ = (Pin) { PortB, (1 << (3)) }; PinB4_ = (Pin) { PortB, (1 << (4)) }; PinB5_ = (Pin) { PortB, (1 << (5)) }; PinB6_ = (Pin) { PortB, (1 << (6)) }; PinB7_ = (Pin) { PortB, (1 << (7)) };;
+ PortC_ = (Port) { &(*(volatile uint8_t *)((0x08) + 0x20)), &(*(volatile uint8_t *)((0x06) + 0x20)), &(*(volatile uint8_t *)((0x07) + 0x20)) }; PinC0_ = (Pin) { PortC, (1 << (0)) }; PinC1_ = (Pin) { PortC, (1 << (1)) }; PinC2_ = (Pin) { PortC, (1 << (2)) }; PinC3_ = (Pin) { PortC, (1 << (3)) }; PinC4_ = (Pin) { PortC, (1 << (4)) }; PinC5_ = (Pin) { PortC, (1 << (5)) }; PinC6_ = (Pin) { PortC, (1 << (6)) }; PinC7_ = (Pin) { PortC, (1 << (7)) };;
+ PortD_ = (Port) { &(*(volatile uint8_t *)((0x0B) + 0x20)), &(*(volatile uint8_t *)((0x09) + 0x20)), &(*(volatile uint8_t *)((0x0A) + 0x20)) }; PinD0_ = (Pin) { PortD, (1 << (0)) }; PinD1_ = (Pin) { PortD, (1 << (1)) }; PinD2_ = (Pin) { PortD, (1 << (2)) }; PinD3_ = (Pin) { PortD, (1 << (3)) }; PinD4_ = (Pin) { PortD, (1 << (4)) }; PinD5_ = (Pin) { PortD, (1 << (5)) }; PinD6_ = (Pin) { PortD, (1 << (6)) }; PinD7_ = (Pin) { PortD, (1 << (7)) };;
 }
 void init_ports_m1284P_kernel_init() __attribute__((naked, section(".init8"))); void init_ports_m1284P_kernel_init() { init_ports_m1284P(); }
 # 14 "..\\..\\AntonAvrLib/kernel/devices/timer_m1284P.kernel.h" 2
 
 void init_timer_m1284P() {
- Timer0 = (TimerConfig) {0, (uint8_t*) &(*(volatile uint8_t *)((0x24) + 0x20)), (uint8_t*) &(*(volatile uint8_t *)((0x25) + 0x20)), &(*(volatile uint8_t *)(0x6E))};
- Timer1 = (TimerConfig) {(1 << 2), (uint8_t*) &(*(volatile uint8_t *)(0x80)), (uint8_t*) &(*(volatile uint8_t *)(0x81)), &(*(volatile uint8_t *)(0x6F))};
- Timer2 = (TimerConfig) {(1 << 1), (uint8_t*) &(*(volatile uint8_t *)(0xB0)), (uint8_t*) &(*(volatile uint8_t *)(0xB1)), &(*(volatile uint8_t *)(0x70))};
- Timer3 = (TimerConfig) {(1 << 2), (uint8_t*) &(*(volatile uint8_t *)(0x90)), (uint8_t*) &(*(volatile uint8_t *)(0x91)), &(*(volatile uint8_t *)(0x71))};
+ Timer0_ = (TimerPair) {0, (uint8_t*) &(*(volatile uint8_t *)((0x24) + 0x20)), (uint8_t*) &(*(volatile uint8_t *)((0x25) + 0x20)), &(*(volatile uint8_t *)(0x6E))};
+ Timer1_ = (TimerPair) {(1 << 2), (uint8_t*) &(*(volatile uint8_t *)(0x80)), (uint8_t*) &(*(volatile uint8_t *)(0x81)), &(*(volatile uint8_t *)(0x6F))};
+ Timer2_ = (TimerPair) {(1 << 1), (uint8_t*) &(*(volatile uint8_t *)(0xB0)), (uint8_t*) &(*(volatile uint8_t *)(0xB1)), &(*(volatile uint8_t *)(0x70))};
+ Timer3_ = (TimerPair) {(1 << 2), (uint8_t*) &(*(volatile uint8_t *)(0x90)), (uint8_t*) &(*(volatile uint8_t *)(0x91)), &(*(volatile uint8_t *)(0x71))};
 
- Timer0A = (Timer) {&Timer0, (uint8_t*) &(*(volatile uint8_t *)((0x27) + 0x20)), TIMER_A, &PinB3};
- Timer0B = (Timer) {&Timer0, (uint8_t*) &(*(volatile uint8_t *)((0x28) + 0x20)), TIMER_B, &PinB4};
- Timer1A = (Timer) {&Timer1, (uint8_t*) &(*(volatile uint16_t *)(0x88)), TIMER_A, &PinD5};
- Timer1B = (Timer) {&Timer1, (uint8_t*) &(*(volatile uint16_t *)(0x8A)), TIMER_B, &PinD4};
- Timer2A = (Timer) {&Timer2, (uint8_t*) &(*(volatile uint8_t *)(0xB3)), TIMER_A, &PinD7};
- Timer2B = (Timer) {&Timer2, (uint8_t*) &(*(volatile uint8_t *)(0xB4)), TIMER_B, &PinD6};
- Timer3A = (Timer) {&Timer3, (uint8_t*) &(*(volatile uint16_t *)(0x98)), TIMER_A, &PinB6};
- Timer3B = (Timer) {&Timer3, (uint8_t*) &(*(volatile uint16_t *)(0x9A)), TIMER_B, &PinB7};
+ Timer0A_ = (Timer) {Timer0, (uint8_t*) &(*(volatile uint8_t *)((0x27) + 0x20)), TIMER_A, PinB3};
+ Timer0B_ = (Timer) {Timer0, (uint8_t*) &(*(volatile uint8_t *)((0x28) + 0x20)), TIMER_B, PinB4};
+ Timer1A_ = (Timer) {Timer1, (uint8_t*) &(*(volatile uint16_t *)(0x88)), TIMER_A, PinD5};
+ Timer1B_ = (Timer) {Timer1, (uint8_t*) &(*(volatile uint16_t *)(0x8A)), TIMER_B, PinD4};
+ Timer2A_ = (Timer) {Timer2, (uint8_t*) &(*(volatile uint8_t *)(0xB3)), TIMER_A, PinD7};
+ Timer2B_ = (Timer) {Timer2, (uint8_t*) &(*(volatile uint8_t *)(0xB4)), TIMER_B, PinD6};
+ Timer3A_ = (Timer) {Timer3, (uint8_t*) &(*(volatile uint16_t *)(0x98)), TIMER_A, PinB6};
+ Timer3B_ = (Timer) {Timer3, (uint8_t*) &(*(volatile uint16_t *)(0x9A)), TIMER_B, PinB7};
 }
 void init_timer_m1284P_kernel_init() __attribute__((naked, section(".init8"))); void init_timer_m1284P_kernel_init() { init_timer_m1284P(); }
 # 8 ".././shared/timer.kernel.h" 2
 
-#define CLOCKISR TIMER3_COMPA_vect
+#define CLOCKISR_A TIMER3_COMPA_vect
+#define CLOCKISR_B TIMER3_COMPB_vect
+#define CLOCKTIMER_A Timer3A
+#define CLOCKTIMER_B Timer3B
 
 void init_timer() {
- PTimerConfig timerConf = &Timer3;
- PTimer timer = &Timer3A;
+ setWaveformGenerationMode(Timer3, clear_timer_on_match);
+ setTimerClockSelect(Timer3, prescale_8);
 
- setWaveformGenerationMode(timerConf, clear_timer_on_match);
- setTimerCompareValue(timer, 2500);
- setTimerClockSelect(timerConf, prescale_8);
 
+ setTimerCompareValue(Timer3A, 2500);
+ setTimerCompareValue(Timer3B, 2500);
 }
 void init_timer_kernel_init() __attribute__((naked, section(".init8"))); void init_timer_kernel_init() { init_timer(); }
-
-void start_timer() {
-
- enableTimerInterrupt(&Timer3A);
- __asm__ __volatile__ ("sei" ::: "memory");
-}
-
+# 25 ".././shared/base_before.kernel.h" 2
+#define CLOCKISR CLOCKISR_A
 # 1 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h"
-#define TIMED_SCHEDULER_KERNEL_ 
+#define _TIMER_BASE_KERNEL_ 
 # 23 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h"
 # 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h"
-#define MILLISECOND_CLOCK_H_ 
-
-
-
-
-
- uint32_t volatile milliseconds_running = 0;
-
-
-
-
-
-
-uint32_t get_milliseconds_running();
 # 24 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h" 2
 #define TIMER_TICK_ISR_NAKED ISR(CLOCKISR, __attribute__((naked)))
 #define TIMER_TICK_ISR ISR(CLOCKISR)
@@ -3330,15 +3436,53 @@ void in_timer_tick() {};
 
 
 #define TIMER_TICK_ACTION milliseconds_running++; in_timer_tick();
-# 29 ".././shared/timer.kernel.h" 2
-# 22 ".././shared/base.kernel.h" 2
+# 27 ".././shared/base_before.kernel.h" 2
+
+
+
+
+
 # 1 "..\\..\\AntonAvrLib/kernel/simple_timer.kernel.h" 1
-# 23 ".././shared/base.kernel.h" 2
+
+#define _SIMPLE_TIMER_KERNEL_ 
+
+
+
+
+void __vector_32 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_32 (void) {
+ milliseconds_running++; in_timer_tick();
+}
+# 33 ".././shared/base_before.kernel.h" 2
 #define INITIALIZE_SCHEDULER 
 
+# 1 "..\\..\\AntonAvrLib/kernel/processes/mutex/atomic_mutex.kernel.h" 1
+# 9 "..\\..\\AntonAvrLib/kernel/processes/mutex/atomic_mutex.kernel.h"
+#define _ATOMIC_MUTEX_KERNEL_ 
 
 
 
+
+Mutex mutex_create() {
+ return ((void *)0);
+}
+
+void mutex_lock(Mutex mutex) {
+ __asm__ __volatile__ ("cli" ::: "memory");
+}
+
+BOOL mutex_trylock(Mutex mutex) {
+ __asm__ __volatile__ ("cli" ::: "memory");
+ return TRUE;
+}
+
+void mutex_release(Mutex mutex) {
+ __asm__ __volatile__ ("sei" ::: "memory");
+}
+# 36 ".././shared/base_before.kernel.h" 2
+# 13 ".././simulator_kernel.c" 2
+# 1 ".././shared/base_after.kernel.h" 1
+# 9 ".././shared/base_after.kernel.h"
+#define _BASE_AFTER_KERNEL_ 
 
 
 
@@ -3346,186 +3490,15 @@ void before_timer() __attribute__((weak));
 void before_timer() {}
 
 
-# 1 ".././shared/../kernel.h" 1
-# 9 ".././shared/../kernel.h"
-#define KERNEL_H_ 
-
-# 1 ".././shared/../shared/kernel_base.h" 1
-# 9 ".././shared/../shared/kernel_base.h"
-#define KERNEL_BASE_H_ 
-
-
-# 1 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 1
-# 13 ".././shared/../shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/reset_condition.h" 1
-# 14 ".././shared/../shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/anton_std.h" 1
-# 15 ".././shared/../shared/kernel_base.h" 2
-
-
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/scheduler.h"
-#define SCHEDULER_H_ 
-
-
-void schedule_next();
-# 19 ".././shared/../shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h"
-#define PROCESS_EXT_H_ 
-
-
-
-
-
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/process.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/process.h"
-#define PROCESS_API_H_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/../../anton_std.h" 1
-# 12 "..\\..\\AntonAvrLib/kernel/processes/process.h" 2
-
-typedef struct Process__ { uint16_t unused; } *Process;;
-#define InvalidProcess ((Process) NULL)
-
-
-
-typedef void ProcessEntryPoint( );
-
-
-Process getCurrentProcess();
-# 30 "..\\..\\AntonAvrLib/kernel/processes/process.h"
-Process createProcess(ProcessEntryPoint entryPoint);
-
-
-
-
-
-
-Process createProcess2(ProcessEntryPoint entryPoint, void *processArgument);
-
-
-
-
-
-
-
-Process createProcess3(ProcessEntryPoint entryPoint, void *processArgument, uint16_t stackSize, uint8_t additionalMemory);
-
-
-
-void *getProcessMemory(Process proc);
-
-
-
-
-void switchProcess(Process newProcess);
-# 17 "..\\..\\AntonAvrLib/kernel/processes/process_ext.h" 2
-
-
-uint8_t getProcessStackSize(Process process);
-
-
-
-
-uint16_t getFreeProcessStackSize(Process process);
-
-
-
-uint16_t getProcessNumber(Process process);
-
-
-
-
-void freeProcess(Process process);
-# 20 ".././shared/../shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h" 1
-# 11 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h"
-#define DMS_API_H_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/DMS/../process.h" 1
-# 14 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h" 2
-
-typedef void JobEntryPoint();
-# 27 "..\\..\\AntonAvrLib/kernel/processes/DMS/dms_api.h"
-Process createPeriodicJob(JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority);
-
-
-
-
-
-Process createAperiodicJob(JobEntryPoint entryPoint, uint32_t minimalPeriod, uint8_t userPriority);
-
-
-void triggerAperiodicJob(Process job);
-# 21 ".././shared/../shared/kernel_base.h" 2
-# 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h" 1
-# 9 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h"
-#define RR_API_H_ 
-
-# 1 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/../process.h" 1
-# 12 "..\\..\\AntonAvrLib/kernel/processes/RoundRobin/rr_api.h" 2
-
-
-typedef struct Thread__ { uint16_t unused; } *Thread;
-typedef void ThreadEntryPoint();
-
-
-typedef enum {
- PrioLowest = 0,
- PrioLow,
- PrioBelowNormal,
- PrioNormal,
- PrioAboveNormal,
- PrioHigh,
- PrioHighest
-} ThreadPriority;
-
-
-
-
-Thread createThread(ThreadEntryPoint entry);
-Thread createThread2(ThreadEntryPoint entry, ThreadPriority prio);
-Thread createThread3(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter);
-Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter, uint16_t stackSize);
-
-Thread getCurrentThread();
-# 22 ".././shared/../shared/kernel_base.h" 2
-# 12 ".././shared/../kernel.h" 2
-
-
-extern LedGroup AllLeds;
-# 36 ".././shared/base.kernel.h" 2
-
-
 void init_kernel() {
 
  (*(volatile uint8_t *)((0x30) + 0x20)) |= (1 << (7));
  (*(volatile uint8_t *)(0x64)) |= (1 << (5)) | (1 << (6));
-
-
-
-
- (*(volatile uint8_t *)(0x60)) = (1 << (4));
-
- (*(volatile uint8_t *)(0x60)) |=
-   (1 << (2)) |
-
-   (1 << (0));
-
-
-
-
-
-
+# 29 ".././shared/base_after.kernel.h"
 
  before_timer();
- start_timer();
+ enableTimerInterrupt(Timer3A);
+ __asm__ __volatile__ ("sei" ::: "memory");
 }
 void init_kernel_kernel_init() __attribute__((naked, section(".init8"))); void init_kernel_kernel_init() { init_kernel(); }
-# 13 ".././simulator_kernel.c" 2
-
-
-LedGroup AllLeds = { 0 };
+# 14 ".././simulator_kernel.c" 2

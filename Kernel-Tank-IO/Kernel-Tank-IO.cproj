@@ -79,13 +79,28 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="shared\base_after.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\base_before.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="shared\kernel_base.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="shared\scheduler.kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="shared\twi.h">
+    <Compile Include="shared\tank_IO_protocol.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\tank_twi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\twi_bgx1.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\twi_bgx1.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_button.h">
@@ -94,20 +109,17 @@
     <Compile Include="kernel.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="tank_IO_server.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="tank_kernel_IO.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_led.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="twi.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shared\base.kernel.h">
-      <SubType>compile</SubType>
-    </None>
     <None Include="shared\timer.kernel.h">
       <SubType>compile</SubType>
     </None>

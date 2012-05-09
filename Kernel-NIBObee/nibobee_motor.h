@@ -10,8 +10,11 @@
 
 #include <kernel/devices/timer_m1284P.h>
 #include <kernel/devices/motor.h>
+#include <kernel/devices/motor_smooth.h>
 
-DEFINE_MOTOR(LeftMotor)
-DEFINE_MOTOR(RightMotor)
+DEFINE_MOTOR(LeftMotorBase)
+DEFINE_MOTOR(RightMotorBase)
+DEFINE_SMOOTH_MOTOR(LeftMotor)
+DEFINE_SMOOTH_MOTOR(RightMotor)
 
 #endif /* NIBOBEE_MOTOR_H_ */

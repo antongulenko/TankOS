@@ -34,18 +34,22 @@ void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
 void blinkAllLeds(PLedGroup leds, const uint8_t times);
 
 #ifdef _KERNEL_
-#	define DEFINE_LED(ledName) Led ledName;
+#	define DEFINE_LED(ledName)	\
+		Led ledName##_;			\
+		const PLed ledName = &ledName##_;
 #	define DEFINE_LED_GROUP(groupName)	\
-		LedGroup groupName;
+		LedGroup groupName##_;			\
+		const PLedGroup groupName = &groupName##_;
 #	define INIT_LED(ledName, pinName)	\
-		ledName = (Led) { &pinName };			\
-		initLed(&ledName);
+		ledName##_ = (Led) { pinName };	\
+		initLed(ledName);
 #	define INIT_LED_GROUP(groupName, groupArrayPointer, count)	\
-		groupName = (LedGroup) { groupArrayPointer, count };
+		groupName##_ = (LedGroup) { groupArrayPointer, count };
 #else
-#	define DEFINE_LED(ledName) extern Led ledName;
+#	define DEFINE_LED(ledName)	\
+		extern const PLed ledName;
 #	define DEFINE_LED_GROUP(groupName)	\
-		extern LedGroup groupName;
+		extern const PLedGroup groupName;
 #endif
 
 #endif /* LED_H_ */

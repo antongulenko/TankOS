@@ -12,26 +12,21 @@
 // This header is resolved differently, depending on the include-path. Each kernel-project has this header.
 #include <kernel.h>
 
-// #define Main_test_AllLeds
-// #define Main_test_blink_AllLeds
-#define Main_test_blink_reset_condition
-// #define Main_test_NIBObee_Buttons
+#include "Main_bgx1_print.c.h"
 
-// #define Main_test_switchProcess
-// #define Main_test_switchProcess_many
-// #define Main_test_rr_two
-// #define Main_test_rr_many
-// #define Main_test_DMS_rr_two
-// #define Main_test_DMS_with_idle
+// #include "device_tests/Main_test_blink_AllLeds.c.h"
+// #include "device_tests/Main_test_blink_reset_condition.c.h"
+// #include "device_tests/Main_test_AllLeds.c.h"
+// #include "device_tests/Main_test_NIBObee_Buttons.c.h"
 
-#include "device_tests/Main_test_blink_AllLeds.c"
-#include "device_tests/Main_test_blink_reset_condition.c"
-#include "device_tests/Main_test_AllLeds.c"
-#include "device_tests/Main_test_NIBObee_Buttons.c"
+// #include "device_tests/Main_test_Motors_NIBObee.c.h"
+// #include "device_tests/Main_test_Motors_NIBObee_Steps.c.h"
+// #include "device_tests/Main_test_Motors_Forward.c.h"
+// #include "device_tests/Main_test_Motors_Changing.c.h"
 
-#include "simulator_tests/Main_test_switchProcess.c"
-#include "simulator_tests/Main_test_switchProcess_many.c"
-#include "simulator_tests/Main_test_rr_two.c"
-#include "simulator_tests/Main_test_rr_many.c"
-#include "simulator_tests/Main_test_DMS_rr_two.c"
-#include "simulator_tests/Main_test_DMS_with_idle.c"
+// #include "simulator_tests/Main_test_switchProcess.c.h"
+// #include "simulator_tests/Main_test_switchProcess_many.c.h"
+// #include "simulator_tests/Main_test_rr_two.c.h"
+// #include "simulator_tests/Main_test_rr_many.c.h"
+// #include "simulator_tests/Main_test_DMS_rr_two.c.h"
+// #include "simulator_tests/Main_test_DMS_with_idle.c.h"

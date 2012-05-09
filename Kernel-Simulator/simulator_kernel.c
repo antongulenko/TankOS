@@ -9,4 +9,5 @@
 // No devices etc.
 
 #include <kernel/reset_condition.kernel.h>
-#include "shared/base.kernel.h"
+#include "shared/base_before.kernel.h"
+#include "shared/base_after.kernel.h"

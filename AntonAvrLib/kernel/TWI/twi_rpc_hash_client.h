@@ -1,0 +1,145 @@
+#ifndef TWI_RPC_HASH_CLIENT_H_
+#define TWI_RPC_HASH_CLIENT_H_
+
+// This file is for the client-side, where the functions for invoking operations are
+// defined.
+
+#include "twi_rpc.h"
+
+#ifndef TWI_DEVICE
+#error This module requires TWI_DEVICE to be defined!
+#endif
+
+#ifdef _KERNEL_
+
+// ==
+// Functions with Arguments and Results
+// ==
+
+// The client/master has to tell exactly how many bytes to receive!
+#define TWI_RPC_FUNCTION_VAR(funcName, operationByte, ArgStruct, ResStruct)		\
+	void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) {	\
+		TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize };			\
+		TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize };		\
+		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		WAIT_FOR_TWI()															\
+	}
+
+#define TWI_RPC_FUNCTION_VARARGS(funcName, operationByte, ArgStruct, ResStruct)	\
+	ResStruct funcName(ArgStruct *parameters, uint16_t argSize) {				\
+		TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize };			\
+		ResStruct result;														\
+		TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) };	\
+		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		WAIT_FOR_TWI()															\
+		return result;															\
+	}
+
+#define TWI_RPC_FUNCTION_VARRES(funcName, operationByte, ArgStruct, ResStruct)	\
+	void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) {	\
+		TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize };			\
+		TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize };		\
+		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		WAIT_FOR_TWI()															\
+	}
+
+#define TWI_RPC_FUNCTION(funcName, operationByte, ArgStruct, ResStruct)			\
+	ResStruct funcName(ArgStruct *parameters) {									\
+		TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(ArgStruct) };\
+		ResStruct result;														\
+		TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) };	\
+		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		WAIT_FOR_TWI()															\
+		return result;															\
+	}
+
+// ==
+// Functions with only Arguments
+// ==
+
+#define TWI_RPC_FUNCTION_VOID_VAR(funcName, operationByte, ArgStruct)	\
+	void funcName(ArgStruct *parameters, uint16_t argSize) {			\
+		TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize };	\
+		twi_rpc_oneway(TWI_DEVICE, operationByte, buf);					\
+		WAIT_FOR_TWI()													\
+	}
+
+#define TWI_RPC_FUNCTION_VOID(funcName, operationByte, ArgStruct)				\
+	void funcName(ArgStruct *parameters) {										\
+		TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(ArgStruct) };	\
+		twi_rpc_oneway(TWI_DEVICE, operationByte, buf);							\
+		WAIT_FOR_TWI()															\
+	}
+
+// ==
+// Functions with only Results
+// ==
+
+#define TWI_RPC_FUNCTION_NOARGS(funcName, operationByte, ResStruct)				\
+	ResStruct funcName() {														\
+		ResStruct result;														\
+		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };						\
+		TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) };	\
+		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		WAIT_FOR_TWI()															\
+		return result;															\
+	}
+
+#define TWI_RPC_FUNCTION_NOARGS_VAR(funcName, operationByte, ResStruct)			\
+	void funcName(ResStruct *out_result, uint16_t resultSize) {					\
+		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };						\
+		TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize };		\
+		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		WAIT_FOR_TWI()															\
+	}
+
+// ==
+// Functions with neither Arguments nor Results
+// ==
+
+#define TWI_RPC_FUNCTION_NOTIFY(funcName, operationByte)		\
+	void funcName() {											\
+		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };		\
+		twi_rpc_oneway(TWI_DEVICE, operationByte, argBuf);		\
+		WAIT_FOR_TWI()											\
+	}
+
+#else
+
+// ==
+// Functions signatures for regular headers
+// ==
+
+#define TWI_RPC_FUNCTION_VAR(funcName, operationByte, ArgStruct, ResStruct)		\
+	void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize);
+
+#define TWI_RPC_FUNCTION_VARARGS(funcName, operationByte, ArgStruct, ResStruct)	\
+	ResStruct funcName(ArgStruct *parameters, uint16_t argSize);
+
+#define TWI_RPC_FUNCTION_VARRES(funcName, operationByte, ArgStruct, ResStruct)	\
+	void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize);
+
+#define TWI_RPC_FUNCTION(funcName, operationByte, ArgStruct, ResStruct)			\
+	ResStruct funcName(ArgStruct *parameters);
+
+#define TWI_RPC_FUNCTION_VOID_VAR(funcName, operationByte, ArgStruct)	\
+	void funcName(ArgStruct *parameters, uint16_t argSize);
+
+#define TWI_RPC_FUNCTION_VOID(funcName, operationByte, ArgStruct)				\
+	void funcName(ArgStruct *parameters);
+
+#define TWI_RPC_FUNCTION_NOARGS(funcName, operationByte, ResStruct)				\
+	ResStruct funcName();
+
+#define TWI_RPC_FUNCTION_NOARGS_VAR(funcName, operationByte, ResStruct)			\
+	void funcName(ResStruct *out_result, uint16_t resultSize);
+
+#define TWI_RPC_FUNCTION_NOARGS_VAR(funcName, operationByte, ResStruct)			\
+	void funcName(ResStruct *out_result, uint16_t resultSize);
+
+#define TWI_RPC_FUNCTION_NOTIFY(funcName, operationByte)		\
+	void funcName();
+
+#endif
+
+#endif

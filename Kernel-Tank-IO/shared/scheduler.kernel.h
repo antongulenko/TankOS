@@ -4,7 +4,6 @@
 // This module includes the full scheduling/process functionality.
 // The millisecond-timer tick is bound to the scheduler-ISR.
 
-#include "timer.kernel.h"
 #include <kernel/processes/scheduler.kernel.h>
 
 #include <kernel/processes/process_ext.kernel.h>

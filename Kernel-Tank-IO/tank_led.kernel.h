@@ -13,15 +13,15 @@
 #include "tank_led.h"
 #include <kernel/kernel_init.h>
 
-PLed redLedsArray[] = { &Red1, &Red2, &Red3, &Red4, &Red5 };
-PLed yellowLedsArray[] = { &Yellow1, &Yellow2 };
-PLed whiteLedsArray[] = { &White1, &White2, &White3, &White4, &White5 };
-PLed greenLedsArray[] = { &Green1, &Green2, &Green3 };
-PLed middleLedsArray[] = { &Yellow1, &Yellow2, &Green1, &Green2, &Green3 };
+PLed redLedsArray[] = { &Red1_, &Red2_, &Red3_, &Red4_, &Red5_ };
+PLed yellowLedsArray[] = { &Yellow1_, &Yellow2_ };
+PLed whiteLedsArray[] = { &White1_, &White2_, &White3_, &White4_, &White5_ };
+PLed greenLedsArray[] = { &Green1_, &Green2_, &Green3_ };
+PLed middleLedsArray[] = { &Yellow1_, &Yellow2_, &Green1_, &Green2_, &Green3_ };
 PLed allLedsArray[] = {
-				&Red1, &Red2, &Red3, &Red4, &Red5,
-				&White1, &White2, &White3, &White4, &White5,
-				&Yellow1, &Yellow2, &Green1, &Green2, &Green3 };
+				&Red1_, &Red2_, &Red3_, &Red4_, &Red5_,
+				&White1_, &White2_, &White3_, &White4_, &White5_,
+				&Yellow1_, &Yellow2_, &Green1_, &Green2_, &Green3_ };
 
 void init_tank_leds() {
 	

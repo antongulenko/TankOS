@@ -74,14 +74,25 @@
     <Folder Include="kernel\processes\" />
     <Folder Include="kernel\processes\DMS\" />
     <Folder Include="kernel\processes\idle" />
+    <Folder Include="kernel\processes\mutex\" />
     <Folder Include="kernel\processes\RoundRobin" />
     <Folder Include="kernel\TWI\" />
+    <Folder Include="uthash\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="anton_std.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="iodefs.h">
+    <Compile Include="kernel\devices\motor_smooth.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\motor_smooth.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\motor_smooth.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\motor_smooth_pair.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\hardware_reset.c">
@@ -156,6 +167,18 @@
     <Compile Include="kernel\processes\DMS\dms_scheduler.kernel.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\processes\mutex\atomic_mutex.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\mutex\mock_mutex.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\mutex\mutex.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\mutex\mutex.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\processes\process.h">
       <SubType>compile</SubType>
     </Compile>
@@ -192,9 +215,6 @@
     <Compile Include="kernel\timer_base.kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_raw.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel\TWI\twi_raw.h">
       <SubType>compile</SubType>
     </Compile>
@@ -204,10 +224,25 @@
     <Compile Include="kernel\TWI\twi_rpc.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc.c">
+    <Compile Include="kernel\TWI\twi_rpc.kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc.kernel.h">
+    <Compile Include="kernel\TWI\twi_rpc_hash_client.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_rpc_hash_server.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uthash\utarray.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uthash\uthash.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uthash\utlist.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uthash\utstring.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
@@ -237,6 +272,9 @@
       <SubType>compile</SubType>
     </None>
     <None Include="kernel\processes\scheduler.kernel.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="uthash\uthash userguide.pdf">
       <SubType>compile</SubType>
     </None>
   </ItemGroup>
