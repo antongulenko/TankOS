@@ -51,6 +51,11 @@ void twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters) {
 	twiSend(device, sendBuffer);
 }
 
+void twi_rpc_pseudo_oneway(TWIDevice device, byte operation, TWIBuffer parameters) {
+	fillSendBuffer(operation, parameters);
+	twiSendReceive(device, sendBuffer, (TWIBuffer) { 0, 0 });
+}
+
 void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer) {
 	fillSendBuffer(operation, parameters);
 	twiSendReceive(device, sendBuffer, resultBuffer);

@@ -43,10 +43,10 @@ Main.d Main.o: ../../Main/Main.c ..\..\Kernel-NIBObee/kernel.h \
  ..\..\AntonAvrLib/kernel/TWI/twi_rpc.h \
  ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h \
- ../../Main/device_tests/Main_bgx1_print.c.h \
- ..\..\AntonAvrLib/misc/read_buttons_loop.h \
- ..\..\AntonAvrLib/misc/../kernel/devices/button.h \
- c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h
+ ../../Main/device_tests/Main_bgx1_gfx.c.h \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h \
+ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/include/stdarg.h \
+ ../../Main/device_tests/res/smily.xbm
 
 ..\..\Kernel-NIBObee/kernel.h:
 
@@ -140,10 +140,10 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h:
 
-../../Main/device_tests/Main_bgx1_print.c.h:
+../../Main/device_tests/Main_bgx1_gfx.c.h:
 
-..\..\AntonAvrLib/misc/read_buttons_loop.h:
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h:
 
-..\..\AntonAvrLib/misc/../kernel/devices/button.h:
+c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/include/stdarg.h:
 
-c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/util/twi.h:
+../../Main/device_tests/res/smily.xbm:

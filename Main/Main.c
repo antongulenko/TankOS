@@ -16,8 +16,8 @@
 
 // #include "device_tests/Main_test_NIBObee_SmoothMotors_Steps.c.h"
 // #include "device_tests/Main_test_NIBObee_SmoothMotors.c.h"
-#include "device_tests/Main_bgx1_print.c.h"
-// #include "device_tests/Main_bgx1_gfx.c.h"
+// #include "device_tests/Main_bgx1_print.c.h"
+#include "device_tests/Main_bgx1_gfx.c.h"
 
 // #include "device_tests/Main_test_blink_AllLeds.c.h"
 // #include "device_tests/Main_test_blink_reset_condition.c.h"

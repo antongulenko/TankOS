@@ -9,4 +9,9 @@
 void twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
 void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer);
 
+// Acts like a normal oneway operation, but after sending the parameters,
+// an additional START and immediate STOP is transmitted,
+// like an 'empty' argument reception.
+void twi_rpc_pseudo_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
+
 #endif

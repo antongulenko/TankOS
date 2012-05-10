@@ -42,8 +42,8 @@ uint8_t bgx1_textWidth(char *argument) {
 	return bgx1_textWidth_base(argument, strlen(argument));
 }
 
-void bgx1_termPrint(char *argument) {
-	bgx1_termPrint_base(argument, strlen(argument));
+byte bgx1_termPrint(char *argument) {
+	return bgx1_termPrint_base(argument, strlen(argument));
 }
 
 Point bgx1_drawTile(uint8_t width, uint8_t height, const uint8_t *argument) {
@@ -64,9 +64,9 @@ uint8_t bgx1_textWidth_P(PGM_P argument) {
 	return bgx1_textWidth_base(ramString, argSize);
 }
 
-void bgx1_termPrint_P(PGM_P argument) {
+byte bgx1_termPrint_P(PGM_P argument) {
 	FETCH_PROGRAM_STRING();
-	bgx1_termPrint_base(ramString, argSize);
+	return bgx1_termPrint_base(ramString, argSize);
 }
 
 Point bgx1_drawTile_P(uint8_t width, uint8_t height, PGM_P argument) {

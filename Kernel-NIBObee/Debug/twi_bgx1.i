@@ -3068,8 +3068,13 @@ extern TWIDevice bgx1;
 
 void twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
 void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer);
+
+
+
+
+void twi_rpc_pseudo_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
 # 8 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 2
-# 113 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
+# 141 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
 #define TWI_RPC_FUNCTION_VAR(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize);
 
 
@@ -3088,6 +3093,9 @@ void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer r
 #define TWI_RPC_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName(ArgStruct parameters);
 
 
+#define TWI_RPC_FUNCTION_PVOID(a,b,c) TWI_RPC_FUNCTION_VOID(a, b, c)
+#define TWI_RPC_FUNCTION_PVOID_VAR(a,b,c) TWI_RPC_FUNCTION_VOID_VAR(a, b, c)
+
 #define TWI_RPC_FUNCTION_NOARGS(funcName,operationByte,ResStruct) ResStruct funcName();
 
 
@@ -3098,6 +3106,9 @@ void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer r
 
 
 #define TWI_RPC_FUNCTION_NOTIFY(funcName,operationByte) void funcName();
+
+
+#define TWI_RPC_FUNCTION_PNOTIFY(a,b) TWI_RPC_FUNCTION_NOTIFY(a, b)
 # 16 "../shared/twi_bgx1.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 1 3
 # 83 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
@@ -3352,13 +3363,15 @@ Point bgx1_vLine(uint8_t parameters);
 Point bgx1_box_base(Rect parameters);
 Point bgx1_drawBitmap_base(BitmapArguments *parameters, uint16_t argSize);
 Point bgx1_embeddedImage(uint8_t parameters);
-void bgx1_lineTo_base(Point parameters);
+Point bgx1_lineTo_base(Point parameters);
 
 
 void bgx1_termClear();
 void bgx1_termGoto_base(Point parameters);
-void bgx1_termScroll(uint8_t parameters);
-void bgx1_termPrint_base(StringArg *parameters, uint16_t argSize);
+void bgx1_termScroll(int8_t parameters);
+
+
+byte bgx1_termPrint_base(StringArg *parameters, uint16_t argSize);
 
 typedef struct {
  uint8_t ddr;
@@ -3375,8 +3388,8 @@ Point bgx1_print(char *argument);
 Point bgx1_print_P(const prog_char * argument);
 uint8_t bgx1_textWidth(char *argument);
 uint8_t bgx1_textWidth_P(const prog_char * argument);
-void bgx1_termPrint(char *argument);
-void bgx1_termPrint_P(const prog_char * argument);
+byte bgx1_termPrint(char *argument);
+byte bgx1_termPrint_P(const prog_char * argument);
 
 
 Point bgx1_drawTile(uint8_t width, uint8_t height, const uint8_t *bitmap);
@@ -3546,8 +3559,8 @@ uint8_t bgx1_textWidth(char *argument) {
  return bgx1_textWidth_base(argument, strlen(argument));
 }
 
-void bgx1_termPrint(char *argument) {
- bgx1_termPrint_base(argument, strlen(argument));
+byte bgx1_termPrint(char *argument) {
+ return bgx1_termPrint_base(argument, strlen(argument));
 }
 
 Point bgx1_drawTile(uint8_t width, uint8_t height, const uint8_t *argument) {
@@ -3568,9 +3581,9 @@ uint8_t bgx1_textWidth_P(const prog_char * argument) {
  return bgx1_textWidth_base(ramString, argSize);
 }
 
-void bgx1_termPrint_P(const prog_char * argument) {
+byte bgx1_termPrint_P(const prog_char * argument) {
  uint8_t argSize = strlen_P(argument); StringArg *ramString = (StringArg*) __builtin_alloca (argSize); memcpy_P((uint8_t*) ramString, argument, argSize);;
- bgx1_termPrint_base(ramString, argSize);
+ return bgx1_termPrint_base(ramString, argSize);
 }
 
 Point bgx1_drawTile_P(uint8_t width, uint8_t height, const prog_char * argument) {

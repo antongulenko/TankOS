@@ -12,6 +12,12 @@
 
 #ifdef _KERNEL_
 
+// Regarding the macros named ..PVOID.. and ..PNOTIFY:
+// The P stands for 'pseudo' and means, that although no useful
+// data will be received from the slave, a 'redundant' 
+// START - SLA+W - STOP sequence will be transmitted.
+// THe NIBObee bgx1 extension needs this because of bad design or so.
+
 // ==
 // Functions with Arguments and Results
 // ==
@@ -71,6 +77,21 @@
 		WAIT_FOR_TWI();															\
 	}
 
+#define TWI_RPC_FUNCTION_PVOID(funcName, operationByte, ArgStruct)				\
+	void funcName(ArgStruct parameters) {										\
+		TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) };	\
+		twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, buf);					\
+		WAIT_FOR_TWI();															\
+	}
+
+#define TWI_RPC_FUNCTION_PVOID_VAR(funcName, operationByte, ArgStruct)	\
+	void funcName(ArgStruct *parameters, uint16_t argSize) {			\
+		TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize };	\
+		twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, buf);			\
+		WAIT_FOR_TWI();													\
+	}
+
+
 // ==
 // Functions with only Results
 // ==
@@ -104,6 +125,13 @@
 		WAIT_FOR_TWI();											\
 	}
 
+#define TWI_RPC_FUNCTION_PNOTIFY(funcName, operationByte)		\
+	void funcName() {											\
+		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };		\
+		twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, argBuf);\
+		WAIT_FOR_TWI();											\
+	}
+
 #else
 
 // ==
@@ -128,6 +156,9 @@
 #define TWI_RPC_FUNCTION_VOID(funcName, operationByte, ArgStruct)				\
 	void funcName(ArgStruct parameters);
 
+#define TWI_RPC_FUNCTION_PVOID(a, b, c) TWI_RPC_FUNCTION_VOID(a, b, c)
+#define TWI_RPC_FUNCTION_PVOID_VAR(a, b, c) TWI_RPC_FUNCTION_VOID_VAR(a, b, c)
+
 #define TWI_RPC_FUNCTION_NOARGS(funcName, operationByte, ResStruct)				\
 	ResStruct funcName();
 
@@ -139,6 +170,8 @@
 
 #define TWI_RPC_FUNCTION_NOTIFY(funcName, operationByte)		\
 	void funcName();
+
+#define TWI_RPC_FUNCTION_PNOTIFY(a, b) TWI_RPC_FUNCTION_NOTIFY(a, b)
 
 #endif
 

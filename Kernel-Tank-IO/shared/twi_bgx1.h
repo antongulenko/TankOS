@@ -57,10 +57,10 @@ enum {
 };
 
 // System
-TWI_RPC_FUNCTION_NOTIFY	(bgx1_reset, CMD_Reset)
+TWI_RPC_FUNCTION_PNOTIFY(bgx1_reset, CMD_Reset)
 TWI_RPC_FUNCTION_NOARGS	(bgx1_getVersion, CMD_GetVersion, uint16_t)
 TWI_RPC_FUNCTION_NOARGS	(bgx1_getStatus, CMD_GetStatus, uint8_t)
-TWI_RPC_FUNCTION_VOID	(bgx1_setStatus, CMD_SetStatus, uint8_t)
+TWI_RPC_FUNCTION_PVOID	(bgx1_setStatus, CMD_SetStatus, uint8_t)
 
 typedef struct {
 	uint8_t x;
@@ -78,24 +78,26 @@ typedef struct {
 typedef char StringArg;
 
 // Display
-TWI_RPC_FUNCTION_VOID	(bgx1_move_base, CMD_Move, Point)
-TWI_RPC_FUNCTION_VOID	(bgx1_mode, CMD_Mode, uint8_t)
-TWI_RPC_FUNCTION_VOID	(bgx1_fillAll, CMD_FillAll, uint8_t)
+TWI_RPC_FUNCTION_PVOID	(bgx1_move_base, CMD_Move, Point)
+TWI_RPC_FUNCTION_PVOID	(bgx1_mode, CMD_Mode, uint8_t)
+TWI_RPC_FUNCTION_PVOID	(bgx1_fillAll, CMD_FillAll, uint8_t)
 TWI_RPC_FUNCTION_VARARGS(bgx1_print_base, CMD_Print, StringArg, Point)
 TWI_RPC_FUNCTION_VARARGS(bgx1_textWidth_base, CMD_TextWidth, StringArg, uint8_t)
-TWI_RPC_FUNCTION_VOID	(bgx1_selectFont, CMD_SelectFont, uint8_t)
+TWI_RPC_FUNCTION_PVOID	(bgx1_selectFont, CMD_SelectFont, uint8_t)
 TWI_RPC_FUNCTION		(bgx1_hLine, CMD_HLine, uint8_t, Point)
 TWI_RPC_FUNCTION		(bgx1_vLine, CMD_VLine, uint8_t, Point)
 TWI_RPC_FUNCTION		(bgx1_box_base, CMD_Box, Rect, Point)
 TWI_RPC_FUNCTION_VARARGS(bgx1_drawBitmap_base, CMD_Bitmap, BitmapArguments, Point)
 TWI_RPC_FUNCTION		(bgx1_embeddedImage, CMD_EmbeddedImage, uint8_t, Point)
-TWI_RPC_FUNCTION_VOID	(bgx1_lineTo_base, CMD_LineTo, Point)
+TWI_RPC_FUNCTION		(bgx1_lineTo_base, CMD_LineTo, Point, Point)
 
 // Terminal
-TWI_RPC_FUNCTION_NOTIFY	(bgx1_termClear, CMD_TermClear)
-TWI_RPC_FUNCTION_VOID	(bgx1_termGoto_base, CMD_TermGoto, Point)
-TWI_RPC_FUNCTION_VOID	(bgx1_termScroll, CMD_TermScroll, uint8_t)
-TWI_RPC_FUNCTION_VOID_VAR(bgx1_termPrint_base, CMD_TermPrint, StringArg)
+TWI_RPC_FUNCTION_PNOTIFY(bgx1_termClear, CMD_TermClear)
+TWI_RPC_FUNCTION_PVOID	(bgx1_termGoto_base, CMD_TermGoto, Point)
+TWI_RPC_FUNCTION_PVOID	(bgx1_termScroll, CMD_TermScroll, int8_t)
+
+// The NIBObee lib receives an extra byte when executing this, don't know why
+TWI_RPC_FUNCTION_VARARGS(bgx1_termPrint_base, CMD_TermPrint, StringArg, byte)
 
 typedef struct {
 	uint8_t ddr;
@@ -106,14 +108,14 @@ typedef struct {
 TWI_RPC_FUNCTION		(bgx1_syncPort_base, CMD_SyncPort, SyncPortArgs, uint8_t)
 TWI_RPC_FUNCTION		(bgx1_getAnalog, CMD_GetAnalog, uint8_t, uint16_t)
 TWI_RPC_FUNCTION		(bgx1_syncInterface, CMD_SyncInterface, uint8_t, uint8_t)
-TWI_RPC_FUNCTION_VOID	(bgx1_setIllumination, CMD_SetIllumination, uint16_t)
+TWI_RPC_FUNCTION_PVOID	(bgx1_setIllumination, CMD_SetIllumination, uint16_t)
 
 Point bgx1_print(char *argument);
 Point bgx1_print_P(PGM_P argument);
 uint8_t bgx1_textWidth(char *argument);
 uint8_t bgx1_textWidth_P(PGM_P argument);
-void bgx1_termPrint(char *argument);
-void bgx1_termPrint_P(PGM_P argument);
+byte bgx1_termPrint(char *argument);
+byte bgx1_termPrint_P(PGM_P argument);
 
 // Max 18 bytes bitmap-data
 Point bgx1_drawTile(uint8_t width, uint8_t height, const uint8_t *bitmap);

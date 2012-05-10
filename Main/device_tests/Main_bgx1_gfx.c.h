@@ -75,6 +75,9 @@ void plot_hLines(uint8_t x, uint8_t y, uint8_t sx, uint8_t sy) {
 
 
 int main() {
+	
+	bgx1_move(12, 13);
+	
   bgx1_setStatus(0xff);
 
   //bgx1_reset();
