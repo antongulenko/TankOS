@@ -1,4 +1,6 @@
 
+// Noch zu testen, bzw obsolete.
+
 #define SPEED 0x005F
 
 void controlMotor(PMotor motor, 

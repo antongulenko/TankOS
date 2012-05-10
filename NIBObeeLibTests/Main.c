@@ -7,7 +7,7 @@
 
 #define UNUSED_NIBOBEE_LIB_C_FILE
 
-#define FIRST_TEST
+// #define FIRST_TEST
 // #define CALIBRATION
 
 // #define PROGRAM1		// --
@@ -21,7 +21,7 @@
 // #define PROGRAM9		// Show line-sensor-values
 
 // #define BGX1_GFX
-// #define BGX1_IO
+#define BGX1_IO
 // #define BGX1_TERM
 
 #ifdef FIRST_TEST

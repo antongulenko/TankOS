@@ -2966,6 +2966,7 @@ asm ("__RAMPZ__ = 0x3b");
 #define LOBYTE(x) (uint8_t)((uint16_t)x)
 #define HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)
 #define MAKE_WORD(hi,lo) ((hi*0x100)+lo)
+#define AS_WORD(b) MAKE_WORD(b, 0)
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()

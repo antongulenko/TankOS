@@ -3,60 +3,125 @@
 #include <alloca.h>
 #include <string.h>
 
-#define PREPARED_STRING_CALL(strlen, memcpy)						\
-	uint8_t size = strlen(argument);								\
-	uint8_t argSize = sizeof(StringArg) + size;						\
-	StringArg *args = (StringArg*) alloca(argSize);					\
-	args->len = size;												\
-	memcpy(((uint8_t*) args) + sizeof(StringArg), argument, size);
+// The memcpy-operations in these wrapper-functions have 2 purposes:
+// - for bitmaps, the width/height has be prepended, so we need a buffer
+//		to hold the bitmap itself and this additional data
+// - for strings in program-memory (_P functions), we need to fetch the
+//		string into RAM before handing it to the TWI engine.
+// The buffer is allocated on the stack to save malloc-calls.
+// This is ok, since we do not return before the completion of the operation.
 
-#define PREPARED_BITMAP_CALL(memcpy)									\
-	uint8_t size = height * ((width - 1)/8 + 1);						\
+// Max bytes to send per bitmap image
+#define BITMAP_MAX 18
+
+#define ROW_LENGTH(width) ((width - 1)/8 + 1)
+
+#define FETCH_PROGRAM_STRING()								\
+	uint8_t argSize = strlen_P(argument);					\
+	StringArg *ramString = (StringArg*) alloca(argSize);	\
+	memcpy_P((uint8_t*) ramString, argument, argSize);
+
+#define PREPARED_BITMAP_CALL(MEMCPY)									\
+	uint8_t size = height * ROW_LENGTH(width);							\
 	uint8_t argSize = sizeof(BitmapArguments) + size;					\
 	BitmapArguments *args = (BitmapArguments*) alloca(argSize);			\
 	args->width = width;												\
 	args->height = height;												\
-	memcpy(((uint8_t*) args) + sizeof(BitmapArguments), argument, size);\
+	MEMCPY(((uint8_t*) args) + sizeof(BitmapArguments), argument, size);\
 	return bgx1_drawBitmap_base(args, argSize);	
 
+// ==
 // Functions for normal RAM arguments
+// ==
 
 Point bgx1_print(char *argument) {
-	PREPARED_STRING_CALL(strlen, memcpy)
-	return bgx1_print_base(args, argSize);
+	return bgx1_print_base(argument, strlen(argument));
 }
 
 uint8_t bgx1_textWidth(char *argument) {
-	PREPARED_STRING_CALL(strlen, memcpy)
-	return bgx1_textWidth_base(args, argSize);
+	return bgx1_textWidth_base(argument, strlen(argument));
 }
 
 void bgx1_termPrint(char *argument) {
-	PREPARED_STRING_CALL(strlen, memcpy)
-	bgx1_termPrint_base(args, argSize);
+	bgx1_termPrint_base(argument, strlen(argument));
 }
 
-Point bgx1_drawBitmap(uint8_t width, uint8_t height, uint8_t *argument) {
+Point bgx1_drawTile(uint8_t width, uint8_t height, const uint8_t *argument) {
 	PREPARED_BITMAP_CALL(memcpy)
 }
 
-// Function for FLASH arguments
+// ==
+// Functions for FLASH arguments
+// ==
 
 Point bgx1_print_P(PGM_P argument) {
-	PREPARED_STRING_CALL(strlen_P, memcpy_P)
-	return bgx1_print_base(args, argSize);
+	FETCH_PROGRAM_STRING();
+	return bgx1_print_base(ramString, argSize);
 }
 
 uint8_t bgx1_textWidth_P(PGM_P argument) {
-	PREPARED_STRING_CALL(strlen_P, memcpy_P)
-	return bgx1_textWidth_base(args, argSize);
+	FETCH_PROGRAM_STRING();
+	return bgx1_textWidth_base(ramString, argSize);
 }
 
 void bgx1_termPrint_P(PGM_P argument) {
-	PREPARED_STRING_CALL(strlen_P, memcpy_P)
-	bgx1_termPrint_base(args, argSize);
+	FETCH_PROGRAM_STRING();
+	bgx1_termPrint_base(ramString, argSize);
 }
 
-Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, PGM_P argument) {
+Point bgx1_drawTile_P(uint8_t width, uint8_t height, PGM_P argument) {
 	PREPARED_BITMAP_CALL(memcpy_P)
+}
+
+// ==
+// Convenience functions for 2 parameters
+// ==
+
+void bgx1_move(uint8_t x, uint8_t y) {
+	bgx1_move_base((Point) { x, y });
+}
+
+Point bgx1_box(uint8_t width, uint8_t height) {
+	return bgx1_box_base((Rect) { width, height });
+}
+
+void bgx1_lineTo(uint8_t x, uint8_t y) {
+	bgx1_lineTo_base((Point) { x, y });
+}
+
+void bgx1_termGoto(uint8_t x, uint8_t y) {
+	bgx1_termGoto_base((Point) { x, y });
+}
+
+uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port) {
+	return bgx1_syncPort_base((SyncPortArgs) { ddr, port });
+}
+
+BOOL check_bgx1_operational() {
+	uint16_t version = bgx1_getVersion();
+	return (twi_error == TWI_No_Error) && (version == BGX1_VERSION);
+}
+
+#define DRAW_BITMAP(drawTileFunc)										\
+	uint8_t row_size = ROW_LENGTH(width);								\
+	uint8_t rows_per_tile = BITMAP_MAX / row_size;						\
+	Point newPos = {0};													\
+	while (height) {													\
+		uint8_t h = (height > rows_per_tile) ? rows_per_tile : height;	\
+		newPos = drawTileFunc(width, h, data);							\
+		data += row_size * h;											\
+		height -= h;													\
+		/* TODO maybe + 1 to newPos ? */								\
+		if (height)														\
+			bgx1_move(newPos.x - row_size, newPos.y);					\
+	}																	\
+	return newPos;
+
+Point bgx1_drawBitmap(uint8_t width, uint8_t height, const uint8_t bytes[]) {
+	const uint8_t *data = bytes;
+	DRAW_BITMAP(bgx1_drawTile)
+}
+
+Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, PGM_P data) {
+	DRAW_BITMAP(bgx1_drawTile_P)
 }

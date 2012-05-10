@@ -30,8 +30,13 @@ void setLeds(PLedGroup leds, uint16_t mask);
 void enableLeds(PLedGroup leds);
 void disableLeds(PLedGroup leds);
 
-void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
-void blinkAllLeds(PLedGroup leds, const uint8_t times);
+void blinkLed(PLed led, const uint8_t times);
+void blinkLeds(PLedGroup leds, uint16_t ledMask, uint8_t times);
+void blinkAllLeds(PLedGroup leds, uint8_t times);
+
+void flashLed(PLed led, const uint16_t millis);
+void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis);
+void flashAllLeds(PLedGroup leds, uint16_t millis);
 
 #ifdef _KERNEL_
 #	define DEFINE_LED(ledName)	\

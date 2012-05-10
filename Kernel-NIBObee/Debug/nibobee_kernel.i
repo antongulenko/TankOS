@@ -2969,6 +2969,7 @@ asm ("__RAMPZ__ = 0x3b");
 #define LOBYTE(x) (uint8_t)((uint16_t)x)
 #define HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)
 #define MAKE_WORD(hi,lo) ((hi*0x100)+lo)
+#define AS_WORD(b) MAKE_WORD(b, 0)
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
@@ -3053,8 +3054,13 @@ void setLeds(PLedGroup leds, uint16_t mask);
 void enableLeds(PLedGroup leds);
 void disableLeds(PLedGroup leds);
 
-void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
-void blinkAllLeds(PLedGroup leds, const uint8_t times);
+void blinkLed(PLed led, const uint8_t times);
+void blinkLeds(PLedGroup leds, uint16_t ledMask, uint8_t times);
+void blinkAllLeds(PLedGroup leds, uint8_t times);
+
+void flashLed(PLed led, const uint16_t millis);
+void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis);
+void flashAllLeds(PLedGroup leds, uint16_t millis);
 
 
 #define DEFINE_LED(ledName) Led ledName ##_; const PLed ledName = &ledName ##_;
@@ -3766,8 +3772,13 @@ typedef enum {
 
 
 extern volatile BOOL twi_running;
-extern TWIError last_twi_error;
-#define WAIT_FOR_TWI() while (twi_running) ;
+extern TWIError twi_error;
+
+
+
+
+
+void WAIT_FOR_TWI();
 
 
 
@@ -3813,7 +3824,7 @@ void twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
 void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer);
 # 8 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 2
 # 20 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_VAR(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_VAR(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); }
 
 
 
@@ -3821,9 +3832,9 @@ void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer r
 
 
 
-#define TWI_RPC_FUNCTION_VARARGS(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; ResStruct result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() return result; }
+#define TWI_RPC_FUNCTION_VARARGS(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; ResStruct result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
 # 38 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_VARRES(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_VARRES(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct parameters, ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); }
 
 
 
@@ -3831,22 +3842,22 @@ void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer r
 
 
 
-#define TWI_RPC_FUNCTION(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(ArgStruct) }; ResStruct result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() return result; }
+#define TWI_RPC_FUNCTION(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) }; ResStruct result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
 # 60 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_VOID_VAR(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters, uint16_t argSize) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize }; twi_rpc_oneway(TWI_DEVICE, operationByte, buf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_VOID_VAR(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters, uint16_t argSize) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize }; twi_rpc_oneway(TWI_DEVICE, operationByte, buf); WAIT_FOR_TWI(); }
 
 
 
 
 
 
-#define TWI_RPC_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(ArgStruct) }; twi_rpc_oneway(TWI_DEVICE, operationByte, buf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName(ArgStruct parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) }; twi_rpc_oneway(TWI_DEVICE, operationByte, buf); WAIT_FOR_TWI(); }
 # 78 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_NOARGS(funcName,operationByte,ResStruct) ResStruct funcName() { ResStruct result; TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() return result; }
+#define TWI_RPC_FUNCTION_NOARGS(funcName,operationByte,ResStruct) ResStruct funcName() { ResStruct result; TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
 # 88 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_NOARGS_VAR(funcName,operationByte,ResStruct) void funcName(ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_NOARGS_VAR(funcName,operationByte,ResStruct) void funcName(ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); }
 # 100 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_NOTIFY(funcName,operationByte) void funcName() { TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; twi_rpc_oneway(TWI_DEVICE, operationByte, argBuf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_NOTIFY(funcName,operationByte) void funcName() { TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; twi_rpc_oneway(TWI_DEVICE, operationByte, argBuf); WAIT_FOR_TWI(); }
 # 16 ".././shared/../shared/twi_bgx1.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 1 3
 # 83 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
@@ -4027,6 +4038,8 @@ extern size_t strlcpy_PF (char *dst, uint_farptr_t src, size_t siz);
 extern int memcmp_PF(const void *, uint_farptr_t, size_t) __attribute__((__pure__));
 # 17 ".././shared/../shared/twi_bgx1.h" 2
 
+#define BGX1_VERSION 0x0103
+
 
 enum {
 
@@ -4067,10 +4080,10 @@ enum {
 };
 
 
-void bgx1_reset() { TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; twi_rpc_oneway(bgx1, CMD_Reset, argBuf); while (twi_running) ; }
-uint16_t bgx1_getVersion() { uint16_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint16_t) }; twi_rpc(bgx1, CMD_GetVersion, argBuf, resBuf); while (twi_running) ; return result; }
-uint8_t bgx1_getStatus() { uint8_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_GetStatus, argBuf, resBuf); while (twi_running) ; return result; }
-void bgx1_setStatus(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_SetStatus, buf); while (twi_running) ; }
+void bgx1_reset() { TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; twi_rpc_oneway(bgx1, CMD_Reset, argBuf); WAIT_FOR_TWI(); }
+uint16_t bgx1_getVersion() { uint16_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint16_t) }; twi_rpc(bgx1, CMD_GetVersion, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+uint8_t bgx1_getStatus() { uint8_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_GetStatus, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+void bgx1_setStatus(uint8_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_SetStatus, buf); WAIT_FOR_TWI(); }
 
 typedef struct {
  uint8_t x;
@@ -4085,33 +4098,27 @@ typedef struct {
 } BitmapArguments, *PBitmapArguments;
 
 
+typedef char StringArg;
 
 
-
-typedef struct {
- uint8_t len;
-
-} StringArg, *PStringArg;
-
-
-void bgx1_move(Point *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_Move, buf); while (twi_running) ; }
-void bgx1_mode(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_Mode, buf); while (twi_running) ; }
-void bgx1_fillAll(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_FillAll, buf); while (twi_running) ; }
-Point bgx1_print_base(StringArg *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Print, argBuf, resBuf); while (twi_running) ; return result; }
-uint8_t bgx1_textWidth_base(StringArg *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_TextWidth, argBuf, resBuf); while (twi_running) ; return result; }
-void bgx1_selectFont(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_SelectFont, buf); while (twi_running) ; }
-Point bgx1_hLine(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_HLine, argBuf, resBuf); while (twi_running) ; return result; }
-Point bgx1_vLine(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_VLine, argBuf, resBuf); while (twi_running) ; return result; }
-Point bgx1_box(Rect *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(Rect) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Box, argBuf, resBuf); while (twi_running) ; return result; }
-Point bgx1_drawBitmap_base(BitmapArguments *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Bitmap, argBuf, resBuf); while (twi_running) ; return result; }
-Point bgx1_embeddedImage(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_EmbeddedImage, argBuf, resBuf); while (twi_running) ; return result; }
-void bgx1_lineTo(Point *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_LineTo, buf); while (twi_running) ; }
+void bgx1_move_base(Point parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_Move, buf); WAIT_FOR_TWI(); }
+void bgx1_mode(uint8_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_Mode, buf); WAIT_FOR_TWI(); }
+void bgx1_fillAll(uint8_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_FillAll, buf); WAIT_FOR_TWI(); }
+Point bgx1_print_base(StringArg *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Print, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+uint8_t bgx1_textWidth_base(StringArg *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_TextWidth, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+void bgx1_selectFont(uint8_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_SelectFont, buf); WAIT_FOR_TWI(); }
+Point bgx1_hLine(uint8_t parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_HLine, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+Point bgx1_vLine(uint8_t parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_VLine, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+Point bgx1_box_base(Rect parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(Rect) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Box, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+Point bgx1_drawBitmap_base(BitmapArguments *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Bitmap, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+Point bgx1_embeddedImage(uint8_t parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_EmbeddedImage, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+void bgx1_lineTo_base(Point parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_LineTo, buf); WAIT_FOR_TWI(); }
 
 
-void bgx1_termClear() { TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; twi_rpc_oneway(bgx1, CMD_TermClear, argBuf); while (twi_running) ; }
-void bgx1_termGoto(Point *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_TermGoto, buf); while (twi_running) ; }
-void bgx1_termScroll(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_TermScroll, buf); while (twi_running) ; }
-void bgx1_termPrint_base(StringArg *parameters, uint16_t argSize) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize }; twi_rpc_oneway(bgx1, CMD_TermPrint, buf); while (twi_running) ; }
+void bgx1_termClear() { TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; twi_rpc_oneway(bgx1, CMD_TermClear, argBuf); WAIT_FOR_TWI(); }
+void bgx1_termGoto_base(Point parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_TermGoto, buf); WAIT_FOR_TWI(); }
+void bgx1_termScroll(uint8_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_TermScroll, buf); WAIT_FOR_TWI(); }
+void bgx1_termPrint_base(StringArg *parameters, uint16_t argSize) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize }; twi_rpc_oneway(bgx1, CMD_TermPrint, buf); WAIT_FOR_TWI(); }
 
 typedef struct {
  uint8_t ddr;
@@ -4119,10 +4126,10 @@ typedef struct {
 } SyncPortArgs, *PSyncPortArgs;
 
 
-uint8_t bgx1_syncPort(SyncPortArgs *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(SyncPortArgs) }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_SyncPort, argBuf, resBuf); while (twi_running) ; return result; }
-uint16_t bgx1_getAnalog(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; uint16_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint16_t) }; twi_rpc(bgx1, CMD_GetAnalog, argBuf, resBuf); while (twi_running) ; return result; }
-uint8_t bgx1_syncInterface(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_SyncInterface, argBuf, resBuf); while (twi_running) ; return result; }
-void bgx1_setIllumination(uint16_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint16_t) }; twi_rpc_oneway(bgx1, CMD_SetIllumination, buf); while (twi_running) ; }
+uint8_t bgx1_syncPort_base(SyncPortArgs parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(SyncPortArgs) }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_SyncPort, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+uint16_t bgx1_getAnalog(uint8_t parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; uint16_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint16_t) }; twi_rpc(bgx1, CMD_GetAnalog, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+uint8_t bgx1_syncInterface(uint8_t parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_SyncInterface, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+void bgx1_setIllumination(uint16_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint16_t) }; twi_rpc_oneway(bgx1, CMD_SetIllumination, buf); WAIT_FOR_TWI(); }
 
 Point bgx1_print(char *argument);
 Point bgx1_print_P(const prog_char * argument);
@@ -4131,14 +4138,31 @@ uint8_t bgx1_textWidth_P(const prog_char * argument);
 void bgx1_termPrint(char *argument);
 void bgx1_termPrint_P(const prog_char * argument);
 
-Point bgx1_drawBitmap(uint8_t width, uint8_t height, uint8_t *bitmap);
+
+Point bgx1_drawTile(uint8_t width, uint8_t height, const uint8_t *bitmap);
+Point bgx1_drawTile_P(uint8_t width, uint8_t height, const prog_char * bitmap);
+
+
+
+Point bgx1_drawBitmap(uint8_t width, uint8_t height, const uint8_t *bitmap);
 Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, const prog_char * bitmap);
+
+void bgx1_move(uint8_t x, uint8_t y);
+Point bgx1_box(uint8_t width, uint8_t height);
+void bgx1_lineTo(uint8_t x, uint8_t y);
+void bgx1_termGoto(uint8_t x, uint8_t y);
+uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port);
+
+
+
+BOOL check_bgx1_operational();
 # 22 ".././shared/../kernel.h" 2
 # 13 ".././shared/base_before.kernel.h" 2
 
 
 
-#define TWI_BIT_RATE_VALUE 17
+
+#define TWI_BIT_RATE_VALUE 100
 #define TWI_PRESCALER_MASK 0
 #define TWI_Buffer_Size 255
 
@@ -4169,7 +4193,7 @@ void init_timer() {
  setTimerCompareValue(Timer3B, 2500);
 }
 void init_timer_kernel_init() __attribute__((naked, section(".init8"))); void init_timer_kernel_init() { init_timer(); }
-# 25 ".././shared/base_before.kernel.h" 2
+# 26 ".././shared/base_before.kernel.h" 2
 #define CLOCKISR CLOCKISR_A
 # 1 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/timer_base.kernel.h"
@@ -4186,7 +4210,7 @@ void in_timer_tick() {};
 
 
 #define TIMER_TICK_ACTION milliseconds_running++; in_timer_tick();
-# 27 ".././shared/base_before.kernel.h" 2
+# 28 ".././shared/base_before.kernel.h" 2
 
 
 
@@ -4202,7 +4226,7 @@ void in_timer_tick() {};
 void __vector_32 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_32 (void) {
  milliseconds_running++; in_timer_tick();
 }
-# 33 ".././shared/base_before.kernel.h" 2
+# 34 ".././shared/base_before.kernel.h" 2
 #define INITIALIZE_SCHEDULER 
 
 # 1 "..\\..\\AntonAvrLib/kernel/processes/mutex/atomic_mutex.kernel.h" 1
@@ -4228,7 +4252,7 @@ BOOL mutex_trylock(Mutex mutex) {
 void mutex_release(Mutex mutex) {
  __asm__ __volatile__ ("sei" ::: "memory");
 }
-# 36 ".././shared/base_before.kernel.h" 2
+# 37 ".././shared/base_before.kernel.h" 2
 # 14 ".././nibobee_kernel.c" 2
 # 1 ".././shared/motor_smooth.kernel.h" 1
 
@@ -4251,7 +4275,9 @@ void mutex_release(Mutex mutex) {
 # 12 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.kernel.h" 2
 
 
-extern void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond);
+void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond);
+
+
 void motor_smooth_tick(PSmoothMotor motor);
 
 void initSmoothMotor(PSmoothMotor motor) {
@@ -4481,9 +4507,62 @@ void init_smooth_motors_kernel_init() __attribute__((naked, section(".init8")));
 
 #define TW_WRITE 0
 # 15 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 2
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 1 3
+# 35 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define _UTIL_ATOMIC_H_ 1
+
+
+
+
+
+
+static __inline__ uint8_t __iSeiRetVal(void)
+{
+    __asm__ __volatile__ ("sei" ::: "memory");
+    return 1;
+}
+
+static __inline__ uint8_t __iCliRetVal(void)
+{
+    __asm__ __volatile__ ("cli" ::: "memory");
+    return 1;
+}
+
+static __inline__ void __iSeiParam(const uint8_t *__s)
+{
+    __asm__ __volatile__ ("sei" ::: "memory");
+    __asm__ volatile ("" ::: "memory");
+    (void)__s;
+}
+
+static __inline__ void __iCliParam(const uint8_t *__s)
+{
+    __asm__ __volatile__ ("cli" ::: "memory");
+    __asm__ volatile ("" ::: "memory");
+    (void)__s;
+}
+
+static __inline__ void __iRestore(const uint8_t *__s)
+{
+    (*(volatile uint8_t *)((0x3F) + 0x20)) = *__s;
+    __asm__ volatile ("" ::: "memory");
+}
+# 205 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define ATOMIC_BLOCK(type) for ( type, __ToDo = __iCliRetVal(); __ToDo ; __ToDo = 0 )
+# 226 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define NONATOMIC_BLOCK(type) for ( type, __ToDo = __iSeiRetVal(); __ToDo ; __ToDo = 0 )
+# 244 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define ATOMIC_RESTORESTATE uint8_t sreg_save __attribute__((__cleanup__(__iRestore))) = SREG
+# 265 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define ATOMIC_FORCEON uint8_t sreg_save __attribute__((__cleanup__(__iSeiParam))) = 0
+# 283 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define NONATOMIC_RESTORESTATE uint8_t sreg_save __attribute__((__cleanup__(__iRestore))) = SREG
+# 304 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define NONATOMIC_FORCEOFF uint8_t sreg_save __attribute__((__cleanup__(__iCliParam))) = 0
+# 16 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 2
 
 TWIDevice TWIBroadcast = { 0 };
-# 25 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+# 26 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
  TWIBuffer twi_handleMasterRequest() { return (TWIBuffer) { 0 }; }
  void twi_handleMasterTransmission(TWIBuffer twi_buffer) {}
 
@@ -4491,19 +4570,19 @@ TWIDevice TWIBroadcast = { 0 };
 
 void twi_unexpectedCondition() __attribute__((weak));
 void twi_unexpectedCondition() {}
-# 40 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+# 41 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
 volatile BOOL twi_running;
 TWIDevice twi_address;
 uint16_t alreadyHandled;
 TWIBuffer twi_buffer;
-TWIError error;
+TWIError twi_error;
 TWIOperation furtherOperations[3];
 int nextTwiOperation;
 
 void init_twi() {
  (*(volatile uint8_t *)(0xBC)) = (1 << (0)) | (1 << (2));
  (*(volatile uint8_t *)(0xBB)) = 0xff;
- (*(volatile uint8_t *)(0xB8)) = 17;
+ (*(volatile uint8_t *)(0xB8)) = 100;
  (*(volatile uint8_t *)(0xB9)) = 0;
 
 
@@ -4534,15 +4613,20 @@ static inline void twi_stop() {
 
 BOOL next_twi_operation() {
  TWIOperation current;
+
+ if (nextTwiOperation >= 3) return FALSE;
  do {
   current = furtherOperations[nextTwiOperation++];
- } while (nextTwiOperation < 3 && current.operationMode == TWI_IllegalOperation);
+  if (current.operationMode != TWI_IllegalOperation) break;
+ } while (nextTwiOperation < 3);
  if (nextTwiOperation >= 3) return FALSE;
 
+
+
  if (current.operationMode == TWI_Send) {
-  twi_address.address = current.device.address & ~(1 << (1));
- } else if (current.operationMode == TWI_Send) {
-  twi_address.address = current.device.address | (1 << (1));;
+  twi_address.address = current.device.address & ~(1 << (0));
+ } else if (current.operationMode == TWI_Receive) {
+  twi_address.address = current.device.address | (1 << (0));
  }
  alreadyHandled = 0;
  twi_buffer = current.buffer;
@@ -4550,7 +4634,7 @@ BOOL next_twi_operation() {
 }
 
 static inline void twi_stop_or_next() {
- if (nextTwiOperation >= 3 || !next_twi_operation()) {
+ if (!next_twi_operation()) {
   twi_stop();
  } else {
 
@@ -4569,15 +4653,15 @@ static inline void twi_end() {
 }
 
 void twi_start_master_operation() {
- error = TWI_No_Error;
+ twi_error = TWI_No_Error;
  twi_running = TRUE;
  nextTwiOperation = 0;
- next_twi_operation();
+ if (next_twi_operation()) {
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (5));
+ }
 }
 
-static inline void twi_receive_byte() {
-
- twi_buffer.data[alreadyHandled++] = (*(volatile uint8_t *)(0xBB));
+static inline void twi_ack_receive() {
  if (alreadyHandled < twi_buffer.size - 1) {
   (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
  } else {
@@ -4585,12 +4669,8 @@ static inline void twi_receive_byte() {
  }
 }
 
-static inline void twi_init_receive() {
- if (twi_buffer.size > 0) {
-  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (6));
- } else {
-  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
- }
+static inline void twi_read_byte() {
+ twi_buffer.data[alreadyHandled++] = (*(volatile uint8_t *)(0xBB));
 }
 
 void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void __vector_26 (void) {
@@ -4602,7 +4682,7 @@ void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void
    (*(volatile uint8_t *)(0xBB)) = twi_address.address; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
    break;
   case 0x38:
-   error = TWI_Arbitration_Lost;
+   twi_error = TWI_Arbitration_Lost;
    twi_end();
    break;
 
@@ -4617,37 +4697,44 @@ void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void
    }
    break;
   case 0x20:
-   error = TWI_SlaveAddress_NoAck;
+   twi_error = TWI_SlaveAddress_NoAck;
    twi_stop();
    break;
   case 0x30:
-   error = TWI_Master_TooMuchDataTransmitted;
+   twi_error = TWI_Master_TooMuchDataTransmitted;
    twi_stop();
    break;
 
   case 0x40:
-   twi_init_receive();
+   twi_ack_receive();
    break;
   case 0x50:
-   twi_receive_byte();
+   twi_read_byte();
+   twi_ack_receive();
    break;
   case 0x48:
-   error = TWI_SlaveAddress_NoAck;
+   twi_error = TWI_SlaveAddress_NoAck;
    twi_stop();
    break;
   case 0x58:
 
 
+   twi_read_byte();
    twi_stop_or_next();
    break;
-# 234 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+# 240 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
   case 0xF8:
-   error = TWI_No_Info_Interrupt;
-  case 0x00:
-   error = TWI_Bus_Error;
-  default:
-   error = TWI_Illegal_Status;
+   twi_error = TWI_No_Info_Interrupt;
    twi_unexpectedCondition();
+   break;
+  case 0x00:
+   twi_error = TWI_Bus_Error;
+   twi_unexpectedCondition();
+   break;
+  default:
+   twi_error = TWI_Illegal_Status;
+   twi_unexpectedCondition();
+   break;
  }
 }
 
@@ -4678,6 +4765,16 @@ void twiMultipleOperations(int count, TWIOperation *operations) {
   furtherOperations[i].operationMode = TWI_IllegalOperation;
  }
  twi_start_master_operation();
+}
+
+void WAIT_FOR_TWI() {
+ while (1) {
+  uint8_t still_running;
+  for ( uint8_t sreg_save __attribute__((__cleanup__(__iSeiParam))) = 0, __ToDo = __iCliRetVal(); __ToDo ; __ToDo = 0 ) {
+   still_running = twi_running;
+  }
+  if (!still_running) break;
+ }
 }
 # 5 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc.kernel.h" 2
 
@@ -4756,7 +4853,7 @@ TWIBuffer sendBuffer = { sendBufferData, 255 };
 # 43 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc.kernel.h"
 static inline void fillSendBuffer(byte operation, TWIBuffer parameters) {
  sendBuffer.data[0] = operation;
- sendBuffer.size = parameters.size;
+ sendBuffer.size = parameters.size + 1;
  memcpy(sendBuffer.data + 1, parameters.data, parameters.size);
 }
 

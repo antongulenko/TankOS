@@ -13,11 +13,10 @@
 // Frequency zero means disabling the ticking.
 // To keep the algorithm general, if the motor requires some time
 // when switching the direction, a delay should be included when this function is called with zero.
-extern void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond);
-void motor_smooth_tick(PSmoothMotor motor);
+void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond);
 
 // 'Imported' from motor.c. Avoided adding internal-header just for this function.
-extern uint16_t motor_toUnsignedSpeed(int16_t speed);
+uint16_t motor_toUnsignedSpeed(int16_t speed);
 
 void regulateStopMotor(PSmoothMotor motor) {
 	regulateSpeed(motor, 0, MOTOR_STOPPED);

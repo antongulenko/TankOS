@@ -2970,6 +2970,7 @@ asm ("__RAMPZ__ = 0x3b");
 #define LOBYTE(x) (uint8_t)((uint16_t)x)
 #define HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)
 #define MAKE_WORD(hi,lo) ((hi*0x100)+lo)
+#define AS_WORD(b) MAKE_WORD(b, 0)
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
@@ -3030,9 +3031,14 @@ void setLeds(PLedGroup leds, uint16_t mask);
 void enableLeds(PLedGroup leds);
 void disableLeds(PLedGroup leds);
 
-void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
-void blinkAllLeds(PLedGroup leds, const uint8_t times);
-# 49 "../kernel/devices/led.h"
+void blinkLed(PLed led, const uint8_t times);
+void blinkLeds(PLedGroup leds, uint16_t ledMask, uint8_t times);
+void blinkAllLeds(PLedGroup leds, uint8_t times);
+
+void flashLed(PLed led, const uint16_t millis);
+void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis);
+void flashAllLeds(PLedGroup leds, uint16_t millis);
+# 54 "../kernel/devices/led.h"
 #define DEFINE_LED(ledName) extern const PLed ledName;
 
 #define DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;
@@ -3072,15 +3078,45 @@ void disableLeds(PLedGroup leds) {
  }
 }
 
-void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times) {
+static inline void BLINK_DELAY() { _delay_ms(200); }
+static inline void DELAY_MS(uint16_t millis) {
+ while (millis--) _delay_ms(1);
+}
+
+void blinkLeds(PLedGroup leds, uint16_t ledMask, uint8_t times) {
  for (uint8_t i = 0; i < times; i++) {
   setLeds(leds, ledMask);
-  _delay_ms(200);
+  BLINK_DELAY();
   disableLeds(leds);
-  _delay_ms(200);
+  BLINK_DELAY();
  }
 }
 
-void blinkAllLeds(PLedGroup leds, const uint8_t times) {
+void blinkAllLeds(PLedGroup leds, uint8_t times) {
  blinkLeds(leds, 0xFFFF, times);
+}
+
+void blinkLed(PLed led, uint8_t times) {
+ for (uint8_t i = 0; i < times; i++) {
+  enableLed(led);
+  BLINK_DELAY();
+  disableLed(led);
+  BLINK_DELAY();
+ }
+}
+
+void flashLed(PLed led, const uint16_t millis) {
+ enableLed(led);
+ DELAY_MS(millis);
+ disableLed(led);
+}
+
+void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis) {
+ setLeds(leds, ledMask);
+ DELAY_MS(millis);
+ disableLeds(leds);
+}
+
+void flashAllLeds(PLedGroup leds, uint16_t millis) {
+ flashLeds(leds, 0xFFFF, millis);
 }

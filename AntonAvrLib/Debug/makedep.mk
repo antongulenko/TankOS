@@ -28,3 +28,5 @@ kernel\processes\scheduler.c
 
 kernel\reset_condition.c
 
+misc\read_buttons_loop.c
+

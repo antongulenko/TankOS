@@ -1,4 +1,6 @@
 
+// Obsolete.
+
 #define PUFFER 3000
 #define CHANGE_INTERVAL 20 // ms
 uint16_t speed = PUFFER;

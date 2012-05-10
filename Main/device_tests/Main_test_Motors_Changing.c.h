@@ -1,4 +1,6 @@
 
+// Obsolete.
+
 #define CHANGE_INTERVAL 3000 // ms
 #define SPEED 0xFFFF
 uint32_t nextChanging = 0;

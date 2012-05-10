@@ -2970,6 +2970,7 @@ asm ("__RAMPZ__ = 0x3b");
 #define LOBYTE(x) (uint8_t)((uint16_t)x)
 #define HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)
 #define MAKE_WORD(hi,lo) ((hi*0x100)+lo)
+#define AS_WORD(b) MAKE_WORD(b, 0)
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
@@ -3218,11 +3219,10 @@ void regulateDirSpeed(PSmoothMotor motor, int16_t speed);
 
 
 
-extern void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond);
-void motor_smooth_tick(PSmoothMotor motor);
+void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond);
 
 
-extern uint16_t motor_toUnsignedSpeed(int16_t speed);
+uint16_t motor_toUnsignedSpeed(int16_t speed);
 
 void regulateStopMotor(PSmoothMotor motor) {
  regulateSpeed(motor, 0, MOTOR_STOPPED);

@@ -15,6 +15,8 @@ extern TWIDevice bgx1;
 #include <kernel/TWI/twi_rpc_hash_client.h>
 #include <avr/pgmspace.h>
 
+#define BGX1_VERSION 0x0103
+
 // This enum is copied from bgx1_protocol.h in the NIBObeeLib.
 enum {
   // System:
@@ -72,17 +74,11 @@ typedef struct {
 	// which cannot be directly embedded here.
 } BitmapArguments, *PBitmapArguments;
 
-// When a string has to be sent. Indicates, that the _fixed() version of the functions
-// Should not be used, since the string-length must be given.
-// TODO -- write wrappers for such functions, that use strlen.
-// TODO -- write _P() functions, that copy the string data from the flash.
-typedef struct {
-	uint8_t len;
-	// Rest is filled with char[].
-} StringArg, *PStringArg;
+// Indicates, that a whole string with variable length has to be sent.
+typedef char StringArg;
 
 // Display
-TWI_RPC_FUNCTION_VOID	(bgx1_move, CMD_Move, Point)
+TWI_RPC_FUNCTION_VOID	(bgx1_move_base, CMD_Move, Point)
 TWI_RPC_FUNCTION_VOID	(bgx1_mode, CMD_Mode, uint8_t)
 TWI_RPC_FUNCTION_VOID	(bgx1_fillAll, CMD_FillAll, uint8_t)
 TWI_RPC_FUNCTION_VARARGS(bgx1_print_base, CMD_Print, StringArg, Point)
@@ -90,14 +86,14 @@ TWI_RPC_FUNCTION_VARARGS(bgx1_textWidth_base, CMD_TextWidth, StringArg, uint8_t)
 TWI_RPC_FUNCTION_VOID	(bgx1_selectFont, CMD_SelectFont, uint8_t)
 TWI_RPC_FUNCTION		(bgx1_hLine, CMD_HLine, uint8_t, Point)
 TWI_RPC_FUNCTION		(bgx1_vLine, CMD_VLine, uint8_t, Point)
-TWI_RPC_FUNCTION		(bgx1_box, CMD_Box, Rect, Point)
+TWI_RPC_FUNCTION		(bgx1_box_base, CMD_Box, Rect, Point)
 TWI_RPC_FUNCTION_VARARGS(bgx1_drawBitmap_base, CMD_Bitmap, BitmapArguments, Point)
 TWI_RPC_FUNCTION		(bgx1_embeddedImage, CMD_EmbeddedImage, uint8_t, Point)
-TWI_RPC_FUNCTION_VOID	(bgx1_lineTo, CMD_LineTo, Point)
+TWI_RPC_FUNCTION_VOID	(bgx1_lineTo_base, CMD_LineTo, Point)
 
 // Terminal
 TWI_RPC_FUNCTION_NOTIFY	(bgx1_termClear, CMD_TermClear)
-TWI_RPC_FUNCTION_VOID	(bgx1_termGoto, CMD_TermGoto, Point)
+TWI_RPC_FUNCTION_VOID	(bgx1_termGoto_base, CMD_TermGoto, Point)
 TWI_RPC_FUNCTION_VOID	(bgx1_termScroll, CMD_TermScroll, uint8_t)
 TWI_RPC_FUNCTION_VOID_VAR(bgx1_termPrint_base, CMD_TermPrint, StringArg)
 
@@ -107,7 +103,7 @@ typedef struct {
 } SyncPortArgs, *PSyncPortArgs;
 
 // IO
-TWI_RPC_FUNCTION		(bgx1_syncPort, CMD_SyncPort, SyncPortArgs, uint8_t)
+TWI_RPC_FUNCTION		(bgx1_syncPort_base, CMD_SyncPort, SyncPortArgs, uint8_t)
 TWI_RPC_FUNCTION		(bgx1_getAnalog, CMD_GetAnalog, uint8_t, uint16_t)
 TWI_RPC_FUNCTION		(bgx1_syncInterface, CMD_SyncInterface, uint8_t, uint8_t)
 TWI_RPC_FUNCTION_VOID	(bgx1_setIllumination, CMD_SetIllumination, uint16_t)
@@ -119,7 +115,23 @@ uint8_t bgx1_textWidth_P(PGM_P argument);
 void bgx1_termPrint(char *argument);
 void bgx1_termPrint_P(PGM_P argument);
 
-Point bgx1_drawBitmap(uint8_t width, uint8_t height, uint8_t *bitmap);
+// Max 18 bytes bitmap-data
+Point bgx1_drawTile(uint8_t width, uint8_t height, const uint8_t *bitmap);
+Point bgx1_drawTile_P(uint8_t width, uint8_t height, PGM_P bitmap);
+
+// Iterates the bitmap data and prints it in chunks.
+// The result-value will be zero, if height is zero.
+Point bgx1_drawBitmap(uint8_t width, uint8_t height, const uint8_t *bitmap);
 Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, PGM_P bitmap);
+
+void bgx1_move(uint8_t x, uint8_t y);
+Point bgx1_box(uint8_t width, uint8_t height);
+void bgx1_lineTo(uint8_t x, uint8_t y);
+void bgx1_termGoto(uint8_t x, uint8_t y);
+uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port);
+
+// Query the version from the bgx1 and check whether the transmission
+// went alright.
+BOOL check_bgx1_operational();
 
 #endif

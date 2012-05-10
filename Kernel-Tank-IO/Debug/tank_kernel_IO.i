@@ -3498,8 +3498,13 @@ typedef enum {
 
 
 extern volatile BOOL twi_running;
-extern TWIError last_twi_error;
-#define WAIT_FOR_TWI() while (twi_running) ;
+extern TWIError twi_error;
+
+
+
+
+
+void WAIT_FOR_TWI();
 
 
 
@@ -3545,7 +3550,7 @@ void twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
 void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer);
 # 8 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 2
 # 20 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_VAR(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_VAR(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); }
 
 
 
@@ -3553,9 +3558,9 @@ void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer r
 
 
 
-#define TWI_RPC_FUNCTION_VARARGS(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; ResStruct result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() return result; }
+#define TWI_RPC_FUNCTION_VARARGS(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; ResStruct result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
 # 38 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_VARRES(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_VARRES(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct parameters, ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); }
 
 
 
@@ -3563,22 +3568,22 @@ void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer r
 
 
 
-#define TWI_RPC_FUNCTION(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(ArgStruct) }; ResStruct result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() return result; }
+#define TWI_RPC_FUNCTION(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) }; ResStruct result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
 # 60 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_VOID_VAR(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters, uint16_t argSize) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize }; twi_rpc_oneway(TWI_DEVICE, operationByte, buf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_VOID_VAR(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters, uint16_t argSize) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize }; twi_rpc_oneway(TWI_DEVICE, operationByte, buf); WAIT_FOR_TWI(); }
 
 
 
 
 
 
-#define TWI_RPC_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(ArgStruct) }; twi_rpc_oneway(TWI_DEVICE, operationByte, buf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName(ArgStruct parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) }; twi_rpc_oneway(TWI_DEVICE, operationByte, buf); WAIT_FOR_TWI(); }
 # 78 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_NOARGS(funcName,operationByte,ResStruct) ResStruct funcName() { ResStruct result; TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() return result; }
+#define TWI_RPC_FUNCTION_NOARGS(funcName,operationByte,ResStruct) ResStruct funcName() { ResStruct result; TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
 # 88 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_NOARGS_VAR(funcName,operationByte,ResStruct) void funcName(ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_NOARGS_VAR(funcName,operationByte,ResStruct) void funcName(ResStruct *out_result, uint16_t resultSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize }; twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf); WAIT_FOR_TWI(); }
 # 100 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
-#define TWI_RPC_FUNCTION_NOTIFY(funcName,operationByte) void funcName() { TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; twi_rpc_oneway(TWI_DEVICE, operationByte, argBuf); WAIT_FOR_TWI() }
+#define TWI_RPC_FUNCTION_NOTIFY(funcName,operationByte) void funcName() { TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 }; twi_rpc_oneway(TWI_DEVICE, operationByte, argBuf); WAIT_FOR_TWI(); }
 # 16 ".././shared/../shared/twi_bgx1.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 1 3
 # 83 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
@@ -3799,10 +3804,10 @@ enum {
 };
 
 
-void bgx1_reset() { TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; twi_rpc_oneway(bgx1, CMD_Reset, argBuf); while (twi_running) ; }
-uint16_t bgx1_getVersion() { uint16_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint16_t) }; twi_rpc(bgx1, CMD_GetVersion, argBuf, resBuf); while (twi_running) ; return result; }
-uint8_t bgx1_getStatus() { uint8_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_GetStatus, argBuf, resBuf); while (twi_running) ; return result; }
-void bgx1_setStatus(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_SetStatus, buf); while (twi_running) ; }
+void bgx1_reset() { TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; twi_rpc_oneway(bgx1, CMD_Reset, argBuf); WAIT_FOR_TWI(); }
+uint16_t bgx1_getVersion() { uint16_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint16_t) }; twi_rpc(bgx1, CMD_GetVersion, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+uint8_t bgx1_getStatus() { uint8_t result; TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_GetStatus, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+void bgx1_setStatus(uint8_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_SetStatus, buf); WAIT_FOR_TWI(); }
 
 typedef struct {
  uint8_t x;
@@ -3826,24 +3831,24 @@ typedef struct {
 } StringArg, *PStringArg;
 
 
-void bgx1_move(Point *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_Move, buf); while (twi_running) ; }
-void bgx1_mode(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_Mode, buf); while (twi_running) ; }
-void bgx1_fillAll(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_FillAll, buf); while (twi_running) ; }
-Point bgx1_print_base(StringArg *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Print, argBuf, resBuf); while (twi_running) ; return result; }
-uint8_t bgx1_textWidth_base(StringArg *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_TextWidth, argBuf, resBuf); while (twi_running) ; return result; }
-void bgx1_selectFont(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_SelectFont, buf); while (twi_running) ; }
-Point bgx1_hLine(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_HLine, argBuf, resBuf); while (twi_running) ; return result; }
-Point bgx1_vLine(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_VLine, argBuf, resBuf); while (twi_running) ; return result; }
-Point bgx1_box(Rect *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(Rect) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Box, argBuf, resBuf); while (twi_running) ; return result; }
-Point bgx1_drawBitmap_base(BitmapArguments *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Bitmap, argBuf, resBuf); while (twi_running) ; return result; }
-Point bgx1_embeddedImage(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_EmbeddedImage, argBuf, resBuf); while (twi_running) ; return result; }
-void bgx1_lineTo(Point *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_LineTo, buf); while (twi_running) ; }
+void bgx1_move_base(Point parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_Move, buf); WAIT_FOR_TWI(); }
+void bgx1_mode(uint8_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_Mode, buf); WAIT_FOR_TWI(); }
+void bgx1_fillAll(uint8_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_FillAll, buf); WAIT_FOR_TWI(); }
+Point bgx1_print_base(StringArg *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Print, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+uint8_t bgx1_textWidth_base(StringArg *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_TextWidth, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+void bgx1_selectFont(uint8_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_SelectFont, buf); WAIT_FOR_TWI(); }
+Point bgx1_hLine(uint8_t parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_HLine, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+Point bgx1_vLine(uint8_t parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_VLine, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+Point bgx1_box_base(Rect parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(Rect) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Box, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+Point bgx1_drawBitmap_base(BitmapArguments *parameters, uint16_t argSize) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_Bitmap, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+Point bgx1_embeddedImage(uint8_t parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; Point result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(Point) }; twi_rpc(bgx1, CMD_EmbeddedImage, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+void bgx1_lineTo_base(Point parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_LineTo, buf); WAIT_FOR_TWI(); }
 
 
-void bgx1_termClear() { TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; twi_rpc_oneway(bgx1, CMD_TermClear, argBuf); while (twi_running) ; }
-void bgx1_termGoto(Point *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_TermGoto, buf); while (twi_running) ; }
-void bgx1_termScroll(uint8_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_TermScroll, buf); while (twi_running) ; }
-void bgx1_termPrint_base(StringArg *parameters, uint16_t argSize) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize }; twi_rpc_oneway(bgx1, CMD_TermPrint, buf); while (twi_running) ; }
+void bgx1_termClear() { TWIBuffer argBuf = (TWIBuffer) { (byte*) ((void *)0), 0 }; twi_rpc_oneway(bgx1, CMD_TermClear, argBuf); WAIT_FOR_TWI(); }
+void bgx1_termGoto_base(Point parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(Point) }; twi_rpc_oneway(bgx1, CMD_TermGoto, buf); WAIT_FOR_TWI(); }
+void bgx1_termScroll(uint8_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; twi_rpc_oneway(bgx1, CMD_TermScroll, buf); WAIT_FOR_TWI(); }
+void bgx1_termPrint_base(StringArg *parameters, uint16_t argSize) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize }; twi_rpc_oneway(bgx1, CMD_TermPrint, buf); WAIT_FOR_TWI(); }
 
 typedef struct {
  uint8_t ddr;
@@ -3851,10 +3856,10 @@ typedef struct {
 } SyncPortArgs, *PSyncPortArgs;
 
 
-uint8_t bgx1_syncPort(SyncPortArgs *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(SyncPortArgs) }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_SyncPort, argBuf, resBuf); while (twi_running) ; return result; }
-uint16_t bgx1_getAnalog(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; uint16_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint16_t) }; twi_rpc(bgx1, CMD_GetAnalog, argBuf, resBuf); while (twi_running) ; return result; }
-uint8_t bgx1_syncInterface(uint8_t *parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, sizeof(uint8_t) }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_SyncInterface, argBuf, resBuf); while (twi_running) ; return result; }
-void bgx1_setIllumination(uint16_t *parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) parameters, sizeof(uint16_t) }; twi_rpc_oneway(bgx1, CMD_SetIllumination, buf); while (twi_running) ; }
+uint8_t bgx1_syncPort_base(SyncPortArgs parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(SyncPortArgs) }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_SyncPort, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+uint16_t bgx1_getAnalog(uint8_t parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; uint16_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint16_t) }; twi_rpc(bgx1, CMD_GetAnalog, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+uint8_t bgx1_syncInterface(uint8_t parameters) { TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(uint8_t) }; uint8_t result; TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(uint8_t) }; twi_rpc(bgx1, CMD_SyncInterface, argBuf, resBuf); WAIT_FOR_TWI(); return result; }
+void bgx1_setIllumination(uint16_t parameters) { TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(uint16_t) }; twi_rpc_oneway(bgx1, CMD_SetIllumination, buf); WAIT_FOR_TWI(); }
 
 Point bgx1_print(char *argument);
 Point bgx1_print_P(const prog_char * argument);
@@ -3865,6 +3870,12 @@ void bgx1_termPrint_P(const prog_char * argument);
 
 Point bgx1_drawBitmap(uint8_t width, uint8_t height, uint8_t *bitmap);
 Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, const prog_char * bitmap);
+
+void bgx1_move(uint8_t x, uint8_t y);
+Point bgx1_box(uint8_t width, uint8_t height);
+void bgx1_lineTo(uint8_t x, uint8_t y);
+void bgx1_termGoto(uint8_t x, uint8_t y);
+uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port);
 # 20 ".././shared/../kernel.h" 2
 # 13 ".././shared/base_before.kernel.h" 2
 
@@ -4301,6 +4312,59 @@ enum {
 
 #define TW_WRITE 0
 # 15 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 2
+# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 1 3
+# 35 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define _UTIL_ATOMIC_H_ 1
+
+
+
+
+
+
+static __inline__ uint8_t __iSeiRetVal(void)
+{
+    __asm__ __volatile__ ("sei" ::: "memory");
+    return 1;
+}
+
+static __inline__ uint8_t __iCliRetVal(void)
+{
+    __asm__ __volatile__ ("cli" ::: "memory");
+    return 1;
+}
+
+static __inline__ void __iSeiParam(const uint8_t *__s)
+{
+    __asm__ __volatile__ ("sei" ::: "memory");
+    __asm__ volatile ("" ::: "memory");
+    (void)__s;
+}
+
+static __inline__ void __iCliParam(const uint8_t *__s)
+{
+    __asm__ __volatile__ ("cli" ::: "memory");
+    __asm__ volatile ("" ::: "memory");
+    (void)__s;
+}
+
+static __inline__ void __iRestore(const uint8_t *__s)
+{
+    (*(volatile uint8_t *)((0x3F) + 0x20)) = *__s;
+    __asm__ volatile ("" ::: "memory");
+}
+# 205 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define ATOMIC_BLOCK(type) for ( type, __ToDo = __iCliRetVal(); __ToDo ; __ToDo = 0 )
+# 226 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define NONATOMIC_BLOCK(type) for ( type, __ToDo = __iSeiRetVal(); __ToDo ; __ToDo = 0 )
+# 244 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define ATOMIC_RESTORESTATE uint8_t sreg_save __attribute__((__cleanup__(__iRestore))) = SREG
+# 265 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define ATOMIC_FORCEON uint8_t sreg_save __attribute__((__cleanup__(__iSeiParam))) = 0
+# 283 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define NONATOMIC_RESTORESTATE uint8_t sreg_save __attribute__((__cleanup__(__iRestore))) = SREG
+# 304 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/atomic.h" 3
+#define NONATOMIC_FORCEOFF uint8_t sreg_save __attribute__((__cleanup__(__iCliParam))) = 0
+# 16 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h" 2
 
 TWIDevice TWIBroadcast = { 0 };
 
@@ -4318,12 +4382,12 @@ TWIDevice TWIBroadcast = { 0 };
 
 void twi_unexpectedCondition() __attribute__((weak));
 void twi_unexpectedCondition() {}
-# 40 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
+# 41 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.kernel.h"
 volatile BOOL twi_running;
 TWIDevice twi_address;
 uint16_t alreadyHandled;
 TWIBuffer twi_buffer;
-TWIError error;
+TWIError twi_error;
 TWIOperation furtherOperations[3];
 int nextTwiOperation;
 
@@ -4366,10 +4430,12 @@ BOOL next_twi_operation() {
  } while (nextTwiOperation < 3 && current.operationMode == TWI_IllegalOperation);
  if (nextTwiOperation >= 3) return FALSE;
 
+
+
  if (current.operationMode == TWI_Send) {
-  twi_address.address = current.device.address & ~(1 << (1));
+  twi_address.address = current.device.address & ~(1 << (0));
  } else if (current.operationMode == TWI_Send) {
-  twi_address.address = current.device.address | (1 << (1));;
+  twi_address.address = current.device.address | (1 << (0));
  }
  alreadyHandled = 0;
  twi_buffer = current.buffer;
@@ -4396,10 +4462,12 @@ static inline void twi_end() {
 }
 
 void twi_start_master_operation() {
- error = TWI_No_Error;
+ twi_error = TWI_No_Error;
  twi_running = TRUE;
  nextTwiOperation = 0;
- next_twi_operation();
+ if (next_twi_operation()) {
+  (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0)) | (1 << (5));
+ }
 }
 
 static inline void twi_receive_byte() {
@@ -4429,7 +4497,7 @@ void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void
    (*(volatile uint8_t *)(0xBB)) = twi_address.address; (*(volatile uint8_t *)(0xBC)) = (1 << (2)) | (1 << (7)) | (1 << (0));
    break;
   case 0x38:
-   error = TWI_Arbitration_Lost;
+   twi_error = TWI_Arbitration_Lost;
    twi_end();
    break;
 
@@ -4444,11 +4512,11 @@ void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void
    }
    break;
   case 0x20:
-   error = TWI_SlaveAddress_NoAck;
+   twi_error = TWI_SlaveAddress_NoAck;
    twi_stop();
    break;
   case 0x30:
-   error = TWI_Master_TooMuchDataTransmitted;
+   twi_error = TWI_Master_TooMuchDataTransmitted;
    twi_stop();
    break;
 
@@ -4459,7 +4527,7 @@ void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void
    twi_receive_byte();
    break;
   case 0x48:
-   error = TWI_SlaveAddress_NoAck;
+   twi_error = TWI_SlaveAddress_NoAck;
    twi_stop();
    break;
   case 0x58:
@@ -4482,12 +4550,12 @@ void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void
    }
    break;
   case 0xC8:
-   error = TWI_Slave_NotEnoughDataTransmitted;
+   twi_error = TWI_Slave_NotEnoughDataTransmitted;
    twi_end();
    break;
   case 0xC0:
    if (alreadyHandled < twi_buffer.size) {
-    error = TWI_Slave_TooMuchDataTransmitted;
+    twi_error = TWI_Slave_TooMuchDataTransmitted;
    }
    twi_end();
    break;
@@ -4504,7 +4572,7 @@ void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void
    break;
   case 0xA0:
 
-   error = TWI_Slave_NotEnoughDataReceived;
+   twi_error = TWI_Slave_NotEnoughDataReceived;
   case 0x88:
   case 0x98:
 
@@ -4514,11 +4582,11 @@ void __vector_26 (void) __attribute__ ((signal,used, externally_visible)) ; void
 
 
   case 0xF8:
-   error = TWI_No_Info_Interrupt;
+   twi_error = TWI_No_Info_Interrupt;
   case 0x00:
-   error = TWI_Bus_Error;
+   twi_error = TWI_Bus_Error;
   default:
-   error = TWI_Illegal_Status;
+   twi_error = TWI_Illegal_Status;
    twi_unexpectedCondition();
  }
 }
@@ -4550,6 +4618,16 @@ void twiMultipleOperations(int count, TWIOperation *operations) {
   furtherOperations[i].operationMode = TWI_IllegalOperation;
  }
  twi_start_master_operation();
+}
+
+void WAIT_FOR_TWI() {
+ while (1) {
+  uint8_t still_running;
+  for ( uint8_t sreg_save __attribute__((__cleanup__(__iRestore))) = (*(volatile uint8_t *)((0x3F) + 0x20)), __ToDo = __iCliRetVal(); __ToDo ; __ToDo = 0 ) {
+   still_running = twi_running;
+  }
+  if (still_running) break;
+ }
 }
 # 5 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc.kernel.h" 2
 
@@ -4656,7 +4734,7 @@ TWIBuffer sendBuffer = { sendBufferData, 255 };
 
 static inline void fillSendBuffer(byte operation, TWIBuffer parameters) {
  sendBuffer.data[0] = operation;
- sendBuffer.size = parameters.size;
+ sendBuffer.size = parameters.size + 1;
  memcpy(sendBuffer.data + 1, parameters.data, parameters.size);
 }
 
@@ -4908,7 +4986,9 @@ typedef struct UT_hash_handle {
 } UT_hash_handle;
 # 9 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_server.kernel.h" 2
 
-typedef void TwiRpcFunction(TWIBuffer *arguments);
+
+
+typedef void TwiRpcFunction(TWIBuffer *buffer);
 
 typedef struct {
  byte operation;
@@ -4919,45 +4999,45 @@ typedef struct {
 
 PTwiFunction twiRpcFunctions = ((void *)0);
 
-void twi_handleRpcRequest(byte operation, TWIBuffer *arguments) {
+
+void twi_handleRpcRequest(byte operation, TWIBuffer *buffer) {
  PTwiFunction result;
  do { unsigned _hf_bkt,_hf_hashv; result=((void *)0); if (twiRpcFunctions) { do { unsigned _sx_i; char *_hs_key=(char*)(&operation); _hf_hashv = 0; for(_sx_i=0; _sx_i < sizeof(int); _sx_i++) _hf_hashv ^= (_hf_hashv << 5) + (_hf_hashv >> 2) + _hs_key[_sx_i]; _hf_bkt = _hf_hashv & ((twiRpcFunctions)->hh.tbl->num_buckets-1); } while (0); if ((1)) { do { if ((twiRpcFunctions)->hh.tbl->buckets[ _hf_bkt ].hh_head) do { (result) = (__typeof(result))(((void*)(((char*)((twiRpcFunctions)->hh.tbl->buckets[ _hf_bkt ].hh_head)) - (((twiRpcFunctions)->hh.tbl)->hho)))); } while(0); else result=((void *)0); while (result) { if ((result)->hh.keylen == sizeof(int)) { if ((memcmp((result)->hh.key,&operation,sizeof(int))) == 0) break; } if ((result)->hh.hh_next) do { (result) = (__typeof(result))(((void*)(((char*)((result)->hh.hh_next)) - (((twiRpcFunctions)->hh.tbl)->hho)))); } while(0); else result = ((void *)0); } } while(0); } } } while (0);
  if (result)
-  result->associatedFunction(arguments);
+  result->associatedFunction(buffer);
  else
-  arguments->size = 0;
+
+
+  buffer->size = 0;
 }
 
+#define TWI_RPC_SERVER_FUNCTION_BASE(funcName,operationByte) TwiFunction funcName ##_function = { operationByte, funcName ##_handler, {0} }; void funcName ##_register_function() { HASH_ADD_INT(twiRpcFunctions, operation, &funcName ##_function); } KERNEL_INIT(funcName ##_register_function)
+# 47 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_server.kernel.h"
+#define TWI_RPC_SERVER_FUNCTION(funcName,operationByte,ArgStruct,ResultStruct) void funcName ##_handler(TWIBuffer *buffer) { ArgStruct *args = (ArgStruct*) buffer->data; funcName(args, buffer->size, buffer); } TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
 
+
+
+
+
+
+
+#define TWI_RPC_SERVER_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName ##_handler(TWIBuffer *buffer) { funcName((ArgStruct*) buffer->data, buffer->size); buffer->size = 0; } TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
+# 64 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_server.kernel.h"
+#define TWI_RPC_SERVER_FUNCTION_NOARGS(funcName,operationByte,ResultStruct) void funcName ##_handler(TWIBuffer *buffer) { funcName(buffer); } TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
+
+
+
+
+
+
+#define TWI_RPC_SERVER_FUNCTION_NOTIFY(funcName,operationByte) void funcName ##_handler(TWIBuffer *buffer) { funcName(); buffer->size = 0; } TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
+# 83 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_server.kernel.h"
 #define FILL_RESULT(resultBuffer,result,ResultType) *(ResultType*) resultBuffer->data = result; resultBuffer->size = sizeof(ResultType);
 
 
 
 
 #define FILL_VAR_RESULT(resultBuffer,result,size) memcpy(resultBuffer->data, result, size); resultBuffer->size = size;
-
-
-
-#define TWI_RPC_SERVER_FUNCTION_BASE(funcName,operationByte) TwiFunction funcName ##_function = { operationByte, funcName ##_handler, {0} }; void funcName ##_register_function() { HASH_ADD_INT(twiRpcFunctions, operation, &funcName ##_function); } KERNEL_INIT(funcName ##_register_function)
-# 52 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_server.kernel.h"
-#define TWI_RPC_SERVER_FUNCTION(funcName,operationByte,ArgStruct,ResultStruct) void funcName ##_handler(TWIBuffer *arguments) { ArgStruct *args = (ArgStruct*) arguments->data; uint16_t resultSize = 0; funcName(args, arguments->size, arguments); } TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
-# 61 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_server.kernel.h"
-#define TWI_RPC_SERVER_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName ##_handler(TWIBuffer *arguments) { funcName((ArgStruct*) arguments->data, arguments->size); } TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
-
-
-
-
-
-
-
-#define TWI_RPC_SERVER_FUNCTION_NOARGS(funcName,operationByte,ResultStruct) void funcName ##_handler(TWIBuffer *arguments) { funcName(arguments); } TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
-
-
-
-
-
-
-#define TWI_RPC_SERVER_FUNCTION_NOTIFY(funcName,operationByte) void funcName ##_handler(TWIBuffer *arguments) { funcName(); } TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
 # 16 ".././tank_IO_server.kernel.h" 2
 
 void tankIO_server_readButtons(TWIBuffer *resultBuffer) {
@@ -4969,12 +5049,12 @@ void tankIO_server_readButtons(TWIBuffer *resultBuffer) {
  if (buttonStatus(ButtonSwitch)) result |= (1 << (5));
  *(uint8_t*) resultBuffer->data = result; resultBuffer->size = sizeof(uint8_t);
 }
-void tankIO_server_readButtons_handler(TWIBuffer *arguments) { tankIO_server_readButtons(arguments); } TwiFunction tankIO_server_readButtons_function = { TANK_IO_readButtons, tankIO_server_readButtons_handler, {0} }; void tankIO_server_readButtons_register_function() { do { unsigned _ha_bkt; (&tankIO_server_readButtons_function)->hh.next = ((void *)0); (&tankIO_server_readButtons_function)->hh.key = (char*)&((&tankIO_server_readButtons_function)->operation); (&tankIO_server_readButtons_function)->hh.keylen = (unsigned)sizeof(int); if (!(twiRpcFunctions)) { twiRpcFunctions = (&tankIO_server_readButtons_function); (twiRpcFunctions)->hh.prev = ((void *)0); do { (twiRpcFunctions)->hh.tbl = (UT_hash_table*)malloc(sizeof(UT_hash_table)); if (!((twiRpcFunctions)->hh.tbl)) { exit(-1); } memset((twiRpcFunctions)->hh.tbl, 0, sizeof(UT_hash_table)); (twiRpcFunctions)->hh.tbl->tail = &((twiRpcFunctions)->hh); (twiRpcFunctions)->hh.tbl->num_buckets = 32; (twiRpcFunctions)->hh.tbl->log2_num_buckets = 5; (twiRpcFunctions)->hh.tbl->hho = (char*)(&(twiRpcFunctions)->hh) - (char*)(twiRpcFunctions); (twiRpcFunctions)->hh.tbl->buckets = (UT_hash_bucket*)malloc(32*sizeof(struct UT_hash_bucket)); if (! (twiRpcFunctions)->hh.tbl->buckets) { exit(-1); } memset((twiRpcFunctions)->hh.tbl->buckets, 0, 32*sizeof(struct UT_hash_bucket)); ; (twiRpcFunctions)->hh.tbl->signature = 0xa0111fe1; } while(0); } else { (twiRpcFunctions)->hh.tbl->tail->next = (&tankIO_server_readButtons_function); (&tankIO_server_readButtons_function)->hh.prev = ((void*)(((char*)((twiRpcFunctions)->hh.tbl->tail)) - (((twiRpcFunctions)->hh.tbl)->hho))); (twiRpcFunctions)->hh.tbl->tail = &((&tankIO_server_readButtons_function)->hh); } (twiRpcFunctions)->hh.tbl->num_items++; (&tankIO_server_readButtons_function)->hh.tbl = (twiRpcFunctions)->hh.tbl; do { unsigned _sx_i; char *_hs_key=(char*)(&((&tankIO_server_readButtons_function)->operation)); (&tankIO_server_readButtons_function)->hh.hashv = 0; for(_sx_i=0; _sx_i < sizeof(int); _sx_i++) (&tankIO_server_readButtons_function)->hh.hashv ^= ((&tankIO_server_readButtons_function)->hh.hashv << 5) + ((&tankIO_server_readButtons_function)->hh.hashv >> 2) + _hs_key[_sx_i]; _ha_bkt = (&tankIO_server_readButtons_function)->hh.hashv & ((twiRpcFunctions)->hh.tbl->num_buckets-1); } while (0); do { (twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].count++; (&(&tankIO_server_readButtons_function)->hh)->hh_next = (twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].hh_head; (&(&tankIO_server_readButtons_function)->hh)->hh_prev = ((void *)0); if ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].hh_head) { ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt]).hh_head->hh_prev = (&(&tankIO_server_readButtons_function)->hh); } ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt]).hh_head=&(&tankIO_server_readButtons_function)->hh; if ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].count >= (((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].expand_mult+1) * 10) && (&(&tankIO_server_readButtons_function)->hh)->tbl->noexpand != 1) { do { unsigned _he_bkt; unsigned _he_bkt_i; struct UT_hash_handle *_he_thh, *_he_hh_nxt; UT_hash_bucket *_he_new_buckets, *_he_newbkt; _he_new_buckets = (UT_hash_bucket*)malloc(2 * (&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets * sizeof(struct UT_hash_bucket)); if (!_he_new_buckets) { exit(-1); } memset(_he_new_buckets, 0, 2 * (&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets * sizeof(struct UT_hash_bucket)); (&(&tankIO_server_readButtons_function)->hh)->tbl->ideal_chain_maxlen = ((&(&tankIO_server_readButtons_function)->hh)->tbl->num_items >> ((&(&tankIO_server_readButtons_function)->hh)->tbl->log2_num_buckets+1)) + (((&(&tankIO_server_readButtons_function)->hh)->tbl->num_items & (((&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets*2)-1)) ? 1 : 0); (&(&tankIO_server_readButtons_function)->hh)->tbl->nonideal_items = 0; for(_he_bkt_i = 0; _he_bkt_i < (&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets; _he_bkt_i++) { _he_thh = (&(&tankIO_server_readButtons_function)->hh)->tbl->buckets[ _he_bkt_i ].hh_head; while (_he_thh) { _he_hh_nxt = _he_thh->hh_next; do { _he_bkt = ((_he_thh->hashv) & (((&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets*2) - 1)); } while(0); _he_newbkt = &(_he_new_buckets[ _he_bkt ]); if (++(_he_newbkt->count) > (&(&tankIO_server_readButtons_function)->hh)->tbl->ideal_chain_maxlen) { (&(&tankIO_server_readButtons_function)->hh)->tbl->nonideal_items++; _he_newbkt->expand_mult = _he_newbkt->count / (&(&tankIO_server_readButtons_function)->hh)->tbl->ideal_chain_maxlen; } _he_thh->hh_prev = ((void *)0); _he_thh->hh_next = _he_newbkt->hh_head; if (_he_newbkt->hh_head) _he_newbkt->hh_head->hh_prev = _he_thh; _he_newbkt->hh_head = _he_thh; _he_thh = _he_hh_nxt; } } free((&(&tankIO_server_readButtons_function)->hh)->tbl->buckets); (&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets *= 2; (&(&tankIO_server_readButtons_function)->hh)->tbl->log2_num_buckets++; (&(&tankIO_server_readButtons_function)->hh)->tbl->buckets = _he_new_buckets; (&(&tankIO_server_readButtons_function)->hh)->tbl->ineff_expands = ((&(&tankIO_server_readButtons_function)->hh)->tbl->nonideal_items > ((&(&tankIO_server_readButtons_function)->hh)->tbl->num_items >> 1)) ? ((&(&tankIO_server_readButtons_function)->hh)->tbl->ineff_expands+1) : 0; if ((&(&tankIO_server_readButtons_function)->hh)->tbl->ineff_expands > 1) { (&(&tankIO_server_readButtons_function)->hh)->tbl->noexpand=1; ; } ; } while(0); } } while(0); ; ; ; } while(0); } void tankIO_server_readButtons_register_function_kernel_init() __attribute__((naked, section(".init8"))); void tankIO_server_readButtons_register_function_kernel_init() { tankIO_server_readButtons_register_function(); }
+void tankIO_server_readButtons_handler(TWIBuffer *buffer) { tankIO_server_readButtons(buffer); } TwiFunction tankIO_server_readButtons_function = { TANK_IO_readButtons, tankIO_server_readButtons_handler, {0} }; void tankIO_server_readButtons_register_function() { do { unsigned _ha_bkt; (&tankIO_server_readButtons_function)->hh.next = ((void *)0); (&tankIO_server_readButtons_function)->hh.key = (char*)&((&tankIO_server_readButtons_function)->operation); (&tankIO_server_readButtons_function)->hh.keylen = (unsigned)sizeof(int); if (!(twiRpcFunctions)) { twiRpcFunctions = (&tankIO_server_readButtons_function); (twiRpcFunctions)->hh.prev = ((void *)0); do { (twiRpcFunctions)->hh.tbl = (UT_hash_table*)malloc(sizeof(UT_hash_table)); if (!((twiRpcFunctions)->hh.tbl)) { exit(-1); } memset((twiRpcFunctions)->hh.tbl, 0, sizeof(UT_hash_table)); (twiRpcFunctions)->hh.tbl->tail = &((twiRpcFunctions)->hh); (twiRpcFunctions)->hh.tbl->num_buckets = 32; (twiRpcFunctions)->hh.tbl->log2_num_buckets = 5; (twiRpcFunctions)->hh.tbl->hho = (char*)(&(twiRpcFunctions)->hh) - (char*)(twiRpcFunctions); (twiRpcFunctions)->hh.tbl->buckets = (UT_hash_bucket*)malloc(32*sizeof(struct UT_hash_bucket)); if (! (twiRpcFunctions)->hh.tbl->buckets) { exit(-1); } memset((twiRpcFunctions)->hh.tbl->buckets, 0, 32*sizeof(struct UT_hash_bucket)); ; (twiRpcFunctions)->hh.tbl->signature = 0xa0111fe1; } while(0); } else { (twiRpcFunctions)->hh.tbl->tail->next = (&tankIO_server_readButtons_function); (&tankIO_server_readButtons_function)->hh.prev = ((void*)(((char*)((twiRpcFunctions)->hh.tbl->tail)) - (((twiRpcFunctions)->hh.tbl)->hho))); (twiRpcFunctions)->hh.tbl->tail = &((&tankIO_server_readButtons_function)->hh); } (twiRpcFunctions)->hh.tbl->num_items++; (&tankIO_server_readButtons_function)->hh.tbl = (twiRpcFunctions)->hh.tbl; do { unsigned _sx_i; char *_hs_key=(char*)(&((&tankIO_server_readButtons_function)->operation)); (&tankIO_server_readButtons_function)->hh.hashv = 0; for(_sx_i=0; _sx_i < sizeof(int); _sx_i++) (&tankIO_server_readButtons_function)->hh.hashv ^= ((&tankIO_server_readButtons_function)->hh.hashv << 5) + ((&tankIO_server_readButtons_function)->hh.hashv >> 2) + _hs_key[_sx_i]; _ha_bkt = (&tankIO_server_readButtons_function)->hh.hashv & ((twiRpcFunctions)->hh.tbl->num_buckets-1); } while (0); do { (twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].count++; (&(&tankIO_server_readButtons_function)->hh)->hh_next = (twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].hh_head; (&(&tankIO_server_readButtons_function)->hh)->hh_prev = ((void *)0); if ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].hh_head) { ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt]).hh_head->hh_prev = (&(&tankIO_server_readButtons_function)->hh); } ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt]).hh_head=&(&tankIO_server_readButtons_function)->hh; if ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].count >= (((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].expand_mult+1) * 10) && (&(&tankIO_server_readButtons_function)->hh)->tbl->noexpand != 1) { do { unsigned _he_bkt; unsigned _he_bkt_i; struct UT_hash_handle *_he_thh, *_he_hh_nxt; UT_hash_bucket *_he_new_buckets, *_he_newbkt; _he_new_buckets = (UT_hash_bucket*)malloc(2 * (&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets * sizeof(struct UT_hash_bucket)); if (!_he_new_buckets) { exit(-1); } memset(_he_new_buckets, 0, 2 * (&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets * sizeof(struct UT_hash_bucket)); (&(&tankIO_server_readButtons_function)->hh)->tbl->ideal_chain_maxlen = ((&(&tankIO_server_readButtons_function)->hh)->tbl->num_items >> ((&(&tankIO_server_readButtons_function)->hh)->tbl->log2_num_buckets+1)) + (((&(&tankIO_server_readButtons_function)->hh)->tbl->num_items & (((&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets*2)-1)) ? 1 : 0); (&(&tankIO_server_readButtons_function)->hh)->tbl->nonideal_items = 0; for(_he_bkt_i = 0; _he_bkt_i < (&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets; _he_bkt_i++) { _he_thh = (&(&tankIO_server_readButtons_function)->hh)->tbl->buckets[ _he_bkt_i ].hh_head; while (_he_thh) { _he_hh_nxt = _he_thh->hh_next; do { _he_bkt = ((_he_thh->hashv) & (((&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets*2) - 1)); } while(0); _he_newbkt = &(_he_new_buckets[ _he_bkt ]); if (++(_he_newbkt->count) > (&(&tankIO_server_readButtons_function)->hh)->tbl->ideal_chain_maxlen) { (&(&tankIO_server_readButtons_function)->hh)->tbl->nonideal_items++; _he_newbkt->expand_mult = _he_newbkt->count / (&(&tankIO_server_readButtons_function)->hh)->tbl->ideal_chain_maxlen; } _he_thh->hh_prev = ((void *)0); _he_thh->hh_next = _he_newbkt->hh_head; if (_he_newbkt->hh_head) _he_newbkt->hh_head->hh_prev = _he_thh; _he_newbkt->hh_head = _he_thh; _he_thh = _he_hh_nxt; } } free((&(&tankIO_server_readButtons_function)->hh)->tbl->buckets); (&(&tankIO_server_readButtons_function)->hh)->tbl->num_buckets *= 2; (&(&tankIO_server_readButtons_function)->hh)->tbl->log2_num_buckets++; (&(&tankIO_server_readButtons_function)->hh)->tbl->buckets = _he_new_buckets; (&(&tankIO_server_readButtons_function)->hh)->tbl->ineff_expands = ((&(&tankIO_server_readButtons_function)->hh)->tbl->nonideal_items > ((&(&tankIO_server_readButtons_function)->hh)->tbl->num_items >> 1)) ? ((&(&tankIO_server_readButtons_function)->hh)->tbl->ineff_expands+1) : 0; if ((&(&tankIO_server_readButtons_function)->hh)->tbl->ineff_expands > 1) { (&(&tankIO_server_readButtons_function)->hh)->tbl->noexpand=1; ; } ; } while(0); } } while(0); ; ; ; } while(0); } void tankIO_server_readButtons_register_function_kernel_init() __attribute__((naked, section(".init8"))); void tankIO_server_readButtons_register_function_kernel_init() { tankIO_server_readButtons_register_function(); }
 
 void tankIO_server_writeLeds(uint16_t *args, uint16_t argSize) {
  setLeds(AllLeds, *args);
 }
-void tankIO_server_writeLeds_handler(TWIBuffer *arguments) { tankIO_server_writeLeds((uint16_t*) arguments->data, arguments->size); } TwiFunction tankIO_server_writeLeds_function = { TANK_IO_writeLeds, tankIO_server_writeLeds_handler, {0} }; void tankIO_server_writeLeds_register_function() { do { unsigned _ha_bkt; (&tankIO_server_writeLeds_function)->hh.next = ((void *)0); (&tankIO_server_writeLeds_function)->hh.key = (char*)&((&tankIO_server_writeLeds_function)->operation); (&tankIO_server_writeLeds_function)->hh.keylen = (unsigned)sizeof(int); if (!(twiRpcFunctions)) { twiRpcFunctions = (&tankIO_server_writeLeds_function); (twiRpcFunctions)->hh.prev = ((void *)0); do { (twiRpcFunctions)->hh.tbl = (UT_hash_table*)malloc(sizeof(UT_hash_table)); if (!((twiRpcFunctions)->hh.tbl)) { exit(-1); } memset((twiRpcFunctions)->hh.tbl, 0, sizeof(UT_hash_table)); (twiRpcFunctions)->hh.tbl->tail = &((twiRpcFunctions)->hh); (twiRpcFunctions)->hh.tbl->num_buckets = 32; (twiRpcFunctions)->hh.tbl->log2_num_buckets = 5; (twiRpcFunctions)->hh.tbl->hho = (char*)(&(twiRpcFunctions)->hh) - (char*)(twiRpcFunctions); (twiRpcFunctions)->hh.tbl->buckets = (UT_hash_bucket*)malloc(32*sizeof(struct UT_hash_bucket)); if (! (twiRpcFunctions)->hh.tbl->buckets) { exit(-1); } memset((twiRpcFunctions)->hh.tbl->buckets, 0, 32*sizeof(struct UT_hash_bucket)); ; (twiRpcFunctions)->hh.tbl->signature = 0xa0111fe1; } while(0); } else { (twiRpcFunctions)->hh.tbl->tail->next = (&tankIO_server_writeLeds_function); (&tankIO_server_writeLeds_function)->hh.prev = ((void*)(((char*)((twiRpcFunctions)->hh.tbl->tail)) - (((twiRpcFunctions)->hh.tbl)->hho))); (twiRpcFunctions)->hh.tbl->tail = &((&tankIO_server_writeLeds_function)->hh); } (twiRpcFunctions)->hh.tbl->num_items++; (&tankIO_server_writeLeds_function)->hh.tbl = (twiRpcFunctions)->hh.tbl; do { unsigned _sx_i; char *_hs_key=(char*)(&((&tankIO_server_writeLeds_function)->operation)); (&tankIO_server_writeLeds_function)->hh.hashv = 0; for(_sx_i=0; _sx_i < sizeof(int); _sx_i++) (&tankIO_server_writeLeds_function)->hh.hashv ^= ((&tankIO_server_writeLeds_function)->hh.hashv << 5) + ((&tankIO_server_writeLeds_function)->hh.hashv >> 2) + _hs_key[_sx_i]; _ha_bkt = (&tankIO_server_writeLeds_function)->hh.hashv & ((twiRpcFunctions)->hh.tbl->num_buckets-1); } while (0); do { (twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].count++; (&(&tankIO_server_writeLeds_function)->hh)->hh_next = (twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].hh_head; (&(&tankIO_server_writeLeds_function)->hh)->hh_prev = ((void *)0); if ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].hh_head) { ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt]).hh_head->hh_prev = (&(&tankIO_server_writeLeds_function)->hh); } ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt]).hh_head=&(&tankIO_server_writeLeds_function)->hh; if ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].count >= (((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].expand_mult+1) * 10) && (&(&tankIO_server_writeLeds_function)->hh)->tbl->noexpand != 1) { do { unsigned _he_bkt; unsigned _he_bkt_i; struct UT_hash_handle *_he_thh, *_he_hh_nxt; UT_hash_bucket *_he_new_buckets, *_he_newbkt; _he_new_buckets = (UT_hash_bucket*)malloc(2 * (&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets * sizeof(struct UT_hash_bucket)); if (!_he_new_buckets) { exit(-1); } memset(_he_new_buckets, 0, 2 * (&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets * sizeof(struct UT_hash_bucket)); (&(&tankIO_server_writeLeds_function)->hh)->tbl->ideal_chain_maxlen = ((&(&tankIO_server_writeLeds_function)->hh)->tbl->num_items >> ((&(&tankIO_server_writeLeds_function)->hh)->tbl->log2_num_buckets+1)) + (((&(&tankIO_server_writeLeds_function)->hh)->tbl->num_items & (((&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets*2)-1)) ? 1 : 0); (&(&tankIO_server_writeLeds_function)->hh)->tbl->nonideal_items = 0; for(_he_bkt_i = 0; _he_bkt_i < (&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets; _he_bkt_i++) { _he_thh = (&(&tankIO_server_writeLeds_function)->hh)->tbl->buckets[ _he_bkt_i ].hh_head; while (_he_thh) { _he_hh_nxt = _he_thh->hh_next; do { _he_bkt = ((_he_thh->hashv) & (((&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets*2) - 1)); } while(0); _he_newbkt = &(_he_new_buckets[ _he_bkt ]); if (++(_he_newbkt->count) > (&(&tankIO_server_writeLeds_function)->hh)->tbl->ideal_chain_maxlen) { (&(&tankIO_server_writeLeds_function)->hh)->tbl->nonideal_items++; _he_newbkt->expand_mult = _he_newbkt->count / (&(&tankIO_server_writeLeds_function)->hh)->tbl->ideal_chain_maxlen; } _he_thh->hh_prev = ((void *)0); _he_thh->hh_next = _he_newbkt->hh_head; if (_he_newbkt->hh_head) _he_newbkt->hh_head->hh_prev = _he_thh; _he_newbkt->hh_head = _he_thh; _he_thh = _he_hh_nxt; } } free((&(&tankIO_server_writeLeds_function)->hh)->tbl->buckets); (&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets *= 2; (&(&tankIO_server_writeLeds_function)->hh)->tbl->log2_num_buckets++; (&(&tankIO_server_writeLeds_function)->hh)->tbl->buckets = _he_new_buckets; (&(&tankIO_server_writeLeds_function)->hh)->tbl->ineff_expands = ((&(&tankIO_server_writeLeds_function)->hh)->tbl->nonideal_items > ((&(&tankIO_server_writeLeds_function)->hh)->tbl->num_items >> 1)) ? ((&(&tankIO_server_writeLeds_function)->hh)->tbl->ineff_expands+1) : 0; if ((&(&tankIO_server_writeLeds_function)->hh)->tbl->ineff_expands > 1) { (&(&tankIO_server_writeLeds_function)->hh)->tbl->noexpand=1; ; } ; } while(0); } } while(0); ; ; ; } while(0); } void tankIO_server_writeLeds_register_function_kernel_init() __attribute__((naked, section(".init8"))); void tankIO_server_writeLeds_register_function_kernel_init() { tankIO_server_writeLeds_register_function(); }
+void tankIO_server_writeLeds_handler(TWIBuffer *buffer) { tankIO_server_writeLeds((uint16_t*) buffer->data, buffer->size); buffer->size = 0; } TwiFunction tankIO_server_writeLeds_function = { TANK_IO_writeLeds, tankIO_server_writeLeds_handler, {0} }; void tankIO_server_writeLeds_register_function() { do { unsigned _ha_bkt; (&tankIO_server_writeLeds_function)->hh.next = ((void *)0); (&tankIO_server_writeLeds_function)->hh.key = (char*)&((&tankIO_server_writeLeds_function)->operation); (&tankIO_server_writeLeds_function)->hh.keylen = (unsigned)sizeof(int); if (!(twiRpcFunctions)) { twiRpcFunctions = (&tankIO_server_writeLeds_function); (twiRpcFunctions)->hh.prev = ((void *)0); do { (twiRpcFunctions)->hh.tbl = (UT_hash_table*)malloc(sizeof(UT_hash_table)); if (!((twiRpcFunctions)->hh.tbl)) { exit(-1); } memset((twiRpcFunctions)->hh.tbl, 0, sizeof(UT_hash_table)); (twiRpcFunctions)->hh.tbl->tail = &((twiRpcFunctions)->hh); (twiRpcFunctions)->hh.tbl->num_buckets = 32; (twiRpcFunctions)->hh.tbl->log2_num_buckets = 5; (twiRpcFunctions)->hh.tbl->hho = (char*)(&(twiRpcFunctions)->hh) - (char*)(twiRpcFunctions); (twiRpcFunctions)->hh.tbl->buckets = (UT_hash_bucket*)malloc(32*sizeof(struct UT_hash_bucket)); if (! (twiRpcFunctions)->hh.tbl->buckets) { exit(-1); } memset((twiRpcFunctions)->hh.tbl->buckets, 0, 32*sizeof(struct UT_hash_bucket)); ; (twiRpcFunctions)->hh.tbl->signature = 0xa0111fe1; } while(0); } else { (twiRpcFunctions)->hh.tbl->tail->next = (&tankIO_server_writeLeds_function); (&tankIO_server_writeLeds_function)->hh.prev = ((void*)(((char*)((twiRpcFunctions)->hh.tbl->tail)) - (((twiRpcFunctions)->hh.tbl)->hho))); (twiRpcFunctions)->hh.tbl->tail = &((&tankIO_server_writeLeds_function)->hh); } (twiRpcFunctions)->hh.tbl->num_items++; (&tankIO_server_writeLeds_function)->hh.tbl = (twiRpcFunctions)->hh.tbl; do { unsigned _sx_i; char *_hs_key=(char*)(&((&tankIO_server_writeLeds_function)->operation)); (&tankIO_server_writeLeds_function)->hh.hashv = 0; for(_sx_i=0; _sx_i < sizeof(int); _sx_i++) (&tankIO_server_writeLeds_function)->hh.hashv ^= ((&tankIO_server_writeLeds_function)->hh.hashv << 5) + ((&tankIO_server_writeLeds_function)->hh.hashv >> 2) + _hs_key[_sx_i]; _ha_bkt = (&tankIO_server_writeLeds_function)->hh.hashv & ((twiRpcFunctions)->hh.tbl->num_buckets-1); } while (0); do { (twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].count++; (&(&tankIO_server_writeLeds_function)->hh)->hh_next = (twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].hh_head; (&(&tankIO_server_writeLeds_function)->hh)->hh_prev = ((void *)0); if ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].hh_head) { ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt]).hh_head->hh_prev = (&(&tankIO_server_writeLeds_function)->hh); } ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt]).hh_head=&(&tankIO_server_writeLeds_function)->hh; if ((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].count >= (((twiRpcFunctions)->hh.tbl->buckets[_ha_bkt].expand_mult+1) * 10) && (&(&tankIO_server_writeLeds_function)->hh)->tbl->noexpand != 1) { do { unsigned _he_bkt; unsigned _he_bkt_i; struct UT_hash_handle *_he_thh, *_he_hh_nxt; UT_hash_bucket *_he_new_buckets, *_he_newbkt; _he_new_buckets = (UT_hash_bucket*)malloc(2 * (&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets * sizeof(struct UT_hash_bucket)); if (!_he_new_buckets) { exit(-1); } memset(_he_new_buckets, 0, 2 * (&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets * sizeof(struct UT_hash_bucket)); (&(&tankIO_server_writeLeds_function)->hh)->tbl->ideal_chain_maxlen = ((&(&tankIO_server_writeLeds_function)->hh)->tbl->num_items >> ((&(&tankIO_server_writeLeds_function)->hh)->tbl->log2_num_buckets+1)) + (((&(&tankIO_server_writeLeds_function)->hh)->tbl->num_items & (((&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets*2)-1)) ? 1 : 0); (&(&tankIO_server_writeLeds_function)->hh)->tbl->nonideal_items = 0; for(_he_bkt_i = 0; _he_bkt_i < (&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets; _he_bkt_i++) { _he_thh = (&(&tankIO_server_writeLeds_function)->hh)->tbl->buckets[ _he_bkt_i ].hh_head; while (_he_thh) { _he_hh_nxt = _he_thh->hh_next; do { _he_bkt = ((_he_thh->hashv) & (((&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets*2) - 1)); } while(0); _he_newbkt = &(_he_new_buckets[ _he_bkt ]); if (++(_he_newbkt->count) > (&(&tankIO_server_writeLeds_function)->hh)->tbl->ideal_chain_maxlen) { (&(&tankIO_server_writeLeds_function)->hh)->tbl->nonideal_items++; _he_newbkt->expand_mult = _he_newbkt->count / (&(&tankIO_server_writeLeds_function)->hh)->tbl->ideal_chain_maxlen; } _he_thh->hh_prev = ((void *)0); _he_thh->hh_next = _he_newbkt->hh_head; if (_he_newbkt->hh_head) _he_newbkt->hh_head->hh_prev = _he_thh; _he_newbkt->hh_head = _he_thh; _he_thh = _he_hh_nxt; } } free((&(&tankIO_server_writeLeds_function)->hh)->tbl->buckets); (&(&tankIO_server_writeLeds_function)->hh)->tbl->num_buckets *= 2; (&(&tankIO_server_writeLeds_function)->hh)->tbl->log2_num_buckets++; (&(&tankIO_server_writeLeds_function)->hh)->tbl->buckets = _he_new_buckets; (&(&tankIO_server_writeLeds_function)->hh)->tbl->ineff_expands = ((&(&tankIO_server_writeLeds_function)->hh)->tbl->nonideal_items > ((&(&tankIO_server_writeLeds_function)->hh)->tbl->num_items >> 1)) ? ((&(&tankIO_server_writeLeds_function)->hh)->tbl->ineff_expands+1) : 0; if ((&(&tankIO_server_writeLeds_function)->hh)->tbl->ineff_expands > 1) { (&(&tankIO_server_writeLeds_function)->hh)->tbl->noexpand=1; ; } ; } while(0); } } while(0); ; ; ; } while(0); } void tankIO_server_writeLeds_register_function_kernel_init() __attribute__((naked, section(".init8"))); void tankIO_server_writeLeds_register_function_kernel_init() { tankIO_server_writeLeds_register_function(); }
 # 14 ".././tank_kernel_IO.c" 2
 # 1 ".././shared/base_after.kernel.h" 1
 # 9 ".././shared/base_after.kernel.h"

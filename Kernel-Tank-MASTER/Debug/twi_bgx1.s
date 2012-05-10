@@ -4979,10 +4979,7 @@ __zero_reg__ = 1
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x37
-	.string	"WAIT_FOR_TWI() while (twi_running) ;"
-	.byte	0x1
-	.uleb128 0x3f
+	.uleb128 0x44
 	.string	"NUM_TWI_OPERATIONS 3"
 	.byte	0x4
 	.byte	0x1
@@ -6454,6 +6451,12 @@ bgx1_drawBitmap_P:
 	.long	.LVL25-1-.Ltext0
 	.word	0x1
 	.byte	0x62
+	.long	.LVL25-1-.Ltext0
+	.long	.LVL27-.Ltext0
+	.word	0x3
+	.byte	0x7e
+	.sleb128 -2
+	.byte	0x9f
 	.long	0x0
 	.long	0x0
 .LLST16:

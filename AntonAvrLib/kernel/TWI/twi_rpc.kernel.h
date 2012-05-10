@@ -42,7 +42,7 @@ TWIBuffer sendBuffer = { sendBufferData, TWI_Buffer_Size };
 
 static inline void fillSendBuffer(byte operation, TWIBuffer parameters) {
 	sendBuffer.data[0] = operation;
-	sendBuffer.size = parameters.size;
+	sendBuffer.size = parameters.size + 1;
 	memcpy(sendBuffer.data + 1, parameters.data, parameters.size);
 }
 

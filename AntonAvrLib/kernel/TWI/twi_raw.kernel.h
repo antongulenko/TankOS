@@ -12,6 +12,7 @@
 
 #include "twi_raw.h"
 #include <util/twi.h>
+#include <util/atomic.h>
 
 TWIDevice TWIBroadcast = { 0 };
 
@@ -41,7 +42,7 @@ volatile BOOL twi_running;
 TWIDevice twi_address;
 uint16_t alreadyHandled;
 TWIBuffer twi_buffer;
-TWIError error;
+TWIError twi_error;
 TWIOperation furtherOperations[NUM_TWI_OPERATIONS]; // Space allocated for 4 subsequent operations
 int nextTwiOperation;
 
@@ -79,15 +80,20 @@ static inline void twi_stop() {
 
 BOOL next_twi_operation() {
 	TWIOperation current;
+	
+	if (nextTwiOperation >= NUM_TWI_OPERATIONS) return FALSE;
 	do {
 		current = furtherOperations[nextTwiOperation++];
-	} while (nextTwiOperation < NUM_TWI_OPERATIONS && current.operationMode == TWI_IllegalOperation);
+		if (current.operationMode != TWI_IllegalOperation) break;
+	} while (nextTwiOperation < NUM_TWI_OPERATIONS);
 	if (nextTwiOperation >= NUM_TWI_OPERATIONS) return FALSE;
 	
+	// Delete or set the LSB, which describes sla+w or sla+r (reading or writing
+	// slave address)
 	if (current.operationMode == TWI_Send) {
-		twi_address.address = current.device.address & ~_BV(TW_READ);
-	} else if (current.operationMode == TWI_Send) {
-		twi_address.address = current.device.address | _BV(TW_READ);;
+		twi_address.address = current.device.address & ~_BV(0);
+	} else if (current.operationMode == TWI_Receive) {
+		twi_address.address = current.device.address | _BV(0);
 	}
 	alreadyHandled = 0;
 	twi_buffer = current.buffer;
@@ -95,7 +101,7 @@ BOOL next_twi_operation() {
 }
 
 static inline void twi_stop_or_next() {
-	if (nextTwiOperation >= NUM_TWI_OPERATIONS || !next_twi_operation()) {
+	if (!next_twi_operation()) {
 		twi_stop();
 	} else {
 		// Next operation, without releasing the bus. Repeated START condition!
@@ -114,28 +120,24 @@ static inline void twi_end() {
 }
 
 void twi_start_master_operation() {
-	error = TWI_No_Error;
+	twi_error = TWI_No_Error;
 	twi_running = TRUE;
 	nextTwiOperation = 0;
-	next_twi_operation();
+	if (next_twi_operation()) {
+		twi_start();
+	}	
 }
 
-static inline void twi_receive_byte() {
-	// received data-byte. Read into receive-twi_buffer, acknowledge, if more bytes expected.
-	twi_buffer.data[alreadyHandled++] = TWDR;
+static inline void twi_ack_receive() {
 	if (alreadyHandled < twi_buffer.size - 1) {
 		twi_ack(); // Still more than one byte to go.
 	} else {
-		twi_continue(); // Want to receive one more byte. Next byte will get NOT ACK.
+		twi_continue();  // Want to receive one more byte. Next byte will get NOT ACK.
 	}
 }
 
-static inline void twi_init_receive() {
-	if (twi_buffer.size > 0) {
-		twi_ack(); // Acknowledge, if want to receive at least one byte
-	} else {
-		twi_continue();
-	}
+static inline void twi_read_byte() {
+	twi_buffer.data[alreadyHandled++] = TWDR;
 }
 
 ISR(TWI_vect) {
@@ -147,7 +149,7 @@ ISR(TWI_vect) {
 			twi_send(twi_address.address);
 			break;
 		case TW_MR_ARB_LOST: // OR TW_MT_ARB_LOST
-			error = TWI_Arbitration_Lost;
+			twi_error = TWI_Arbitration_Lost;
 			twi_end(); // No Stop
 			break;
 // Master Transmitter
@@ -162,27 +164,29 @@ ISR(TWI_vect) {
 			}
 			break;
 		case TW_MT_SLA_NACK:
-			error = TWI_SlaveAddress_NoAck;
+			twi_error = TWI_SlaveAddress_NoAck;
 			twi_stop();
 			break;
 		case TW_MT_DATA_NACK:
-			error = TWI_Master_TooMuchDataTransmitted;
+			twi_error = TWI_Master_TooMuchDataTransmitted;
 			twi_stop();
 			break;
 // Master Receiver
 		case TW_MR_SLA_ACK:
-			twi_init_receive();
+			twi_ack_receive();
 			break;
 		case TW_MR_DATA_ACK:
-			twi_receive_byte();
+			twi_read_byte();
+			twi_ack_receive();
 			break;
 		case TW_MR_SLA_NACK:
-			error = TWI_SlaveAddress_NoAck;
+			twi_error = TWI_SlaveAddress_NoAck;
 			twi_stop();
 			break;
 		case TW_MR_DATA_NACK:
 			// We have aborted the transmission. Everything seems normal.
 			// Cannot tell whether we have received too much or not enough or the exactly correct amount...
+			twi_read_byte();
 			twi_stop_or_next();
 			break;
 #ifdef TWI_Slave
@@ -200,12 +204,12 @@ ISR(TWI_vect) {
 			}				
 			break;
 		case TW_ST_LAST_DATA:
-			error = TWI_Slave_NotEnoughDataTransmitted;
+			twi_error = TWI_Slave_NotEnoughDataTransmitted;
 			twi_end();
 			break;
 		case TW_ST_DATA_NACK:
 			if (alreadyHandled < twi_buffer.size) {
-				error = TWI_Slave_TooMuchDataTransmitted;
+				twi_error = TWI_Slave_TooMuchDataTransmitted;
 			}
 			twi_end(); // Transmission finished regularly.
 			break;
@@ -214,17 +218,19 @@ ISR(TWI_vect) {
 		case TW_SR_ARB_LOST_SLA_ACK:
 		case TW_SR_GCALL_ACK:
 		case TW_SR_ARB_LOST_GCALL_ACK:
-			twi_init_receive();
+			twi_ack_receive();
 			break;
 		case TW_SR_DATA_ACK:
 		case TW_SR_GCALL_DATA_ACK:
-			twi_receive_byte();
+			twi_read_byte();
+			twi_ack_receive();
 			break;
 		case TW_SR_STOP:
 			// Transmission ended early.
-			error = TWI_Slave_NotEnoughDataReceived;	
+			twi_error = TWI_Slave_NotEnoughDataReceived;	
 		case TW_SR_DATA_NACK:
 		case TW_SR_GCALL_DATA_NACK:
+			twi_read_byte();
 			// Invoke application-code before releasing the bus. The twi_buffer should be copied quickly.
 			twi_handleMasterTransmission((TWIBuffer) { twi_buffer.data, alreadyHandled } );
 			twi_end(); // Transmission finished normally. Cannot tell whether Master wanted to send more.
@@ -232,12 +238,17 @@ ISR(TWI_vect) {
 #endif
 // Misc
 		case TW_NO_INFO:
-			error = TWI_No_Info_Interrupt;
-		case TW_BUS_ERROR:
-			error = TWI_Bus_Error;
-		default:
-			error = TWI_Illegal_Status;
+			twi_error = TWI_No_Info_Interrupt;
 			twi_unexpectedCondition();
+			break;
+		case TW_BUS_ERROR:
+			twi_error = TWI_Bus_Error;
+			twi_unexpectedCondition();
+			break;
+		default:
+			twi_error = TWI_Illegal_Status;
+			twi_unexpectedCondition();
+			break;
 	}
 }
 
@@ -268,6 +279,16 @@ void twiMultipleOperations(int count, TWIOperation *operations) {
 		furtherOperations[i].operationMode = TWI_IllegalOperation;
 	}
 	twi_start_master_operation();
+}
+
+void WAIT_FOR_TWI() {
+	while (1) {
+		uint8_t still_running;
+		ATOMIC_BLOCK(ATOMIC_FORCEON) {
+			still_running = twi_running;
+		}
+		if (!still_running) break;
+	}
 }
 
 #endif

@@ -4978,10 +4978,13 @@ __zero_reg__ = 1
 	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2d
-	.string	"enable_interrupts() sei()"
+	.uleb128 0x2c
+	.string	"AS_WORD(b) MAKE_WORD(b, 0)"
 	.byte	0x1
 	.uleb128 0x2e
+	.string	"enable_interrupts() sei()"
+	.byte	0x1
+	.uleb128 0x2f
 	.string	"disable_interrupts() cli()"
 	.byte	0x4
 	.byte	0x1
@@ -4998,10 +5001,10 @@ __zero_reg__ = 1
 	.string	"port,4) DEFINE_PIN(port,5) DEFINE_PIN(port,6) DEFINE_PIN(port,7)"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x31
+	.uleb128 0x36
 	.string	"DEFINE_LED(ledName) extern const PLed ledName;"
 	.byte	0x1
-	.uleb128 0x33
+	.uleb128 0x38
 	.string	"DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;"
 	.byte	0x4
 	.byte	0x4

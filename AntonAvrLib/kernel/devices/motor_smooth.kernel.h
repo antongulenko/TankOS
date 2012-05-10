@@ -11,7 +11,9 @@
 #include "motor.kernel.h"
 
 // This must be implemented. 
-extern void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond);
+void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond);
+
+// This must be used when implementing above function. Implemented in motor_smooth.c
 void motor_smooth_tick(PSmoothMotor motor);
 
 void initSmoothMotor(PSmoothMotor motor) {

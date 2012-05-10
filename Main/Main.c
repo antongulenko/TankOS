@@ -12,12 +12,18 @@
 // This header is resolved differently, depending on the include-path. Each kernel-project has this header.
 #include <kernel.h>
 
-#include "Main_bgx1_print.c.h"
+// #include "../Main-Tank-IO/tank_IO/Main.c.h"
+
+// #include "device_tests/Main_test_NIBObee_SmoothMotors_Steps.c.h"
+// #include "device_tests/Main_test_NIBObee_SmoothMotors.c.h"
+#include "device_tests/Main_bgx1_print.c.h"
+// #include "device_tests/Main_bgx1_gfx.c.h"
 
 // #include "device_tests/Main_test_blink_AllLeds.c.h"
 // #include "device_tests/Main_test_blink_reset_condition.c.h"
 // #include "device_tests/Main_test_AllLeds.c.h"
-// #include "device_tests/Main_test_NIBObee_Buttons.c.h"
+// include "device_tests/Main_test_NIBObee_Buttons.c.h"
+// #include "device_tests/Main_test_NIBObee_Buttons_Loop.c.h"
 
 // #include "device_tests/Main_test_Motors_NIBObee.c.h"
 // #include "device_tests/Main_test_Motors_NIBObee_Steps.c.h"

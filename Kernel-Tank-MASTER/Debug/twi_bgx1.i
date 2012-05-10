@@ -3018,7 +3018,12 @@ typedef enum {
 
 extern volatile BOOL twi_running;
 extern TWIError last_twi_error;
-#define WAIT_FOR_TWI() while (twi_running) ;
+
+
+
+
+
+void WAIT_FOR_TWI();
 
 
 

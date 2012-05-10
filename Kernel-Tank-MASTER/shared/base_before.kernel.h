@@ -13,7 +13,8 @@
 #include <avr/wdt.h>
 
 // TWI -- basic definitions
-#define TWI_BIT_RATE_VALUE 17
+// #define TWI_BIT_RATE_VALUE 17
+#define TWI_BIT_RATE_VALUE 100
 #define TWI_PRESCALER_MASK 0
 #define TWI_Buffer_Size 255
 // => Bit rate value 17 and prescaler zero results in the 

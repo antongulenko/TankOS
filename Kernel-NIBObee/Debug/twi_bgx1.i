@@ -2964,6 +2964,7 @@ asm ("__RAMPZ__ = 0x3b");
 #define LOBYTE(x) (uint8_t)((uint16_t)x)
 #define HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)
 #define MAKE_WORD(hi,lo) ((hi*0x100)+lo)
+#define AS_WORD(b) MAKE_WORD(b, 0)
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
@@ -3017,8 +3018,13 @@ typedef enum {
 
 
 extern volatile BOOL twi_running;
-extern TWIError last_twi_error;
-#define WAIT_FOR_TWI() while (twi_running) ;
+extern TWIError twi_error;
+
+
+
+
+
+void WAIT_FOR_TWI();
 
 
 
@@ -3070,16 +3076,16 @@ void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer r
 #define TWI_RPC_FUNCTION_VARARGS(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters, uint16_t argSize);
 
 
-#define TWI_RPC_FUNCTION_VARRES(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize);
+#define TWI_RPC_FUNCTION_VARRES(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct parameters, ResStruct *out_result, uint16_t resultSize);
 
 
-#define TWI_RPC_FUNCTION(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters);
+#define TWI_RPC_FUNCTION(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct parameters);
 
 
 #define TWI_RPC_FUNCTION_VOID_VAR(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters, uint16_t argSize);
 
 
-#define TWI_RPC_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters);
+#define TWI_RPC_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName(ArgStruct parameters);
 
 
 #define TWI_RPC_FUNCTION_NOARGS(funcName,operationByte,ResStruct) ResStruct funcName();
@@ -3272,6 +3278,8 @@ extern size_t strlcpy_PF (char *dst, uint_farptr_t src, size_t siz);
 extern int memcmp_PF(const void *, uint_farptr_t, size_t) __attribute__((__pure__));
 # 17 "../shared/twi_bgx1.h" 2
 
+#define BGX1_VERSION 0x0103
+
 
 enum {
 
@@ -3315,7 +3323,7 @@ enum {
 void bgx1_reset();
 uint16_t bgx1_getVersion();
 uint8_t bgx1_getStatus();
-void bgx1_setStatus(uint8_t *parameters);
+void bgx1_setStatus(uint8_t parameters);
 
 typedef struct {
  uint8_t x;
@@ -3330,32 +3338,26 @@ typedef struct {
 } BitmapArguments, *PBitmapArguments;
 
 
+typedef char StringArg;
 
 
-
-typedef struct {
- uint8_t len;
-
-} StringArg, *PStringArg;
-
-
-void bgx1_move(Point *parameters);
-void bgx1_mode(uint8_t *parameters);
-void bgx1_fillAll(uint8_t *parameters);
+void bgx1_move_base(Point parameters);
+void bgx1_mode(uint8_t parameters);
+void bgx1_fillAll(uint8_t parameters);
 Point bgx1_print_base(StringArg *parameters, uint16_t argSize);
 uint8_t bgx1_textWidth_base(StringArg *parameters, uint16_t argSize);
-void bgx1_selectFont(uint8_t *parameters);
-Point bgx1_hLine(uint8_t *parameters);
-Point bgx1_vLine(uint8_t *parameters);
-Point bgx1_box(Rect *parameters);
+void bgx1_selectFont(uint8_t parameters);
+Point bgx1_hLine(uint8_t parameters);
+Point bgx1_vLine(uint8_t parameters);
+Point bgx1_box_base(Rect parameters);
 Point bgx1_drawBitmap_base(BitmapArguments *parameters, uint16_t argSize);
-Point bgx1_embeddedImage(uint8_t *parameters);
-void bgx1_lineTo(Point *parameters);
+Point bgx1_embeddedImage(uint8_t parameters);
+void bgx1_lineTo_base(Point parameters);
 
 
 void bgx1_termClear();
-void bgx1_termGoto(Point *parameters);
-void bgx1_termScroll(uint8_t *parameters);
+void bgx1_termGoto_base(Point parameters);
+void bgx1_termScroll(uint8_t parameters);
 void bgx1_termPrint_base(StringArg *parameters, uint16_t argSize);
 
 typedef struct {
@@ -3364,10 +3366,10 @@ typedef struct {
 } SyncPortArgs, *PSyncPortArgs;
 
 
-uint8_t bgx1_syncPort(SyncPortArgs *parameters);
-uint16_t bgx1_getAnalog(uint8_t *parameters);
-uint8_t bgx1_syncInterface(uint8_t *parameters);
-void bgx1_setIllumination(uint16_t *parameters);
+uint8_t bgx1_syncPort_base(SyncPortArgs parameters);
+uint16_t bgx1_getAnalog(uint8_t parameters);
+uint8_t bgx1_syncInterface(uint8_t parameters);
+void bgx1_setIllumination(uint16_t parameters);
 
 Point bgx1_print(char *argument);
 Point bgx1_print_P(const prog_char * argument);
@@ -3376,8 +3378,24 @@ uint8_t bgx1_textWidth_P(const prog_char * argument);
 void bgx1_termPrint(char *argument);
 void bgx1_termPrint_P(const prog_char * argument);
 
-Point bgx1_drawBitmap(uint8_t width, uint8_t height, uint8_t *bitmap);
+
+Point bgx1_drawTile(uint8_t width, uint8_t height, const uint8_t *bitmap);
+Point bgx1_drawTile_P(uint8_t width, uint8_t height, const prog_char * bitmap);
+
+
+
+Point bgx1_drawBitmap(uint8_t width, uint8_t height, const uint8_t *bitmap);
 Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, const prog_char * bitmap);
+
+void bgx1_move(uint8_t x, uint8_t y);
+Point bgx1_box(uint8_t width, uint8_t height);
+void bgx1_lineTo(uint8_t x, uint8_t y);
+void bgx1_termGoto(uint8_t x, uint8_t y);
+uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port);
+
+
+
+BOOL check_bgx1_operational();
 # 3 "../shared/twi_bgx1.c" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/alloca.h" 1 3
 # 32 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/alloca.h" 3
@@ -3508,52 +3526,93 @@ extern char *strtok(char *, const char *);
 extern char *strtok_r(char *, const char *, char **);
 extern char *strupr(char *);
 # 5 "../shared/twi_bgx1.c" 2
+# 15 "../shared/twi_bgx1.c"
+#define BITMAP_MAX 18
 
-#define PREPARED_STRING_CALL(strlen,memcpy) uint8_t size = strlen(argument); uint8_t argSize = sizeof(StringArg) + size; StringArg *args = (StringArg*) alloca(argSize); args->len = size; memcpy(((uint8_t*) args) + sizeof(StringArg), argument, size);
+#define ROW_LENGTH(width) ((width - 1)/8 + 1)
+
+#define FETCH_PROGRAM_STRING() uint8_t argSize = strlen_P(argument); StringArg *ramString = (StringArg*) alloca(argSize); memcpy_P((uint8_t*) ramString, argument, argSize);
 
 
 
 
-
-
-#define PREPARED_BITMAP_CALL(memcpy) uint8_t size = height * ((width - 1)/8 + 1); uint8_t argSize = sizeof(BitmapArguments) + size; BitmapArguments *args = (BitmapArguments*) alloca(argSize); args->width = width; args->height = height; memcpy(((uint8_t*) args) + sizeof(BitmapArguments), argument, size); return bgx1_drawBitmap_base(args, argSize);
-# 24 "../shared/twi_bgx1.c"
+#define PREPARED_BITMAP_CALL(MEMCPY) uint8_t size = height * ROW_LENGTH(width); uint8_t argSize = sizeof(BitmapArguments) + size; BitmapArguments *args = (BitmapArguments*) alloca(argSize); args->width = width; args->height = height; MEMCPY(((uint8_t*) args) + sizeof(BitmapArguments), argument, size); return bgx1_drawBitmap_base(args, argSize);
+# 37 "../shared/twi_bgx1.c"
 Point bgx1_print(char *argument) {
- uint8_t size = strlen(argument); uint8_t argSize = sizeof(StringArg) + size; StringArg *args = (StringArg*) __builtin_alloca (argSize); args->len = size; memcpy(((uint8_t*) args) + sizeof(StringArg), argument, size);
- return bgx1_print_base(args, argSize);
+ return bgx1_print_base(argument, strlen(argument));
 }
 
 uint8_t bgx1_textWidth(char *argument) {
- uint8_t size = strlen(argument); uint8_t argSize = sizeof(StringArg) + size; StringArg *args = (StringArg*) __builtin_alloca (argSize); args->len = size; memcpy(((uint8_t*) args) + sizeof(StringArg), argument, size);
- return bgx1_textWidth_base(args, argSize);
+ return bgx1_textWidth_base(argument, strlen(argument));
 }
 
 void bgx1_termPrint(char *argument) {
- uint8_t size = strlen(argument); uint8_t argSize = sizeof(StringArg) + size; StringArg *args = (StringArg*) __builtin_alloca (argSize); args->len = size; memcpy(((uint8_t*) args) + sizeof(StringArg), argument, size);
- bgx1_termPrint_base(args, argSize);
+ bgx1_termPrint_base(argument, strlen(argument));
 }
 
-Point bgx1_drawBitmap(uint8_t width, uint8_t height, uint8_t *argument) {
+Point bgx1_drawTile(uint8_t width, uint8_t height, const uint8_t *argument) {
  uint8_t size = height * ((width - 1)/8 + 1); uint8_t argSize = sizeof(BitmapArguments) + size; BitmapArguments *args = (BitmapArguments*) __builtin_alloca (argSize); args->width = width; args->height = height; memcpy(((uint8_t*) args) + sizeof(BitmapArguments), argument, size); return bgx1_drawBitmap_base(args, argSize);
 }
 
 
 
+
+
 Point bgx1_print_P(const prog_char * argument) {
- uint8_t size = strlen_P(argument); uint8_t argSize = sizeof(StringArg) + size; StringArg *args = (StringArg*) __builtin_alloca (argSize); args->len = size; memcpy_P(((uint8_t*) args) + sizeof(StringArg), argument, size);
- return bgx1_print_base(args, argSize);
+ uint8_t argSize = strlen_P(argument); StringArg *ramString = (StringArg*) __builtin_alloca (argSize); memcpy_P((uint8_t*) ramString, argument, argSize);;
+ return bgx1_print_base(ramString, argSize);
 }
 
 uint8_t bgx1_textWidth_P(const prog_char * argument) {
- uint8_t size = strlen_P(argument); uint8_t argSize = sizeof(StringArg) + size; StringArg *args = (StringArg*) __builtin_alloca (argSize); args->len = size; memcpy_P(((uint8_t*) args) + sizeof(StringArg), argument, size);
- return bgx1_textWidth_base(args, argSize);
+ uint8_t argSize = strlen_P(argument); StringArg *ramString = (StringArg*) __builtin_alloca (argSize); memcpy_P((uint8_t*) ramString, argument, argSize);;
+ return bgx1_textWidth_base(ramString, argSize);
 }
 
 void bgx1_termPrint_P(const prog_char * argument) {
- uint8_t size = strlen_P(argument); uint8_t argSize = sizeof(StringArg) + size; StringArg *args = (StringArg*) __builtin_alloca (argSize); args->len = size; memcpy_P(((uint8_t*) args) + sizeof(StringArg), argument, size);
- bgx1_termPrint_base(args, argSize);
+ uint8_t argSize = strlen_P(argument); StringArg *ramString = (StringArg*) __builtin_alloca (argSize); memcpy_P((uint8_t*) ramString, argument, argSize);;
+ bgx1_termPrint_base(ramString, argSize);
 }
 
-Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, const prog_char * argument) {
+Point bgx1_drawTile_P(uint8_t width, uint8_t height, const prog_char * argument) {
  uint8_t size = height * ((width - 1)/8 + 1); uint8_t argSize = sizeof(BitmapArguments) + size; BitmapArguments *args = (BitmapArguments*) __builtin_alloca (argSize); args->width = width; args->height = height; memcpy_P(((uint8_t*) args) + sizeof(BitmapArguments), argument, size); return bgx1_drawBitmap_base(args, argSize);
+}
+
+
+
+
+
+void bgx1_move(uint8_t x, uint8_t y) {
+ bgx1_move_base((Point) { x, y });
+}
+
+Point bgx1_box(uint8_t width, uint8_t height) {
+ return bgx1_box_base((Rect) { width, height });
+}
+
+void bgx1_lineTo(uint8_t x, uint8_t y) {
+ bgx1_lineTo_base((Point) { x, y });
+}
+
+void bgx1_termGoto(uint8_t x, uint8_t y) {
+ bgx1_termGoto_base((Point) { x, y });
+}
+
+uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port) {
+ return bgx1_syncPort_base((SyncPortArgs) { ddr, port });
+}
+
+BOOL check_bgx1_operational() {
+ uint16_t version = bgx1_getVersion();
+ return (twi_error == TWI_No_Error) && (version == 0x0103);
+}
+
+#define DRAW_BITMAP(drawTileFunc) uint8_t row_size = ROW_LENGTH(width); uint8_t rows_per_tile = BITMAP_MAX / row_size; Point newPos = {0}; while (height) { uint8_t h = (height > rows_per_tile) ? rows_per_tile : height; newPos = drawTileFunc(width, h, data); data += row_size * h; height -= h; if (height) bgx1_move(newPos.x - row_size, newPos.y); } return newPos;
+# 120 "../shared/twi_bgx1.c"
+Point bgx1_drawBitmap(uint8_t width, uint8_t height, const uint8_t bytes[]) {
+ const uint8_t *data = bytes;
+ uint8_t row_size = ((width - 1)/8 + 1); uint8_t rows_per_tile = 18 / row_size; Point newPos = {0}; while (height) { uint8_t h = (height > rows_per_tile) ? rows_per_tile : height; newPos = bgx1_drawTile(width, h, data); data += row_size * h; height -= h; if (height) bgx1_move(newPos.x - row_size, newPos.y); } return newPos;
+}
+
+Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, const prog_char * data) {
+ uint8_t row_size = ((width - 1)/8 + 1); uint8_t rows_per_tile = 18 / row_size; Point newPos = {0}; while (height) { uint8_t h = (height > rows_per_tile) ? rows_per_tile : height; newPos = bgx1_drawTile_P(width, h, data); data += row_size * h; height -= h; if (height) bgx1_move(newPos.x - row_size, newPos.y); } return newPos;
 }

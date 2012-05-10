@@ -39,6 +39,7 @@ SUBDIRS :=  \
 ../kernel/processes/mutex/ \
 ../kernel/processes/RoundRobin \
 ../kernel/TWI/ \
+../misc/ \
 ../uthash/
 
 
@@ -56,7 +57,8 @@ C_SRCS +=  \
 ../kernel/processes/DMS/dms_scheduler.c \
 ../kernel/processes/RoundRobin/rr_scheduler.c \
 ../kernel/processes/scheduler.c \
-../kernel/reset_condition.c
+../kernel/reset_condition.c \
+../misc/read_buttons_loop.c
 
 
 PREPROCESSING_SRCS += 
@@ -78,7 +80,8 @@ kernel/devices/timer.o \
 kernel/processes/DMS/dms_scheduler.o \
 kernel/processes/RoundRobin/rr_scheduler.o \
 kernel/processes/scheduler.o \
-kernel/reset_condition.o
+kernel/reset_condition.o \
+misc/read_buttons_loop.o
 
 
 OBJS_AS_ARGS +=  \
@@ -94,7 +97,8 @@ kernel/devices/timer.o \
 kernel/processes/DMS/dms_scheduler.o \
 kernel/processes/RoundRobin/rr_scheduler.o \
 kernel/processes/scheduler.o \
-kernel/reset_condition.o
+kernel/reset_condition.o \
+misc/read_buttons_loop.o
 
 
 C_DEPS +=  \
@@ -110,7 +114,8 @@ kernel/devices/timer.d \
 kernel/processes/DMS/dms_scheduler.d \
 kernel/processes/RoundRobin/rr_scheduler.d \
 kernel/processes/scheduler.d \
-kernel/reset_condition.d
+kernel/reset_condition.d \
+misc/read_buttons_loop.d
 
 
 C_DEPS_AS_ARGS +=  \
@@ -126,7 +131,8 @@ kernel/devices/timer.d \
 kernel/processes/DMS/dms_scheduler.d \
 kernel/processes/RoundRobin/rr_scheduler.d \
 kernel/processes/scheduler.d \
-kernel/reset_condition.d
+kernel/reset_condition.d \
+misc/read_buttons_loop.d
 
 
 OUTPUT_FILE_PATH +=libAntonAvrLib.a
@@ -138,6 +144,8 @@ ADDITIONAL_DEPENDENCIES:=
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR32/GNU C Compiler
+
+
 
 
 
@@ -190,6 +198,12 @@ kernel/processes/RoundRobin/%.o: ../kernel/processes/RoundRobin/%.c
 	@echo Finished building: $<
 
 kernel/processes/%.o: ../kernel/processes/%.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler
+	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DAVR -DF_CPU=20000000  -Os -ffunction-sections -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
+	@echo Finished building: $<
+
+misc/%.o: ../misc/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DAVR -DF_CPU=20000000  -Os -ffunction-sections -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
