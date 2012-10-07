@@ -17,7 +17,7 @@ void before_timer() {}
 void init_kernel() {
 	// Power saving settings
 	ACSR |= _BV(ACD); // Turn off Analog Comparator - not needed
-	PRR0 |= _BV(PRTIM0) | _BV(PRTIM2); // Turn off unused timers
+	// PRR0 |= _BV(PRTIM0) | _BV(PRTIM2); // Turn off unused timers
 	
 	// WDT-configuration -- resets after 4s (alt.: 8S, 2S, 1S, 500MS, ...)
 	// wdt_enable(WDTO_4S);

@@ -2,7 +2,9 @@
 #define _TIMER_KERNEL_KERNEL_
 
 // This module sets up timers and defines CLOCKISR macros.
-// No service routine is bound to the timers here.
+// No service routine is bound to the timer-interrupts here.
+// Two timers are provided for miscellaneous software-tasks.
+// The timer 3 is used for this, the frequency is 1ms.
 
 #include <kernel/devices/timer_m1284P.kernel.h>
 

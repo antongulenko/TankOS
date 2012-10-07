@@ -13,8 +13,8 @@
 // on whether the scheduler is needed or simply a up-to-date
 // milliseconds_running value.
 
-// This file requires the makro CLOCKISR to be defined to the isr of the clock, that should be used for the 
-// scheduler-timer.
+// This file requires the makro CLOCKISR to be defined to the isr of the clock,
+// that should be used for the scheduler-timer.
 #ifndef CLOCKISR
 #error This kernel-module requires CLOCKISR to be defined!
 #endif

@@ -92,7 +92,7 @@ void motor_smooth_tick(PSmoothMotor motor) {
 				}
 			}
 		}
-	
+		
 		// After the calculations, update the actual value!
 		motor->currentSpeed = currentSpeed;
 		setSpeed(motor->motor, motor->currentSpeed, motor->currentDirection);
@@ -102,6 +102,6 @@ void motor_smooth_tick(PSmoothMotor motor) {
 			motor_smooth_stop_tick(motor);
 			motor->tickRunning = FALSE;
 		}
-	}		
+	}
 	mutex_release(motor->mutex);
 }

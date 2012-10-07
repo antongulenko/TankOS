@@ -11,13 +11,16 @@
 // This kernel module provides the motor_smooth_tick for 2 motors,
 // using a single, abstract, tick-source.
 // Requires implementation of smooth_enable_tick(BOOL).
-// Macros:
+// Used macros:
 // - SMOOTH_MOTOR_A, SMOOTH_MOTOR_B -- the motor objects themselves
 
 #include "../kernel_init.h"
 #include "motor_smooth.kernel.h"
 
-void smooth_enable_tick(BOOL enabled);
+// This must be implemented in yet another kernel-module.
+// motor_smooth_pair_tick must be called in a fixed time interval as long as
+// enable is true.
+void motor_smooth_pair_enable_tick(BOOL enabled);
 
 BOOL motor_A_running = FALSE;
 BOOL motor_B_running = FALSE;
@@ -30,7 +33,7 @@ static void control_smooth_motor(PSmoothMotor motor, BOOL running) {
 	} else {
 		return;
 	}
-	smooth_enable_tick(motor_A_running || motor_B_running);
+	motor_smooth_pair_enable_tick(motor_A_running || motor_B_running);
 }
 
 void motor_smooth_start_tick(PSmoothMotor motor) {
@@ -41,7 +44,7 @@ void motor_smooth_stop_tick(PSmoothMotor motor) {
 	control_smooth_motor(motor, FALSE);
 }
 
-void smooth_motor_tick() {
+void motor_smooth_pair_tick() {
 	if (motor_A_running) motor_smooth_tick(SMOOTH_MOTOR_A);
 	if (motor_B_running) motor_smooth_tick(SMOOTH_MOTOR_B);
 }

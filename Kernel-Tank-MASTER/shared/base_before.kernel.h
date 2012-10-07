@@ -25,17 +25,19 @@
 
 // Timer and scheduler
 #include "timer.kernel.h"
-#define CLOCKISR CLOCKISR_A
-#define TIMER_INTERRUPT_A
+#define CLOCKISR CLOCKISR_A // for timer_base.kernel.h
+#define TIMER_INTERRUPT_A // for base_after.kernel.h
 #include <kernel/timer_base.kernel.h>
 #ifdef USE_SCHEDULER
 	// Full fledged scheduler:
-	#include "scheduler.kernel.h"
+	#include "scheduler.kernel.h" // This defines INITIALIZE_SCHEDULER
 #else
 	// Alternative - Simple timer, that increases milliseconds_running.
 	#include <kernel/simple_timer.kernel.h>
-	#define INITIALIZE_SCHEDULER
+	#define INITIALIZE_SCHEDULER // Empty definition for base_after.kernel.h
 #endif
+
+// TODO the simple atomic mutex is the only functional mutex implementation.
 #include <kernel/processes/mutex/atomic_mutex.kernel.h>
 
 // Let processor idle after main ends.

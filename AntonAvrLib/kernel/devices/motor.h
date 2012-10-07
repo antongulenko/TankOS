@@ -24,7 +24,7 @@ typedef struct {
 	PPin direction;
 	PTimer pwmTimer;
 	
-	// These 2 values bind possible timer-compare-values.
+	// These 2 values bind possible timer-compare-values into an interval.
 	// They are applied, AFTER MOTOR_INVERSE_SPEED was applied, so they
 	// reflect the real min/max voltage level.
 	uint16_t minValue;
