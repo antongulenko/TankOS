@@ -87,7 +87,13 @@
     <Compile Include="shared\kernel_base.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="shared\motor_smooth.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="shared\motor_smooth.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\motor_smooth_interrupt.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="shared\tank_IO_protocol.h">

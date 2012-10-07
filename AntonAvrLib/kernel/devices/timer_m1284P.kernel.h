@@ -24,7 +24,7 @@ void init_timer_m1284P() {
 	INIT_TIMER(Timer1B, Timer1, OCR1B, TIMER_B, PinD4) // Pin 18
 	INIT_TIMER(Timer2A, Timer2, OCR2A, TIMER_A, PinD7) // Pin 21
 	INIT_TIMER(Timer2B, Timer2, OCR2B, TIMER_B, PinD6) // Pin 20
-	INIT_TIMER(Timer3A, Timer3, OCR3A, TIMER_A, PinB6) // Pin7
+	INIT_TIMER(Timer3A, Timer3, OCR3A, TIMER_A, PinB6) // Pin 7
 	INIT_TIMER(Timer3B, Timer3, OCR3B, TIMER_B, PinB7) // Pin 8
 }
 KERNEL_INIT(init_timer_m1284P)

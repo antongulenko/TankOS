@@ -14,13 +14,15 @@
 #include "tank_motor.h"
 
 void init_tank_motors() {
-	// Voltage range: 2..4,5 V
-	// Our resolution is full 16 bit unsigned, 65535 -> 26214..58981
-	// difference: 32767
-	#define MOTOR_MIN_VALUE 26214 // TODO could be a bit slower
-	#define MOTOR_MAX_VALUE 58981
+	// Voltage range: 2..4,2 V
+	// Our resolution is full 16 bit unsigned (although the actual resolution is just 10 bit)
+	// 0..65535 -> 26214..55049, delta: 28835
+	#define MOTOR_MIN_VALUE 26214
+	#define MOTOR_MAX_VALUE 55049
 	
-	#define TANK_MOTOR_FLAGS (MOTOR_INVERSE_SPEED | MOTOR_EXACT_CONVERSION)
+	#define TANK_MOTOR_FLAGS								\
+		(MOTOR_INVERSE_SPEED | MOTOR_EXACT_CONVERSION |		\
+		MOTOR_INVERSE_DIRECTION)
 	
 	Timer1->flags |= TIMER_RESOLUTION_10bit;
 	INIT_2DirPins_MOTOR(LeftMotorBase, TANK_MOTOR_FLAGS, PinC4, Timer1B, PinC5)

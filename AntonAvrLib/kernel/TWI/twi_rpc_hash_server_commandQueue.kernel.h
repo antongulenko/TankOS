@@ -81,6 +81,7 @@ BOOL invokeCommandQueueElement() {
 	} else {
 		elem.func.voidFunction(elem.argumentBuffer.data, elem.argumentBuffer.size);
 	}
+	mutex_release(queueMutex);
 	return TRUE;
 }
 

@@ -12,7 +12,7 @@
 
 static void setMotorCompareValue(PMotor motor, uint16_t speed) {
 	if (motor->flags & MOTOR_EXACT_CONVERSION) {
-		double fraction = speed / 0xFFFF;
+		double fraction = (double) speed / 0xFFFF;
 		double val = (motor->maxValue - motor->minValue) * fraction;
 		speed = motor->minValue + (uint16_t) val;
 	} else {
