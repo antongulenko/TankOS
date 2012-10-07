@@ -95,7 +95,7 @@ void motor_smooth_tick(PSmoothMotor motor) {
 		
 		// After the calculations, update the actual value!
 		motor->currentSpeed = currentSpeed;
-		setSpeed(motor->motor, motor->currentSpeed, motor->currentDirection);
+		setSpeed(motor->motor, currentSpeed, motor->currentDirection);
 		
 		// If we are ready adjusting, stop ticking.
 		if (!motor_smooth_needsTick(motor)) {

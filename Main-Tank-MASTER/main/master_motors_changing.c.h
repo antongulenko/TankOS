@@ -58,16 +58,20 @@ void bothSimple(MotorDirection dir) {
 	}
 }
 
+void loopMotorTick() {
+	motor_smooth_pair_tick();
+	_delay_us(935); // the motors_smooth_pair_tick takes ~1320 cycles = ~65us
+}	
+
 void loopDelay() {
-	uint8_t t = 3000;
+	uint16_t t = 3000;
 	while (t > 1) {
 		t--;
-		motor_smooth_pair_tick();
-		_delay_us(950);
+		loopMotorTick();
 	}
 }	
 
-void regulateOneLoop(PSmoothMotor mot) {
+void regulateOneLoop(PSmoothMotor motor) {
 	while (1) {
 		regulateSpeed(motor, 0xFFFF, FORWARD);
 		loopDelay();
@@ -78,14 +82,23 @@ void regulateOneLoop(PSmoothMotor mot) {
 	}
 }
 
+void regulateOneForeverLoop(PSmoothMotor motor) {
+	regulateSpeed(motor, 0xFFFF, FORWARD);
+	while (1) {
+		loopMotorTick();
+	}
+}
+
 int main() {
 	// regulateOneAtATime();
 	// regulateBoth();
 	// regulateOne(RightMotor);
 	// regulateOne(LeftMotor);
-	regulateOneLoop(LeftMotor);
+	// regulateOneLoop(LeftMotor);
 	// bothSimple(FORWARD);
 	// bothSimple(BACKWARD);
+	
+	// regulateOneForeverLoop(LeftMotor);
 	
 	// setSpeedForward(LeftMotorBase, 0xFFFF);
 	// setSpeedBackward(RightMotorBase, 0x8000);

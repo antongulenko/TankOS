@@ -90,10 +90,13 @@
     <Compile Include="shared\motor_smooth.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="shared\motor_smooth.kernel.h">
+    <Compile Include="shared\motor_smooth_base.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="shared\motor_smooth_interrupt.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="shared\motor_smooth_loop.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="shared\tank_IO_protocol.h">

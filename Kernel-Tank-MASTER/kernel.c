@@ -10,12 +10,13 @@
 #include "shared/base_before.kernel.h"
 #include "tank_motor.kernel.h"
 
-// The resolution is only 471, so from min to max in ca. half a second.
-#define MOTOR_ADJUSTMENT_STEP 1 
+// Resolution is 16 bit (65535), one adjustment each millisecond
+// -> min->max in ~1 second.
+#define MOTOR_ADJUSTMENT_STEP 65
 #ifdef USE_SMOOTH_MOTOR_INTERRUPT
 #include "shared/motor_smooth_interrupt.kernel.h"
 #else
-#include "shared/motor_smooth.kernel.h"
+#include "shared/motor_smooth_loop.kernel.h"
 #endif
 
 #ifdef USE_TWI

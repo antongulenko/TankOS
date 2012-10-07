@@ -11,6 +11,7 @@
 #define Dir2(motor) (((PMotor2Pins) motor)->direction2)
 
 static void setMotorCompareValue(PMotor motor, uint16_t speed) {
+	if (motor->flags & MOTOR_INVERSE_SPEED) speed = 0xFFFF - speed;
 	if (motor->flags & MOTOR_EXACT_CONVERSION) {
 		double fraction = (double) speed / 0xFFFF;
 		double val = (motor->maxValue - motor->minValue) * fraction;
@@ -23,7 +24,6 @@ static void setMotorCompareValue(PMotor motor, uint16_t speed) {
 			speed = motor->maxValue;
 		}
 	}
-	if (motor->flags & MOTOR_INVERSE_SPEED) speed = 0xFFFF - speed;
 	setTimerCompareValue(motor->pwmTimer, speed);
 }
 

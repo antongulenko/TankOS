@@ -21,11 +21,11 @@ void setCompareMatchOutputMode(PTimer timer, CompareMatchOutputMode com) {
 			oneBits = _BV(COM0B0);
 			break;
 		case set_on_match:
-			oneBits = _BV(COM0B1);
-			zeroBits = _BV(COM0B0);
+			oneBits = _BV(COM0B1) | _BV(COM0B0);
 			break;
 		case clear_on_match:
-			oneBits = _BV(COM0B1) | _BV(COM0B0);
+			oneBits = _BV(COM0B1);
+			zeroBits = _BV(COM0B0);
 			break;
 	}
 	if (timer->type == TIMER_A) {

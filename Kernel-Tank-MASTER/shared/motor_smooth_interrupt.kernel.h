@@ -1,7 +1,7 @@
 #ifndef _MOTOR_SMOOTH_KERNEL_INTERRUPT_KERNEL_
 #define _MOTOR_SMOOTH_KERNEL_INTERRUPT_KERNEL_
 
-#include "motor_smooth.kernel.h"
+#include "motor_smooth_base.kernel.h"
 
 // Use the millisecond-interrupt as source for the smooth motor ticks.
 void motor_smooth_pair_enable_tick(BOOL enabled) {
