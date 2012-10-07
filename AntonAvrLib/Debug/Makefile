@@ -46,7 +46,6 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../kernel/devices/motor_smooth.c \
-../kernel/hardware_reset.c \
 ../kernel/millisecond_clock.c \
 ../kernel/devices/button.c \
 ../kernel/devices/external_interrupts.c \
@@ -58,6 +57,8 @@ C_SRCS +=  \
 ../kernel/processes/RoundRobin/rr_scheduler.c \
 ../kernel/processes/scheduler.c \
 ../kernel/reset_condition.c \
+../misc/hardware_reset.c \
+../misc/idle.c \
 ../misc/read_buttons_loop.c
 
 
@@ -69,7 +70,6 @@ ASM_SRCS +=
 
 OBJS +=  \
 kernel/devices/motor_smooth.o \
-kernel/hardware_reset.o \
 kernel/millisecond_clock.o \
 kernel/devices/button.o \
 kernel/devices/external_interrupts.o \
@@ -81,12 +81,13 @@ kernel/processes/DMS/dms_scheduler.o \
 kernel/processes/RoundRobin/rr_scheduler.o \
 kernel/processes/scheduler.o \
 kernel/reset_condition.o \
+misc/hardware_reset.o \
+misc/idle.o \
 misc/read_buttons_loop.o
 
 
 OBJS_AS_ARGS +=  \
 kernel/devices/motor_smooth.o \
-kernel/hardware_reset.o \
 kernel/millisecond_clock.o \
 kernel/devices/button.o \
 kernel/devices/external_interrupts.o \
@@ -98,12 +99,13 @@ kernel/processes/DMS/dms_scheduler.o \
 kernel/processes/RoundRobin/rr_scheduler.o \
 kernel/processes/scheduler.o \
 kernel/reset_condition.o \
+misc/hardware_reset.o \
+misc/idle.o \
 misc/read_buttons_loop.o
 
 
 C_DEPS +=  \
 kernel/devices/motor_smooth.d \
-kernel/hardware_reset.d \
 kernel/millisecond_clock.d \
 kernel/devices/button.d \
 kernel/devices/external_interrupts.d \
@@ -115,12 +117,13 @@ kernel/processes/DMS/dms_scheduler.d \
 kernel/processes/RoundRobin/rr_scheduler.d \
 kernel/processes/scheduler.d \
 kernel/reset_condition.d \
+misc/hardware_reset.d \
+misc/idle.d \
 misc/read_buttons_loop.d
 
 
 C_DEPS_AS_ARGS +=  \
 kernel/devices/motor_smooth.d \
-kernel/hardware_reset.d \
 kernel/millisecond_clock.d \
 kernel/devices/button.d \
 kernel/devices/external_interrupts.d \
@@ -132,6 +135,8 @@ kernel/processes/DMS/dms_scheduler.d \
 kernel/processes/RoundRobin/rr_scheduler.d \
 kernel/processes/scheduler.d \
 kernel/reset_condition.d \
+misc/hardware_reset.d \
+misc/idle.d \
 misc/read_buttons_loop.d
 
 
@@ -144,6 +149,8 @@ ADDITIONAL_DEPENDENCIES:=
 OUTPUT_FILE_DEP:= ./makedep.mk
 
 # AVR32/GNU C Compiler
+
+
 
 
 

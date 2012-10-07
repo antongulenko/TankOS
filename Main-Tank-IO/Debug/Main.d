@@ -1,4 +1,4 @@
-Main.d Main.o: ../../Main/Main.c ..\..\Kernel-Tank-IO/kernel.h \
+Main.d Main.o: .././Main.c ..\..\Kernel-Tank-IO/kernel.h \
  ..\..\Kernel-Tank-IO/shared/kernel_base.h \
  ..\..\AntonAvrLib/kernel/millisecond_clock.h \
  ..\..\AntonAvrLib/kernel/../anton_std.h \
@@ -26,16 +26,17 @@ Main.d Main.o: ../../Main/Main.c ..\..\Kernel-Tank-IO/kernel.h \
  ..\..\AntonAvrLib/kernel/processes/mutex/../../../anton_std.h \
  ..\..\AntonAvrLib/anton_std.h ..\..\Kernel-Tank-IO/tank_button.h \
  ..\..\AntonAvrLib/kernel/devices/button.h \
+ ..\..\Kernel-Tank-IO/shared/tank_IO_protocol.h \
  ..\..\Kernel-Tank-IO/tank_led.h ..\..\AntonAvrLib/kernel/devices/led.h \
  ..\..\Kernel-Tank-IO/shared/twi_bgx1.h \
  ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
  ..\..\AntonAvrLib/kernel/TWI/../../anton_std.h \
- ..\..\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h \
+ ..\..\AntonAvrLib/kernel/TWI/twi_rpc_client.h \
  ..\..\AntonAvrLib/kernel/TWI/twi_rpc.h \
  ..\..\AntonAvrLib/kernel/TWI/twi_raw.h \
  c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h \
- ../../Main/../Main-Tank-IO/tank_IO/Main.c.h \
- ../../Main/../Main-Tank-IO/tank_IO/LedOperations.h
+ ..\..\AntonAvrLib/kernel/TWI/commandQueueExecuter.h \
+ .././main/Main_testIO.c.h .././main/LedOperations.h
 
 ..\..\Kernel-Tank-IO/kernel.h:
 
@@ -95,6 +96,8 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 ..\..\AntonAvrLib/kernel/devices/button.h:
 
+..\..\Kernel-Tank-IO/shared/tank_IO_protocol.h:
+
 ..\..\Kernel-Tank-IO/tank_led.h:
 
 ..\..\AntonAvrLib/kernel/devices/led.h:
@@ -105,7 +108,7 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 ..\..\AntonAvrLib/kernel/TWI/../../anton_std.h:
 
-..\..\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h:
+..\..\AntonAvrLib/kernel/TWI/twi_rpc_client.h:
 
 ..\..\AntonAvrLib/kernel/TWI/twi_rpc.h:
 
@@ -113,6 +116,8 @@ c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.
 
 c:\program\ files\ (x86)\atmel\atmel\ studio\ 6.0\extensions\atmel\avrgcc\3.3.2.31\avrtoolchain\bin\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h:
 
-../../Main/../Main-Tank-IO/tank_IO/Main.c.h:
+..\..\AntonAvrLib/kernel/TWI/commandQueueExecuter.h:
 
-../../Main/../Main-Tank-IO/tank_IO/LedOperations.h:
+.././main/Main_testIO.c.h:
+
+.././main/LedOperations.h:

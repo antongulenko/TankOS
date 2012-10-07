@@ -2974,6 +2974,8 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
+
+#define delay(x) _delay_ms(x)
 # 12 "../kernel/devices/motor.h" 2
 # 1 "../kernel/devices/timer.h" 1
 # 9 "../kernel/devices/timer.h"
@@ -3126,6 +3128,12 @@ typedef struct {
  uint8_t flags;
  PPin direction;
  PTimer pwmTimer;
+
+
+
+
+ uint16_t minValue;
+ uint16_t maxValue;
 } Motor, *PMotor;
 
 typedef struct {
@@ -3158,7 +3166,7 @@ void setSpeedBackward(PMotor motor, uint16_t speed);
 
 int16_t getDirSpeed(PMotor motor);
 void setDirSpeed(PMotor motor, int16_t speed);
-# 71 "../kernel/devices/motor.h"
+# 77 "../kernel/devices/motor.h"
 #define DEFINE_MOTOR(motorName) extern const PMotor motorName;
 
 #define DEFINE_2DirPins_MOTOR(motorName) extern const PMotor motorName;
@@ -3195,7 +3203,6 @@ typedef struct {
 
 
  BOOL tickRunning;
- uint16_t adjustmentFrequency;
  uint16_t adjustmentStep;
  Mutex mutex;
 } SmoothMotor, *PSmoothMotor;
@@ -3209,17 +3216,15 @@ void regulateSpeedForward(PSmoothMotor motor, uint16_t speed);
 void regulateSpeedBackward(PSmoothMotor motor, uint16_t speed);
 
 void regulateDirSpeed(PSmoothMotor motor, int16_t speed);
-# 52 "../kernel/devices/motor_smooth.h"
+# 51 "../kernel/devices/motor_smooth.h"
 #define DEFINE_SMOOTH_MOTOR(motorName) extern PSmoothMotor motorName;
 # 9 "../kernel/devices/motor_smooth.c" 2
 
 
 
 
-
-
-
-void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond);
+void motor_smooth_start_tick(PSmoothMotor motor);
+void motor_smooth_stop_tick(PSmoothMotor motor);
 
 
 uint16_t motor_toUnsignedSpeed(int16_t speed);
@@ -3233,7 +3238,7 @@ void regulateSpeed(PSmoothMotor motor, uint16_t speed, MotorDirection direction)
  motor->targetSpeed = speed;
  motor->targetDirection = direction;
  if (!motor->tickRunning) {
-  motor_smooth_set_call_frequency(motor, motor->adjustmentFrequency);
+  motor_smooth_start_tick(motor);
   motor->tickRunning = TRUE;
  }
  mutex_release(motor->mutex);
@@ -3255,50 +3260,61 @@ void regulateDirSpeed(PSmoothMotor motor, int16_t speed) {
  regulateSpeed(motor, motor_toUnsignedSpeed(speed), speed < 0 ? BACKWARD : FORWARD);
 }
 
+int motor_smooth_needsTick(PSmoothMotor motor) {
+ return motor->targetSpeed != motor->currentSpeed ||
+  motor->targetDirection != motor->currentDirection;
+}
+
 void motor_smooth_tick(PSmoothMotor motor) {
  mutex_lock(motor->mutex);
 
 
- MotorDirection targetDir = motor->targetDirection;
- uint16_t currentSpeed = motor->currentSpeed;
- uint16_t targetSpeed = motor->targetSpeed;
- uint16_t adjustment = motor->adjustmentStep;
+ if (motor_smooth_needsTick(motor)) {
 
- if (motor->currentDirection != targetDir) {
+  MotorDirection targetDir = motor->targetDirection;
+  uint16_t currentSpeed = motor->currentSpeed;
+  uint16_t targetSpeed = motor->targetSpeed;
+  uint16_t adjustment = motor->adjustmentStep;
 
-  if (currentSpeed < adjustment) {
+  if (motor->currentDirection != targetDir) {
+
+   if (currentSpeed < adjustment) {
 
 
-   currentSpeed = 0;
-   motor->currentDirection = targetDir;
-  } else {
-   currentSpeed -= adjustment;
-  }
- } else {
+    currentSpeed = motor->motor->minValue;
+    if (targetDir != MOTOR_STOPPED)
 
-  if (currentSpeed < targetSpeed) {
-   if (targetSpeed - currentSpeed < adjustment) {
-    currentSpeed = targetSpeed;
-   } else {
-    currentSpeed += adjustment;
-   }
-  } else {
-   if (currentSpeed - targetSpeed < adjustment) {
-    currentSpeed = targetSpeed;
+     currentSpeed++;
+    motor->currentDirection = targetDir;
    } else {
     currentSpeed -= adjustment;
    }
+  } else {
+
+   if (currentSpeed < targetSpeed) {
+    if (targetSpeed - currentSpeed < adjustment) {
+     currentSpeed = targetSpeed;
+    } else {
+     currentSpeed += adjustment;
+    }
+   } else {
+    if (currentSpeed - targetSpeed < adjustment) {
+     currentSpeed = targetSpeed;
+    } else {
+     currentSpeed -= adjustment;
+    }
+   }
   }
- }
 
 
- motor->currentSpeed = currentSpeed;
- setSpeed(motor->motor, motor->currentSpeed, motor->currentDirection);
+  motor->currentSpeed = currentSpeed;
+  setSpeed(motor->motor, motor->currentSpeed, motor->currentDirection);
 
 
- if (motor->targetSpeed == motor->currentSpeed && motor->targetDirection == motor->currentDirection) {
-  motor_smooth_set_call_frequency(motor, 0);
-  motor->tickRunning = FALSE;
+  if (motor_smooth_needsTick(motor)) {
+   motor_smooth_stop_tick(motor);
+   motor->tickRunning = FALSE;
+  }
  }
  mutex_release(motor->mutex);
 }

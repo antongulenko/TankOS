@@ -14,10 +14,12 @@
 void initMotor(PMotor motor) {
 	// Configure the timer. These are configurations,
 	// that should work fine for motors, but might also be changed elsewhere.
-	setTimerClockSelect(Timer1, prescale_1);
+	setTimerClockSelect(motor->pwmTimer->timer, prescale_1);
 	setWaveformGenerationMode(motor->pwmTimer->timer, pwm_phase_correct);
 	
-	setTimerCompareValue(motor->pwmTimer, 0);
+	setCompareMatchOutputMode(motor->pwmTimer, clear_on_match);
+	setTimerCompareValue(motor->pwmTimer, motor->minValue);
+	
 	setPinOutput(motor->direction);
 	if (!(motor->flags & MOTOR_TWO_DIR_PINS))
 		setPinOne(motor->direction);

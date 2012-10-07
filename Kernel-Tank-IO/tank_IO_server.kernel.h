@@ -8,26 +8,172 @@
 #ifndef _TANK_IO_SERVER_KERNEL_
 #define _TANK_IO_SERVER_KERNEL_
 
-#include "shared/tank_IO_protocol.h"
+#include "tank_led.h"
+#include "tank_button.h"
+#include <misc/hardware_reset.h>
 
+#include "shared/tank_IO_protocol.h"
 #define TWI_Slave_Address TANK_IO_ADDRESS
 #define TWI_Slave
+
+#ifdef TWI_COMMAND_QUEUE
+#include <kernel/TWI/twi_rpc_hash_server_commandQueue.kernel.h>
+#else
 #include <kernel/TWI/twi_rpc_hash_server.kernel.h>
+#endif
 
-void tankIO_server_readButtons(TWIBuffer *resultBuffer) {
-	uint8_t result = 0;
-	if (buttonStatus(Button1)) result |= _BV(1);
-	if (buttonStatus(Button2)) result |= _BV(2);
-	if (buttonStatus(Button3)) result |= _BV(3);
-	if (buttonStatus(Button4)) result |= _BV(4);
-	if (buttonStatus(ButtonSwitch)) result |= _BV(5);
-	FILL_RESULT(resultBuffer, result, uint8_t)
-}
-TWI_RPC_SERVER_FUNCTION_NOARGS	(tankIO_server_readButtons, TANK_IO_readButtons, uint8_t)
+byte initialized = 0;
 
-void tankIO_server_writeLeds(uint16_t *args, uint16_t argSize) {
-	setLeds(AllLeds, *args);
+void tankIO_system_initialized() {
+	initialized = TANK_IO_INITIALIZED;
 }
-TWI_RPC_SERVER_FUNCTION_VOID	(tankIO_server_writeLeds, TANK_IO_writeLeds, uint16_t)
+
+// ==
+// System
+// ==
+
+void tankIO_server_reset() {
+	initialized = FALSE; // In case the master queries this.
+	HARDWARE_RESET();
+}
+// This is declared ASYNC to cleanly terminate the current TWI-connection.
+TWI_RPC_SERVER_FUNCTION_ASYNC_NOTIFY	(tankIO_server_reset, TANK_IO_reset)
+
+void TANKIO_server_isInitialized(TWIBuffer *result) {
+	FILL_RESULT(result, initialized, BOOL)
+}
+TWI_RPC_SERVER_FUNCTION_NOARGS	(TANKIO_server_isInitialized, TANK_IO_isInitialized, BOOL)
+
+// ==
+// Input
+// ==
+
+void tankIO_server_buttonStatus(TWIBuffer *result) {
+	uint8_t buttons = buttonStatusMask();
+	FILL_RESULT(result, buttons, uint8_t)
+}
+TWI_RPC_SERVER_FUNCTION_NOARGS	(tankIO_server_buttonStatus, TANK_IO_buttonStatus, uint8_t)
+
+void tankIO_server_pressedButtons(TWIBuffer *result) {
+	uint8_t buttons = pressedButtons();
+	FILL_RESULT(result, buttons, uint8_t)
+}
+TWI_RPC_SERVER_FUNCTION_NOARGS	(tankIO_server_pressedButtons, TANK_IO_pressedButtons, uint8_t)
+
+// ==
+// Local converting functions
+// ==
+
+PLedGroup toLedGroup(TankIoLeds leds) {
+	switch (leds) {
+		case LEDS_ALL:
+			return AllLeds;
+		case LEDS_LEFT:
+			return LeftLeds;
+		case LEDS_RIGHT:
+			return RightLeds;
+		case LEDS_MIDDLE:
+			return MiddleLeds;
+		case LEDS_RED:
+			return RedLeds;
+		case LEDS_YELLOW:
+			return YellowLeds;
+		case LEDS_WHITE:
+			return WhiteLeds;
+		case LEDS_GREEN:
+			return GreenLeds;
+		default:
+			return NULL;
+	}
+}
+
+PLed toLed(SingleLed led) {
+	return toLedGroup(led.leds)->leds[led.index];
+}
+
+// ==
+// **Led
+// ==
+
+void tankIO_server_enableLed(SingleLed *led, uint16_t size) {
+	enableLed(toLed(*led));
+}
+TWI_RPC_SERVER_FUNCTION_VOID	(tankIO_server_enableLed, TANK_IO_enableLed, SingleLed)
+
+void tankIO_server_disableLed(SingleLed *led, uint16_t size) {
+	disableLed(toLed(*led));
+}
+TWI_RPC_SERVER_FUNCTION_VOID	(tankIO_server_disableLed, TANK_IO_disableLed, SingleLed)
+
+void tankIO_server_setLed(SetLedParam *param, uint16_t size) {
+	setLed(toLed(param->led), param->value);
+}
+TWI_RPC_SERVER_FUNCTION_VOID	(tankIO_server_setLed, TANK_IO_setLed, SetLedParam)
+
+// ==
+// **Leds
+// ==
+
+void tankIO_server_setLeds(MaskedLeds *leds, uint16_t size) {
+	setLeds(toLedGroup(leds->leds), leds->mask);
+}
+TWI_RPC_SERVER_FUNCTION_VOID	(tankIO_server_setLeds, TANK_IO_setLeds, MaskedLeds)
+
+void tankIO_server_enableLeds(TankIoLeds *leds, uint16_t size) {
+	enableLeds(toLedGroup(*leds));
+}
+TWI_RPC_SERVER_FUNCTION_VOID	(tankIO_server_enableLeds, TANK_IO_enableLeds, TankIoLeds)
+
+void tankIO_server_disableLeds(TankIoLeds *leds, uint16_t size) {
+	disableLeds(toLedGroup(*leds));
+}
+TWI_RPC_SERVER_FUNCTION_VOID	(tankIO_server_disableLeds, TANK_IO_disableLeds, TankIoLeds)
+
+// ==
+// blink**
+// ==
+
+void tankIO_server_blinkLed(BlinkLedParam *param, uint16_t size) {
+	blinkLed(toLed(param->led), param->times);
+}
+TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(tankIO_server_blinkLed, TANK_IO_blinkLed, BlinkLedParam)
+
+void tankIO_server_blinkLeds(BlinkLedsParam *param, uint16_t size) {
+	blinkLeds(toLedGroup(param->leds.leds), param->leds.mask, param->times);
+}
+TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(tankIO_server_blinkLeds, TANK_IO_blinkLeds, BlinkLedsParam)
+
+void tankIO_server_blinkAllLeds(BlinkAllLedsParam *param, uint16_t size) {
+	blinkAllLeds(toLedGroup(param->leds), param->times);
+}
+TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(tankIO_server_blinkAllLeds, TANK_IO_blinkAllLeds, BlinkAllLedsParam)
+
+// ==
+// flash**
+// ==
+
+void tankIO_server_flashLed(FlashLedParam *param, uint16_t size) {
+	flashLed(toLed(param->led), param->milliseconds);
+}
+TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(tankIO_server_flashLed, TANK_IO_flashLed, FlashLedParam)
+
+void tankIO_server_flashLeds(FlashLedsParam *param, uint16_t size) {
+	flashLeds(toLedGroup(param->leds.leds), param->leds.mask, param->milliseconds);
+}
+TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(tankIO_server_flashLeds, TANK_IO_flashLeds, FlashLedsParam)
+
+void tankIO_server_flashAllLeds(FlashAllLedsParam *param, uint16_t size) {
+	flashAllLeds(toLedGroup(param->leds), param->milliseconds);
+}
+TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(tankIO_server_flashAllLeds, TANK_IO_flashAllLeds, FlashAllLedsParam)
+
+// ==
+// Other
+// ==
+
+void tankIO_server_blinkByte(BlinkByteParam *param, uint16_t size) {
+	blinkByte(toLedGroup(param->display), toLedGroup(param->notifier), param->data);
+}
+TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(tankIO_server_blinkByte, TANK_IO_blinkByte, BlinkByteParam)
 
 #endif

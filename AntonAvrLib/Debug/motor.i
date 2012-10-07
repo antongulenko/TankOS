@@ -2970,6 +2970,8 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
+
+#define delay(x) _delay_ms(x)
 # 12 "../kernel/devices/motor.h" 2
 # 1 "../kernel/devices/timer.h" 1
 # 9 "../kernel/devices/timer.h"
@@ -3122,6 +3124,12 @@ typedef struct {
  uint8_t flags;
  PPin direction;
  PTimer pwmTimer;
+
+
+
+
+ uint16_t minValue;
+ uint16_t maxValue;
 } Motor, *PMotor;
 
 typedef struct {
@@ -3154,7 +3162,7 @@ void setSpeedBackward(PMotor motor, uint16_t speed);
 
 int16_t getDirSpeed(PMotor motor);
 void setDirSpeed(PMotor motor, int16_t speed);
-# 71 "../kernel/devices/motor.h"
+# 77 "../kernel/devices/motor.h"
 #define DEFINE_MOTOR(motorName) extern const PMotor motorName;
 
 #define DEFINE_2DirPins_MOTOR(motorName) extern const PMotor motorName;
@@ -3163,16 +3171,25 @@ void setDirSpeed(PMotor motor, int16_t speed);
 
 #define Dir2(motor) (((PMotor2Pins) motor)->direction2)
 
+static void setMotorCompareValue(PMotor motor, uint16_t speed) {
+ if (motor->flags & (1 << 1)) speed = 0xFFFF - speed;
+ if (speed < motor->minValue) {
+  speed = motor->minValue;
+ }
+ if (speed > motor->maxValue) {
+  speed = motor->maxValue;
+ }
+ setTimerCompareValue(motor->pwmTimer, speed);
+}
+
 void stopMotor(PMotor motor) {
-
-
-
-
- setTimerCompareValue(motor->pwmTimer, 0);
  if (motor->flags & (1 << 3)) {
 
   setPinZero(motor->direction);
   setPinZero((((PMotor2Pins) motor)->direction2));
+ } else {
+  disableOutputCompare(motor->pwmTimer);
+  setMotorCompareValue(motor, 0);
  }
 }
 
@@ -3202,6 +3219,7 @@ void setSpeed(PMotor motor, uint16_t speed, MotorDirection direction) {
  }
  if (motor->flags & (1 << 2)) direction = !direction;
 
+
  if (motor->flags & (1 << 3)) {
   if (direction == FORWARD) {
    setPinOne(motor->direction);
@@ -3213,8 +3231,7 @@ void setSpeed(PMotor motor, uint16_t speed, MotorDirection direction) {
  } else {
   writePin(motor->direction, (BOOL) direction);
  }
- if (motor->flags & (1 << 1)) speed = 0xFFFF - speed;
- setTimerCompareValue(motor->pwmTimer, speed);
+ setMotorCompareValue(motor, speed);
  enableOutputCompare(motor->pwmTimer);
 }
 

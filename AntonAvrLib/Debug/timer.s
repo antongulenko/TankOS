@@ -4974,6 +4974,9 @@ __zero_reg__ = 1
 	.byte	0x1
 	.uleb128 0x2f
 	.string	"disable_interrupts() cli()"
+	.byte	0x1
+	.uleb128 0x31
+	.string	"delay(x) _delay_ms(x)"
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xc
@@ -5748,7 +5751,7 @@ setTimerCompareValue:
 .L75:
 .LSM123:
 /* #APP */
- ;  242 "../kernel/devices/timer.c" 1
+ ;  245 "../kernel/devices/timer.c" 1
 	cli
  ;  0 "" 2
 .LSM124:
@@ -5804,7 +5807,7 @@ getTimerCompareValue:
 .LVL83:
 .LSM131:
 /* #APP */
- ;  258 "../kernel/devices/timer.c" 1
+ ;  261 "../kernel/devices/timer.c" 1
 	cli
  ;  0 "" 2
 .LSM132:
@@ -6763,7 +6766,7 @@ CSWTCH.8:
 	.long	0x0
 	.long	0x0
 	.section	.debug_info
-	.long	0x516
+	.long	0x519
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
@@ -7322,7 +7325,7 @@ CSWTCH.8:
 	.byte	0x1
 	.long	.LASF66
 	.byte	0x1
-	.byte	0xe2
+	.byte	0xe5
 	.byte	0x1
 	.long	.LFB10
 	.long	.LFE10
@@ -7334,7 +7337,7 @@ CSWTCH.8:
 	.uleb128 0xd
 	.long	.LASF48
 	.byte	0x1
-	.byte	0xe2
+	.byte	0xe5
 	.long	0x28d
 	.long	.LLST16
 	.byte	0x0
@@ -7342,7 +7345,7 @@ CSWTCH.8:
 	.byte	0x1
 	.long	.LASF67
 	.byte	0x1
-	.byte	0xe6
+	.byte	0xe9
 	.byte	0x1
 	.long	.LFB11
 	.long	.LFE11
@@ -7354,13 +7357,13 @@ CSWTCH.8:
 	.uleb128 0xd
 	.long	.LASF48
 	.byte	0x1
-	.byte	0xe6
+	.byte	0xe9
 	.long	0x28d
 	.long	.LLST17
 	.uleb128 0xd
 	.long	.LASF68
 	.byte	0x1
-	.byte	0xe6
+	.byte	0xe9
 	.long	0x4d
 	.long	.LLST18
 	.uleb128 0x11
@@ -7369,7 +7372,7 @@ CSWTCH.8:
 	.uleb128 0xf
 	.long	.LASF69
 	.byte	0x1
-	.byte	0xeb
+	.byte	0xee
 	.long	0x34
 	.long	.LLST19
 	.byte	0x0
@@ -7378,7 +7381,7 @@ CSWTCH.8:
 	.byte	0x1
 	.long	.LASF70
 	.byte	0x1
-	.byte	0xfd
+	.word	0x100
 	.byte	0x1
 	.long	0x4d
 	.long	.LFB12
@@ -7387,25 +7390,25 @@ CSWTCH.8:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.uleb128 0xd
+	.uleb128 0x13
 	.long	.LASF48
 	.byte	0x1
-	.byte	0xfd
+	.word	0x100
 	.long	0x28d
 	.long	.LLST20
-	.uleb128 0xf
+	.uleb128 0x14
 	.long	.LASF71
 	.byte	0x1
-	.byte	0xfe
+	.word	0x101
 	.long	0x4d
 	.long	.LLST21
 	.uleb128 0x11
 	.long	.LBB3
 	.long	.LBE3
-	.uleb128 0x13
+	.uleb128 0x14
 	.long	.LASF69
 	.byte	0x1
-	.word	0x101
+	.word	0x104
 	.long	0x34
 	.long	.LLST22
 	.byte	0x0
@@ -7653,7 +7656,7 @@ CSWTCH.8:
 	.uleb128 0x3a
 	.uleb128 0xb
 	.uleb128 0x3b
-	.uleb128 0xb
+	.uleb128 0x5
 	.uleb128 0x27
 	.uleb128 0xc
 	.uleb128 0x49
@@ -7667,6 +7670,21 @@ CSWTCH.8:
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x13
+	.uleb128 0x5
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0x5
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x6
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x14
 	.uleb128 0x34
 	.byte	0x0
 	.uleb128 0x3
@@ -7686,7 +7704,7 @@ CSWTCH.8:
 	.long	0xf8
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x51a
+	.long	0x51d
 	.long	0x29e
 	.string	"setCompareMatchOutputMode"
 	.long	0x2f4
@@ -7710,7 +7728,7 @@ CSWTCH.8:
 	.long	0xb7
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x51a
+	.long	0x51d
 	.long	0x34
 	.string	"uint8_t"
 	.long	0x4d
@@ -8530,7 +8548,7 @@ CSWTCH.8:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM111
-	.byte	0x15
+	.byte	0x18
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -8547,7 +8565,7 @@ CSWTCH.8:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM113
-	.byte	0xf5
+	.byte	0xf8
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -8569,7 +8587,7 @@ CSWTCH.8:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM116
-	.byte	0xf9
+	.byte	0xfc
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -8637,7 +8655,7 @@ CSWTCH.8:
 	.byte	0x2
 	.long	.LSM128
 	.byte	0x3
-	.sleb128 252
+	.sleb128 255
 	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5

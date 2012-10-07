@@ -10,16 +10,31 @@
 
 #define Dir2(motor) (((PMotor2Pins) motor)->direction2)
 
+static void setMotorCompareValue(PMotor motor, uint16_t speed) {
+	if (motor->flags & MOTOR_EXACT_CONVERSION) {
+		double fraction = speed / 0xFFFF;
+		double val = (motor->maxValue - motor->minValue) * fraction;
+		speed = motor->minValue + (uint16_t) val;
+	} else {
+		if (speed < motor->minValue) {
+			speed = motor->minValue;
+		}
+		if (speed > motor->maxValue) {
+			speed = motor->maxValue;
+		}
+	}
+	if (motor->flags & MOTOR_INVERSE_SPEED) speed = 0xFFFF - speed;
+	setTimerCompareValue(motor->pwmTimer, speed);
+}
+
 void stopMotor(PMotor motor) {
-	// TODO -- unclear how to stop the motor.
-	// TCCR1A &= ~(_BV(COM1A0) | _BV(COM1A1) | _BV(COM1B0) | _BV(COM1B1));
-	// disableOutputCompare(motor->pwmTimer);
-	// setPinZero(motor->pwmTimer->outputComparePin);
-	setTimerCompareValue(motor->pwmTimer, 0);
 	if (motor->flags & MOTOR_TWO_DIR_PINS) {
 		// Also set direction-pins to zero.
 		setPinZero(motor->direction);
 		setPinZero(Dir2(motor));
+	} else {
+		disableOutputCompare(motor->pwmTimer);
+		setMotorCompareValue(motor, 0);
 	}
 }
 
@@ -48,7 +63,8 @@ void setSpeed(PMotor motor, uint16_t speed, MotorDirection direction) {
 		return;
 	}
 	if (motor->flags & MOTOR_INVERSE_DIRECTION) direction = !direction;
-	// TODO -- this is quite an overhead to do on each speed-change... maybe memorize some motor-state internally.
+	// TODO -- this is quite an overhead to do on each speed-change...
+	// maybe memorize some motor-state internally.
 	if (motor->flags & MOTOR_TWO_DIR_PINS) {
 		if (direction == FORWARD) {
 			setPinOne(motor->direction);
@@ -60,8 +76,7 @@ void setSpeed(PMotor motor, uint16_t speed, MotorDirection direction) {
 	} else {
 		writePin(motor->direction, (BOOL) direction);
 	}
-	if (motor->flags & MOTOR_INVERSE_SPEED) speed = 0xFFFF - speed;
-	setTimerCompareValue(motor->pwmTimer, speed);
+	setMotorCompareValue(motor, speed);
 	enableOutputCompare(motor->pwmTimer);
 }
 

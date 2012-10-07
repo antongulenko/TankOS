@@ -2974,6 +2974,8 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
+
+#define delay(x) _delay_ms(x)
 # 12 "../kernel/devices/port.h" 2
 
 typedef struct {
@@ -3013,30 +3015,25 @@ BOOL readPin(PPin pin);
 
 
 #define BUTTON_NORMAL 0
-#define BUTTON_INVERTED (1 << 1)
-#define BUTTON_NEEDS_PULLUP (1 << 2)
+#define BUTTON_INVERTED _BV(0)
+#define BUTTON_NEEDS_PULLUP _BV(1)
+#define BUTTON_USE_PIN_CHANGE_INTERRUPT _BV(2)
 
 typedef struct {
  uint8_t flags;
  PPin pin;
-} Button, *PButton;
-
-typedef struct {
- PButton button;
  uint8_t pinChangeInterruptNumber;
-} InterruptButton, *PInterruptButton;
+} Button, *PButton;
 
 
 BOOL buttonStatus(PButton button);
-# 45 "../kernel/devices/button.h"
+# 36 "../kernel/devices/button.h"
 #define DEFINE_BUTTON(buttonName) extern const PButton buttonName;
-
-#define DEFINE_INTERRUPT_BUTTON(buttonName) extern const PInterruptButton buttonName;
 # 9 "../kernel/devices/button.c" 2
 
 
 BOOL buttonStatus(PButton button) {
  BOOL val = readPin(button->pin);
- if (button->flags & (1 << 1)) val = !val;
+ if (button->flags & (1 << (0))) val = !val;
  return val;
 }

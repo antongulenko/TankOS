@@ -4968,6 +4968,9 @@ __zero_reg__ = 1
 	.byte	0x1
 	.uleb128 0x2f
 	.string	"disable_interrupts() cli()"
+	.byte	0x1
+	.uleb128 0x31
+	.string	"delay(x) _delay_ms(x)"
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x9
@@ -5057,7 +5060,7 @@ HARDWARE_RESET:
 .L__stack_usage = 0
 .LSM1:
 /* #APP */
- ;  13 "../kernel/hardware_reset.c" 1
+ ;  13 "../misc/hardware_reset.c" 1
 	cli
  ;  0 "" 2
 .LSM2:
@@ -5070,7 +5073,7 @@ HARDWARE_RESET:
 	ldi r24,lo8(24)
 	ldi r25,hi8(24)
 /* #APP */
- ;  16 "../kernel/hardware_reset.c" 1
+ ;  16 "../misc/hardware_reset.c" 1
 	in __tmp_reg__,__SREG__
 	cli
 	wdr
@@ -5313,9 +5316,9 @@ HARDWARE_RESET:
 	.byte	0x0
 	.byte	0x0
 	.byte	0x1
-	.ascii	"../kernel"
+	.ascii	"../misc"
 	.byte	0
-	.ascii	"../kernel/.."
+	.ascii	"../misc/.."
 	.byte	0
 	.ascii	"c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions"
 	.ascii	"\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr"
@@ -5464,6 +5467,8 @@ HARDWARE_RESET:
 	.string	"uint8_t"
 .LASF0:
 	.string	"signed char"
+.LASF10:
+	.string	"../misc/hardware_reset.c"
 .LASF12:
 	.string	"HARDWARE_RESET"
 .LASF8:
@@ -5476,7 +5481,5 @@ HARDWARE_RESET:
 	.string	"long int"
 .LASF9:
 	.string	"GNU C 4.5.1"
-.LASF10:
-	.string	"../kernel/hardware_reset.c"
 .LASF7:
 	.string	"long long int"

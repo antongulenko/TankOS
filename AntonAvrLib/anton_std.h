@@ -46,4 +46,6 @@ asm ("__RAMPZ__ = 0x3b");
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
 
+#define delay(x) _delay_ms(x)
+
 #endif /* ANTON_STD_H_ */

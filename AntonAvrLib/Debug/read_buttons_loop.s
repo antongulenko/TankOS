@@ -4986,6 +4986,9 @@ __zero_reg__ = 1
 	.byte	0x1
 	.uleb128 0x2f
 	.string	"disable_interrupts() cli()"
+	.byte	0x1
+	.uleb128 0x31
+	.string	"delay(x) _delay_ms(x)"
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0x3d
@@ -5005,17 +5008,16 @@ __zero_reg__ = 1
 	.string	"BUTTON_NORMAL 0"
 	.byte	0x1
 	.uleb128 0xf
-	.string	"BUTTON_INVERTED (1 << 1)"
+	.string	"BUTTON_INVERTED _BV(0)"
 	.byte	0x1
 	.uleb128 0x10
-	.string	"BUTTON_NEEDS_PULLUP (1 << 2)"
+	.string	"BUTTON_NEEDS_PULLUP _BV(1)"
 	.byte	0x1
-	.uleb128 0x2d
+	.uleb128 0x11
+	.string	"BUTTON_USE_PIN_CHANGE_INTERRUPT _BV(2)"
+	.byte	0x1
+	.uleb128 0x24
 	.string	"DEFINE_BUTTON(buttonName) extern const PButton buttonName;"
-	.byte	0x1
-	.uleb128 0x2f
-	.ascii	"DEFINE_INTERR"
-	.string	"UPT_BUTTON(buttonName) extern const PInterruptButton buttonName;"
 	.byte	0x4
 	.byte	0x4
 	.byte	0x4
@@ -5317,15 +5319,15 @@ read_buttons_loop:
 	.long	0x0
 	.long	0x0
 	.section	.debug_info
-	.long	0x232
+	.long	0x240
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF25
-	.byte	0x1
 	.long	.LASF26
+	.byte	0x1
 	.long	.LASF27
+	.long	.LASF28
 	.long	0x0
 	.long	0x0
 	.long	.Ldebug_ranges0+0x0
@@ -5459,14 +5461,14 @@ read_buttons_loop:
 	.byte	0x2
 	.long	0xdf
 	.uleb128 0x7
+	.byte	0x4
 	.byte	0x3
-	.byte	0x3
-	.byte	0x12
-	.long	0x13a
+	.byte	0x13
+	.long	0x148
 	.uleb128 0x8
 	.long	.LASF15
 	.byte	0x3
-	.byte	0x13
+	.byte	0x14
 	.long	0x34
 	.byte	0x2
 	.byte	0x23
@@ -5474,23 +5476,31 @@ read_buttons_loop:
 	.uleb128 0x9
 	.string	"pin"
 	.byte	0x3
-	.byte	0x14
+	.byte	0x15
 	.long	0x104
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x1
-	.byte	0x0
-	.uleb128 0x3
+	.uleb128 0x8
 	.long	.LASF16
 	.byte	0x3
-	.byte	0x15
-	.long	0x145
+	.byte	0x16
+	.long	0x34
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x3
+	.byte	0x0
+	.uleb128 0x3
+	.long	.LASF17
+	.byte	0x3
+	.byte	0x17
+	.long	0x153
 	.uleb128 0xa
 	.byte	0x2
 	.long	0x115
 	.uleb128 0xc
 	.byte	0x1
-	.long	.LASF17
+	.long	.LASF18
 	.byte	0x1
 	.byte	0x5
 	.byte	0x1
@@ -5500,12 +5510,12 @@ read_buttons_loop:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x177
+	.long	0x185
 	.uleb128 0xd
-	.long	.LASF19
+	.long	.LASF20
 	.byte	0x1
 	.byte	0x5
-	.long	0x13a
+	.long	0x148
 	.byte	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5516,7 +5526,7 @@ read_buttons_loop:
 	.byte	0x0
 	.uleb128 0xc
 	.byte	0x1
-	.long	.LASF18
+	.long	.LASF19
 	.byte	0x1
 	.byte	0x8
 	.byte	0x1
@@ -5526,12 +5536,12 @@ read_buttons_loop:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x1a3
+	.long	0x1b1
 	.uleb128 0xd
-	.long	.LASF19
+	.long	.LASF20
 	.byte	0x1
 	.byte	0x8
-	.long	0x13a
+	.long	0x148
 	.byte	0x6
 	.byte	0x68
 	.byte	0x93
@@ -5542,7 +5552,7 @@ read_buttons_loop:
 	.byte	0x0
 	.uleb128 0xc
 	.byte	0x1
-	.long	.LASF20
+	.long	.LASF21
 	.byte	0x1
 	.byte	0xa
 	.byte	0x1
@@ -5552,24 +5562,24 @@ read_buttons_loop:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x229
+	.long	0x237
 	.uleb128 0xe
-	.long	.LASF21
+	.long	.LASF22
 	.byte	0x1
 	.byte	0xa
 	.long	0x34
 	.long	.LLST0
 	.uleb128 0xe
-	.long	.LASF22
-	.byte	0x1
-	.byte	0xa
-	.long	0x229
-	.long	.LLST1
-	.uleb128 0xf
 	.long	.LASF23
 	.byte	0x1
+	.byte	0xa
+	.long	0x237
+	.long	.LLST1
+	.uleb128 0xf
+	.long	.LASF24
+	.byte	0x1
 	.byte	0xc
-	.long	0x22f
+	.long	0x23d
 	.long	.LLST2
 	.uleb128 0x10
 	.long	.LBB2
@@ -5584,13 +5594,13 @@ read_buttons_loop:
 	.long	.LBB3
 	.long	.LBE3
 	.uleb128 0xf
-	.long	.LASF19
+	.long	.LASF20
 	.byte	0x1
 	.byte	0x11
-	.long	0x13a
+	.long	0x148
 	.long	.LLST4
 	.uleb128 0xf
-	.long	.LASF24
+	.long	.LASF25
 	.byte	0x1
 	.byte	0x12
 	.long	0x85
@@ -5600,7 +5610,7 @@ read_buttons_loop:
 	.byte	0x0
 	.uleb128 0xa
 	.byte	0x2
-	.long	0x13a
+	.long	0x148
 	.uleb128 0xa
 	.byte	0x2
 	.long	0x85
@@ -5842,19 +5852,19 @@ read_buttons_loop:
 	.long	0x4b
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x236
-	.long	0x14b
+	.long	0x244
+	.long	0x159
 	.string	"button_pressed"
-	.long	0x177
+	.long	0x185
 	.string	"button_released"
-	.long	0x1a3
+	.long	0x1b1
 	.string	"read_buttons_loop"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
 	.long	0x42
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x236
+	.long	0x244
 	.long	0x34
 	.string	"uint8_t"
 	.long	0x85
@@ -5863,7 +5873,7 @@ read_buttons_loop:
 	.string	"PPort"
 	.long	0x104
 	.string	"PPin"
-	.long	0x13a
+	.long	0x148
 	.string	"PButton"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
@@ -6138,27 +6148,29 @@ read_buttons_loop:
 	.section	.debug_macinfo
 	.byte	0x0
 	.section	.debug_str,"MS",@progbits,1
-.LASF22:
+.LASF23:
 	.string	"buttonArray"
-.LASF17:
+.LASF18:
 	.string	"button_pressed"
-.LASF25:
+.LASF16:
+	.string	"pinChangeInterruptNumber"
+.LASF26:
 	.string	"GNU C 4.5.1"
 .LASF8:
 	.string	"TRUE"
-.LASF20:
+.LASF21:
 	.string	"read_buttons_loop"
 .LASF10:
 	.string	"BOOL"
-.LASF27:
+.LASF28:
 	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\AntonAvrLib\\\\Debug"
-.LASF26:
+.LASF27:
 	.string	"../misc/read_buttons_loop.c"
 .LASF1:
 	.string	"unsigned char"
 .LASF4:
 	.string	"long unsigned int"
-.LASF23:
+.LASF24:
 	.string	"hasBeenPressed"
 .LASF7:
 	.string	"FALSE"
@@ -6174,23 +6186,23 @@ read_buttons_loop:
 	.string	"PPort"
 .LASF5:
 	.string	"long long int"
-.LASF21:
+.LASF22:
 	.string	"buttonCount"
 .LASF13:
 	.string	"mask"
 .LASF11:
 	.string	"port"
-.LASF24:
+.LASF25:
 	.string	"isPressed"
-.LASF18:
+.LASF19:
 	.string	"button_released"
 .LASF3:
 	.string	"long int"
-.LASF19:
+.LASF20:
 	.string	"button"
 .LASF0:
 	.string	"signed char"
-.LASF16:
+.LASF17:
 	.string	"PButton"
 .LASF14:
 	.string	"PPin"

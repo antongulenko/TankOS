@@ -9,12 +9,14 @@
 #define _BASE_BEFORE_KERNEL_
 
 // Regular header-files
+#include <kernel/kernel_init.h>
 #include "../kernel.h"
 #include <avr/wdt.h>
 
 // TWI -- basic definitions
-// #define TWI_BIT_RATE_VALUE 17
-#define TWI_BIT_RATE_VALUE 100
+#define TWI_BIT_RATE_VALUE 17 // Maximal TWI-frequency
+// #define TWI_BIT_RATE_VALUE 100 // Medium TWI-frequency
+// #define TWI_BIT_RATE_VALUE 250 // Minimal TWI-frequency
 #define TWI_PRESCALER_MASK 0
 #define TWI_Buffer_Size 255
 // => Bit rate value 17 and prescaler zero results in the 
@@ -24,6 +26,7 @@
 // Timer and scheduler
 #include "timer.kernel.h"
 #define CLOCKISR CLOCKISR_A
+#define TIMER_INTERRUPT_A
 #include <kernel/timer_base.kernel.h>
 #ifdef USE_SCHEDULER
 	// Full fledged scheduler:
@@ -34,5 +37,8 @@
 	#define INITIALIZE_SCHEDULER
 #endif
 #include <kernel/processes/mutex/atomic_mutex.kernel.h>
+
+// Let processor idle after main ends.
+#include <kernel/sleep_after_main.kernel.h>
 
 #endif

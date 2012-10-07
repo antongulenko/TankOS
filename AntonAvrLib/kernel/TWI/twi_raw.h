@@ -72,4 +72,8 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
 // inside the function, so they can be passed from local variables.
 void twiMultipleOperations(int count, TWIOperation *operations);
 
+// Switch the high and low byte in the pointed word.
+// The native byte-order is big-endian, while the TWI byte-order is little-endian.
+void turn_word(uint16_t *word);
+
 #endif

@@ -4980,6 +4980,9 @@ __zero_reg__ = 1
 	.byte	0x1
 	.uleb128 0x2f
 	.string	"disable_interrupts() cli()"
+	.byte	0x1
+	.uleb128 0x31
+	.string	"delay(x) _delay_ms(x)"
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0x3d
@@ -4995,10 +4998,10 @@ __zero_reg__ = 1
 	.string	"port,4) DEFINE_PIN(port,5) DEFINE_PIN(port,6) DEFINE_PIN(port,7)"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x36
+	.uleb128 0x3a
 	.string	"DEFINE_LED(ledName) extern const PLed ledName;"
 	.byte	0x1
-	.uleb128 0x38
+	.uleb128 0x3c
 	.string	"DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;"
 	.byte	0x4
 	.byte	0x4
@@ -5644,6 +5647,95 @@ flashAllLeds:
 	ret
 .LFE17:
 	.size	flashAllLeds, .-flashAllLeds
+	.section	.text.blinkByte,"ax",@progbits
+.global	blinkByte
+	.type	blinkByte, @function
+blinkByte:
+.LFB18:
+.LSM74:
+.LVL70:
+	push r10
+	push r11
+	push r12
+	push r13
+	push r14
+	push r15
+	push r16
+	push r17
+	push r29
+	push r28
+	push __tmp_reg__
+	in r28,__SP_L__
+	in r29,__SP_H__
+/* prologue: function */
+/* frame size = 1 */
+/* stack size = 11 */
+.L__stack_usage = 11
+	movw r16,r24
+	movw r14,r22
+.LSM75:
+	movw r24,r22
+.LVL71:
+	ldi r22,lo8(1500)
+	ldi r23,hi8(1500)
+.LVL72:
+	std Y+1,r20
+	call flashAllLeds
+.LVL73:
+.LSM76:
+	ldd r20,Y+1
+	mov r11,r20
+	clr r10
+.LVL74:
+.LSM77:
+	movw r24,r16
+	movw r22,r10
+	ldi r20,lo8(3)
+	call blinkLeds
+.LSM78:
+	movw r30,r16
+	ldd r13,Z+2
+	mov r31,r13
+	cpi r31,lo8(8)
+	brsh .L27
+.LVL75:
+.LSM79:
+	movw r24,r14
+	ldi r22,lo8(700)
+	ldi r23,hi8(700)
+	call flashAllLeds
+.LVL76:
+.LSM80:
+	movw r22,r10
+	rjmp 2f
+1:	lsl r22
+	rol r23
+2:	dec r13
+	brpl 1b
+.LSM81:
+	movw r24,r16
+	ldi r20,lo8(3)
+	call blinkLeds
+.LVL77:
+.L27:
+/* epilogue start */
+.LSM82:
+	pop __tmp_reg__
+	pop r28
+	pop r29
+	pop r17
+	pop r16
+.LVL78:
+	pop r15
+	pop r14
+.LVL79:
+	pop r13
+	pop r12
+	pop r11
+	pop r10
+	ret
+.LFE18:
+	.size	blinkByte, .-blinkByte
 	.section	.debug_frame,"",@progbits
 .Lframe0:
 	.long	.LECIE0-.LSCIE0
@@ -5771,6 +5863,14 @@ flashAllLeds:
 	.long	.LFE17-.LFB17
 	.p2align	2
 .LEFDE26:
+.LSFDE28:
+	.long	.LEFDE28-.LASFDE28
+.LASFDE28:
+	.long	.Lframe0
+	.long	.LFB18
+	.long	.LFE18-.LFB18
+	.p2align	2
+.LEFDE28:
 	.text
 .Letext0:
 	.section	.debug_loc,"",@progbits
@@ -6385,16 +6485,105 @@ flashAllLeds:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
+.LLST36:
+	.long	.LVL70
+	.long	.LVL71
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL71
+	.long	.LVL78
+	.word	0x6
+	.byte	0x60
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x61
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST37:
+	.long	.LVL70
+	.long	.LVL72
+	.word	0x6
+	.byte	0x66
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x67
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL72
+	.long	.LVL79
+	.word	0x6
+	.byte	0x5e
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x5f
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST38:
+	.long	.LVL70
+	.long	.LVL73-1
+	.word	0x1
+	.byte	0x64
+	.long	0x0
+	.long	0x0
+.LLST39:
+	.long	.LVL74
+	.long	.LVL75
+	.word	0x6
+	.byte	0x5a
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x5b
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL75
+	.long	.LVL76-1
+	.word	0xc
+	.byte	0x7a
+	.sleb128 0
+	.byte	0x80
+	.sleb128 2
+	.byte	0x94
+	.byte	0x1
+	.byte	0x48
+	.byte	0x24
+	.byte	0x48
+	.byte	0x26
+	.byte	0x24
+	.byte	0x9f
+	.long	.LVL76-1
+	.long	.LVL77
+	.word	0xa
+	.byte	0x7a
+	.sleb128 0
+	.byte	0x7d
+	.sleb128 0
+	.byte	0x48
+	.byte	0x24
+	.byte	0x48
+	.byte	0x26
+	.byte	0x24
+	.byte	0x9f
+	.long	0x0
+	.long	0x0
 	.section	.debug_info
-	.long	0x61d
+	.long	0x67e
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF46
+	.long	.LASF52
 	.byte	0x1
-	.long	.LASF47
-	.long	.LASF48
+	.long	.LASF53
+	.long	.LASF54
 	.long	0x0
 	.long	0x0
 	.long	.Ldebug_ranges0+0x18
@@ -6464,16 +6653,21 @@ flashAllLeds:
 	.byte	0x4
 	.byte	0x17
 	.long	0x86
+	.uleb128 0x3
+	.long	.LASF13
+	.byte	0x4
+	.byte	0x19
+	.long	0x34
 	.uleb128 0x7
 	.byte	0x6
 	.byte	0x3
 	.byte	0xd
-	.long	0xd9
+	.long	0xe4
 	.uleb128 0x8
-	.long	.LASF13
+	.long	.LASF14
 	.byte	0x3
 	.byte	0xe
-	.long	0xd9
+	.long	0xe4
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
@@ -6481,7 +6675,7 @@ flashAllLeds:
 	.string	"pin"
 	.byte	0x3
 	.byte	0xf
-	.long	0xd9
+	.long	0xe4
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x2
@@ -6489,39 +6683,39 @@ flashAllLeds:
 	.string	"ddr"
 	.byte	0x3
 	.byte	0x10
-	.long	0xd9
+	.long	0xe4
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
 	.byte	0x0
 	.uleb128 0xa
 	.byte	0x2
-	.long	0xdf
+	.long	0xea
 	.uleb128 0xb
 	.long	0x34
 	.uleb128 0x3
-	.long	.LASF14
+	.long	.LASF15
 	.byte	0x3
 	.byte	0x11
-	.long	0xef
+	.long	0xfa
 	.uleb128 0xa
 	.byte	0x2
-	.long	0xa6
+	.long	0xb1
 	.uleb128 0x7
 	.byte	0x3
 	.byte	0x3
 	.byte	0x13
-	.long	0x11a
+	.long	0x125
 	.uleb128 0x8
-	.long	.LASF13
+	.long	.LASF14
 	.byte	0x3
 	.byte	0x14
-	.long	0xe4
+	.long	0xef
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
 	.uleb128 0x8
-	.long	.LASF15
+	.long	.LASF16
 	.byte	0x3
 	.byte	0x15
 	.long	0x34
@@ -6530,50 +6724,50 @@ flashAllLeds:
 	.uleb128 0x2
 	.byte	0x0
 	.uleb128 0x3
-	.long	.LASF16
+	.long	.LASF17
 	.byte	0x3
 	.byte	0x16
-	.long	0x125
+	.long	0x130
 	.uleb128 0xa
 	.byte	0x2
-	.long	0xf5
+	.long	0x100
 	.uleb128 0x7
 	.byte	0x2
 	.byte	0x2
 	.byte	0xe
-	.long	0x142
+	.long	0x14d
 	.uleb128 0x9
 	.string	"pin"
 	.byte	0x2
 	.byte	0xf
-	.long	0x11a
+	.long	0x125
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
 	.byte	0x0
 	.uleb128 0x3
-	.long	.LASF17
+	.long	.LASF18
 	.byte	0x2
 	.byte	0x10
-	.long	0x14d
+	.long	0x158
 	.uleb128 0xa
 	.byte	0x2
-	.long	0x12b
+	.long	0x136
 	.uleb128 0x7
 	.byte	0x3
 	.byte	0x2
 	.byte	0x12
-	.long	0x178
+	.long	0x183
 	.uleb128 0x8
-	.long	.LASF18
+	.long	.LASF19
 	.byte	0x2
 	.byte	0x13
-	.long	0x178
+	.long	0x183
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
 	.uleb128 0x8
-	.long	.LASF19
+	.long	.LASF20
 	.byte	0x2
 	.byte	0x14
 	.long	0x34
@@ -6583,102 +6777,102 @@ flashAllLeds:
 	.byte	0x0
 	.uleb128 0xa
 	.byte	0x2
-	.long	0x142
+	.long	0x14d
 	.uleb128 0x3
-	.long	.LASF20
+	.long	.LASF21
 	.byte	0x2
 	.byte	0x15
-	.long	0x189
+	.long	0x194
 	.uleb128 0xa
 	.byte	0x2
-	.long	0x153
+	.long	0x15e
 	.uleb128 0xc
-	.long	.LASF49
+	.long	.LASF55
 	.byte	0x9
 	.byte	0x84
 	.byte	0x1
 	.byte	0x3
-	.long	0x209
+	.long	0x214
 	.uleb128 0xd
-	.long	.LASF28
+	.long	.LASF29
 	.byte	0x9
 	.byte	0x84
-	.long	0x209
+	.long	0x214
 	.uleb128 0xe
-	.long	.LASF21
+	.long	.LASF22
 	.byte	0x9
 	.byte	0x86
 	.long	0x4d
 	.uleb128 0xe
-	.long	.LASF22
+	.long	.LASF23
 	.byte	0x9
 	.byte	0x87
-	.long	0x209
+	.long	0x214
 	.uleb128 0xe
-	.long	.LASF23
+	.long	.LASF24
 	.byte	0x9
 	.byte	0x89
 	.long	0x66
 	.uleb128 0xf
 	.byte	0x1
-	.long	.LASF24
+	.long	.LASF25
 	.byte	0x9
 	.byte	0x8a
 	.byte	0x1
 	.byte	0x1
-	.long	0x1dc
+	.long	0x1e7
 	.uleb128 0x10
 	.long	0x71
 	.byte	0x0
 	.uleb128 0x11
 	.byte	0x1
-	.long	.LASF44
+	.long	.LASF46
 	.byte	0x15
 	.byte	0x0
 	.byte	0x1
-	.long	0x209
+	.long	0x214
 	.byte	0x1
-	.long	0x1f4
+	.long	0x1ff
 	.uleb128 0x10
-	.long	0x209
+	.long	0x214
 	.byte	0x0
 	.uleb128 0x12
 	.byte	0x1
-	.long	.LASF25
+	.long	.LASF26
 	.byte	0x15
 	.byte	0x0
 	.byte	0x1
-	.long	0x209
+	.long	0x214
 	.byte	0x1
 	.uleb128 0x10
-	.long	0x209
+	.long	0x214
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x2
 	.byte	0x4
 	.byte	0x4
-	.long	.LASF26
+	.long	.LASF27
 	.uleb128 0x13
 	.byte	0x1
-	.long	.LASF27
+	.long	.LASF28
 	.byte	0x1
 	.byte	0x14
 	.byte	0x1
 	.byte	0x1
-	.long	0x235
+	.long	0x240
 	.uleb128 0x14
 	.string	"led"
 	.byte	0x1
 	.byte	0x14
-	.long	0x142
+	.long	0x14d
 	.uleb128 0xd
-	.long	.LASF29
+	.long	.LASF30
 	.byte	0x1
 	.byte	0x14
 	.long	0x9b
 	.byte	0x0
 	.uleb128 0x15
-	.long	.LASF50
+	.long	.LASF56
 	.byte	0x1
 	.byte	0x2d
 	.byte	0x1
@@ -6688,38 +6882,38 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x297
+	.long	0x2a2
 	.uleb128 0x16
-	.long	.LASF30
+	.long	.LASF31
 	.byte	0x1
 	.byte	0x2d
 	.long	0x4d
 	.long	.LLST0
 	.uleb128 0x17
-	.long	0x18f
+	.long	0x19a
 	.long	.LBB9
 	.long	.LBE9
 	.byte	0x1
 	.byte	0x2e
 	.uleb128 0x18
-	.long	0x19c
+	.long	0x1a7
 	.long	.LLST1
 	.uleb128 0x19
 	.long	.LBB10
 	.long	.LBE10
 	.uleb128 0x1a
-	.long	0x1a7
-	.uleb128 0x1b
 	.long	0x1b2
-	.long	.LLST2
 	.uleb128 0x1b
 	.long	0x1bd
+	.long	.LLST2
+	.uleb128 0x1b
+	.long	0x1c8
 	.long	.LLST3
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x1c
-	.long	.LASF51
+	.long	.LASF57
 	.byte	0x1
 	.byte	0x2c
 	.long	.LFB10
@@ -6728,35 +6922,35 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x2eb
+	.long	0x2f6
 	.uleb128 0x17
-	.long	0x18f
+	.long	0x19a
 	.long	.LBB11
 	.long	.LBE11
 	.byte	0x1
 	.byte	0x2c
 	.uleb128 0x1d
-	.long	0x19c
+	.long	0x1a7
 	.byte	0x4
 	.long	0x43480000
 	.uleb128 0x19
 	.long	.LBB12
 	.long	.LBE12
 	.uleb128 0x1a
-	.long	0x1a7
-	.uleb128 0x1e
 	.long	0x1b2
+	.uleb128 0x1e
+	.long	0x1bd
 	.byte	0x4
 	.long	0x4a742400
 	.uleb128 0x1f
-	.long	0x1bd
+	.long	0x1c8
 	.long	0x3d0900
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF31
+	.long	.LASF32
 	.byte	0x1
 	.byte	0xc
 	.byte	0x1
@@ -6766,17 +6960,17 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x314
+	.long	0x31f
 	.uleb128 0x21
 	.string	"led"
 	.byte	0x1
 	.byte	0xc
-	.long	0x142
+	.long	0x14d
 	.long	.LLST4
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF32
+	.long	.LASF33
 	.byte	0x1
 	.byte	0x10
 	.byte	0x1
@@ -6786,33 +6980,33 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x33d
+	.long	0x348
 	.uleb128 0x21
 	.string	"led"
 	.byte	0x1
 	.byte	0x10
-	.long	0x142
+	.long	0x14d
 	.long	.LLST5
 	.byte	0x0
 	.uleb128 0x22
-	.long	0x210
+	.long	0x21b
 	.long	.LFB6
 	.long	.LFE6
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x365
-	.uleb128 0x18
-	.long	0x21e
-	.long	.LLST6
+	.long	0x370
 	.uleb128 0x18
 	.long	0x229
+	.long	.LLST6
+	.uleb128 0x18
+	.long	0x234
 	.long	.LLST7
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF33
+	.long	.LASF34
 	.byte	0x1
 	.byte	0x18
 	.byte	0x1
@@ -6822,21 +7016,21 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x3e5
+	.long	0x3f0
 	.uleb128 0x16
-	.long	.LASF18
+	.long	.LASF19
 	.byte	0x1
 	.byte	0x18
-	.long	0x17e
+	.long	0x189
 	.long	.LLST8
 	.uleb128 0x16
-	.long	.LASF15
+	.long	.LASF16
 	.byte	0x1
 	.byte	0x18
 	.long	0x4d
 	.long	.LLST9
 	.uleb128 0x23
-	.long	.LASF34
+	.long	.LASF35
 	.byte	0x1
 	.byte	0x19
 	.long	0x4d
@@ -6851,23 +7045,23 @@ flashAllLeds:
 	.long	0x46
 	.long	.LLST11
 	.uleb128 0x25
-	.long	0x210
+	.long	0x21b
 	.long	.LBB14
 	.long	.Ldebug_ranges0+0x0
 	.byte	0x1
 	.byte	0x1b
 	.uleb128 0x18
-	.long	0x229
+	.long	0x234
 	.long	.LLST12
 	.uleb128 0x18
-	.long	0x21e
+	.long	0x229
 	.long	.LLST13
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF35
+	.long	.LASF36
 	.byte	0x1
 	.byte	0x20
 	.byte	0x1
@@ -6877,12 +7071,12 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x434
+	.long	0x43f
 	.uleb128 0x16
-	.long	.LASF18
+	.long	.LASF19
 	.byte	0x1
 	.byte	0x20
-	.long	0x17e
+	.long	0x189
 	.long	.LLST14
 	.uleb128 0x19
 	.long	.LBB18
@@ -6903,7 +7097,7 @@ flashAllLeds:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF36
+	.long	.LASF37
 	.byte	0x1
 	.byte	0x26
 	.byte	0x1
@@ -6913,12 +7107,12 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x483
+	.long	0x48e
 	.uleb128 0x16
-	.long	.LASF18
+	.long	.LASF19
 	.byte	0x1
 	.byte	0x26
-	.long	0x17e
+	.long	0x189
 	.long	.LLST17
 	.uleb128 0x19
 	.long	.LBB19
@@ -6939,7 +7133,7 @@ flashAllLeds:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF37
+	.long	.LASF38
 	.byte	0x1
 	.byte	0x31
 	.byte	0x1
@@ -6949,21 +7143,21 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x4e1
+	.long	0x4ec
 	.uleb128 0x16
-	.long	.LASF18
+	.long	.LASF19
 	.byte	0x1
 	.byte	0x31
-	.long	0x17e
+	.long	0x189
 	.long	.LLST20
 	.uleb128 0x16
-	.long	.LASF38
+	.long	.LASF39
 	.byte	0x1
 	.byte	0x31
 	.long	0x4d
 	.long	.LLST21
 	.uleb128 0x16
-	.long	.LASF39
+	.long	.LASF40
 	.byte	0x1
 	.byte	0x31
 	.long	0x34
@@ -6981,7 +7175,7 @@ flashAllLeds:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF40
+	.long	.LASF41
 	.byte	0x1
 	.byte	0x3a
 	.byte	0x1
@@ -6991,15 +7185,15 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x519
+	.long	0x524
 	.uleb128 0x16
-	.long	.LASF18
+	.long	.LASF19
 	.byte	0x1
 	.byte	0x3a
-	.long	0x17e
+	.long	0x189
 	.long	.LLST24
 	.uleb128 0x16
-	.long	.LASF39
+	.long	.LASF40
 	.byte	0x1
 	.byte	0x3a
 	.long	0x34
@@ -7007,7 +7201,7 @@ flashAllLeds:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF41
+	.long	.LASF42
 	.byte	0x1
 	.byte	0x3e
 	.byte	0x1
@@ -7017,15 +7211,15 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x568
+	.long	0x573
 	.uleb128 0x21
 	.string	"led"
 	.byte	0x1
 	.byte	0x3e
-	.long	0x142
+	.long	0x14d
 	.long	.LLST26
 	.uleb128 0x16
-	.long	.LASF39
+	.long	.LASF40
 	.byte	0x1
 	.byte	0x3e
 	.long	0x34
@@ -7043,7 +7237,7 @@ flashAllLeds:
 	.byte	0x0
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF42
+	.long	.LASF43
 	.byte	0x1
 	.byte	0x47
 	.byte	0x1
@@ -7053,25 +7247,25 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x5a0
+	.long	0x5ab
 	.uleb128 0x21
 	.string	"led"
 	.byte	0x1
 	.byte	0x47
-	.long	0x142
+	.long	0x14d
 	.long	.LLST29
 	.uleb128 0x16
-	.long	.LASF30
+	.long	.LASF31
 	.byte	0x1
 	.byte	0x47
-	.long	0x5a0
+	.long	0x5ab
 	.long	.LLST30
 	.byte	0x0
 	.uleb128 0x26
 	.long	0x4d
 	.uleb128 0x20
 	.byte	0x1
-	.long	.LASF43
+	.long	.LASF44
 	.byte	0x1
 	.byte	0x4d
 	.byte	0x1
@@ -7081,27 +7275,27 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x5ec
+	.long	0x5f7
 	.uleb128 0x16
-	.long	.LASF18
+	.long	.LASF19
 	.byte	0x1
 	.byte	0x4d
-	.long	0x17e
+	.long	0x189
 	.long	.LLST31
 	.uleb128 0x16
-	.long	.LASF38
+	.long	.LASF39
 	.byte	0x1
 	.byte	0x4d
 	.long	0x4d
 	.long	.LLST32
 	.uleb128 0x16
-	.long	.LASF30
+	.long	.LASF31
 	.byte	0x1
 	.byte	0x4d
 	.long	0x4d
 	.long	.LLST33
 	.byte	0x0
-	.uleb128 0x27
+	.uleb128 0x20
 	.byte	0x1
 	.long	.LASF45
 	.byte	0x1
@@ -7113,18 +7307,56 @@ flashAllLeds:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
+	.long	0x62f
 	.uleb128 0x16
-	.long	.LASF18
+	.long	.LASF19
 	.byte	0x1
 	.byte	0x53
-	.long	0x17e
+	.long	0x189
 	.long	.LLST34
 	.uleb128 0x16
-	.long	.LASF30
+	.long	.LASF31
 	.byte	0x1
 	.byte	0x53
 	.long	0x4d
 	.long	.LLST35
+	.byte	0x0
+	.uleb128 0x27
+	.byte	0x1
+	.long	.LASF47
+	.byte	0x1
+	.byte	0x57
+	.byte	0x1
+	.long	.LFB18
+	.long	.LFE18
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.uleb128 0x16
+	.long	.LASF48
+	.byte	0x1
+	.byte	0x57
+	.long	0x189
+	.long	.LLST36
+	.uleb128 0x16
+	.long	.LASF49
+	.byte	0x1
+	.byte	0x57
+	.long	0x189
+	.long	.LLST37
+	.uleb128 0x16
+	.long	.LASF50
+	.byte	0x1
+	.byte	0x57
+	.long	0xa6
+	.long	.LLST38
+	.uleb128 0x23
+	.long	.LASF51
+	.byte	0x1
+	.byte	0x59
+	.long	0x4d
+	.long	.LLST39
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_abbrev
@@ -7667,40 +7899,42 @@ flashAllLeds:
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_pubnames,"",@progbits
-	.long	0xb9
+	.long	0xc7
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x621
-	.long	0x2eb
+	.long	0x682
+	.long	0x2f6
 	.string	"enableLed"
-	.long	0x314
+	.long	0x31f
 	.string	"disableLed"
-	.long	0x33d
+	.long	0x348
 	.string	"setLed"
-	.long	0x365
+	.long	0x370
 	.string	"setLeds"
-	.long	0x3e5
+	.long	0x3f0
 	.string	"enableLeds"
-	.long	0x434
+	.long	0x43f
 	.string	"disableLeds"
-	.long	0x483
+	.long	0x48e
 	.string	"blinkLeds"
-	.long	0x4e1
+	.long	0x4ec
 	.string	"blinkAllLeds"
-	.long	0x519
+	.long	0x524
 	.string	"blinkLed"
-	.long	0x568
+	.long	0x573
 	.string	"flashLed"
-	.long	0x5a5
+	.long	0x5b0
 	.string	"flashLeds"
-	.long	0x5ec
+	.long	0x5f7
 	.string	"flashAllLeds"
+	.long	0x62f
+	.string	"blinkByte"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
-	.long	0x67
+	.long	0x70
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x621
+	.long	0x682
 	.long	0x34
 	.string	"uint8_t"
 	.long	0x4d
@@ -7709,17 +7943,19 @@ flashAllLeds:
 	.string	"uint32_t"
 	.long	0x9b
 	.string	"BOOL"
-	.long	0xe4
+	.long	0xa6
+	.string	"byte"
+	.long	0xef
 	.string	"PPort"
-	.long	0x11a
+	.long	0x125
 	.string	"PPin"
-	.long	0x142
+	.long	0x14d
 	.string	"PLed"
-	.long	0x17e
+	.long	0x189
 	.string	"PLedGroup"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
-	.long	0x84
+	.long	0x8c
 	.word	0x2
 	.long	.Ldebug_info0
 	.byte	0x4
@@ -7754,6 +7990,8 @@ flashAllLeds:
 	.long	.LFE16-.LFB16
 	.long	.LFB17
 	.long	.LFE17-.LFB17
+	.long	.LFB18
+	.long	.LFE18-.LFB18
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
@@ -7792,6 +8030,8 @@ flashAllLeds:
 	.long	.LFE16
 	.long	.LFB17
 	.long	.LFE17
+	.long	.LFB18
+	.long	.LFE18
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -8408,57 +8648,117 @@ flashAllLeds:
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM74
+	.byte	0x6a
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM75
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM76
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM77
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM78
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM79
+	.byte	0x17
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM80
+	.byte	0x13
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM81
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM82
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LFE18
+	.byte	0x0
+	.uleb128 0x1
+	.byte	0x1
 .LELT0:
 	.section	.debug_macinfo
 	.byte	0x0
 	.section	.debug_str,"MS",@progbits,1
-.LASF28:
+.LASF51:
+	.string	"word"
+.LASF29:
 	.string	"__ms"
 .LASF12:
 	.string	"BOOL"
 .LASF10:
 	.string	"FALSE"
-.LASF24:
+.LASF25:
 	.string	"__builtin_avr_delay_cycles"
-.LASF44:
+.LASF46:
 	.string	"ceil"
-.LASF22:
+.LASF23:
 	.string	"__tmp"
-.LASF31:
+.LASF32:
 	.string	"enableLed"
-.LASF18:
+.LASF19:
 	.string	"leds"
-.LASF36:
+.LASF37:
 	.string	"disableLeds"
-.LASF29:
+.LASF50:
+	.string	"data"
+.LASF30:
 	.string	"value"
 .LASF2:
 	.string	"uint8_t"
-.LASF39:
+.LASF40:
 	.string	"times"
-.LASF19:
+.LASF20:
 	.string	"count"
-.LASF47:
+.LASF53:
 	.string	"../kernel/devices/led.c"
 .LASF8:
 	.string	"long long int"
-.LASF38:
+.LASF39:
 	.string	"ledMask"
 .LASF5:
 	.string	"long int"
-.LASF30:
+.LASF31:
 	.string	"millis"
-.LASF49:
+.LASF55:
 	.string	"_delay_ms"
-.LASF51:
+.LASF49:
+	.string	"notifier"
+.LASF13:
+	.string	"byte"
+.LASF57:
 	.string	"BLINK_DELAY"
-.LASF35:
+.LASF36:
 	.string	"enableLeds"
 .LASF1:
 	.string	"unsigned char"
-.LASF25:
+.LASF26:
 	.string	"fabs"
-.LASF42:
+.LASF43:
 	.string	"flashLed"
 .LASF0:
 	.string	"signed char"
@@ -8470,49 +8770,53 @@ flashAllLeds:
 	.string	"unsigned int"
 .LASF3:
 	.string	"uint16_t"
-.LASF27:
+.LASF28:
 	.string	"setLed"
-.LASF16:
+.LASF17:
 	.string	"PPin"
-.LASF37:
+.LASF38:
 	.string	"blinkLeds"
-.LASF40:
+.LASF41:
 	.string	"blinkAllLeds"
-.LASF50:
+.LASF56:
 	.string	"DELAY_MS"
-.LASF34:
+.LASF35:
 	.string	"iMask"
-.LASF13:
+.LASF14:
 	.string	"port"
 .LASF45:
 	.string	"flashAllLeds"
 .LASF7:
 	.string	"long unsigned int"
-.LASF32:
+.LASF33:
 	.string	"disableLed"
-.LASF26:
+.LASF27:
 	.string	"double"
-.LASF46:
-	.string	"GNU C 4.5.1"
-.LASF41:
-	.string	"blinkLed"
-.LASF15:
-	.string	"mask"
 .LASF48:
+	.string	"display"
+.LASF52:
+	.string	"GNU C 4.5.1"
+.LASF42:
+	.string	"blinkLed"
+.LASF16:
+	.string	"mask"
+.LASF54:
 	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\AntonAvrLib\\\\Debug"
-.LASF21:
+.LASF22:
 	.string	"__ticks"
-.LASF23:
+.LASF24:
 	.string	"__ticks_dc"
-.LASF43:
+.LASF44:
 	.string	"flashLeds"
-.LASF14:
+.LASF15:
 	.string	"PPort"
 .LASF11:
 	.string	"TRUE"
-.LASF33:
+.LASF34:
 	.string	"setLeds"
-.LASF17:
+.LASF18:
 	.string	"PLed"
-.LASF20:
+.LASF47:
+	.string	"blinkByte"
+.LASF21:
 	.string	"PLedGroup"

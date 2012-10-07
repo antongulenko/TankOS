@@ -96,12 +96,6 @@
     <Compile Include="kernel\devices\motor_smooth_pair.kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\hardware_reset.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\hardware_reset.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel\millisecond_clock.c">
       <SubType>compile</SubType>
     </Compile>
@@ -213,7 +207,19 @@
     <Compile Include="kernel\simple_timer.kernel.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\sleep_after_main.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\timer_base.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\commandQueueExecuter_loop.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\commandQueueExecuter.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\commandQueueExecuter_sleep.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\twi_raw.h">
@@ -228,10 +234,31 @@
     <Compile Include="kernel\TWI\twi_rpc.kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc_hash_client.h">
+    <Compile Include="kernel\TWI\twi_rpc_client.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_rpc_commandQueue_protocol.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\twi_rpc_hash_server.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_rpc_hash_server_commandQueue.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_rpc_hash_server_commandQueue.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\hardware_reset.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\hardware_reset.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\idle.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\idle.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="misc\read_buttons_loop.c">

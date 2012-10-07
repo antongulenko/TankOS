@@ -56,6 +56,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Kernel-Simulator", "Kernel-
 		{C9075471-D535-4009-B72F-2841FDEB487C} = {C9075471-D535-4009-B72F-2841FDEB487C}
 	EndProjectSection
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Test", "Test\Test.cproj", "{CA93F941-3C63-4061-838A-6908054E132E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -109,6 +111,10 @@ Global
 		{5B3081BE-676A-4216-B66E-ACB1FD7DD3FB}.Debug|AVR.Build.0 = Debug|AVR
 		{5B3081BE-676A-4216-B66E-ACB1FD7DD3FB}.Release|AVR.ActiveCfg = Release|AVR
 		{5B3081BE-676A-4216-B66E-ACB1FD7DD3FB}.Release|AVR.Build.0 = Release|AVR
+		{CA93F941-3C63-4061-838A-6908054E132E}.Debug|AVR.ActiveCfg = Debug|AVR
+		{CA93F941-3C63-4061-838A-6908054E132E}.Debug|AVR.Build.0 = Debug|AVR
+		{CA93F941-3C63-4061-838A-6908054E132E}.Release|AVR.ActiveCfg = Release|AVR
+		{CA93F941-3C63-4061-838A-6908054E132E}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

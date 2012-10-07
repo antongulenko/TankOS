@@ -32,11 +32,13 @@ void twi_handleRpcRequest(byte operation, TWIBuffer *buffer) {
 		buffer->size = 0;
 }
 
+// This base-macro defines the global TwiFunction struct and registers
+// it in the hash-table for twi-function-handlers.
 #define TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)						\
 	TwiFunction funcName##_function = { operationByte, funcName##_handler, {0} };	\
 	void funcName##_register_function() {											\
 		/* The second macro parameter 'operation' is the name of the key-field in */\
-		/* the TwiFunction struct! Do not change to operationByte. */				\
+		/* the TwiFunction struct! Do not change to 'operationByte'. */				\
 		HASH_ADD_INT(twiRpcFunctions, operation, &funcName##_function);				\
 	}																				\
 	KERNEL_INIT(funcName##_register_function)
@@ -60,7 +62,6 @@ void twi_handleRpcRequest(byte operation, TWIBuffer *buffer) {
 	TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
 
 // Signature: void funcName(TWIBuffer *resultBuffer)
-// If out_resultSize is not modified, the size of the ResultStruct struct is used.
 #define TWI_RPC_SERVER_FUNCTION_NOARGS(funcName, operationByte, ResultStruct)		\
 	void funcName##_handler(TWIBuffer *buffer) {									\
 		funcName(buffer);															\
@@ -74,6 +75,10 @@ void twi_handleRpcRequest(byte operation, TWIBuffer *buffer) {
 		buffer->size = 0;										\
 	}															\
 	TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
+
+// To let applications be source-code compatible to twi_rpc_hash_server_commandQueue.
+#define TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(a, b, c) TWI_RPC_SERVER_FUNCTION_VOID(a, b, c)
+#define TWI_RPC_SERVER_FUNCTION_ASYNC_NOTIFY(a, b) TWI_RPC_SERVER_FUNCTION_NOTIFY(a, b)
 
 // ==
 // Macros for the actual function-implementations.

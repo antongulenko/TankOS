@@ -1,12 +1,7 @@
-/*
- * kernel.h
- *
- * Created: 21.04.2012 21:55:31
- *  Author: Anton
- */ 
-
 #ifndef KERNEL_H_
 #define KERNEL_H_
+
+#define USE_TWI
 
 // #define USE_SCHEDULER
 
@@ -15,7 +10,10 @@
 
 #include "shared/kernel_base.h"
 #include "tank_motor.h"
+
+#ifdef USE_TWI
 #include "shared/twi_bgx1.h"
 #include "twi_tank_IO.h"
+#endif
 
-#endif /* KERNEL_H_ */
+#endif

@@ -19,6 +19,8 @@ void init_nibobee_motors() {
 	INIT_MOTOR(LeftMotorBase, MOTOR_NORMAL, PinD6, Timer1A)
 	INIT_MOTOR(RightMotorBase, MOTOR_INVERSE_DIRECTION, PinD7, Timer1B)
 	
+	// LeftMotorBase->maxValue = 0x0FFF;
+	
 	// Don't know why, but the lib does this... Seems to enable internal PullUp.
 	// Pins will be controlled by the timer anyways.
 	setPinOne(RightMotorBase->pwmTimer->outputComparePin);

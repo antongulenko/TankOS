@@ -220,6 +220,9 @@ void disableTimerInterrupt(PTimer timer) {
 
 void enableOutputCompare(PTimer timer) {
 	setPinOutput(timer->outputComparePin);
+	// TODO set_on_match is used, because its used for motors, and we want
+	// the timer-compare-value to reflect the voltage.
+	// Should be configured somewhere else.
 	setCompareMatchOutputMode(timer, set_on_match);
 }
 

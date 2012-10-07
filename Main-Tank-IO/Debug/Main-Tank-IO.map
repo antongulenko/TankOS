@@ -1,127 +1,134 @@
 Archive member included because of file (symbol)
 
 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
-                              tank_IO/LedOperations.o (setLeds)
+                              Main.o (setLeds)
 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
                               ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o) (writePin)
-..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-                              tank_IO/LedOperations.o (RedLeds)
+..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+                              Main.o (buttonStatusMask)
 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
-                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o) (buttonStatus)
+                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o) (buttonStatus)
 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
-                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o) (enablePinChangeInterrupt)
+                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o) (enablePinChangeInterrupt)
 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
-                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o) (setTimerClockSelect)
+                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o) (setTimerClockSelect)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o) (HARDWARE_RESET)
+..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o) (processor_loop_idle)
 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
-                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o) (__udivmodhi4)
+                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o) (__udivmodhi4)
+c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_divmodhi4.o)
+                              Main.o (__divmodhi4)
 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
                               c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o (exit)
 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
-                              tank_IO/LedOperations.o (__do_copy_data)
+                              main/LedOperations.o (__do_copy_data)
 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
-                              tank_IO/LedOperations.o (__do_clear_bss)
+                              main/LedOperations.o (__do_clear_bss)
 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
-                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o) (malloc)
+                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o) (malloc)
 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcmp.o)
-                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o) (memcmp)
+                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o) (memcmp)
 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcpy.o)
-                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o) (memcpy)
+                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o) (memcpy)
 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
-                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o) (memset)
+                              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o) (memset)
 
 Allocating common symbols
 Common symbol       size              file
 
-ButtonSwitch_       0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-twi_address         0x1               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinA5_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinD7_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinC1_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinC4_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Button3_            0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-leds_right          0x2               tank_IO/LedOperations.o
-Green1_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinC7_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-YellowLeds_         0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinA6_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-White4_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-WhiteLeds_          0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinB2_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinD0_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-sendBufferData      0xff              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
+ButtonSwitch_       0x4               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+twi_address         0x1               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinA5_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinD7_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinC1_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinC4_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Button3_            0x4               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+leds_right          0x2               main/LedOperations.o
+Green1_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinC7_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+YellowLeds_         0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinA6_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+White4_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+WhiteLeds_          0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinB2_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinD0_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+sendBufferData      0xff              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
 twi_defaultSlaveBufferData
-                    0xff              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinA1_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer3A_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer1A_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Red1_               0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer1_             0x7               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinC2_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-leds_middle         0x2               tank_IO/LedOperations.o
-PortD_              0x6               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer2_             0x7               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer3_             0x7               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer0B_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
+                    0xff              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinA1_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer3A_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer1A_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Red1_               0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer1_             0x7               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinC2_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+leds_middle         0x2               main/LedOperations.o
+PortD_              0x6               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer2_             0x7               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer3_             0x7               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer0B_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
 __brkval            0x2               c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
-PinC3_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinA4_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinC5_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PortB_              0x6               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinC0_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-alreadyHandled      0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-twi_error           0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Green2_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinB1_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinA7_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Red3_               0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinB7_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PortC_              0x6               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer1B_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinD5_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-White5_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinA0_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinD2_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer2B_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinC6_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer3B_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Red5_               0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-White1_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinD4_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Yellow2_            0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-leds_left           0x2               tank_IO/LedOperations.o
-nextTwiOperation    0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-MiddleLeds_         0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinB5_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-twi_buffer          0x4               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinA3_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Button4_            0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-twi_running         0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Button2_            0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinD3_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-AllLeds_            0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer0_             0x7               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinB0_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinB4_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Red4_               0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinD6_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-White2_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-GreenLeds_          0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Yellow1_            0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinA2_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PortA_              0x6               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinB3_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
+PinC3_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinA4_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinC5_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PortB_              0x6               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinC0_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+alreadyHandled      0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+twi_error           0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Green2_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinB1_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinA7_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Red3_               0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinB7_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PortC_              0x6               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer1B_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+buttonMutex         0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinD5_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+White5_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinA0_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinD2_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer2B_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinC6_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer3B_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Red5_               0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+White1_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinD4_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Yellow2_            0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+leds_left           0x2               main/LedOperations.o
+nextTwiOperation    0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+MiddleLeds_         0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinB5_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+twi_buffer          0x4               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinA3_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Button4_            0x4               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+twi_running         0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Button2_            0x4               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinD3_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+AllLeds_            0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer0_             0x7               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinB0_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinB4_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Red4_               0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinD6_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+White2_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+GreenLeds_          0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Yellow1_            0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinA2_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PortA_              0x6               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinB3_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
 __flp               0x2               c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
-Red2_               0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Green3_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-receiveBuffer       0x4               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-furtherOperations   0x15              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinD1_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer2A_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-RedLeds_            0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Button1_            0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-PinB6_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-White3_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-Timer0A_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
+Red2_               0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Green3_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+receiveBuffer       0x4               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+furtherOperations   0x15              ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinD1_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer2A_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+RedLeds_            0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Button1_            0x4               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+PinB6_              0x3               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+White3_             0x2               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+Timer0A_            0x8               ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
 
 Memory Configuration
 
@@ -139,7 +146,7 @@ Linker script and memory map
 Address of section .data set to 0x800100
 LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
 LOAD Main.o
-LOAD tank_IO/LedOperations.o
+LOAD main/LedOperations.o
 START GROUP
 LOAD ..\..\AntonAvrLib\Debug\libAntonAvrLib.a
 LOAD ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a
@@ -239,7 +246,7 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x26bc
+.text           0x00000000     0x66f8
  *(.vectors)
  .vectors       0x00000000       0x8c c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
                 0x00000000                __vector_default
@@ -289,257 +296,374 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
  *(.init7)
  *(.init7)
  *(.init8)
- .init8         0x000000c2       0x28 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
+ .init8         0x000000c2       0x6a ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
                 0x000000c2                init_reset_condition_kernel_init
                 0x000000c6                init_ports_m1284P_kernel_init
-                0x000000ca                init_tank_leds_kernel_init
-                0x000000ce                init_tank_buttons_kernel_init
-                0x000000d2                init_timer_m1284P_kernel_init
-                0x000000d6                init_timer_kernel_init
+                0x000000ca                init_timer_m1284P_kernel_init
+                0x000000ce                init_timer_kernel_init
+                0x000000d2                init_tank_leds_kernel_init
+                0x000000d6                init_tank_buttons_kernel_init
                 0x000000da                init_twi_kernel_init
-                0x000000de                tankIO_server_readButtons_register_function_kernel_init
-                0x000000e2                tankIO_server_writeLeds_register_function_kernel_init
-                0x000000e6                init_kernel_kernel_init
+                0x000000de                tankIO_server_reset_register_function_kernel_init
+                0x000000e2                TANKIO_server_isInitialized_register_function_kernel_init
+                0x000000e6                tankIO_server_buttonStatus_register_function_kernel_init
+                0x000000ea                tankIO_server_pressedButtons_register_function_kernel_init
+                0x000000ee                tankIO_server_enableLed_register_function_kernel_init
+                0x000000f2                tankIO_server_disableLed_register_function_kernel_init
+                0x000000f6                tankIO_server_setLed_register_function_kernel_init
+                0x000000fa                tankIO_server_setLeds_register_function_kernel_init
+                0x000000fe                tankIO_server_enableLeds_register_function_kernel_init
+                0x00000102                tankIO_server_disableLeds_register_function_kernel_init
+                0x00000106                tankIO_server_blinkLed_register_function_kernel_init
+                0x0000010a                tankIO_server_blinkLeds_register_function_kernel_init
+                0x0000010e                tankIO_server_blinkAllLeds_register_function_kernel_init
+                0x00000112                tankIO_server_flashLed_register_function_kernel_init
+                0x00000116                tankIO_server_flashLeds_register_function_kernel_init
+                0x0000011a                tankIO_server_flashAllLeds_register_function_kernel_init
+                0x0000011e                tankIO_server_blinkByte_register_function_kernel_init
+                0x00000122                init_kernel_kernel_init
+                0x00000126                tankIO_system_initialized_kernel_init
  *(.init8)
  *(.init9)
- .init9         0x000000ea        0x8 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .init9         0x0000012c        0x8 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
  *(.init9)
  *(.text)
- .text          0x000000f2        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
-                0x000000f2                __vector_22
-                0x000000f2                __vector_28
-                0x000000f2                __vector_1
-                0x000000f2                __vector_34
-                0x000000f2                __vector_24
-                0x000000f2                __vector_12
-                0x000000f2                __bad_interrupt
-                0x000000f2                __vector_6
-                0x000000f2                __vector_31
-                0x000000f2                __vector_3
-                0x000000f2                __vector_23
-                0x000000f2                __vector_30
-                0x000000f2                __vector_25
-                0x000000f2                __vector_11
-                0x000000f2                __vector_13
-                0x000000f2                __vector_17
-                0x000000f2                __vector_19
-                0x000000f2                __vector_7
-                0x000000f2                __vector_27
-                0x000000f2                __vector_5
-                0x000000f2                __vector_33
-                0x000000f2                __vector_4
-                0x000000f2                __vector_9
-                0x000000f2                __vector_2
-                0x000000f2                __vector_21
-                0x000000f2                __vector_15
-                0x000000f2                __vector_29
-                0x000000f2                __vector_8
-                0x000000f2                __vector_14
-                0x000000f2                __vector_10
-                0x000000f2                __vector_16
-                0x000000f2                __vector_18
-                0x000000f2                __vector_20
- .text          0x000000f6        0x0 Main.o
- .text          0x000000f6        0x0 tank_IO/LedOperations.o
- .text          0x000000f6        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
- .text          0x000000f6        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
- .text          0x000000f6     0x1b36 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-                0x000001b0                tankIO_server_writeLeds_handler
-                0x000001fe                init_reset_condition
-                0x00000218                getResetStatus
-                0x0000021e                init_ports_m1284P
-                0x00000438                init_tank_leds
-                0x00000584                initButton
-                0x000005a6                initInterruptButton
-                0x000005c0                init_tank_buttons
-                0x0000063a                init_timer_m1284P
-                0x000007d8                init_timer
-                0x00000812                in_timer_tick
-                0x00000814                __vector_32
-                0x0000088a                mutex_create
-                0x00000890                mutex_lock
-                0x00000894                mutex_trylock
-                0x0000089c                mutex_release
-                0x000008a0                twi_unexpectedCondition
-                0x000008a2                init_twi
-                0x000008c0                next_twi_operation
-                0x000009a2                twi_start_master_operation
-                0x000009ce                twiMultipleOperations
-                0x00000a34                twiSendReceive
-                0x00000a9e                twiReceive
-                0x00000aea                twiSend
-                0x00000b3a                WAIT_FOR_TWI
-                0x00000b4e                twi_handleMasterRequest
-                0x00000b60                twi_rpc_oneway
-                0x00000b88                bgx1_setIllumination
-                0x00000b9e                bgx1_termPrint_base
-                0x00000bb2                bgx1_termScroll
-                0x00000bc8                bgx1_termGoto
-                0x00000bde                bgx1_termClear
-                0x00000bf4                bgx1_lineTo
-                0x00000c0a                bgx1_selectFont
-                0x00000c20                bgx1_fillAll
-                0x00000c36                bgx1_mode
-                0x00000c4c                bgx1_move
-                0x00000c62                bgx1_setStatus
-                0x00000c78                bgx1_reset
-                0x00000c8e                twi_rpc
-                0x00000cca                bgx1_syncInterface
-                0x00000d0e                bgx1_getAnalog
-                0x00000d56                bgx1_syncPort
-                0x00000d9a                bgx1_embeddedImage
-                0x00000de2                bgx1_drawBitmap_base
-                0x00000e28                bgx1_box
-                0x00000e70                bgx1_vLine
-                0x00000eb8                bgx1_hLine
-                0x00000f00                bgx1_textWidth_base
-                0x00000f42                bgx1_print_base
-                0x00000f88                bgx1_getStatus
-                0x00000fcc                bgx1_getVersion
-                0x00001014                twi_handleRpcRequest
-                0x00001138                twi_handleMasterTransmission
-                0x00001192                __vector_26
-                0x00001434                tankIO_server_readButtons
-                0x0000149c                tankIO_server_readButtons_handler
-                0x000014a2                tankIO_server_readButtons_register_function
-                0x0000184e                tankIO_server_writeLeds
-                0x0000185e                tankIO_server_writeLeds_register_function
-                0x00001c0a                before_timer
-                0x00001c0c                init_kernel
- .text          0x00001c2c        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
- .text          0x00001c2c        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
- .text          0x00001c2c        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
- .text          0x00001c2c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
- .text          0x00001c2c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
- .text          0x00001c2c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
- .text          0x00001c2c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
- .text          0x00001c2c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
- .text          0x00001c2c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcmp.o)
- .text          0x00001c2c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcpy.o)
- .text          0x00001c2c        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
-                0x00001c2c                . = ALIGN (0x2)
+ .text          0x00000134        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+                0x00000134                __vector_22
+                0x00000134                __vector_28
+                0x00000134                __vector_1
+                0x00000134                __vector_34
+                0x00000134                __vector_24
+                0x00000134                __vector_12
+                0x00000134                __bad_interrupt
+                0x00000134                __vector_6
+                0x00000134                __vector_31
+                0x00000134                __vector_3
+                0x00000134                __vector_23
+                0x00000134                __vector_30
+                0x00000134                __vector_25
+                0x00000134                __vector_11
+                0x00000134                __vector_13
+                0x00000134                __vector_17
+                0x00000134                __vector_19
+                0x00000134                __vector_7
+                0x00000134                __vector_27
+                0x00000134                __vector_5
+                0x00000134                __vector_33
+                0x00000134                __vector_4
+                0x00000134                __vector_9
+                0x00000134                __vector_2
+                0x00000134                __vector_21
+                0x00000134                __vector_15
+                0x00000134                __vector_29
+                0x00000134                __vector_8
+                0x00000134                __vector_14
+                0x00000134                __vector_10
+                0x00000134                __vector_16
+                0x00000134                __vector_18
+                0x00000134                __vector_20
+ .text          0x00000138        0x0 Main.o
+ .text          0x00000138        0x0 main/LedOperations.o
+ .text          0x00000138        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+ .text          0x00000138        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .text          0x00000138     0x5908 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+                0x000001f0                TANKIO_server_isInitialized_handler
+                0x0000023a                init_reset_condition
+                0x00000254                getResetStatus
+                0x0000025a                init_ports_m1284P
+                0x00000474                init_timer_m1284P
+                0x00000612                init_timer
+                0x0000064c                in_timer_tick
+                0x0000064e                __vector_32
+                0x000006c4                mutex_create
+                0x000006ce                mutex_lock
+                0x000006e0                mutex_trylock
+                0x000006ea                mutex_release
+                0x000006ee                init_tank_leds
+                0x0000084c                initButton
+                0x0000087a                init_tank_buttons
+                0x00000924                buttonStatusMask
+                0x00000974                pressedButtons
+                0x0000098c                updateButtonStatus
+                0x000009e8                twi_unexpectedCondition
+                0x000009ea                init_twi
+                0x00000a08                next_twi_operation
+                0x00000afe                twi_start_master_operation
+                0x00000b2a                twiMultipleOperations
+                0x00000b90                twiSendReceive
+                0x00000bfa                twiReceive
+                0x00000c46                twiSend
+                0x00000c96                WAIT_FOR_TWI
+                0x00000ca8                turn_word
+                0x00000cb4                twi_handleMasterRequest
+                0x00000cc6                twi_rpc_oneway
+                0x00000cee                twi_rpc_pseudo_oneway
+                0x00000d20                bgx1_setIllumination
+                0x00000d50                bgx1_termScroll
+                0x00000d7c                bgx1_termGoto_base
+                0x00000dac                bgx1_termClear
+                0x00000dc2                bgx1_selectFont
+                0x00000dee                bgx1_fillAll
+                0x00000e1a                bgx1_mode
+                0x00000e46                bgx1_move_base
+                0x00000e76                bgx1_setStatus
+                0x00000ea2                bgx1_reset
+                0x00000eb8                twi_rpc
+                0x00000ef4                bgx1_syncInterface
+                0x00000f40                bgx1_getAnalog_base
+                0x00000f92                bgx1_syncPort_base
+                0x00000fe4                bgx1_termPrint_base
+                0x00001026                bgx1_lineTo_base
+                0x0000107c                bgx1_embeddedImage
+                0x000010ce                bgx1_drawBitmap_base
+                0x00001114                bgx1_box_base
+                0x0000116a                bgx1_vLine
+                0x000011bc                bgx1_hLine
+                0x0000120e                bgx1_textWidth_base
+                0x00001250                bgx1_print_base
+                0x00001296                bgx1_getStatus
+                0x000012da                bgx1_getVersion_base
+                0x00001322                twi_handleRpcRequest
+                0x00001446                twi_handleMasterTransmission
+                0x000014a0                __vector_26
+                0x00001760                tankIO_system_initialized
+                0x00001768                tankIO_server_reset
+                0x00001772                tankIO_server_reset_handler
+                0x00001786                tankIO_server_reset_register_function
+                0x00001b32                TANKIO_server_isInitialized
+                0x00001b4e                TANKIO_server_isInitialized_register_function
+                0x00001efa                tankIO_server_buttonStatus
+                0x00001f18                tankIO_server_buttonStatus_handler
+                0x00001f1e                tankIO_server_buttonStatus_register_function
+                0x000022ca                tankIO_server_pressedButtons
+                0x000022e8                tankIO_server_pressedButtons_handler
+                0x000022ee                tankIO_server_pressedButtons_register_function
+                0x0000269a                toLedGroup
+                0x000026b8                toLed
+                0x0000270a                tankIO_server_enableLed
+                0x0000271c                tankIO_server_enableLed_handler
+                0x00002738                tankIO_server_enableLed_register_function
+                0x00002ae4                tankIO_server_disableLed
+                0x00002af6                tankIO_server_disableLed_handler
+                0x00002b12                tankIO_server_disableLed_register_function
+                0x00002ebe                tankIO_server_setLed
+                0x00002edc                tankIO_server_setLed_handler
+                0x00002ef8                tankIO_server_setLed_register_function
+                0x000032a4                tankIO_server_setLeds
+                0x000032d2                tankIO_server_setLeds_handler
+                0x000032ee                tankIO_server_setLeds_register_function
+                0x0000369a                tankIO_server_enableLeds
+                0x000036c0                tankIO_server_enableLeds_handler
+                0x000036dc                tankIO_server_enableLeds_register_function
+                0x00003a88                tankIO_server_disableLeds
+                0x00003aae                tankIO_server_disableLeds_handler
+                0x00003aca                tankIO_server_disableLeds_register_function
+                0x00003e76                tankIO_server_blinkLed
+                0x00003e92                tankIO_server_blinkLed_handler
+                0x00003eae                tankIO_server_blinkLed_register_function
+                0x0000425a                tankIO_server_blinkLeds
+                0x00004286                tankIO_server_blinkLeds_handler
+                0x000042a2                tankIO_server_blinkLeds_register_function
+                0x0000464e                tankIO_server_blinkAllLeds
+                0x00004676                tankIO_server_blinkAllLeds_handler
+                0x00004692                tankIO_server_blinkAllLeds_register_function
+                0x00004a3e                tankIO_server_flashLed
+                0x00004a5c                tankIO_server_flashLed_handler
+                0x00004a78                tankIO_server_flashLed_register_function
+                0x00004e24                tankIO_server_flashLeds
+                0x00004e52                tankIO_server_flashLeds_handler
+                0x00004e6e                tankIO_server_flashLeds_register_function
+                0x0000521a                tankIO_server_flashAllLeds
+                0x00005248                tankIO_server_flashAllLeds_handler
+                0x00005264                tankIO_server_flashAllLeds_register_function
+                0x00005610                tankIO_server_blinkByte
+                0x00005656                tankIO_server_blinkByte_handler
+                0x00005672                tankIO_server_blinkByte_register_function
+                0x00005a1e                before_timer
+                0x00005a20                init_kernel
+ .text          0x00005a40        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+ .text          0x00005a40        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+ .text          0x00005a40        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .text          0x00005a40        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .text          0x00005a40        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .text          0x00005a40        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+ .text          0x00005a40        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_divmodhi4.o)
+ .text          0x00005a40        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .text          0x00005a40        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .text          0x00005a40        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .text          0x00005a40        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .text          0x00005a40        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcmp.o)
+ .text          0x00005a40        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcpy.o)
+ .text          0x00005a40        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                0x00005a40                . = ALIGN (0x2)
  *(.text.*)
- .text.main     0x00001c2c       0x1c Main.o
-                0x00001c2c                main
+ .text.run_leds
+                0x00005a40       0x42 Main.o
+                0x00005a40                run_leds
+ .text.leds_special
+                0x00005a82       0x1c Main.o
+                0x00005a82                leds_special
+ .text.test_buttons
+                0x00005a9e       0x1c Main.o
+                0x00005a9e                test_buttons
+ .text.all_leds
+                0x00005aba        0xe Main.o
+                0x00005aba                all_leds
+ .text.test_communication_raw
+                0x00005ac8       0x2c Main.o
+                0x00005ac8                test_communication_raw
+ .text.main     0x00005af4        0xa Main.o
+                0x00005af4                main
  .text.led_operation_tick
-                0x00001c48       0xb0 tank_IO/LedOperations.o
-                0x00001c48                led_operation_tick
+                0x00005afe       0xb0 main/LedOperations.o
+                0x00005afe                led_operation_tick
  .text.led_operation_off
-                0x00001cf8        0xa tank_IO/LedOperations.o
-                0x00001cf8                led_operation_off
+                0x00005bae        0xa main/LedOperations.o
+                0x00005bae                led_operation_off
  .text.led_operation_1
-                0x00001d02       0x2e tank_IO/LedOperations.o
-                0x00001d02                led_operation_1
+                0x00005bb8       0x2e main/LedOperations.o
+                0x00005bb8                led_operation_1
+ .text.DELAY_MS
+                0x00005be6       0x16 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+ .text.BLINK_DELAY
+                0x00005bfc       0x14 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
  .text.enableLed
-                0x00001d30       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
-                0x00001d30                enableLed
+                0x00005c10       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005c10                enableLed
  .text.disableLed
-                0x00001d40       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
-                0x00001d40                disableLed
- .text.setLed   0x00001d50        0xc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
-                0x00001d50                setLed
- .text.setLeds  0x00001d5c       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
-                0x00001d5c                setLeds
+                0x00005c20       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005c20                disableLed
+ .text.setLed   0x00005c30        0xc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005c30                setLed
+ .text.setLeds  0x00005c3c       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005c3c                setLeds
  .text.enableLeds
-                0x00001dec       0x4c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
-                0x00001dec                enableLeds
+                0x00005ccc       0x4c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005ccc                enableLeds
  .text.disableLeds
-                0x00001e38       0x4c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
-                0x00001e38                disableLeds
+                0x00005d18       0x4c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005d18                disableLeds
  .text.blinkLeds
-                0x00001e84       0x6a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
-                0x00001e84                blinkLeds
+                0x00005d64       0x4e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005d64                blinkLeds
  .text.blinkAllLeds
-                0x00001eee        0xc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
-                0x00001eee                blinkAllLeds
+                0x00005db2        0xc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005db2                blinkAllLeds
+ .text.blinkLed
+                0x00005dbe       0x42 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005dbe                blinkLed
+ .text.flashLed
+                0x00005e00       0x26 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005e00                flashLed
+ .text.flashLeds
+                0x00005e26       0x26 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005e26                flashLeds
+ .text.flashAllLeds
+                0x00005e4c        0xc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005e4c                flashAllLeds
+ .text.blinkByte
+                0x00005e58       0x7a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00005e58                blinkByte
  .text.setPortOutput
-                0x00001efa       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
-                0x00001efa                setPortOutput
+                0x00005ed2       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00005ed2                setPortOutput
  .text.setPortInput
-                0x00001f0a        0xe ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
-                0x00001f0a                setPortInput
+                0x00005ee2        0xe ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00005ee2                setPortInput
  .text.setPinOutput
-                0x00001f18       0x1c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
-                0x00001f18                setPinOutput
+                0x00005ef0       0x1c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00005ef0                setPinOutput
  .text.setPinInput
-                0x00001f34       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
-                0x00001f34                setPinInput
+                0x00005f0c       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00005f0c                setPinInput
  .text.writePort
-                0x00001f52        0xc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
-                0x00001f52                writePort
+                0x00005f2a        0xc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00005f2a                writePort
  .text.readPort
-                0x00001f5e        0xe ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
-                0x00001f5e                readPort
+                0x00005f36        0xe ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00005f36                readPort
  .text.setPinOne
-                0x00001f6c       0x1c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
-                0x00001f6c                setPinOne
+                0x00005f44       0x1c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00005f44                setPinOne
  .text.setPinZero
-                0x00001f88       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
-                0x00001f88                setPinZero
+                0x00005f60       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00005f60                setPinZero
  .text.writePin
-                0x00001fa6       0x12 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
-                0x00001fa6                writePin
- .text.readPin  0x00001fb8       0x22 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
-                0x00001fb8                readPin
+                0x00005f7e       0x12 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00005f7e                writePin
+ .text.readPin  0x00005f90       0x22 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00005f90                readPin
  .text.buttonStatus
-                0x00001fda       0x2e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
-                0x00001fda                buttonStatus
+                0x00005fb2       0x2e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+                0x00005fb2                buttonStatus
  .text.enablePinChangeInterrupt
-                0x00002008       0x4c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
-                0x00002008                enablePinChangeInterrupt
+                0x00005fe0       0x4c ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+                0x00005fe0                enablePinChangeInterrupt
  .text.disblePinChangeInterrupt
-                0x00002054       0x36 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
-                0x00002054                disblePinChangeInterrupt
+                0x0000602c       0x36 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+                0x0000602c                disblePinChangeInterrupt
  .text.setCompareMatchOutputMode
-                0x0000208a       0x56 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
-                0x0000208a                setCompareMatchOutputMode
+                0x00006062       0x56 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00006062                setCompareMatchOutputMode
  .text.setTimerClockSelect
-                0x000020e0       0xc8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
-                0x000020e0                setTimerClockSelect
+                0x000060b8       0xc8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x000060b8                setTimerClockSelect
  .text.setWaveformGenerationMode
-                0x000021a8      0x12e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
-                0x000021a8                setWaveformGenerationMode
+                0x00006180      0x12e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00006180                setWaveformGenerationMode
  .text.enableTimerInterrupt
-                0x000022d6       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
-                0x000022d6                enableTimerInterrupt
+                0x000062ae       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x000062ae                enableTimerInterrupt
  .text.disableTimerInterrupt
-                0x000022fe       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
-                0x000022fe                disableTimerInterrupt
+                0x000062d6       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x000062d6                disableTimerInterrupt
  .text.enableOutputCompare
-                0x00002326       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
-                0x00002326                enableOutputCompare
+                0x000062fe       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x000062fe                enableOutputCompare
  .text.disableOutputCompare
-                0x00002344        0xa ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
-                0x00002344                disableOutputCompare
+                0x0000631c        0xa ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x0000631c                disableOutputCompare
  .text.setTimerCompareValue
-                0x0000234e       0x4e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
-                0x0000234e                setTimerCompareValue
+                0x00006326       0x4e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00006326                setTimerCompareValue
  .text.getTimerCompareValue
-                0x0000239c       0x54 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
-                0x0000239c                getTimerCompareValue
- .text.libgcc   0x000023f0       0x28 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
-                0x000023f0                __udivmodhi4
- .text.libgcc   0x00002418        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
- .text.libgcc   0x00002418        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
- .text.libgcc   0x00002418        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+                0x00006374       0x54 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00006374                getTimerCompareValue
+ .text.HARDWARE_RESET
+                0x000063c8       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+                0x000063c8                HARDWARE_RESET
+ .text.processor_idle
+                0x000063e8       0x12 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+                0x000063e8                processor_idle
+ .text.processor_loop_idle
+                0x000063fa        0x6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+                0x000063fa                processor_loop_idle
+ .text.libgcc   0x00006400       0x28 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+                0x00006400                __udivmodhi4
+ .text.libgcc   0x00006428       0x26 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_divmodhi4.o)
+                0x00006428                _div
+                0x00006428                __divmodhi4
+ .text.libgcc   0x0000644e        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x0000644e        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .text.libgcc   0x0000644e        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
  .text.avr-libc
-                0x00002418      0x266 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
-                0x00002418                malloc
-                0x0000254c                free
+                0x0000644e      0x266 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x0000644e                malloc
+                0x00006582                free
  .text.avr-libc
-                0x0000267e       0x1a c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcmp.o)
-                0x0000267e                memcmp
+                0x000066b4       0x1a c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcmp.o)
+                0x000066b4                memcmp
  .text.avr-libc
-                0x00002698       0x12 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcpy.o)
-                0x00002698                memcpy
+                0x000066ce       0x12 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcpy.o)
+                0x000066ce                memcpy
  .text.avr-libc
-                0x000026aa        0xe c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
-                0x000026aa                memset
-                0x000026b8                . = ALIGN (0x2)
+                0x000066e0        0xe c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                0x000066e0                memset
+                0x000066ee                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000026b8        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
-                0x000026b8                _exit
-                0x000026b8                exit
+ .fini9         0x000066ee        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+                0x000066ee                _exit
+                0x000066ee                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -556,259 +680,285 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
  *(.fini2)
  *(.fini2)
  *(.fini1)
+ .fini1         0x000066ee        0x6 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+                0x000066ee                MainProcessEnd
  *(.fini1)
  *(.fini0)
- .fini0         0x000026b8        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .fini0         0x000066f4        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x000026bc                _etext = .
+                0x000066f8                _etext = .
 
-.data           0x00800100      0x168 load address 0x000026bc
+.data           0x00800100      0x294 load address 0x000066f8
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
  .data          0x00800100        0x0 Main.o
- .data          0x00800100        0x2 tank_IO/LedOperations.o
+ .data          0x00800100        0x2 main/LedOperations.o
                 0x00800100                running
  .data          0x00800102        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
  .data          0x00800102        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
- .data          0x00800102      0x14f ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-                0x00800102                PortA
-                0x00800104                PinA0
-                0x00800106                PinA1
-                0x00800108                PinA2
-                0x0080010a                PinA3
-                0x0080010c                PinA4
-                0x0080010e                PinA5
-                0x00800110                PinA6
-                0x00800112                PinA7
-                0x00800114                PortB
-                0x00800116                PinB0
-                0x00800118                PinB1
-                0x0080011a                PinB2
-                0x0080011c                PinB3
-                0x0080011e                PinB4
-                0x00800120                PinB5
-                0x00800122                PinB6
-                0x00800124                PinB7
-                0x00800126                PortC
-                0x00800128                PinC0
-                0x0080012a                PinC1
-                0x0080012c                PinC2
-                0x0080012e                PinC3
-                0x00800130                PinC4
-                0x00800132                PinC5
-                0x00800134                PinC6
-                0x00800136                PinC7
-                0x00800138                PortD
-                0x0080013a                PinD0
-                0x0080013c                PinD1
-                0x0080013e                PinD2
-                0x00800140                PinD3
-                0x00800142                PinD4
-                0x00800144                PinD5
-                0x00800146                PinD6
-                0x00800148                PinD7
-                0x0080014a                White1
-                0x0080014c                White2
-                0x0080014e                White3
-                0x00800150                White4
-                0x00800152                White5
-                0x00800154                Red1
-                0x00800156                Red2
-                0x00800158                Red3
-                0x0080015a                Red4
-                0x0080015c                Red5
-                0x0080015e                Green1
-                0x00800160                Green2
-                0x00800162                Green3
-                0x00800164                Yellow1
-                0x00800166                Yellow2
-                0x00800168                RedLeds
-                0x0080016a                YellowLeds
-                0x0080016c                WhiteLeds
-                0x0080016e                GreenLeds
-                0x00800170                MiddleLeds
-                0x00800172                AllLeds
-                0x00800174                redLedsArray
-                0x0080017e                yellowLedsArray
-                0x00800182                whiteLedsArray
-                0x0080018c                greenLedsArray
-                0x00800192                middleLedsArray
-                0x0080019c                allLedsArray
-                0x008001ba                Button1
-                0x008001bc                Button2
-                0x008001be                Button3
-                0x008001c0                Button4
-                0x008001c2                ButtonSwitch
-                0x008001c4                bgx1
-                0x008001c5                Timer0
-                0x008001c7                Timer1
-                0x008001c9                Timer2
-                0x008001cb                Timer3
-                0x008001cd                Timer0A
-                0x008001cf                Timer0B
-                0x008001d1                Timer1A
-                0x008001d3                Timer1B
-                0x008001d5                Timer2A
-                0x008001d7                Timer2B
-                0x008001d9                Timer3A
-                0x008001db                Timer3B
+ .data          0x00800102      0x27c ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+                0x00800102                Button1
+                0x00800104                Button2
+                0x00800106                Button3
+                0x00800108                Button4
+                0x0080010a                ButtonSwitch
+                0x0080010c                White1
+                0x0080010e                White2
+                0x00800110                White3
+                0x00800112                White4
+                0x00800114                White5
+                0x00800116                Red1
+                0x00800118                Red2
+                0x0080011a                Red3
+                0x0080011c                Red4
+                0x0080011e                Red5
+                0x00800120                Green1
+                0x00800122                Green2
+                0x00800124                Green3
+                0x00800126                Yellow1
+                0x00800128                Yellow2
+                0x0080012a                RedLeds
+                0x0080012c                YellowLeds
+                0x0080012e                WhiteLeds
+                0x00800130                GreenLeds
+                0x00800132                MiddleLeds
+                0x00800134                AllLeds
+                0x00800136                bgx1
+                0x00800137                PortA
+                0x00800139                PinA0
+                0x0080013b                PinA1
+                0x0080013d                PinA2
+                0x0080013f                PinA3
+                0x00800141                PinA4
+                0x00800143                PinA5
+                0x00800145                PinA6
+                0x00800147                PinA7
+                0x00800149                PortB
+                0x0080014b                PinB0
+                0x0080014d                PinB1
+                0x0080014f                PinB2
+                0x00800151                PinB3
+                0x00800153                PinB4
+                0x00800155                PinB5
+                0x00800157                PinB6
+                0x00800159                PinB7
+                0x0080015b                PortC
+                0x0080015d                PinC0
+                0x0080015f                PinC1
+                0x00800161                PinC2
+                0x00800163                PinC3
+                0x00800165                PinC4
+                0x00800167                PinC5
+                0x00800169                PinC6
+                0x0080016b                PinC7
+                0x0080016d                PortD
+                0x0080016f                PinD0
+                0x00800171                PinD1
+                0x00800173                PinD2
+                0x00800175                PinD3
+                0x00800177                PinD4
+                0x00800179                PinD5
+                0x0080017b                PinD6
+                0x0080017d                PinD7
+                0x0080017f                Timer0
+                0x00800181                Timer1
+                0x00800183                Timer2
+                0x00800185                Timer3
+                0x00800187                Timer0A
+                0x00800189                Timer0B
+                0x0080018b                Timer1A
+                0x0080018d                Timer1B
+                0x0080018f                Timer2A
+                0x00800191                Timer2B
+                0x00800193                Timer3A
+                0x00800195                Timer3B
+                0x00800197                redLedsArray
+                0x008001a1                yellowLedsArray
+                0x008001a5                whiteLedsArray
+                0x008001af                greenLedsArray
+                0x008001b5                middleLedsArray
+                0x008001bf                allLedsArray
                 0x008001dd                twi_defaultSlaveBuffer
                 0x008001e1                sendBuffer
-                0x008001e5                tankIO_server_readButtons_function
-                0x008001f8                tankIO_server_writeLeds_function
- .data          0x00800251        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
- .data          0x00800251        0x8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
-                0x00800251                maskRegisters
- .data          0x00800259        0x8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
- .data          0x00800261        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
- .data          0x00800261        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
- .data          0x00800261        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
- .data          0x00800261        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
- .data          0x00800261        0x6 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
-                0x00800261                __malloc_margin
-                0x00800263                __malloc_heap_start
-                0x00800265                __malloc_heap_end
- .data          0x00800267        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcmp.o)
- .data          0x00800267        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcpy.o)
- .data          0x00800267        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+                0x008001e5                tankIO_server_reset_function
+                0x008001f8                TANKIO_server_isInitialized_function
+                0x0080020b                tankIO_server_buttonStatus_function
+                0x0080021e                tankIO_server_pressedButtons_function
+                0x00800231                tankIO_server_enableLed_function
+                0x00800244                tankIO_server_disableLed_function
+                0x00800257                tankIO_server_setLed_function
+                0x0080026a                tankIO_server_setLeds_function
+                0x0080027d                tankIO_server_enableLeds_function
+                0x00800290                tankIO_server_disableLeds_function
+                0x008002a3                tankIO_server_blinkLed_function
+                0x008002b6                tankIO_server_blinkLeds_function
+                0x008002c9                tankIO_server_blinkAllLeds_function
+                0x008002dc                tankIO_server_flashLed_function
+                0x008002ef                tankIO_server_flashLeds_function
+                0x00800302                tankIO_server_flashAllLeds_function
+                0x00800315                tankIO_server_blinkByte_function
+ .data          0x0080037e        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+ .data          0x0080037e        0x8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+                0x0080037e                maskRegisters
+ .data          0x00800386        0x8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .data          0x0080038e        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .data          0x0080038e        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .data          0x0080038e        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+ .data          0x0080038e        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_divmodhi4.o)
+ .data          0x0080038e        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .data          0x0080038e        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .data          0x0080038e        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .data          0x0080038e        0x6 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x0080038e                __malloc_margin
+                0x00800390                __malloc_heap_start
+                0x00800392                __malloc_heap_end
+ .data          0x00800394        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcmp.o)
+ .data          0x00800394        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcpy.o)
+ .data          0x00800394        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
  *(.data*)
  *(.rodata)
  *(.rodata*)
  *(.gnu.linkonce.d*)
-                0x00800268                . = ALIGN (0x2)
- *fill*         0x00800267        0x1 00
-                0x00800268                _edata = .
-                0x00800268                PROVIDE (__data_end, .)
+                0x00800394                . = ALIGN (0x2)
+                0x00800394                _edata = .
+                0x00800394                PROVIDE (__data_end, .)
 
-.bss            0x00800268      0x349
-                0x00800268                PROVIDE (__bss_start, .)
+.bss            0x00800394      0x353
+                0x00800394                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x00800268        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
- .bss           0x00800268        0x0 Main.o
- .bss           0x00800268        0x0 tank_IO/LedOperations.o
- .bss           0x00800268        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
- .bss           0x00800268        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
- .bss           0x00800268        0x8 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-                0x00800268                current_reset_status
-                0x00800269                milliseconds_running
-                0x0080026d                TWIBroadcast
-                0x0080026e                twiRpcFunctions
- .bss           0x00800270        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
- .bss           0x00800270        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
- .bss           0x00800270        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
- .bss           0x00800270        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
- .bss           0x00800270        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
- .bss           0x00800270        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
- .bss           0x00800270        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
- .bss           0x00800270        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
- .bss           0x00800270        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcmp.o)
- .bss           0x00800270        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcpy.o)
- .bss           0x00800270        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
+ .bss           0x00800394        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51/crtm1284p.o
+ .bss           0x00800394        0x0 Main.o
+ .bss           0x00800394        0x0 main/LedOperations.o
+ .bss           0x00800394        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+ .bss           0x00800394        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .bss           0x00800394        0xb ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+                0x00800394                current_reset_status
+                0x00800395                milliseconds_running
+                0x00800399                buttonsPressedSinceLastCall
+                0x0080039a                wasPressed
+                0x0080039b                TWIBroadcast
+                0x0080039c                twiRpcFunctions
+                0x0080039e                initialized
+ .bss           0x0080039f        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+ .bss           0x0080039f        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+ .bss           0x0080039f        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .bss           0x0080039f        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .bss           0x0080039f        0x0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .bss           0x0080039f        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_udivmodhi4.o)
+ .bss           0x0080039f        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_divmodhi4.o)
+ .bss           0x0080039f        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_exit.o)
+ .bss           0x0080039f        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_copy_data.o)
+ .bss           0x0080039f        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/avr51\libgcc.a(_clear_bss.o)
+ .bss           0x0080039f        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .bss           0x0080039f        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcmp.o)
+ .bss           0x0080039f        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memcpy.o)
+ .bss           0x0080039f        0x0 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(memset.o)
  *(.bss*)
  *(COMMON)
- COMMON         0x00800270        0x6 tank_IO/LedOperations.o
-                0x00800270                leds_right
-                0x00800272                leds_middle
-                0x00800274                leds_left
- COMMON         0x00800276      0x337 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-                0x00800276                ButtonSwitch_
-                0x00800279                twi_address
-                0x0080027a                PinA5_
-                0x0080027d                PinD7_
-                0x00800280                PinC1_
-                0x00800283                PinC4_
-                0x00800286                Button3_
-                0x00800289                Green1_
-                0x0080028b                PinC7_
-                0x0080028e                YellowLeds_
-                0x00800291                PinA6_
-                0x00800294                White4_
-                0x00800296                WhiteLeds_
-                0x00800299                PinB2_
-                0x0080029c                PinD0_
-                0x0080029f                sendBufferData
-                0x0080039e                twi_defaultSlaveBufferData
-                0x0080049d                PinA1_
-                0x008004a0                Timer3A_
-                0x008004a8                Timer1A_
-                0x008004b0                Red1_
-                0x008004b2                Timer1_
-                0x008004b9                PinC2_
-                0x008004bc                PortD_
-                0x008004c2                Timer2_
-                0x008004c9                Timer3_
-                0x008004d0                Timer0B_
-                0x008004d8                PinC3_
-                0x008004db                PinA4_
-                0x008004de                PinC5_
-                0x008004e1                PortB_
-                0x008004e7                PinC0_
-                0x008004ea                alreadyHandled
-                0x008004ec                twi_error
-                0x008004ee                Green2_
-                0x008004f0                PinB1_
-                0x008004f3                PinA7_
-                0x008004f6                Red3_
-                0x008004f8                PinB7_
-                0x008004fb                PortC_
-                0x00800501                Timer1B_
-                0x00800509                PinD5_
-                0x0080050c                White5_
-                0x0080050e                PinA0_
-                0x00800511                PinD2_
-                0x00800514                Timer2B_
-                0x0080051c                PinC6_
-                0x0080051f                Timer3B_
-                0x00800527                Red5_
-                0x00800529                White1_
-                0x0080052b                PinD4_
-                0x0080052e                Yellow2_
-                0x00800530                nextTwiOperation
-                0x00800532                MiddleLeds_
-                0x00800535                PinB5_
-                0x00800538                twi_buffer
-                0x0080053c                PinA3_
-                0x0080053f                Button4_
-                0x00800542                twi_running
-                0x00800544                Button2_
-                0x00800547                PinD3_
-                0x0080054a                AllLeds_
-                0x0080054d                Timer0_
-                0x00800554                PinB0_
-                0x00800557                PinB4_
-                0x0080055a                Red4_
-                0x0080055c                PinD6_
-                0x0080055f                White2_
-                0x00800561                GreenLeds_
-                0x00800564                Yellow1_
-                0x00800566                PinA2_
-                0x00800569                PortA_
-                0x0080056f                PinB3_
-                0x00800572                Red2_
-                0x00800574                Green3_
-                0x00800576                receiveBuffer
-                0x0080057a                furtherOperations
-                0x0080058f                PinD1_
-                0x00800592                Timer2A_
-                0x0080059a                RedLeds_
-                0x0080059d                Button1_
-                0x008005a0                PinB6_
-                0x008005a3                White3_
-                0x008005a5                Timer0A_
- COMMON         0x008005ad        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
-                0x008005ad                __brkval
-                0x008005af                __flp
-                0x008005b1                PROVIDE (__bss_end, .)
-                0x000026bc                __data_load_start = LOADADDR (.data)
-                0x00002824                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x0080039f        0x6 main/LedOperations.o
+                0x0080039f                leds_right
+                0x008003a1                leds_middle
+                0x008003a3                leds_left
+ COMMON         0x008003a5      0x33e ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+                0x008003a5                ButtonSwitch_
+                0x008003a9                twi_address
+                0x008003aa                PinA5_
+                0x008003ad                PinD7_
+                0x008003b0                PinC1_
+                0x008003b3                PinC4_
+                0x008003b6                Button3_
+                0x008003ba                Green1_
+                0x008003bc                PinC7_
+                0x008003bf                YellowLeds_
+                0x008003c2                PinA6_
+                0x008003c5                White4_
+                0x008003c7                WhiteLeds_
+                0x008003ca                PinB2_
+                0x008003cd                PinD0_
+                0x008003d0                sendBufferData
+                0x008004cf                twi_defaultSlaveBufferData
+                0x008005ce                PinA1_
+                0x008005d1                Timer3A_
+                0x008005d9                Timer1A_
+                0x008005e1                Red1_
+                0x008005e3                Timer1_
+                0x008005ea                PinC2_
+                0x008005ed                PortD_
+                0x008005f3                Timer2_
+                0x008005fa                Timer3_
+                0x00800601                Timer0B_
+                0x00800609                PinC3_
+                0x0080060c                PinA4_
+                0x0080060f                PinC5_
+                0x00800612                PortB_
+                0x00800618                PinC0_
+                0x0080061b                alreadyHandled
+                0x0080061d                twi_error
+                0x0080061f                Green2_
+                0x00800621                PinB1_
+                0x00800624                PinA7_
+                0x00800627                Red3_
+                0x00800629                PinB7_
+                0x0080062c                PortC_
+                0x00800632                Timer1B_
+                0x0080063a                buttonMutex
+                0x0080063c                PinD5_
+                0x0080063f                White5_
+                0x00800641                PinA0_
+                0x00800644                PinD2_
+                0x00800647                Timer2B_
+                0x0080064f                PinC6_
+                0x00800652                Timer3B_
+                0x0080065a                Red5_
+                0x0080065c                White1_
+                0x0080065e                PinD4_
+                0x00800661                Yellow2_
+                0x00800663                nextTwiOperation
+                0x00800665                MiddleLeds_
+                0x00800668                PinB5_
+                0x0080066b                twi_buffer
+                0x0080066f                PinA3_
+                0x00800672                Button4_
+                0x00800676                twi_running
+                0x00800678                Button2_
+                0x0080067c                PinD3_
+                0x0080067f                AllLeds_
+                0x00800682                Timer0_
+                0x00800689                PinB0_
+                0x0080068c                PinB4_
+                0x0080068f                Red4_
+                0x00800691                PinD6_
+                0x00800694                White2_
+                0x00800696                GreenLeds_
+                0x00800699                Yellow1_
+                0x0080069b                PinA2_
+                0x0080069e                PortA_
+                0x008006a4                PinB3_
+                0x008006a7                Red2_
+                0x008006a9                Green3_
+                0x008006ab                receiveBuffer
+                0x008006af                furtherOperations
+                0x008006c4                PinD1_
+                0x008006c7                Timer2A_
+                0x008006cf                RedLeds_
+                0x008006d2                Button1_
+                0x008006d6                PinB6_
+                0x008006d9                White3_
+                0x008006db                Timer0A_
+ COMMON         0x008006e3        0x4 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x008006e3                __brkval
+                0x008006e5                __flp
+                0x008006e7                PROVIDE (__bss_end, .)
+                0x000066f8                __data_load_start = LOADADDR (.data)
+                0x0000698c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008005b1        0x0
-                0x008005b1                PROVIDE (__noinit_start, .)
+.noinit         0x008006e7        0x0
+                0x008006e7                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x008005b1                PROVIDE (__noinit_end, .)
-                0x008005b1                _end = .
-                0x008005b1                PROVIDE (__heap_start, .)
+                0x008006e7                PROVIDE (__noinit_end, .)
+                0x008006e7                _end = .
+                0x008006e7                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -867,178 +1017,209 @@ LOAD c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x250
+.debug_aranges  0x00000000      0x380
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x20 Main.o
+                0x00000000       0x48 Main.o
  .debug_aranges
-                0x00000020       0x30 tank_IO/LedOperations.o
+                0x00000048       0x30 main/LedOperations.o
  .debug_aranges
-                0x00000050       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x00000078       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
  .debug_aranges
-                0x000000a8       0x68 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000108       0x68 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
  .debug_aranges
-                0x00000110       0x70 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
+                0x00000170       0xf8 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
  .debug_aranges
-                0x00000180       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+                0x00000268       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
  .debug_aranges
-                0x000001a0       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+                0x00000288       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
  .debug_aranges
-                0x000001c8       0x60 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x000002b0       0x60 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
  .debug_aranges
-                0x00000228       0x28 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x00000310       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_aranges
+                0x00000330       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .debug_aranges
+                0x00000358       0x28 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
 
 .debug_pubnames
-                0x00000000     0x130b
+                0x00000000     0x2170
  *(.debug_pubnames)
  .debug_pubnames
-                0x00000000       0x1b Main.o
+                0x00000000       0x72 Main.o
  .debug_pubnames
-                0x0000001b       0x8c tank_IO/LedOperations.o
+                0x00000072       0x8c main/LedOperations.o
  .debug_pubnames
-                0x000000a7       0x84 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x000000fe       0xcb ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
  .debug_pubnames
-                0x0000012b       0xa7 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x000001c9       0xa7 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
  .debug_pubnames
-                0x000001d2      0xf3d ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
+                0x00000270     0x1ca2 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
  .debug_pubnames
-                0x0000110f       0x23 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+                0x00001f12       0x23 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
  .debug_pubnames
-                0x00001132       0x5e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+                0x00001f35       0x5e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
  .debug_pubnames
-                0x00001190       0xfc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00001f93       0xfc ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
  .debug_pubnames
-                0x0000128c       0x7f c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x0000208f       0x25 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_pubnames
+                0x000020b4       0x3d ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .debug_pubnames
+                0x000020f1       0x7f c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
 
-.debug_info     0x00000000     0x4498
+.debug_info     0x00000000     0x6459
  *(.debug_info)
- .debug_info    0x00000000      0x160 Main.o
- .debug_info    0x00000160      0x2a3 tank_IO/LedOperations.o
- .debug_info    0x00000403      0x4dd ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
- .debug_info    0x000008e0      0x2d6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
- .debug_info    0x00000bb6     0x2e75 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
- .debug_info    0x00003a2b      0x184 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
- .debug_info    0x00003baf      0x139 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
- .debug_info    0x00003ce8      0x51a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
- .debug_info    0x00004202      0x296 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .debug_info    0x00000000      0x330 Main.o
+ .debug_info    0x00000330      0x2aa main/LedOperations.o
+ .debug_info    0x000005da      0x682 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+ .debug_info    0x00000c5c      0x2d6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_info    0x00000f32     0x496b ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+ .debug_info    0x0000589d      0x192 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+ .debug_info    0x00005a2f      0x139 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+ .debug_info    0x00005b68      0x51d ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_info    0x00006085       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_info    0x00006115       0xae ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .debug_info    0x000061c3      0x296 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0xbce
+.debug_abbrev   0x00000000      0xd9c
  *(.debug_abbrev)
- .debug_abbrev  0x00000000       0xf7 Main.o
- .debug_abbrev  0x000000f7       0xc8 tank_IO/LedOperations.o
- .debug_abbrev  0x000001bf      0x1e8 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
- .debug_abbrev  0x000003a7      0x100 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
- .debug_abbrev  0x000004a7      0x3af ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
- .debug_abbrev  0x00000856       0xc1 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
- .debug_abbrev  0x00000917       0xb4 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
- .debug_abbrev  0x000009cb      0x10e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
- .debug_abbrev  0x00000ad9       0xf5 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .debug_abbrev  0x00000000      0x190 Main.o
+ .debug_abbrev  0x00000190       0xc8 main/LedOperations.o
+ .debug_abbrev  0x00000258      0x21a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+ .debug_abbrev  0x00000472      0x100 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_abbrev  0x00000572      0x3f1 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+ .debug_abbrev  0x00000963       0xc1 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+ .debug_abbrev  0x00000a24       0xb4 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+ .debug_abbrev  0x00000ad8      0x11d ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_abbrev  0x00000bf5       0x4e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_abbrev  0x00000c43       0x64 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .debug_abbrev  0x00000ca7       0xf5 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
 
-.debug_line     0x00000000     0x443c
+.debug_line     0x00000000     0x5f99
  *(.debug_line)
- .debug_line    0x00000000      0x6fa Main.o
- .debug_line    0x000006fa      0x739 tank_IO/LedOperations.o
- .debug_line    0x00000e33      0x588 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
- .debug_line    0x000013bb      0x518 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
- .debug_line    0x000018d3     0x168b ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
- .debug_line    0x00002f5e      0x3f4 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
- .debug_line    0x00003352      0x44e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
- .debug_line    0x000037a0      0x897 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
- .debug_line    0x00004037      0x405 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .debug_line    0x00000000      0x846 Main.o
+ .debug_line    0x00000846      0x76c main/LedOperations.o
+ .debug_line    0x00000fb2      0x706 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+ .debug_line    0x000016b8      0x518 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_line    0x00001bd0     0x2709 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+ .debug_line    0x000042d9      0x3f4 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+ .debug_line    0x000046cd      0x44e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+ .debug_line    0x00004b1b      0x897 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_line    0x000053b2      0x3e5 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_line    0x00005797      0x3fd ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .debug_line    0x00005b94      0x405 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
 
-.debug_frame    0x00000000      0x7b0
+.debug_frame    0x00000000      0xd10
  *(.debug_frame)
- .debug_frame   0x00000000       0x20 Main.o
- .debug_frame   0x00000020       0x40 tank_IO/LedOperations.o
- .debug_frame   0x00000060       0x90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
- .debug_frame   0x000000f0       0xb0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
- .debug_frame   0x000001a0      0x4f0 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
- .debug_frame   0x00000690       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
- .debug_frame   0x000006b0       0x30 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
- .debug_frame   0x000006e0       0xa0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
- .debug_frame   0x00000780       0x30 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .debug_frame   0x00000000       0x70 Main.o
+ .debug_frame   0x00000070       0x40 main/LedOperations.o
+ .debug_frame   0x000000b0      0x100 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+ .debug_frame   0x000001b0       0xb0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_frame   0x00000260      0x940 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+ .debug_frame   0x00000ba0       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+ .debug_frame   0x00000bc0       0x30 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+ .debug_frame   0x00000bf0       0xa0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_frame   0x00000c90       0x20 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_frame   0x00000cb0       0x30 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .debug_frame   0x00000ce0       0x30 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
 
-.debug_str      0x00000000     0x18de
+.debug_str      0x00000000     0x279b
  *(.debug_str)
- .debug_str     0x00000000       0xf7 Main.o
-                                0x12b (size before relaxing)
- .debug_str     0x000000f7       0xd0 tank_IO/LedOperations.o
-                                0x194 (size before relaxing)
- .debug_str     0x000001c7       0xb2 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
-                                0x1d2 (size before relaxing)
- .debug_str     0x00000279       0x86 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_str     0x00000000      0x166 Main.o
+                                0x1ac (size before relaxing)
+ .debug_str     0x00000166       0x9b main/LedOperations.o
+                                0x196 (size before relaxing)
+ .debug_str     0x00000201       0x92 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                                0x241 (size before relaxing)
+ .debug_str     0x00000293       0x86 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
                                 0x15a (size before relaxing)
- .debug_str     0x000002ff     0x12cb ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
-                               0x1446 (size before relaxing)
- .debug_str     0x000015ca       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
-                                0x10b (size before relaxing)
- .debug_str     0x000015f2       0x94 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+ .debug_str     0x00000319     0x2121 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+                               0x22f3 (size before relaxing)
+ .debug_str     0x0000243a       0x1b ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+                                0x124 (size before relaxing)
+ .debug_str     0x00002455       0x94 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
                                 0x13d (size before relaxing)
- .debug_str     0x00001686      0x15d ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_str     0x000024e9      0x15d ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
                                 0x423 (size before relaxing)
- .debug_str     0x000017e3       0xfb c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .debug_str     0x00002646       0x28 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+                                 0xda (size before relaxing)
+ .debug_str     0x0000266e       0x32 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+                                 0xe6 (size before relaxing)
+ .debug_str     0x000026a0       0xfb c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
                                 0x17c (size before relaxing)
 
-.debug_loc      0x00000000     0x1dca
+.debug_loc      0x00000000     0x414f
  *(.debug_loc)
- .debug_loc     0x00000000      0x3a7 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
- .debug_loc     0x000003a7      0x168 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
- .debug_loc     0x0000050f      0xcdb ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
- .debug_loc     0x000011ea       0x60 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
- .debug_loc     0x0000124a       0xa3 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
- .debug_loc     0x000012ed      0x6b4 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
- .debug_loc     0x000019a1      0x429 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+ .debug_loc     0x00000000       0x44 Main.o
+ .debug_loc     0x00000044      0x582 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+ .debug_loc     0x000005c6      0x168 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_loc     0x0000072e     0x2e41 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+ .debug_loc     0x0000356f       0x60 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+ .debug_loc     0x000035cf       0xa3 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+ .debug_loc     0x00003672      0x6b4 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_loc     0x00003d26      0x429 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
 
-.debug_macinfo  0x00000000    0x4bfd2
+.debug_macinfo  0x00000000    0x5c8e4
  *(.debug_macinfo)
  .debug_macinfo
-                0x00000000     0xa688 Main.o
+                0x00000000     0xa871 Main.o
  .debug_macinfo
-                0x0000a688     0xa695 tank_IO/LedOperations.o
+                0x0000a871     0xa87e main/LedOperations.o
  .debug_macinfo
-                0x00014d1d     0x7d5b ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x000150ef     0x7d90 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
  .debug_macinfo
-                0x0001ca78     0x7cef ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x0001ce7f     0x7d24 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
  .debug_macinfo
-                0x00024767    0x100ff ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
+                0x00024ba3    0x105a6 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
  .debug_macinfo
-                0x00034866     0x7dc6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+                0x00035149     0x7dd0 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
  .debug_macinfo
-                0x0003c62c     0x7bb1 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+                0x0003cf19     0x7be6 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
  .debug_macinfo
-                0x000441dd     0x7df5 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x00044aff     0x7e2a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_macinfo
+                0x0004c929     0x7f61 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_macinfo
+                0x0005488a     0x805a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
 OUTPUT(Main-Tank-IO.elf elf32-avr)
 LOAD linker stubs
 
 .debug_pubtypes
-                0x00000000      0x4d6
+                0x00000000      0x629
  .debug_pubtypes
-                0x00000000       0x2c Main.o
+                0x00000000       0x62 Main.o
  .debug_pubtypes
-                0x0000002c       0x5e tank_IO/LedOperations.o
+                0x00000062       0x5e main/LedOperations.o
  .debug_pubtypes
-                0x0000008a       0x6b ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+                0x000000c0       0x74 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
  .debug_pubtypes
-                0x000000f5       0x3a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+                0x00000134       0x3a ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
  .debug_pubtypes
-                0x0000012f      0x24f ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
+                0x0000016e      0x31a ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
  .debug_pubtypes
-                0x0000037e       0x46 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+                0x00000488       0x46 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
  .debug_pubtypes
-                0x000003c4       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+                0x000004ce       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
  .debug_pubtypes
-                0x000003e2       0xbb ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+                0x000004ec       0xbb ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
  .debug_pubtypes
-                0x0000049d       0x39 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+                0x000005a7       0x2b ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_pubtypes
+                0x000005d2       0x1e ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .debug_pubtypes
+                0x000005f0       0x39 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
 
-.debug_ranges   0x00000000      0x1d8
- .debug_ranges  0x00000000       0x10 Main.o
- .debug_ranges  0x00000010       0x20 tank_IO/LedOperations.o
- .debug_ranges  0x00000030       0x60 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
- .debug_ranges  0x00000090       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
- .debug_ranges  0x000000e8       0x60 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(tank_kernel_IO.o)
- .debug_ranges  0x00000148       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
- .debug_ranges  0x00000158       0x18 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
- .debug_ranges  0x00000170       0x50 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
- .debug_ranges  0x000001c0       0x18 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)
+.debug_ranges   0x00000000      0x2e8
+ .debug_ranges  0x00000000       0x38 Main.o
+ .debug_ranges  0x00000038       0x20 main/LedOperations.o
+ .debug_ranges  0x00000058       0x98 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(led.o)
+ .debug_ranges  0x000000f0       0x58 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(port.o)
+ .debug_ranges  0x00000148       0xe8 ..\..\Kernel-Tank-IO\Debug\libKernel-Tank-IO.a(kernel.o)
+ .debug_ranges  0x00000230       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(button.o)
+ .debug_ranges  0x00000240       0x18 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(external_interrupts.o)
+ .debug_ranges  0x00000258       0x50 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(timer.o)
+ .debug_ranges  0x000002a8       0x10 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(hardware_reset.o)
+ .debug_ranges  0x000002b8       0x18 ..\..\AntonAvrLib\Debug\libAntonAvrLib.a(idle.o)
+ .debug_ranges  0x000002d0       0x18 c:/program files (x86)/atmel/atmel studio 6.0/extensions/atmel/avrgcc/3.3.2.31/avrtoolchain/bin/../lib/gcc/avr/4.5.1/../../../../avr/lib/avr51\libc.a(malloc.o)

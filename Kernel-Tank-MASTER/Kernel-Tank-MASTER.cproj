@@ -102,7 +102,7 @@
     <Compile Include="shared\twi_bgx1.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_kernel_MASTER.c">
+    <Compile Include="kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel.h">

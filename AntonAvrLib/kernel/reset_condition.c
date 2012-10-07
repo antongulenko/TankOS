@@ -30,3 +30,9 @@ void blink_reset_condition(PLedGroup leds) {
 	disableLeds(leds);
 	blinkLeds(leds, resetStatusBitmask(), 4);
 }
+
+void blink_reset_condition_byte(PLedGroup blinker, PLedGroup notifier) {
+	disableLeds(blinker);
+	disableLeds(notifier);
+	blinkByte(blinker, notifier, getResetStatus());
+}

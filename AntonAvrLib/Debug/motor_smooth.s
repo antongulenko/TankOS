@@ -4980,6 +4980,9 @@ __zero_reg__ = 1
 	.byte	0x1
 	.uleb128 0x2f
 	.string	"disable_interrupts() cli()"
+	.byte	0x1
+	.uleb128 0x31
+	.string	"delay(x) _delay_ms(x)"
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xc
@@ -5042,10 +5045,10 @@ __zero_reg__ = 1
 	.uleb128 0x11
 	.string	"MOTOR_TWO_DIR_PINS (1 << 3)"
 	.byte	0x1
-	.uleb128 0x47
+	.uleb128 0x4d
 	.string	"DEFINE_MOTOR(motorName) extern const PMotor motorName;"
 	.byte	0x1
-	.uleb128 0x49
+	.uleb128 0x4f
 	.string	"DEFINE_2DirPins_MOTOR(motorName) extern const PMotor motorName;"
 	.byte	0x4
 	.byte	0x3
@@ -5060,7 +5063,7 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x34
+	.uleb128 0x33
 	.string	"DEFINE_SMOOTH_MOTOR(motorName) extern PSmoothMotor motorName;"
 	.byte	0x4
 	.byte	0x4
@@ -5088,8 +5091,8 @@ regulateSpeed:
 	movw r16,r22
 	movw r14,r20
 .LSM1:
-	ldd r24,Y+16
-	ldd r25,Y+17
+	ldd r24,Y+14
+	ldd r25,Y+15
 .LVL1:
 	call mutex_lock
 .LVL2:
@@ -5105,10 +5108,8 @@ regulateSpeed:
 	sbiw r24,0
 	brne .L2
 .LSM5:
-	ldd r22,Y+12
-	ldd r23,Y+13
 	movw r24,r28
-	call motor_smooth_set_call_frequency
+	call motor_smooth_start_tick
 .LSM6:
 	ldi r24,lo8(1)
 	ldi r25,hi8(1)
@@ -5116,8 +5117,8 @@ regulateSpeed:
 	std Y+10,r24
 .L2:
 .LSM7:
-	ldd r24,Y+16
-	ldd r25,Y+17
+	ldd r24,Y+14
+	ldd r25,Y+15
 	call mutex_release
 /* epilogue start */
 .LSM8:
@@ -5250,13 +5251,58 @@ regulateDirSpeed:
 	ret
 .LFE8:
 	.size	regulateDirSpeed, .-regulateDirSpeed
+	.section	.text.motor_smooth_needsTick,"ax",@progbits
+.global	motor_smooth_needsTick
+	.type	motor_smooth_needsTick, @function
+motor_smooth_needsTick:
+.LFB9:
+.LSM24:
+.LVL17:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	movw r30,r24
+.LSM25:
+	ldd r18,Z+6
+	ldd r19,Z+7
+	ldd r24,Z+2
+	ldd r25,Z+3
+.LVL18:
+	cp r18,r24
+	cpc r19,r25
+	brne .L12
+.LSM26:
+	ldi r18,lo8(1)
+	ldi r19,hi8(1)
+	ldd r20,Z+8
+	ldd r21,Z+9
+	ldd r24,Z+4
+	ldd r25,Z+5
+	cp r20,r24
+	cpc r21,r25
+	brne .L10
+	ldi r18,lo8(0)
+	ldi r19,hi8(0)
+	rjmp .L10
+.L12:
+.LSM27:
+	ldi r18,lo8(1)
+	ldi r19,hi8(1)
+.L10:
+.LSM28:
+	movw r24,r18
+/* epilogue start */
+	ret
+.LFE9:
+	.size	motor_smooth_needsTick, .-motor_smooth_needsTick
 	.section	.text.motor_smooth_tick,"ax",@progbits
 .global	motor_smooth_tick
 	.type	motor_smooth_tick, @function
 motor_smooth_tick:
-.LFB9:
-.LSM24:
-.LVL17:
+.LFB10:
+.LSM29:
+.LVL19:
 	push r28
 	push r29
 /* prologue: function */
@@ -5264,126 +5310,132 @@ motor_smooth_tick:
 /* stack size = 2 */
 .L__stack_usage = 2
 	movw r28,r24
-.LSM25:
-	ldd r24,Y+16
-	ldd r25,Y+17
-.LVL18:
+.LSM30:
+	ldd r24,Y+14
+	ldd r25,Y+15
+.LVL20:
 	call mutex_lock
-.LSM26:
+.LSM31:
+	movw r24,r28
+	call motor_smooth_needsTick
+	sbiw r24,0
+	brne .+2
+	rjmp .L14
+.LBB2:
+.LSM32:
 	ldd r20,Y+8
 	ldd r21,Y+9
-.LVL19:
-.LSM27:
+.LVL21:
+.LSM33:
 	ldd r24,Y+2
 	ldd r25,Y+3
-.LVL20:
-.LSM28:
+.LVL22:
+.LSM34:
 	ldd r22,Y+6
 	ldd r23,Y+7
-.LVL21:
-.LSM29:
-	ldd r18,Y+14
-	ldd r19,Y+15
-.LVL22:
-.LSM30:
+.LVL23:
+.LSM35:
+	ldd r18,Y+12
+	ldd r19,Y+13
+.LVL24:
+.LSM36:
 	ldd r30,Y+4
 	ldd r31,Y+5
 	cp r30,r20
 	cpc r31,r21
-	breq .L10
-.LSM31:
+	breq .L15
+.LSM37:
 	cp r24,r18
 	cpc r25,r19
-	brsh .L17
-.LVL23:
-.LSM32:
+	brsh .L22
+.LSM38:
+	ld r30,Y
+	ldd r31,Y+1
+	ldd r22,Z+5
+	ldd r23,Z+6
+.LVL25:
+.LSM39:
+	cpi r20,2
+	cpc r21,__zero_reg__
+	breq .L17
+.LSM40:
+	subi r22,lo8(-(1))
+	sbci r23,hi8(-(1))
+.LVL26:
+.L17:
+.LSM41:
 	std Y+5,r21
 	std Y+4,r20
-.LSM33:
-	ldi r22,lo8(0)
-	ldi r23,hi8(0)
-	rjmp .L12
-.LVL24:
-.L10:
-.LSM34:
+	rjmp .L18
+.LVL27:
+.L15:
+.LSM42:
 	cp r24,r22
 	cpc r25,r23
-	brsh .L13
-.LSM35:
+	brsh .L19
+.LSM43:
 	movw r20,r22
 	sub r20,r24
 	sbc r21,r25
 	cp r20,r18
 	cpc r21,r19
-	brlo .L12
-.LSM36:
+	brlo .L18
+.LSM44:
 	movw r22,r18
 	add r22,r24
 	adc r23,r25
-.LVL25:
-	rjmp .L12
-.LVL26:
-.L13:
-.LSM37:
+.LVL28:
+	rjmp .L18
+.LVL29:
+.L19:
+.LSM45:
 	movw r20,r24
 	sub r20,r22
 	sbc r21,r23
 	cp r20,r18
 	cpc r21,r19
-	brlo .L12
-.L17:
-.LSM38:
+	brlo .L18
+.L22:
+.LSM46:
 	movw r22,r24
 	sub r22,r18
 	sbc r23,r19
-.LVL27:
-.L12:
-.LSM39:
+.LVL30:
+.L18:
+.LSM47:
 	std Y+3,r23
 	std Y+2,r22
-.LSM40:
+.LSM48:
 	ldd r20,Y+4
 	ldd r21,Y+5
 	ld r24,Y
 	ldd r25,Y+1
 	call setSpeed
-.LVL28:
-.LSM41:
-	ldd r18,Y+6
-	ldd r19,Y+7
-	ldd r24,Y+2
-	ldd r25,Y+3
-	cp r18,r24
-	cpc r19,r25
-	brne .L14
-.LSM42:
-	ldd r18,Y+8
-	ldd r19,Y+9
-	ldd r24,Y+4
-	ldd r25,Y+5
-	cp r18,r24
-	cpc r19,r25
-	brne .L14
-.LSM43:
+.LVL31:
+.LSM49:
 	movw r24,r28
-	ldi r22,lo8(0)
-	ldi r23,hi8(0)
-	call motor_smooth_set_call_frequency
-.LSM44:
+	call motor_smooth_needsTick
+	sbiw r24,0
+	breq .L14
+.LSM50:
+	movw r24,r28
+	call motor_smooth_stop_tick
+.LSM51:
 	std Y+11,__zero_reg__
 	std Y+10,__zero_reg__
 .L14:
-.LSM45:
-	ldd r24,Y+16
-	ldd r25,Y+17
+.LBE2:
+.LSM52:
+	ldd r24,Y+14
+	ldd r25,Y+15
 	call mutex_release
 /* epilogue start */
-.LSM46:
+.LSM53:
 	pop r29
 	pop r28
-.LVL29:
+.LVL32:
 	ret
-.LFE9:
+.LFE10:
 	.size	motor_smooth_tick, .-motor_smooth_tick
 	.section	.debug_frame,"",@progbits
 .Lframe0:
@@ -5448,6 +5500,14 @@ motor_smooth_tick:
 	.long	.LFE9-.LFB9
 	.p2align	2
 .LEFDE10:
+.LSFDE12:
+	.long	.LEFDE12-.LASFDE12
+.LASFDE12:
+	.long	.Lframe0
+	.long	.LFB10
+	.long	.LFE10-.LFB10
+	.p2align	2
+.LEFDE12:
 	.text
 .Letext0:
 	.section	.debug_loc,"",@progbits
@@ -5628,7 +5688,28 @@ motor_smooth_tick:
 	.byte	0x93
 	.uleb128 0x1
 	.long	.LVL18
-	.long	.LVL29
+	.long	.LFE9
+	.word	0x6
+	.byte	0x6e
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x6f
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST11:
+	.long	.LVL19
+	.long	.LVL20
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL20
+	.long	.LVL32
 	.word	0x6
 	.byte	0x6c
 	.byte	0x93
@@ -5638,81 +5719,94 @@ motor_smooth_tick:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST11:
-	.long	.LVL19
-	.long	.LVL28-1
+.LLST12:
+	.long	.LVL21
+	.long	.LVL31-1
 	.word	0x2
 	.byte	0x8c
 	.sleb128 8
 	.long	0x0
 	.long	0x0
-.LLST12:
-	.long	.LVL20
-	.long	.LVL23
-	.word	0x2
-	.byte	0x8c
-	.sleb128 2
-	.long	.LVL23
-	.long	.LVL24
-	.word	0x2
-	.byte	0x30
-	.byte	0x9f
-	.long	.LVL24
-	.long	.LVL25
-	.word	0x2
-	.byte	0x8c
-	.sleb128 2
-	.long	.LVL25
-	.long	.LVL26
-	.word	0x6
-	.byte	0x66
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x67
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL26
-	.long	.LVL27
-	.word	0x2
-	.byte	0x8c
-	.sleb128 2
-	.long	.LVL27
-	.long	.LVL28-1
-	.word	0x6
-	.byte	0x66
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x67
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
 .LLST13:
-	.long	.LVL21
-	.long	.LVL28-1
+	.long	.LVL22
+	.long	.LVL25
+	.word	0x2
+	.byte	0x8c
+	.sleb128 2
+	.long	.LVL25
+	.long	.LVL26
+	.word	0x6
+	.byte	0x8c
+	.sleb128 0
+	.byte	0x94
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x5
+	.long	.LVL26
+	.long	.LVL27
+	.word	0x6
+	.byte	0x66
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x67
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL27
+	.long	.LVL28
+	.word	0x2
+	.byte	0x8c
+	.sleb128 2
+	.long	.LVL28
+	.long	.LVL29
+	.word	0x6
+	.byte	0x66
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x67
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL29
+	.long	.LVL30
+	.word	0x2
+	.byte	0x8c
+	.sleb128 2
+	.long	.LVL30
+	.long	.LVL31-1
+	.word	0x6
+	.byte	0x66
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x67
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST14:
+	.long	.LVL23
+	.long	.LVL31-1
 	.word	0x2
 	.byte	0x8c
 	.sleb128 6
 	.long	0x0
 	.long	0x0
-.LLST14:
-	.long	.LVL22
-	.long	.LVL28-1
+.LLST15:
+	.long	.LVL24
+	.long	.LVL31-1
 	.word	0x2
 	.byte	0x8c
-	.sleb128 14
+	.sleb128 12
 	.long	0x0
 	.long	0x0
 	.section	.debug_info
-	.long	0x493
+	.long	0x4d8
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF57
-	.byte	0x1
 	.long	.LASF58
+	.byte	0x1
 	.long	.LASF59
+	.long	.LASF60
 	.long	0x0
 	.long	0x0
 	.long	.Ldebug_ranges0+0x0
@@ -5965,10 +6059,10 @@ motor_smooth_tick:
 	.byte	0x2
 	.long	0x19d
 	.uleb128 0x7
-	.byte	0x5
+	.byte	0x9
 	.byte	0x3
 	.byte	0x14
-	.long	0x222
+	.long	0x23e
 	.uleb128 0x8
 	.long	.LASF17
 	.byte	0x3
@@ -5993,43 +6087,59 @@ motor_smooth_tick:
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x3
-	.byte	0x0
-	.uleb128 0x3
+	.uleb128 0x8
 	.long	.LASF32
 	.byte	0x3
-	.byte	0x18
-	.long	0x22d
+	.byte	0x1c
+	.long	0x58
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x5
+	.uleb128 0x8
+	.long	.LASF33
+	.byte	0x3
+	.byte	0x1d
+	.long	0x58
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x7
+	.byte	0x0
+	.uleb128 0x3
+	.long	.LASF34
+	.byte	0x3
+	.byte	0x1e
+	.long	0x249
 	.uleb128 0xa
 	.byte	0x2
 	.long	0x1ef
 	.uleb128 0x5
 	.byte	0x2
 	.byte	0x3
-	.byte	0x1f
-	.long	0x24e
-	.uleb128 0x6
-	.long	.LASF33
-	.sleb128 0
-	.uleb128 0x6
-	.long	.LASF34
-	.sleb128 1
+	.byte	0x25
+	.long	0x26a
 	.uleb128 0x6
 	.long	.LASF35
+	.sleb128 0
+	.uleb128 0x6
+	.long	.LASF36
+	.sleb128 1
+	.uleb128 0x6
+	.long	.LASF37
 	.sleb128 2
 	.byte	0x0
 	.uleb128 0x3
-	.long	.LASF36
+	.long	.LASF38
 	.byte	0x3
-	.byte	0x23
-	.long	0x233
+	.byte	0x29
+	.long	0x24f
 	.uleb128 0xc
-	.long	.LASF60
+	.long	.LASF61
 	.byte	0x2
 	.byte	0x17
 	.byte	0xe
-	.long	0x274
+	.long	0x290
 	.uleb128 0x8
-	.long	.LASF37
+	.long	.LASF39
 	.byte	0x17
 	.byte	0xe
 	.long	0x58
@@ -6038,28 +6148,28 @@ motor_smooth_tick:
 	.uleb128 0x0
 	.byte	0x0
 	.uleb128 0x3
-	.long	.LASF38
+	.long	.LASF40
 	.byte	0x17
 	.byte	0xe
-	.long	0x27f
+	.long	0x29b
 	.uleb128 0xa
 	.byte	0x2
-	.long	0x259
+	.long	0x275
 	.uleb128 0x7
-	.byte	0x12
+	.byte	0x10
 	.byte	0x2
 	.byte	0x10
-	.long	0x30c
+	.long	0x31a
 	.uleb128 0x8
-	.long	.LASF39
+	.long	.LASF41
 	.byte	0x2
 	.byte	0x11
-	.long	0x222
+	.long	0x23e
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
 	.uleb128 0x8
-	.long	.LASF40
+	.long	.LASF42
 	.byte	0x2
 	.byte	0x14
 	.long	0x58
@@ -6067,15 +6177,15 @@ motor_smooth_tick:
 	.byte	0x23
 	.uleb128 0x2
 	.uleb128 0x8
-	.long	.LASF41
+	.long	.LASF43
 	.byte	0x2
 	.byte	0x15
-	.long	0x24e
+	.long	0x26a
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x4
 	.uleb128 0x8
-	.long	.LASF42
+	.long	.LASF44
 	.byte	0x2
 	.byte	0x18
 	.long	0x58
@@ -6083,15 +6193,15 @@ motor_smooth_tick:
 	.byte	0x23
 	.uleb128 0x6
 	.uleb128 0x8
-	.long	.LASF43
+	.long	.LASF45
 	.byte	0x2
 	.byte	0x19
-	.long	0x24e
+	.long	0x26a
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x8
 	.uleb128 0x8
-	.long	.LASF44
+	.long	.LASF46
 	.byte	0x2
 	.byte	0x1c
 	.long	0x9b
@@ -6099,7 +6209,7 @@ motor_smooth_tick:
 	.byte	0x23
 	.uleb128 0xa
 	.uleb128 0x8
-	.long	.LASF45
+	.long	.LASF47
 	.byte	0x2
 	.byte	0x1d
 	.long	0x58
@@ -6107,35 +6217,27 @@ motor_smooth_tick:
 	.byte	0x23
 	.uleb128 0xc
 	.uleb128 0x8
-	.long	.LASF46
+	.long	.LASF48
 	.byte	0x2
 	.byte	0x1e
-	.long	0x58
+	.long	0x290
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0xe
-	.uleb128 0x8
-	.long	.LASF47
-	.byte	0x2
-	.byte	0x1f
-	.long	0x274
-	.byte	0x2
-	.byte	0x23
-	.uleb128 0x10
 	.byte	0x0
 	.uleb128 0x3
-	.long	.LASF48
+	.long	.LASF49
 	.byte	0x2
-	.byte	0x20
-	.long	0x317
+	.byte	0x1f
+	.long	0x325
 	.uleb128 0xa
 	.byte	0x2
-	.long	0x285
+	.long	0x2a1
 	.uleb128 0xd
 	.byte	0x1
-	.long	.LASF50
+	.long	.LASF51
 	.byte	0x1
-	.byte	0x19
+	.byte	0x17
 	.byte	0x1
 	.long	.LFB5
 	.long	.LFE5
@@ -6143,31 +6245,31 @@ motor_smooth_tick:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x364
+	.long	0x372
 	.uleb128 0xe
-	.long	.LASF39
+	.long	.LASF41
 	.byte	0x1
-	.byte	0x19
-	.long	0x30c
+	.byte	0x17
+	.long	0x31a
 	.long	.LLST0
 	.uleb128 0xe
-	.long	.LASF49
+	.long	.LASF50
 	.byte	0x1
-	.byte	0x19
+	.byte	0x17
 	.long	0x58
 	.long	.LLST1
 	.uleb128 0xe
 	.long	.LASF30
 	.byte	0x1
-	.byte	0x19
-	.long	0x24e
+	.byte	0x17
+	.long	0x26a
 	.long	.LLST2
 	.byte	0x0
 	.uleb128 0xd
 	.byte	0x1
-	.long	.LASF51
+	.long	.LASF52
 	.byte	0x1
-	.byte	0x15
+	.byte	0x13
 	.byte	0x1
 	.long	.LFB4
 	.long	.LFE4
@@ -6175,19 +6277,19 @@ motor_smooth_tick:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x38d
+	.long	0x39b
 	.uleb128 0xe
-	.long	.LASF39
+	.long	.LASF41
 	.byte	0x1
-	.byte	0x15
-	.long	0x30c
+	.byte	0x13
+	.long	0x31a
 	.long	.LLST3
 	.byte	0x0
 	.uleb128 0xd
 	.byte	0x1
-	.long	.LASF52
+	.long	.LASF53
 	.byte	0x1
-	.byte	0x24
+	.byte	0x22
 	.byte	0x1
 	.long	.LFB6
 	.long	.LFE6
@@ -6195,25 +6297,25 @@ motor_smooth_tick:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x3c5
+	.long	0x3d3
 	.uleb128 0xe
-	.long	.LASF39
+	.long	.LASF41
 	.byte	0x1
-	.byte	0x24
-	.long	0x30c
+	.byte	0x22
+	.long	0x31a
 	.long	.LLST4
 	.uleb128 0xe
-	.long	.LASF49
+	.long	.LASF50
 	.byte	0x1
-	.byte	0x24
+	.byte	0x22
 	.long	0x58
 	.long	.LLST5
 	.byte	0x0
 	.uleb128 0xd
 	.byte	0x1
-	.long	.LASF53
+	.long	.LASF54
 	.byte	0x1
-	.byte	0x28
+	.byte	0x26
 	.byte	0x1
 	.long	.LFB7
 	.long	.LFE7
@@ -6221,25 +6323,25 @@ motor_smooth_tick:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x3fd
+	.long	0x40b
 	.uleb128 0xe
-	.long	.LASF39
+	.long	.LASF41
 	.byte	0x1
-	.byte	0x28
-	.long	0x30c
+	.byte	0x26
+	.long	0x31a
 	.long	.LLST6
 	.uleb128 0xe
-	.long	.LASF49
+	.long	.LASF50
 	.byte	0x1
-	.byte	0x28
+	.byte	0x26
 	.long	0x58
 	.long	.LLST7
 	.byte	0x0
 	.uleb128 0xd
 	.byte	0x1
-	.long	.LASF54
+	.long	.LASF55
 	.byte	0x1
-	.byte	0x2c
+	.byte	0x2a
 	.byte	0x1
 	.long	.LFB8
 	.long	.LFE8
@@ -6247,62 +6349,87 @@ motor_smooth_tick:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x435
+	.long	0x443
 	.uleb128 0xe
-	.long	.LASF39
+	.long	.LASF41
 	.byte	0x1
-	.byte	0x2c
-	.long	0x30c
+	.byte	0x2a
+	.long	0x31a
 	.long	.LLST8
 	.uleb128 0xe
-	.long	.LASF49
+	.long	.LASF50
 	.byte	0x1
-	.byte	0x2c
+	.byte	0x2a
 	.long	0x46
 	.long	.LLST9
 	.byte	0x0
 	.uleb128 0xf
 	.byte	0x1
-	.long	.LASF61
+	.long	.LASF62
 	.byte	0x1
-	.byte	0x34
+	.byte	0x32
 	.byte	0x1
+	.long	0x51
 	.long	.LFB9
 	.long	.LFE9
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
+	.long	0x470
 	.uleb128 0xe
-	.long	.LASF39
+	.long	.LASF41
 	.byte	0x1
-	.byte	0x34
-	.long	0x30c
+	.byte	0x32
+	.long	0x31a
 	.long	.LLST10
+	.byte	0x0
 	.uleb128 0x10
-	.long	.LASF55
 	.byte	0x1
-	.byte	0x38
-	.long	0x24e
+	.long	.LASF63
+	.byte	0x1
+	.byte	0x37
+	.byte	0x1
+	.long	.LFB10
+	.long	.LFE10
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.uleb128 0xe
+	.long	.LASF41
+	.byte	0x1
+	.byte	0x37
+	.long	0x31a
 	.long	.LLST11
-	.uleb128 0x10
-	.long	.LASF40
-	.byte	0x1
-	.byte	0x39
-	.long	0x58
-	.long	.LLST12
-	.uleb128 0x10
-	.long	.LASF42
-	.byte	0x1
-	.byte	0x3a
-	.long	0x58
-	.long	.LLST13
-	.uleb128 0x10
+	.uleb128 0x11
+	.long	.LBB2
+	.long	.LBE2
+	.uleb128 0x12
 	.long	.LASF56
 	.byte	0x1
-	.byte	0x3b
+	.byte	0x3d
+	.long	0x26a
+	.long	.LLST12
+	.uleb128 0x12
+	.long	.LASF42
+	.byte	0x1
+	.byte	0x3e
+	.long	0x58
+	.long	.LLST13
+	.uleb128 0x12
+	.long	.LASF44
+	.byte	0x1
+	.byte	0x3f
 	.long	0x58
 	.long	.LLST14
+	.uleb128 0x12
+	.long	.LASF57
+	.byte	0x1
+	.byte	0x40
+	.long	0x58
+	.long	.LLST15
+	.byte	0x0
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_abbrev
@@ -6511,6 +6638,31 @@ motor_smooth_tick:
 	.uleb128 0xb
 	.uleb128 0x27
 	.uleb128 0xc
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x40
+	.uleb128 0xa
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x10
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0xc
 	.uleb128 0x11
 	.uleb128 0x1
 	.uleb128 0x12
@@ -6519,7 +6671,16 @@ motor_smooth_tick:
 	.uleb128 0xa
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0x10
+	.uleb128 0x11
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x12
 	.uleb128 0x34
 	.byte	0x0
 	.uleb128 0x3
@@ -6536,28 +6697,30 @@ motor_smooth_tick:
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_pubnames,"",@progbits
-	.long	0x94
+	.long	0xaf
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x497
-	.long	0x31d
+	.long	0x4dc
+	.long	0x32b
 	.string	"regulateSpeed"
-	.long	0x364
+	.long	0x372
 	.string	"regulateStopMotor"
-	.long	0x38d
+	.long	0x39b
 	.string	"regulateSpeedForward"
-	.long	0x3c5
+	.long	0x3d3
 	.string	"regulateSpeedBackward"
-	.long	0x3fd
+	.long	0x40b
 	.string	"regulateDirSpeed"
-	.long	0x435
+	.long	0x443
+	.string	"motor_smooth_needsTick"
+	.long	0x470
 	.string	"motor_smooth_tick"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
 	.long	0xbd
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x497
+	.long	0x4dc
 	.long	0x34
 	.string	"uint8_t"
 	.long	0x46
@@ -6576,19 +6739,19 @@ motor_smooth_tick:
 	.string	"TIMER_TYPE"
 	.long	0x1de
 	.string	"PTimer"
-	.long	0x222
+	.long	0x23e
 	.string	"PMotor"
-	.long	0x24e
+	.long	0x26a
 	.string	"MotorDirection"
-	.long	0x259
+	.long	0x275
 	.string	"Mutex__"
-	.long	0x274
+	.long	0x290
 	.string	"Mutex"
-	.long	0x30c
+	.long	0x31a
 	.string	"PSmoothMotor"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
-	.long	0x44
+	.long	0x4c
 	.word	0x2
 	.long	.Ldebug_info0
 	.byte	0x4
@@ -6607,6 +6770,8 @@ motor_smooth_tick:
 	.long	.LFE8-.LFB8
 	.long	.LFB9
 	.long	.LFE9-.LFB9
+	.long	.LFB10
+	.long	.LFE10-.LFB10
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
@@ -6623,6 +6788,8 @@ motor_smooth_tick:
 	.long	.LFE8
 	.long	.LFB9
 	.long	.LFE9
+	.long	.LFB10
+	.long	.LFE10
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -6779,7 +6946,7 @@ motor_smooth_tick:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM0
-	.byte	0x2c
+	.byte	0x2a
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -6831,7 +6998,7 @@ motor_smooth_tick:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM9
-	.byte	0x28
+	.byte	0x26
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -6853,7 +7020,7 @@ motor_smooth_tick:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM12
-	.byte	0x37
+	.byte	0x35
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -6875,7 +7042,7 @@ motor_smooth_tick:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM15
-	.byte	0x3b
+	.byte	0x39
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -6897,7 +7064,7 @@ motor_smooth_tick:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM18
-	.byte	0x3f
+	.byte	0x3d
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -6934,7 +7101,7 @@ motor_smooth_tick:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM24
-	.byte	0x47
+	.byte	0x45
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -6944,47 +7111,54 @@ motor_smooth_tick:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM26
-	.byte	0x17
+	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM27
-	.byte	0x15
+	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM28
-	.byte	0x15
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LFE9
+	.byte	0x0
+	.uleb128 0x1
+	.byte	0x1
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM29
-	.byte	0x15
+	.byte	0x4a
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM30
-	.byte	0x16
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM31
-	.byte	0x16
+	.byte	0x17
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM32
-	.byte	0x18
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM33
-	.byte	0x13
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM34
-	.byte	0x1b
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -6994,12 +7168,12 @@ motor_smooth_tick:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM36
-	.byte	0x17
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM37
-	.byte	0x17
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7009,22 +7183,22 @@ motor_smooth_tick:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM39
-	.byte	0x1a
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM40
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
+	.long	.LSM40
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
 	.long	.LSM41
-	.byte	0x17
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM42
-	.byte	0x1
+	.byte	0x1a
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7034,21 +7208,56 @@ motor_smooth_tick:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM44
-	.byte	0x15
+	.byte	0x17
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM45
-	.byte	0x16
+	.byte	0x17
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LSM46
+	.byte	0x17
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM47
+	.byte	0x1a
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM48
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LFE9
+	.long	.LSM49
+	.byte	0x17
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM50
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM51
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM52
+	.byte	0x17
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM53
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LFE10
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
@@ -7058,7 +7267,7 @@ motor_smooth_tick:
 	.section	.debug_str,"MS",@progbits,1
 .LASF12:
 	.string	"BOOL"
-.LASF60:
+.LASF61:
 	.string	"Mutex__"
 .LASF10:
 	.string	"FALSE"
@@ -7066,39 +7275,41 @@ motor_smooth_tick:
 	.string	"interruptMaskRegister"
 .LASF29:
 	.string	"PTimer"
-.LASF33:
+.LASF35:
 	.string	"BACKWARD"
 .LASF30:
 	.string	"direction"
-.LASF40:
+.LASF42:
 	.string	"currentSpeed"
-.LASF32:
+.LASF34:
 	.string	"PMotor"
 .LASF2:
 	.string	"uint8_t"
 .LASF25:
 	.string	"timer"
-.LASF45:
-	.string	"adjustmentFrequency"
-.LASF50:
+.LASF32:
+	.string	"minValue"
+.LASF51:
 	.string	"regulateSpeed"
 .LASF21:
 	.string	"PTimerPair"
 .LASF8:
 	.string	"long long int"
-.LASF44:
+.LASF46:
 	.string	"tickRunning"
 .LASF6:
 	.string	"long int"
 .LASF23:
 	.string	"TIMER_B"
-.LASF38:
+.LASF33:
+	.string	"maxValue"
+.LASF40:
 	.string	"Mutex"
-.LASF58:
+.LASF59:
 	.string	"../kernel/devices/motor_smooth.c"
-.LASF34:
+.LASF36:
 	.string	"FORWARD"
-.LASF56:
+.LASF57:
 	.string	"adjustment"
 .LASF28:
 	.string	"outputComparePin"
@@ -7106,7 +7317,7 @@ motor_smooth_tick:
 	.string	"flags"
 .LASF1:
 	.string	"unsigned char"
-.LASF46:
+.LASF47:
 	.string	"adjustmentStep"
 .LASF18:
 	.string	"controlRegisterA"
@@ -7122,61 +7333,63 @@ motor_smooth_tick:
 	.string	"unsigned int"
 .LASF4:
 	.string	"uint16_t"
-.LASF49:
+.LASF50:
 	.string	"speed"
-.LASF48:
+.LASF49:
 	.string	"PSmoothMotor"
-.LASF47:
+.LASF48:
 	.string	"mutex"
 .LASF22:
 	.string	"TIMER_A"
 .LASF16:
 	.string	"PPin"
-.LASF61:
+.LASF63:
 	.string	"motor_smooth_tick"
 .LASF26:
 	.string	"outputCompareRegister"
-.LASF53:
+.LASF54:
 	.string	"regulateSpeedBackward"
 .LASF3:
 	.string	"int16_t"
-.LASF39:
+.LASF41:
 	.string	"motor"
-.LASF52:
+.LASF53:
 	.string	"regulateSpeedForward"
-.LASF42:
+.LASF44:
 	.string	"targetSpeed"
-.LASF54:
+.LASF62:
+	.string	"motor_smooth_needsTick"
+.LASF55:
 	.string	"regulateDirSpeed"
 .LASF13:
 	.string	"port"
 .LASF7:
 	.string	"long unsigned int"
-.LASF57:
+.LASF58:
 	.string	"GNU C 4.5.1"
 .LASF15:
 	.string	"mask"
-.LASF55:
+.LASF56:
 	.string	"targetDir"
-.LASF59:
+.LASF60:
 	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\AntonAvrLib\\\\Debug"
-.LASF51:
+.LASF52:
 	.string	"regulateStopMotor"
 .LASF14:
 	.string	"PPort"
-.LASF43:
+.LASF45:
 	.string	"targetDirection"
-.LASF36:
+.LASF38:
 	.string	"MotorDirection"
 .LASF11:
 	.string	"TRUE"
-.LASF35:
+.LASF37:
 	.string	"MOTOR_STOPPED"
 .LASF31:
 	.string	"pwmTimer"
 .LASF24:
 	.string	"TIMER_TYPE"
-.LASF41:
+.LASF43:
 	.string	"currentDirection"
-.LASF37:
+.LASF39:
 	.string	"unused"

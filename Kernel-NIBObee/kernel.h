@@ -9,9 +9,8 @@
 #define NIBOBEE_H_
 
 // #define USE_SCHEDULER
-
-// This file combines all APIs available on the nibobee.
-// The modules included here should be analog to nibobee_kernel.c.
+// #define FORCE_BUTTON_PIN_CHANGE_INTERRUPTS
+#define TWI_DELAY 1
 
 // All other kernel-API-includes are included over the nibobee_* includes.
 #include "shared/kernel_base.h"

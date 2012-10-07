@@ -10,6 +10,7 @@
 
 #include "../kernel_init.h"
 
+#include "../../misc/idle.h"
 #include "process.h"
 #include "process_internal.h"
 #include "scheduler_internal.h"
@@ -47,13 +48,6 @@ void init_process() {
 // The watchdog-timer can detect such a condition.
 void ProcessGraveyard() {
 	processor_loop_idle();
-}
-
-// This makes the initial main()-process end up in the ProcessGraveyard, like
-// every other process.
-void MainProcessEnd() __attribute__((section (".fini1")));
-void MainProcessEnd() {
-	ProcessGraveyard();
 }
 
 Process createProcess3(ProcessEntryPoint entryPoint, void *parameter, uint16_t stackSize, uint8_t additionalMem) {

@@ -36,7 +36,7 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../simulator_kernel.c
+../kernel.c
 
 
 PREPROCESSING_SRCS += 
@@ -46,19 +46,19 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-simulator_kernel.o
+kernel.o
 
 
 OBJS_AS_ARGS +=  \
-simulator_kernel.o
+kernel.o
 
 
 C_DEPS +=  \
-simulator_kernel.d
+kernel.d
 
 
 C_DEPS_AS_ARGS +=  \
-simulator_kernel.d
+kernel.d
 
 
 OUTPUT_FILE_PATH +=libKernel-Simulator.a

@@ -74,6 +74,22 @@ Point bgx1_drawTile_P(uint8_t width, uint8_t height, PGM_P argument) {
 }
 
 // ==
+// Functions to fix byte-order
+// ==
+
+uint16_t bgx1_getVersion() {
+	uint16_t result = bgx1_getVersion_base();
+	turn_word(&result);
+	return result;
+}
+
+uint16_t bgx1_getAnalog(uint8_t index) {
+	uint16_t result = bgx1_getAnalog_base(index);
+	turn_word(&result);
+	return result;
+}
+
+// ==
 // Convenience functions for 2 parameters
 // ==
 
@@ -97,23 +113,23 @@ uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port) {
 	return bgx1_syncPort_base((SyncPortArgs) { ddr, port });
 }
 
-BOOL check_bgx1_operational() {
+BOOL bgx1_initialized() {
 	uint16_t version = bgx1_getVersion();
 	return (twi_error == TWI_No_Error) && (version == BGX1_VERSION);
 }
 
-#define DRAW_BITMAP(drawTileFunc)										\
+#define DRAW_BITMAP(DRAW_TILE)											\
 	uint8_t row_size = ROW_LENGTH(width);								\
 	uint8_t rows_per_tile = BITMAP_MAX / row_size;						\
 	Point newPos = {0};													\
 	while (height) {													\
 		uint8_t h = (height > rows_per_tile) ? rows_per_tile : height;	\
-		newPos = drawTileFunc(width, h, data);							\
+		newPos = DRAW_TILE(width, h, data);								\
 		data += row_size * h;											\
 		height -= h;													\
-		/* TODO maybe + 1 to newPos ? */								\
+		/* Dont know why, but we have to add +2 here... */				\
 		if (height)														\
-			bgx1_move(newPos.x - row_size, newPos.y);					\
+			bgx1_move(newPos.x - row_size + 2, newPos.y);				\
 	}																	\
 	return newPos;
 

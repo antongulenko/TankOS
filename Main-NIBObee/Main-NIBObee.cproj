@@ -111,10 +111,30 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Main\Main.c">
+    <Compile Include="Main.c">
       <SubType>compile</SubType>
-      <Link>Main.c</Link>
     </Compile>
+    <Compile Include="main\Main_test_Motors_NIBObee.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main\Main_test_Motors_NIBObee_Steps.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main\Main_test_NIBObee_Buttons.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main\Main_test_NIBObee_Buttons_Loop.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main\Main_test_NIBObee_SmoothMotors.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main\Main_test_NIBObee_SmoothMotors_Steps.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="main" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
 </Project>

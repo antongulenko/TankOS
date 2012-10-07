@@ -2997,6 +2997,8 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
+
+#define delay(x) _delay_ms(x)
 # 10 "../kernel/processes/scheduler.c" 2
 # 1 "../kernel/processes/scheduler.h" 1
 # 9 "../kernel/processes/scheduler.h"
@@ -3060,15 +3062,6 @@ extern Process schedule(BOOL invokedFromTimer);
 
 
 BOOL do_schedule_next(BOOL invokedFromTimer);
-
-
-void processor_idle();
-
-
-
-
-
-void processor_loop_idle();
 # 12 "../kernel/processes/scheduler.c" 2
 
 
@@ -3081,17 +3074,4 @@ void schedule_next() {
 
  if (next == ((Process) ((void *)0))) return;
  switchProcess(next);
-}
-
-void processor_idle() {
- do { (*(volatile uint8_t *)((0x33) + 0x20)) |= (uint8_t)(1 << (0)); } while(0);
- do { (*(volatile uint8_t *)((0x33) + 0x20)) = (((*(volatile uint8_t *)((0x33) + 0x20)) & ~((1 << (1)) | (1 << (2)) | (1 << (3)))) | ((0))); } while(0);
- __asm__ __volatile__ ("sei" ::: "memory");
- do { __asm__ __volatile__ ( "sleep" "\n\t" :: ); } while(0);
-}
-
-void processor_loop_idle() {
- while (TRUE) {
-  processor_idle();
- }
 }

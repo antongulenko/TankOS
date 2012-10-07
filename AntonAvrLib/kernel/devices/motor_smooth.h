@@ -26,7 +26,6 @@ typedef struct {
 	
 	// Control data
 	BOOL tickRunning;
-	uint16_t adjustmentFrequency;
 	uint16_t adjustmentStep;
 	Mutex mutex;
 } SmoothMotor, *PSmoothMotor;
@@ -45,8 +44,8 @@ void regulateDirSpeed(PSmoothMotor motor, int16_t speed);
 	#define DEFINE_SMOOTH_MOTOR(motorName)				\
 		SmoothMotor motorName##_;						\
 		const PSmoothMotor motorName = &motorName##_;
-	#define INIT_SMOOTH_MOTOR(motorName, realMotor, adjustmentFreq, adjustmentStep)	\
-		motorName##_ = (SmoothMotor) { realMotor, 0, FORWARD, 0, FORWARD, FALSE, adjustmentFreq, adjustmentStep, 0 };		\
+	#define INIT_SMOOTH_MOTOR(motorName, realMotor, adjustmentStep)	\
+		motorName##_ = (SmoothMotor) { realMotor, 0, FORWARD, 0, FORWARD, FALSE, adjustmentStep, 0 };		\
 		initSmoothMotor(motorName);
 #else
 	#define DEFINE_SMOOTH_MOTOR(motorName)	\

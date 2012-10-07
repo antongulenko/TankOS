@@ -2974,6 +2974,8 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
+
+#define delay(x) _delay_ms(x)
 # 12 "../kernel/devices/port.h" 2
 
 typedef struct {
@@ -3038,7 +3040,11 @@ void blinkAllLeds(PLedGroup leds, uint8_t times);
 void flashLed(PLed led, const uint16_t millis);
 void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis);
 void flashAllLeds(PLedGroup leds, uint16_t millis);
-# 54 "../kernel/devices/led.h"
+
+
+
+void blinkByte(PLedGroup display, PLedGroup notifier, byte data);
+# 58 "../kernel/devices/led.h"
 #define DEFINE_LED(ledName) extern const PLed ledName;
 
 #define DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;
@@ -3119,4 +3125,16 @@ void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis) {
 
 void flashAllLeds(PLedGroup leds, uint16_t millis) {
  flashLeds(leds, 0xFFFF, millis);
+}
+
+void blinkByte(PLedGroup display, PLedGroup notifier, byte data) {
+ flashAllLeds(notifier, 1500);
+ uint16_t word = ((data*0x100)+0);
+ blinkLeds(display, word, 3);
+ if (display->count < 8) {
+
+  word = word << display->count;
+  flashAllLeds(notifier, 700);
+  blinkLeds(display, word, 3);
+ }
 }

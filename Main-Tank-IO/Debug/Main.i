@@ -1,4 +1,4 @@
-# 1 "../../Main/Main.c"
+# 1 ".././Main.c"
 # 1 "C:\\Dev\\NIBObee\\NIBObee\\Main-Tank-IO\\Debug//"
 # 1 "<built-in>"
 #define __STDC__ 1
@@ -316,17 +316,11 @@
 # 1 "<command-line>"
 #define AVR 1
 #define F_CPU 20000000
-# 1 "../../Main/Main.c"
-# 13 "../../Main/Main.c"
+# 1 ".././Main.c"
 # 1 "..\\..\\Kernel-Tank-IO/kernel.h" 1
 # 9 "..\\..\\Kernel-Tank-IO/kernel.h"
 #define KERNEL_H_ 
-
-
-
-
-
-
+# 18 "..\\..\\Kernel-Tank-IO/kernel.h"
 # 1 "..\\..\\Kernel-Tank-IO/shared/kernel_base.h" 1
 # 9 "..\\..\\Kernel-Tank-IO/shared/kernel_base.h"
 #define KERNEL_BASE_H_ 
@@ -2974,9 +2968,12 @@ asm ("__RAMPZ__ = 0x3b");
 #define LOBYTE(x) (uint8_t)((uint16_t)x)
 #define HIBYTE(x) (uint8_t)(((uint16_t)x)>>8)
 #define MAKE_WORD(hi,lo) ((hi*0x100)+lo)
+#define AS_WORD(b) MAKE_WORD(b, 0)
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
+
+#define delay(x) _delay_ms(x)
 # 12 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 2
 
 
@@ -3060,9 +3057,18 @@ void setLeds(PLedGroup leds, uint16_t mask);
 void enableLeds(PLedGroup leds);
 void disableLeds(PLedGroup leds);
 
-void blinkLeds(PLedGroup leds, uint16_t ledMask, const uint8_t times);
-void blinkAllLeds(PLedGroup leds, const uint8_t times);
-# 49 "..\\..\\AntonAvrLib/kernel/devices/led.h"
+void blinkLed(PLed led, const uint8_t times);
+void blinkLeds(PLedGroup leds, uint16_t ledMask, uint8_t times);
+void blinkAllLeds(PLedGroup leds, uint8_t times);
+
+void flashLed(PLed led, const uint16_t millis);
+void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis);
+void flashAllLeds(PLedGroup leds, uint16_t millis);
+
+
+
+void blinkByte(PLedGroup display, PLedGroup notifier, byte data);
+# 58 "..\\..\\AntonAvrLib/kernel/devices/led.h"
 #define DEFINE_LED(ledName) extern const PLed ledName;
 
 #define DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;
@@ -3079,6 +3085,9 @@ uint16_t resetStatusBitmask();
 
 
 void blink_reset_condition(PLedGroup leds);
+
+
+void blink_reset_condition_byte(PLedGroup blinker, PLedGroup notifier);
 # 14 "..\\..\\Kernel-Tank-IO/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h"
@@ -3098,7 +3107,7 @@ void mutex_release(Mutex mutex);
 # 15 "..\\..\\Kernel-Tank-IO/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/anton_std.h" 1
 # 16 "..\\..\\Kernel-Tank-IO/shared/kernel_base.h" 2
-# 17 "..\\..\\Kernel-Tank-IO/kernel.h" 2
+# 19 "..\\..\\Kernel-Tank-IO/kernel.h" 2
 # 1 "..\\..\\Kernel-Tank-IO/tank_button.h" 1
 # 9 "..\\..\\Kernel-Tank-IO/tank_button.h"
 #define TANK_BUTTON_H_ 
@@ -3111,33 +3120,151 @@ void mutex_release(Mutex mutex);
 
 
 #define BUTTON_NORMAL 0
-#define BUTTON_INVERTED (1 << 1)
-#define BUTTON_NEEDS_PULLUP (1 << 2)
+#define BUTTON_INVERTED _BV(0)
+#define BUTTON_NEEDS_PULLUP _BV(1)
+#define BUTTON_USE_PIN_CHANGE_INTERRUPT _BV(2)
 
 typedef struct {
  uint8_t flags;
  PPin pin;
-} Button, *PButton;
-
-typedef struct {
- PButton button;
  uint8_t pinChangeInterruptNumber;
-} InterruptButton, *PInterruptButton;
+} Button, *PButton;
 
 
 BOOL buttonStatus(PButton button);
-# 45 "..\\..\\AntonAvrLib/kernel/devices/button.h"
+# 36 "..\\..\\AntonAvrLib/kernel/devices/button.h"
 #define DEFINE_BUTTON(buttonName) extern const PButton buttonName;
-
-#define DEFINE_INTERRUPT_BUTTON(buttonName) extern const PInterruptButton buttonName;
 # 12 "..\\..\\Kernel-Tank-IO/tank_button.h" 2
+# 1 "..\\..\\Kernel-Tank-IO/shared/tank_IO_protocol.h" 1
+
+#define TANK_IO_PROTOCOL_H_ 
+
+#define TANK_IO_ADDRESS (11 << 2)
+
+
+
+#define TANK_IO_INITIALIZED 214
+
+typedef enum {
+ LEDS_ALL,
+ LEDS_LEFT,
+ LEDS_RIGHT,
+ LEDS_MIDDLE,
+ LEDS_RED,
+ LEDS_YELLOW,
+ LEDS_WHITE,
+ LEDS_GREEN
+} TankIoLeds;
+
+
+typedef enum {
+ BUTTON_1 = (1 << (0)),
+ BUTTON_2 = (1 << (1)),
+ BUTTON_3 = (1 << (2)),
+ BUTTON_4 = (1 << (3)),
+ BUTTON_SWITCH = (1 << (4))
+} TankButton;
+
+typedef struct {
+ TankIoLeds leds;
+ uint16_t mask;
+} MaskedLeds;
+
+typedef struct {
+ TankIoLeds leds;
+ uint8_t index;
+} SingleLed;
+
+typedef struct {
+ SingleLed led;
+ BOOL value;
+} SetLedParam;
+
+typedef struct {
+ SingleLed led;
+ uint8_t times;
+} BlinkLedParam;
+
+typedef struct {
+ MaskedLeds leds;
+ uint8_t times;
+} BlinkLedsParam;
+
+typedef struct {
+ TankIoLeds leds;
+ uint8_t times;
+} BlinkAllLedsParam;
+
+typedef struct {
+ SingleLed led;
+ uint16_t milliseconds;
+} FlashLedParam;
+
+typedef struct {
+ MaskedLeds leds;
+ uint16_t milliseconds;
+} FlashLedsParam;
+
+typedef struct {
+ TankIoLeds leds;
+ uint16_t milliseconds;
+} FlashAllLedsParam;
+
+typedef struct {
+ TankIoLeds display;
+ TankIoLeds notifier;
+ byte data;
+} BlinkByteParam;
+
+enum {
+
+
+ TANK_IO_reset = 0xA0,
+
+ TANK_IO_isInitialized = 0xA1,
+
+
+ TANK_IO_buttonStatus = 0xA2,
+
+ TANK_IO_pressedButtons = 0xA3,
+
+
+ TANK_IO_enableLed = 0xA4,
+ TANK_IO_disableLed = 0xA5,
+ TANK_IO_setLed = 0xA6,
+
+ TANK_IO_setLeds = 0xA7,
+ TANK_IO_enableLeds = 0xA8,
+ TANK_IO_disableLeds = 0xA9,
+
+ TANK_IO_blinkLed = 0xAA,
+ TANK_IO_blinkLeds = 0xAB,
+ TANK_IO_blinkAllLeds = 0xAC,
+
+ TANK_IO_flashLed = 0xAD,
+ TANK_IO_flashLeds = 0xAE,
+ TANK_IO_flashAllLeds = 0xAF,
+
+ TANK_IO_blinkByte = 0xB0,
+};
+# 13 "..\\..\\Kernel-Tank-IO/tank_button.h" 2
 
 extern const PButton Button1;
 extern const PButton Button2;
 extern const PButton Button3;
 extern const PButton Button4;
 extern const PButton ButtonSwitch;
-# 18 "..\\..\\Kernel-Tank-IO/kernel.h" 2
+
+uint8_t buttonStatusMask();
+
+
+
+void updateButtonStatus();
+
+
+
+uint8_t pressedButtons();
+# 20 "..\\..\\Kernel-Tank-IO/kernel.h" 2
 # 1 "..\\..\\Kernel-Tank-IO/tank_led.h" 1
 # 9 "..\\..\\Kernel-Tank-IO/tank_led.h"
 #define NIBOBEE_LED_H_ 
@@ -3172,7 +3299,7 @@ extern const PLedGroup AllLeds;
 
 #define LeftLeds WhiteLeds
 #define RightLeds RedLeds
-# 19 "..\\..\\Kernel-Tank-IO/kernel.h" 2
+# 21 "..\\..\\Kernel-Tank-IO/kernel.h" 2
 # 1 "..\\..\\Kernel-Tank-IO/shared/twi_bgx1.h" 1
 
 #define TWI_BGX1_H_ 
@@ -3252,6 +3379,10 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
 
 
 void twiMultipleOperations(int count, TWIOperation *operations);
+
+
+
+void turn_word(uint16_t *word);
 # 5 "..\\..\\Kernel-Tank-IO/shared/twi_bgx1.h" 2
 
 
@@ -3263,9 +3394,9 @@ extern TWIDevice bgx1;
 
 #define TWI_DEVICE bgx1
 
-# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 1
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_client.h" 1
 
-#define TWI_RPC_HASH_CLIENT_H_ 
+#define TWI_RPC_CLIENT_H_ 
 
 
 
@@ -3282,25 +3413,33 @@ extern TWIDevice bgx1;
 
 void twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
 void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer);
-# 8 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 2
-# 113 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
+
+
+
+
+void twi_rpc_pseudo_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
+# 8 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_client.h" 2
+# 141 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_client.h"
 #define TWI_RPC_FUNCTION_VAR(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize);
 
 
 #define TWI_RPC_FUNCTION_VARARGS(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters, uint16_t argSize);
 
 
-#define TWI_RPC_FUNCTION_VARRES(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize);
+#define TWI_RPC_FUNCTION_VARRES(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct parameters, ResStruct *out_result, uint16_t resultSize);
 
 
-#define TWI_RPC_FUNCTION(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters);
+#define TWI_RPC_FUNCTION(funcName,operationByte,ArgStruct,ResStruct) ResStruct funcName(ArgStruct parameters);
 
 
 #define TWI_RPC_FUNCTION_VOID_VAR(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters, uint16_t argSize);
 
 
-#define TWI_RPC_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName(ArgStruct *parameters);
+#define TWI_RPC_FUNCTION_VOID(funcName,operationByte,ArgStruct) void funcName(ArgStruct parameters);
 
+
+#define TWI_RPC_FUNCTION_PVOID(a,b,c) TWI_RPC_FUNCTION_VOID(a, b, c)
+#define TWI_RPC_FUNCTION_PVOID_VAR(a,b,c) TWI_RPC_FUNCTION_VOID_VAR(a, b, c)
 
 #define TWI_RPC_FUNCTION_NOARGS(funcName,operationByte,ResStruct) ResStruct funcName();
 
@@ -3312,6 +3451,9 @@ void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer r
 
 
 #define TWI_RPC_FUNCTION_NOTIFY(funcName,operationByte) void funcName();
+
+
+#define TWI_RPC_FUNCTION_PNOTIFY(a,b) TWI_RPC_FUNCTION_NOTIFY(a, b)
 # 16 "..\\..\\Kernel-Tank-IO/shared/twi_bgx1.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 1 3
 # 83 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/pgmspace.h" 3
@@ -3492,6 +3634,8 @@ extern size_t strlcpy_PF (char *dst, uint_farptr_t src, size_t siz);
 extern int memcmp_PF(const void *, uint_farptr_t, size_t) __attribute__((__pure__));
 # 17 "..\\..\\Kernel-Tank-IO/shared/twi_bgx1.h" 2
 
+#define BGX1_VERSION 0x0103
+
 
 enum {
 
@@ -3533,9 +3677,9 @@ enum {
 
 
 void bgx1_reset();
-uint16_t bgx1_getVersion();
+uint16_t bgx1_getVersion_base();
 uint8_t bgx1_getStatus();
-void bgx1_setStatus(uint8_t *parameters);
+void bgx1_setStatus(uint8_t parameters);
 
 typedef struct {
  uint8_t x;
@@ -3550,33 +3694,29 @@ typedef struct {
 } BitmapArguments, *PBitmapArguments;
 
 
+typedef char StringArg;
 
 
-
-typedef struct {
- uint8_t len;
-
-} StringArg, *PStringArg;
-
-
-void bgx1_move(Point *parameters);
-void bgx1_mode(uint8_t *parameters);
-void bgx1_fillAll(uint8_t *parameters);
+void bgx1_move_base(Point parameters);
+void bgx1_mode(uint8_t parameters);
+void bgx1_fillAll(uint8_t parameters);
 Point bgx1_print_base(StringArg *parameters, uint16_t argSize);
 uint8_t bgx1_textWidth_base(StringArg *parameters, uint16_t argSize);
-void bgx1_selectFont(uint8_t *parameters);
-Point bgx1_hLine(uint8_t *parameters);
-Point bgx1_vLine(uint8_t *parameters);
-Point bgx1_box(Rect *parameters);
+void bgx1_selectFont(uint8_t parameters);
+Point bgx1_hLine(uint8_t parameters);
+Point bgx1_vLine(uint8_t parameters);
+Point bgx1_box_base(Rect parameters);
 Point bgx1_drawBitmap_base(BitmapArguments *parameters, uint16_t argSize);
-Point bgx1_embeddedImage(uint8_t *parameters);
-void bgx1_lineTo(Point *parameters);
+Point bgx1_embeddedImage(uint8_t parameters);
+Point bgx1_lineTo_base(Point parameters);
 
 
 void bgx1_termClear();
-void bgx1_termGoto(Point *parameters);
-void bgx1_termScroll(uint8_t *parameters);
-void bgx1_termPrint_base(StringArg *parameters, uint16_t argSize);
+void bgx1_termGoto_base(Point parameters);
+void bgx1_termScroll(int8_t parameters);
+
+
+byte bgx1_termPrint_base(StringArg *parameters, uint16_t argSize);
 
 typedef struct {
  uint8_t ddr;
@@ -3584,26 +3724,65 @@ typedef struct {
 } SyncPortArgs, *PSyncPortArgs;
 
 
-uint8_t bgx1_syncPort(SyncPortArgs *parameters);
-uint16_t bgx1_getAnalog(uint8_t *parameters);
-uint8_t bgx1_syncInterface(uint8_t *parameters);
-void bgx1_setIllumination(uint16_t *parameters);
+uint8_t bgx1_syncPort_base(SyncPortArgs parameters);
+uint16_t bgx1_getAnalog_base(uint8_t parameters);
+uint8_t bgx1_syncInterface(uint8_t parameters);
+void bgx1_setIllumination(uint16_t parameters);
+
+#define BGX1_BTN_1 _BV(0)
+#define BGX1_BTN_2 _BV(1)
+#define BGX1_BTN_3 _BV(2)
+#define BGX1_BTN_4 _BV(3)
+
+#define BGX1_LED_1 _BV(0)
+#define BGX1_LED_2 _BV(1)
+#define BGX1_LED_3 _BV(2)
+#define BGX1_LED_4 _BV(3)
 
 Point bgx1_print(char *argument);
 Point bgx1_print_P(const prog_char * argument);
 uint8_t bgx1_textWidth(char *argument);
 uint8_t bgx1_textWidth_P(const prog_char * argument);
-void bgx1_termPrint(char *argument);
-void bgx1_termPrint_P(const prog_char * argument);
+byte bgx1_termPrint(char *argument);
+byte bgx1_termPrint_P(const prog_char * argument);
 
-Point bgx1_drawBitmap(uint8_t width, uint8_t height, uint8_t *bitmap);
+
+Point bgx1_drawTile(uint8_t width, uint8_t height, const uint8_t *bitmap);
+Point bgx1_drawTile_P(uint8_t width, uint8_t height, const prog_char * bitmap);
+
+
+
+Point bgx1_drawBitmap(uint8_t width, uint8_t height, const uint8_t *bitmap);
 Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, const prog_char * bitmap);
-# 20 "..\\..\\Kernel-Tank-IO/kernel.h" 2
-# 14 "../../Main/Main.c" 2
 
-# 1 "../../Main/../Main-Tank-IO/tank_IO/Main.c.h" 1
+void bgx1_move(uint8_t x, uint8_t y);
+Point bgx1_box(uint8_t width, uint8_t height);
+void bgx1_lineTo(uint8_t x, uint8_t y);
+void bgx1_termGoto(uint8_t x, uint8_t y);
+uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port);
 
-# 1 "../../Main/../Main-Tank-IO/tank_IO/LedOperations.h" 1
+uint16_t bgx1_getAnalog(uint8_t index);
+uint16_t bgx1_getVersion();
+
+
+
+BOOL bgx1_initialized();
+# 22 "..\\..\\Kernel-Tank-IO/kernel.h" 2
+
+
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/commandQueueExecuter.h" 1
+
+#define COMMAND_QUEUE_EXECUTOR_LOOP_H_ 
+
+
+
+void loopCommandQueue();
+# 25 "..\\..\\Kernel-Tank-IO/kernel.h" 2
+# 2 ".././Main.c" 2
+
+# 1 ".././main/Main_testIO.c.h" 1
+
+# 1 ".././main/LedOperations.h" 1
 
 #define LEDOPERATIONS_H_ 
 
@@ -3614,21 +3793,71 @@ void led_operation_1();
 
 void led_operation_tick();
 void led_operation_off();
-# 3 "../../Main/../Main-Tank-IO/tank_IO/Main.c.h" 2
+# 3 ".././main/Main_testIO.c.h" 2
 
 
-#define TICK_AFTER_MS 200
+#define TICK_AFTER_MS 300
 
-int main() {
+void run_leds() {
+ int i = 0;
+ while (1) {
+  flashLed(AllLeds->leds[i], 200);
+  i++;
+  i %= AllLeds->count;
+ }
+}
+
+void leds_special() {
  led_operation_1();
 
-
   while (1) {
-   _delay_ms(200);
+   _delay_ms(300);
    led_operation_tick();
   }
 
-
-
 }
-# 16 "../../Main/Main.c" 2
+
+void test_buttons() {
+ while (1) {
+  setLeds(AllLeds, ((buttonStatusMask()*0x100)+0));
+ }
+}
+
+void all_leds() {
+ enableLeds(AllLeds);
+}
+
+void test_communication_raw();
+
+int main() {
+
+
+
+
+ test_communication_raw();
+}
+# 55 ".././main/Main_testIO.c.h"
+void test_communication_raw() {
+
+ (*(volatile uint8_t *)((0x0A) + 0x20)) = 0xff;
+ (*(volatile uint8_t *)((0x04) + 0x20)) = 0xff;
+ (*(volatile uint8_t *)((0x01) + 0x20)) = 0;
+ (*(volatile uint8_t *)((0x07) + 0x20)) = 0;
+
+ while (1) {
+  uint8_t c = (*(volatile uint8_t *)((0x06) + 0x20));
+  uint8_t c0 = (c & (1 << 0)) != 0;
+  uint8_t c1 = (c & (1 << 1)) != 0;
+  if (c0) {
+   (*(volatile uint8_t *)((0x05) + 0x20)) = 0xff;
+  } else {
+   (*(volatile uint8_t *)((0x05) + 0x20)) = 0;
+  }
+  if (c1) {
+   (*(volatile uint8_t *)((0x0B) + 0x20)) = 0xff;
+  } else {
+   (*(volatile uint8_t *)((0x0B) + 0x20)) = 0;
+  }
+ }
+}
+# 4 ".././Main.c" 2

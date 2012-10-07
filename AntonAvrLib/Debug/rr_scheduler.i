@@ -2974,6 +2974,8 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
+
+#define delay(x) _delay_ms(x)
 # 12 "../kernel/processes/RoundRobin/../process.h" 2
 
 typedef struct Process__ { uint16_t unused; } *Process;;

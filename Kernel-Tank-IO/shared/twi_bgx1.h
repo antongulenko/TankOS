@@ -12,7 +12,7 @@ extern TWIDevice bgx1;
 #endif
 #define TWI_DEVICE bgx1
 
-#include <kernel/TWI/twi_rpc_hash_client.h>
+#include <kernel/TWI/twi_rpc_client.h>
 #include <avr/pgmspace.h>
 
 #define BGX1_VERSION 0x0103
@@ -58,7 +58,7 @@ enum {
 
 // System
 TWI_RPC_FUNCTION_PNOTIFY(bgx1_reset, CMD_Reset)
-TWI_RPC_FUNCTION_NOARGS	(bgx1_getVersion, CMD_GetVersion, uint16_t)
+TWI_RPC_FUNCTION_NOARGS	(bgx1_getVersion_base, CMD_GetVersion, uint16_t)
 TWI_RPC_FUNCTION_NOARGS	(bgx1_getStatus, CMD_GetStatus, uint8_t)
 TWI_RPC_FUNCTION_PVOID	(bgx1_setStatus, CMD_SetStatus, uint8_t)
 
@@ -106,9 +106,19 @@ typedef struct {
 
 // IO
 TWI_RPC_FUNCTION		(bgx1_syncPort_base, CMD_SyncPort, SyncPortArgs, uint8_t)
-TWI_RPC_FUNCTION		(bgx1_getAnalog, CMD_GetAnalog, uint8_t, uint16_t)
+TWI_RPC_FUNCTION		(bgx1_getAnalog_base, CMD_GetAnalog, uint8_t, uint16_t)
 TWI_RPC_FUNCTION		(bgx1_syncInterface, CMD_SyncInterface, uint8_t, uint8_t)
 TWI_RPC_FUNCTION_PVOID	(bgx1_setIllumination, CMD_SetIllumination, uint16_t)
+
+#define BGX1_BTN_1 _BV(0)
+#define BGX1_BTN_2 _BV(1)
+#define BGX1_BTN_3 _BV(2)
+#define BGX1_BTN_4 _BV(3)
+
+#define BGX1_LED_1 _BV(0)
+#define BGX1_LED_2 _BV(1)
+#define BGX1_LED_3 _BV(2)
+#define BGX1_LED_4 _BV(3)
 
 Point bgx1_print(char *argument);
 Point bgx1_print_P(PGM_P argument);
@@ -132,8 +142,11 @@ void bgx1_lineTo(uint8_t x, uint8_t y);
 void bgx1_termGoto(uint8_t x, uint8_t y);
 uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port);
 
+uint16_t bgx1_getAnalog(uint8_t index);
+uint16_t bgx1_getVersion();
+
 // Query the version from the bgx1 and check whether the transmission
 // went alright.
-BOOL check_bgx1_operational();
+BOOL bgx1_initialized();
 
 #endif

@@ -109,7 +109,7 @@
     <Compile Include="tank_IO_server.kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_kernel_IO.c">
+    <Compile Include="kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_led.h">

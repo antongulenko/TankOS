@@ -14,10 +14,11 @@
 #include "nibobee_button.h"
 
 void init_nibobee_buttons() {
-	INIT_BUTTON(ButtonLeftBackward, PinC5, BUTTON_NEEDS_PULLUP | BUTTON_INVERTED)
-	INIT_BUTTON(ButtonLeftForward, PinC4, BUTTON_NEEDS_PULLUP | BUTTON_INVERTED)
-	INIT_BUTTON(ButtonRightBackward, PinC7, BUTTON_NEEDS_PULLUP | BUTTON_INVERTED)
-	INIT_BUTTON(ButtonRightForward, PinC6, BUTTON_NEEDS_PULLUP | BUTTON_INVERTED)
+	#define NIBOBEE_BUTTON (BUTTON_NEEDS_PULLUP | BUTTON_INVERTED)
+	INIT_BUTTON(ButtonLeftBackward, PinC5, NIBOBEE_BUTTON, 21)
+	INIT_BUTTON(ButtonLeftForward, PinC4, NIBOBEE_BUTTON, 20)
+	INIT_BUTTON(ButtonRightBackward, PinC7, NIBOBEE_BUTTON, 22)
+	INIT_BUTTON(ButtonRightForward, PinC6, NIBOBEE_BUTTON, 23)
 }
 KERNEL_INIT(init_nibobee_buttons)
 

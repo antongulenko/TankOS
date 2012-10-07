@@ -83,3 +83,15 @@ void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis) {
 void flashAllLeds(PLedGroup leds, uint16_t millis) {
 	flashLeds(leds, 0xFFFF, millis);
 }
+
+void blinkByte(PLedGroup display, PLedGroup notifier, byte data) {
+	flashAllLeds(notifier, 1500);
+	uint16_t word = AS_WORD(data);
+	blinkLeds(display, word, 3);
+	if (display->count < 8) {
+		// max one shift
+		word = word << display->count;
+		flashAllLeds(notifier, 700);
+		blinkLeds(display, word, 3);
+	}
+}

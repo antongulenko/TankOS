@@ -84,7 +84,7 @@
     <Compile Include="nibobee_button.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="nibobee_kernel.c">
+    <Compile Include="kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="nibobee_led.h">

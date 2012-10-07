@@ -36,7 +36,7 @@ SUBDIRS :=  \
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../nibobee_kernel.c \
+../kernel.c \
 ../shared/twi_bgx1.c
 
 
@@ -47,22 +47,22 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-nibobee_kernel.o \
+kernel.o \
 shared/twi_bgx1.o
 
 
 OBJS_AS_ARGS +=  \
-nibobee_kernel.o \
+kernel.o \
 shared/twi_bgx1.o
 
 
 C_DEPS +=  \
-nibobee_kernel.d \
+kernel.d \
 shared/twi_bgx1.d
 
 
 C_DEPS_AS_ARGS +=  \
-nibobee_kernel.d \
+kernel.d \
 shared/twi_bgx1.d
 
 

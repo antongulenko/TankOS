@@ -5029,6 +5029,9 @@ __zero_reg__ = 1
 	.byte	0x1
 	.uleb128 0x2f
 	.string	"disable_interrupts() cli()"
+	.byte	0x1
+	.uleb128 0x31
+	.string	"delay(x) _delay_ms(x)"
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0xa
@@ -5083,56 +5086,6 @@ schedule_next:
 	ret
 .LFE4:
 	.size	schedule_next, .-schedule_next
-	.section	.text.processor_idle,"ax",@progbits
-.global	processor_idle
-	.type	processor_idle, @function
-processor_idle:
-.LFB5:
-.LSM4:
-/* prologue: function */
-/* frame size = 0 */
-/* stack size = 0 */
-.L__stack_usage = 0
-.LSM5:
-	in r24,83-32
-	ori r24,lo8(1)
-	out 83-32,r24
-.LSM6:
-	in r24,83-32
-	andi r24,lo8(-15)
-	out 83-32,r24
-.LSM7:
-/* #APP */
- ;  28 "../kernel/processes/scheduler.c" 1
-	sei
- ;  0 "" 2
-.LSM8:
- ;  29 "../kernel/processes/scheduler.c" 1
-	sleep
-	
- ;  0 "" 2
-/* epilogue start */
-.LSM9:
-/* #NOAPP */
-	ret
-.LFE5:
-	.size	processor_idle, .-processor_idle
-	.section	.text.processor_loop_idle,"ax",@progbits
-.global	processor_loop_idle
-	.type	processor_loop_idle, @function
-processor_loop_idle:
-.LFB6:
-.LSM10:
-/* prologue: function */
-/* frame size = 0 */
-/* stack size = 0 */
-.L__stack_usage = 0
-.L5:
-.LSM11:
-	call processor_idle
-	rjmp .L5
-.LFE6:
-	.size	processor_loop_idle, .-processor_loop_idle
 	.section	.debug_frame,"",@progbits
 .Lframe0:
 	.long	.LECIE0-.LSCIE0
@@ -5156,22 +5109,6 @@ processor_loop_idle:
 	.long	.LFE4-.LFB4
 	.p2align	2
 .LEFDE0:
-.LSFDE2:
-	.long	.LEFDE2-.LASFDE2
-.LASFDE2:
-	.long	.Lframe0
-	.long	.LFB5
-	.long	.LFE5-.LFB5
-	.p2align	2
-.LEFDE2:
-.LSFDE4:
-	.long	.LEFDE4-.LASFDE4
-.LASFDE4:
-	.long	.Lframe0
-	.long	.LFB6
-	.long	.LFE6-.LFB6
-	.p2align	2
-.LEFDE4:
 	.text
 .Letext0:
 	.section	.debug_loc,"",@progbits
@@ -5189,15 +5126,15 @@ processor_loop_idle:
 	.long	0x0
 	.long	0x0
 	.section	.debug_info
-	.long	0x109
+	.long	0xd2
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF14
+	.long	.LASF11
 	.byte	0x1
-	.long	.LASF15
-	.long	.LASF16
+	.long	.LASF12
+	.long	.LASF13
 	.long	0x0
 	.long	0x0
 	.long	.Ldebug_ranges0+0x0
@@ -5207,82 +5144,77 @@ processor_loop_idle:
 	.byte	0x1
 	.byte	0x6
 	.long	.LASF0
-	.uleb128 0x3
-	.long	.LASF2
-	.byte	0x7
-	.byte	0x7a
-	.long	0x3f
 	.uleb128 0x2
 	.byte	0x1
 	.byte	0x8
 	.long	.LASF1
-	.uleb128 0x4
+	.uleb128 0x3
 	.byte	0x2
 	.byte	0x5
 	.string	"int"
-	.uleb128 0x3
-	.long	.LASF3
+	.uleb128 0x4
+	.long	.LASF9
 	.byte	0x7
 	.byte	0x7c
-	.long	0x58
+	.long	0x4d
 	.uleb128 0x2
 	.byte	0x2
 	.byte	0x7
-	.long	.LASF4
+	.long	.LASF2
 	.uleb128 0x2
 	.byte	0x4
+	.byte	0x5
+	.long	.LASF3
+	.uleb128 0x2
+	.byte	0x4
+	.byte	0x7
+	.long	.LASF4
+	.uleb128 0x2
+	.byte	0x8
 	.byte	0x5
 	.long	.LASF5
 	.uleb128 0x2
-	.byte	0x4
+	.byte	0x8
 	.byte	0x7
 	.long	.LASF6
-	.uleb128 0x2
-	.byte	0x8
-	.byte	0x5
-	.long	.LASF7
-	.uleb128 0x2
-	.byte	0x8
-	.byte	0x7
-	.long	.LASF8
 	.uleb128 0x5
 	.byte	0x2
 	.byte	0xe
 	.byte	0x14
-	.long	0x90
+	.long	0x85
 	.uleb128 0x6
-	.long	.LASF9
+	.long	.LASF7
 	.sleb128 0
 	.uleb128 0x6
-	.long	.LASF10
+	.long	.LASF8
 	.sleb128 1
 	.byte	0x0
 	.uleb128 0x7
-	.long	.LASF17
+	.long	.LASF14
 	.byte	0x2
 	.byte	0x16
 	.byte	0xd
-	.long	0xab
+	.long	0xa0
 	.uleb128 0x8
-	.long	.LASF18
+	.long	.LASF15
 	.byte	0x16
 	.byte	0xd
-	.long	0x4d
+	.long	0x42
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
 	.byte	0x0
-	.uleb128 0x3
-	.long	.LASF11
+	.uleb128 0x4
+	.long	.LASF10
 	.byte	0x16
 	.byte	0xd
-	.long	0xb6
+	.long	0xab
 	.uleb128 0x9
 	.byte	0x2
-	.long	0x90
+	.long	0x85
 	.uleb128 0xa
 	.byte	0x1
-	.long	.LASF19
+	.long	.LASF16
 	.byte	0x1
 	.byte	0x12
 	.long	.LFB4
@@ -5291,36 +5223,13 @@ processor_loop_idle:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0xe4
 	.uleb128 0xb
-	.long	.LASF20
+	.long	.LASF17
 	.byte	0x1
 	.byte	0x13
-	.long	0xab
+	.long	0xa0
 	.long	.LLST0
 	.byte	0x0
-	.uleb128 0xc
-	.byte	0x1
-	.long	.LASF12
-	.byte	0x1
-	.byte	0x19
-	.long	.LFB5
-	.long	.LFE5
-	.byte	0x3
-	.byte	0x92
-	.uleb128 0x20
-	.sleb128 0
-	.uleb128 0xc
-	.byte	0x1
-	.long	.LASF13
-	.byte	0x1
-	.byte	0x20
-	.long	.LFB6
-	.long	.LFE6
-	.byte	0x3
-	.byte	0x92
-	.uleb128 0x20
-	.sleb128 0
 	.byte	0x0
 	.section	.debug_abbrev
 	.uleb128 0x1
@@ -5358,6 +5267,17 @@ processor_loop_idle:
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x3
+	.uleb128 0x24
+	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3e
+	.uleb128 0xb
+	.uleb128 0x3
+	.uleb128 0x8
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x4
 	.uleb128 0x16
 	.byte	0x0
 	.uleb128 0x3
@@ -5368,17 +5288,6 @@ processor_loop_idle:
 	.uleb128 0xb
 	.uleb128 0x49
 	.uleb128 0x13
-	.byte	0x0
-	.byte	0x0
-	.uleb128 0x4
-	.uleb128 0x24
-	.byte	0x0
-	.uleb128 0xb
-	.uleb128 0xb
-	.uleb128 0x3e
-	.uleb128 0xb
-	.uleb128 0x3
-	.uleb128 0x8
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x5
@@ -5459,8 +5368,6 @@ processor_loop_idle:
 	.uleb128 0x1
 	.uleb128 0x40
 	.uleb128 0xa
-	.uleb128 0x1
-	.uleb128 0x13
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0xb
@@ -5478,54 +5385,29 @@ processor_loop_idle:
 	.uleb128 0x6
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0xc
-	.uleb128 0x2e
-	.byte	0x0
-	.uleb128 0x3f
-	.uleb128 0xc
-	.uleb128 0x3
-	.uleb128 0xe
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0xb
-	.uleb128 0x11
-	.uleb128 0x1
-	.uleb128 0x12
-	.uleb128 0x1
-	.uleb128 0x40
-	.uleb128 0xa
-	.byte	0x0
-	.byte	0x0
 	.byte	0x0
 	.section	.debug_pubnames,"",@progbits
-	.long	0x4b
+	.long	0x20
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x10d
-	.long	0xbc
+	.long	0xd6
+	.long	0xb1
 	.string	"schedule_next"
-	.long	0xe4
-	.string	"processor_idle"
-	.long	0xf8
-	.string	"processor_loop_idle"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
-	.long	0x41
+	.long	0x35
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x10d
-	.long	0x34
-	.string	"uint8_t"
-	.long	0x4d
+	.long	0xd6
+	.long	0x42
 	.string	"uint16_t"
-	.long	0x90
+	.long	0x85
 	.string	"Process__"
-	.long	0xab
+	.long	0xa0
 	.string	"Process"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
-	.long	0x2c
+	.long	0x1c
 	.word	0x2
 	.long	.Ldebug_info0
 	.byte	0x4
@@ -5534,20 +5416,12 @@ processor_loop_idle:
 	.word	0x0
 	.long	.LFB4
 	.long	.LFE4-.LFB4
-	.long	.LFB5
-	.long	.LFE5-.LFB5
-	.long	.LFB6
-	.long	.LFE6-.LFB6
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
 .Ldebug_ranges0:
 	.long	.LFB4
 	.long	.LFE4
-	.long	.LFB5
-	.long	.LFE5
-	.long	.LFB6
-	.long	.LFE6
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -5715,103 +5589,43 @@ processor_loop_idle:
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM4
-	.byte	0x2c
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM5
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM6
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM7
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM8
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM9
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LFE5
-	.byte	0x0
-	.uleb128 0x1
-	.byte	0x1
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM10
-	.byte	0x33
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LSM11
-	.byte	0x16
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LFE6
-	.byte	0x0
-	.uleb128 0x1
-	.byte	0x1
 .LELT0:
 	.section	.debug_macinfo
 	.byte	0x0
 	.section	.debug_str,"MS",@progbits,1
-.LASF20:
-	.string	"next"
-.LASF14:
-	.string	"GNU C 4.5.1"
-.LASF10:
-	.string	"TRUE"
-.LASF13:
-	.string	"processor_loop_idle"
 .LASF17:
+	.string	"next"
+.LASF11:
+	.string	"GNU C 4.5.1"
+.LASF8:
+	.string	"TRUE"
+.LASF14:
 	.string	"Process__"
-.LASF19:
-	.string	"schedule_next"
 .LASF16:
+	.string	"schedule_next"
+.LASF13:
 	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\AntonAvrLib\\\\Debug"
 .LASF1:
 	.string	"unsigned char"
-.LASF6:
-	.string	"long unsigned int"
-.LASF9:
-	.string	"FALSE"
-.LASF12:
-	.string	"processor_idle"
 .LASF4:
-	.string	"unsigned int"
-.LASF8:
-	.string	"long long unsigned int"
-.LASF2:
-	.string	"uint8_t"
-.LASF18:
-	.string	"unused"
+	.string	"long unsigned int"
 .LASF7:
-	.string	"long long int"
+	.string	"FALSE"
+.LASF2:
+	.string	"unsigned int"
+.LASF6:
+	.string	"long long unsigned int"
 .LASF15:
-	.string	"../kernel/processes/scheduler.c"
-.LASF3:
-	.string	"uint16_t"
+	.string	"unused"
 .LASF5:
+	.string	"long long int"
+.LASF12:
+	.string	"../kernel/processes/scheduler.c"
+.LASF9:
+	.string	"uint16_t"
+.LASF3:
 	.string	"long int"
 .LASF0:
 	.string	"signed char"
-.LASF11:
+.LASF10:
 	.string	"Process"

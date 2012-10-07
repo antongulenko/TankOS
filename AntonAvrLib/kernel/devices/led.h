@@ -38,6 +38,10 @@ void flashLed(PLed led, const uint16_t millis);
 void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis);
 void flashAllLeds(PLedGroup leds, uint16_t millis);
 
+// notifier-group will blink to notify the data, then the byte will be 
+// flashed with the display group. Will be shifted to flash remaining bits.
+void blinkByte(PLedGroup display, PLedGroup notifier, byte data);
+
 #ifdef _KERNEL_
 #	define DEFINE_LED(ledName)	\
 		Led ledName##_;			\

@@ -11,7 +11,7 @@
 #include <kernel/devices/led.h>
 
 DEFINE_LED(White1)
-DEFINE_LED(White2)
+DEFINE_LED(White2) // This one is actually red.
 DEFINE_LED(White3)
 DEFINE_LED(White4)
 DEFINE_LED(White5)

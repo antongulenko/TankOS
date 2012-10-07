@@ -22,4 +22,7 @@ uint16_t resetStatusBitmask();
 // LED 3: Brown-Out-reset, LED 4: something else
 void blink_reset_condition(PLedGroup leds);
 
+// Uses blinkByte() from led.h
+void blink_reset_condition_byte(PLedGroup blinker, PLedGroup notifier);
+
 #endif /* RESET_CONDITION_H_ */

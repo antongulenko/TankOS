@@ -1,4 +1,4 @@
-# 1 "../kernel/hardware_reset.c"
+# 1 "../misc/hardware_reset.c"
 # 1 "C:\\Dev\\NIBObee\\NIBObee\\AntonAvrLib\\Debug//"
 # 1 "<built-in>"
 #define __STDC__ 1
@@ -316,7 +316,7 @@
 # 1 "<command-line>"
 #define AVR 1
 #define F_CPU 20000000
-# 1 "../kernel/hardware_reset.c"
+# 1 "../misc/hardware_reset.c"
 
 
 
@@ -324,8 +324,8 @@
 
 
 
-# 1 "../kernel/../anton_std.h" 1
-# 12 "../kernel/../anton_std.h"
+# 1 "../misc/../anton_std.h" 1
+# 12 "../misc/../anton_std.h"
 #define ANTON_STD_H_ 
 
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stdint.h" 1 3 4
@@ -717,7 +717,7 @@ typedef uint64_t uintmax_t;
 
 
 #define _GCC_WRAP_STDINT_H 
-# 15 "../kernel/../anton_std.h" 2
+# 15 "../misc/../anton_std.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdlib.h" 1 3
 # 40 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdlib.h" 3
 #define _STDLIB_H_ 1
@@ -969,7 +969,7 @@ extern char *dtostre(double __val, char *__s, unsigned char __prec,
 # 580 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdlib.h" 3
 extern char *dtostrf(double __val, signed char __width,
                      unsigned char __prec, char *__s);
-# 16 "../kernel/../anton_std.h" 2
+# 16 "../misc/../anton_std.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 1 3
 # 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
 #define _UTIL_DELAY_H_ 1
@@ -1366,7 +1366,7 @@ _delay_us(double __us)
  __builtin_avr_delay_cycles(__ticks_dc);
 # 244 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/util/delay.h" 3
 }
-# 17 "../kernel/../anton_std.h" 2
+# 17 "../misc/../anton_std.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 1 3
 # 97 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 3
 #define _AVR_IO_H_ 
@@ -2903,7 +2903,7 @@ typedef struct
 # 237 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/lock.h" 3
 #define LOCKBITS_DEFAULT (0xFF)
 # 545 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/io.h" 2 3
-# 18 "../kernel/../anton_std.h" 2
+# 18 "../misc/../anton_std.h" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/interrupt.h" 1 3
 # 36 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/interrupt.h" 3
 #define _AVR_INTERRUPT_H_ 
@@ -2936,7 +2936,7 @@ typedef struct
 #define ISR_NOBLOCK __attribute__((interrupt))
 #define ISR_NAKED __attribute__((naked))
 #define ISR_ALIASOF(v) __attribute__((alias(__STRINGIFY(v))))
-# 19 "../kernel/../anton_std.h" 2
+# 19 "../misc/../anton_std.h" 2
 
 typedef enum {
  FALSE,
@@ -2966,15 +2966,17 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
-# 9 "../kernel/hardware_reset.c" 2
-# 1 "../kernel/hardware_reset.h" 1
-# 9 "../kernel/hardware_reset.h"
+
+#define delay(x) _delay_ms(x)
+# 9 "../misc/hardware_reset.c" 2
+# 1 "../misc/hardware_reset.h" 1
+# 9 "../misc/hardware_reset.h"
 #define HARWARE_RESET_H_ 
 
 
 
 void HARDWARE_RESET();
-# 10 "../kernel/hardware_reset.c" 2
+# 10 "../misc/hardware_reset.c" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 1 3
 # 39 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 3
 #define _AVR_WDT_H_ 
@@ -3036,7 +3038,7 @@ void HARDWARE_RESET();
 #define WDTO_4S 8
 # 497 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/avr/wdt.h" 3
 #define WDTO_8S 9
-# 11 "../kernel/hardware_reset.c" 2
+# 11 "../misc/hardware_reset.c" 2
 
 void HARDWARE_RESET() {
  __asm__ __volatile__ ("cli" ::: "memory");

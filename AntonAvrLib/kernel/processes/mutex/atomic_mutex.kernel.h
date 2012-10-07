@@ -11,21 +11,27 @@
 // This Mutex implementation simply disables interrupts to ensure
 // mutual exclusion.
 
+typedef struct {
+	BOOL interruptsWereEnabled;
+} AtomicMutex;
+
 Mutex mutex_create() {
-	return NULL;
+	return (Mutex) malloc(sizeof(AtomicMutex));
 }
 
 void mutex_lock(Mutex mutex) {
+	((AtomicMutex *) mutex)->interruptsWereEnabled = SREG & _BV(7);
 	cli();
 }
 
 BOOL mutex_trylock(Mutex mutex) {
-	cli();
+	mutex_lock(mutex);
 	return TRUE;
 }
 
 void mutex_release(Mutex mutex) {
-	sei();
+	// if (((AtomicMutex *) mutex)->interruptsWereEnabled)
+		sei();
 }
 
 #endif

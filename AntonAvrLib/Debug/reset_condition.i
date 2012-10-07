@@ -2978,6 +2978,8 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
+
+#define delay(x) _delay_ms(x)
 # 12 "../kernel/devices/port.h" 2
 
 typedef struct {
@@ -3042,7 +3044,11 @@ void blinkAllLeds(PLedGroup leds, uint8_t times);
 void flashLed(PLed led, const uint16_t millis);
 void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis);
 void flashAllLeds(PLedGroup leds, uint16_t millis);
-# 54 "../kernel/devices/led.h"
+
+
+
+void blinkByte(PLedGroup display, PLedGroup notifier, byte data);
+# 58 "../kernel/devices/led.h"
 #define DEFINE_LED(ledName) extern const PLed ledName;
 
 #define DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;
@@ -3059,6 +3065,9 @@ uint16_t resetStatusBitmask();
 
 
 void blink_reset_condition(PLedGroup leds);
+
+
+void blink_reset_condition_byte(PLedGroup blinker, PLedGroup notifier);
 # 9 "../kernel/reset_condition.c" 2
 
 uint16_t resetStatusBitmask() {
@@ -3083,4 +3092,10 @@ uint16_t resetStatusBitmask() {
 void blink_reset_condition(PLedGroup leds) {
  disableLeds(leds);
  blinkLeds(leds, resetStatusBitmask(), 4);
+}
+
+void blink_reset_condition_byte(PLedGroup blinker, PLedGroup notifier) {
+ disableLeds(blinker);
+ disableLeds(notifier);
+ blinkByte(blinker, notifier, getResetStatus());
 }

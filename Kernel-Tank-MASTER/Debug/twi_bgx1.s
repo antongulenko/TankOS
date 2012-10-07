@@ -4972,11 +4972,17 @@ __zero_reg__ = 1
 	.uleb128 0x2b
 	.string	"MAKE_WORD(hi,lo) ((hi*0x100)+lo)"
 	.byte	0x1
-	.uleb128 0x2d
-	.string	"enable_interrupts() sei()"
+	.uleb128 0x2c
+	.string	"AS_WORD(b) MAKE_WORD(b, 0)"
 	.byte	0x1
 	.uleb128 0x2e
+	.string	"enable_interrupts() sei()"
+	.byte	0x1
+	.uleb128 0x2f
 	.string	"disable_interrupts() cli()"
+	.byte	0x1
+	.uleb128 0x31
+	.string	"delay(x) _delay_ms(x)"
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0x44
@@ -4990,7 +4996,7 @@ __zero_reg__ = 1
 	.uleb128 0x15
 	.byte	0x1
 	.uleb128 0x2
-	.string	"TWI_RPC_HASH_CLIENT_H_ "
+	.string	"TWI_RPC_CLIENT_H_ "
 	.byte	0x3
 	.uleb128 0x7
 	.uleb128 0x16
@@ -5003,47 +5009,57 @@ __zero_reg__ = 1
 	.byte	0x4
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x71
+	.uleb128 0x8d
 	.ascii	"TWI_RPC_FUNCTION_VAR(funcName,operationByte,ArgStruct,ResStr"
 	.ascii	"uct) void funcName(ArgStruct *parameters"
 	.string	", uint16_t argSize, ResStruct *out_result, uint16_t resultSize);"
 	.byte	0x1
-	.uleb128 0x74
+	.uleb128 0x90
 	.ascii	"TWI_RPC_FUNCTION_VARARGS(funcName,operationByte,ArgStruct,Re"
 	.ascii	"sStru"
 	.string	"ct) ResStruct funcName(ArgStruct *parameters, uint16_t argSize);"
 	.byte	0x1
-	.uleb128 0x77
+	.uleb128 0x93
 	.ascii	"TWI_RPC_FUNCTION_VARRES(funcName,operationByte,ArgStruct,Res"
-	.ascii	"Struct) void funcName(ArgStruct *parameters"
-	.string	", uint16_t argSize, ResStruct *out_result, uint16_t resultSize);"
+	.ascii	"Struct) void funcName(Ar"
+	.string	"gStruct parameters, ResStruct *out_result, uint16_t resultSize);"
 	.byte	0x1
-	.uleb128 0x7a
-	.ascii	"TWI_RPC_FUNCTION(funcName,operationByte"
-	.string	",ArgStruct,ResStruct) ResStruct funcName(ArgStruct *parameters);"
+	.uleb128 0x96
+	.ascii	"TWI_RPC_FUNCTION(funcName,operationByt"
+	.string	"e,ArgStruct,ResStruct) ResStruct funcName(ArgStruct parameters);"
 	.byte	0x1
-	.uleb128 0x7d
+	.uleb128 0x99
 	.ascii	"TWI_RPC_FUNCTION_VOID_VAR(funcName,operationByte,Ar"
 	.string	"gStruct) void funcName(ArgStruct *parameters, uint16_t argSize);"
 	.byte	0x1
-	.uleb128 0x80
-	.ascii	"TWI_RPC_FUNCTION_VOID(funcNam"
-	.string	"e,operationByte,ArgStruct) void funcName(ArgStruct *parameters);"
+	.uleb128 0x9c
+	.ascii	"TWI_RPC_FUNCTION_VOID(funcNa"
+	.string	"me,operationByte,ArgStruct) void funcName(ArgStruct parameters);"
 	.byte	0x1
-	.uleb128 0x83
+	.uleb128 0x9f
+	.string	"TWI_RPC_FUNCTION_PVOID(a,b,c) TWI_RPC_FUNCTION_VOID(a, b, c)"
+	.byte	0x1
+	.uleb128 0xa0
+	.ascii	"TWI_"
+	.string	"RPC_FUNCTION_PVOID_VAR(a,b,c) TWI_RPC_FUNCTION_VOID_VAR(a, b, c)"
+	.byte	0x1
+	.uleb128 0xa2
 	.ascii	"TWI_RPC_FUNCTIO"
 	.string	"N_NOARGS(funcName,operationByte,ResStruct) ResStruct funcName();"
 	.byte	0x1
-	.uleb128 0x86
+	.uleb128 0xa5
 	.ascii	"TWI_RPC_FUNCTION_NOARGS_VAR(funcName,operationByte,ResSt"
 	.string	"ruct) void funcName(ResStruct *out_result, uint16_t resultSize);"
 	.byte	0x1
-	.uleb128 0x89
+	.uleb128 0xa8
 	.ascii	"TWI_RPC_FUNCTION_NOARGS_VAR(funcName,operationByte,ResSt"
 	.string	"ruct) void funcName(ResStruct *out_result, uint16_t resultSize);"
 	.byte	0x1
-	.uleb128 0x8c
+	.uleb128 0xab
 	.string	"TWI_RPC_FUNCTION_NOTIFY(funcName,operationByte) void funcName();"
+	.byte	0x1
+	.uleb128 0xae
+	.string	"TWI_RPC_FUNCTION_PNOTIFY(a,b) TWI_RPC_FUNCTION_NOTIFY(a, b)"
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x10
@@ -5334,6 +5350,33 @@ __zero_reg__ = 1
 	.ascii	")\" \"\\n\\t\" \"ldi\t%C0, hh8(%1)"
 	.string	"\" \"\\n\\t\" \"clr\t%D0\" \"\\n\\t\" : \"=d\" (tmp) : \"p\" (&(var)) ); tmp; })"
 	.byte	0x4
+	.byte	0x1
+	.uleb128 0x12
+	.string	"BGX1_VERSION 0x0103"
+	.byte	0x1
+	.uleb128 0x71
+	.string	"BGX1_BTN_1 _BV(0)"
+	.byte	0x1
+	.uleb128 0x72
+	.string	"BGX1_BTN_2 _BV(1)"
+	.byte	0x1
+	.uleb128 0x73
+	.string	"BGX1_BTN_3 _BV(2)"
+	.byte	0x1
+	.uleb128 0x74
+	.string	"BGX1_BTN_4 _BV(3)"
+	.byte	0x1
+	.uleb128 0x76
+	.string	"BGX1_LED_1 _BV(0)"
+	.byte	0x1
+	.uleb128 0x77
+	.string	"BGX1_LED_2 _BV(1)"
+	.byte	0x1
+	.uleb128 0x78
+	.string	"BGX1_LED_3 _BV(2)"
+	.byte	0x1
+	.uleb128 0x79
+	.string	"BGX1_LED_4 _BV(3)"
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x3
@@ -5454,19 +5497,32 @@ __zero_reg__ = 1
 	.string	"77) == 0) + (((x) & 077777) == 0) - (((x) & 0177777) == 0) * 16)"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x6
-	.ascii	"PREPARED_STRING_CALL(strlen,memcpy) uint8_t size = strlen(ar"
-	.ascii	"gument); uint8_t argSize = sizeof(StringArg) + size; StringA"
-	.ascii	"rg *args = (StringArg*) alloca(argSize); args->len = size"
-	.string	"; memcpy(((uint8_t*) args) + sizeof(StringArg), argument, size);"
+	.uleb128 0xf
+	.string	"BITMAP_MAX 18"
 	.byte	0x1
-	.uleb128 0xd
-	.ascii	"PREPARED_BITMAP_CALL(memcpy) uint8_t size = height * ((width"
-	.ascii	" - 1)/8 + 1); uint8_t argSize = sizeof(BitmapArguments) + si"
-	.ascii	"ze; BitmapArguments *args = (BitmapArguments*) alloca(argSiz"
-	.ascii	"e); args->width = width; args->height = height; memcpy(((uin"
-	.ascii	"t8_t*) args) + sizeof(BitmapArgument"
+	.uleb128 0x11
+	.string	"ROW_LENGTH(width) ((width - 1)/8 + 1)"
+	.byte	0x1
+	.uleb128 0x13
+	.ascii	"FETCH_PROGRAM_STRING() uint8_t argSize = strlen_P(argument);"
+	.ascii	" StringArg *ramString = (StringArg*) all"
+	.string	"oca(argSize); memcpy_P((uint8_t*) ramString, argument, argSize);"
+	.byte	0x1
+	.uleb128 0x18
+	.ascii	"PREPARED_BITMAP_CALL(MEMCPY) uint8_t size = height * ROW_LEN"
+	.ascii	"GTH(width); uint8_t argSize = sizeof(BitmapArguments) + size"
+	.ascii	"; BitmapArguments *args = (BitmapArguments*) alloca(argSize)"
+	.ascii	"; args->width = width; args->height = height; MEMCPY(((uint8"
+	.ascii	"_t*) args) + sizeof(BitmapArgument"
 	.string	"s), argument, size); return bgx1_drawBitmap_base(args, argSize);"
+	.byte	0x1
+	.uleb128 0x79
+	.ascii	"DRAW_BITMAP(DRAW_TILE) uint8_t row_size = ROW_LENGTH(width);"
+	.ascii	" uint8_t rows_per_tile = BITMAP_MAX / row_size; Point newPos"
+	.ascii	" = {0}; while (height) { uint8_t h = (height > rows_per_tile"
+	.ascii	") ? rows_per_tile : height; newPos = DRAW_TILE(width, h, dat"
+	.ascii	"a); data += row_size * h; height -= h; if (height"
+	.string	") bgx1_move(newPos.x - row_size + 2, newPos.y); } return newPos;"
 	.byte	0x4
 /* #APP */
 	__RAMPZ__ = 0x3b
@@ -5478,81 +5534,24 @@ bgx1_print:
 .LFB4:
 .LM1:
 .LVL0:
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r29
-	push r28
-	in r28,__SP_L__
-	in r29,__SP_H__
 /* prologue: function */
 /* frame size = 0 */
-/* stack size = 8 */
-.L__stack_usage = 8
-	movw r22,r24
+/* stack size = 0 */
+.L__stack_usage = 0
 .LM2:
-	in r12,__SP_L__
-	in r13,__SP_H__
-.LM3:
 	movw r26,r24
 	ld __tmp_reg__,X+
 	tst __tmp_reg__
 	brne .-6
-	movw r20,r26
-	subi r20,lo8(-(-1))
-	sbci r21,hi8(-(-1))
-	sub r20,r24
-	sbc r21,r25
-.LVL1:
-	mov r14,r20
-	inc r14
-	clr r15
-	in r30,__SP_L__
-	in r31,__SP_H__
-	sub r30,r14
-	sbc r31,r15
-	in __tmp_reg__,__SREG__
-	cli
-	out __SP_H__,r31
-	out __SREG__,__tmp_reg__
-	out __SP_L__,r30
-	in r16,__SP_L__
-	in r17,__SP_H__
-	subi r16,lo8(-(1))
-	sbci r17,hi8(-(1))
-.LVL2:
-	std Z+1,r20
-	movw r18,r16
-	subi r18,lo8(-(1))
-	sbci r19,hi8(-(1))
-	movw r24,r18
-.LVL3:
-	ldi r21,lo8(0)
-	call memcpy
-.LVL4:
-.LM4:
-	movw r24,r16
-	movw r22,r14
+	movw r22,r26
+	subi r22,lo8(-(-1))
+	sbci r23,hi8(-(-1))
+	sub r22,r24
+	sbc r23,r25
 	call bgx1_print_base
-.LM5:
-	in __tmp_reg__,__SREG__
-	cli
-	out __SP_H__,r13
-	out __SREG__,__tmp_reg__
-	out __SP_L__,r12
+.LVL1:
 /* epilogue start */
-	pop r28
-	pop r29
-	pop r17
-	pop r16
-.LVL5:
-	pop r15
-	pop r14
-	pop r13
-	pop r12
+.LM3:
 	ret
 .LFE4:
 	.size	bgx1_print, .-bgx1_print
@@ -5560,83 +5559,26 @@ bgx1_print:
 	.type	bgx1_textWidth, @function
 bgx1_textWidth:
 .LFB5:
-.LM6:
-.LVL6:
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r29
-	push r28
-	in r28,__SP_L__
-	in r29,__SP_H__
+.LM4:
+.LVL2:
 /* prologue: function */
 /* frame size = 0 */
-/* stack size = 8 */
-.L__stack_usage = 8
-	movw r22,r24
-.LM7:
-	in r12,__SP_L__
-	in r13,__SP_H__
-.LM8:
+/* stack size = 0 */
+.L__stack_usage = 0
+.LM5:
 	movw r26,r24
 	ld __tmp_reg__,X+
 	tst __tmp_reg__
 	brne .-6
-	movw r20,r26
-	subi r20,lo8(-(-1))
-	sbci r21,hi8(-(-1))
-	sub r20,r24
-	sbc r21,r25
-.LVL7:
-	mov r14,r20
-	inc r14
-	clr r15
-	in r30,__SP_L__
-	in r31,__SP_H__
-	sub r30,r14
-	sbc r31,r15
-	in __tmp_reg__,__SREG__
-	cli
-	out __SP_H__,r31
-	out __SREG__,__tmp_reg__
-	out __SP_L__,r30
-	in r16,__SP_L__
-	in r17,__SP_H__
-	subi r16,lo8(-(1))
-	sbci r17,hi8(-(1))
-.LVL8:
-	std Z+1,r20
-	movw r18,r16
-	subi r18,lo8(-(1))
-	sbci r19,hi8(-(1))
-	movw r24,r18
-.LVL9:
-	ldi r21,lo8(0)
-	call memcpy
-.LVL10:
-.LM9:
-	movw r24,r16
-	movw r22,r14
+	movw r22,r26
+	subi r22,lo8(-(-1))
+	sbci r23,hi8(-(-1))
+	sub r22,r24
+	sbc r23,r25
 	call bgx1_textWidth_base
-.LM10:
-	in __tmp_reg__,__SREG__
-	cli
-	out __SP_H__,r13
-	out __SREG__,__tmp_reg__
-	out __SP_L__,r12
+.LVL3:
 /* epilogue start */
-	pop r28
-	pop r29
-	pop r17
-	pop r16
-.LVL11:
-	pop r15
-	pop r14
-	pop r13
-	pop r12
+.LM6:
 	ret
 .LFE5:
 	.size	bgx1_textWidth, .-bgx1_textWidth
@@ -5644,92 +5586,35 @@ bgx1_textWidth:
 	.type	bgx1_termPrint, @function
 bgx1_termPrint:
 .LFB6:
-.LM11:
-.LVL12:
-	push r12
-	push r13
-	push r14
-	push r15
-	push r16
-	push r17
-	push r29
-	push r28
-	in r28,__SP_L__
-	in r29,__SP_H__
+.LM7:
+.LVL4:
 /* prologue: function */
 /* frame size = 0 */
-/* stack size = 8 */
-.L__stack_usage = 8
-	movw r22,r24
-.LM12:
-	in r12,__SP_L__
-	in r13,__SP_H__
-.LM13:
+/* stack size = 0 */
+.L__stack_usage = 0
+.LM8:
 	movw r26,r24
 	ld __tmp_reg__,X+
 	tst __tmp_reg__
 	brne .-6
-	movw r20,r26
-	subi r20,lo8(-(-1))
-	sbci r21,hi8(-(-1))
-	sub r20,r24
-	sbc r21,r25
-.LVL13:
-	mov r14,r20
-	inc r14
-	clr r15
-	in r30,__SP_L__
-	in r31,__SP_H__
-	sub r30,r14
-	sbc r31,r15
-	in __tmp_reg__,__SREG__
-	cli
-	out __SP_H__,r31
-	out __SREG__,__tmp_reg__
-	out __SP_L__,r30
-	in r16,__SP_L__
-	in r17,__SP_H__
-	subi r16,lo8(-(1))
-	sbci r17,hi8(-(1))
-.LVL14:
-	std Z+1,r20
-	movw r18,r16
-	subi r18,lo8(-(1))
-	sbci r19,hi8(-(1))
-	movw r24,r18
-.LVL15:
-	ldi r21,lo8(0)
-	call memcpy
-.LVL16:
-.LM14:
-	movw r24,r16
-	movw r22,r14
+	movw r22,r26
+	subi r22,lo8(-(-1))
+	sbci r23,hi8(-(-1))
+	sub r22,r24
+	sbc r23,r25
 	call bgx1_termPrint_base
-.LM15:
-	in __tmp_reg__,__SREG__
-	cli
-	out __SP_H__,r13
-	out __SREG__,__tmp_reg__
-	out __SP_L__,r12
+.LVL5:
 /* epilogue start */
-	pop r28
-	pop r29
-	pop r17
-	pop r16
-.LVL17:
-	pop r15
-	pop r14
-	pop r13
-	pop r12
+.LM9:
 	ret
 .LFE6:
 	.size	bgx1_termPrint, .-bgx1_termPrint
-.global	bgx1_drawBitmap
-	.type	bgx1_drawBitmap, @function
-bgx1_drawBitmap:
+.global	bgx1_drawTile
+	.type	bgx1_drawTile, @function
+bgx1_drawTile:
 .LFB7:
-.LM16:
-.LVL18:
+.LM10:
+.LVL6:
 	push r11
 	push r12
 	push r13
@@ -5748,16 +5633,16 @@ bgx1_drawBitmap:
 	mov r31,r24
 	mov r30,r22
 	mov r11,r21
-.LM17:
+.LM11:
 	in r12,__SP_L__
 	in r13,__SP_H__
-.LM18:
+.LM12:
 	ldi r25,lo8(0)
 	sbiw r24,1
-.LVL19:
+.LVL7:
 	ldi r22,lo8(8)
 	ldi r23,hi8(8)
-.LVL20:
+.LVL8:
 	call __divmodhi4
 	movw r18,r22
 	subi r18,lo8(-(1))
@@ -5765,7 +5650,7 @@ bgx1_drawBitmap:
 	mul r30,r18
 	mov r18,r0
 	clr r1
-.LVL21:
+.LVL9:
 	mov r24,r18
 	subi r24,lo8(-(2))
 	mov r14,r24
@@ -5783,7 +5668,7 @@ bgx1_drawBitmap:
 	in r17,__SP_H__
 	subi r16,lo8(-(1))
 	sbci r17,hi8(-(1))
-.LVL22:
+.LVL10:
 	in r26,__SP_L__
 	in r27,__SP_H__
 	adiw r26,1
@@ -5793,20 +5678,20 @@ bgx1_drawBitmap:
 	st X,r30
 	in r30,__SP_L__
 	in r31,__SP_H__
-.LVL23:
+.LVL11:
 	adiw r30,3
 	movw r24,r30
 	mov r22,r20
 	mov r23,r11
 	mov r20,r18
-.LVL24:
+.LVL12:
 	ldi r21,lo8(0)
 	call memcpy
-.LVL25:
+.LVL13:
 	movw r24,r16
 	movw r22,r14
 	call bgx1_drawBitmap_base
-.LM19:
+.LM13:
 	in __tmp_reg__,__SREG__
 	cli
 	out __SP_H__,r13
@@ -5817,22 +5702,22 @@ bgx1_drawBitmap:
 	pop r29
 	pop r17
 	pop r16
-.LVL26:
+.LVL14:
 	pop r15
 	pop r14
-.LVL27:
+.LVL15:
 	pop r13
 	pop r12
 	pop r11
 	ret
 .LFE7:
-	.size	bgx1_drawBitmap, .-bgx1_drawBitmap
+	.size	bgx1_drawTile, .-bgx1_drawTile
 .global	bgx1_print_P
 	.type	bgx1_print_P, @function
 bgx1_print_P:
 .LFB8:
-.LM20:
-.LVL28:
+.LM14:
+.LVL16:
 	push r10
 	push r11
 	push r12
@@ -5850,20 +5735,17 @@ bgx1_print_P:
 /* stack size = 10 */
 .L__stack_usage = 10
 	movw r14,r24
-.LM21:
+.LM15:
 	in r10,__SP_L__
 	in r11,__SP_H__
-.LM22:
+.LM16:
 	call strlen_P
-.LVL29:
-	mov r20,r24
-.LVL30:
+.LVL17:
 	mov r12,r24
-	inc r12
 	clr r13
 	in r24,__SP_L__
 	in r25,__SP_H__
-.LVL31:
+.LVL18:
 	sub r24,r12
 	sbc r25,r13
 	in __tmp_reg__,__SREG__
@@ -5875,21 +5757,15 @@ bgx1_print_P:
 	in r17,__SP_H__
 	subi r16,lo8(-(1))
 	sbci r17,hi8(-(1))
-.LVL32:
-	in r30,__SP_L__
-	in r31,__SP_H__
-	std Z+1,r20
 	movw r24,r16
-	adiw r24,1
 	movw r22,r14
-	ldi r21,lo8(0)
+	movw r20,r12
 	call memcpy_P
-.LVL33:
-.LM23:
+.LM17:
 	movw r24,r16
 	movw r22,r12
 	call bgx1_print_base
-.LM24:
+.LM18:
 	in __tmp_reg__,__SREG__
 	cli
 	out __SP_H__,r11
@@ -5900,13 +5776,12 @@ bgx1_print_P:
 	pop r29
 	pop r17
 	pop r16
-.LVL34:
 	pop r15
 	pop r14
-.LVL35:
+.LVL19:
 	pop r13
 	pop r12
-.LVL36:
+.LVL20:
 	pop r11
 	pop r10
 	ret
@@ -5916,8 +5791,8 @@ bgx1_print_P:
 	.type	bgx1_textWidth_P, @function
 bgx1_textWidth_P:
 .LFB9:
-.LM25:
-.LVL37:
+.LM19:
+.LVL21:
 	push r10
 	push r11
 	push r12
@@ -5935,20 +5810,17 @@ bgx1_textWidth_P:
 /* stack size = 10 */
 .L__stack_usage = 10
 	movw r14,r24
-.LM26:
+.LM20:
 	in r10,__SP_L__
 	in r11,__SP_H__
-.LM27:
+.LM21:
 	call strlen_P
-.LVL38:
-	mov r20,r24
-.LVL39:
+.LVL22:
 	mov r12,r24
-	inc r12
 	clr r13
 	in r24,__SP_L__
 	in r25,__SP_H__
-.LVL40:
+.LVL23:
 	sub r24,r12
 	sbc r25,r13
 	in __tmp_reg__,__SREG__
@@ -5960,21 +5832,15 @@ bgx1_textWidth_P:
 	in r17,__SP_H__
 	subi r16,lo8(-(1))
 	sbci r17,hi8(-(1))
-.LVL41:
-	in r30,__SP_L__
-	in r31,__SP_H__
-	std Z+1,r20
 	movw r24,r16
-	adiw r24,1
 	movw r22,r14
-	ldi r21,lo8(0)
+	movw r20,r12
 	call memcpy_P
-.LVL42:
-.LM28:
+.LM22:
 	movw r24,r16
 	movw r22,r12
 	call bgx1_textWidth_base
-.LM29:
+.LM23:
 	in __tmp_reg__,__SREG__
 	cli
 	out __SP_H__,r11
@@ -5985,13 +5851,12 @@ bgx1_textWidth_P:
 	pop r29
 	pop r17
 	pop r16
-.LVL43:
 	pop r15
 	pop r14
-.LVL44:
+.LVL24:
 	pop r13
 	pop r12
-.LVL45:
+.LVL25:
 	pop r11
 	pop r10
 	ret
@@ -6001,8 +5866,8 @@ bgx1_textWidth_P:
 	.type	bgx1_termPrint_P, @function
 bgx1_termPrint_P:
 .LFB10:
-.LM30:
-.LVL46:
+.LM24:
+.LVL26:
 	push r10
 	push r11
 	push r12
@@ -6020,20 +5885,17 @@ bgx1_termPrint_P:
 /* stack size = 10 */
 .L__stack_usage = 10
 	movw r14,r24
-.LM31:
+.LM25:
 	in r10,__SP_L__
 	in r11,__SP_H__
-.LM32:
+.LM26:
 	call strlen_P
-.LVL47:
-	mov r20,r24
-.LVL48:
+.LVL27:
 	mov r12,r24
-	inc r12
 	clr r13
 	in r24,__SP_L__
 	in r25,__SP_H__
-.LVL49:
+.LVL28:
 	sub r24,r12
 	sbc r25,r13
 	in __tmp_reg__,__SREG__
@@ -6045,21 +5907,15 @@ bgx1_termPrint_P:
 	in r17,__SP_H__
 	subi r16,lo8(-(1))
 	sbci r17,hi8(-(1))
-.LVL50:
-	in r30,__SP_L__
-	in r31,__SP_H__
-	std Z+1,r20
 	movw r24,r16
-	adiw r24,1
 	movw r22,r14
-	ldi r21,lo8(0)
+	movw r20,r12
 	call memcpy_P
-.LVL51:
-.LM33:
+.LM27:
 	movw r24,r16
 	movw r22,r12
 	call bgx1_termPrint_base
-.LM34:
+.LM28:
 	in __tmp_reg__,__SREG__
 	cli
 	out __SP_H__,r11
@@ -6070,24 +5926,23 @@ bgx1_termPrint_P:
 	pop r29
 	pop r17
 	pop r16
-.LVL52:
 	pop r15
 	pop r14
-.LVL53:
+.LVL29:
 	pop r13
 	pop r12
-.LVL54:
+.LVL30:
 	pop r11
 	pop r10
 	ret
 .LFE10:
 	.size	bgx1_termPrint_P, .-bgx1_termPrint_P
-.global	bgx1_drawBitmap_P
-	.type	bgx1_drawBitmap_P, @function
-bgx1_drawBitmap_P:
+.global	bgx1_drawTile_P
+	.type	bgx1_drawTile_P, @function
+bgx1_drawTile_P:
 .LFB11:
-.LM35:
-.LVL55:
+.LM29:
+.LVL31:
 	push r12
 	push r13
 	push r14
@@ -6105,25 +5960,25 @@ bgx1_drawBitmap_P:
 	mov r31,r24
 	mov r30,r22
 	movw r18,r20
-.LM36:
+.LM30:
 	in r12,__SP_L__
 	in r13,__SP_H__
-.LM37:
+.LM31:
 	ldi r25,lo8(0)
 	sbiw r24,1
-.LVL56:
+.LVL32:
 	ldi r22,lo8(8)
 	ldi r23,hi8(8)
-.LVL57:
+.LVL33:
 	call __divmodhi4
 	movw r20,r22
-.LVL58:
+.LVL34:
 	subi r20,lo8(-(1))
 	sbci r21,hi8(-(1))
 	mul r30,r20
 	mov r20,r0
 	clr r1
-.LVL59:
+.LVL35:
 	mov r24,r20
 	subi r24,lo8(-(2))
 	mov r14,r24
@@ -6141,7 +5996,7 @@ bgx1_drawBitmap_P:
 	in r17,__SP_H__
 	subi r16,lo8(-(1))
 	sbci r17,hi8(-(1))
-.LVL60:
+.LVL36:
 	in r26,__SP_L__
 	in r27,__SP_H__
 	adiw r26,1
@@ -6153,11 +6008,11 @@ bgx1_drawBitmap_P:
 	movw r22,r18
 	ldi r21,lo8(0)
 	call memcpy_P
-.LVL61:
+.LVL37:
 	movw r24,r16
 	movw r22,r14
 	call bgx1_drawBitmap_base
-.LM38:
+.LM32:
 	in __tmp_reg__,__SREG__
 	cli
 	out __SP_H__,r13
@@ -6168,14 +6023,471 @@ bgx1_drawBitmap_P:
 	pop r29
 	pop r17
 	pop r16
-.LVL62:
+.LVL38:
 	pop r15
 	pop r14
-.LVL63:
+.LVL39:
 	pop r13
 	pop r12
 	ret
 .LFE11:
+	.size	bgx1_drawTile_P, .-bgx1_drawTile_P
+.global	bgx1_getVersion
+	.type	bgx1_getVersion, @function
+bgx1_getVersion:
+.LFB12:
+.LM33:
+	push r29
+	push r28
+	rcall .
+	in r28,__SP_L__
+	in r29,__SP_H__
+/* prologue: function */
+/* frame size = 2 */
+/* stack size = 4 */
+.L__stack_usage = 4
+.LM34:
+	call bgx1_getVersion_base
+	std Y+2,r25
+	std Y+1,r24
+.LVL40:
+.LM35:
+	movw r24,r28
+	adiw r24,1
+	call turn_word
+.LM36:
+	ldd r24,Y+1
+	ldd r25,Y+2
+/* epilogue start */
+	pop __tmp_reg__
+	pop __tmp_reg__
+	pop r28
+	pop r29
+	ret
+.LFE12:
+	.size	bgx1_getVersion, .-bgx1_getVersion
+.global	bgx1_getAnalog
+	.type	bgx1_getAnalog, @function
+bgx1_getAnalog:
+.LFB13:
+.LM37:
+.LVL41:
+	push r29
+	push r28
+	rcall .
+	in r28,__SP_L__
+	in r29,__SP_H__
+/* prologue: function */
+/* frame size = 2 */
+/* stack size = 4 */
+.L__stack_usage = 4
+.LM38:
+	call bgx1_getAnalog_base
+.LVL42:
+	std Y+2,r25
+	std Y+1,r24
+.LVL43:
+.LM39:
+	movw r24,r28
+	adiw r24,1
+	call turn_word
+.LM40:
+	ldd r24,Y+1
+	ldd r25,Y+2
+/* epilogue start */
+	pop __tmp_reg__
+	pop __tmp_reg__
+	pop r28
+	pop r29
+	ret
+.LFE13:
+	.size	bgx1_getAnalog, .-bgx1_getAnalog
+.global	bgx1_move
+	.type	bgx1_move, @function
+bgx1_move:
+.LFB14:
+.LM41:
+.LVL44:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	mov r25,r22
+.LM42:
+	call bgx1_move_base
+.LVL45:
+/* epilogue start */
+.LM43:
+	ret
+.LFE14:
+	.size	bgx1_move, .-bgx1_move
+.global	bgx1_box
+	.type	bgx1_box, @function
+bgx1_box:
+.LFB15:
+.LM44:
+.LVL46:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	mov r25,r22
+.LM45:
+	call bgx1_box_base
+.LVL47:
+/* epilogue start */
+.LM46:
+	ret
+.LFE15:
+	.size	bgx1_box, .-bgx1_box
+.global	bgx1_lineTo
+	.type	bgx1_lineTo, @function
+bgx1_lineTo:
+.LFB16:
+.LM47:
+.LVL48:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	mov r25,r22
+.LM48:
+	call bgx1_lineTo_base
+.LVL49:
+/* epilogue start */
+.LM49:
+	ret
+.LFE16:
+	.size	bgx1_lineTo, .-bgx1_lineTo
+.global	bgx1_termGoto
+	.type	bgx1_termGoto, @function
+bgx1_termGoto:
+.LFB17:
+.LM50:
+.LVL50:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	mov r25,r22
+.LM51:
+	call bgx1_termGoto_base
+.LVL51:
+/* epilogue start */
+.LM52:
+	ret
+.LFE17:
+	.size	bgx1_termGoto, .-bgx1_termGoto
+.global	bgx1_syncPort
+	.type	bgx1_syncPort, @function
+bgx1_syncPort:
+.LFB18:
+.LM53:
+.LVL52:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+	mov r25,r22
+.LM54:
+	call bgx1_syncPort_base
+.LVL53:
+/* epilogue start */
+.LM55:
+	ret
+.LFE18:
+	.size	bgx1_syncPort, .-bgx1_syncPort
+.global	bgx1_initialized
+	.type	bgx1_initialized, @function
+bgx1_initialized:
+.LFB19:
+.LM56:
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 0 */
+.L__stack_usage = 0
+.LM57:
+	call bgx1_getVersion
+.LVL54:
+.LM58:
+	lds r18,twi_error
+	lds r19,twi_error+1
+	cp r18,__zero_reg__
+	cpc r19,__zero_reg__
+	brne .L20
+.LM59:
+	ldi r18,lo8(1)
+	ldi r19,hi8(1)
+	ldi r20,hi8(259)
+	cpi r24,lo8(259)
+	cpc r25,r20
+	breq .L18
+.L20:
+.LM60:
+	ldi r18,lo8(0)
+	ldi r19,hi8(0)
+.L18:
+.LM61:
+	movw r24,r18
+.LVL55:
+/* epilogue start */
+	ret
+.LFE19:
+	.size	bgx1_initialized, .-bgx1_initialized
+.global	bgx1_drawBitmap
+	.type	bgx1_drawBitmap, @function
+bgx1_drawBitmap:
+.LFB20:
+.LM62:
+.LVL56:
+	push r8
+	push r9
+	push r10
+	push r11
+	push r12
+	push r13
+	push r14
+	push r15
+	push r16
+	push r17
+	push r29
+	push r28
+	push __tmp_reg__
+	in r28,__SP_L__
+	in r29,__SP_H__
+/* prologue: function */
+/* frame size = 1 */
+/* stack size = 13 */
+.L__stack_usage = 13
+	mov r13,r24
+	mov r15,r22
+	mov r18,r21
+.LVL57:
+.LM63:
+	ldi r25,lo8(0)
+	sbiw r24,1
+.LVL58:
+	ldi r22,lo8(8)
+	ldi r23,hi8(8)
+.LVL59:
+	call __divmodhi4
+.LVL60:
+	mov r14,r22
+	inc r14
+.LVL61:
+	mov r16,r14
+	ldi r17,lo8(0)
+	ldi r24,lo8(18)
+	ldi r25,hi8(18)
+	movw r22,r16
+	call __divmodhi4
+	mov r12,r22
+.LVL62:
+.LM64:
+	mov r21,r18
+	movw r8,r20
+.LM65:
+	ldi r25,lo8(0)
+	ldi r24,lo8(0)
+	rjmp .L22
+.LVL63:
+.L25:
+.LBB2:
+.LM66:
+	mov r11,r15
+	cp r12,r15
+	brsh .L23
+.LVL64:
+	mov r11,r12
+.LVL65:
+.L23:
+	mov r24,r13
+	mov r22,r11
+	movw r20,r8
+	call bgx1_drawTile
+.LVL66:
+	mov r10,r24
+.LVL67:
+	mov r20,r11
+	ldi r21,lo8(0)
+	mul r20,r16
+	movw r18,r0
+	mul r20,r17
+	add r19,r0
+	mul r21,r16
+	add r19,r0
+	clr r1
+	add r8,r18
+	adc r9,r19
+.LVL68:
+	sub r15,r11
+.LVL69:
+	breq .L24
+.LM67:
+	subi r24,lo8(-(2))
+.LVL70:
+	sub r24,r14
+	mov r22,r25
+	std Y+1,r25
+	call bgx1_move
+	ldd r25,Y+1
+.LVL71:
+.L24:
+	mov r24,r10
+.LVL72:
+.L22:
+.LBE2:
+	tst r15
+	brne .L25
+/* epilogue start */
+.LM68:
+	pop __tmp_reg__
+	pop r28
+	pop r29
+	pop r17
+	pop r16
+	pop r15
+.LVL73:
+	pop r14
+.LVL74:
+	pop r13
+.LVL75:
+	pop r12
+.LVL76:
+	pop r11
+	pop r10
+.LVL77:
+	pop r9
+	pop r8
+.LVL78:
+	ret
+.LFE20:
+	.size	bgx1_drawBitmap, .-bgx1_drawBitmap
+.global	bgx1_drawBitmap_P
+	.type	bgx1_drawBitmap_P, @function
+bgx1_drawBitmap_P:
+.LFB21:
+.LM69:
+.LVL79:
+	push r8
+	push r9
+	push r10
+	push r11
+	push r12
+	push r13
+	push r14
+	push r15
+	push r16
+	push r17
+	push r29
+	push r28
+	push __tmp_reg__
+	in r28,__SP_L__
+	in r29,__SP_H__
+/* prologue: function */
+/* frame size = 1 */
+/* stack size = 13 */
+.L__stack_usage = 13
+	mov r14,r24
+	mov r15,r22
+	movw r8,r20
+.LM70:
+	mov r18,r24
+	ldi r19,lo8(0)
+	subi r18,lo8(-(-1))
+	sbci r19,hi8(-(-1))
+	movw r24,r18
+.LVL80:
+	ldi r22,lo8(8)
+	ldi r23,hi8(8)
+.LVL81:
+	call __divmodhi4
+	mov r13,r22
+	inc r13
+.LVL82:
+	mov r16,r13
+	ldi r17,lo8(0)
+	ldi r24,lo8(18)
+	ldi r25,hi8(18)
+	movw r22,r16
+	call __divmodhi4
+	mov r11,r22
+.LVL83:
+	ldi r25,lo8(0)
+	ldi r24,lo8(0)
+	rjmp .L27
+.LVL84:
+.L30:
+.LBB3:
+.LM71:
+	mov r12,r15
+	cp r11,r15
+	brsh .L28
+.LVL85:
+	mov r12,r11
+.LVL86:
+.L28:
+	mov r24,r14
+	mov r22,r12
+	movw r20,r8
+	call bgx1_drawTile_P
+.LVL87:
+	mov r10,r24
+.LVL88:
+	mov r20,r12
+	ldi r21,lo8(0)
+	mul r20,r16
+	movw r18,r0
+	mul r20,r17
+	add r19,r0
+	mul r21,r16
+	add r19,r0
+	clr r1
+	add r8,r18
+	adc r9,r19
+.LVL89:
+	sub r15,r12
+.LVL90:
+	breq .L29
+.LM72:
+	subi r24,lo8(-(2))
+.LVL91:
+	sub r24,r13
+	mov r22,r25
+	std Y+1,r25
+	call bgx1_move
+	ldd r25,Y+1
+.LVL92:
+.L29:
+	mov r24,r10
+.LVL93:
+.L27:
+.LBE3:
+	tst r15
+	brne .L30
+/* epilogue start */
+.LM73:
+	pop __tmp_reg__
+	pop r28
+	pop r29
+	pop r17
+	pop r16
+	pop r15
+.LVL94:
+	pop r14
+.LVL95:
+	pop r13
+.LVL96:
+	pop r12
+	pop r11
+.LVL97:
+	pop r10
+.LVL98:
+	pop r9
+	pop r8
+.LVL99:
+	ret
+.LFE21:
 	.size	bgx1_drawBitmap_P, .-bgx1_drawBitmap_P
 	.section	.debug_frame,"",@progbits
 .Lframe0:
@@ -6256,187 +6568,156 @@ bgx1_drawBitmap_P:
 	.long	.LFE11-.LFB11
 	.p2align	2
 .LEFDE14:
+.LSFDE16:
+	.long	.LEFDE16-.LASFDE16
+.LASFDE16:
+	.long	.Lframe0
+	.long	.LFB12
+	.long	.LFE12-.LFB12
+	.p2align	2
+.LEFDE16:
+.LSFDE18:
+	.long	.LEFDE18-.LASFDE18
+.LASFDE18:
+	.long	.Lframe0
+	.long	.LFB13
+	.long	.LFE13-.LFB13
+	.p2align	2
+.LEFDE18:
+.LSFDE20:
+	.long	.LEFDE20-.LASFDE20
+.LASFDE20:
+	.long	.Lframe0
+	.long	.LFB14
+	.long	.LFE14-.LFB14
+	.p2align	2
+.LEFDE20:
+.LSFDE22:
+	.long	.LEFDE22-.LASFDE22
+.LASFDE22:
+	.long	.Lframe0
+	.long	.LFB15
+	.long	.LFE15-.LFB15
+	.p2align	2
+.LEFDE22:
+.LSFDE24:
+	.long	.LEFDE24-.LASFDE24
+.LASFDE24:
+	.long	.Lframe0
+	.long	.LFB16
+	.long	.LFE16-.LFB16
+	.p2align	2
+.LEFDE24:
+.LSFDE26:
+	.long	.LEFDE26-.LASFDE26
+.LASFDE26:
+	.long	.Lframe0
+	.long	.LFB17
+	.long	.LFE17-.LFB17
+	.p2align	2
+.LEFDE26:
+.LSFDE28:
+	.long	.LEFDE28-.LASFDE28
+.LASFDE28:
+	.long	.Lframe0
+	.long	.LFB18
+	.long	.LFE18-.LFB18
+	.p2align	2
+.LEFDE28:
+.LSFDE30:
+	.long	.LEFDE30-.LASFDE30
+.LASFDE30:
+	.long	.Lframe0
+	.long	.LFB19
+	.long	.LFE19-.LFB19
+	.p2align	2
+.LEFDE30:
+.LSFDE32:
+	.long	.LEFDE32-.LASFDE32
+.LASFDE32:
+	.long	.Lframe0
+	.long	.LFB20
+	.long	.LFE20-.LFB20
+	.p2align	2
+.LEFDE32:
+.LSFDE34:
+	.long	.LEFDE34-.LASFDE34
+.LASFDE34:
+	.long	.Lframe0
+	.long	.LFB21
+	.long	.LFE21-.LFB21
+	.p2align	2
+.LEFDE34:
 	.text
 .Letext0:
 	.section	.debug_loc,"",@progbits
 .Ldebug_loc0:
 .LLST0:
 	.long	.LVL0-.Ltext0
-	.long	.LVL3-.Ltext0
+	.long	.LVL1-1-.Ltext0
 	.word	0x6
 	.byte	0x68
 	.byte	0x93
 	.uleb128 0x1
 	.byte	0x69
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL3-.Ltext0
-	.long	.LVL4-1-.Ltext0
-	.word	0x6
-	.byte	0x66
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x67
 	.byte	0x93
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
 .LLST1:
-	.long	.LVL1-.Ltext0
-	.long	.LVL4-1-.Ltext0
-	.word	0x1
-	.byte	0x64
+	.long	.LVL2-.Ltext0
+	.long	.LVL3-1-.Ltext0
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
 	.long	0x0
 	.long	0x0
 .LLST2:
-	.long	.LVL1-.Ltext0
-	.long	.LVL4-1-.Ltext0
-	.word	0x3
-	.byte	0x84
-	.sleb128 1
-	.byte	0x9f
+	.long	.LVL4-.Ltext0
+	.long	.LVL5-1-.Ltext0
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
 	.long	0x0
 	.long	0x0
 .LLST3:
-	.long	.LVL2-.Ltext0
-	.long	.LVL5-.Ltext0
-	.word	0x6
-	.byte	0x60
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x61
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST4:
 	.long	.LVL6-.Ltext0
-	.long	.LVL9-.Ltext0
-	.word	0x6
-	.byte	0x68
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x69
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL9-.Ltext0
-	.long	.LVL10-1-.Ltext0
-	.word	0x6
-	.byte	0x66
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x67
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST5:
 	.long	.LVL7-.Ltext0
-	.long	.LVL10-1-.Ltext0
 	.word	0x1
-	.byte	0x64
-	.long	0x0
-	.long	0x0
-.LLST6:
+	.byte	0x68
 	.long	.LVL7-.Ltext0
-	.long	.LVL10-1-.Ltext0
-	.word	0x3
-	.byte	0x84
-	.sleb128 1
-	.byte	0x9f
-	.long	0x0
-	.long	0x0
-.LLST7:
-	.long	.LVL8-.Ltext0
-	.long	.LVL11-.Ltext0
-	.word	0x6
-	.byte	0x60
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x61
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST8:
-	.long	.LVL12-.Ltext0
-	.long	.LVL15-.Ltext0
-	.word	0x6
-	.byte	0x68
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x69
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL15-.Ltext0
-	.long	.LVL16-1-.Ltext0
-	.word	0x6
-	.byte	0x66
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x67
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST9:
-	.long	.LVL13-.Ltext0
-	.long	.LVL16-1-.Ltext0
-	.word	0x1
-	.byte	0x64
-	.long	0x0
-	.long	0x0
-.LLST10:
-	.long	.LVL13-.Ltext0
-	.long	.LVL16-1-.Ltext0
-	.word	0x3
-	.byte	0x84
-	.sleb128 1
-	.byte	0x9f
-	.long	0x0
-	.long	0x0
-.LLST11:
-	.long	.LVL14-.Ltext0
-	.long	.LVL17-.Ltext0
-	.word	0x6
-	.byte	0x60
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x61
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST12:
-	.long	.LVL18-.Ltext0
-	.long	.LVL19-.Ltext0
-	.word	0x1
-	.byte	0x68
-	.long	.LVL19-.Ltext0
-	.long	.LVL25-1-.Ltext0
+	.long	.LVL13-1-.Ltext0
 	.word	0x1
 	.byte	0x6f
 	.long	0x0
 	.long	0x0
-.LLST13:
-	.long	.LVL18-.Ltext0
-	.long	.LVL20-.Ltext0
+.LLST4:
+	.long	.LVL6-.Ltext0
+	.long	.LVL8-.Ltext0
 	.word	0x1
 	.byte	0x66
-	.long	.LVL20-.Ltext0
-	.long	.LVL23-.Ltext0
+	.long	.LVL8-.Ltext0
+	.long	.LVL11-.Ltext0
 	.word	0x1
 	.byte	0x6e
-	.long	.LVL23-.Ltext0
-	.long	.LVL25-1-.Ltext0
+	.long	.LVL11-.Ltext0
+	.long	.LVL13-1-.Ltext0
 	.word	0x2
 	.byte	0x80
 	.sleb128 1
 	.long	0x0
 	.long	0x0
-.LLST14:
-	.long	.LVL18-.Ltext0
-	.long	.LVL24-.Ltext0
+.LLST5:
+	.long	.LVL6-.Ltext0
+	.long	.LVL12-.Ltext0
 	.word	0x6
 	.byte	0x64
 	.byte	0x93
@@ -6446,276 +6727,165 @@ bgx1_drawBitmap_P:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST15:
-	.long	.LVL21-.Ltext0
-	.long	.LVL25-1-.Ltext0
+.LLST6:
+	.long	.LVL9-.Ltext0
+	.long	.LVL13-1-.Ltext0
 	.word	0x1
 	.byte	0x62
-	.long	.LVL25-1-.Ltext0
-	.long	.LVL27-.Ltext0
+	.long	.LVL13-1-.Ltext0
+	.long	.LVL15-.Ltext0
 	.word	0x3
 	.byte	0x7e
 	.sleb128 -2
 	.byte	0x9f
 	.long	0x0
 	.long	0x0
-.LLST16:
-	.long	.LVL21-.Ltext0
-	.long	.LVL25-1-.Ltext0
+.LLST7:
+	.long	.LVL9-.Ltext0
+	.long	.LVL13-1-.Ltext0
 	.word	0x3
 	.byte	0x82
 	.sleb128 2
 	.byte	0x9f
-	.long	.LVL25-1-.Ltext0
-	.long	.LVL27-.Ltext0
+	.long	.LVL13-1-.Ltext0
+	.long	.LVL15-.Ltext0
 	.word	0x1
 	.byte	0x5e
 	.long	0x0
 	.long	0x0
-.LLST17:
+.LLST8:
+	.long	.LVL10-.Ltext0
+	.long	.LVL14-.Ltext0
+	.word	0x6
+	.byte	0x60
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x61
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST9:
+	.long	.LVL16-.Ltext0
+	.long	.LVL17-1-.Ltext0
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL17-1-.Ltext0
+	.long	.LVL19-.Ltext0
+	.word	0x6
+	.byte	0x5e
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x5f
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST10:
+	.long	.LVL17-.Ltext0
+	.long	.LVL18-.Ltext0
+	.word	0x1
+	.byte	0x68
+	.long	.LVL18-.Ltext0
+	.long	.LVL20-.Ltext0
+	.word	0x1
+	.byte	0x5c
+	.long	0x0
+	.long	0x0
+.LLST11:
+	.long	.LVL21-.Ltext0
+	.long	.LVL22-1-.Ltext0
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL22-1-.Ltext0
+	.long	.LVL24-.Ltext0
+	.word	0x6
+	.byte	0x5e
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x5f
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST12:
 	.long	.LVL22-.Ltext0
+	.long	.LVL23-.Ltext0
+	.word	0x1
+	.byte	0x68
+	.long	.LVL23-.Ltext0
+	.long	.LVL25-.Ltext0
+	.word	0x1
+	.byte	0x5c
+	.long	0x0
+	.long	0x0
+.LLST13:
 	.long	.LVL26-.Ltext0
+	.long	.LVL27-1-.Ltext0
 	.word	0x6
-	.byte	0x60
+	.byte	0x68
 	.byte	0x93
 	.uleb128 0x1
-	.byte	0x61
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL27-1-.Ltext0
+	.long	.LVL29-.Ltext0
+	.word	0x6
+	.byte	0x5e
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x5f
 	.byte	0x93
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST18:
+.LLST14:
+	.long	.LVL27-.Ltext0
 	.long	.LVL28-.Ltext0
-	.long	.LVL29-1-.Ltext0
-	.word	0x6
-	.byte	0x68
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x69
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL29-1-.Ltext0
-	.long	.LVL35-.Ltext0
-	.word	0x6
-	.byte	0x5e
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x5f
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST19:
-	.long	.LVL30-.Ltext0
-	.long	.LVL31-.Ltext0
 	.word	0x1
 	.byte	0x68
-	.long	.LVL31-.Ltext0
-	.long	.LVL33-1-.Ltext0
-	.word	0x1
-	.byte	0x64
-	.long	.LVL33-1-.Ltext0
-	.long	.LVL36-.Ltext0
-	.word	0x3
-	.byte	0x7c
-	.sleb128 -1
-	.byte	0x9f
-	.long	0x0
-	.long	0x0
-.LLST20:
+	.long	.LVL28-.Ltext0
 	.long	.LVL30-.Ltext0
-	.long	.LVL31-.Ltext0
-	.word	0x3
-	.byte	0x88
-	.sleb128 1
-	.byte	0x9f
-	.long	.LVL31-.Ltext0
-	.long	.LVL33-1-.Ltext0
-	.word	0x3
-	.byte	0x84
-	.sleb128 1
-	.byte	0x9f
-	.long	.LVL33-1-.Ltext0
-	.long	.LVL36-.Ltext0
 	.word	0x1
 	.byte	0x5c
 	.long	0x0
 	.long	0x0
-.LLST21:
+.LLST15:
+	.long	.LVL31-.Ltext0
 	.long	.LVL32-.Ltext0
-	.long	.LVL34-.Ltext0
-	.word	0x6
-	.byte	0x60
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x61
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST22:
-	.long	.LVL37-.Ltext0
-	.long	.LVL38-1-.Ltext0
-	.word	0x6
-	.byte	0x68
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x69
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL38-1-.Ltext0
-	.long	.LVL44-.Ltext0
-	.word	0x6
-	.byte	0x5e
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x5f
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST23:
-	.long	.LVL39-.Ltext0
-	.long	.LVL40-.Ltext0
 	.word	0x1
 	.byte	0x68
-	.long	.LVL40-.Ltext0
-	.long	.LVL42-1-.Ltext0
-	.word	0x1
-	.byte	0x64
-	.long	.LVL42-1-.Ltext0
-	.long	.LVL45-.Ltext0
-	.word	0x3
-	.byte	0x7c
-	.sleb128 -1
-	.byte	0x9f
-	.long	0x0
-	.long	0x0
-.LLST24:
-	.long	.LVL39-.Ltext0
-	.long	.LVL40-.Ltext0
-	.word	0x3
-	.byte	0x88
-	.sleb128 1
-	.byte	0x9f
-	.long	.LVL40-.Ltext0
-	.long	.LVL42-1-.Ltext0
-	.word	0x3
-	.byte	0x84
-	.sleb128 1
-	.byte	0x9f
-	.long	.LVL42-1-.Ltext0
-	.long	.LVL45-.Ltext0
-	.word	0x1
-	.byte	0x5c
-	.long	0x0
-	.long	0x0
-.LLST25:
-	.long	.LVL41-.Ltext0
-	.long	.LVL43-.Ltext0
-	.word	0x6
-	.byte	0x60
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x61
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST26:
-	.long	.LVL46-.Ltext0
-	.long	.LVL47-1-.Ltext0
-	.word	0x6
-	.byte	0x68
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x69
-	.byte	0x93
-	.uleb128 0x1
-	.long	.LVL47-1-.Ltext0
-	.long	.LVL53-.Ltext0
-	.word	0x6
-	.byte	0x5e
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x5f
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST27:
-	.long	.LVL48-.Ltext0
-	.long	.LVL49-.Ltext0
-	.word	0x1
-	.byte	0x68
-	.long	.LVL49-.Ltext0
-	.long	.LVL51-1-.Ltext0
-	.word	0x1
-	.byte	0x64
-	.long	.LVL51-1-.Ltext0
-	.long	.LVL54-.Ltext0
-	.word	0x3
-	.byte	0x7c
-	.sleb128 -1
-	.byte	0x9f
-	.long	0x0
-	.long	0x0
-.LLST28:
-	.long	.LVL48-.Ltext0
-	.long	.LVL49-.Ltext0
-	.word	0x3
-	.byte	0x88
-	.sleb128 1
-	.byte	0x9f
-	.long	.LVL49-.Ltext0
-	.long	.LVL51-1-.Ltext0
-	.word	0x3
-	.byte	0x84
-	.sleb128 1
-	.byte	0x9f
-	.long	.LVL51-1-.Ltext0
-	.long	.LVL54-.Ltext0
-	.word	0x1
-	.byte	0x5c
-	.long	0x0
-	.long	0x0
-.LLST29:
-	.long	.LVL50-.Ltext0
-	.long	.LVL52-.Ltext0
-	.word	0x6
-	.byte	0x60
-	.byte	0x93
-	.uleb128 0x1
-	.byte	0x61
-	.byte	0x93
-	.uleb128 0x1
-	.long	0x0
-	.long	0x0
-.LLST30:
-	.long	.LVL55-.Ltext0
-	.long	.LVL56-.Ltext0
-	.word	0x1
-	.byte	0x68
-	.long	.LVL56-.Ltext0
-	.long	.LVL61-1-.Ltext0
+	.long	.LVL32-.Ltext0
+	.long	.LVL37-1-.Ltext0
 	.word	0x1
 	.byte	0x6f
 	.long	0x0
 	.long	0x0
-.LLST31:
-	.long	.LVL55-.Ltext0
-	.long	.LVL57-.Ltext0
+.LLST16:
+	.long	.LVL31-.Ltext0
+	.long	.LVL33-.Ltext0
 	.word	0x1
 	.byte	0x66
-	.long	.LVL57-.Ltext0
-	.long	.LVL61-1-.Ltext0
+	.long	.LVL33-.Ltext0
+	.long	.LVL37-1-.Ltext0
 	.word	0x1
 	.byte	0x6e
 	.long	0x0
 	.long	0x0
-.LLST32:
-	.long	.LVL55-.Ltext0
-	.long	.LVL58-.Ltext0
+.LLST17:
+	.long	.LVL31-.Ltext0
+	.long	.LVL34-.Ltext0
 	.word	0x6
 	.byte	0x64
 	.byte	0x93
@@ -6723,8 +6893,8 @@ bgx1_drawBitmap_P:
 	.byte	0x65
 	.byte	0x93
 	.uleb128 0x1
-	.long	.LVL58-.Ltext0
-	.long	.LVL61-1-.Ltext0
+	.long	.LVL34-.Ltext0
+	.long	.LVL37-1-.Ltext0
 	.word	0x6
 	.byte	0x62
 	.byte	0x93
@@ -6734,35 +6904,35 @@ bgx1_drawBitmap_P:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
-.LLST33:
-	.long	.LVL59-.Ltext0
-	.long	.LVL61-1-.Ltext0
+.LLST18:
+	.long	.LVL35-.Ltext0
+	.long	.LVL37-1-.Ltext0
 	.word	0x1
 	.byte	0x64
-	.long	.LVL61-1-.Ltext0
-	.long	.LVL63-.Ltext0
+	.long	.LVL37-1-.Ltext0
+	.long	.LVL39-.Ltext0
 	.word	0x3
 	.byte	0x7e
 	.sleb128 -2
 	.byte	0x9f
 	.long	0x0
 	.long	0x0
-.LLST34:
-	.long	.LVL59-.Ltext0
-	.long	.LVL61-1-.Ltext0
+.LLST19:
+	.long	.LVL35-.Ltext0
+	.long	.LVL37-1-.Ltext0
 	.word	0x3
 	.byte	0x84
 	.sleb128 2
 	.byte	0x9f
-	.long	.LVL61-1-.Ltext0
-	.long	.LVL63-.Ltext0
+	.long	.LVL37-1-.Ltext0
+	.long	.LVL39-.Ltext0
 	.word	0x1
 	.byte	0x5e
 	.long	0x0
 	.long	0x0
-.LLST35:
-	.long	.LVL60-.Ltext0
-	.long	.LVL62-.Ltext0
+.LLST20:
+	.long	.LVL36-.Ltext0
+	.long	.LVL38-.Ltext0
 	.word	0x6
 	.byte	0x60
 	.byte	0x93
@@ -6772,16 +6942,391 @@ bgx1_drawBitmap_P:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
+.LLST21:
+	.long	.LVL41-.Ltext0
+	.long	.LVL42-1-.Ltext0
+	.word	0x1
+	.byte	0x68
+	.long	0x0
+	.long	0x0
+.LLST22:
+	.long	.LVL44-.Ltext0
+	.long	.LVL45-1-.Ltext0
+	.word	0x1
+	.byte	0x68
+	.long	0x0
+	.long	0x0
+.LLST23:
+	.long	.LVL44-.Ltext0
+	.long	.LVL45-1-.Ltext0
+	.word	0x1
+	.byte	0x66
+	.long	0x0
+	.long	0x0
+.LLST24:
+	.long	.LVL46-.Ltext0
+	.long	.LVL47-1-.Ltext0
+	.word	0x1
+	.byte	0x68
+	.long	0x0
+	.long	0x0
+.LLST25:
+	.long	.LVL46-.Ltext0
+	.long	.LVL47-1-.Ltext0
+	.word	0x1
+	.byte	0x66
+	.long	0x0
+	.long	0x0
+.LLST26:
+	.long	.LVL48-.Ltext0
+	.long	.LVL49-1-.Ltext0
+	.word	0x1
+	.byte	0x68
+	.long	0x0
+	.long	0x0
+.LLST27:
+	.long	.LVL48-.Ltext0
+	.long	.LVL49-1-.Ltext0
+	.word	0x1
+	.byte	0x66
+	.long	0x0
+	.long	0x0
+.LLST28:
+	.long	.LVL50-.Ltext0
+	.long	.LVL51-1-.Ltext0
+	.word	0x1
+	.byte	0x68
+	.long	0x0
+	.long	0x0
+.LLST29:
+	.long	.LVL50-.Ltext0
+	.long	.LVL51-1-.Ltext0
+	.word	0x1
+	.byte	0x66
+	.long	0x0
+	.long	0x0
+.LLST30:
+	.long	.LVL52-.Ltext0
+	.long	.LVL53-1-.Ltext0
+	.word	0x1
+	.byte	0x68
+	.long	0x0
+	.long	0x0
+.LLST31:
+	.long	.LVL52-.Ltext0
+	.long	.LVL53-1-.Ltext0
+	.word	0x1
+	.byte	0x66
+	.long	0x0
+	.long	0x0
+.LLST32:
+	.long	.LVL54-.Ltext0
+	.long	.LVL55-.Ltext0
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST33:
+	.long	.LVL56-.Ltext0
+	.long	.LVL58-.Ltext0
+	.word	0x1
+	.byte	0x68
+	.long	.LVL58-.Ltext0
+	.long	.LVL75-.Ltext0
+	.word	0x1
+	.byte	0x5d
+	.long	0x0
+	.long	0x0
+.LLST34:
+	.long	.LVL56-.Ltext0
+	.long	.LVL59-.Ltext0
+	.word	0x1
+	.byte	0x66
+	.long	.LVL59-.Ltext0
+	.long	.LVL64-.Ltext0
+	.word	0x1
+	.byte	0x5f
+	.long	.LVL64-.Ltext0
+	.long	.LVL65-.Ltext0
+	.word	0x1
+	.byte	0x5b
+	.long	.LVL65-.Ltext0
+	.long	.LVL69-.Ltext0
+	.word	0x1
+	.byte	0x5f
+	.long	.LVL69-.Ltext0
+	.long	.LVL73-.Ltext0
+	.word	0x1
+	.byte	0x5f
+	.long	0x0
+	.long	0x0
+.LLST35:
+	.long	.LVL56-.Ltext0
+	.long	.LVL63-.Ltext0
+	.word	0x6
+	.byte	0x64
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x65
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST36:
+	.long	.LVL57-.Ltext0
+	.long	.LVL60-.Ltext0
+	.word	0x6
+	.byte	0x64
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x65
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL60-.Ltext0
+	.long	.LVL63-.Ltext0
+	.word	0x6
+	.byte	0x64
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x62
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL63-.Ltext0
+	.long	.LVL68-.Ltext0
+	.word	0x6
+	.byte	0x58
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x59
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL68-.Ltext0
+	.long	.LVL72-.Ltext0
+	.word	0x6
+	.byte	0x58
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x59
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL72-.Ltext0
+	.long	.LVL78-.Ltext0
+	.word	0x6
+	.byte	0x58
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x59
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST37:
+	.long	.LVL61-.Ltext0
+	.long	.LVL74-.Ltext0
+	.word	0x1
+	.byte	0x5e
+	.long	0x0
+	.long	0x0
+.LLST38:
+	.long	.LVL62-.Ltext0
+	.long	.LVL63-.Ltext0
+	.word	0x1
+	.byte	0x66
+	.long	.LVL63-.Ltext0
+	.long	.LVL76-.Ltext0
+	.word	0x1
+	.byte	0x5c
+	.long	0x0
+	.long	0x0
+.LLST39:
+	.long	.LVL63-.Ltext0
+	.long	.LVL66-1-.Ltext0
+	.word	0x6
+	.byte	0x5a
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL67-.Ltext0
+	.long	.LVL70-.Ltext0
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL71-.Ltext0
+	.long	.LVL72-.Ltext0
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL72-.Ltext0
+	.long	.LVL77-.Ltext0
+	.word	0x6
+	.byte	0x5a
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST40:
+	.long	.LVL65-.Ltext0
+	.long	.LVL72-.Ltext0
+	.word	0x1
+	.byte	0x5b
+	.long	0x0
+	.long	0x0
+.LLST41:
+	.long	.LVL79-.Ltext0
+	.long	.LVL80-.Ltext0
+	.word	0x1
+	.byte	0x68
+	.long	.LVL80-.Ltext0
+	.long	.LVL95-.Ltext0
+	.word	0x1
+	.byte	0x5e
+	.long	0x0
+	.long	0x0
+.LLST42:
+	.long	.LVL79-.Ltext0
+	.long	.LVL81-.Ltext0
+	.word	0x1
+	.byte	0x66
+	.long	.LVL81-.Ltext0
+	.long	.LVL85-.Ltext0
+	.word	0x1
+	.byte	0x5f
+	.long	.LVL85-.Ltext0
+	.long	.LVL86-.Ltext0
+	.word	0x1
+	.byte	0x5c
+	.long	.LVL86-.Ltext0
+	.long	.LVL90-.Ltext0
+	.word	0x1
+	.byte	0x5f
+	.long	.LVL90-.Ltext0
+	.long	.LVL94-.Ltext0
+	.word	0x1
+	.byte	0x5f
+	.long	0x0
+	.long	0x0
+.LLST43:
+	.long	.LVL79-.Ltext0
+	.long	.LVL84-.Ltext0
+	.word	0x6
+	.byte	0x64
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x65
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL84-.Ltext0
+	.long	.LVL89-.Ltext0
+	.word	0x6
+	.byte	0x58
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x59
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL89-.Ltext0
+	.long	.LVL99-.Ltext0
+	.word	0x6
+	.byte	0x58
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x59
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST44:
+	.long	.LVL82-.Ltext0
+	.long	.LVL96-.Ltext0
+	.word	0x1
+	.byte	0x5d
+	.long	0x0
+	.long	0x0
+.LLST45:
+	.long	.LVL83-.Ltext0
+	.long	.LVL84-.Ltext0
+	.word	0x1
+	.byte	0x66
+	.long	.LVL84-.Ltext0
+	.long	.LVL97-.Ltext0
+	.word	0x1
+	.byte	0x5b
+	.long	0x0
+	.long	0x0
+.LLST46:
+	.long	.LVL84-.Ltext0
+	.long	.LVL87-1-.Ltext0
+	.word	0x6
+	.byte	0x5a
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL88-.Ltext0
+	.long	.LVL91-.Ltext0
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL92-.Ltext0
+	.long	.LVL93-.Ltext0
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL93-.Ltext0
+	.long	.LVL98-.Ltext0
+	.word	0x6
+	.byte	0x5a
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST47:
+	.long	.LVL86-.Ltext0
+	.long	.LVL93-.Ltext0
+	.word	0x1
+	.byte	0x5c
+	.long	0x0
+	.long	0x0
 	.section	.debug_info
-	.long	0x42a
+	.long	0x712
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF28
+	.long	.LASF67
 	.byte	0x1
-	.long	.LASF29
-	.long	.LASF30
+	.long	.LASF68
+	.long	.LASF69
 	.long	.Ltext0
 	.long	.Letext0
 	.long	.Ldebug_line0
@@ -6791,7 +7336,7 @@ bgx1_drawBitmap_P:
 	.byte	0x6
 	.long	.LASF0
 	.uleb128 0x3
-	.long	.LASF7
+	.long	.LASF2
 	.byte	0x6
 	.byte	0x7a
 	.long	0x3b
@@ -6803,166 +7348,231 @@ bgx1_drawBitmap_P:
 	.byte	0x2
 	.byte	0x5
 	.string	"int"
+	.uleb128 0x3
+	.long	.LASF3
+	.byte	0x6
+	.byte	0x7c
+	.long	0x54
 	.uleb128 0x2
 	.byte	0x2
-	.byte	0x7
-	.long	.LASF2
-	.uleb128 0x2
-	.byte	0x4
-	.byte	0x5
-	.long	.LASF3
-	.uleb128 0x2
-	.byte	0x4
 	.byte	0x7
 	.long	.LASF4
 	.uleb128 0x2
-	.byte	0x8
+	.byte	0x4
 	.byte	0x5
 	.long	.LASF5
 	.uleb128 0x2
-	.byte	0x8
+	.byte	0x4
 	.byte	0x7
 	.long	.LASF6
-	.uleb128 0x3
+	.uleb128 0x2
+	.byte	0x8
+	.byte	0x5
+	.long	.LASF7
+	.uleb128 0x2
+	.byte	0x8
+	.byte	0x7
 	.long	.LASF8
+	.uleb128 0x5
+	.byte	0x2
+	.byte	0x4
+	.byte	0x14
+	.long	0x8c
+	.uleb128 0x6
+	.long	.LASF9
+	.sleb128 0
+	.uleb128 0x6
+	.long	.LASF10
+	.sleb128 1
+	.byte	0x0
+	.uleb128 0x3
+	.long	.LASF11
+	.byte	0x4
+	.byte	0x17
+	.long	0x77
+	.uleb128 0x3
+	.long	.LASF12
+	.byte	0x4
+	.byte	0x19
+	.long	0x30
+	.uleb128 0x5
+	.byte	0x2
+	.byte	0x3
+	.byte	0x1c
+	.long	0xe7
+	.uleb128 0x6
+	.long	.LASF13
+	.sleb128 0
+	.uleb128 0x6
+	.long	.LASF14
+	.sleb128 1
+	.uleb128 0x6
+	.long	.LASF15
+	.sleb128 2
+	.uleb128 0x6
+	.long	.LASF16
+	.sleb128 3
+	.uleb128 0x6
+	.long	.LASF17
+	.sleb128 4
+	.uleb128 0x6
+	.long	.LASF18
+	.sleb128 5
+	.uleb128 0x6
+	.long	.LASF19
+	.sleb128 6
+	.uleb128 0x6
+	.long	.LASF20
+	.sleb128 7
+	.uleb128 0x6
+	.long	.LASF21
+	.sleb128 8
+	.uleb128 0x6
+	.long	.LASF22
+	.sleb128 9
+	.byte	0x0
+	.uleb128 0x3
+	.long	.LASF23
+	.byte	0x3
+	.byte	0x32
+	.long	0xa2
+	.uleb128 0x3
+	.long	.LASF24
 	.byte	0x17
 	.byte	0xda
-	.long	0x77
+	.long	0xfd
 	.uleb128 0x2
 	.byte	0x1
 	.byte	0x6
-	.long	.LASF9
+	.long	.LASF25
 	.uleb128 0x2
 	.byte	0x1
 	.byte	0x8
-	.long	.LASF9
-	.uleb128 0x5
+	.long	.LASF25
+	.uleb128 0x7
 	.byte	0x2
-	.byte	0x2
-	.byte	0x3f
-	.long	0xa6
-	.uleb128 0x6
-	.string	"x"
-	.byte	0x2
-	.byte	0x40
-	.long	0x30
-	.byte	0x2
-	.byte	0x23
-	.uleb128 0x0
-	.uleb128 0x6
-	.string	"y"
 	.byte	0x2
 	.byte	0x41
-	.long	0x30
-	.byte	0x2
-	.byte	0x23
-	.uleb128 0x1
-	.byte	0x0
-	.uleb128 0x3
-	.long	.LASF10
+	.long	0x12c
+	.uleb128 0x8
+	.string	"x"
 	.byte	0x2
 	.byte	0x42
-	.long	0x85
-	.uleb128 0x5
-	.byte	0x2
-	.byte	0x2
-	.byte	0x44
-	.long	0xd6
-	.uleb128 0x7
-	.long	.LASF11
-	.byte	0x2
-	.byte	0x45
 	.long	0x30
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
-	.uleb128 0x7
-	.long	.LASF12
+	.uleb128 0x8
+	.string	"y"
 	.byte	0x2
-	.byte	0x46
+	.byte	0x43
 	.long	0x30
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x1
 	.byte	0x0
 	.uleb128 0x3
-	.long	.LASF13
+	.long	.LASF26
 	.byte	0x2
-	.byte	0x49
-	.long	0xb1
-	.uleb128 0x5
-	.byte	0x1
+	.byte	0x44
+	.long	0x10b
+	.uleb128 0x3
+	.long	.LASF27
 	.byte	0x2
-	.byte	0x4f
-	.long	0xf8
-	.uleb128 0x6
-	.string	"len"
+	.byte	0x44
+	.long	0x10b
+	.uleb128 0x7
 	.byte	0x2
-	.byte	0x50
+	.byte	0x2
+	.byte	0x46
+	.long	0x167
+	.uleb128 0x9
+	.long	.LASF28
+	.byte	0x2
+	.byte	0x47
 	.long	0x30
 	.byte	0x2
 	.byte	0x23
 	.uleb128 0x0
+	.uleb128 0x9
+	.long	.LASF29
+	.byte	0x2
+	.byte	0x48
+	.long	0x30
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x1
 	.byte	0x0
 	.uleb128 0x3
-	.long	.LASF14
+	.long	.LASF30
 	.byte	0x2
-	.byte	0x52
-	.long	0xe1
+	.byte	0x4b
+	.long	0x142
+	.uleb128 0x3
+	.long	.LASF31
+	.byte	0x2
+	.byte	0x4e
+	.long	0x17d
+	.uleb128 0x2
+	.byte	0x1
+	.byte	0x6
+	.long	.LASF32
+	.uleb128 0x7
+	.byte	0x2
+	.byte	0x2
+	.byte	0x66
+	.long	0x1a9
 	.uleb128 0x8
+	.string	"ddr"
+	.byte	0x2
+	.byte	0x67
+	.long	0x30
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x0
+	.uleb128 0x9
+	.long	.LASF33
+	.byte	0x2
+	.byte	0x68
+	.long	0x30
+	.byte	0x2
+	.byte	0x23
+	.uleb128 0x1
+	.byte	0x0
+	.uleb128 0x3
+	.long	.LASF34
+	.byte	0x2
+	.byte	0x69
+	.long	0x184
+	.uleb128 0xa
 	.byte	0x1
-	.long	.LASF19
+	.long	.LASF35
 	.byte	0x1
-	.byte	0x18
+	.byte	0x25
 	.byte	0x1
-	.long	0xa6
+	.long	0x12c
 	.long	.LFB4
 	.long	.LFE4
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x15d
-	.uleb128 0x9
-	.long	.LASF21
+	.long	0x1e1
+	.uleb128 0xb
+	.long	.LASF37
 	.byte	0x1
-	.byte	0x18
-	.long	0x15d
+	.byte	0x25
+	.long	0x1e1
 	.long	.LLST0
-	.uleb128 0xa
-	.long	.LASF15
-	.byte	0x1
-	.byte	0x19
-	.long	0x30
-	.long	.LLST1
-	.uleb128 0xa
-	.long	.LASF16
-	.byte	0x1
-	.byte	0x19
-	.long	0x30
-	.long	.LLST2
-	.uleb128 0xa
-	.long	.LASF17
-	.byte	0x1
-	.byte	0x19
-	.long	0x16a
-	.long	.LLST3
 	.byte	0x0
-	.uleb128 0xb
+	.uleb128 0xc
 	.byte	0x2
-	.long	0x163
-	.uleb128 0x2
+	.long	0x17d
+	.uleb128 0xa
 	.byte	0x1
-	.byte	0x6
-	.long	.LASF18
-	.uleb128 0xb
-	.byte	0x2
-	.long	0xf8
-	.uleb128 0x8
+	.long	.LASF36
 	.byte	0x1
-	.long	.LASF20
-	.byte	0x1
-	.byte	0x1d
+	.byte	0x29
 	.byte	0x1
 	.long	0x30
 	.long	.LFB5
@@ -6971,176 +7581,139 @@ bgx1_drawBitmap_P:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x1ca
-	.uleb128 0x9
-	.long	.LASF21
+	.long	0x214
+	.uleb128 0xb
+	.long	.LASF37
 	.byte	0x1
-	.byte	0x1d
-	.long	0x15d
-	.long	.LLST4
-	.uleb128 0xa
-	.long	.LASF15
-	.byte	0x1
-	.byte	0x1e
-	.long	0x30
-	.long	.LLST5
-	.uleb128 0xa
-	.long	.LASF16
-	.byte	0x1
-	.byte	0x1e
-	.long	0x30
-	.long	.LLST6
-	.uleb128 0xa
-	.long	.LASF17
-	.byte	0x1
-	.byte	0x1e
-	.long	0x16a
-	.long	.LLST7
+	.byte	0x29
+	.long	0x1e1
+	.long	.LLST1
 	.byte	0x0
-	.uleb128 0xc
+	.uleb128 0xa
 	.byte	0x1
-	.long	.LASF25
+	.long	.LASF38
 	.byte	0x1
-	.byte	0x22
+	.byte	0x2d
 	.byte	0x1
+	.long	0x97
 	.long	.LFB6
 	.long	.LFE6
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x220
-	.uleb128 0x9
-	.long	.LASF21
+	.long	0x241
+	.uleb128 0xb
+	.long	.LASF37
 	.byte	0x1
-	.byte	0x22
-	.long	0x15d
-	.long	.LLST8
-	.uleb128 0xa
-	.long	.LASF15
-	.byte	0x1
-	.byte	0x23
-	.long	0x30
-	.long	.LLST9
-	.uleb128 0xa
-	.long	.LASF16
-	.byte	0x1
-	.byte	0x23
-	.long	0x30
-	.long	.LLST10
-	.uleb128 0xa
-	.long	.LASF17
-	.byte	0x1
-	.byte	0x23
-	.long	0x16a
-	.long	.LLST11
+	.byte	0x2d
+	.long	0x1e1
+	.long	.LLST2
 	.byte	0x0
-	.uleb128 0x8
+	.uleb128 0xa
 	.byte	0x1
-	.long	.LASF22
+	.long	.LASF39
 	.byte	0x1
-	.byte	0x27
+	.byte	0x31
 	.byte	0x1
-	.long	0xa6
+	.long	0x12c
 	.long	.LFB7
 	.long	.LFE7
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x298
-	.uleb128 0x9
-	.long	.LASF11
+	.long	0x2b9
+	.uleb128 0xb
+	.long	.LASF28
 	.byte	0x1
-	.byte	0x27
+	.byte	0x31
 	.long	0x30
-	.long	.LLST12
-	.uleb128 0x9
-	.long	.LASF12
+	.long	.LLST3
+	.uleb128 0xb
+	.long	.LASF29
 	.byte	0x1
-	.byte	0x27
+	.byte	0x31
 	.long	0x30
-	.long	.LLST13
-	.uleb128 0x9
-	.long	.LASF21
+	.long	.LLST4
+	.uleb128 0xb
+	.long	.LASF37
 	.byte	0x1
-	.byte	0x27
-	.long	0x298
-	.long	.LLST14
-	.uleb128 0xa
-	.long	.LASF15
+	.byte	0x31
+	.long	0x2b9
+	.long	.LLST5
+	.uleb128 0xd
+	.long	.LASF40
 	.byte	0x1
-	.byte	0x28
+	.byte	0x32
 	.long	0x30
-	.long	.LLST15
-	.uleb128 0xa
-	.long	.LASF16
+	.long	.LLST6
+	.uleb128 0xd
+	.long	.LASF41
 	.byte	0x1
-	.byte	0x28
+	.byte	0x32
 	.long	0x30
-	.long	.LLST16
-	.uleb128 0xa
-	.long	.LASF17
+	.long	.LLST7
+	.uleb128 0xd
+	.long	.LASF42
 	.byte	0x1
-	.byte	0x28
-	.long	0x29e
-	.long	.LLST17
+	.byte	0x32
+	.long	0x2c4
+	.long	.LLST8
 	.byte	0x0
-	.uleb128 0xb
+	.uleb128 0xc
 	.byte	0x2
+	.long	0x2bf
+	.uleb128 0xe
 	.long	0x30
-	.uleb128 0xb
+	.uleb128 0xc
 	.byte	0x2
-	.long	0xd6
-	.uleb128 0x8
+	.long	0x167
+	.uleb128 0xa
 	.byte	0x1
-	.long	.LASF23
+	.long	.LASF43
 	.byte	0x1
-	.byte	0x2d
+	.byte	0x39
 	.byte	0x1
-	.long	0xa6
+	.long	0x12c
 	.long	.LFB8
 	.long	.LFE8
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x2fe
-	.uleb128 0x9
-	.long	.LASF21
-	.byte	0x1
-	.byte	0x2d
-	.long	0x2fe
-	.long	.LLST18
-	.uleb128 0xa
-	.long	.LASF15
-	.byte	0x1
-	.byte	0x2e
-	.long	0x30
-	.long	.LLST19
-	.uleb128 0xa
-	.long	.LASF16
-	.byte	0x1
-	.byte	0x2e
-	.long	0x30
-	.long	.LLST20
-	.uleb128 0xa
-	.long	.LASF17
-	.byte	0x1
-	.byte	0x2e
-	.long	0x16a
-	.long	.LLST21
-	.byte	0x0
+	.long	0x311
 	.uleb128 0xb
-	.byte	0x2
-	.long	0x304
+	.long	.LASF37
+	.byte	0x1
+	.byte	0x39
+	.long	0x311
+	.long	.LLST9
 	.uleb128 0xd
-	.long	0x6c
-	.uleb128 0x8
+	.long	.LASF41
 	.byte	0x1
-	.long	.LASF24
+	.byte	0x3a
+	.long	0x30
+	.long	.LLST10
+	.uleb128 0xf
+	.long	.LASF45
 	.byte	0x1
-	.byte	0x32
+	.byte	0x3a
+	.long	0x31c
+	.byte	0x0
+	.uleb128 0xc
+	.byte	0x2
+	.long	0x317
+	.uleb128 0xe
+	.long	0xf2
+	.uleb128 0xc
+	.byte	0x2
+	.long	0x172
+	.uleb128 0xa
+	.byte	0x1
+	.long	.LASF44
+	.byte	0x1
+	.byte	0x3e
 	.byte	0x1
 	.long	0x30
 	.long	.LFB9
@@ -7149,120 +7722,453 @@ bgx1_drawBitmap_P:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x363
-	.uleb128 0x9
-	.long	.LASF21
+	.long	0x369
+	.uleb128 0xb
+	.long	.LASF37
 	.byte	0x1
-	.byte	0x32
-	.long	0x2fe
-	.long	.LLST22
-	.uleb128 0xa
-	.long	.LASF15
+	.byte	0x3e
+	.long	0x311
+	.long	.LLST11
+	.uleb128 0xd
+	.long	.LASF41
 	.byte	0x1
-	.byte	0x33
+	.byte	0x3f
 	.long	0x30
-	.long	.LLST23
-	.uleb128 0xa
-	.long	.LASF16
+	.long	.LLST12
+	.uleb128 0xf
+	.long	.LASF45
 	.byte	0x1
-	.byte	0x33
-	.long	0x30
-	.long	.LLST24
-	.uleb128 0xa
-	.long	.LASF17
-	.byte	0x1
-	.byte	0x33
-	.long	0x16a
-	.long	.LLST25
+	.byte	0x3f
+	.long	0x31c
 	.byte	0x0
-	.uleb128 0xc
+	.uleb128 0xa
 	.byte	0x1
-	.long	.LASF26
+	.long	.LASF46
 	.byte	0x1
-	.byte	0x37
+	.byte	0x43
 	.byte	0x1
+	.long	0x97
 	.long	.LFB10
 	.long	.LFE10
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.long	0x3b9
-	.uleb128 0x9
-	.long	.LASF21
+	.long	0x3b0
+	.uleb128 0xb
+	.long	.LASF37
 	.byte	0x1
-	.byte	0x37
-	.long	0x2fe
-	.long	.LLST26
-	.uleb128 0xa
-	.long	.LASF15
+	.byte	0x43
+	.long	0x311
+	.long	.LLST13
+	.uleb128 0xd
+	.long	.LASF41
 	.byte	0x1
-	.byte	0x38
+	.byte	0x44
 	.long	0x30
-	.long	.LLST27
-	.uleb128 0xa
-	.long	.LASF16
+	.long	.LLST14
+	.uleb128 0xf
+	.long	.LASF45
 	.byte	0x1
-	.byte	0x38
-	.long	0x30
-	.long	.LLST28
-	.uleb128 0xa
-	.long	.LASF17
-	.byte	0x1
-	.byte	0x38
-	.long	0x16a
-	.long	.LLST29
+	.byte	0x44
+	.long	0x31c
 	.byte	0x0
-	.uleb128 0xe
+	.uleb128 0xa
 	.byte	0x1
-	.long	.LASF27
+	.long	.LASF47
 	.byte	0x1
-	.byte	0x3c
+	.byte	0x48
 	.byte	0x1
-	.long	0xa6
+	.long	0x12c
 	.long	.LFB11
 	.long	.LFE11
 	.byte	0x3
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
-	.uleb128 0x9
-	.long	.LASF11
+	.long	0x428
+	.uleb128 0xb
+	.long	.LASF28
 	.byte	0x1
-	.byte	0x3c
+	.byte	0x48
+	.long	0x30
+	.long	.LLST15
+	.uleb128 0xb
+	.long	.LASF29
+	.byte	0x1
+	.byte	0x48
+	.long	0x30
+	.long	.LLST16
+	.uleb128 0xb
+	.long	.LASF37
+	.byte	0x1
+	.byte	0x48
+	.long	0x311
+	.long	.LLST17
+	.uleb128 0xd
+	.long	.LASF40
+	.byte	0x1
+	.byte	0x49
+	.long	0x30
+	.long	.LLST18
+	.uleb128 0xd
+	.long	.LASF41
+	.byte	0x1
+	.byte	0x49
+	.long	0x30
+	.long	.LLST19
+	.uleb128 0xd
+	.long	.LASF42
+	.byte	0x1
+	.byte	0x49
+	.long	0x2c4
+	.long	.LLST20
+	.byte	0x0
+	.uleb128 0x10
+	.byte	0x1
+	.long	.LASF51
+	.byte	0x1
+	.byte	0x50
+	.long	0x49
+	.long	.LFB12
+	.long	.LFE12
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x453
+	.uleb128 0x11
+	.long	.LASF48
+	.byte	0x1
+	.byte	0x51
+	.long	0x49
+	.byte	0x2
+	.byte	0x8c
+	.sleb128 1
+	.byte	0x0
+	.uleb128 0xa
+	.byte	0x1
+	.long	.LASF49
+	.byte	0x1
+	.byte	0x56
+	.byte	0x1
+	.long	0x49
+	.long	.LFB13
+	.long	.LFE13
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x48e
+	.uleb128 0xb
+	.long	.LASF50
+	.byte	0x1
+	.byte	0x56
+	.long	0x30
+	.long	.LLST21
+	.uleb128 0x11
+	.long	.LASF48
+	.byte	0x1
+	.byte	0x57
+	.long	0x49
+	.byte	0x2
+	.byte	0x8c
+	.sleb128 1
+	.byte	0x0
+	.uleb128 0x12
+	.byte	0x1
+	.long	.LASF52
+	.byte	0x1
+	.byte	0x60
+	.byte	0x1
+	.long	.LFB14
+	.long	.LFE14
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x4c2
+	.uleb128 0x13
+	.string	"x"
+	.byte	0x1
+	.byte	0x60
+	.long	0x30
+	.long	.LLST22
+	.uleb128 0x13
+	.string	"y"
+	.byte	0x1
+	.byte	0x60
+	.long	0x30
+	.long	.LLST23
+	.byte	0x0
+	.uleb128 0xa
+	.byte	0x1
+	.long	.LASF53
+	.byte	0x1
+	.byte	0x64
+	.byte	0x1
+	.long	0x12c
+	.long	.LFB15
+	.long	.LFE15
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x4fe
+	.uleb128 0xb
+	.long	.LASF28
+	.byte	0x1
+	.byte	0x64
+	.long	0x30
+	.long	.LLST24
+	.uleb128 0xb
+	.long	.LASF29
+	.byte	0x1
+	.byte	0x64
+	.long	0x30
+	.long	.LLST25
+	.byte	0x0
+	.uleb128 0x12
+	.byte	0x1
+	.long	.LASF54
+	.byte	0x1
+	.byte	0x68
+	.byte	0x1
+	.long	.LFB16
+	.long	.LFE16
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x532
+	.uleb128 0x13
+	.string	"x"
+	.byte	0x1
+	.byte	0x68
+	.long	0x30
+	.long	.LLST26
+	.uleb128 0x13
+	.string	"y"
+	.byte	0x1
+	.byte	0x68
+	.long	0x30
+	.long	.LLST27
+	.byte	0x0
+	.uleb128 0x12
+	.byte	0x1
+	.long	.LASF55
+	.byte	0x1
+	.byte	0x6c
+	.byte	0x1
+	.long	.LFB17
+	.long	.LFE17
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x566
+	.uleb128 0x13
+	.string	"x"
+	.byte	0x1
+	.byte	0x6c
+	.long	0x30
+	.long	.LLST28
+	.uleb128 0x13
+	.string	"y"
+	.byte	0x1
+	.byte	0x6c
+	.long	0x30
+	.long	.LLST29
+	.byte	0x0
+	.uleb128 0xa
+	.byte	0x1
+	.long	.LASF56
+	.byte	0x1
+	.byte	0x70
+	.byte	0x1
+	.long	0x30
+	.long	.LFB18
+	.long	.LFE18
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x5a2
+	.uleb128 0x13
+	.string	"ddr"
+	.byte	0x1
+	.byte	0x70
 	.long	0x30
 	.long	.LLST30
-	.uleb128 0x9
-	.long	.LASF12
+	.uleb128 0xb
+	.long	.LASF33
 	.byte	0x1
-	.byte	0x3c
+	.byte	0x70
 	.long	0x30
 	.long	.LLST31
-	.uleb128 0x9
-	.long	.LASF21
+	.byte	0x0
+	.uleb128 0x10
 	.byte	0x1
-	.byte	0x3c
-	.long	0x2fe
+	.long	.LASF57
+	.byte	0x1
+	.byte	0x74
+	.long	0x8c
+	.long	.LFB19
+	.long	.LFE19
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x5ce
+	.uleb128 0xd
+	.long	.LASF58
+	.byte	0x1
+	.byte	0x75
+	.long	0x49
 	.long	.LLST32
+	.byte	0x0
 	.uleb128 0xa
-	.long	.LASF15
 	.byte	0x1
-	.byte	0x3d
+	.long	.LASF59
+	.byte	0x1
+	.byte	0x88
+	.byte	0x1
+	.long	0x12c
+	.long	.LFB20
+	.long	.LFE20
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x66c
+	.uleb128 0xb
+	.long	.LASF28
+	.byte	0x1
+	.byte	0x88
 	.long	0x30
 	.long	.LLST33
-	.uleb128 0xa
-	.long	.LASF16
+	.uleb128 0xb
+	.long	.LASF29
 	.byte	0x1
-	.byte	0x3d
+	.byte	0x88
 	.long	0x30
 	.long	.LLST34
-	.uleb128 0xa
-	.long	.LASF17
+	.uleb128 0xb
+	.long	.LASF60
 	.byte	0x1
-	.byte	0x3d
-	.long	0x29e
+	.byte	0x88
+	.long	0x2b9
 	.long	.LLST35
+	.uleb128 0xd
+	.long	.LASF61
+	.byte	0x1
+	.byte	0x89
+	.long	0x2b9
+	.long	.LLST36
+	.uleb128 0xd
+	.long	.LASF62
+	.byte	0x1
+	.byte	0x8a
+	.long	0x30
+	.long	.LLST37
+	.uleb128 0xd
+	.long	.LASF63
+	.byte	0x1
+	.byte	0x8a
+	.long	0x30
+	.long	.LLST38
+	.uleb128 0xd
+	.long	.LASF64
+	.byte	0x1
+	.byte	0x8a
+	.long	0x12c
+	.long	.LLST39
+	.uleb128 0x14
+	.long	.LBB2
+	.long	.LBE2
+	.uleb128 0x15
+	.string	"h"
+	.byte	0x1
+	.byte	0x8a
+	.long	0x30
+	.long	.LLST40
 	.byte	0x0
+	.byte	0x0
+	.uleb128 0xa
+	.byte	0x1
+	.long	.LASF65
+	.byte	0x1
+	.byte	0x8d
+	.byte	0x1
+	.long	0x12c
+	.long	.LFB21
+	.long	.LFE21
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.long	0x6fb
+	.uleb128 0xb
+	.long	.LASF28
+	.byte	0x1
+	.byte	0x8d
+	.long	0x30
+	.long	.LLST41
+	.uleb128 0xb
+	.long	.LASF29
+	.byte	0x1
+	.byte	0x8d
+	.long	0x30
+	.long	.LLST42
+	.uleb128 0xb
+	.long	.LASF61
+	.byte	0x1
+	.byte	0x8d
+	.long	0x311
+	.long	.LLST43
+	.uleb128 0xd
+	.long	.LASF62
+	.byte	0x1
+	.byte	0x8e
+	.long	0x30
+	.long	.LLST44
+	.uleb128 0xd
+	.long	.LASF63
+	.byte	0x1
+	.byte	0x8e
+	.long	0x30
+	.long	.LLST45
+	.uleb128 0xd
+	.long	.LASF64
+	.byte	0x1
+	.byte	0x8e
+	.long	0x12c
+	.long	.LLST46
+	.uleb128 0x14
+	.long	.LBB3
+	.long	.LBE3
+	.uleb128 0x15
+	.string	"h"
+	.byte	0x1
+	.byte	0x8e
+	.long	0x30
+	.long	.LLST47
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x16
+	.long	.LASF66
+	.byte	0x3
+	.byte	0x36
+	.long	0xe7
+	.byte	0x1
+	.byte	0x1
+	.uleb128 0x16
+	.long	.LASF66
+	.byte	0x3
+	.byte	0x36
+	.long	0xe7
+	.byte	0x1
+	.byte	0x1
 	.byte	0x0
 	.section	.debug_abbrev
 	.uleb128 0x1
@@ -7322,7 +8228,7 @@ bgx1_drawBitmap_P:
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x5
-	.uleb128 0x13
+	.uleb128 0x4
 	.byte	0x1
 	.uleb128 0xb
 	.uleb128 0xb
@@ -7335,6 +8241,28 @@ bgx1_drawBitmap_P:
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0x6
+	.uleb128 0x28
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x1c
+	.uleb128 0xd
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x7
+	.uleb128 0x13
+	.byte	0x1
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x8
 	.uleb128 0xd
 	.byte	0x0
 	.uleb128 0x3
@@ -7349,7 +8277,7 @@ bgx1_drawBitmap_P:
 	.uleb128 0xa
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0x7
+	.uleb128 0x9
 	.uleb128 0xd
 	.byte	0x0
 	.uleb128 0x3
@@ -7364,7 +8292,7 @@ bgx1_drawBitmap_P:
 	.uleb128 0xa
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0x8
+	.uleb128 0xa
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -7389,7 +8317,7 @@ bgx1_drawBitmap_P:
 	.uleb128 0x13
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0x9
+	.uleb128 0xb
 	.uleb128 0x5
 	.byte	0x0
 	.uleb128 0x3
@@ -7404,7 +8332,16 @@ bgx1_drawBitmap_P:
 	.uleb128 0x6
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0xa
+	.uleb128 0xc
+	.uleb128 0xf
+	.byte	0x0
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0xd
 	.uleb128 0x34
 	.byte	0x0
 	.uleb128 0x3
@@ -7419,46 +8356,65 @@ bgx1_drawBitmap_P:
 	.uleb128 0x6
 	.byte	0x0
 	.byte	0x0
-	.uleb128 0xb
-	.uleb128 0xf
-	.byte	0x0
-	.uleb128 0xb
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.byte	0x0
-	.byte	0x0
-	.uleb128 0xc
-	.uleb128 0x2e
-	.byte	0x1
-	.uleb128 0x3f
-	.uleb128 0xc
-	.uleb128 0x3
 	.uleb128 0xe
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0xb
-	.uleb128 0x27
-	.uleb128 0xc
-	.uleb128 0x11
-	.uleb128 0x1
-	.uleb128 0x12
-	.uleb128 0x1
-	.uleb128 0x40
-	.uleb128 0xa
-	.uleb128 0x1
-	.uleb128 0x13
-	.byte	0x0
-	.byte	0x0
-	.uleb128 0xd
 	.uleb128 0x26
 	.byte	0x0
 	.uleb128 0x49
 	.uleb128 0x13
 	.byte	0x0
 	.byte	0x0
+	.uleb128 0xf
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
 	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x10
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x40
+	.uleb128 0xa
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x11
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x12
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -7471,54 +8427,142 @@ bgx1_drawBitmap_P:
 	.uleb128 0xb
 	.uleb128 0x27
 	.uleb128 0xc
-	.uleb128 0x49
-	.uleb128 0x13
 	.uleb128 0x11
 	.uleb128 0x1
 	.uleb128 0x12
 	.uleb128 0x1
 	.uleb128 0x40
 	.uleb128 0xa
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x13
+	.uleb128 0x5
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x6
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x14
+	.uleb128 0xb
+	.byte	0x1
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x15
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x6
+	.byte	0x0
+	.byte	0x0
+	.uleb128 0x16
+	.uleb128 0x34
+	.byte	0x0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3c
+	.uleb128 0xc
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_pubnames,"",@progbits
-	.long	0xa8
+	.long	0x159
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x42e
-	.long	0x103
+	.long	0x716
+	.long	0x1b4
 	.string	"bgx1_print"
-	.long	0x170
+	.long	0x1e7
 	.string	"bgx1_textWidth"
-	.long	0x1ca
+	.long	0x214
 	.string	"bgx1_termPrint"
-	.long	0x220
-	.string	"bgx1_drawBitmap"
-	.long	0x2a4
+	.long	0x241
+	.string	"bgx1_drawTile"
+	.long	0x2ca
 	.string	"bgx1_print_P"
-	.long	0x309
+	.long	0x322
 	.string	"bgx1_textWidth_P"
-	.long	0x363
+	.long	0x369
 	.string	"bgx1_termPrint_P"
-	.long	0x3b9
+	.long	0x3b0
+	.string	"bgx1_drawTile_P"
+	.long	0x428
+	.string	"bgx1_getVersion"
+	.long	0x453
+	.string	"bgx1_getAnalog"
+	.long	0x48e
+	.string	"bgx1_move"
+	.long	0x4c2
+	.string	"bgx1_box"
+	.long	0x4fe
+	.string	"bgx1_lineTo"
+	.long	0x532
+	.string	"bgx1_termGoto"
+	.long	0x566
+	.string	"bgx1_syncPort"
+	.long	0x5a2
+	.string	"bgx1_initialized"
+	.long	0x5ce
+	.string	"bgx1_drawBitmap"
+	.long	0x66c
 	.string	"bgx1_drawBitmap_P"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
-	.long	0x54
+	.long	0x9a
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x42e
+	.long	0x716
 	.long	0x30
 	.string	"uint8_t"
-	.long	0x6c
+	.long	0x49
+	.string	"uint16_t"
+	.long	0x8c
+	.string	"BOOL"
+	.long	0x97
+	.string	"byte"
+	.long	0xe7
+	.string	"TWIError"
+	.long	0xf2
 	.string	"prog_char"
-	.long	0xa6
+	.long	0x12c
 	.string	"Point"
-	.long	0xd6
+	.long	0x137
+	.string	"Rect"
+	.long	0x167
 	.string	"BitmapArguments"
-	.long	0xf8
+	.long	0x172
 	.string	"StringArg"
+	.long	0x1a9
+	.string	"SyncPortArgs"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
 	.long	0x1c
@@ -7655,7 +8699,7 @@ bgx1_drawBitmap_P:
 	.uleb128 0x4
 	.uleb128 0x0
 	.uleb128 0x0
-	.string	"twi_rpc_hash_client.h"
+	.string	"twi_rpc_client.h"
 	.uleb128 0x2
 	.uleb128 0x0
 	.uleb128 0x0
@@ -7681,22 +8725,22 @@ bgx1_drawBitmap_P:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM1
-	.byte	0x2b
+	.byte	0x38
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM2
-	.byte	0x17
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM3
-	.byte	0x12
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM4
-	.byte	0x15
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7706,17 +8750,17 @@ bgx1_drawBitmap_P:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM6
-	.byte	0x16
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM7
-	.byte	0x17
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM8
-	.byte	0x12
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7726,7 +8770,7 @@ bgx1_drawBitmap_P:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM10
-	.byte	0x15
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7736,57 +8780,57 @@ bgx1_drawBitmap_P:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM12
-	.byte	0x17
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LM13
-	.byte	0x12
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LM14
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LM15
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LM16
-	.byte	0x16
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LM17
-	.byte	0x16
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LM18
 	.byte	0x13
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LM19
+	.long	.LM13
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LM20
-	.byte	0x18
+	.long	.LM14
+	.byte	0x1a
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LM21
+	.long	.LM15
 	.byte	0x17
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LM22
+	.long	.LM16
 	.byte	0x12
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM17
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM18
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM19
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM20
+	.byte	0x17
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM21
+	.byte	0x12
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM22
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7796,22 +8840,22 @@ bgx1_drawBitmap_P:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM24
-	.byte	0x15
-	.byte	0x0
-	.uleb128 0x5
-	.byte	0x2
-	.long	.LM25
 	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LM26
+	.long	.LM25
 	.byte	0x17
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
-	.long	.LM27
+	.long	.LM26
 	.byte	0x12
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM27
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7821,7 +8865,7 @@ bgx1_drawBitmap_P:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM29
-	.byte	0x15
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7831,17 +8875,17 @@ bgx1_drawBitmap_P:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM31
-	.byte	0x17
+	.byte	0x13
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM32
-	.byte	0x12
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM33
-	.byte	0x15
+	.byte	0x1a
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7851,7 +8895,7 @@ bgx1_drawBitmap_P:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM35
-	.byte	0x16
+	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
@@ -7861,11 +8905,186 @@ bgx1_drawBitmap_P:
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM37
-	.byte	0x13
+	.byte	0x16
 	.byte	0x0
 	.uleb128 0x5
 	.byte	0x2
 	.long	.LM38
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM39
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM40
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM41
+	.byte	0x1a
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM42
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM43
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM44
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM45
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM46
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM47
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM48
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM49
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM50
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM51
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM52
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM53
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM54
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM55
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM56
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM57
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM58
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM59
+	.byte	0x12
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM60
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM61
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM62
+	.byte	0x25
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM63
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM64
+	.byte	0x13
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM65
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM66
+	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM67
+	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM68
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM69
+	.byte	0x16
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM70
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM71
+	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM72
+	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LM73
 	.byte	0x15
 	.byte	0x0
 	.uleb128 0x5
@@ -7878,65 +9097,143 @@ bgx1_drawBitmap_P:
 	.section	.debug_macinfo
 	.byte	0x0
 	.section	.debug_str,"MS",@progbits,1
-.LASF25:
-	.string	"bgx1_termPrint"
-.LASF27:
-	.string	"bgx1_drawBitmap_P"
-.LASF8:
-	.string	"prog_char"
-.LASF14:
-	.string	"StringArg"
-.LASF26:
-	.string	"bgx1_termPrint_P"
-.LASF9:
-	.string	"__unknown__"
-.LASF7:
-	.string	"uint8_t"
-.LASF30:
-	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\Kernel-Tank-MASTER\\\\Debug"
+.LASF60:
+	.string	"bytes"
+.LASF48:
+	.string	"result"
 .LASF11:
-	.string	"width"
-.LASF16:
-	.string	"argSize"
-.LASF5:
-	.string	"long long int"
+	.string	"BOOL"
+.LASF58:
+	.string	"version"
+.LASF20:
+	.string	"TWI_Slave_NotEnoughDataTransmitted"
+.LASF38:
+	.string	"bgx1_termPrint"
+.LASF9:
+	.string	"FALSE"
+.LASF50:
+	.string	"index"
+.LASF65:
+	.string	"bgx1_drawBitmap_P"
+.LASF15:
+	.string	"TWI_Bus_Error"
+.LASF14:
+	.string	"TWI_No_Info_Interrupt"
 .LASF24:
+	.string	"prog_char"
+.LASF27:
+	.string	"Rect"
+.LASF61:
+	.string	"data"
+.LASF34:
+	.string	"SyncPortArgs"
+.LASF31:
+	.string	"StringArg"
+.LASF46:
+	.string	"bgx1_termPrint_P"
+.LASF62:
+	.string	"row_size"
+.LASF25:
+	.string	"__unknown__"
+.LASF2:
+	.string	"uint8_t"
+.LASF56:
+	.string	"bgx1_syncPort"
+.LASF69:
+	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\Kernel-Tank-MASTER\\\\Debug"
+.LASF28:
+	.string	"width"
+.LASF41:
+	.string	"argSize"
+.LASF7:
+	.string	"long long int"
+.LASF44:
 	.string	"bgx1_textWidth_P"
-.LASF3:
+.LASF16:
+	.string	"TWI_Illegal_Status"
+.LASF5:
 	.string	"long int"
+.LASF57:
+	.string	"bgx1_initialized"
+.LASF23:
+	.string	"TWIError"
+.LASF55:
+	.string	"bgx1_termGoto"
+.LASF12:
+	.string	"byte"
+.LASF39:
+	.string	"bgx1_drawTile"
 .LASF19:
-	.string	"bgx1_print"
+	.string	"TWI_Master_TooMuchDataTransmitted"
+.LASF49:
+	.string	"bgx1_getAnalog"
 .LASF1:
 	.string	"unsigned char"
-.LASF29:
+.LASF53:
+	.string	"bgx1_box"
+.LASF68:
 	.string	"../shared/twi_bgx1.c"
+.LASF13:
+	.string	"TWI_No_Error"
 .LASF0:
 	.string	"signed char"
-.LASF6:
+.LASF8:
 	.string	"long long unsigned int"
-.LASF20:
+.LASF36:
 	.string	"bgx1_textWidth"
-.LASF10:
+.LASF26:
 	.string	"Point"
-.LASF12:
+.LASF29:
 	.string	"height"
-.LASF2:
-	.string	"unsigned int"
-.LASF17:
-	.string	"args"
-.LASF21:
-	.string	"argument"
-.LASF22:
-	.string	"bgx1_drawBitmap"
-.LASF18:
-	.string	"char"
-.LASF15:
-	.string	"size"
 .LASF4:
+	.string	"unsigned int"
+.LASF3:
+	.string	"uint16_t"
+.LASF42:
+	.string	"args"
+.LASF37:
+	.string	"argument"
+.LASF59:
+	.string	"bgx1_drawBitmap"
+.LASF32:
+	.string	"char"
+.LASF64:
+	.string	"newPos"
+.LASF47:
+	.string	"bgx1_drawTile_P"
+.LASF21:
+	.string	"TWI_Slave_TooMuchDataTransmitted"
+.LASF40:
+	.string	"size"
+.LASF33:
+	.string	"port"
+.LASF6:
 	.string	"long unsigned int"
-.LASF23:
+.LASF18:
+	.string	"TWI_Arbitration_Lost"
+.LASF43:
 	.string	"bgx1_print_P"
-.LASF28:
+.LASF67:
 	.string	"GNU C 4.5.1"
-.LASF13:
+.LASF30:
 	.string	"BitmapArguments"
+.LASF17:
+	.string	"TWI_SlaveAddress_NoAck"
+.LASF51:
+	.string	"bgx1_getVersion"
+.LASF66:
+	.string	"twi_error"
+.LASF10:
+	.string	"TRUE"
+.LASF63:
+	.string	"rows_per_tile"
+.LASF35:
+	.string	"bgx1_print"
+.LASF52:
+	.string	"bgx1_move"
+.LASF22:
+	.string	"TWI_Slave_NotEnoughDataReceived"
+.LASF45:
+	.string	"ramString"
+.LASF54:
+	.string	"bgx1_lineTo"

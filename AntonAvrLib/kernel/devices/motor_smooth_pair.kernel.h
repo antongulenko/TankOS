@@ -10,48 +10,40 @@
 
 // This kernel module provides the motor_smooth_tick for 2 motors,
 // using a single, abstract, tick-source.
-// Requires implementation of smooth_enable_millisecond_tick(BOOL).
-// smooth_millisecond_tick() must be called each millisecond, if enabled.
-// Following macro configurations are required:
-// - SMOOTH_TICK_FREQ -- in Hz, how often the interrupt will be triggered, if active
+// Requires implementation of smooth_enable_tick(BOOL).
+// Macros:
 // - SMOOTH_MOTOR_A, SMOOTH_MOTOR_B -- the motor objects themselves
 
 #include "../kernel_init.h"
 #include "motor_smooth.kernel.h"
 
-// Can be implemented to add a delay when the motor has stopped.
-void smooth_motor_stopped(PSmoothMotor motor) __attribute__((weak));
-void smooth_motor_stopped(PSmoothMotor motor);
+void smooth_enable_tick(BOOL enabled);
 
-void smooth_enable_millisecond_tick(BOOL enabled);
-
-uint16_t smooth_ticks = 0;
-uint16_t target_motor_A = 0;
-uint16_t target_motor_B = 0;
 BOOL motor_A_running = FALSE;
 BOOL motor_B_running = FALSE;
 
-extern void motor_smooth_set_call_frequency(PSmoothMotor motor, uint16_t timesPerSecond) {
-	BOOL wasRunning = motor_A_running || motor_B_running;
+static void control_smooth_motor(PSmoothMotor motor, BOOL running) {
 	if (motor == SMOOTH_MOTOR_A) {
-		motor_A_running = timesPerSecond != 0;
-		target_motor_A = motor_A_running ? timesPerSecond : SMOOTH_TICK_FREQ / timesPerSecond;
+		motor_A_running = running;
 	} else if (motor == SMOOTH_MOTOR_B) {
-		motor_B_running = timesPerSecond != 0;
-		target_motor_B = motor_B_running ? timesPerSecond : SMOOTH_TICK_FREQ / timesPerSecond;
+		motor_B_running = running;
 	} else {
 		return;
 	}
-	BOOL isRunning = motor_A_running || motor_B_running;
-	if (wasRunning != isRunning) smooth_enable_millisecond_tick(isRunning);
+	smooth_enable_tick(motor_A_running || motor_B_running);
 }
 
-void smooth_millisecond_tick() {
-	if (motor_A_running && smooth_ticks % target_motor_A == 0)
-		motor_smooth_tick(SMOOTH_MOTOR_A);
-	if (motor_B_running && smooth_ticks % target_motor_B == 0)
-		motor_smooth_tick(SMOOTH_MOTOR_B);
-	
+void motor_smooth_start_tick(PSmoothMotor motor) {
+	control_smooth_motor(motor, TRUE);
+}
+
+void motor_smooth_stop_tick(PSmoothMotor motor) {
+	control_smooth_motor(motor, FALSE);
+}
+
+void smooth_motor_tick() {
+	if (motor_A_running) motor_smooth_tick(SMOOTH_MOTOR_A);
+	if (motor_B_running) motor_smooth_tick(SMOOTH_MOTOR_B);
 }
 
 #endif

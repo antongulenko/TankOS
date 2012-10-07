@@ -15,9 +15,12 @@ void init_timer() {
 	setWaveformGenerationMode(Timer3, clear_timer_on_match);
 	setTimerClockSelect(Timer3, prescale_8);
 	
-	// --> 8 * 2500 = 20000, resulting in one compare-match every millisecond
-	setTimerCompareValue(Timer3A, 2500);
-	setTimerCompareValue(Timer3B, 2500);
+	// --> 8 * 2500 = 20000 @ 20MHz
+	// results in one compare-match every millisecond.
+	#define MILLISECOND_TIMER_VALUE ((uint16_t) 2500)
+	
+	setTimerCompareValue(Timer3A, MILLISECOND_TIMER_VALUE);
+	setTimerCompareValue(Timer3B, MILLISECOND_TIMER_VALUE);
 }
 KERNEL_INIT(init_timer)
 

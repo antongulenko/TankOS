@@ -21,16 +21,3 @@ void schedule_next() {
 	if (next == InvalidProcess) return;
 	switchProcess(next); // Will not return here.
 }
-
-void processor_idle() {
-	sleep_enable();
-	set_sleep_mode(SLEEP_MODE_IDLE);
-	enable_interrupts(); // Just in case, if this is called form an ISR
-	sleep_cpu();
-}
-
-void processor_loop_idle() {
-	while (TRUE) {
-		processor_idle();
-	}
-}

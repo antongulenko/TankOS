@@ -4986,6 +4986,9 @@ __zero_reg__ = 1
 	.byte	0x1
 	.uleb128 0x2f
 	.string	"disable_interrupts() cli()"
+	.byte	0x1
+	.uleb128 0x31
+	.string	"delay(x) _delay_ms(x)"
 	.byte	0x4
 	.byte	0x1
 	.uleb128 0x3d
@@ -5001,10 +5004,10 @@ __zero_reg__ = 1
 	.string	"port,4) DEFINE_PIN(port,5) DEFINE_PIN(port,6) DEFINE_PIN(port,7)"
 	.byte	0x4
 	.byte	0x1
-	.uleb128 0x36
+	.uleb128 0x3a
 	.string	"DEFINE_LED(ledName) extern const PLed ledName;"
 	.byte	0x1
-	.uleb128 0x38
+	.uleb128 0x3c
 	.string	"DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;"
 	.byte	0x4
 	.byte	0x4
@@ -5097,6 +5100,46 @@ blink_reset_condition:
 	ret
 .LFE5:
 	.size	blink_reset_condition, .-blink_reset_condition
+	.section	.text.blink_reset_condition_byte,"ax",@progbits
+.global	blink_reset_condition_byte
+	.type	blink_reset_condition_byte, @function
+blink_reset_condition_byte:
+.LFB6:
+.LSM15:
+.LVL10:
+	push r16
+	push r17
+	push r28
+	push r29
+/* prologue: function */
+/* frame size = 0 */
+/* stack size = 4 */
+.L__stack_usage = 4
+	movw r28,r24
+	movw r16,r22
+.LSM16:
+	call disableLeds
+.LVL11:
+.LSM17:
+	movw r24,r16
+	call disableLeds
+.LSM18:
+	call getResetStatus
+	mov r20,r24
+	movw r24,r28
+	movw r22,r16
+	call blinkByte
+/* epilogue start */
+.LSM19:
+	pop r29
+	pop r28
+.LVL12:
+	pop r17
+	pop r16
+.LVL13:
+	ret
+.LFE6:
+	.size	blink_reset_condition_byte, .-blink_reset_condition_byte
 	.section	.debug_frame,"",@progbits
 .Lframe0:
 	.long	.LECIE0-.LSCIE0
@@ -5128,6 +5171,14 @@ blink_reset_condition:
 	.long	.LFE5-.LFB5
 	.p2align	2
 .LEFDE2:
+.LSFDE4:
+	.long	.LEFDE4-.LASFDE4
+.LASFDE4:
+	.long	.Lframe0
+	.long	.LFB6
+	.long	.LFE6-.LFB6
+	.p2align	2
+.LEFDE4:
 	.text
 .Letext0:
 	.section	.debug_loc,"",@progbits
@@ -5204,16 +5255,58 @@ blink_reset_condition:
 	.uleb128 0x1
 	.long	0x0
 	.long	0x0
+.LLST3:
+	.long	.LVL10
+	.long	.LVL11-1
+	.word	0x6
+	.byte	0x68
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x69
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL11-1
+	.long	.LVL12
+	.word	0x6
+	.byte	0x6c
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x6d
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
+.LLST4:
+	.long	.LVL10
+	.long	.LVL11-1
+	.word	0x6
+	.byte	0x66
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x67
+	.byte	0x93
+	.uleb128 0x1
+	.long	.LVL11-1
+	.long	.LVL13
+	.word	0x6
+	.byte	0x60
+	.byte	0x93
+	.uleb128 0x1
+	.byte	0x61
+	.byte	0x93
+	.uleb128 0x1
+	.long	0x0
+	.long	0x0
 	.section	.debug_info
-	.long	0x1c1
+	.long	0x1f9
 	.word	0x2
 	.long	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.long	.LASF18
+	.long	.LASF22
 	.byte	0x1
-	.long	.LASF19
-	.long	.LASF20
+	.long	.LASF23
+	.long	.LASF24
 	.long	0x0
 	.long	0x0
 	.long	.Ldebug_ranges0+0x0
@@ -5391,7 +5484,7 @@ blink_reset_condition:
 	.long	0x128
 	.uleb128 0xa
 	.byte	0x1
-	.long	.LASF21
+	.long	.LASF18
 	.byte	0x1
 	.byte	0xa
 	.long	0x4d
@@ -5417,7 +5510,7 @@ blink_reset_condition:
 	.byte	0x0
 	.uleb128 0xc
 	.byte	0x1
-	.long	.LASF22
+	.long	.LASF19
 	.byte	0x1
 	.byte	0x1d
 	.byte	0x1
@@ -5427,12 +5520,38 @@ blink_reset_condition:
 	.byte	0x92
 	.uleb128 0x20
 	.sleb128 0
+	.long	0x1c8
 	.uleb128 0xd
 	.long	.LASF14
 	.byte	0x1
 	.byte	0x1d
 	.long	0x153
 	.long	.LLST2
+	.byte	0x0
+	.uleb128 0xe
+	.byte	0x1
+	.long	.LASF25
+	.byte	0x1
+	.byte	0x22
+	.byte	0x1
+	.long	.LFB6
+	.long	.LFE6
+	.byte	0x3
+	.byte	0x92
+	.uleb128 0x20
+	.sleb128 0
+	.uleb128 0xd
+	.long	.LASF20
+	.byte	0x1
+	.byte	0x22
+	.long	0x153
+	.long	.LLST3
+	.uleb128 0xd
+	.long	.LASF21
+	.byte	0x1
+	.byte	0x22
+	.long	0x153
+	.long	.LLST4
 	.byte	0x0
 	.byte	0x0
 	.section	.debug_abbrev
@@ -5610,6 +5729,8 @@ blink_reset_condition:
 	.uleb128 0x1
 	.uleb128 0x40
 	.uleb128 0xa
+	.uleb128 0x1
+	.uleb128 0x13
 	.byte	0x0
 	.byte	0x0
 	.uleb128 0xd
@@ -5627,22 +5748,45 @@ blink_reset_condition:
 	.uleb128 0x6
 	.byte	0x0
 	.byte	0x0
+	.uleb128 0xe
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3f
+	.uleb128 0xc
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0xc
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x1
+	.uleb128 0x40
+	.uleb128 0xa
+	.byte	0x0
+	.byte	0x0
 	.byte	0x0
 	.section	.debug_pubnames,"",@progbits
-	.long	0x3f
+	.long	0x5e
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x1c5
+	.long	0x1fd
 	.long	0x164
 	.string	"resetStatusBitmask"
 	.long	0x19f
 	.string	"blink_reset_condition"
+	.long	0x1c8
+	.string	"blink_reset_condition_byte"
 	.long	0x0
 	.section	.debug_pubtypes,"",@progbits
 	.long	0x51
 	.word	0x2
 	.long	.Ldebug_info0
-	.long	0x1c5
+	.long	0x1fd
 	.long	0x34
 	.string	"uint8_t"
 	.long	0x4d
@@ -5657,7 +5801,7 @@ blink_reset_condition:
 	.string	"PLedGroup"
 	.long	0x0
 	.section	.debug_aranges,"",@progbits
-	.long	0x24
+	.long	0x2c
 	.word	0x2
 	.long	.Ldebug_info0
 	.byte	0x4
@@ -5668,6 +5812,8 @@ blink_reset_condition:
 	.long	.LFE4-.LFB4
 	.long	.LFB5
 	.long	.LFE5-.LFB5
+	.long	.LFB6
+	.long	.LFE6-.LFB6
 	.long	0x0
 	.long	0x0
 	.section	.debug_ranges,"",@progbits
@@ -5676,6 +5822,8 @@ blink_reset_condition:
 	.long	.LFE4
 	.long	.LFB5
 	.long	.LFE5
+	.long	.LFB6
+	.long	.LFE6
 	.long	0x0
 	.long	0x0
 	.section	.debug_line
@@ -5903,20 +6051,54 @@ blink_reset_condition:
 	.byte	0x0
 	.uleb128 0x1
 	.byte	0x1
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM15
+	.byte	0x35
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM16
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM17
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM18
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LSM19
+	.byte	0x15
+	.byte	0x0
+	.uleb128 0x5
+	.byte	0x2
+	.long	.LFE6
+	.byte	0x0
+	.uleb128 0x1
+	.byte	0x1
 .LELT0:
 	.section	.debug_macinfo
 	.byte	0x0
 	.section	.debug_str,"MS",@progbits,1
 .LASF14:
 	.string	"leds"
-.LASF18:
+.LASF22:
 	.string	"GNU C 4.5.1"
 .LASF15:
 	.string	"count"
-.LASF19:
+.LASF23:
 	.string	"../kernel/reset_condition.c"
-.LASF20:
+.LASF24:
 	.string	"C:\\\\Dev\\\\NIBObee\\\\NIBObee\\\\AntonAvrLib\\\\Debug"
+.LASF20:
+	.string	"blinker"
 .LASF17:
 	.string	"status"
 .LASF16:
@@ -5935,8 +6117,10 @@ blink_reset_condition:
 	.string	"uint8_t"
 .LASF10:
 	.string	"PPort"
-.LASF22:
+.LASF19:
 	.string	"blink_reset_condition"
+.LASF21:
+	.string	"notifier"
 .LASF7:
 	.string	"long long int"
 .LASF11:
@@ -5949,7 +6133,9 @@ blink_reset_condition:
 	.string	"PLed"
 .LASF5:
 	.string	"long int"
-.LASF21:
+.LASF18:
 	.string	"resetStatusBitmask"
 .LASF0:
 	.string	"signed char"
+.LASF25:
+	.string	"blink_reset_condition_byte"

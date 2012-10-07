@@ -37,7 +37,7 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../shared/twi_bgx1.c \
-../tank_kernel_MASTER.c
+../kernel.c
 
 
 PREPROCESSING_SRCS += 
@@ -48,22 +48,22 @@ ASM_SRCS +=
 
 OBJS +=  \
 shared/twi_bgx1.o \
-tank_kernel_MASTER.o
+kernel.o
 
 
 OBJS_AS_ARGS +=  \
 shared/twi_bgx1.o \
-tank_kernel_MASTER.o
+kernel.o
 
 
 C_DEPS +=  \
 shared/twi_bgx1.d \
-tank_kernel_MASTER.d
+kernel.d
 
 
 C_DEPS_AS_ARGS +=  \
 shared/twi_bgx1.d \
-tank_kernel_MASTER.d
+kernel.d
 
 
 OUTPUT_FILE_PATH +=libKernel-Tank-MASTER.a

@@ -31,13 +31,13 @@ OUTPUT_FILE_DEP:=
 
 # Every subdirectory with source files must be described here
 SUBDIRS :=  \
-../tank_IO/
+../main
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../../Main/Main.c \
-../tank_IO/LedOperations.c
+../Main.c \
+../main/LedOperations.c
 
 
 PREPROCESSING_SRCS += 
@@ -48,22 +48,22 @@ ASM_SRCS +=
 
 OBJS +=  \
 Main.o \
-tank_IO/LedOperations.o
+main/LedOperations.o
 
 
 OBJS_AS_ARGS +=  \
 Main.o \
-tank_IO/LedOperations.o
+main/LedOperations.o
 
 
 C_DEPS +=  \
 Main.d \
-tank_IO/LedOperations.d
+main/LedOperations.d
 
 
 C_DEPS_AS_ARGS +=  \
 Main.d \
-tank_IO/LedOperations.d
+main/LedOperations.d
 
 
 OUTPUT_FILE_PATH +=Main-Tank-IO.elf
@@ -80,13 +80,13 @@ OUTPUT_FILE_DEP:= ./makedep.mk
 
 
 
-./%.o: ../../Main/%.c
+./%.o: .././%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DAVR -DF_CPU=20000000  -I"..\..\AntonAvrLib" -I"..\..\Kernel-Tank-IO"  -Os -ffunction-sections -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 
 	@echo Finished building: $<
 
-tank_IO/%.o: ../tank_IO/%.c
+main/%.o: ../main/%.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler
 	$(QUOTE)C:\Program Files (x86)\Atmel\Atmel Studio 6.0\extensions\Atmel\AVRGCC\3.3.2.31\AVRToolchain\bin\avr-gcc.exe$(QUOTE)  -DAVR -DF_CPU=20000000  -I"..\..\AntonAvrLib" -I"..\..\Kernel-Tank-IO"  -Os -ffunction-sections -g3 -Wall -c -std=gnu99 -save-temps -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)"  -mmcu=atmega1284p  -o"$@" "$<" 

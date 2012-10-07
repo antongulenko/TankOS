@@ -16,11 +16,19 @@
 #define MOTOR_INVERSE_DIRECTION (1 << 2) // => motor rotating forward, if direction-pin set to 0
 #define MOTOR_TWO_DIR_PINS (1 << 3) // The motor-structure is actually of type Motor2Pins, defines second pin for direction.
 									// Pins equal -> motor halts; First pin 1 -> forward (except for MOTOR_INVERSE_DIR..)
+#define MOTOR_EXACT_CONVERSION (1 << 4) // => if minValue/maxValue is defined, this leads to an exact conversion from the 
+										// set speed into the min-max interval. Else, the values are simply 'cropped'.
 
 typedef struct {
 	uint8_t flags; // MOTOR_* defines above
 	PPin direction;
 	PTimer pwmTimer;
+	
+	// These 2 values bind possible timer-compare-values.
+	// They are applied, AFTER MOTOR_INVERSE_SPEED was applied, so they
+	// reflect the real min/max voltage level.
+	uint16_t minValue;
+	uint16_t maxValue; 
 } Motor, *PMotor;
 
 typedef struct {
@@ -58,8 +66,8 @@ void setDirSpeed(PMotor motor, int16_t speed);
 #	define DEFINE_MOTOR(motorName)	\
 		Motor motorName##_;			\
 		const PMotor motorName = &motorName##_;
-#	define INIT_MOTOR(motorName, flags, directionPin, pwmTimer)		\
-		motorName##_ = (Motor) { flags, directionPin, pwmTimer };	\
+#	define INIT_MOTOR(motorName, flags, directionPin, pwmTimer)					\
+		motorName##_ = (Motor) { flags, directionPin, pwmTimer, 0, 0xFFFF };	\
 		initMotor(motorName);
 #	define DEFINE_2DirPins_MOTOR(motorName)		\
 		Motor2Pins motorName##_;				\

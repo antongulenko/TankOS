@@ -2968,6 +2968,8 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
+
+#define delay(x) _delay_ms(x)
 # 5 "..\\..\\AntonAvrLib/kernel/TWI/twi_raw.h" 2
 
 
@@ -3038,6 +3040,10 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
 
 
 void twiMultipleOperations(int count, TWIOperation *operations);
+
+
+
+void turn_word(uint16_t *word);
 # 5 "../shared/twi_bgx1.h" 2
 
 
@@ -3049,9 +3055,9 @@ extern TWIDevice bgx1;
 
 #define TWI_DEVICE bgx1
 
-# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 1
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_client.h" 1
 
-#define TWI_RPC_HASH_CLIENT_H_ 
+#define TWI_RPC_CLIENT_H_ 
 
 
 
@@ -3073,8 +3079,8 @@ void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer r
 
 
 void twi_rpc_pseudo_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
-# 8 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 2
-# 141 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
+# 8 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_client.h" 2
+# 141 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_client.h"
 #define TWI_RPC_FUNCTION_VAR(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize);
 
 
@@ -3332,7 +3338,7 @@ enum {
 
 
 void bgx1_reset();
-uint16_t bgx1_getVersion();
+uint16_t bgx1_getVersion_base();
 uint8_t bgx1_getStatus();
 void bgx1_setStatus(uint8_t parameters);
 
@@ -3380,9 +3386,19 @@ typedef struct {
 
 
 uint8_t bgx1_syncPort_base(SyncPortArgs parameters);
-uint16_t bgx1_getAnalog(uint8_t parameters);
+uint16_t bgx1_getAnalog_base(uint8_t parameters);
 uint8_t bgx1_syncInterface(uint8_t parameters);
 void bgx1_setIllumination(uint16_t parameters);
+
+#define BGX1_BTN_1 _BV(0)
+#define BGX1_BTN_2 _BV(1)
+#define BGX1_BTN_3 _BV(2)
+#define BGX1_BTN_4 _BV(3)
+
+#define BGX1_LED_1 _BV(0)
+#define BGX1_LED_2 _BV(1)
+#define BGX1_LED_3 _BV(2)
+#define BGX1_LED_4 _BV(3)
 
 Point bgx1_print(char *argument);
 Point bgx1_print_P(const prog_char * argument);
@@ -3406,9 +3422,12 @@ void bgx1_lineTo(uint8_t x, uint8_t y);
 void bgx1_termGoto(uint8_t x, uint8_t y);
 uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port);
 
+uint16_t bgx1_getAnalog(uint8_t index);
+uint16_t bgx1_getVersion();
 
 
-BOOL check_bgx1_operational();
+
+BOOL bgx1_initialized();
 # 3 "../shared/twi_bgx1.c" 2
 # 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/alloca.h" 1 3
 # 32 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/alloca.h" 3
@@ -3594,6 +3613,22 @@ Point bgx1_drawTile_P(uint8_t width, uint8_t height, const prog_char * argument)
 
 
 
+uint16_t bgx1_getVersion() {
+ uint16_t result = bgx1_getVersion_base();
+ turn_word(&result);
+ return result;
+}
+
+uint16_t bgx1_getAnalog(uint8_t index) {
+ uint16_t result = bgx1_getAnalog_base(index);
+ turn_word(&result);
+ return result;
+}
+
+
+
+
+
 void bgx1_move(uint8_t x, uint8_t y) {
  bgx1_move_base((Point) { x, y });
 }
@@ -3614,18 +3649,18 @@ uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port) {
  return bgx1_syncPort_base((SyncPortArgs) { ddr, port });
 }
 
-BOOL check_bgx1_operational() {
+BOOL bgx1_initialized() {
  uint16_t version = bgx1_getVersion();
  return (twi_error == TWI_No_Error) && (version == 0x0103);
 }
 
-#define DRAW_BITMAP(drawTileFunc) uint8_t row_size = ROW_LENGTH(width); uint8_t rows_per_tile = BITMAP_MAX / row_size; Point newPos = {0}; while (height) { uint8_t h = (height > rows_per_tile) ? rows_per_tile : height; newPos = drawTileFunc(width, h, data); data += row_size * h; height -= h; if (height) bgx1_move(newPos.x - row_size, newPos.y); } return newPos;
-# 120 "../shared/twi_bgx1.c"
+#define DRAW_BITMAP(DRAW_TILE) uint8_t row_size = ROW_LENGTH(width); uint8_t rows_per_tile = BITMAP_MAX / row_size; Point newPos = {0}; while (height) { uint8_t h = (height > rows_per_tile) ? rows_per_tile : height; newPos = DRAW_TILE(width, h, data); data += row_size * h; height -= h; if (height) bgx1_move(newPos.x - row_size + 2, newPos.y); } return newPos;
+# 136 "../shared/twi_bgx1.c"
 Point bgx1_drawBitmap(uint8_t width, uint8_t height, const uint8_t bytes[]) {
  const uint8_t *data = bytes;
- uint8_t row_size = ((width - 1)/8 + 1); uint8_t rows_per_tile = 18 / row_size; Point newPos = {0}; while (height) { uint8_t h = (height > rows_per_tile) ? rows_per_tile : height; newPos = bgx1_drawTile(width, h, data); data += row_size * h; height -= h; if (height) bgx1_move(newPos.x - row_size, newPos.y); } return newPos;
+ uint8_t row_size = ((width - 1)/8 + 1); uint8_t rows_per_tile = 18 / row_size; Point newPos = {0}; while (height) { uint8_t h = (height > rows_per_tile) ? rows_per_tile : height; newPos = bgx1_drawTile(width, h, data); data += row_size * h; height -= h; if (height) bgx1_move(newPos.x - row_size + 2, newPos.y); } return newPos;
 }
 
 Point bgx1_drawBitmap_P(uint8_t width, uint8_t height, const prog_char * data) {
- uint8_t row_size = ((width - 1)/8 + 1); uint8_t rows_per_tile = 18 / row_size; Point newPos = {0}; while (height) { uint8_t h = (height > rows_per_tile) ? rows_per_tile : height; newPos = bgx1_drawTile_P(width, h, data); data += row_size * h; height -= h; if (height) bgx1_move(newPos.x - row_size, newPos.y); } return newPos;
+ uint8_t row_size = ((width - 1)/8 + 1); uint8_t rows_per_tile = 18 / row_size; Point newPos = {0}; while (height) { uint8_t h = (height > rows_per_tile) ? rows_per_tile : height; newPos = bgx1_drawTile_P(width, h, data); data += row_size * h; height -= h; if (height) bgx1_move(newPos.x - row_size + 2, newPos.y); } return newPos;
 }

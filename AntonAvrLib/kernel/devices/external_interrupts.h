@@ -10,7 +10,8 @@
 
 #include "../../anton_std.h"
 
-// pcNumber is 0..31 and these functions will enable the pin change interrupt PCIx, x being the given number.
+// pcNumber is 0..31 and these functions will enable the 
+// pin change interrupt PCIx, x being the given number.
 void enablePinChangeInterrupt(uint8_t pcNumber);
 void disblePinChangeInterrupt(uint8_t pcNumber);
 

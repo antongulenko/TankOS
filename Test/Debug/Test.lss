@@ -1,0 +1,200 @@
+
+Test.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         000001ae  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .stab         000006cc  00000000  00000000  00000204  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  2 .stabstr      00000097  00000000  00000000  000008d0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 46 00 	jmp	0x8c	; 0x8c <__ctors_end>
+   4:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+   8:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+   c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  10:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  14:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  18:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  1c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  20:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  24:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  28:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  2c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  30:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  34:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  38:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  3c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  40:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  44:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  48:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  4c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  50:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  54:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  58:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  5c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  60:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  64:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  68:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  6c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  70:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  74:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  78:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  7c:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  80:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  84:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+  88:	0c 94 50 00 	jmp	0xa0	; 0xa0 <__bad_interrupt>
+
+0000008c <__ctors_end>:
+  8c:	11 24       	eor	r1, r1
+  8e:	1f be       	out	0x3f, r1	; 63
+  90:	cf ef       	ldi	r28, 0xFF	; 255
+  92:	d0 e4       	ldi	r29, 0x40	; 64
+  94:	de bf       	out	0x3e, r29	; 62
+  96:	cd bf       	out	0x3d, r28	; 61
+  98:	0e 94 94 00 	call	0x128	; 0x128 <main>
+  9c:	0c 94 d5 00 	jmp	0x1aa	; 0x1aa <_exit>
+
+000000a0 <__bad_interrupt>:
+  a0:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a4 <setupMotors>:
+  a4:	2f ef       	ldi	r18, 0xFF	; 255
+  a6:	2a b9       	out	0x0a, r18	; 10
+  a8:	27 b9       	out	0x07, r18	; 7
+  aa:	24 e1       	ldi	r18, 0x14	; 20
+  ac:	28 b9       	out	0x08, r18	; 8
+  ae:	90 93 89 00 	sts	0x0089, r25
+  b2:	80 93 88 00 	sts	0x0088, r24
+  b6:	90 93 8b 00 	sts	0x008B, r25
+  ba:	80 93 8a 00 	sts	0x008A, r24
+  be:	83 ea       	ldi	r24, 0xA3	; 163
+  c0:	80 93 80 00 	sts	0x0080, r24
+  c4:	81 e0       	ldi	r24, 0x01	; 1
+  c6:	80 93 81 00 	sts	0x0081, r24
+  ca:	08 95       	ret
+
+000000cc <testMotorsSmooth>:
+  cc:	2a e9       	ldi	r18, 0x9A	; 154
+  ce:	33 e0       	ldi	r19, 0x03	; 3
+  d0:	8a e9       	ldi	r24, 0x9A	; 154
+  d2:	93 e0       	ldi	r25, 0x03	; 3
+  d4:	41 e0       	ldi	r20, 0x01	; 1
+  d6:	50 e0       	ldi	r21, 0x00	; 0
+  d8:	06 c0       	rjmp	.+12     	; 0xe6 <testMotorsSmooth+0x1a>
+  da:	2a e9       	ldi	r18, 0x9A	; 154
+  dc:	31 e0       	ldi	r19, 0x01	; 1
+  de:	8a e9       	ldi	r24, 0x9A	; 154
+  e0:	91 e0       	ldi	r25, 0x01	; 1
+  e2:	40 e0       	ldi	r20, 0x00	; 0
+  e4:	50 e0       	ldi	r21, 0x00	; 0
+  e6:	41 15       	cp	r20, r1
+  e8:	51 05       	cpc	r21, r1
+  ea:	21 f0       	breq	.+8      	; 0xf4 <testMotorsSmooth+0x28>
+  ec:	01 97       	sbiw	r24, 0x01	; 1
+  ee:	21 50       	subi	r18, 0x01	; 1
+  f0:	30 40       	sbci	r19, 0x00	; 0
+  f2:	03 c0       	rjmp	.+6      	; 0xfa <testMotorsSmooth+0x2e>
+  f4:	01 96       	adiw	r24, 0x01	; 1
+  f6:	2f 5f       	subi	r18, 0xFF	; 255
+  f8:	3f 4f       	sbci	r19, 0xFF	; 255
+  fa:	90 93 89 00 	sts	0x0089, r25
+  fe:	80 93 88 00 	sts	0x0088, r24
+ 102:	30 93 8b 00 	sts	0x008B, r19
+ 106:	20 93 8a 00 	sts	0x008A, r18
+ 10a:	e7 e8       	ldi	r30, 0x87	; 135
+ 10c:	f3 e1       	ldi	r31, 0x13	; 19
+ 10e:	31 97       	sbiw	r30, 0x01	; 1
+ 110:	f1 f7       	brne	.-4      	; 0x10e <testMotorsSmooth+0x42>
+ 112:	00 c0       	rjmp	.+0      	; 0x114 <testMotorsSmooth+0x48>
+ 114:	00 00       	nop
+ 116:	f3 e0       	ldi	r31, 0x03	; 3
+ 118:	8b 39       	cpi	r24, 0x9B	; 155
+ 11a:	9f 07       	cpc	r25, r31
+ 11c:	b8 f6       	brcc	.-82     	; 0xcc <testMotorsSmooth>
+ 11e:	61 e0       	ldi	r22, 0x01	; 1
+ 120:	8a 39       	cpi	r24, 0x9A	; 154
+ 122:	96 07       	cpc	r25, r22
+ 124:	d0 f2       	brcs	.-76     	; 0xda <testMotorsSmooth+0xe>
+ 126:	df cf       	rjmp	.-66     	; 0xe6 <testMotorsSmooth+0x1a>
+
+00000128 <main>:
+ 128:	80 e0       	ldi	r24, 0x00	; 0
+ 12a:	94 e0       	ldi	r25, 0x04	; 4
+ 12c:	0e 94 52 00 	call	0xa4	; 0xa4 <setupMotors>
+ 130:	0e 94 66 00 	call	0xcc	; 0xcc <testMotorsSmooth>
+ 134:	80 e0       	ldi	r24, 0x00	; 0
+ 136:	90 e0       	ldi	r25, 0x00	; 0
+ 138:	08 95       	ret
+
+0000013a <testTankLedsBlink>:
+ 13a:	8f ef       	ldi	r24, 0xFF	; 255
+ 13c:	81 b9       	out	0x01, r24	; 1
+ 13e:	8f e7       	ldi	r24, 0x7F	; 127
+ 140:	8a b9       	out	0x0a, r24	; 10
+ 142:	82 b1       	in	r24, 0x02	; 2
+ 144:	80 95       	com	r24
+ 146:	82 b9       	out	0x02, r24	; 2
+ 148:	8b b1       	in	r24, 0x0b	; 11
+ 14a:	80 95       	com	r24
+ 14c:	8f 77       	andi	r24, 0x7F	; 127
+ 14e:	8b b9       	out	0x0b, r24	; 11
+ 150:	8f ef       	ldi	r24, 0xFF	; 255
+ 152:	98 e0       	ldi	r25, 0x08	; 8
+ 154:	ad e3       	ldi	r26, 0x3D	; 61
+ 156:	81 50       	subi	r24, 0x01	; 1
+ 158:	90 40       	sbci	r25, 0x00	; 0
+ 15a:	a0 40       	sbci	r26, 0x00	; 0
+ 15c:	e1 f7       	brne	.-8      	; 0x156 <testTankLedsBlink+0x1c>
+ 15e:	00 c0       	rjmp	.+0      	; 0x160 <testTankLedsBlink+0x26>
+ 160:	00 00       	nop
+ 162:	ef cf       	rjmp	.-34     	; 0x142 <testTankLedsBlink+0x8>
+
+00000164 <testTankLeds>:
+ 164:	8f ef       	ldi	r24, 0xFF	; 255
+ 166:	81 b9       	out	0x01, r24	; 1
+ 168:	8f e7       	ldi	r24, 0x7F	; 127
+ 16a:	8a b9       	out	0x0a, r24	; 10
+ 16c:	9f ef       	ldi	r25, 0xFF	; 255
+ 16e:	92 b9       	out	0x02, r25	; 2
+ 170:	8b b9       	out	0x0b, r24	; 11
+ 172:	fd cf       	rjmp	.-6      	; 0x16e <testTankLeds+0xa>
+
+00000174 <testTankButtons>:
+ 174:	11 b8       	out	0x01, r1	; 1
+ 176:	8f ef       	ldi	r24, 0xFF	; 255
+ 178:	84 b9       	out	0x04, r24	; 4
+ 17a:	8f e7       	ldi	r24, 0x7F	; 127
+ 17c:	8a b9       	out	0x0a, r24	; 10
+ 17e:	17 b8       	out	0x07, r1	; 7
+ 180:	12 b8       	out	0x02, r1	; 2
+ 182:	80 e8       	ldi	r24, 0x80	; 128
+ 184:	8b b9       	out	0x0b, r24	; 11
+ 186:	8c e3       	ldi	r24, 0x3C	; 60
+ 188:	88 b9       	out	0x08, r24	; 8
+ 18a:	96 b1       	in	r25, 0x06	; 6
+ 18c:	29 b1       	in	r18, 0x09	; 9
+ 18e:	81 e0       	ldi	r24, 0x01	; 1
+ 190:	95 fd       	sbrc	r25, 5
+ 192:	80 e0       	ldi	r24, 0x00	; 0
+ 194:	94 ff       	sbrs	r25, 4
+ 196:	82 60       	ori	r24, 0x02	; 2
+ 198:	93 ff       	sbrs	r25, 3
+ 19a:	84 60       	ori	r24, 0x04	; 4
+ 19c:	92 ff       	sbrs	r25, 2
+ 19e:	88 60       	ori	r24, 0x08	; 8
+ 1a0:	27 ff       	sbrs	r18, 7
+ 1a2:	80 61       	ori	r24, 0x10	; 16
+ 1a4:	80 68       	ori	r24, 0x80	; 128
+ 1a6:	8b b9       	out	0x0b, r24	; 11
+ 1a8:	f0 cf       	rjmp	.-32     	; 0x18a <testTankButtons+0x16>
+
+000001aa <_exit>:
+ 1aa:	f8 94       	cli
+
+000001ac <__stop_program>:
+ 1ac:	ff cf       	rjmp	.-2      	; 0x1ac <__stop_program>

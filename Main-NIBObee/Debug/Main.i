@@ -324,8 +324,7 @@
 
 
 
-
-
+#define TWI_DELAY 1
 
 
 # 1 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 1
@@ -2979,6 +2978,8 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
+
+#define delay(x) _delay_ms(x)
 # 12 "..\\..\\AntonAvrLib/kernel/millisecond_clock.h" 2
 
 
@@ -3069,7 +3070,11 @@ void blinkAllLeds(PLedGroup leds, uint8_t times);
 void flashLed(PLed led, const uint16_t millis);
 void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis);
 void flashAllLeds(PLedGroup leds, uint16_t millis);
-# 54 "..\\..\\AntonAvrLib/kernel/devices/led.h"
+
+
+
+void blinkByte(PLedGroup display, PLedGroup notifier, byte data);
+# 58 "..\\..\\AntonAvrLib/kernel/devices/led.h"
 #define DEFINE_LED(ledName) extern const PLed ledName;
 
 #define DEFINE_LED_GROUP(groupName) extern const PLedGroup groupName;
@@ -3086,6 +3091,9 @@ uint16_t resetStatusBitmask();
 
 
 void blink_reset_condition(PLedGroup leds);
+
+
+void blink_reset_condition_byte(PLedGroup blinker, PLedGroup notifier);
 # 14 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h" 1
 # 9 "..\\..\\AntonAvrLib/kernel/processes/mutex/mutex.h"
@@ -3105,7 +3113,7 @@ void mutex_release(Mutex mutex);
 # 15 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
 # 1 "..\\..\\AntonAvrLib/anton_std.h" 1
 # 16 "..\\..\\Kernel-NIBObee/shared/kernel_base.h" 2
-# 18 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 17 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_button.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_button.h"
 #define NIBOBEE_BUTTON_H_ 
@@ -3118,32 +3126,27 @@ void mutex_release(Mutex mutex);
 
 
 #define BUTTON_NORMAL 0
-#define BUTTON_INVERTED (1 << 1)
-#define BUTTON_NEEDS_PULLUP (1 << 2)
+#define BUTTON_INVERTED _BV(0)
+#define BUTTON_NEEDS_PULLUP _BV(1)
+#define BUTTON_USE_PIN_CHANGE_INTERRUPT _BV(2)
 
 typedef struct {
  uint8_t flags;
  PPin pin;
-} Button, *PButton;
-
-typedef struct {
- PButton button;
  uint8_t pinChangeInterruptNumber;
-} InterruptButton, *PInterruptButton;
+} Button, *PButton;
 
 
 BOOL buttonStatus(PButton button);
-# 45 "..\\..\\AntonAvrLib/kernel/devices/button.h"
+# 36 "..\\..\\AntonAvrLib/kernel/devices/button.h"
 #define DEFINE_BUTTON(buttonName) extern const PButton buttonName;
-
-#define DEFINE_INTERRUPT_BUTTON(buttonName) extern const PInterruptButton buttonName;
 # 12 "..\\..\\Kernel-NIBObee/nibobee_button.h" 2
 
 extern const PButton ButtonRightBackward;
 extern const PButton ButtonRightForward;
 extern const PButton ButtonLeftBackward;
 extern const PButton ButtonLeftForward;
-# 19 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 18 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_led.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_led.h"
 #define NIBOBEE_LED_H_ 
@@ -3160,7 +3163,7 @@ extern const PLedGroup YellowLeds;
 extern const PLedGroup RightLeds;
 extern const PLedGroup LeftLeds;
 extern const PLedGroup AllLeds;
-# 20 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 19 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/nibobee_motor.h" 1
 # 9 "..\\..\\Kernel-NIBObee/nibobee_motor.h"
 #define NIBOBEE_MOTOR_H_ 
@@ -3305,6 +3308,12 @@ typedef struct {
  uint8_t flags;
  PPin direction;
  PTimer pwmTimer;
+
+
+
+
+ uint16_t minValue;
+ uint16_t maxValue;
 } Motor, *PMotor;
 
 typedef struct {
@@ -3337,7 +3346,7 @@ void setSpeedBackward(PMotor motor, uint16_t speed);
 
 int16_t getDirSpeed(PMotor motor);
 void setDirSpeed(PMotor motor, int16_t speed);
-# 71 "..\\..\\AntonAvrLib/kernel/devices/motor.h"
+# 77 "..\\..\\AntonAvrLib/kernel/devices/motor.h"
 #define DEFINE_MOTOR(motorName) extern const PMotor motorName;
 
 #define DEFINE_2DirPins_MOTOR(motorName) extern const PMotor motorName;
@@ -3366,7 +3375,6 @@ typedef struct {
 
 
  BOOL tickRunning;
- uint16_t adjustmentFrequency;
  uint16_t adjustmentStep;
  Mutex mutex;
 } SmoothMotor, *PSmoothMotor;
@@ -3380,7 +3388,7 @@ void regulateSpeedForward(PSmoothMotor motor, uint16_t speed);
 void regulateSpeedBackward(PSmoothMotor motor, uint16_t speed);
 
 void regulateDirSpeed(PSmoothMotor motor, int16_t speed);
-# 52 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.h"
+# 51 "..\\..\\AntonAvrLib/kernel/devices/motor_smooth.h"
 #define DEFINE_SMOOTH_MOTOR(motorName) extern PSmoothMotor motorName;
 # 14 "..\\..\\Kernel-NIBObee/nibobee_motor.h" 2
 
@@ -3388,7 +3396,7 @@ extern const PMotor LeftMotorBase;
 extern const PMotor RightMotorBase;
 extern PSmoothMotor LeftMotor;
 extern PSmoothMotor RightMotor;
-# 21 "..\\..\\Kernel-NIBObee/kernel.h" 2
+# 20 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 1 "..\\..\\Kernel-NIBObee/shared/twi_bgx1.h" 1
 
 #define TWI_BGX1_H_ 
@@ -3468,6 +3476,10 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
 
 
 void twiMultipleOperations(int count, TWIOperation *operations);
+
+
+
+void turn_word(uint16_t *word);
 # 5 "..\\..\\Kernel-NIBObee/shared/twi_bgx1.h" 2
 
 
@@ -3479,9 +3491,9 @@ extern TWIDevice bgx1;
 
 #define TWI_DEVICE bgx1
 
-# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 1
+# 1 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_client.h" 1
 
-#define TWI_RPC_HASH_CLIENT_H_ 
+#define TWI_RPC_CLIENT_H_ 
 
 
 
@@ -3503,8 +3515,8 @@ void twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer r
 
 
 void twi_rpc_pseudo_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
-# 8 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h" 2
-# 141 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_hash_client.h"
+# 8 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_client.h" 2
+# 141 "..\\..\\AntonAvrLib/kernel/TWI/twi_rpc_client.h"
 #define TWI_RPC_FUNCTION_VAR(funcName,operationByte,ArgStruct,ResStruct) void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize);
 
 
@@ -3762,7 +3774,7 @@ enum {
 
 
 void bgx1_reset();
-uint16_t bgx1_getVersion();
+uint16_t bgx1_getVersion_base();
 uint8_t bgx1_getStatus();
 void bgx1_setStatus(uint8_t parameters);
 
@@ -3810,9 +3822,19 @@ typedef struct {
 
 
 uint8_t bgx1_syncPort_base(SyncPortArgs parameters);
-uint16_t bgx1_getAnalog(uint8_t parameters);
+uint16_t bgx1_getAnalog_base(uint8_t parameters);
 uint8_t bgx1_syncInterface(uint8_t parameters);
 void bgx1_setIllumination(uint16_t parameters);
+
+#define BGX1_BTN_1 _BV(0)
+#define BGX1_BTN_2 _BV(1)
+#define BGX1_BTN_3 _BV(2)
+#define BGX1_BTN_4 _BV(3)
+
+#define BGX1_LED_1 _BV(0)
+#define BGX1_LED_2 _BV(1)
+#define BGX1_LED_3 _BV(2)
+#define BGX1_LED_4 _BV(3)
 
 Point bgx1_print(char *argument);
 Point bgx1_print_P(const prog_char * argument);
@@ -3836,595 +3858,67 @@ void bgx1_lineTo(uint8_t x, uint8_t y);
 void bgx1_termGoto(uint8_t x, uint8_t y);
 uint8_t bgx1_syncPort(uint8_t ddr, uint8_t port);
 
+uint16_t bgx1_getAnalog(uint8_t index);
+uint16_t bgx1_getVersion();
 
 
-BOOL check_bgx1_operational();
-# 22 "..\\..\\Kernel-NIBObee/kernel.h" 2
+
+BOOL bgx1_initialized();
+# 21 "..\\..\\Kernel-NIBObee/kernel.h" 2
 # 14 "../../Main/Main.c" 2
+# 45 "../../Main/Main.c"
+# 1 "../../Main/../Main-NIBObee/main/Main_test_NIBObee_SmoothMotors.c.h" 1
 
 
 
+# 1 "..\\..\\AntonAvrLib/misc/read_buttons_loop.h" 1
 
+#define READ_BUTTONS_LOOP_ 
 
+# 1 "..\\..\\AntonAvrLib/misc/../kernel/devices/button.h" 1
+# 5 "..\\..\\AntonAvrLib/misc/read_buttons_loop.h" 2
 
-# 1 "../../Main/device_tests/Main_bgx1_gfx.c.h" 1
 
 
 
+void read_buttons_loop(uint8_t buttonCount, PButton *buttonArray);
+# 5 "../../Main/../Main-NIBObee/main/Main_test_NIBObee_SmoothMotors.c.h" 2
 
-
-
-
-# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 1 3
-# 40 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define _STDIO_H_ 1
-
-
-
-
-# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stdarg.h" 1 3 4
-# 31 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stdarg.h" 3 4
-#define _STDARG_H 
-#define _ANSI_STDARG_H_ 
-
-#undef __need___va_list
-
-
-
-
-#define __GNUC_VA_LIST 
-typedef __builtin_va_list __gnuc_va_list;
-
-
-
-
-
-
-#define va_start(v,l) __builtin_va_start(v,l)
-#define va_end(v) __builtin_va_end(v)
-#define va_arg(v,l) __builtin_va_arg(v,l)
-
-#define va_copy(d,s) __builtin_va_copy(d,s)
-
-#define __va_copy(d,s) __builtin_va_copy(d,s)
-# 102 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stdarg.h" 3 4
-typedef __gnuc_va_list va_list;
-
-
-
-
-
-#define _VA_LIST_ 
-
-
-#define _VA_LIST 
-
-
-#define _VA_LIST_DEFINED 
-
-
-#define _VA_LIST_T_H 
-
-
-#define __va_list__ 
-# 46 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 2 3
-
-#define __need_NULL 
-#define __need_size_t 
-# 1 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stddef.h" 1 3 4
-# 233 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stddef.h" 3 4
-#undef __need_size_t
-# 395 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/include/stddef.h" 3 4
-#undef NULL
-
-
-
-
-#define NULL ((void *)0)
-
-
-
-
-
-#undef __need_NULL
-# 50 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 2 3
-# 242 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-struct __file {
- char *buf;
- unsigned char unget;
- uint8_t flags;
-#define __SRD 0x0001
-#define __SWR 0x0002
-#define __SSTR 0x0004
-#define __SPGM 0x0008
-#define __SERR 0x0010
-#define __SEOF 0x0020
-#define __SUNGET 0x040
-#define __SMALLOC 0x80
-
-
-
-
-
-
-
- int size;
- int len;
- int (*put)(char, struct __file *);
- int (*get)(struct __file *);
- void *udata;
-};
-# 275 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define FILE struct __file
-# 284 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define stdin (__iob[0])
-# 293 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define stdout (__iob[1])
-# 304 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define stderr (__iob[2])
-
-
-
-
-
-
-
-#define EOF (-1)
-
-
-
-
-
-
-#define fdev_set_udata(stream,u) do { (stream)->udata = u; } while(0)
-
-
-
-#define fdev_get_udata(stream) ((stream)->udata)
-# 348 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define fdev_setup_stream(stream,p,g,f) do { (stream)->put = p; (stream)->get = g; (stream)->flags = f; (stream)->udata = 0; } while(0)
-# 357 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define _FDEV_SETUP_READ __SRD
-#define _FDEV_SETUP_WRITE __SWR
-#define _FDEV_SETUP_RW (__SRD|__SWR)
-
-
-
-
-
-
-#define _FDEV_ERR (-1)
-
-
-
-
-
-
-#define _FDEV_EOF (-2)
-# 387 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define FDEV_SETUP_STREAM(p,g,f) { .put = p, .get = g, .flags = f, .udata = 0, }
-# 405 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-extern struct __file *__iob[];
-# 417 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-extern struct __file *fdevopen(int (*__put)(char, struct __file*), int (*__get)(struct __file*));
-# 434 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-extern int fclose(struct __file *__stream);
-# 448 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define fdev_close() ((void)0)
-# 608 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-extern int vfprintf(struct __file *__stream, const char *__fmt, va_list __ap);
-
-
-
-
-
-extern int vfprintf_P(struct __file *__stream, const char *__fmt, va_list __ap);
-
-
-
-
-
-
-extern int fputc(int __c, struct __file *__stream);
-
-
-
-
-extern int putc(int __c, struct __file *__stream);
-
-
-extern int putchar(int __c);
-# 638 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define putc(__c,__stream) fputc(__c, __stream)
-
-
-
-
-#define putchar(__c) fputc(__c, stdout)
-
-
-
-
-
-extern int printf(const char *__fmt, ...);
-
-
-
-
-
-extern int printf_P(const char *__fmt, ...);
-
-
-
-
-
-
-
-extern int vprintf(const char *__fmt, va_list __ap);
-
-
-
-
-
-extern int sprintf(char *__s, const char *__fmt, ...);
-
-
-
-
-
-extern int sprintf_P(char *__s, const char *__fmt, ...);
-# 685 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-extern int snprintf(char *__s, size_t __n, const char *__fmt, ...);
-
-
-
-
-
-extern int snprintf_P(char *__s, size_t __n, const char *__fmt, ...);
-
-
-
-
-
-extern int vsprintf(char *__s, const char *__fmt, va_list ap);
-
-
-
-
-
-extern int vsprintf_P(char *__s, const char *__fmt, va_list ap);
-# 713 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-extern int vsnprintf(char *__s, size_t __n, const char *__fmt, va_list ap);
-
-
-
-
-
-extern int vsnprintf_P(char *__s, size_t __n, const char *__fmt, va_list ap);
-
-
-
-
-extern int fprintf(struct __file *__stream, const char *__fmt, ...);
-
-
-
-
-
-extern int fprintf_P(struct __file *__stream, const char *__fmt, ...);
-
-
-
-
-
-
-extern int fputs(const char *__str, struct __file *__stream);
-
-
-
-
-extern int fputs_P(const char *__str, struct __file *__stream);
-
-
-
-
-
-extern int puts(const char *__str);
-
-
-
-
-extern int puts_P(const char *__str);
-# 762 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-extern size_t fwrite(const void *__ptr, size_t __size, size_t __nmemb,
-         struct __file *__stream);
-
-
-
-
-
-
-
-extern int fgetc(struct __file *__stream);
-
-
-
-
-extern int getc(struct __file *__stream);
-
-
-extern int getchar(void);
-# 788 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define getc(__stream) fgetc(__stream)
-
-
-
-
-
-#define getchar() fgetc(stdin)
-# 810 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-extern int ungetc(int __c, struct __file *__stream);
-# 822 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-extern char *fgets(char *__str, int __size, struct __file *__stream);
-
-
-
-
-
-
-extern char *gets(char *__str);
-# 840 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-extern size_t fread(void *__ptr, size_t __size, size_t __nmemb,
-        struct __file *__stream);
-
-
-
-
-extern void clearerr(struct __file *__stream);
-
-
-
-#define clearerror(s) do { (s)->flags &= ~(__SERR | __SEOF); } while(0)
-
-
-
-
-
-
-extern int feof(struct __file *__stream);
-
-
-
-#define feof(s) ((s)->flags & __SEOF)
-
-
-
-
-
-
-extern int ferror(struct __file *__stream);
-
-
-
-#define ferror(s) ((s)->flags & __SERR)
-
-
-extern int vfscanf(struct __file *__stream, const char *__fmt, va_list __ap);
-
-
-
-
-extern int vfscanf_P(struct __file *__stream, const char *__fmt, va_list __ap);
-
-
-
-
-
-
-
-extern int fscanf(struct __file *__stream, const char *__fmt, ...);
-
-
-
-
-extern int fscanf_P(struct __file *__stream, const char *__fmt, ...);
-
-
-
-
-
-
-extern int scanf(const char *__fmt, ...);
-
-
-
-
-extern int scanf_P(const char *__fmt, ...);
-
-
-
-
-
-
-
-extern int vscanf(const char *__fmt, va_list __ap);
-
-
-
-
-
-
-
-extern int sscanf(const char *__buf, const char *__fmt, ...);
-
-
-
-
-extern int sscanf_P(const char *__buf, const char *__fmt, ...);
-# 938 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-static __inline__ int fflush(struct __file *stream __attribute__((unused)))
-{
- return 0;
-}
-# 955 "c:\\program files (x86)\\atmel\\atmel studio 6.0\\extensions\\atmel\\avrgcc\\3.3.2.31\\avrtoolchain\\bin\\../lib/gcc/avr/4.5.1/../../../../avr/include/stdio.h" 3
-#define SEEK_SET 0
-#define SEEK_CUR 1
-#define SEEK_END 2
-# 9 "../../Main/device_tests/Main_bgx1_gfx.c.h" 2
-
-#define delay(a) _delay_ms(a)
-
-# 1 "../../Main/device_tests/res/smily.xbm" 1
-#define smily_width 16
-#define smily_height 16
-static char smily_bits[] __attribute__((__progmem__)) = {
-   0xe0, 0x07, 0x18, 0x18, 0x04, 0x20, 0x02, 0x40, 0x32, 0x4c, 0x49, 0x92,
-   0x31, 0x8c, 0x31, 0x8c, 0x81, 0x81, 0x81, 0x81, 0x09, 0x90, 0x32, 0x4c,
-   0xc2, 0x43, 0x04, 0x20, 0x18, 0x18, 0xe0, 0x07 };
-# 13 "../../Main/device_tests/Main_bgx1_gfx.c.h" 2
-
-void plot_smily(uint8_t x, uint8_t y) {
- bgx1_move (x, y);
- bgx1_drawBitmap_P(16, 16, smily_bits);
-}
-
-void plot_house(uint8_t x, uint8_t y, uint8_t s) {
-  bgx1_move (x+s*0, y+s*7);
-  bgx1_lineTo(x+s*4, y+s*7);
-  _delay_ms(200);
-  bgx1_lineTo(x+s*4, y+s*3);
-  _delay_ms(200);
-  bgx1_lineTo(x+s*0, y+s*3);
-  _delay_ms(200);
-  bgx1_lineTo(x+s*2, y+s*0);
-  _delay_ms(200);
-  bgx1_lineTo(x+s*4, y+s*3);
-  _delay_ms(200);
-  bgx1_lineTo(x+s*0, y+s*7);
-  _delay_ms(200);
-  bgx1_lineTo(x+s*0, y+s*3);
-  _delay_ms(200);
-  bgx1_lineTo(x+s*4, y+s*7);
-}
-
-void plot_vLines(uint8_t x, uint8_t y, uint8_t sx, uint8_t sy) {
-
-  bgx1_move (x+sx*0, y+sy*0);
-  bgx1_lineTo(x+sx*3, y+sy*1);
-  bgx1_move (x+sx*1, y+sy*0);
-  bgx1_lineTo(x+sx*1, y+sy*1);
-  bgx1_move (x+sx*3, y+sy*0);
-  bgx1_lineTo(x+sx*0, y+sy*1);
-
-
-  bgx1_move (x+sx*5, y+sy*1);
-  bgx1_lineTo(x+sx*2, y+sy*0);
-  bgx1_move (x+sx*4, y+sy*1);
-  bgx1_lineTo(x+sx*4, y+sy*0);
-  bgx1_move (x+sx*2, y+sy*1);
-  bgx1_lineTo(x+sx*5, y+sy*0);
-
-}
-
-void plot_hLines(uint8_t x, uint8_t y, uint8_t sx, uint8_t sy) {
-
-  bgx1_move (x+sx*0, y+sy*0);
-  bgx1_lineTo(x+sx*1, y+sy*3);
-  bgx1_move (x+sx*0, y+sy*1);
-  bgx1_lineTo(x+sx*1, y+sy*1);
-  bgx1_move (x+sx*0, y+sy*3);
-  bgx1_lineTo(x+sx*1, y+sy*0);
-
-
-  bgx1_move (x+sx*1, y+sy*5);
-  bgx1_lineTo(x+sx*0, y+sy*2);
-  bgx1_move (x+sx*1, y+sy*4);
-  bgx1_lineTo(x+sx*0, y+sy*4);
-  bgx1_move (x+sx*1, y+sy*2);
-  bgx1_lineTo(x+sx*0, y+sy*5);
-
-}
-
+#define SPEED 0x0FFF
 
 int main() {
 
- bgx1_move(12, 13);
-
-  bgx1_setStatus(0xff);
 
 
 
 
-  while(1) {
-    __asm__ __volatile__ ("sei" ::: "memory");
-    _delay_ms(20);
 
-    if (bgx1_getStatus()==0xff) {
-      _delay_ms(1500);
 
-      bgx1_reset();
+ regulateSpeedBackward(LeftMotor, 0x0FFF);
+ _delay_ms(2000);
+ regulateSpeedForward(LeftMotor, 0x0FFF);
 
-      _delay_ms(500);
 
-      plot_house(2, 5, 8);
-
-      _delay_ms(500);
-
-      bgx1_move(39, 1);
-      bgx1_box(5, 62);
-
-      _delay_ms(200);
-
-      bgx1_move (48, 0);
-      bgx1_lineTo(48, 29);
-      bgx1_lineTo(77, 29);
-      bgx1_lineTo(77, 0);
-      bgx1_lineTo(48, 0);
-      plot_vLines(50, 2, 5, 25);
-
-      _delay_ms(200);
-
-      bgx1_move (48, 34);
-      bgx1_lineTo(48, 63);
-      bgx1_lineTo(77, 63);
-      bgx1_lineTo(77, 34);
-      bgx1_lineTo(48, 34);
-      plot_hLines(50, 36, 25, 5);
-
-      _delay_ms(200);
-
-      bgx1_move(48, 31);
-      bgx1_box(30, 2);
-
-      _delay_ms(500);
-
-      bgx1_move(82, 0);
-      bgx1_selectFont(0);
-      bgx1_print("Test II");
-      uint8_t w = bgx1_textWidth("Test II");
-      bgx1_move(82, 8);
-      bgx1_hLine(w);
-
-      _delay_ms(200);
-
-      bgx1_move(82, 20);
-      bgx1_selectFont(1);
-      bgx1_print("Test II");
-      w = bgx1_textWidth("Test II");
-      bgx1_move(82, 28);
-      bgx1_hLine(w);
-
-      _delay_ms(500);
-
-      plot_smily(85, 40);
-
-      _delay_ms(200);
-
-      plot_smily(105, 40);
-
-    }
-
-  }
-  return 0;
+ blinkLed(RightRed, 5);
+ while (1) ;
 }
-# 21 "../../Main/Main.c" 2
+
+void button_pressed(PButton button) {
+ if (button == ButtonLeftBackward) {
+  flashLed(LeftYellow, 300);
+  regulateSpeedBackward(LeftMotor, 0x0FFF);
+ }
+ if (button == ButtonLeftForward) {
+  flashLed(LeftRed, 300);
+  regulateSpeedForward(LeftMotor, 0x0FFF);
+ }
+ if (button == ButtonRightBackward) {
+  flashLed(RightYellow, 300);
+  regulateSpeedBackward(RightMotor, 0x0FFF);
+ }
+ if (button == ButtonRightForward) {
+  flashLed(RightRed, 300);
+  regulateSpeedForward(RightMotor, 0x0FFF);
+ }
+}
+# 46 "../../Main/Main.c" 2

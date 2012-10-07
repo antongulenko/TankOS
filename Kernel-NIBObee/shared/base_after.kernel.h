@@ -28,7 +28,12 @@ void init_kernel() {
 	// AFTER other modules modified __default_stack_size and __main_process_additional_memory
 	INITIALIZE_SCHEDULER
 	before_timer(); // AFTER all other initialization and BEFORE starting the scheduler
+	#ifdef TIMER_INTERRUPT_A
 	enableTimerInterrupt(CLOCKTIMER_A);
+	#endif
+	#ifdef TIMER_INTERRUPT_B
+	enableTimerInterrupt(CLOCKTIMER_B);
+	#endif
 	sei();
 }
 KERNEL_INIT(init_kernel)

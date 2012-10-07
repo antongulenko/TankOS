@@ -107,10 +107,16 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="device_tests\Main_bgx1_gfx.c.h">
+    <Compile Include="bgx1_tests\Main_bgx1_byte_order.c.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="device_tests\Main_bgx1_print.c.h">
+    <Compile Include="bgx1_tests\Main_bgx1_gfx.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="bgx1_tests\Main_bgx1_term.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="bgx1_tests\Main_bgx1_io.c.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="device_tests\Main_test_AllLeds.c.h">
@@ -120,24 +126,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="device_tests\Main_test_Motors_Forward.c.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="device_tests\Main_test_Motors_NIBObee.c.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="device_tests\Main_test_Motors_NIBObee_Steps.c.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="device_tests\Main_test_NIBObee_Buttons.c.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="device_tests\Main_test_NIBObee_Buttons_Loop.c.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="device_tests\Main_test_NIBObee_SmoothMotors.c.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="device_tests\Main_test_NIBObee_SmoothMotors_Steps.c.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Main.c">
@@ -169,11 +157,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bgx1_tests\" />
+    <Folder Include="bgx1_tests\res\" />
     <Folder Include="device_tests" />
     <Folder Include="device_tests\res\" />
     <Folder Include="simulator_tests" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="bgx1_tests\res\smily.xbm">
+      <SubType>compile</SubType>
+    </None>
     <None Include="device_tests\res\smily.xbm">
       <SubType>compile</SubType>
     </None>

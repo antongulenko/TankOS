@@ -14,6 +14,20 @@
 #include <util/twi.h>
 #include <util/atomic.h>
 
+// These macros can be defined to debug parts of the twi-system
+#ifndef TWI_DEBUG_ERROR
+#define TWI_DEBUG_ERROR(error_code)
+#endif
+#ifndef TWI_DEBUG_BYTE_RECEIVED
+#define TWI_DEBUG_BYTE_RECEIVED(data)
+#endif
+#ifndef TWI_DEBUG_BYTE_SENT
+#define TWI_DEBUG_BYTE_SENT(data)
+#endif
+#ifndef TWI_DEBUG_INTERRUPT
+#define TWI_DEBUG_INTERRUPT(status)
+#endif
+
 TWIDevice TWIBroadcast = { 0 };
 
 #ifdef TWI_Slave
@@ -27,9 +41,12 @@ TWIDevice TWIBroadcast = { 0 };
 	void twi_handleMasterTransmission(TWIBuffer twi_buffer) {}
 #endif
 
-// This can be implemented by the application code to handle unexpected conditions in TWI traffic.
+// This can be implemented by the application code to handle
+// unexpected conditions in TWI traffic. Or define this macro.
 void twi_unexpectedCondition() __attribute__((weak));
-void twi_unexpectedCondition() {}
+void twi_unexpectedCondition() {
+	TWI_DEBUG_ERROR(twi_error)
+}
 
 #ifndef TWI_BIT_RATE_VALUE
 #error This module requires TWI_BIT_RATE_VALUE to be defined!
@@ -65,8 +82,13 @@ KERNEL_INIT(init_twi)
 #define twi_start() twi_base | _BV(TWSTA)
 #define twi_ack() twi_base | _BV(TWEA)
 #define twi_continue() twi_base
-#define twi_send(data) TWDR = data; twi_continue()
 #define twi_send_ack(data) TWDR = data; twi_ack()
+
+static inline void twi_send(uint8_t data) {
+	TWI_DEBUG_BYTE_SENT(data)
+	TWDR = data;
+	twi_continue();
+}
 
 static inline void twi_stop() {
 	#ifdef TWI_Slave
@@ -129,7 +151,10 @@ void twi_start_master_operation() {
 }
 
 static inline void twi_ack_receive() {
-	if (alreadyHandled < twi_buffer.size - 1) {
+	// Directly after a (repeated) start condition, in MR mode,
+	// buffer size 0 and 1 both lead to a NACK of the first received byte.
+	// In case of buffer size 0, this byte will be 'useless'.
+	if (alreadyHandled + 1 < twi_buffer.size) {
 		twi_ack(); // Still more than one byte to go.
 	} else {
 		twi_continue();  // Want to receive one more byte. Next byte will get NOT ACK.
@@ -137,10 +162,19 @@ static inline void twi_ack_receive() {
 }
 
 static inline void twi_read_byte() {
-	twi_buffer.data[alreadyHandled++] = TWDR;
+	TWI_DEBUG_BYTE_RECEIVED(TWDR)
+	
+	// Additional if-guard necessary, e.g. if the receive-buffer size
+	// is zero (because in Master-Receiver mode, we have to receive
+	// AT LEAST one byte, so we will end up here, even if the receive-
+	// buffer has no space at all reserved. Fix by skipping this byte).
+	if (alreadyHandled < twi_buffer.size)
+		twi_buffer.data[alreadyHandled++] = TWDR;
 }
 
 ISR(TWI_vect) {
+	TWI_DEBUG_INTERRUPT(TW_STATUS)
+	
 	switch(TW_STATUS) {
 // Master
 		case TW_START:
@@ -287,8 +321,21 @@ void WAIT_FOR_TWI() {
 		ATOMIC_BLOCK(ATOMIC_FORCEON) {
 			still_running = twi_running;
 		}
-		if (!still_running) break;
+		if (!still_running) {
+			// This macro can be added here to include a ms-delay after each
+			// TWI-transmission.
+			#ifdef TWI_DELAY
+			_delay_ms(TWI_DELAY);
+			#endif
+			break;
+		}
 	}
+}
+
+void turn_word(uint16_t *word) {
+	uint8_t temp = ((uint8_t*) word)[0];
+	((uint8_t*) word)[0] = ((uint8_t*) word)[1];
+	((uint8_t*) word)[1] = temp;
 }
 
 #endif
