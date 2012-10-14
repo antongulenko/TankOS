@@ -82,10 +82,37 @@ void regulateOneLoop(PSmoothMotor motor) {
 	}
 }
 
-void regulateOneForeverLoop(PSmoothMotor motor) {
-	regulateSpeed(motor, 0xFFFF, FORWARD);
+void regulateOneForeverLoop(PSmoothMotor motor, uint16_t speed, MotorDirection dir) {
+	regulateSpeed(motor, speed, dir);
 	while (1) {
 		loopMotorTick();
+	}
+}
+
+void regulateTestMotor(PMotor m) {
+	uint16_t speed = 0;
+	uint16_t step = 13;
+	while (speed < 0xffff - step) {
+		setSpeedForward(m, speed);
+		speed += step;
+		_delay_us(500);
+	}
+	
+	speed = 0xffff;
+	step = 13;
+	while (speed > step) {
+		setSpeedForward(m, speed);
+		speed -= step;
+		_delay_us(500);
+	}
+}
+
+int simpleTestMotors() {
+	while (1) {
+		regulateTestMotor(TestMotorLeftBase);
+		stopMotor(TestMotorLeftBase);
+		regulateTestMotor(TestMotorRightBase);
+		stopMotor(TestMotorRightBase);
 	}
 }
 
@@ -98,7 +125,9 @@ int main() {
 	// bothSimple(FORWARD);
 	// bothSimple(BACKWARD);
 	
-	// regulateOneForeverLoop(LeftMotor);
+	regulateOneForeverLoop(LeftMotor, 0xFFFF, FORWARD);
+	
+	// simpleTestMotors();
 	
 	// setSpeedForward(LeftMotorBase, 0xFFFF);
 	// setSpeedBackward(RightMotorBase, 0x8000);

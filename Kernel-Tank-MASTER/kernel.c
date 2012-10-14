@@ -8,11 +8,21 @@
 // Assemble the kernel-modules
 #include <kernel/reset_condition.kernel.h>
 #include "shared/base_before.kernel.h"
-#include "tank_motor.kernel.h"
+
+#define USE_TEST_MOTORS
+#ifdef USE_TEST_MOTORS
+#define SMOOTH_MOTOR_A TestMotorRight
+#define SMOOTH_MOTOR_B TestMotorLeft
+#else
+#define SMOOTH_MOTOR_A LeftMotor
+#define SMOOTH_MOTOR_B RightMotor
+#endif
 
 // Resolution is 16 bit (65535), one adjustment each millisecond
 // -> min->max in ~1 second.
 #define MOTOR_ADJUSTMENT_STEP 65
+#include "tank_motor.kernel.h"
+
 #ifdef USE_SMOOTH_MOTOR_INTERRUPT
 #include "shared/motor_smooth_interrupt.kernel.h"
 #else

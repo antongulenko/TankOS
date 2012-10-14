@@ -10,8 +10,11 @@
 // The modules included here should be analog to tank_kernel_MASTER.c.
 
 #include "shared/kernel_base.h"
-#include "shared/motor_smooth.h"
 #include "tank_motor.h"
+
+#ifndef USE_SMOOTH_MOTOR_INTERRUPT
+#include "shared/motor_smooth.h"
+#endif
 
 #ifdef USE_TWI
 #include "shared/twi_bgx1.h"

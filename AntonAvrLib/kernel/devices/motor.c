@@ -39,6 +39,8 @@ void stopMotor(PMotor motor) {
 }
 
 uint16_t getSpeed(PMotor motor) {
+	// TODO modify the return value to revert changes made in setSpeed()
+	// and setMotorCompareValue()
 	return getTimerCompareValue(motor->pwmTimer);
 }
 

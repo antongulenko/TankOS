@@ -8,6 +8,11 @@
 #include "timer.h"
 #include "port.h"
 
+// TODO clear_on_match is used, because its used for motors,
+// and we want the timer-compare-value to reflect the voltage.
+// Should be configured somewhere else.
+#define DEFAULT_OUTPUT_COMPARE_MODE clear_on_match
+
 void setCompareMatchOutputMode(PTimer timer, CompareMatchOutputMode com) {
 	// The bit-makros of timer 0 are used here (COM0**), but the values for all other timers are the same!
 	uint8_t zeroBits = 0;
@@ -120,45 +125,57 @@ void setWaveformGenerationMode(PTimerPair timer, WaveformGenerationMode wgm) {
 				zeroBitsB = _BV(WGM13);
 				oneBitsB = _BV(WGM12);
 				break;
-			case pwm_fast_FF: // 0101
-				zeroBitsA = _BV(WGM11);
-				oneBitsA = _BV(WGM10);
-				zeroBitsB = _BV(WGM13);
-				oneBitsB = _BV(WGM12);
-				break;
 			case pwm_fast:
-				if (timer->flags & TIMER_RESOLUTION_9bit) { // 0110
-					oneBitsA = _BV(WGM11);
-					zeroBitsA = _BV(WGM10);
-					oneBitsB = _BV(WGM12);
-					zeroBitsB = _BV(WGM13);
-				} else if (timer->flags & TIMER_RESOLUTION_10bit) { // 0111
-					oneBitsA = _BV(WGM10) | _BV(WGM11);
-					oneBitsB = _BV(WGM12);
-					zeroBitsB = _BV(WGM13);
-				} else { // 1111
-					oneBitsA = _BV(WGM11) | _BV(WGM10);
-					oneBitsB = _BV(WGM13) | _BV(WGM12);
+				switch (timer->resolution) {
+					case TIMER_RESOLUTION_9bit: // 0110
+						oneBitsA = _BV(WGM11);
+						zeroBitsA = _BV(WGM10);
+						oneBitsB = _BV(WGM12);
+						zeroBitsB = _BV(WGM13);
+						break;
+					case TIMER_RESOLUTION_10bit: // 0111
+						oneBitsA = _BV(WGM10) | _BV(WGM11);
+						oneBitsB = _BV(WGM12);
+						zeroBitsB = _BV(WGM13);
+						break;
+					case TIMER_RESOLUTION_full: // 0101
+						zeroBitsA = _BV(WGM11);
+						oneBitsA = _BV(WGM10);
+						zeroBitsB = _BV(WGM13);
+						oneBitsB = _BV(WGM12);
+						break;
+					case TIMER_RESOLUTION_ocra: // 1111
+						oneBitsA = _BV(WGM11) | _BV(WGM10);
+						oneBitsB = _BV(WGM13) | _BV(WGM12);
+						break;
+					default:
+						return;
 				}
-				break;
-			case pwm_phase_correct_FF: // 0001
-				zeroBitsA = _BV(WGM11);
-				oneBitsA = _BV(WGM10);
-				zeroBitsB = _BV(WGM13) | _BV(WGM12);
 				break;
 			case pwm_phase_correct:
-				if (timer->flags & TIMER_RESOLUTION_9bit) { // 0010
-					zeroBitsA = _BV(WGM10);
-					oneBitsA = _BV(WGM11);
-					zeroBitsB = _BV(WGM13) | _BV(WGM12);
-				} else if (timer->flags & TIMER_RESOLUTION_10bit) { // 0011
-					oneBitsA = _BV(WGM11) | _BV(WGM10);
-					zeroBitsB = _BV(WGM13) | _BV(WGM12);
-				} else { // 1011
-					oneBitsA = _BV(WGM10) | _BV(WGM11);
-					zeroBitsB = _BV(WGM12);
-					oneBitsB = _BV(WGM13);
-				}
+				switch (timer->resolution) {
+					case TIMER_RESOLUTION_9bit: // 0010
+						zeroBitsA = _BV(WGM10);
+						oneBitsA = _BV(WGM11);
+						zeroBitsB = _BV(WGM13) | _BV(WGM12);
+						break;
+					case TIMER_RESOLUTION_10bit: // 0011
+						oneBitsA = _BV(WGM11) | _BV(WGM10);
+						zeroBitsB = _BV(WGM13) | _BV(WGM12);
+						break;
+					case TIMER_RESOLUTION_full: // 0001
+						zeroBitsA = _BV(WGM11);
+						oneBitsA = _BV(WGM10);
+						zeroBitsB = _BV(WGM13) | _BV(WGM12);
+						break;
+					case TIMER_RESOLUTION_ocra: // 1011
+						oneBitsA = _BV(WGM10) | _BV(WGM11);
+						zeroBitsB = _BV(WGM12);
+						oneBitsB = _BV(WGM13);
+						break;
+					default:
+						return;
+					}
 				break;
 			case pwm_phase_and_frequency_correct: // 1001
 				oneBitsA = _BV(WGM10);
@@ -181,24 +198,30 @@ void setWaveformGenerationMode(PTimerPair timer, WaveformGenerationMode wgm) {
 				zeroBitsA = _BV(WGM00);
 				zeroBitsB = _BV(WGM02);
 				break;
-			case pwm_fast_FF: // 011
-				oneBitsA = _BV(WGM00) | _BV(WGM01);
-				zeroBitsB = _BV(WGM02);
+			case pwm_fast: 
+				if (timer->resolution == TIMER_RESOLUTION_full) { // 011
+					oneBitsA = _BV(WGM00) | _BV(WGM01);
+					zeroBitsB = _BV(WGM02);
+				} else if (timer->resolution == TIMER_RESOLUTION_ocra) { // 111
+					oneBitsA = _BV(WGM01) | _BV(WGM00);
+					oneBitsB = _BV(WGM02);
+				} else {
+					return;
+				}					
 				break;
-			case pwm_fast: // 111
-				oneBitsA = _BV(WGM01) | _BV(WGM00);
-				oneBitsB = _BV(WGM02);
-				break;
-			case pwm_phase_correct_FF: // 001
-				zeroBitsA = _BV(WGM01);
-				oneBitsA = _BV(WGM00);
-				zeroBitsB = _BV(WGM02);
-				break;
-			case pwm_phase_correct: // 101
-				oneBitsA = _BV(WGM00);
-				zeroBitsA = _BV(WGM01);
-				oneBitsB = _BV(WGM02);
-				break;
+			case pwm_phase_correct:
+				if (timer->resolution == TIMER_RESOLUTION_full) { // 001
+					zeroBitsA = _BV(WGM01);
+					oneBitsA = _BV(WGM00);
+					zeroBitsB = _BV(WGM02);
+				} else if (timer->resolution == TIMER_RESOLUTION_ocra) { // 101
+					oneBitsA = _BV(WGM00);
+					zeroBitsA = _BV(WGM01);
+					oneBitsB = _BV(WGM02);
+				} else {
+					break;
+				}					
+				break; 
 			default:
 				return;
 		}
@@ -220,13 +243,11 @@ void disableTimerInterrupt(PTimer timer) {
 
 void enableOutputCompare(PTimer timer) {
 	setPinOutput(timer->outputComparePin);
-	// TODO set_on_match is used, because its used for motors, and we want
-	// the timer-compare-value to reflect the voltage.
-	// Should be configured somewhere else.
-	setCompareMatchOutputMode(timer, set_on_match);
+	setCompareMatchOutputMode(timer, DEFAULT_OUTPUT_COMPARE_MODE);
 }
 
 void disableOutputCompare(PTimer timer) {
+	setPinZero(timer->outputComparePin);
 	setCompareMatchOutputMode(timer, no_output);
 }
 

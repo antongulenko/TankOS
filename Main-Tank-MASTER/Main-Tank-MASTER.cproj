@@ -18,6 +18,10 @@
     <ToolchainName>com.Atmel.AVRGCC8</ToolchainName>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <AsfVersion>3.0.1</AsfVersion>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <OverrideVtorValue />
+    <eraseonlaunchrule>0</eraseonlaunchrule>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputFileName>Main-Tank-MASTER</OutputFileName>

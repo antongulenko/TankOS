@@ -20,10 +20,6 @@ typedef enum {
 	wgm_normal,
 	clear_timer_on_match,
 	
-	// TOP value is always 0xFF
-	pwm_fast_FF,
-	pwm_phase_correct_FF,
-	
 	// TOP value is set by setTimerCompareValue()
 	// On 16-bit timers, if one of TIMER_RESOLUTION_9bit or TIMER_RESOLUTION_10bit
 	// is set, the setting with the reduced resolution will be used.
@@ -58,15 +54,20 @@ typedef enum {
 #define TIMER_NORMAL 0
 #define TIMER_ASYNCHRONOUS (1 << 1)
 #define TIMER_16bit (1 << 2)
-// These flags cause the compare value to be right-shifted before
-// writing it to the 16-bit registers. Only valid with TIMER_16bit.
-// These 2 flags do not define hardware-properties of the timer, but 
-// the usage-scenario.
-#define TIMER_RESOLUTION_9bit (1 << 4)
-#define TIMER_RESOLUTION_10bit (1 << 5)
+
+// These flags affect the waveform-generation mode of the timer.
+// The first two values are only valid for 16-bit timers (TIMER_16bit).
+// These values also affect the handling of compare-output values.
+typedef enum {
+	TIMER_RESOLUTION_full, // Full 8/16 bit (default)
+	TIMER_RESOLUTION_9bit,
+	TIMER_RESOLUTION_10bit,
+	TIMER_RESOLUTION_ocra // Value of OCRA determines resolution
+} TIMER_RESOLUTION;
 
 typedef struct {
 	uint8_t flags; // Bitmask of the TIMER_* defines above
+	TIMER_RESOLUTION resolution;
 	volatile uint8_t *controlRegisterA;
 	volatile uint8_t *controlRegisterB;
 	volatile uint8_t *interruptMaskRegister;
@@ -102,19 +103,19 @@ void setTimerCompareValue(PTimer timer, uint16_t value);
 uint16_t getTimerCompareValue(PTimer timer);
 
 #ifdef _KERNEL_
-#	define DEFINE_TIMER_CONFIG(configName)	\
-	TimerPair configName##_;				\
-	const PTimerPair configName = &configName##_;
+#	define DEFINE_TIMER_PAIR(pairName)	\
+	TimerPair pairName##_;				\
+	const PTimerPair pairName = &pairName##_;
 #	define DEFINE_TIMER(timerName)	\
 	Timer timerName##_;				\
 	const PTimer timerName = &timerName##_;
-#	define INIT_TIMER_CONFIG(configName, flags, regA, regB, interrReg)						\
-	configName##_ = (TimerPair) {flags, (uint8_t*) &regA, (uint8_t*) &regB, &interrReg};
-#	define INIT_TIMER(timerName, configName, ocr, timerType, ocPin)				\
-	timerName##_ = (Timer) {configName, (uint8_t*) &ocr, timerType, ocPin};
+#	define INIT_TIMER_PAIR(pairName, flags, regA, regB, interrReg)						\
+	pairName##_ = (TimerPair) {flags, TIMER_RESOLUTION_full, (uint8_t*) &regA, (uint8_t*) &regB, &interrReg};
+#	define INIT_TIMER(timerName, pairName, ocr, timerType, ocPin)				\
+	timerName##_ = (Timer) {pairName, (uint8_t*) &ocr, timerType, ocPin};
 #else
-#	define DEFINE_TIMER_CONFIG(configName)	\
-	extern const PTimerPair configName;
+#	define DEFINE_TIMER_PAIR(pairName)	\
+	extern const PTimerPair pairName;
 #	define DEFINE_TIMER(timerName)	\
 	extern const PTimer timerName;
 #endif
