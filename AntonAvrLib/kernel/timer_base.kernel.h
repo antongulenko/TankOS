@@ -26,7 +26,7 @@
 
 // Can be implemented by the application. Mainly for testing purposes.
 void in_timer_tick() __attribute__((weak));
-void in_timer_tick() {};
+void in_timer_tick() {}
 
 // Make sure, that the milliseconds-number is updated in the timer-routine.
 #define TIMER_TICK_ACTION		\

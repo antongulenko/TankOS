@@ -9,14 +9,8 @@
 #include <kernel/reset_condition.kernel.h>
 #include "shared/base_before.kernel.h"
 
-#define USE_TEST_MOTORS
-#ifdef USE_TEST_MOTORS
-#define SMOOTH_MOTOR_A TestMotorRight
-#define SMOOTH_MOTOR_B TestMotorLeft
-#else
 #define SMOOTH_MOTOR_A LeftMotor
 #define SMOOTH_MOTOR_B RightMotor
-#endif
 
 // Resolution is 16 bit (65535), one adjustment each millisecond
 // -> min->max in ~1 second.
@@ -33,5 +27,6 @@
 #include <kernel/TWI/twi_rpc.kernel.h> // TWI_Slave not defined.
 #include "shared/twi_bgx1.h"
 #include "twi_tank_IO.h"
-#include "shared/base_after.kernel.h"
 #endif
+
+#include "shared/base_after.kernel.h"

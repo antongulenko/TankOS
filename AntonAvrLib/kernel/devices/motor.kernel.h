@@ -11,27 +11,34 @@
 #include "../kernel_init.h"
 #include "motor.h"
 
-void initMotor(PMotor motor) {
+static void initMotorTimer(PTimer timer) {
 	// Configure the timer. These are configurations,
 	// that should work fine for most motors, but might also 
 	// be changed elsewhere.
-	setTimerClockSelect(motor->pwmTimer->timer, prescale_1);
-	motor->pwmTimer->timer->flags |= TIMER_RESOLUTION_full;
-	setWaveformGenerationMode(motor->pwmTimer->timer, pwm_phase_correct);
-	
-	setPinOutput(motor->direction);
-	if (!(motor->flags & MOTOR_TWO_DIR_PINS))
-		setPinOne(motor->direction);
-	
-	// Enables output-compare and sets initial timer-compare-value
-	stopMotor(motor);
+	setTimerClockSelect(timer->timer, prescale_1);
+	timer->timer->flags |= TIMER_RESOLUTION_full;
+	setWaveformGenerationMode(timer->timer, pwm_phase_correct);
 }
 
-void initMotor2Pins(PMotor2Pins motor) {
-	initMotor((PMotor) motor);
+void initMotor_1Dir1Speed(PMotor1Dir1Speed motor) {
+	setPinOutput(motor->direction);
+	initMotorTimer(motor->pwmTimer);
+	stopMotor((PMotor) motor);
+}
+
+void initMotor_2Dir(PMotor2Dir motor) {
+	setPinOutput(motor->direction1);
 	setPinOutput(motor->direction2);
-	setPinZero(motor->motor.direction);
+	setPinZero(motor->direction1);
 	setPinZero(motor->direction2);
+	initMotorTimer(motor->pwmTimer);
+	stopMotor((PMotor) motor);
+}
+
+void initMotor_2Speed(PMotor2Speed motor) {
+	initMotorTimer(motor->pwmTimer1);
+	initMotorTimer(motor->pwmTimer2);
+	stopMotor((PMotor) motor);
 }
 
 #endif

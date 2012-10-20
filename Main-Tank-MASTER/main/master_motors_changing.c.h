@@ -1,16 +1,21 @@
 
+#define MotL LeftMotor
+#define MotR RightMotor
+#define MotLBase LeftMotorBase
+#define MotRBase RightMotorBase
+
 #define DELAY_CHANGE _delay_ms(3000);
 
 void regulateBoth() {
 	while (1) {
-		regulateSpeed(RightMotor, 0xFFFF, FORWARD);
-		regulateSpeed(LeftMotor, 0xFFFF, BACKWARD);
+		regulateSpeed(MotR, 0xFFFF, FORWARD);
+		regulateSpeed(MotL, 0xFFFF, BACKWARD);
 		DELAY_CHANGE
-		regulateStopMotor(RightMotor);
-		regulateStopMotor(LeftMotor);
+		regulateStopMotor(MotR);
+		regulateStopMotor(MotL);
 		DELAY_CHANGE
-		regulateSpeed(RightMotor, 0xFFFF, BACKWARD);
-		regulateSpeed(LeftMotor, 0xFFFF, FORWARD);
+		regulateSpeed(MotR, 0xFFFF, BACKWARD);
+		regulateSpeed(MotL, 0xFFFF, FORWARD);
 		DELAY_CHANGE
 	}
 }
@@ -28,31 +33,31 @@ void regulateOne(PSmoothMotor motor) {
 
 void regulateOneAtATime() {
 	while (1) {
-		regulateSpeed(RightMotor, 0xFFFF, FORWARD);
+		regulateSpeed(MotR, 0xFFFF, FORWARD);
 		DELAY_CHANGE
-		regulateStopMotor(RightMotor);
+		regulateStopMotor(MotR);
 		DELAY_CHANGE
-		regulateSpeed(RightMotor, 0xFFFF, BACKWARD);
+		regulateSpeed(MotR, 0xFFFF, BACKWARD);
 		DELAY_CHANGE
-		regulateStopMotor(RightMotor);
+		regulateStopMotor(MotR);
 		DELAY_CHANGE
 		
-		regulateSpeed(LeftMotor, 0xFFFF, FORWARD);
+		regulateSpeed(MotL, 0xFFFF, FORWARD);
 		DELAY_CHANGE
-		regulateStopMotor(LeftMotor);
+		regulateStopMotor(MotL);
 		DELAY_CHANGE
-		regulateSpeed(LeftMotor, 0xFFFF, BACKWARD);
+		regulateSpeed(MotL, 0xFFFF, BACKWARD);
 		DELAY_CHANGE
-		regulateStopMotor(LeftMotor);
+		regulateStopMotor(MotL);
 		DELAY_CHANGE
 	}	
 }
 
 void bothSimple(MotorDirection dir) {
-	uint16_t speed = 0;
+	uint16_t speed = 300;
 	while (1) {
-		setSpeed(LeftMotorBase, speed, dir);
-		setSpeed(RightMotorBase, speed, dir);
+		setSpeed(MotLBase, speed, dir);
+		setSpeed(MotRBase, speed, dir);
 		speed += 13; // 0 to 0xFFFF in ca 5 seconds (excl. computation)
 		_delay_ms(1);
 	}
@@ -109,26 +114,48 @@ void regulateTestMotor(PMotor m) {
 
 int simpleTestMotors() {
 	while (1) {
-		regulateTestMotor(TestMotorLeftBase);
-		stopMotor(TestMotorLeftBase);
-		regulateTestMotor(TestMotorRightBase);
-		stopMotor(TestMotorRightBase);
+		regulateTestMotor(MotLBase);
+		stopMotor(MotLBase);
+		regulateTestMotor(MotRBase);
+		stopMotor(MotRBase);
+	}
+}
+
+void randomTest(PSmoothMotor motor) {
+	srand(24593);
+	while (1) {
+		regulateDirSpeed(motor, (int16_t) rand());
+		_delay_ms(2500);
+	}
+}
+
+void randomTestBoth() {
+	srand(24593);
+	while (1) {
+		regulateDirSpeed(LeftMotor, (int16_t) rand());
+		regulateDirSpeed(RightMotor, (int16_t) rand());
+		_delay_ms(2500);
 	}
 }
 
 int main() {
 	// regulateOneAtATime();
 	// regulateBoth();
-	// regulateOne(RightMotor);
-	// regulateOne(LeftMotor);
-	// regulateOneLoop(LeftMotor);
-	// bothSimple(FORWARD);
+	// regulateOne(MotR);
+	// regulateOne(MotL);
+	// regulateOneLoop(MotL);
+	bothSimple(FORWARD);
 	// bothSimple(BACKWARD);
 	
-	regulateOneForeverLoop(LeftMotor, 0xFFFF, FORWARD);
-	
+	// regulateOneForeverLoop(MotL, 0xFFFF, FORWARD);
+	// regulateSpeed(MotL, 0xFFFF, FORWARD);
 	// simpleTestMotors();
 	
-	// setSpeedForward(LeftMotorBase, 0xFFFF);
-	// setSpeedBackward(RightMotorBase, 0x8000);
+	// randomTestBoth();
+	// randomTest(MotL);
+	
+	// setSpeedForward(MotLBase, 0xFFFF);
+	// setSpeedBackward(MotRBase, 0x8000);
+	
+	while (1) ;
 }

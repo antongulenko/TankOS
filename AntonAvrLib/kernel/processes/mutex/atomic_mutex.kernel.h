@@ -30,7 +30,7 @@ BOOL mutex_trylock(Mutex mutex) {
 }
 
 void mutex_release(Mutex mutex) {
-	// if (((AtomicMutex *) mutex)->interruptsWereEnabled)
+	if (((AtomicMutex *) mutex)->interruptsWereEnabled)
 		sei();
 }
 

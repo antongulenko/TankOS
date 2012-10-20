@@ -12,15 +12,9 @@
 #include <kernel/devices/motor.h>
 #include <kernel/devices/motor_smooth.h>
 
-DEFINE_2DirPins_MOTOR(LeftMotorBase)
-DEFINE_2DirPins_MOTOR(RightMotorBase)
+DEFINE_MOTOR_2Speed(LeftMotorBase)
+DEFINE_MOTOR_2Speed(RightMotorBase)
 DEFINE_SMOOTH_MOTOR(LeftMotor)
 DEFINE_SMOOTH_MOTOR(RightMotor)
-
-// Help/Test-motors operating on Timer2A and Timer2B
-DEFINE_MOTOR(TestMotorLeftBase)
-DEFINE_MOTOR(TestMotorRightBase)
-DEFINE_SMOOTH_MOTOR(TestMotorLeft)
-DEFINE_SMOOTH_MOTOR(TestMotorRight)
 
 #endif /* TANK_MOTOR_H_ */

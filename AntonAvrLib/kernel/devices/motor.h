@@ -14,33 +14,60 @@
 #define MOTOR_NORMAL 0
 #define MOTOR_INVERSE_SPEED (1 << 1) // => 'high voltage' pwm signal means slow motor rotation
 #define MOTOR_INVERSE_DIRECTION (1 << 2) // => motor rotating forward, if direction-pin set to 0
-#define MOTOR_TWO_DIR_PINS (1 << 3) // The motor-structure is actually of type Motor2Pins, defines second pin for direction.
-									// Pins equal -> motor halts; First pin 1 -> forward (except for MOTOR_INVERSE_DIR..)
 #define MOTOR_EXACT_CONVERSION (1 << 4) // => if minValue/maxValue is defined, this leads to an exact conversion from the 
 										// set speed into the min-max interval. Else, the values are simply 'cropped'.
-
-typedef struct {
-	uint8_t flags; // MOTOR_* defines above
-	PPin direction;
-	PTimer pwmTimer;
-	
-	// These 2 values bind possible timer-compare-values into an interval.
-	// They are applied, AFTER MOTOR_INVERSE_SPEED was applied, so they
-	// reflect the real min/max voltage level.
-	uint16_t minValue;
-	uint16_t maxValue; 
-} Motor, *PMotor;
-
-typedef struct {
-	Motor motor; // Support casting the whole structure
-	PPin direction2;
-} Motor2Pins, *PMotor2Pins;
 
 typedef enum {
 	BACKWARD = 0, // It's important that this is zero.
 	FORWARD = 1,
 	MOTOR_STOPPED = 2
 } MotorDirection;
+
+typedef struct _Motor {
+	uint8_t flags; // MOTOR_* defines above
+	void (*setter)(struct _Motor *motor, uint16_t speed, MotorDirection dir);
+	void (*getter)(struct _Motor *motor, uint16_t *speed, MotorDirection *dir);
+	
+	// These 2 values bind possible timer-compare-values into an interval.
+	// They are applied, AFTER MOTOR_INVERSE_SPEED was applied, so they
+	// reflect the real min/max voltage level.
+	uint16_t minValue;
+	uint16_t maxValue;
+} Motor, *PMotor;
+
+
+// Here come the data for the different types of motors.
+// The different lies in the number of pins/pwm-signals for speed/directions.
+// The functions defined here are only internal implementation details and
+// defined here to support the makros at the end of this header.
+
+typedef struct {
+	Motor base;
+	PPin direction;
+	PTimer pwmTimer;
+} Motor1Dir1Speed, *PMotor1Dir1Speed;
+
+void motor1Dir1Speed_setDirSpeed(PMotor motor, uint16_t speed, MotorDirection dir);
+void motor1Dir1Speed_getDirSpeed(PMotor motor, uint16_t *speed, MotorDirection *dir);
+
+typedef struct {
+	Motor base;
+	PTimer pwmTimer1;
+	PTimer pwmTimer2;
+} Motor2Speed, *PMotor2Speed;
+
+void motor2Dir_setDirSpeed(PMotor motor, uint16_t speed, MotorDirection dir);
+void motor2Dir_getDirSpeed(PMotor motor, uint16_t *speed, MotorDirection *dir);
+
+typedef struct {
+	Motor base;
+	PPin direction1;
+	PPin direction2;
+	PTimer pwmTimer;
+} Motor2Dir, *PMotor2Dir;
+
+void motor2Speed_setDirSpeed(PMotor motor, uint16_t speed, MotorDirection dir);
+void motor2Speed_getDirSpeed(PMotor motor, uint16_t *speed, MotorDirection *dir);
 
 // Sets the speed to zero and fully disables the pwm. Called if setSpeed() or so is called with 0.
 void stopMotor(PMotor motor);
@@ -63,22 +90,35 @@ int16_t getDirSpeed(PMotor motor);
 void setDirSpeed(PMotor motor, int16_t speed);
 
 #ifdef _KERNEL_
-#	define DEFINE_MOTOR(motorName)	\
-		Motor motorName##_;			\
+
+#	define DEFINE_MOTOR_1Dir1Speed(motorName)				\
+		Motor1Dir1Speed motorName##_;						\
 		const PMotor motorName = &motorName##_;
-#	define INIT_MOTOR(motorName, flags, directionPin, pwmTimer)					\
-		motorName##_ = (Motor) { flags, directionPin, pwmTimer, 0, 0xFFFF };	\
-		initMotor(motorName);
-#	define DEFINE_2DirPins_MOTOR(motorName)		\
-		Motor2Pins motorName##_;				\
+#	define INIT_MOTOR_1Dir1Speed(motorName, flags, directionPin, pwmTimer)		\
+		motorName##_ = (Motor1Dir1Speed) { { flags, motor1Dir1Speed_setDirSpeed, motor1Dir1Speed_getDirSpeed, 0, 0xFFFF}, directionPin, pwmTimer };	\
+		initMotor_1Dir1Speed(motorName);
+		
+#	define DEFINE_MOTOR_2Dir(motorName)		\
+		Motor2Dir motorName##_;				\
 		const PMotor motorName = (PMotor) &motorName##_;
-#	define INIT_2DirPins_MOTOR(motorName, flags, directionPin, pwmTimer, directionPin2)								\
-		motorName##_ = (Motor2Pins) { { flags | MOTOR_TWO_DIR_PINS, directionPin, pwmTimer }, directionPin2 };	\
-		initMotor2Pins(&motorName##_);
+#	define INIT_MOTOR_2Dir(motorName, flags, directionPin, pwmTimer, directionPin2)									\
+		motorName##_ = (Motor2Dir) { { flags, motor2Dir_setDirSpeed, motor2Dir_getDirSpeed, 0, 0xFFFF}, directionPin1, directionPin2, pwmTimer };	\
+		initMotor_2Dir(&motorName##_);
+		
+#	define DEFINE_MOTOR_2Speed(motorName)		\
+		Motor2Speed motorName##_;				\
+		const PMotor motorName = (PMotor) &motorName##_;
+#	define INIT_MOTOR_2Speed(motorName, flags, pwmTimer1, pwmTimer2)								\
+		motorName##_ = (Motor2Speed) { { flags, motor2Speed_setDirSpeed, motor2Speed_getDirSpeed, 0, 0xFFFF}, pwmTimer1, pwmTimer2 };	\
+		initMotor_2Speed(&motorName##_);
+
 #else
-#	define DEFINE_MOTOR(motorName)	\
+
+#	define DEFINE_MOTOR_1Dir1Speed(motorName)	\
 		extern const PMotor motorName;
-#	define DEFINE_2DirPins_MOTOR(motorName)	\
+#	define DEFINE_MOTOR_2Dir(motorName)	\
+		extern const PMotor motorName;
+#	define DEFINE_MOTOR_2Speed(motorName)	\
 		extern const PMotor motorName;
 #endif
 

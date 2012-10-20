@@ -62,7 +62,7 @@ void motor_smooth_tick(PSmoothMotor motor) {
 		uint16_t currentSpeed = motor->currentSpeed;
 		uint16_t targetSpeed = motor->targetSpeed;
 		uint16_t adjustment = motor->adjustmentStep;
-	
+		
 		if (motor->currentDirection != targetDir) {
 			// Slowing down until we can change the direction.
 			if (currentSpeed < adjustment) {

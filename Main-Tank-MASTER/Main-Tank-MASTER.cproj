@@ -122,9 +122,6 @@
     <Compile Include="main\master_motors_changing_with_buttons.c.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\master_Timer2.c.h">
-      <SubType>compile</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="main" />
