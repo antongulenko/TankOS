@@ -63,6 +63,36 @@ void bothSimple(MotorDirection dir) {
 	}
 }
 
+void bothSimpleSteps(MotorDirection dir) {
+	uint16_t speed;
+	while (1) {
+		speed = 13071; // 1/5
+		setSpeed(MotLBase, speed, dir);
+		setSpeed(MotRBase, speed, dir);
+		_delay_ms(1500);
+		speed = 26142; // 2/5
+		setSpeed(MotLBase, speed, dir);
+		setSpeed(MotRBase, speed, dir);
+		_delay_ms(1500);
+		speed = 39213; // 3/5
+		setSpeed(MotLBase, speed, dir);
+		setSpeed(MotRBase, speed, dir);
+		_delay_ms(1500);
+		speed = 52284; // 4/5
+		setSpeed(MotLBase, speed, dir);
+		setSpeed(MotRBase, speed, dir);
+		_delay_ms(1500);
+		speed = 65355; // bit less than 5/5
+		setSpeed(MotLBase, speed, dir);
+		setSpeed(MotRBase, speed, dir);
+		_delay_ms(1500);
+		speed = 65535; // 5/5
+		setSpeed(MotLBase, speed, dir);
+		setSpeed(MotRBase, speed, dir);
+		_delay_ms(1500);
+	}
+}
+
 void loopMotorTick() {
 	motor_smooth_pair_tick();
 	_delay_us(935); // the motors_smooth_pair_tick takes ~1320 cycles = ~65us
@@ -129,29 +159,41 @@ void randomTest(PSmoothMotor motor) {
 	}
 }
 
+int16_t randomSpeed() {
+	// Min speed 20%: 13107
+	int16_t speed = rand() % (0xFFFF - 13107) + 13107;
+	if (rand() > (RAND_MAX / 2)) speed *= -1;
+	return speed;
+}
+
 void randomTestBoth() {
 	srand(24593);
 	while (1) {
-		regulateDirSpeed(LeftMotor, (int16_t) rand());
-		regulateDirSpeed(RightMotor, (int16_t) rand());
+		regulateDirSpeed(LeftMotor, randomSpeed());
+		regulateDirSpeed(RightMotor, randomSpeed());
 		_delay_ms(2500);
 	}
 }
 
+
+
 int main() {
+	
 	// regulateOneAtATime();
 	// regulateBoth();
 	// regulateOne(MotR);
 	// regulateOne(MotL);
 	// regulateOneLoop(MotL);
-	bothSimple(FORWARD);
+	// bothSimple(FORWARD);
 	// bothSimple(BACKWARD);
+	
+	// bothSimpleSteps(FORWARD);
 	
 	// regulateOneForeverLoop(MotL, 0xFFFF, FORWARD);
 	// regulateSpeed(MotL, 0xFFFF, FORWARD);
 	// simpleTestMotors();
 	
-	// randomTestBoth();
+	randomTestBoth();
 	// randomTest(MotL);
 	
 	// setSpeedForward(MotLBase, 0xFFFF);

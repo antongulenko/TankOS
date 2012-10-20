@@ -18,6 +18,7 @@ static void initMotorTimer(PTimer timer) {
 	setTimerClockSelect(timer->timer, prescale_1);
 	timer->timer->flags |= TIMER_RESOLUTION_full;
 	setWaveformGenerationMode(timer->timer, pwm_phase_correct);
+	setPinOutput(timer->outputComparePin);
 }
 
 void initMotor_1Dir1Speed(PMotor1Dir1Speed motor) {

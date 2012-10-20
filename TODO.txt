@@ -1,9 +1,18 @@
+
+== TODO
+
 - find out, why Release build does not work properly. At least the _delay_ms function produces wrong results. Must be something about the optimizations.
 
+- PWM (8-bit timer) mit maximalem wert eingestellt (256) liefert nur 4,6V !!!
+	-> entweder fixen oder dann einen elektronischen workaround
+	
+== Next milestones
+- In-circuit programmer und debugger
+- IO chip
+- Communication with IO chip
+- Scheduler?
+
 == Stand der Dinge
-. Normales Ansteuern der Motoren funktoniert.
-. Smooth Motors: der algorithmus scheint zu gehen, im Simulator funktioniert auch alles.
-	(zumindest mit der Loop-variante, die Interrupt-variante wurde noch nicht getestet)
-	Im Roboter bleibt die PWM spannung aber tatsächlich auf einem sehr niedrigen (bzw hohen) level. Dieser Level wird aber scheinbar 'smooth' erreicht. Es ist unklar, warum an der stelle schluss ist und die geschwindigkeit nicht weiter geht.
+. Smooth motors mit interrupts funktioniert perfekt.
 
 . Der Compare Output Mode war im Simulator einmal unterschiedlich für Timer1A und Timer1B. setCompareMatchOutputMode() prüfen.

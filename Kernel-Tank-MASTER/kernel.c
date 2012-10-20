@@ -13,8 +13,8 @@
 #define SMOOTH_MOTOR_B RightMotor
 
 // Resolution is 16 bit (65535), one adjustment each millisecond
-// -> min->max in ~1 second.
-#define MOTOR_ADJUSTMENT_STEP 65
+// -> acceleration from min to max in 500 ms.
+#define MOTOR_ADJUSTMENT_STEP 130
 #include "tank_motor.kernel.h"
 
 #ifdef USE_SMOOTH_MOTOR_INTERRUPT
