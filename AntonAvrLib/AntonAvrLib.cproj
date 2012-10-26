@@ -84,6 +84,21 @@
     <Compile Include="anton_std.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\devices\analog.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\analog.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\analog.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\analog_m1284P.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\analog_m1284P.kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\devices\motor_smooth.c">
       <SubType>compile</SubType>
     </Compile>

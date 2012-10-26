@@ -12,6 +12,7 @@
 #include <kernel/millisecond_clock.h>
 #include <kernel/reset_condition.h>
 #include <kernel/processes/mutex/mutex.h>
+#include <kernel/devices/analog_m1284P.h>
 #include <anton_std.h>
 
 #ifdef USE_SCHEDULER

@@ -43,4 +43,7 @@
 // Let processor idle after main ends.
 #include <kernel/sleep_after_main.kernel.h>
 
+// Initialize ADC
+#include <kernel/devices/analog_m1284P.kernel.h>
+
 #endif

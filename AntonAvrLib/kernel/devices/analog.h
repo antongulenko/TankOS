@@ -1,0 +1,51 @@
+/*
+ * analog.h
+ *
+ * Created: 26.04.2012 17:30:26
+ *  Author: Anton
+ */ 
+
+#ifndef ANALOG_H_
+#define ANALOG_H_
+
+#include "port.h"
+#include "../../anton_std.h"
+
+// Interface for single-ended analog input pins.
+// No differential analog input supported.
+// The original 10-bit resolution is trimmed to 8 bit for simplicity.
+// This also allows for a greater clock-frequency of the ADC.
+// Values are read on-demand, no free-running mode.
+// Both interrupt-driven and looping reads are supported.
+// See comments at function-headers for further details.
+
+typedef struct {
+	PPin pin;
+	uint8_t pinNumber; // 0..7, corresponding e.g. to PinA0..PinA7
+} AnalogInput, *PAnalogInput;
+
+// Start an analog conversion of the given input.
+// Return immediately. When the conversion is finished, the callback-
+// function will be invoked with the result.
+// Return TRUE, if the conversion could be started.
+// Return FALSE, if another conversion is currently running.
+BOOL analogRead(PAnalogInput input, void (*callback)(uint8_t value));
+
+// Start an analog conversion of the given input.
+// Enter a busy loop, polling for completion of the conversion.
+// Return TRUE, if the conversion could be started.
+// Return FALSE, if another conversion is currently running.
+BOOL analogReadLoop(PAnalogInput input, uint8_t *result);
+
+#ifdef _KERNEL_
+#	define DEFINE_ANALOG_INPUT(analogInputName)						\
+		AnalogInput analogInputName##_;								\
+		const PAnalogInput analogInputName = &analogInputName##_;
+#	define INIT_ANALOG_INPUT(analogInputName, inputPin, pinNumber)	\
+		analogInputName##_ = (AnalogInput) { inputPin, pinNumber };
+#else
+#	define DEFINE_ANALOG_INPUT(analogInputName)		\
+		extern const PAnalogInput analogInputName;
+#endif
+
+#endif /* ANALOG_H_ */

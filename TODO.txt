@@ -5,8 +5,11 @@
 
 - PWM (8-bit timer) mit maximalem wert eingestellt (256) liefert nur 4,6V !!!
 	-> entweder fixen oder dann einen elektronischen workaround
-	
+
+- Analog input ADC verstehen, programmieren!
+
 == Next milestones
+- ADC wrapper programmieren
 - In-circuit programmer und debugger
 - IO chip
 - Communication with IO chip
