@@ -197,7 +197,7 @@ int main() {
 	// randomTest(MotL);
 	
 	// setSpeedForward(MotLBase, 0xFFFF);
-	// setSpeedBackward(MotRBase, 0x8000);
+	// setSpeedForward(MotRBase, 0xFFFF);
 	
 	while (1) ;
 }

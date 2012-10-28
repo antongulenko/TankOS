@@ -10,6 +10,7 @@
 
 #include "../kernel_init.h"
 #include "analog_m1284P.h"
+#include "analog.kernel.h"
 #include "port_m1284P.h"
 
 #define INIT_ANALOG_INPUT_M1284P(number)	\

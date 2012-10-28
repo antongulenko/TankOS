@@ -19,6 +19,8 @@
 // Both interrupt-driven and looping reads are supported.
 // See comments at function-headers for further details.
 
+typedef void (*AnalogCallbackFunction)(uint8_t value);
+
 typedef struct {
 	PPin pin;
 	uint8_t pinNumber; // 0..7, corresponding e.g. to PinA0..PinA7
@@ -29,7 +31,7 @@ typedef struct {
 // function will be invoked with the result.
 // Return TRUE, if the conversion could be started.
 // Return FALSE, if another conversion is currently running.
-BOOL analogRead(PAnalogInput input, void (*callback)(uint8_t value));
+BOOL analogRead(PAnalogInput input, AnalogCallbackFunction callback);
 
 // Start an analog conversion of the given input.
 // Enter a busy loop, polling for completion of the conversion.

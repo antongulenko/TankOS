@@ -11,9 +11,9 @@
 #include "../kernel_init.h"
 #include "analog.h"
 
-extern (void *analogCallbackFunction) (uint8_t result);
+extern AnalogCallbackFunction analogCallbackFunction;
 
-ISR(ANALOG_vect) {
+ISR(ADC_vect) {
 	// We only use 8-bit resolution, left-aligned. It's enough to 
 	// read the high-register of the result.
 	if (analogCallbackFunction)

@@ -118,7 +118,6 @@ void setDirSpeed(PMotor motor, int16_t speed) {
 	setSpeed(motor, motor_toUnsignedSpeed(speed), speed < 0 ? BACKWARD : FORWARD);
 }
 
-
 static void setMotorTimerCompareValue(PTimer timer, uint16_t speed, MotorDirection dir) {
 	if (dir == MOTOR_STOPPED) speed = 0;
 	if (speed == 0)
@@ -174,8 +173,8 @@ void motor2Dir_getDirSpeed(PMotor _motor, uint16_t *speed, MotorDirection *dir) 
 void motor2Speed_setDirSpeed(PMotor _motor, uint16_t speed, MotorDirection dir) {
 	PMotor2Speed motor = (PMotor2Speed) _motor;
 	if (dir == MOTOR_STOPPED || speed == 0) {
-		setMotorTimerCompareValue(motor->pwmTimer1, speed, dir);
-		setMotorTimerCompareValue(motor->pwmTimer2, speed, dir);
+		setMotorTimerCompareValue(motor->pwmTimer1, 0, dir);
+		setMotorTimerCompareValue(motor->pwmTimer2, 0, dir);
 	} else if (dir == FORWARD) {
 		setMotorTimerCompareValue(motor->pwmTimer1, speed, dir);
 		setMotorTimerCompareValue(motor->pwmTimer2, 0, MOTOR_STOPPED);

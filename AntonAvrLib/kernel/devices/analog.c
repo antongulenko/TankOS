@@ -26,10 +26,10 @@ static void startConversion(PAnalogInput input) {
 		admux &= 0xE0 | ~input->pinNumber;
 		ADMUX = admux;
 	}
-	ADCSRA |= _BV(ADSC); // Start the conversion	
+	ADCSRA |= _BV(ADSC) | _BV(ADEN); // Start the conversion	
 }
 
-BOOL analogRead(PAnalogInput input, void (*callback)(uint8_t)) {
+BOOL analogRead(PAnalogInput input, AnalogCallbackFunction callback) {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		if (conversionRunning()) return FALSE;
 	}
