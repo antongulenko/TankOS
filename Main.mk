@@ -1,9 +1,7 @@
 
-# The following 'flags' are evaluated (flags = variables that are just tested for existence, their value is irrelevant)
-# VERBOSE: Causes make to print all commands that are executed to the console.
+# The following 'flags' are evaluated
 # LIBRARY: Causes the creation of a static library (compiling, but no linking). Without this flag, all objects and libraries are linked into a binary.
 # DEBUG: Enables the debug-build. Turns on debug-flags for the compiler and selects a different build-directory.
-# LSS: Only for non-LIBRARY builds. Causes the creation of .lss and .eep files (excluded by default to reduce build-time).
 
 # This Makefile expects the following variables:
 # - sources: all source-files being compiled
@@ -64,7 +62,6 @@ $(BUILDDIR)/%.d: $(BASEDIR)/%.c
 
 ifneq ($(MAKECMDGOALS), clean_$(project))
 ifneq ($(MAKECMDGOALS), clean)
-
 # Include the generated dependency-Makefiles for every source-file (only if not 'clean' is invoked)
 -include $(prefixed_sources:.c=.d)
 endif
@@ -101,7 +98,7 @@ fulltarget := $(target).$(TARGET_SUFFIX)
 	echo Linking $(output).$(TARGET_SUFFIX); \
 	$(CC) $(LDFLAGS_START) $(prefixed_objects) $(LDFLAGS_END) -o $(fulltarget) && $(MOVE_TEMPS)
 
-$(fulltarget): .fake_targets/$(fulltarget) $(prefixed_objects)
+$(fulltarget): .fake_targets/$(fulltarget) $(prefixed_objects) $(dependencies)
 	$($<_commands)
 
 $(target).map: $(fulltarget)
@@ -116,7 +113,7 @@ $(target).size: $(fulltarget)
 	$(AR) $(ARFLAGS) -o $(libtarget) $(prefixed_objects); \
 	$(MAKE_BUILDDIR)
 
-$(libtarget): .fake_targets/$(libtarget) $(prefixed_objects)
+$(libtarget): .fake_targets/$(libtarget) $(prefixed_objects) $(dependencies)
 	$($<_commands)
 
 # Shortcuts for execution from console

@@ -111,6 +111,18 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="bgx1_tests\Main_bgx1_byte_order.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="bgx1_tests\Main_bgx1_gfx.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="bgx1_tests\Main_bgx1_io.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="bgx1_tests\Main_bgx1_term.c.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -134,7 +146,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="bgx1_tests\" />
+    <Folder Include="bgx1_tests\res\" />
     <Folder Include="main" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bgx1_tests\res\smily.xbm">
+      <SubType>compile</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
 </Project>

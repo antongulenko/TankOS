@@ -22,8 +22,6 @@ CFLAGS_DEBUG := $(BASE_FLAGS) -O0 -g3 -c
 LIB_SUFFIX := a
 TARGET_SUFFIX := elf
 
-ALL_LIB := lib
-
 # the start-group/end-group flags cause the linker to handle circular dependencies.
 # The objects/libraries are scanned multiple times, until all dependencies are resolved. Link-time is increased, but this is the only way.
 LDFLAGS_START := $(MCUFLAG) \

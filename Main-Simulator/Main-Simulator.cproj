@@ -99,10 +99,30 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Main\Main.c">
+    <Compile Include="Main.c">
       <SubType>compile</SubType>
-      <Link>Main.c</Link>
     </Compile>
+    <Compile Include="main\Main_test_DMS_rr_two.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main\Main_test_DMS_with_idle.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main\Main_test_rr_many.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main\Main_test_rr_two.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main\Main_test_switchProcess.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="main\Main_test_switchProcess_many.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="main\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
-Project("{D1100916-62DA-4D80-A9B4-55A1E7CCEEB3}") = "Main", "Main\Main.cproj", "{4D457DD6-3A92-4D8C-A45B-40142794A0E1}"
-EndProject
 Project("{D1100916-62DA-4D80-A9B4-55A1E7CCEEB3}") = "NIBObeeLib", "NIBObeeLib\NIBObeeLib.cproj", "{3FDE3A91-C033-4CBD-99C2-9ABD937A4AFF}"
 EndProject
 Project("{D1100916-62DA-4D80-A9B4-55A1E7CCEEB3}") = "NIBObeeLibTests", "NIBObeeLibTests\NIBObeeLibTests.cproj", "{C49F5EB7-B371-43F7-895F-A020F2E903E1}"
@@ -56,17 +54,12 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Kernel-Simulator", "Kernel-
 		{C9075471-D535-4009-B72F-2841FDEB487C} = {C9075471-D535-4009-B72F-2841FDEB487C}
 	EndProjectSection
 EndProject
-Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Test", "Test\Test.cproj", "{CA93F941-3C63-4061-838A-6908054E132E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
 		Release|AVR = Release|AVR
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4D457DD6-3A92-4D8C-A45B-40142794A0E1}.Debug|AVR.ActiveCfg = Debug|AVR
-		{4D457DD6-3A92-4D8C-A45B-40142794A0E1}.Release|AVR.ActiveCfg = Release|AVR
-		{4D457DD6-3A92-4D8C-A45B-40142794A0E1}.Release|AVR.Build.0 = Release|AVR
 		{3FDE3A91-C033-4CBD-99C2-9ABD937A4AFF}.Debug|AVR.ActiveCfg = Debug|AVR
 		{3FDE3A91-C033-4CBD-99C2-9ABD937A4AFF}.Debug|AVR.Build.0 = Debug|AVR
 		{3FDE3A91-C033-4CBD-99C2-9ABD937A4AFF}.Release|AVR.ActiveCfg = Release|AVR
@@ -111,10 +104,6 @@ Global
 		{5B3081BE-676A-4216-B66E-ACB1FD7DD3FB}.Debug|AVR.Build.0 = Debug|AVR
 		{5B3081BE-676A-4216-B66E-ACB1FD7DD3FB}.Release|AVR.ActiveCfg = Release|AVR
 		{5B3081BE-676A-4216-B66E-ACB1FD7DD3FB}.Release|AVR.Build.0 = Release|AVR
-		{CA93F941-3C63-4061-838A-6908054E132E}.Debug|AVR.ActiveCfg = Debug|AVR
-		{CA93F941-3C63-4061-838A-6908054E132E}.Debug|AVR.Build.0 = Debug|AVR
-		{CA93F941-3C63-4061-838A-6908054E132E}.Release|AVR.ActiveCfg = Release|AVR
-		{CA93F941-3C63-4061-838A-6908054E132E}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

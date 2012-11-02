@@ -24,36 +24,36 @@
     <OutputFileExtension>.elf</OutputFileExtension>
     <ToolchainSettings>
       <AvrGcc>
-  <avrgcc.compiler.symbols.DefSymbols>
-    <ListValues>
-      <Value>AVR</Value>
-      <Value>F_CPU=20000000</Value>
-    </ListValues>
-  </avrgcc.compiler.symbols.DefSymbols>
-  <avrgcc.compiler.directories.IncludePaths>
-    <ListValues>
-      <Value>..\..\AntonAvrLib</Value>
-      <Value>..\..\Kernel-Tank-IO</Value>
-    </ListValues>
-  </avrgcc.compiler.directories.IncludePaths>
-  <avrgcc.compiler.optimization.level>Optimize most (-O3)</avrgcc.compiler.optimization.level>
-  <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
-  <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
-  <avrgcc.compiler.miscellaneous.DoNotDeleteTemporaryFiles>True</avrgcc.compiler.miscellaneous.DoNotDeleteTemporaryFiles>
-  <avrgcc.linker.libraries.Libraries>
-    <ListValues>
-      <Value>libKernel-Tank-IO.a</Value>
-      <Value>m</Value>
-      <Value>libAntonAvrLib.a</Value>
-    </ListValues>
-  </avrgcc.linker.libraries.Libraries>
-  <avrgcc.linker.libraries.LibrarySearchPaths>
-    <ListValues>
-      <Value>..\..\AntonAvrLib\Release</Value>
-      <Value>..\..\Kernel-Tank-IO\Release</Value>
-    </ListValues>
-  </avrgcc.linker.libraries.LibrarySearchPaths>
-</AvrGcc>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>AVR</Value>
+            <Value>F_CPU=20000000</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>..\..\AntonAvrLib</Value>
+            <Value>..\..\Kernel-Tank-IO</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.optimization.level>Optimize most (-O3)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.miscellaneous.DoNotDeleteTemporaryFiles>True</avrgcc.compiler.miscellaneous.DoNotDeleteTemporaryFiles>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libKernel-Tank-IO.a</Value>
+            <Value>m</Value>
+            <Value>libAntonAvrLib.a</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.linker.libraries.LibrarySearchPaths>
+          <ListValues>
+            <Value>..\..\AntonAvrLib\Release</Value>
+            <Value>..\..\Kernel-Tank-IO\Release</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.LibrarySearchPaths>
+      </AvrGcc>
     </ToolchainSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -111,9 +111,19 @@
     <Compile Include="main\Main_testIO.c.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="tests\Main_test_AllLeds.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tests\Main_test_blink_AllLeds.c.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tests\Main_test_blink_reset_condition.c.h">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="main" />
+    <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
 </Project>
