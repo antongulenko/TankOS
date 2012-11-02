@@ -3,7 +3,7 @@
  *
  * Created: 21.04.2012 15:03:19
  *  Author: Anton
- */ 
+ */
 
 #ifndef MILLISECOND_CLOCK_H_
 #define MILLISECOND_CLOCK_H_
