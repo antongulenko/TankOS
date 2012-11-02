@@ -14,7 +14,7 @@
 
 BUILD_DIRNAME := build-$(PLATFORM)
 ifneq ($(origin DEBUG), undefined)
-BUILDDIR := $(BUILDDIR)-debug
+BUILD_DIRNAME := $(BUILD_DIRNAME)-debug
 endif
 BUILDDIR := $(BASEDIR)/$(BUILD_DIRNAME)
 
