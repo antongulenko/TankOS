@@ -83,7 +83,7 @@ MOVE_TEMPS := mkdir -p $(TEMPSDIR) && (mv -f *.s *.i $(TEMPSDIR) 2> /dev/null ||
 
 fulltarget := $(target).$(TARGET_SUFFIX)
 
-# The fake_targets/* targets and variables are a workaround/hack for a limitation of make.
+# The .fake_targets/* targets and variables are a workaround/hack for a limitation of make.
 # It is not possible to expand variables inside recipe-commands immediately. They are always expanded when the recipe is actually executed.
 # This file (Main.mk) is included multiple times, and variables defined in this file are redefined with each inclusion.
 # This means, that all variables must be expanded immediately, before the Main.mk file is included again.
@@ -95,13 +95,13 @@ fulltarget := $(target).$(TARGET_SUFFIX)
 # with $< and the $(target) variable in the prerequisite-name is expanded early. By adding _commands to the prerequisite-name, the correct variable can be expanded.
 # The same trick is used for the clean_* targets below. Fake-targets are always up-to-date due to a rule in the main Makefile.
 
-fake_targets/$(fulltarget):
-fake_targets/$(fulltarget)_commands := \
+.fake_targets/$(fulltarget):
+.fake_targets/$(fulltarget)_commands := \
 	$(MAKE_BUILDDIR); \
 	echo Linking $(output).$(TARGET_SUFFIX); \
 	$(CC) $(LDFLAGS_START) $(prefixed_objects) $(LDFLAGS_END) -o $(fulltarget) && $(MOVE_TEMPS)
 
-$(fulltarget): fake_targets/$(fulltarget) $(prefixed_objects)
+$(fulltarget): .fake_targets/$(fulltarget) $(prefixed_objects)
 	$($<_commands)
 
 $(target).map: $(fulltarget)
@@ -109,14 +109,14 @@ $(target).map: $(fulltarget)
 $(target).size: $(fulltarget)
 	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $< | tee $@
 
-fake_targets/$(libtarget):
-fake_targets/$(libtarget)_commands := \
+.fake_targets/$(libtarget):
+.fake_targets/$(libtarget)_commands := \
 	$(MOVE_TEMPS); \
 	echo Creating $(liboutput); \
 	$(AR) $(ARFLAGS) -o $(libtarget) $(prefixed_objects); \
 	$(MAKE_BUILDDIR)
 
-$(libtarget): fake_targets/$(libtarget) $(prefixed_objects)
+$(libtarget): .fake_targets/$(libtarget) $(prefixed_objects)
 	$($<_commands)
 
 # Shortcuts for execution from console
@@ -126,19 +126,19 @@ link_$(project): $(fulltarget)
 $(TARGET_SUFFIX)_$(project): $(fulltarget)
 lib_$(project): $(libtarget)
 
-fake_targets/clean_temps_$(project):
-fake_targets/clean_temps_$(project)_commands := rm -rf $(BASEDIR)/*.i $(BASEDIR)/*.s
+.fake_targets/clean_temps_$(project):
+.fake_targets/clean_temps_$(project)_commands := rm -rf $(BASEDIR)/*.i $(BASEDIR)/*.s
 
 # These should be moved after the build, but might still be there because of a failed build.
-clean_temps_$(project): fake_targets/clean_temps_$(project)
+clean_temps_$(project): .fake_targets/clean_temps_$(project)
 	$($<_commands)
 
 ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(BASEDIR)/build-$p $(BASEDIR)/build-$p-debug)
 
-fake_targets/clean_$(project):
-fake_targets/clean_$(project)_commands := rm -rf $(ALL_BUILD_DIRS)
+.fake_targets/clean_$(project):
+.fake_targets/clean_$(project)_commands := rm -rf $(ALL_BUILD_DIRS)
 
-clean_$(project): fake_targets/clean_$(project) clean_temps_$(project)
+clean_$(project): .fake_targets/clean_$(project) clean_temps_$(project)
 	$($<_commands)
 
 .PHONY: clean_temps_$(project) clean_$(project)

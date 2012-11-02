@@ -1,4 +1,4 @@
 Debug/
 Release/
-fake_targets/
+.fake_targets/
 */build-*/

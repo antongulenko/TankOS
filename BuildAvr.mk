@@ -57,10 +57,10 @@ hex_$(project): $(target).hex
 eep_$(project): $(target).eep
 lss_$(project): $(target).lss
 
-fake_targets/clean_eep_lss_$(project):
-fake_targets/clean_eep_lss_$(project)_commands := rm -f $(target).eep $(target).lss
+.fake_targets/clean_eep_lss_$(project):
+.fake_targets/clean_eep_lss_$(project)_commands := rm -f $(target).eep $(target).lss
 
-clean_eep_lss_$(project): fake_targets/clean_eep_lss_$(project)
+clean_eep_lss_$(project): .fake_targets/clean_eep_lss_$(project)
 	$($<_commands)
 
 .PHONY: clean_eep_lss_$(project)

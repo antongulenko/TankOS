@@ -21,7 +21,7 @@ all: $(AllProjects)
 clean: $(foreach p, $(AllProjects), clean_$p)
 
 # Fake-targets should be always up-to-date to not cause the actual targets to be constantly rebuilt. See Main.mk.
-fake_targets/%:
+.fake_targets/%:
 	mkdir -p $(@D); touch $@
 
 ALL_PLATFORMS := $(shell $(FIND) . -maxdepth 1 -name Build\*.mk | \
