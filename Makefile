@@ -1,6 +1,6 @@
 
 # The following flags and variables can be defined to affect the behaviour of this Makefile.
-# (flag = variable that is just checked for existence, value irrelevant. Defined like VERBOSE=)
+# (flag = variable that is just checked for existence, value irrelevant. Defined like this on the command-line: 'VERBOSE=')
 # VERBOSE: (flag) Causes make to print all executed shell-commands
 # PLATFORM: String identifying target build-platform. A platform-specific Makefile called Build$(PLATFORM).mk is required.
 #			Call 'make platforms' for a list of available platforms
