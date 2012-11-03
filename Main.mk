@@ -126,7 +126,7 @@ link_$(project): $(fulltarget)
 $(TARGET_SUFFIX)_$(project): $(fulltarget)
 lib_$(project): $(libtarget)
 
-ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(BASEDIR)/build-$p $(BASEDIR)/build-$p-debug)
+ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(BASEDIR)/build-$p $(BASEDIR)/build-$p-debug $(BASEDIR)/build-$p-speed)
 
 .fake_targets/clean_$(project):
 .fake_targets/clean_$(project)_commands := rm -rf $(ALL_BUILD_DIRS)

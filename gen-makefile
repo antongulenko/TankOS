@@ -1,0 +1,14 @@
+
+# Let make dump it's internal database with the passed parameters.
+# This creates a big GNUmakefile (which is used by make prior to Makefile), filled with all targets and variables,
+# already expanded. This GNUmakefile is executable by make and greatly speeds up the make-process!
+# Single problem so far: the generated GNUmakefile always prints it's own internal database to the console for some reason... :(
+
+make -q -f Makefile -p $1 $2 $3 $4 $5 $6 $7 $8 $9 > GNUmakefile.tmp
+
+echo 'all:' > GNUmakefile
+echo '	echo Please specify a Project' >> GNUmakefile
+
+# Remove lines starting with 'all:' and '!'
+sed -e 's|^all:.*$||' -e 's|^!.*$||' < GNUmakefile.tmp >> GNUmakefile
+rm GNUmakefile.tmp
