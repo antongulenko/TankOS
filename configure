@@ -1,4 +1,10 @@
 
+# This script creates a 'GNUmakefile' with almost the same functionality as the present 'Makefile'
+# There are two differences:
+#  - Variables passed from the command-line don't affect make anymore (like DEBUG= or SPEED=),
+#		which means you have to choose the flags/options you need when calling this script
+#  - The generated GNUmakefile is completely expanded and thus executes much much faster than Makefile
+
 # Let make dump it's internal database with the passed parameters.
 # This creates a big GNUmakefile (which is used by make prior to Makefile), filled with all targets and variables,
 # already expanded. This GNUmakefile is executable by make and greatly speeds up the make-process!
