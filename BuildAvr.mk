@@ -9,15 +9,19 @@ MCU := atmega1284p
 MCUFLAG := -mmcu=$(MCU)
 
 BASE_FLAGS := $(MCUFLAG) $(INCLUDE_FLAGS) \
-	-save-temps \
 	-std=gnu99 \
 	-DAVR \
 	-DF_CPU=20000000 \
 	-Wall
 
 # Compile & assemble, do not link yet
-CFLAGS_RELEASE := $(BASE_FLAGS) -Os -c
-CFLAGS_DEBUG := $(BASE_FLAGS) -O0 -g3 -c
+CFLAGS_RELEASE := $(BASE_FLAGS) -c
+ifeq ($(origin SPEED), undefined)
+CFLAGS_RELEASE := $(CFLAGS_RELEASE) -Os
+else
+CFLAGS_RELEASE := $(CFLAGS_RELEASE) -O3
+endif
+CFLAGS_DEBUG := $(BASE_FLAGS) -O1 -g3 -c
 
 LIB_SUFFIX := a
 TARGET_SUFFIX := elf
@@ -54,6 +58,9 @@ $(target).lss: $(target).elf
 hex_$(project): $(target).hex
 eep_$(project): $(target).eep
 lss_$(project): $(target).lss
+
+# Aways build the hex-files automatically when linking.
+link_$(project): hex_$(project)
 
 .fake_targets/clean_eep_lss_$(project):
 .fake_targets/clean_eep_lss_$(project)_commands := rm -f $(target).eep $(target).lss

@@ -5,6 +5,8 @@
 # PLATFORM: String identifying target build-platform. A platform-specific Makefile called Build$(PLATFORM).mk is required.
 #			Call 'make platforms' for a list of available platforms
 # LSS: (flag) Causes the creation of .lss and .eep files when linking for platform AVR. Excluded by default.
+# DEBUG: (flag) Instructs platform-dependent Makefiles to create debug-symbols in archives and objects. Also switches to a separate build-directory.
+# SPEED: (flag) Instructs platform-dependent Makefiles to optimize for Speed instead of Size (only for non-DEBUG-builds). Also switches to yet another build-directory. The DEBUG flag takes precedence over the SPEED flag.
 
 ifeq ($(origin VERBOSE), undefined)
 .SILENT:

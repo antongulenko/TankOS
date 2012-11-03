@@ -1,7 +1,7 @@
 
 # The following 'flags' are evaluated
 # LIBRARY: Causes the creation of a static library (compiling, but no linking). Without this flag, all objects and libraries are linked into a binary.
-# DEBUG: Enables the debug-build. Turns on debug-flags for the compiler and selects a different build-directory.
+# (further flags explained in the main makefile called 'Makefile')
 
 # This Makefile expects the following variables:
 # - sources: all source-files being compiled
@@ -9,10 +9,19 @@
 # - output: filename for linker/archiver-output (without any file-suffix!)
 # - includes: (optional) list of directories passed to the compiler to look for include-files
 # - dependencies: (optional) list of projects the current project depends on. Used to generate inputs for the linker.
+# - PLATFORM:
+# - BASEDIR: 
+# - project: 
 
 BUILD_DIRNAME := build-$(PLATFORM)
 ifneq ($(origin DEBUG), undefined)
 BUILD_DIRNAME := $(BUILD_DIRNAME)-debug
+# In case both DEBUG and SPEED where specified
+undefine SPEED
+else
+ifneq ($(origin SPEED), undefined)
+BUILD_DIRNAME := $(BUILD_DIRNAME)-speed
+endif
 endif
 BUILDDIR := $(BASEDIR)/$(BUILD_DIRNAME)
 
@@ -36,7 +45,7 @@ CFLAGS := $(CFLAGS_DEBUG)
 endif
 
 ifeq ($(origin LIBRARY), undefined)
-$(project): link_$(project)
+$(project): link_$(project) size_$(project)
 else
 $(project): lib_$(project)
 endif
@@ -44,7 +53,6 @@ endif
 liboutput := lib$(output).$(LIB_SUFFIX)
 libtarget := $(BUILDDIR)/$(liboutput)
 
-TEMPSDIR := $(BUILDDIR)/temps
 prefixed_objects := $(addprefix $(BUILDDIR)/, $(objects))
 prefixed_sources := $(addprefix $(BUILDDIR)/, $(sources))
 
@@ -74,10 +82,6 @@ $(BUILDDIR)/%.o: $(BASEDIR)/%.c
 
 MAKE_BUILDDIR := mkdir -p $(BUILDDIR)
 
-# Move temporary files created by the compiler. Prefixed with '-' to ignore when this failed,
-# stderr redirected to /dev/null.
-MOVE_TEMPS := mkdir -p $(TEMPSDIR) && (mv -f *.s *.i $(TEMPSDIR) 2> /dev/null || true)
-
 fulltarget := $(target).$(TARGET_SUFFIX)
 
 # The .fake_targets/* targets and variables are a workaround/hack for a limitation of make.
@@ -96,7 +100,7 @@ fulltarget := $(target).$(TARGET_SUFFIX)
 .fake_targets/$(fulltarget)_commands := \
 	$(MAKE_BUILDDIR); \
 	echo Linking $(output).$(TARGET_SUFFIX); \
-	$(CC) $(LDFLAGS_START) $(prefixed_objects) $(LDFLAGS_END) -o $(fulltarget) && $(MOVE_TEMPS)
+	$(CC) $(LDFLAGS_START) $(prefixed_objects) $(LDFLAGS_END) -o $(fulltarget)
 
 $(fulltarget): .fake_targets/$(fulltarget) $(prefixed_objects) $(dependencies)
 	$($<_commands)
@@ -108,10 +112,9 @@ $(target).size: $(fulltarget)
 
 .fake_targets/$(libtarget):
 .fake_targets/$(libtarget)_commands := \
-	$(MOVE_TEMPS); \
+	$(MAKE_BUILDDIR); \
 	echo Creating $(liboutput); \
-	$(AR) $(ARFLAGS) -o $(libtarget) $(prefixed_objects); \
-	$(MAKE_BUILDDIR)
+	$(AR) $(ARFLAGS) -o $(libtarget) $(prefixed_objects)
 
 $(libtarget): .fake_targets/$(libtarget) $(prefixed_objects) $(dependencies)
 	$($<_commands)
@@ -123,19 +126,12 @@ link_$(project): $(fulltarget)
 $(TARGET_SUFFIX)_$(project): $(fulltarget)
 lib_$(project): $(libtarget)
 
-.fake_targets/clean_temps_$(project):
-.fake_targets/clean_temps_$(project)_commands := rm -rf $(BASEDIR)/*.i $(BASEDIR)/*.s
-
-# These should be moved after the build, but might still be there because of a failed build.
-clean_temps_$(project): .fake_targets/clean_temps_$(project)
-	$($<_commands)
-
 ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(BASEDIR)/build-$p $(BASEDIR)/build-$p-debug)
 
 .fake_targets/clean_$(project):
 .fake_targets/clean_$(project)_commands := rm -rf $(ALL_BUILD_DIRS)
 
-clean_$(project): .fake_targets/clean_$(project) clean_temps_$(project)
+clean_$(project): .fake_targets/clean_$(project)
 	$($<_commands)
 
-.PHONY: clean_temps_$(project) clean_$(project)
+.PHONY: clean_$(project)
