@@ -3,3 +3,4 @@ Release/
 .fake_targets/
 */build-*/
 GNUmakefile
+AVR.atsuo
