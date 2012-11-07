@@ -1,6 +1,9 @@
 
 == TODO
 
+- Dragon:
+	- HVPP (on-board) und JTAG (über connectors nach draußen) für den tiny84 und mega1284P
+
 - find out, why Release build does not work properly. At least the _delay_ms function produces wrong results. Must be something about the optimizations.
 
 - PWM (8-bit timer) mit maximalem wert eingestellt (256) liefert nur 4,6V !!!
