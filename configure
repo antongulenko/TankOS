@@ -1,9 +1,14 @@
 
 # This script creates a 'GNUmakefile' with almost the same functionality as the present 'Makefile'
-# There are two differences:
+# There are three differences:
 #  - Variables passed from the command-line don't affect make anymore (like DEBUG= or SPEED=),
 #		which means you have to choose the flags/options you need when calling this script
+#  - Dependency makefiles (.d-files) are already included and expanded in GNUmakefile.
+# 		-> When a dependency of any source-file changes, the dependencies inside the GNUmakefile will be outdated and it should be generated again!
 #  - The generated GNUmakefile is completely expanded and thus executes much much faster than Makefile
+
+# For the reasons given above, this configure-script is suitable for development of single .c-files, after all dependencies have
+# been established!
 
 # Let make dump it's internal database with the passed parameters.
 # This creates a big GNUmakefile (which is used by make prior to Makefile), filled with all targets and variables,
