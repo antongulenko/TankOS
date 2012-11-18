@@ -68,4 +68,24 @@ link_$(project): hex_$(project)
 clean_eep_lss_$(project): .fake_targets/clean_eep_lss_$(project)
 	$($<_commands)
 
-.PHONY: clean_eep_lss_$(project)
+# AVRDUDE commands
+
+# Define these things just once.
+ifeq ($(origin AVRDUDE_COMMAND), undefined)
+
+# -v : for verbose, -v -v : extra verbose.
+# -n : do not write anything to device
+# -e : perform chip-erase
+# -V : do not verify written data
+AVRDUDE_COMMAND := avrdude -P usb -c aspusb -p $(MCU)
+
+con:
+	echo Connecting to $(MCU)...
+	$(AVRDUDE_COMMAND) -n -v -v
+
+endif
+
+flash_$(project): $(target).hex con
+	$(AVRDUDE_COMMAND) -U flash:r:$<:hex
+
+.PHONY: clean_eep_lss_$(project) flash_$(project)

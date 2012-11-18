@@ -4,6 +4,9 @@
 # VERBOSE: (flag) Causes make to print all executed shell-commands
 # PLATFORM: String identifying target build-platform. A platform-specific Makefile called Build$(PLATFORM).mk is required.
 #			Call 'make platforms' for a list of available platforms
+# PROJ: String identifying a project. Shortcut-commands will be generated to access commands for that project (like link, hex, lss, flash, etc.)
+#			'make clean' will still clean all available projects.
+#			Call 'make projects' for a list of available projects
 # LSS: (flag) Causes the creation of .lss and .eep files when linking for platform AVR. Excluded by default.
 # DEBUG: (flag) Instructs platform-dependent Makefiles to create debug-symbols in archives and objects. Also switches to a separate build-directory.
 # SPEED: (flag) Instructs platform-dependent Makefiles to optimize for Speed instead of Size (only for non-DEBUG-builds). Also switches to yet another build-directory. The DEBUG flag takes precedence over the SPEED flag.
@@ -23,6 +26,20 @@ AllProjects := $(foreach p, $(ProjectMakefiles), $(shell basename $(shell dirnam
 
 ALL_PLATFORMS := $(shell $(FIND) . -maxdepth 1 -name Build\*.mk | \
 						sed -re 's|./Build(.*).mk|\1|g')
+
+# Include shortcut-commands for the defined project.
+# This is above the all-command, to make the build-command the default if PROJ is defined.
+ifeq ($(origin PROJ), undefined)
+build: $(PROJ)
+hex: hex_$(PROJ)
+eep: eep_$(PROJ)
+lss: lss_$(PROJ)
+link: link_$(PROJ)
+size: size_$(PROJ)
+lib: lib_$(PROJ)
+map: map_$(PROJ)
+flash: flash_$(PROJ)
+endif
 
 all: $(AllProjects)
 
