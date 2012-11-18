@@ -1,8 +1,0 @@
-== Master-IC
-Timer0: Left Motor
-Timer1 (A and B): Unused
-Timer2: Right Motor
-Timer3: Interrupt source for Software. A: scheduler/milliseconds-counter B: smooth regulation of motors
-
-== IO-IC
-no Timers used
