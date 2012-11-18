@@ -29,7 +29,7 @@ ALL_PLATFORMS := $(shell $(FIND) . -maxdepth 1 -name Build\*.mk | \
 
 # Include shortcut-commands for the defined project.
 # This is above the all-command, to make the build-command the default if PROJ is defined.
-ifeq ($(origin PROJ), undefined)
+ifneq ($(origin PROJ), undefined)
 build: $(PROJ)
 hex: hex_$(PROJ)
 eep: eep_$(PROJ)
