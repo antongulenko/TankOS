@@ -9,7 +9,7 @@
 # - output: filename for linker/archiver-output (without any file-suffix!)
 # - includes: (optional) list of directories passed to the compiler to look for include-files
 # - dependencies: (optional) list of projects the current project depends on. Used to generate inputs for the linker.
-# - PLATFORM:
+# - PLATFORM: 
 # - BASEDIR: 
 # - project: 
 
@@ -45,7 +45,7 @@ CFLAGS := $(CFLAGS_DEBUG)
 endif
 
 ifeq ($(origin LIBRARY), undefined)
-$(project): link_$(project) size_$(project)
+$(project): link_$(project)
 else
 $(project): lib_$(project)
 endif
@@ -100,15 +100,16 @@ fulltarget := $(target).$(TARGET_SUFFIX)
 .fake_targets/$(fulltarget)_commands := \
 	$(MAKE_BUILDDIR); \
 	echo Linking $(output).$(TARGET_SUFFIX); \
-	$(CC) $(LDFLAGS_START) $(prefixed_objects) $(LDFLAGS_END) -o $(fulltarget)
+	$(CC) $(LDFLAGS_START) $(prefixed_objects) $(LDFLAGS_END) -o $(fulltarget); \
+	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $(fulltarget)
 
 $(fulltarget): .fake_targets/$(fulltarget) $(prefixed_objects) $(dependencies)
 	$($<_commands)
 
 $(target).map: $(fulltarget)
 
-$(target).size: $(fulltarget)
-	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $< | tee $@
+size_$(project): $(fulltarget)
+	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $<
 
 .fake_targets/$(libtarget):
 .fake_targets/$(libtarget)_commands := \
@@ -121,7 +122,6 @@ $(libtarget): .fake_targets/$(libtarget) $(prefixed_objects) $(dependencies)
 
 # Shortcuts for execution from console
 map_$(project): $(target).map
-size_$(project): $(target).size
 link_$(project): $(fulltarget)
 $(TARGET_SUFFIX)_$(project): $(fulltarget)
 lib_$(project): $(libtarget)
