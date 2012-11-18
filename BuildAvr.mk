@@ -68,7 +68,9 @@ link_$(project): hex_$(project)
 clean_eep_lss_$(project): .fake_targets/clean_eep_lss_$(project)
 	$($<_commands)
 
-# AVRDUDE commands
+# =====
+# == AVRDUDE commands
+# =====
 
 # Define these things just once.
 ifeq ($(origin AVRDUDE_COMMAND), undefined)
@@ -79,13 +81,17 @@ ifeq ($(origin AVRDUDE_COMMAND), undefined)
 # -V : do not verify written data
 AVRDUDE_COMMAND := avrdude -P usb -c aspusb -p $(MCU)
 
+# This command checks connection to the AVR and prints verbose information.
 con:
 	echo Connecting to $(MCU)...
 	$(AVRDUDE_COMMAND) -n -v -v
 
 endif
 
-flash_$(project): $(target).hex con
-	$(AVRDUDE_COMMAND) -U flash:r:$<:hex
+flash_$(project): $(target).hex
+	$(AVRDUDE_COMMAND) -U flash:r:$<
 
-.PHONY: clean_eep_lss_$(project) flash_$(project)
+flashv_$(project): $(target).hex
+	$(AVRDUDE_COMMAND) -v -v -U flash:r:$<
+
+.PHONY: clean_eep_lss_$(project) flash_$(project) flashv_$(project)

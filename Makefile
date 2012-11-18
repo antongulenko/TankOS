@@ -3,6 +3,7 @@
 # (flag = variable that is just checked for existence, value irrelevant. Defined like this on the command-line: 'VERBOSE=')
 # VERBOSE: (flag) Causes make to print all executed shell-commands
 # PLATFORM: String identifying target build-platform. A platform-specific Makefile called Build$(PLATFORM).mk is required.
+#			Defaults to 'Avr'.
 #			Call 'make platforms' for a list of available platforms
 # PROJ: String identifying a project. Shortcut-commands will be generated to access commands for that project (like link, hex, lss, flash, etc.)
 #			'make clean' will still clean all available projects.
@@ -39,6 +40,7 @@ size: size_$(PROJ)
 lib: lib_$(PROJ)
 map: map_$(PROJ)
 flash: flash_$(PROJ)
+flashv: flashv_$(PROJ)
 endif
 
 all: $(AllProjects)
