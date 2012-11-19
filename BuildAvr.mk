@@ -78,7 +78,7 @@ AVRDUDE_COMMAND := avrdude -P usb -c usbasp -p $(MCU)
 # This command checks connection to the AVR and prints verbose information.
 con:
 	echo Connecting to $(MCU)...
-	$(AVRDUDE_COMMAND) -n
+	-$(AVRDUDE_COMMAND) -n
 
 endif
 
