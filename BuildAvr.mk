@@ -79,7 +79,7 @@ ifeq ($(origin AVRDUDE_COMMAND), undefined)
 # -n : do not write anything to device
 # -e : perform chip-erase
 # -V : do not verify written data
-AVRDUDE_COMMAND := avrdude -P usb -c aspusb -p $(MCU)
+AVRDUDE_COMMAND := avrdude -P usb -c usbasp -p $(MCU)
 
 # This command checks connection to the AVR and prints verbose information.
 con:
