@@ -56,22 +56,24 @@ libtarget := $(BUILDDIR)/$(liboutput)
 prefixed_objects := $(addprefix $(BUILDDIR)/, $(objects))
 prefixed_sources := $(addprefix $(BUILDDIR)/, $(sources))
 
+fulltarget := $(target).$(TARGET_SUFFIX)
+
 # These two fake_target-variables are used by the %.d and %.o targets. Reason: the variables stored here are project-dependent.
 # The pattern used here is a little different from the one for fake_targets described below: Here, not the whole recipe is
 # stored in the fake_targets-variable, but just the necessary part. It is accessed through a fake-prerequisite, that is then ignored
-# in the actual recipe by filtering out just the relevant prerequisite using $(filter-out ...) or $(word 2, ...)
-.fake_targets/$(project)_cflags := $(CFLAGS)
-.fake_targets/$(project)_depflags := $(DEPENDENCY_FLAGS)
+# in the actual recipe by filtering out just the relevant prerequisite using $(word 2, ...).
+.fake_targets/$(fulltarget)_cflags := $(CFLAGS)
+.fake_targets/$(fulltarget)_depflags := $(DEPENDENCY_FLAGS)
 
 # From http://www.gnu.org/software/make/manual/make.html#Automatic-Prerequisites
 # And  http://scottmcpeak.com/autodepend/autodepend.html
 # (Both modified)
 # Automatically generates transitive include-dependencies for c-files using the compiler.
 # The sed-call fixes the .d-files produced by gcc by prepending the complete path to the .o-files.
-$(BUILDDIR)/%.d: .fake_targets/$(project)_ $(BASEDIR)/%.c
+$(BUILDDIR)/%.d: .fake_targets/$(fulltarget) $(BASEDIR)/%.c
 	mkdir -p $(@D); \
 	set -e; rm -f $@; \
-	$(CC) $($<depflags) $(filter-out $<,$^) > $@.$$$$; \
+	$(CC) $($<_depflags) $(word 2, $^) > $@.$$$$; \
 	sed -e 's|.*:|$(subst .d,.o,$@):|' < $@.$$$$ > $@; \
 	rm -f $@.$$$$
 
@@ -82,14 +84,12 @@ ifneq ($(MAKECMDGOALS), clean)
 endif
 endif
 
-$(BUILDDIR)/%.o: .fake_targets/$(project)_ $(BASEDIR)/%.c
+$(BUILDDIR)/%.o: .fake_targets/$(fulltarget) $(BASEDIR)/%.c
 	@echo $(word 2, $^)
 	mkdir -p $(@D)
-	$(CC) $($<cflags) -o $@ $(word 2, $^)
+	$(CC) $($<_cflags) -o $@ $(word 2, $^)
 
 MAKE_BUILDDIR := mkdir -p $(BUILDDIR)
-
-fulltarget := $(target).$(TARGET_SUFFIX)
 
 # The .fake_targets/* targets and variables are a workaround/hack for a limitation of make.
 # It is not possible to expand variables inside recipe-commands immediately. They are always expanded when the recipe is actually executed.
