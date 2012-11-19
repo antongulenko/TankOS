@@ -56,15 +56,22 @@ libtarget := $(BUILDDIR)/$(liboutput)
 prefixed_objects := $(addprefix $(BUILDDIR)/, $(objects))
 prefixed_sources := $(addprefix $(BUILDDIR)/, $(sources))
 
+# These two fake_target-variables are used by the %.d and %.o targets. Reason: the variables stored here are project-dependent.
+# The pattern used here is a little different from the one for fake_targets described below: Here, not the whole recipe is
+# stored in the fake_targets-variable, but just the necessary part. It is accessed through a fake-prerequisite, that is then ignored
+# in the actual recipe by filtering out just the relevant prerequisite using $(filter-out ...) or $(word 2, ...)
+.fake_targets/$(project)_cflags := $(CFLAGS)
+.fake_targets/$(project)_depflags := $(DEPENDENCY_FLAGS)
+
 # From http://www.gnu.org/software/make/manual/make.html#Automatic-Prerequisites
 # And  http://scottmcpeak.com/autodepend/autodepend.html
 # (Both modified)
 # Automatically generates transitive include-dependencies for c-files using the compiler.
 # The sed-call fixes the .d-files produced by gcc by prepending the complete path to the .o-files.
-$(BUILDDIR)/%.d: $(BASEDIR)/%.c
+$(BUILDDIR)/%.d: .fake_targets/$(project)_ $(BASEDIR)/%.c
 	mkdir -p $(@D); \
 	set -e; rm -f $@; \
-	$(CC) $(DEPENDENCY_FLAGS) $< > $@.$$$$; \
+	$(CC) $($<depflags) $(filter-out $<,$^) > $@.$$$$; \
 	sed -e 's|.*:|$(subst .d,.o,$@):|' < $@.$$$$ > $@; \
 	rm -f $@.$$$$
 
@@ -75,10 +82,10 @@ ifneq ($(MAKECMDGOALS), clean)
 endif
 endif
 
-$(BUILDDIR)/%.o: $(BASEDIR)/%.c
-	@echo $<
+$(BUILDDIR)/%.o: .fake_targets/$(project)_ $(BASEDIR)/%.c
+	@echo $(word 2, $^)
 	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -o $@ $<
+	$(CC) $($<cflags) -o $@ $(word 2, $^)
 
 MAKE_BUILDDIR := mkdir -p $(BUILDDIR)
 
@@ -92,9 +99,9 @@ fulltarget := $(target).$(TARGET_SUFFIX)
 # All variables are defined using := (instead of a simple =), so they are expanded immediately. However, variables in recipe-commands are always expanded late.
 # The workaround is to define target-specific variables with := (make_target_$(target)_commands), that are expanded early, and use these
 # variables as commands for the actual target. Since the recipe-commands cannot even use the $(target) variable correctly, a fake target
-# (make_target_$(target)) is created and added as first prerequisite for the actual targets. The recipe-commands can access the name of this prerequisite
+# (.fake_targets/...) is created and added as first prerequisite for the actual targets. The recipe-commands can access the name of this prerequisite
 # with $< and the $(target) variable in the prerequisite-name is expanded early. By adding _commands to the prerequisite-name, the correct variable can be expanded.
-# The same trick is used for the clean_* targets below. Fake-targets are always up-to-date due to a rule in the main Makefile.
+# The same trick is used for several other targets. The files in .fake_targets/ are always up-to-date due to a rule in the main Makefile.
 
 .fake_targets/$(fulltarget)_commands := \
 	$(MAKE_BUILDDIR); \
