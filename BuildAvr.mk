@@ -62,12 +62,6 @@ lss_$(project): $(target).lss
 # Aways build the hex-files automatically when linking.
 link_$(project): hex_$(project)
 
-.fake_targets/clean_eep_lss_$(project):
-.fake_targets/clean_eep_lss_$(project)_commands := rm -f $(target).eep $(target).lss
-
-clean_eep_lss_$(project): .fake_targets/clean_eep_lss_$(project)
-	$($<_commands)
-
 # =====
 # == AVRDUDE commands
 # =====
@@ -84,7 +78,7 @@ AVRDUDE_COMMAND := avrdude -P usb -c usbasp -p $(MCU)
 # This command checks connection to the AVR and prints verbose information.
 con:
 	echo Connecting to $(MCU)...
-	$(AVRDUDE_COMMAND) -n -v -v
+	$(AVRDUDE_COMMAND) -n
 
 endif
 
@@ -94,4 +88,4 @@ flash_$(project): $(target).hex
 flashv_$(project): $(target).hex
 	$(AVRDUDE_COMMAND) -v -v -U flash:r:$<
 
-.PHONY: clean_eep_lss_$(project) flash_$(project) flashv_$(project)
+.PHONY: flash_$(project) flashv_$(project)
