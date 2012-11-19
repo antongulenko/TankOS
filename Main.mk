@@ -96,7 +96,6 @@ fulltarget := $(target).$(TARGET_SUFFIX)
 # with $< and the $(target) variable in the prerequisite-name is expanded early. By adding _commands to the prerequisite-name, the correct variable can be expanded.
 # The same trick is used for the clean_* targets below. Fake-targets are always up-to-date due to a rule in the main Makefile.
 
-.fake_targets/$(fulltarget):
 .fake_targets/$(fulltarget)_commands := \
 	$(MAKE_BUILDDIR); \
 	echo Linking $(output).$(TARGET_SUFFIX); \
@@ -111,7 +110,6 @@ $(target).map: $(fulltarget)
 size_$(project): $(fulltarget)
 	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $<
 
-.fake_targets/$(libtarget):
 .fake_targets/$(libtarget)_commands := \
 	$(MAKE_BUILDDIR); \
 	echo Creating $(liboutput); \
@@ -128,7 +126,6 @@ lib_$(project): $(libtarget)
 
 ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(BASEDIR)/build-$p $(BASEDIR)/build-$p-debug $(BASEDIR)/build-$p-speed)
 
-.fake_targets/clean_$(project):
 .fake_targets/clean_$(project)_commands := rm -rf $(ALL_BUILD_DIRS)
 
 clean_$(project): .fake_targets/clean_$(project)
