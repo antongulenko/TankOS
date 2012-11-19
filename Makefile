@@ -20,7 +20,7 @@ ifeq ($(origin PLATFORM), undefined)
 PLATFORM := Avr
 endif
 
-FIND := /cygdrive/c/Dev/Cygwin/bin/find.exe
+FIND := find
 
 ProjectMakefiles := $(shell $(FIND) . -maxdepth 2 -name Project.mk)
 AllProjects := $(foreach p, $(ProjectMakefiles), $(shell basename $(shell dirname $p)))
