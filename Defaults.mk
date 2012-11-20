@@ -7,4 +7,11 @@ project := $(BASEDIR)
 includes := $(dependencies)
 sources := $(shell $(FIND) $(BASEDIR) -name \*.c)
 sources := $(subst $(project)/,,$(sources))
+
 objects := $(sources:.c=.o)
+
+# TODO
+# - In libraries, include only non-kernel-objects in the archive
+# - For kernel-libraries, include the required kernel-objects in the kernel-archive!
+# - Main-projects simply include everything
+# - This does not cover tests
