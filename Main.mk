@@ -28,8 +28,8 @@ BUILDDIR := $(BASEDIR)/$(BUILD_DIRNAME)
 target := $(BUILDDIR)/$(output)
 
 # If dependencies are given, create the according -l and -L flags.
-LIB_FLAGS := $(foreach d, $(dependencies), -L$d/$(BUILD_DIRNAME)) $(foreach d, $(dependencies), -l$d)
-#LIB_FLAGS := $(foreach d, $(dependencies), $(shell $(FIND) $d/$(BUILD_DIRNAME) -name *.o))
+LIB_DIRS := $(foreach d, $(dependencies), -L$d/$(BUILD_DIRNAME))
+LIB_ARCHIVES := $(foreach d, $(dependencies), -l$d)
 
 # Prepend include-directories with the -I switch
 INCLUDE_FLAGS := $(foreach d, $(includes), -I$d)
@@ -103,10 +103,12 @@ MAKE_BUILDDIR := mkdir -p $(BUILDDIR)
 # with $< and the $(target) variable in the prerequisite-name is expanded early. By adding _commands to the prerequisite-name, the correct variable can be expanded.
 # The same trick is used for several other targets. The files in .fake_targets/ are always up-to-date due to a rule in the main Makefile.
 
+# The order of the linker input is important: first the objects, then the libraries, so that symbols found in objects are preferred and
+# objects in libraries can be 'overridden' that way.
 .fake_targets/$(fulltarget)_commands := \
 	$(MAKE_BUILDDIR); \
 	echo Linking $(output).$(TARGET_SUFFIX); \
-	$(CC) $(LDFLAGS_START) $(prefixed_objects) $(LDFLAGS_END) -o $(fulltarget); \
+	$(CC) $(LIB_DIRS) $(LDFLAGS_START) $(prefixed_objects) $(LIB_ARCHIVES) $(LDFLAGS_END) -o $(fulltarget); \
 	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $(fulltarget)
 
 $(fulltarget): .fake_targets/$(fulltarget) $(prefixed_objects) $(dependencies)

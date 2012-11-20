@@ -30,8 +30,7 @@ TARGET_SUFFIX := elf
 # The objects/libraries are scanned multiple times, until all dependencies are resolved. Link-time is increased, but this is the only way.
 LDFLAGS_START := $(MCUFLAG) \
 	-Wl,-Map="$(target).map" \
-	-Wl,--start-group \
-	$(LIB_FLAGS)
+	-Wl,--start-group
 
 # This part of the linker flags is split off to include the objects of the current project into the start-group/end-group closure
 LDFLAGS_END := -Wl,--end-group -lm
