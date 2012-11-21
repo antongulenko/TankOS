@@ -95,3 +95,7 @@ void blinkByte(PLedGroup display, PLedGroup notifier, byte data) {
 		blinkLeds(display, word, 3);
 	}
 }
+
+void initLed(PLed led) {
+	setPinOutput(led->pin);
+}

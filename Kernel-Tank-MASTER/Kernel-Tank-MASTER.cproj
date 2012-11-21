@@ -78,43 +78,13 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="shared\base_after.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\base_before.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\kernel_base.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\motor_smooth.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\motor_smooth_interrupt.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\motor_smooth_loop.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\tank_IO_protocol.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\timer.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\twi_bgx1.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\twi_bgx1.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_motor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="twi_tank_IO.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="twi_tank_IO.h">
@@ -122,15 +92,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shared\scheduler.kernel.h">
+    <None Include="tank_motor.kernel.c">
       <SubType>compile</SubType>
     </None>
-    <None Include="tank_motor.kernel.h">
-      <SubType>compile</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="shared\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
 </Project>

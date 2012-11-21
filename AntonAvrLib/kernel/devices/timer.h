@@ -102,22 +102,19 @@ void setTimerCompareValue(PTimer timer, uint16_t value);
 // If an 8-bit timer is used, the LOW 8 bit of the result will be zero
 uint16_t getTimerCompareValue(PTimer timer);
 
-#ifdef _KERNEL_
-#	define DEFINE_TIMER_PAIR(pairName)	\
+#define DEFINE_TIMER_PAIR(pairName) extern const PTimerPair pairName;
+#define DEFINE_TIMER(timerName) extern const PTimer timerName;
+
+#define INIT_TIMER_PAIR(pairName, flags, regA, regB, interrReg)						\
+	pairName##_ = (TimerPair) {flags, TIMER_RESOLUTION_full, (uint8_t*) &regA, (uint8_t*) &regB, &interrReg};
+#define INIT_TIMER(timerName, pairName, ocr, timerType, ocPin)				\
+	timerName##_ = (Timer) {pairName, (uint8_t*) &ocr, timerType, ocPin};
+
+#define DEFINE_TIMER_PAIR_IMPL(pairName)	\
 	TimerPair pairName##_;				\
 	const PTimerPair pairName = &pairName##_;
-#	define DEFINE_TIMER(timerName)	\
+#define DEFINE_TIMER_IMPL(timerName)	\
 	Timer timerName##_;				\
 	const PTimer timerName = &timerName##_;
-#	define INIT_TIMER_PAIR(pairName, flags, regA, regB, interrReg)						\
-	pairName##_ = (TimerPair) {flags, TIMER_RESOLUTION_full, (uint8_t*) &regA, (uint8_t*) &regB, &interrReg};
-#	define INIT_TIMER(timerName, pairName, ocr, timerType, ocPin)				\
-	timerName##_ = (Timer) {pairName, (uint8_t*) &ocr, timerType, ocPin};
-#else
-#	define DEFINE_TIMER_PAIR(pairName)	\
-	extern const PTimerPair pairName;
-#	define DEFINE_TIMER(timerName)	\
-	extern const PTimer timerName;
-#endif
 
 #endif

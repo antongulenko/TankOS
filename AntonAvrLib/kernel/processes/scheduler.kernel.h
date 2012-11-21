@@ -17,21 +17,16 @@
 #include "process.h"
 #include "process_internal.h"
 #include "../hardware_reset.h"
+#include "../millisecond_clock.h"
 
-// This is defined in timed_scheduler.kernel to be the ISR of the timer-interrupt.
-// If not yet defined, the scheduler-ISR will just be a regular function.
-#ifndef SCHEDULER_TICK_ISR_NAKED
-void scheduler_tick() {
-#else
-SCHEDULER_TICK_ISR_NAKED {
-#endif
+// This function should be defined as weak somewhere else.
+// TODO -- check whether this works correctly!
+void millisecond_timer_tick() {
 	// First push the current context, before any register may be modified.
 	PushProcessContext()
 	
-	// Can be defined before including this file, to include some additional action here
-	#ifdef TIMER_TICK_ACTION
-	TIMER_TICK_ACTION
-	#endif
+	// Count up the millisecond clock.
+	millisecond_clock_tick();
 	
 	// Place current process in the X-register, store the stack-pointer.
 	asm volatile("lds r26, __current_process");

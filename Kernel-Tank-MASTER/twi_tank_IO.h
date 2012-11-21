@@ -1,14 +1,11 @@
 #ifndef TWI_TANK_IO_H_
 #define TWI_TANK_IO_H_
 
-#include "shared/tank_IO_protocol.h"
-
+#include <tank_IO_protocol.h>
 #include <kernel/TWI/twi_raw.h>
-#ifdef _KERNEL_
-TWIDevice tank_IO = { TANK_IO_ADDRESS };
-#else
+
 extern TWIDevice tank_IO;
-#endif
+
 #ifdef TWI_DEVICE
 #undef TWI_DEVICE
 #endif
@@ -40,16 +37,7 @@ TWI_RPC_FUNCTION_VOID	(tankIO_flashAllLeds, TANK_IO_flashAllLeds, FlashAllLedsPa
 
 TWI_RPC_FUNCTION_VOID	(tankIO_blinkByte, TANK_IO_blinkByte, BlinkByteParam)
 
-// Put header and implementation here to avoid additional .c-file.
-#ifdef _KERNEL_
-	void tankIO_wait() {
-		while (!tankIO_isInitialized() != TANK_IO_INITIALIZED) {
-			_delay_ms(20);
-		}
-	}	
-#else
-	// Loop, until the IO-processor is initialized.
-	void tankIO_wait();
-#endif
+// Loop, until the IO-processor is initialized.
+void tankIO_wait();
 
 #endif

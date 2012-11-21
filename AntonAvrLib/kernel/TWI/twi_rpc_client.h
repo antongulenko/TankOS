@@ -10,13 +10,17 @@
 #error This module requires TWI_DEVICE to be defined!
 #endif
 
-#ifdef _KERNEL_
-
 // Regarding the macros named ..PVOID.. and ..PNOTIFY:
 // The P stands for 'pseudo' and means, that although no useful
 // data will be received from the slave, a 'redundant' 
 // START - SLA+W - STOP sequence will be transmitted.
 // THe NIBObee bgx1 extension needs this because of bad design or so.
+
+// This header includes macros both for function prototypes and their
+// implementation. Purpose: define one header using these macros, then
+// include that header in a .c file defining RPC_CLIENT_IMPLEMENTATION, and also
+// in other .c files using the function-prototypes.
+#ifdef RPC_CLIENT_IMPLEMENTATION
 
 // ==
 // Functions with Arguments and Results

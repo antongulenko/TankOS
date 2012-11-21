@@ -39,7 +39,7 @@ LDFLAGS_END := -Wl,--end-group -lm
 
 DEPENDENCY_FLAGS := $(BASE_FLAGS) -MM
 OBJSIZE_FLAGS := -C --mcu=$(MCU)
-ARFLAGS := -r
+ARFLAGS := rcs
 
 # Time: 130ms
 $(target).hex: $(target).elf
@@ -60,6 +60,10 @@ lss_$(project): $(target).lss
 
 # Aways build the hex-files automatically when linking.
 link_$(project): hex_$(project)
+
+ifneq ($(origin LSS), undefined)
+link_$(project): lss_$(project)
+endif
 
 # =====
 # == AVRDUDE commands

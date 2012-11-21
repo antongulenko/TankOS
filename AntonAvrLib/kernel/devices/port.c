@@ -1,12 +1,9 @@
 /*
- * port.kernel
+ * port.c
  *
  * Created: 22.04.2012 17:39:24
  *  Author: Anton
  */ 
-
-#ifndef _PORT_KERNEL_H_
-#define _PORT_KERNEL_H_
 
 #include "port.h"
 
@@ -53,5 +50,3 @@ BOOL readPin(PPin pin) {
 	else
 		return FALSE;
 }
-
-#endif

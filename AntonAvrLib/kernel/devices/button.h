@@ -25,16 +25,16 @@ typedef struct {
 // Read the current button status.
 BOOL buttonStatus(PButton button);
 
-#ifdef _KERNEL_
-#	define DEFINE_BUTTON(buttonName)						\
-		Button buttonName##_;								\
-		const PButton buttonName = &buttonName##_;
-#	define INIT_BUTTON(buttonName, pinName, flags, interruptNumber)		\
-		buttonName##_ = (Button) { flags, pinName, interruptNumber };	\
-		initButton(buttonName);
-#else
-#	define DEFINE_BUTTON(buttonName)	\
-		extern const PButton buttonName;
-#endif
+void initButton(PButton button);
+
+#define DEFINE_BUTTON(buttonName) extern const PButton buttonName;
+
+#define INIT_BUTTON(buttonName, pinName, flags, interruptNumber)	\
+	buttonName##_ = (Button) { flags, pinName, interruptNumber };	\
+	initButton(buttonName);
+
+#define DEFINE_BUTTON_IMPL(buttonName)				\
+	Button buttonName##_;						\
+	const PButton buttonName = &buttonName##_;
 
 #endif /* BUTTON_H_ */

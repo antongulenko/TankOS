@@ -40,16 +40,21 @@ void regulateSpeedBackward(PSmoothMotor motor, uint16_t speed);
 
 void regulateDirSpeed(PSmoothMotor motor, int16_t speed);
 
-#ifdef _KERNEL_
-	#define DEFINE_SMOOTH_MOTOR(motorName)				\
-		SmoothMotor motorName##_;						\
-		const PSmoothMotor motorName = &motorName##_;
-	#define INIT_SMOOTH_MOTOR(motorName, realMotor, adjustmentStep)	\
-		motorName##_ = (SmoothMotor) { realMotor, 0, FORWARD, 0, FORWARD, FALSE, adjustmentStep, 0 };		\
-		initSmoothMotor(motorName);
-#else
-	#define DEFINE_SMOOTH_MOTOR(motorName)	\
-		extern PSmoothMotor motorName;
-#endif
+// Some external module must invoke this function on a regular basis. Whether or not this ticking
+// is active, is steered through two function that must be implemented by the same external
+// module (see motor_smooth.c)
+void motor_smooth_tick(PSmoothMotor motor);
+
+void initSmoothMotor(PSmoothMotor motor);
+
+#define DEFINE_SMOOTH_MOTOR(motorName) extern const PSmoothMotor motorName;
+
+#define INIT_SMOOTH_MOTOR(motorName, realMotor, adjustmentStep)	\
+	motorName##_ = (SmoothMotor) { realMotor, 0, FORWARD, 0, FORWARD, FALSE, adjustmentStep, 0 };		\
+	initSmoothMotor(motorName);
+
+#define DEFINE_SMOOTH_MOTOR_IMPL(motorName)				\
+	SmoothMotor motorName##_;						\
+	const PSmoothMotor motorName = &motorName##_;
 
 #endif /* MOTOR_SMOOTH_H_ */

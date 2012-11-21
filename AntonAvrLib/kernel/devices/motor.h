@@ -89,37 +89,32 @@ void setSpeedBackward(PMotor motor, uint16_t speed);
 int16_t getDirSpeed(PMotor motor);
 void setDirSpeed(PMotor motor, int16_t speed);
 
-#ifdef _KERNEL_
+void initMotor_1Dir1Speed(PMotor1Dir1Speed motor);
+void initMotor_2Dir(PMotor2Dir motor);
+void initMotor_2Speed(PMotor2Speed motor);
 
-#	define DEFINE_MOTOR_1Dir1Speed(motorName)				\
-		Motor1Dir1Speed motorName##_;						\
-		const PMotor motorName = &motorName##_;
-#	define INIT_MOTOR_1Dir1Speed(motorName, flags, directionPin, pwmTimer)		\
+#define DEFINE_MOTOR_1Dir1Speed(motorName) extern const PMotor motorName;
+#define DEFINE_MOTOR_2Dir(motorName) extern const PMotor motorName;
+#define DEFINE_MOTOR_2Speed(motorName) extern const PMotor motorName;
+
+#define INIT_MOTOR_1Dir1Speed(motorName, flags, directionPin, pwmTimer)		\
 		motorName##_ = (Motor1Dir1Speed) { { flags, motor1Dir1Speed_setDirSpeed, motor1Dir1Speed_getDirSpeed, 0, 0xFFFF}, directionPin, pwmTimer };	\
 		initMotor_1Dir1Speed(motorName);
-		
-#	define DEFINE_MOTOR_2Dir(motorName)		\
-		Motor2Dir motorName##_;				\
-		const PMotor motorName = (PMotor) &motorName##_;
-#	define INIT_MOTOR_2Dir(motorName, flags, directionPin, pwmTimer, directionPin2)									\
+#define INIT_MOTOR_2Dir(motorName, flags, directionPin, pwmTimer, directionPin2)									\
 		motorName##_ = (Motor2Dir) { { flags, motor2Dir_setDirSpeed, motor2Dir_getDirSpeed, 0, 0xFFFF}, directionPin1, directionPin2, pwmTimer };	\
 		initMotor_2Dir(&motorName##_);
-		
-#	define DEFINE_MOTOR_2Speed(motorName)		\
-		Motor2Speed motorName##_;				\
-		const PMotor motorName = (PMotor) &motorName##_;
-#	define INIT_MOTOR_2Speed(motorName, flags, pwmTimer1, pwmTimer2)								\
+#define INIT_MOTOR_2Speed(motorName, flags, pwmTimer1, pwmTimer2)								\
 		motorName##_ = (Motor2Speed) { { flags, motor2Speed_setDirSpeed, motor2Speed_getDirSpeed, 0, 0xFFFF}, pwmTimer1, pwmTimer2 };	\
 		initMotor_2Speed(&motorName##_);
 
-#else
-
-#	define DEFINE_MOTOR_1Dir1Speed(motorName)	\
-		extern const PMotor motorName;
-#	define DEFINE_MOTOR_2Dir(motorName)	\
-		extern const PMotor motorName;
-#	define DEFINE_MOTOR_2Speed(motorName)	\
-		extern const PMotor motorName;
-#endif
+#define DEFINE_MOTOR_1Dir1Speed_IMPL(motorName)		\
+	Motor1Dir1Speed motorName##_;			\
+	const PMotor motorName = &motorName##_;
+#define DEFINE_MOTOR_2Dir_IMPL(motorName)		\
+	Motor2Dir motorName##_;				\
+	const PMotor motorName = (PMotor) &motorName##_;
+#define DEFINE_MOTOR_2Speed_IMPL(motorName)		\
+	Motor2Speed motorName##_;			\
+	const PMotor motorName = (PMotor) &motorName##_;
 
 #endif /* MOTOR_H_ */

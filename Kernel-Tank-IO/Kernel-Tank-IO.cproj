@@ -79,37 +79,13 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="shared\base_after.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\base_before.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\kernel_base.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\scheduler.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\tank_IO_protocol.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\twi_bgx1.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="shared\twi_bgx1.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="tank_button.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_IO_server.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel.c">
+    <Compile Include="tank_IO_server.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_led.h">
@@ -117,18 +93,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shared\timer.kernel.h">
+    <None Include="tank_button.kernel.c">
       <SubType>compile</SubType>
     </None>
-    <None Include="tank_button.kernel.h">
+    <None Include="tank_led.kernel.c">
       <SubType>compile</SubType>
     </None>
-    <None Include="tank_led.kernel.h">
-      <SubType>compile</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="shared\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
 </Project>

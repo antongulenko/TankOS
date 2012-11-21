@@ -96,34 +96,27 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Main.c">
+    <Compile Include="LedOperations.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\LedOperations.c">
+    <Compile Include="LedOperations.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\LedOperations.h">
+    <Compile Include="Main.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\Main.c.h">
+    <Compile Include="Main_testIO.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\Main_testIO.c.h">
+    <Compile Include="Main_test_AllLeds.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tests\Main_test_AllLeds.c.h">
+    <Compile Include="Main_test_blink_AllLeds.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tests\Main_test_blink_AllLeds.c.h">
+    <Compile Include="Main_test_blink_reset_condition.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tests\Main_test_blink_reset_condition.c.h">
-      <SubType>compile</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="main" />
-    <Folder Include="tests\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
 </Project>

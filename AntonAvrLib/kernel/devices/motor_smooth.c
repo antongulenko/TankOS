@@ -7,9 +7,8 @@
 
 #include "motor_smooth.h"
 
-// This function must be implemented by the kernel.
-// motor_smooth_tick must be called regularly, with an externally defined
-// frequency.
+// This function must be implemented by another module.
+// motor_smooth_tick must be called regularly, with an externally defined frequency.
 void motor_smooth_start_tick(PSmoothMotor motor);
 void motor_smooth_stop_tick(PSmoothMotor motor);
 
@@ -104,4 +103,8 @@ void motor_smooth_tick(PSmoothMotor motor) {
 		}
 	}
 	mutex_release(motor->mutex);
+}
+
+void initSmoothMotor(PSmoothMotor motor) {
+	motor->mutex = mutex_create();
 }

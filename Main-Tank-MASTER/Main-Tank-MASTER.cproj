@@ -104,30 +104,24 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Main.c">
+    <Compile Include="test_motors.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\master_motors_changing.c.h">
+    <Compile Include="test_motors_buttons.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\master_motors_simple.c.h">
+    <Compile Include="test_motors_simple.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\master_programmable_drive_around.c.h">
+    <Compile Include="programmable_drive_around.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\master_test_analog.c.h">
+    <Compile Include="test_analog.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\master_test_io_communication.c.h">
+    <Compile Include="test_io_communication.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="main\master_motors_changing_with_buttons.c.h">
-      <SubType>compile</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="main" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\AvrGCC.targets" />
 </Project>

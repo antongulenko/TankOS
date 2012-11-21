@@ -1,12 +1,11 @@
 /*
- * std.h
+ * anton_std.h
  *
  * -- Some default includes and defines
  * 
  * Created: 08.02.2012 23:34:38
  *  Author: Anton
  */ 
-
 
 #ifndef ANTON_STD_H_
 #define ANTON_STD_H_
@@ -40,7 +39,7 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define LOBYTE(x)        (uint8_t)((uint16_t)x)
 #define HIBYTE(x)        (uint8_t)(((uint16_t)x)>>8)
-#define MAKE_WORD(hi,lo) ((hi*0x100)+lo)
+#define MAKE_WORD(hi,lo) (((hi) * 0x100) + lo)
 #define AS_WORD(b) MAKE_WORD(b, 0)
 
 #define enable_interrupts() sei()

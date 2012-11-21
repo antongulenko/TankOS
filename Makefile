@@ -70,3 +70,17 @@ ifneq ($(MAKECMDGOALS), platforms)
 include $(ProjectMakefiles)
 endif
 endif
+
+# Each project has two project-specific makefiles: Project.mk and (optionally) Objects.mk
+
+# Project.mk:
+# Defines name of the project, type of the project (library or executable), dependencies and symbols for the preprocessor.
+# See an existing example
+
+# Objects.mk:
+# Projects can define objects (possibly from other projects), that should be included when linking or archiving.
+# Following reasons:
+#  - Kernel-projects should define the kernel-objects they require from other libraries. By default, objects named *.kernel.o are excluded.
+#  - Main-projects can define additional objects to be linked, that should override symbols defined in libraries
+# Take care to APPEND to the 'objects'-variable, as it already contains other objects!
+

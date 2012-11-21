@@ -31,6 +31,9 @@ target := $(BUILDDIR)/$(output)
 LIB_DIRS := $(foreach d, $(dependencies), -L$d/$(BUILD_DIRNAME))
 LIB_ARCHIVES := $(foreach d, $(dependencies), -l$d)
 
+# Prepend preprocessor symbol-definitions with -D
+DEFINE_FLAGS := $(foreach s, $(symbols), -D$s)
+
 # Prepend include-directories with the -I switch
 INCLUDE_FLAGS := $(foreach d, $(includes), -I$d)
 
@@ -43,18 +46,27 @@ CFLAGS := $(CFLAGS_RELEASE)
 else
 CFLAGS := $(CFLAGS_DEBUG)
 endif
-
-ifeq ($(origin LIBRARY), undefined)
-$(project): link_$(project)
-else
-$(project): lib_$(project)
-endif
+CFLAGS += $(DEFINE_FLAGS)
+DEPENDENCY_FLAGS += $(DEFINE_FLAGS)
 
 liboutput := lib$(output).$(LIB_SUFFIX)
 libtarget := $(BUILDDIR)/$(liboutput)
 
-prefixed_objects := $(addprefix $(BUILDDIR)/, $(objects))
-prefixed_sources := $(addprefix $(BUILDDIR)/, $(sources))
+objects := $(addprefix $(BUILDDIR)/, $(objects))
+sources := $(addprefix $(BUILDDIR)/, $(sources))
+unused_objects := $(addprefix $(BUILDDIR)/, $(unused_objects))
+
+# Unused objects (objects which are not archived or linked) are still treated as prerequesites of the project target,
+# so that all sources in a project are compiled when the project is made.
+ifeq ($(origin LIBRARY), undefined)
+$(project): link_$(project) $(unused_objects)
+else
+$(project): lib_$(project) $(unused_objects)
+endif
+
+# Include additional objects required by this project. These objects can be located in other project-folders!
+# The Objects.mk script should append file-name to the 'objects' variable. This is optional.
+-include $(BASEDIR)/Objects.mk
 
 fulltarget := $(target).$(TARGET_SUFFIX)
 
@@ -80,7 +92,7 @@ $(BUILDDIR)/%.d: .fake_targets/$(fulltarget) $(BASEDIR)/%.c
 ifneq ($(MAKECMDGOALS), clean_$(project))
 ifneq ($(MAKECMDGOALS), clean)
 # Include the generated dependency-Makefiles for every source-file (only if not 'clean' is invoked)
--include $(prefixed_sources:.c=.d)
+-include $(sources:.c=.d)
 endif
 endif
 
@@ -108,10 +120,10 @@ MAKE_BUILDDIR := mkdir -p $(BUILDDIR)
 .fake_targets/$(fulltarget)_commands := \
 	$(MAKE_BUILDDIR); \
 	echo Linking $(output).$(TARGET_SUFFIX); \
-	$(CC) $(LIB_DIRS) $(LDFLAGS_START) $(prefixed_objects) $(LIB_ARCHIVES) $(LDFLAGS_END) -o $(fulltarget); \
+	$(CC) $(LIB_DIRS) $(LDFLAGS_START) $(objects) $(LIB_ARCHIVES) $(LDFLAGS_END) -o $(fulltarget); \
 	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $(fulltarget)
 
-$(fulltarget): .fake_targets/$(fulltarget) $(prefixed_objects) $(dependencies)
+$(fulltarget): .fake_targets/$(fulltarget) $(objects) $(dependencies)
 	$($<_commands)
 
 $(target).map: $(fulltarget)
@@ -122,9 +134,9 @@ size_$(project): $(fulltarget)
 .fake_targets/$(libtarget)_commands := \
 	$(MAKE_BUILDDIR); \
 	echo Creating $(liboutput); \
-	$(AR) $(ARFLAGS) -o $(libtarget) $(prefixed_objects)
+	$(AR) $(ARFLAGS) -o $(libtarget) $(objects)
 
-$(libtarget): .fake_targets/$(libtarget) $(prefixed_objects) $(dependencies)
+$(libtarget): .fake_targets/$(libtarget) $(objects) $(dependencies)
 	$($<_commands)
 
 # Shortcuts for execution from console

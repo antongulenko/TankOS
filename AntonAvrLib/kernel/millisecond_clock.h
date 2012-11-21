@@ -8,17 +8,18 @@
 #ifndef MILLISECOND_CLOCK_H_
 #define MILLISECOND_CLOCK_H_
 
+// This module will only work correctly, if either simple_timer.kernel
+// or processes/scheduler.kernel is linked.
+
 #include "../anton_std.h"
 
-#ifdef _KERNEL_
-	// This just defines the variable; it has to be incremented from some timer module in the kernel.
-	uint32_t volatile milliseconds_running = 0;
-#else
-	// This is a global variable (and not a function) for simplicity, but should not be written!
-	extern volatile uint32_t milliseconds_running;
-#endif
+// This is a global variable (and not a function) for simplicity, but should not be written!
+extern volatile uint32_t milliseconds_running;
 
 // Retrieve the 4-byte value atomically. No danger, that the value is modified while part of it has already been loaded.
 uint32_t get_milliseconds_running();
+
+// This should only be invoked from kernel-modules, once each millisecond.
+void millisecond_clock_tick();
 
 #endif /* MILLISECOND_CLOCK_H_ */

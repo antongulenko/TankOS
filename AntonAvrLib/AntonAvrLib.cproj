@@ -18,6 +18,10 @@
     <ToolchainName>com.Atmel.AVRGCC8</ToolchainName>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <AsfVersion>3.0.1</AsfVersion>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <OverrideVtorValue />
+    <eraseonlaunchrule>0</eraseonlaunchrule>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <OutputFileName>libAntonAvrLib</OutputFileName>
@@ -90,25 +94,25 @@
     <Compile Include="kernel\devices\analog.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\analog.kernel.h">
+    <Compile Include="kernel\devices\analog.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\analog_m1284P.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\analog_m1284P.kernel.h">
+    <Compile Include="kernel\devices\analog_m1284P.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\motor_smooth.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\motor_smooth.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel\devices\motor_smooth.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\motor_smooth_pair.kernel.h">
+    <Compile Include="kernel\devices\motor_smooth_pair.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\motor_smooth_pair.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\millisecond_clock.c">
@@ -118,9 +122,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\button.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\button.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\button.c">
@@ -147,13 +148,7 @@
     <Compile Include="kernel\devices\port.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\led.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel\devices\motor.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\motor.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\port_m1284P.h">
@@ -171,22 +166,25 @@
     <Compile Include="kernel\processes\DMS\dms_api.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\processes\DMS\dms_internal.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\processes\DMS\dms_scheduler.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\DMS\dms_scheduler.kernel.h">
+    <Compile Include="kernel\processes\idle\idle_internal.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\mutex\atomic_mutex.kernel.h">
+    <Compile Include="kernel\processes\mutex\atomic_mutex.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\mutex\mock_mutex.kernel.h">
+    <Compile Include="kernel\processes\mutex\mock_mutex.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\processes\mutex\mutex.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\mutex\mutex.kernel.h">
+    <Compile Include="kernel\processes\mutex\mutex.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\processes\process.h">
@@ -196,6 +194,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\processes\process_internal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\RoundRobin\rr_internal.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\processes\RoundRobin\rr_scheduler.c">
@@ -219,34 +220,34 @@
     <Compile Include="kernel\reset_condition.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\simple_timer.kernel.h">
+    <Compile Include="kernel\simple_timer.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\sleep_after_main.kernel.h">
+    <Compile Include="kernel\sleep_after_main.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\timer_base.kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\TWI\commandQueueExecuter_loop.kernel.h">
+    <Compile Include="kernel\TWI\commandQueueExecuter_loop.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\commandQueueExecuter.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\commandQueueExecuter_sleep.kernel.h">
+    <Compile Include="kernel\TWI\commandQueueExecuter_sleep.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\twi_raw.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_raw.kernel.h">
+    <Compile Include="kernel\TWI\twi_raw.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_raw_slave.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\twi_rpc.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc.kernel.h">
+    <Compile Include="kernel\TWI\twi_rpc.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\twi_rpc_client.h">
@@ -255,13 +256,16 @@
     <Compile Include="kernel\TWI\twi_rpc_commandQueue_protocol.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc_hash_server.kernel.h">
+    <Compile Include="kernel\TWI\twi_rpc_hash_server.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_rpc_hash_server.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\twi_rpc_hash_server_commandQueue.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc_hash_server_commandQueue.kernel.h">
+    <Compile Include="kernel\TWI\twi_rpc_hash_server_commandQueue.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="misc\hardware_reset.c">
@@ -296,22 +300,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="kernel\devices\port_m1284P.kernel.h">
+    <None Include="kernel\devices\port_m1284P.kernel.c">
       <SubType>compile</SubType>
     </None>
-    <None Include="kernel\devices\timer_m1284P.kernel.h">
+    <None Include="kernel\devices\timer_m1284P.kernel.c">
       <SubType>compile</SubType>
     </None>
     <None Include="kernel\kernel_init.h">
       <SubType>compile</SubType>
     </None>
-    <None Include="kernel\processes\idle\idle_scheduler.kernel.h">
+    <None Include="kernel\processes\idle\idle_scheduler.c">
       <SubType>compile</SubType>
     </None>
-    <None Include="kernel\processes\RoundRobin\rr_scheduler.kernel.h">
-      <SubType>compile</SubType>
-    </None>
-    <None Include="kernel\reset_condition.kernel.h">
+    <None Include="kernel\reset_condition.kernel.c">
       <SubType>compile</SubType>
     </None>
     <None Include="kernel\processes\process.kernel.h">

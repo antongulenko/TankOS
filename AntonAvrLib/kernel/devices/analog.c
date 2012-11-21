@@ -8,7 +8,7 @@
 #include "analog.h"
 #include <util/atomic.h>
 
-// Used in analog.kernel.h
+// Used in analog.kernel.c
 void (*analogCallbackFunction) (uint8_t result);
 
 inline static BOOL conversionRunning() {

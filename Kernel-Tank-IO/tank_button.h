@@ -9,7 +9,7 @@
 #define TANK_BUTTON_H_
 
 #include <kernel/devices/button.h>
-#include "shared/tank_IO_protocol.h"
+#include <tank_IO_protocol.h>
 
 DEFINE_BUTTON(Button1)
 DEFINE_BUTTON(Button2)

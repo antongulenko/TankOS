@@ -42,23 +42,22 @@ void flashAllLeds(PLedGroup leds, uint16_t millis);
 // flashed with the display group. Will be shifted to flash remaining bits.
 void blinkByte(PLedGroup display, PLedGroup notifier, byte data);
 
-#ifdef _KERNEL_
-#	define DEFINE_LED(ledName)	\
-		Led ledName##_;			\
-		const PLed ledName = &ledName##_;
-#	define DEFINE_LED_GROUP(groupName)	\
-		LedGroup groupName##_;			\
-		const PLedGroup groupName = &groupName##_;
-#	define INIT_LED(ledName, pinName)	\
-		ledName##_ = (Led) { pinName };	\
-		initLed(ledName);
-#	define INIT_LED_GROUP(groupName, groupArrayPointer, count)	\
-		groupName##_ = (LedGroup) { groupArrayPointer, count };
-#else
-#	define DEFINE_LED(ledName)	\
-		extern const PLed ledName;
-#	define DEFINE_LED_GROUP(groupName)	\
-		extern const PLedGroup groupName;
-#endif
+void initLed(PLed led);
+
+#define DEFINE_LED(ledName)	extern const PLed ledName;
+#define DEFINE_LED_GROUP(groupName)	extern const PLedGroup groupName;
+
+#define INIT_LED(ledName, pinName)	\
+	ledName##_ = (Led) { pinName };	\
+	initLed(ledName);
+#define INIT_LED_GROUP(groupName, groupArrayPointer, count) \
+	groupName##_ = (LedGroup) { groupArrayPointer, count };
+
+#define DEFINE_LED_IMPL(ledName)	\
+	Led ledName##_;					\
+	const PLed ledName = &ledName##_;
+#define DEFINE_LED_GROUP_IMPL(groupName)	\
+	LedGroup groupName##_;					\
+	const PLedGroup groupName = &groupName##_;
 
 #endif /* LED_H_ */

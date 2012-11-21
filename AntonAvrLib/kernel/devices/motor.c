@@ -204,3 +204,34 @@ void motor2Speed_getDirSpeed(PMotor _motor, uint16_t *speed, MotorDirection *dir
 	*speed = 0;
 	// TODO uncovered: both motors set to != 0.
 }
+
+static void initMotorTimer(PTimer timer) {
+	// Configure the timer. These are configurations,
+	// that should work fine for most motors, but might also
+	// be changed elsewhere.
+	setTimerClockSelect(timer->timer, prescale_1);
+	timer->timer->flags |= TIMER_RESOLUTION_full;
+	setWaveformGenerationMode(timer->timer, pwm_phase_correct);
+	setPinOutput(timer->outputComparePin);
+}
+
+void initMotor_1Dir1Speed(PMotor1Dir1Speed motor) {
+	setPinOutput(motor->direction);
+	initMotorTimer(motor->pwmTimer);
+	stopMotor((PMotor) motor);
+}
+
+void initMotor_2Dir(PMotor2Dir motor) {
+	setPinOutput(motor->direction1);
+	setPinOutput(motor->direction2);
+	setPinZero(motor->direction1);
+	setPinZero(motor->direction2);
+	initMotorTimer(motor->pwmTimer);
+	stopMotor((PMotor) motor);
+}
+
+void initMotor_2Speed(PMotor2Speed motor) {
+	initMotorTimer(motor->pwmTimer1);
+	initMotorTimer(motor->pwmTimer2);
+	stopMotor((PMotor) motor);
+}
