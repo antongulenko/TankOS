@@ -8,6 +8,8 @@
 # PROJ: String identifying a project. Shortcut-commands will be generated to access commands for that project (like link, hex, lss, flash, etc.)
 #			'make clean' will still clean all available projects.
 #			Call 'make projects' for a list of available projects
+# MAIN: Filename (without the .main.c ending) of a main-file in an executable project. This main-file will be the one linked into the executable.
+#			The Object.mk files in executable projects have defauls for this.
 # LSS: (flag) Causes the creation of .lss and .eep files when linking for platform AVR. Excluded by default.
 # DEBUG: (flag) Instructs platform-dependent Makefiles to create debug-symbols in archives and objects. Also switches to a separate build-directory.
 # SPEED: (flag) Instructs platform-dependent Makefiles to optimize for Speed instead of Size (only for non-DEBUG-builds). Also switches to yet another build-directory. The DEBUG flag takes precedence over the SPEED flag.
