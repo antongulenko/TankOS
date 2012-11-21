@@ -65,7 +65,7 @@ $(project): lib_$(project) $(unused_objects)
 endif
 
 # Include additional objects required by this project. These objects can be located in other project-folders!
-# The Objects.mk script should append file-name to the 'objects' variable. This is optional.
+# The Objects.mk script should append file-names to the 'objects' variable. This is optional.
 -include $(BASEDIR)/Objects.mk
 
 fulltarget := $(target).$(TARGET_SUFFIX)
