@@ -25,6 +25,8 @@ Project("{D1100916-62DA-4D80-A9B4-55A1E7CCEEB3}") = "Main-Tank-IO", "Main-Tank-I
 		{5F8F58A2-1696-4940-BBC3-25C6D8341D59} = {5F8F58A2-1696-4940-BBC3-25C6D8341D59}
 	EndProjectSection
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Tank-Shared", "Tank-Shared\Tank-Shared.cproj", "{BE1571C3-569A-4D09-A8D6-5A33A1EAEC84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -51,6 +53,10 @@ Global
 		{E7DC3837-4E85-470F-AC72-4EEA380A4003}.Debug|AVR.Build.0 = Debug|AVR
 		{E7DC3837-4E85-470F-AC72-4EEA380A4003}.Release|AVR.ActiveCfg = Release|AVR
 		{E7DC3837-4E85-470F-AC72-4EEA380A4003}.Release|AVR.Build.0 = Release|AVR
+		{BE1571C3-569A-4D09-A8D6-5A33A1EAEC84}.Debug|AVR.ActiveCfg = Debug|AVR
+		{BE1571C3-569A-4D09-A8D6-5A33A1EAEC84}.Debug|AVR.Build.0 = Debug|AVR
+		{BE1571C3-569A-4D09-A8D6-5A33A1EAEC84}.Release|AVR.ActiveCfg = Release|AVR
+		{BE1571C3-569A-4D09-A8D6-5A33A1EAEC84}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
