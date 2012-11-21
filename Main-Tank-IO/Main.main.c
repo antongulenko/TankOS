@@ -1,4 +1,5 @@
 
+#define USE_TWI
 #include <kernel.h>
 
 // There are several configurations for this main:

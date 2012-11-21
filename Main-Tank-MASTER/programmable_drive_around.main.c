@@ -1,4 +1,5 @@
 
+#define USE_TWI
 #include <kernel.h>
 
 #define FORWARD_TIME 3000
