@@ -1,3 +1,3 @@
 
 MAIN ?= Main
-objects += $(BUILDDIR)/$(MAIN).main.o
+-include DefaultMainObjects.mk

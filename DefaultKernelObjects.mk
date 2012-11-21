@@ -9,6 +9,7 @@ objects += \
 	$(SHARED)/timer.kernel.o \
 	$(KERNEL)/processes/mutex/atomic_mutex.kernel.o \
 	$(KERNEL)/sleep_after_main.kernel.o \
+	$(KERNEL)/devices/analog.kernel.o \
 	$(KERNEL)/devices/analog_m1284P.kernel.o
 
 ifeq ($(origin USE_SCHEDULER), undefined)
@@ -20,5 +21,5 @@ else
 		$(KERNEL)/processes/DMS/dms_scheduler.kernel.o \
 		$(KERNEL)/processes/RoundRobin/rr_scheduler.kernel.o \
 		$(KERNEL)/processes/idle/idle_scheduler.kernel.o \
-		$(BUILDDIR)/scheduler.kernel.o
+		$(SHARED)/scheduler.kernel.o
 endif
