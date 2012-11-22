@@ -7,7 +7,7 @@ volatile long long mainCounter = 0;
 volatile long long newCounter = 0;
 
 Process mainProcess;
-Process newProcess;
+Thread newProcess;
 
 void newProcessEntry() {
 	while (1) {

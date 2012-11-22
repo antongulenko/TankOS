@@ -20,7 +20,7 @@
 unsigned long counters[NUM_PROCESSES];
 Process processes[NUM_PROCESSES];
 
-void processEntry(unsigned long *testMyCounter) {
+void processEntry(volatile unsigned long *testMyCounter) {
 	while (1) {
 		*testMyCounter++;
 		switchProcess(processes[
