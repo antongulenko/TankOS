@@ -35,6 +35,10 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Tank-Shared", "Tank-Shared\
 	EndProjectSection
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Main-Simulator", "Main-Simulator\Main-Simulator.cproj", "{196C2024-B313-418A-A061-76AA1A2C0F9E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C9075471-D535-4009-B72F-2841FDEB487C} = {C9075471-D535-4009-B72F-2841FDEB487C}
+		{BE1571C3-569A-4D09-A8D6-5A33A1EAEC84} = {BE1571C3-569A-4D09-A8D6-5A33A1EAEC84}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,7 +65,6 @@ Global
 		{BE1571C3-569A-4D09-A8D6-5A33A1EAEC84}.Release|AVR.ActiveCfg = Release|AVR
 		{BE1571C3-569A-4D09-A8D6-5A33A1EAEC84}.Release|AVR.Build.0 = Release|AVR
 		{196C2024-B313-418A-A061-76AA1A2C0F9E}.Debug|AVR.ActiveCfg = Debug|AVR
-		{196C2024-B313-418A-A061-76AA1A2C0F9E}.Debug|AVR.Build.0 = Debug|AVR
 		{196C2024-B313-418A-A061-76AA1A2C0F9E}.Release|AVR.ActiveCfg = Release|AVR
 		{196C2024-B313-418A-A061-76AA1A2C0F9E}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
