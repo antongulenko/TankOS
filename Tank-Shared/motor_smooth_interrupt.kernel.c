@@ -11,6 +11,6 @@ void motor_smooth_pair_enable_tick(BOOL enabled) {
 }
 
 // Use second timer provided by timer.kernel.c
-void timer_tick_B() {
+ISR(SOFTWARE_TIMER_INTERRUPT_B) {
 	motor_smooth_pair_tick();
 }

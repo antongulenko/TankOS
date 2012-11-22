@@ -3,8 +3,8 @@
 
 // The timers provided here are set up by timer.kernel.c and should not be written.
 // They are general purpose timers for software.
-// The functions timer_tick_A() and timer_tick_B() can be implemented to bind
-// functions to the timers.
+// The interrupt-ISRs (and what timers are used for this) are defined over preprocessor
+// symbols passed from command line.
 
 extern PTimerPair millisecond_timer;
 extern PTimer millisecond_timer_A;

@@ -13,8 +13,8 @@
 #include "../../misc/hardware_reset.h"
 #include "../millisecond_clock.h"
 
-// This function should be defined as weak somewhere else and called once every millisecond.
-void millisecond_timer_tick() {
+// It's important, that this is naked! Don't let GCC push any registers.
+ISR(MILLISECOND_TIMER_INTERRUPT, __attribute__((naked))) {
 	// First push the current context, before any register may be modified.
 	PushProcessContext()
 	
