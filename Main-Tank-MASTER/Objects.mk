@@ -1,3 +1,3 @@
 
-MAIN ?= programmable_drive_around
--include DefaultMainObjects.mk
+MAIN_$(project) ?= test_motors
+include DefaultMainObjects.mk

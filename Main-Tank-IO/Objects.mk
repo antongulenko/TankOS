@@ -1,3 +1,3 @@
 
-MAIN ?= Main
--include DefaultMainObjects.mk
+MAIN_$(project) ?= Main
+include DefaultMainObjects.mk
