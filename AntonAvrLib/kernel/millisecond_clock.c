@@ -17,7 +17,7 @@ uint32_t get_milliseconds_running() {
 	return result;
 }
 
-// Can be implemented by the application. Mainly for testing purposes.
+// Can be implemented by the application. Mainly for testing/debugging.
 void in_clock_tick() __attribute__((weak));
 void in_clock_tick() {}
 
