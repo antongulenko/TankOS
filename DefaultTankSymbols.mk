@@ -2,6 +2,7 @@
 # USE_TWI :=
 
 # USE_SCHEDULER :=
+USE_PROCESS_EXT :=
 
 # USE_SMOOTH_MOTOR_INTERRUPT :=
 
@@ -26,4 +27,7 @@ ifneq ($(origin TWI_COMMAND_QUEUE), undefined)
 endif
 ifneq ($(origin TWI_COMMAND_QUEUE_SLEEP), undefined)
 	symbols += TWI_COMMAND_QUEUE_SLEEP
+endif
+ifneq ($(origin USE_PROCESS_EXT), undefined)
+	symbols += USE_PROCESS_EXT
 endif

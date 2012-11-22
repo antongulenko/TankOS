@@ -3,7 +3,8 @@
 // The millisecond-timer tick is bound to the scheduler-ISR.
 
 #include <kernel/processes/scheduler.h>
-#include <kernel/processes/process_ext.h>
+#include <kernel/processes/process_internal.h>
+#include <kernel/processes/process.h>
 #include <kernel/processes/DMS/dms_internal.h>
 #include <kernel/processes/RoundRobin/rr_internal.h>
 #include <kernel/processes/idle/idle_internal.h>

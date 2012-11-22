@@ -9,19 +9,10 @@
 #define PROCESS_INTERNAL_H_
 
 #include "../../anton_std.h"
+#include "process.h"
 
-#ifdef _KERNEL_
-// Default stack size for newly created processes, if not otherwise given. Also stack size for autom. created main-process.
-// This should only be modified by kernel-modules during initialization.
-uint16_t __default_stack_size = 512;
-
-// Additional memory reserved when automatically creating the main-process.
-// This should only be modified by kernel-modules during initialization.
-uint8_t __main_process_additional_memory = 0;
-#else
 extern uint16_t __default_stack_size;
 extern uint8_t __main_process_additional_memory;
-#endif
 
 // Process Control Block structure
 // This really just holds the context-data, no organization-data.
@@ -166,5 +157,9 @@ asm volatile(														\
 
 // Function for functionless processes. Infinitely sets the processor in idle-mode.
 void ProcessGraveyard();
+
+// Initialization function, should be called once from a kernel-module, right before
+// interrupts are enabled.
+void init_process();
 
 #endif /* PROCESS_INTERNAL_H_ */

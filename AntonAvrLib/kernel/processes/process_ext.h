@@ -13,7 +13,7 @@
 // The functions in this header only work for processes created with 
 // createProcess() etc. implemented in process_ext.kernel
 
-#include "process.h"
+#include "process_base.h"
 
 // Return the number of bytes available on the stack for process.
 uint8_t getProcessStackSize(Process process);

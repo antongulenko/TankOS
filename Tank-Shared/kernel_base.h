@@ -17,9 +17,9 @@
 
 #ifdef USE_SCHEDULER
 	#include <kernel/processes/scheduler.h>
-	#include <kernel/processes/process_ext.h>
+	#include <kernel/processes/process.h>
 	#include <kernel/processes/DMS/dms_api.h>
 	#include <kernel/processes/RoundRobin/rr_api.h>
 #endif
 
-#endif /* TANK_BASE_H_ */
+#endif
