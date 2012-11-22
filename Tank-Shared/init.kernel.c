@@ -42,5 +42,9 @@ void init_kernel() {
 	
 	sei();
 	kernel_initialized();
+	
+	// This seems necessary, the kernel_initialized function above
+	// resets the global interrupt flag in the simulator for whatever reason.
+	sei();
 }
 KERNEL_INIT(init_kernel)

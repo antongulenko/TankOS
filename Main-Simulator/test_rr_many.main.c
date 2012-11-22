@@ -1,7 +1,7 @@
 
 #include <kernel_base.h>
 
-#define NUM_PROCESSES 20
+#define NUM_PROCESSES 2
 
 volatile unsigned long counters[NUM_PROCESSES];
 Thread threads[NUM_PROCESSES];

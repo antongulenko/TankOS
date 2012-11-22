@@ -5,8 +5,6 @@
  *  Author: Anton
  */
 
-// This module defines
-
 #include "../../anton_std.h"
 #include "scheduler.h"
 #include "scheduler_internal.h"
