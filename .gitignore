@@ -6,3 +6,4 @@ GNUmakefile
 AVR.atsuo
 /configureme
 make.exe.stackdump
+/mk
