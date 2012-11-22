@@ -21,7 +21,9 @@ CFLAGS_RELEASE := $(CFLAGS_RELEASE) -Os
 else
 CFLAGS_RELEASE := $(CFLAGS_RELEASE) -O3
 endif
-CFLAGS_DEBUG := $(BASE_FLAGS) -O1 -g3 -c
+CFLAGS_DEBUG := $(BASE_FLAGS) -g3 -c -Wno-cpp
+# The -Wno-cpp is to suppress warnings from <util/delay.h>, that optimizations are disabled and delay() won't work correctly.
+# Alternative (which destroys some debug-information): CFLAGS_DEBUG += -O1
 
 LIB_SUFFIX := a
 TARGET_SUFFIX := elf
