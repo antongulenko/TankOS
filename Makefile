@@ -15,6 +15,9 @@
 # SPEED: (flag) Instructs platform-dependent Makefiles to optimize for Speed instead of Size (only for non-DEBUG-builds). Also switches to yet another build-directory. The DEBUG flag takes precedence over the SPEED flag.
 # STUDIO: (flag) If set, the output-artifacts will always be copied to the Atmel Studio output location, to be used in the Atmel Studio simulator. (-> The target 'studio' will be called implicitely).
 
+# Possibility to define global parameters here
+-include make_parameters
+
 ifeq ($(origin VERBOSE), undefined)
 .SILENT:
 endif
