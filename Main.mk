@@ -75,9 +75,13 @@ studiotarget := $(BASEDIR)/$(ATMEL_STUDIO_FOLDER)/$(liboutput)
 endif
 
 $(studiotarget): .fake_targets/$(fulltarget) $(projecttarget)
-	@echo Copying $@;
+	@echo Copying $@
 	mkdir -p $(@D)
 	$($<_studio)
+
+ifneq ($(origin STUDIO), undefined)
+$(project): $(studiotarget)
+endif
 
 # Include additional objects required by this project. These objects can be located in other project-folders!
 # The Objects.mk script should append file-names to the 'objects' variable. This is optional.

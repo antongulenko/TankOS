@@ -13,6 +13,7 @@
 # LSS: (flag) Causes the creation of .lss and .eep files when linking for platform AVR. Excluded by default.
 # DEBUG: (flag) Instructs platform-dependent Makefiles to create debug-symbols in archives and objects. Also switches to a separate build-directory.
 # SPEED: (flag) Instructs platform-dependent Makefiles to optimize for Speed instead of Size (only for non-DEBUG-builds). Also switches to yet another build-directory. The DEBUG flag takes precedence over the SPEED flag.
+# STUDIO: (flag) If set, the output-artifacts will always be copied to the Atmel Studio output location, to be used in the Atmel Studio simulator. (-> The target 'studio' will be called implicitely).
 
 ifeq ($(origin VERBOSE), undefined)
 .SILENT:
