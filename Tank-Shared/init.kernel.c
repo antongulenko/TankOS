@@ -33,10 +33,10 @@ void init_kernel() {
 	// AFTER other modules modified __default_stack_size and __main_process_additional_memory
 	before_timer(); // AFTER all other initialization and BEFORE starting the timers/scheduler
 	
-	#ifdef TIMER_INTERRUPT_A
+	#ifdef ENABLE_SOFTWARE_TIMER_A
 	enableTimerInterrupt(millisecond_timer_A);
 	#endif
-	#ifdef TIMER_INTERRUPT_B
+	#ifdef ENABLE_SOFTWARE_TIMER_B
 	enableTimerInterrupt(millisecond_timer_B);
 	#endif
 	
