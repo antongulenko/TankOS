@@ -83,7 +83,7 @@ uint16_t getProcessNumber(Process process) {
 	return ProcMem(process)->processNumber;
 }
 
-inline void *getProcessMemory(Process proc) {
+void *getProcessMemory(Process proc) {
 	return ProcMem(proc) + ADDITIONAL_MEMORY;
 }
 

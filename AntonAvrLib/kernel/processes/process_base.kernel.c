@@ -113,6 +113,6 @@ void switchProcess(Process newProcess) {
 	switchContext((PPCB) oldCurrentProcess, (PPCB) newProcess);
 }
 
-inline void *getProcessMemory(Process proc) {
+void *getProcessMemory(Process proc) {
 	return proc + sizeof(PCB);
 }
