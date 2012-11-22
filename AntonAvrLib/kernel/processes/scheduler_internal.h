@@ -8,7 +8,7 @@
 #ifndef SCHEDULER_INTERNAL_H_
 #define SCHEDULER_INTERNAL_H_
 
-#include "process.h"
+#include "process_base.h"
 
 // The scheduler or kernel should implement this function. It is not implemented in scheduler.kernel.
 // The parameter will be TRUE if the timer-ISR called the scheduler, and FALSE, if 

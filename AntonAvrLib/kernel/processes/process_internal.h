@@ -9,7 +9,7 @@
 #define PROCESS_INTERNAL_H_
 
 #include "../../anton_std.h"
-#include "process.h"
+#include "process_base.h"
 
 extern uint16_t __default_stack_size;
 extern uint8_t __main_process_additional_memory;

@@ -10,7 +10,7 @@
 #include "../../anton_std.h"
 #include "scheduler.h"
 #include "scheduler_internal.h"
-#include "process.h"
+#include "process_base.h"
 #include "process_internal.h"
 #include "../../misc/hardware_reset.h"
 #include "../millisecond_clock.h"
