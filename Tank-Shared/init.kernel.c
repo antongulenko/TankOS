@@ -7,6 +7,7 @@
 
 #include <kernel/kernel_init.h>
 #include <kernel/devices/timer_m1284P.h>
+#include "timer.h"
 
 // This function can be implemented in user code to have some initialization-code 
 // before the timer starts running.
@@ -30,7 +31,15 @@ void init_kernel() {
 	
 	// Final initialization-sequence.
 	// AFTER other modules modified __default_stack_size and __main_process_additional_memory
-	before_timer(); // AFTER all other initialization and BEFORE starting the scheduler
+	before_timer(); // AFTER all other initialization and BEFORE starting the timers/scheduler
+	
+	#ifdef TIMER_INTERRUPT_A
+	enableTimerInterrupt(millisecond_timer_A);
+	#endif
+	#ifdef TIMER_INTERRUPT_B
+	enableTimerInterrupt(millisecond_timer_B);
+	#endif
+	
 	sei();
 	kernel_initialized();
 }
