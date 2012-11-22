@@ -16,10 +16,17 @@ Process schedule(BOOL fromTimer) {
 	return p;
 }
 
+// This function can be implemented in user code to have some initialization-code
+// before processes start being scheduled. No concurrency here, yet.
+// All process-modules are already initialized, though.
+void before_scheduler() __attribute__((weak));
+void before_scheduler() {}
+
 // Will be executed right before starting timers and enabling interrupts.
 // The process-modules have to be initialized as laste as possible.
 void before_timer() {
 	init_process();
 	init_idle_scheduler();
 	rr_captureMainProcess(PrioNormal);
+	before_scheduler();
 }
