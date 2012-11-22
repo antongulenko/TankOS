@@ -17,6 +17,7 @@ Process schedule(BOOL fromTimer) {
 }
 
 // Will be executed right before starting timers and enabling interrupts.
+// The process-modules have to be initialized as laste as possible.
 void before_timer() {
 	init_process();
 	init_idle_scheduler();

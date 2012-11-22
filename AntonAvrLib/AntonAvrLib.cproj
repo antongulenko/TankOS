@@ -204,7 +204,7 @@
     <Compile Include="kernel\processes\mutex\mutex.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\process.h">
+    <Compile Include="kernel\processes\process_base.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\processes\process_ext.h">
@@ -335,13 +335,13 @@
     <None Include="kernel\reset_condition.kernel.c">
       <SubType>compile</SubType>
     </None>
-    <None Include="kernel\processes\process.kernel.h">
+    <None Include="kernel\processes\process_base.kernel.c">
       <SubType>compile</SubType>
     </None>
-    <None Include="kernel\processes\process_ext.kernel.h">
+    <None Include="kernel\processes\process_ext.kernel.c">
       <SubType>compile</SubType>
     </None>
-    <None Include="kernel\processes\scheduler.kernel.h">
+    <None Include="kernel\processes\scheduler.kernel.c">
       <SubType>compile</SubType>
     </None>
     <None Include="uthash\uthash userguide.pdf">
