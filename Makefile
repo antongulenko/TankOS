@@ -43,6 +43,7 @@ lib: lib_$(PROJ)
 map: map_$(PROJ)
 flash: flash_$(PROJ)
 flashv: flashv_$(PROJ)
+studio: studio_$(PROJ)
 endif
 
 all: $(AllProjects)

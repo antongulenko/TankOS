@@ -51,24 +51,37 @@ DEPENDENCY_FLAGS += $(DEFINE_FLAGS)
 
 liboutput := lib$(output).$(LIB_SUFFIX)
 libtarget := $(BUILDDIR)/$(liboutput)
+fulltarget := $(target).$(TARGET_SUFFIX)
 
 objects := $(addprefix $(BUILDDIR)/, $(objects))
 sources := $(addprefix $(BUILDDIR)/, $(sources))
 unused_objects := $(addprefix $(BUILDDIR)/, $(unused_objects))
 
+ATMEL_STUDIO_FOLDER ?= Debug
+
 # Unused objects (objects which are not archived or linked) are still treated as prerequesites of the project target,
 # so that all sources in a project are compiled when the project is made.
 ifeq ($(origin LIBRARY), undefined)
 $(project): link_$(project) $(unused_objects)
+projecttarget := $(BUILDDIR)/$(output).$(TARGET_SUFFIX)
+studiotarget := $(BASEDIR)/$(ATMEL_STUDIO_FOLDER)/$(output).$(TARGET_SUFFIX)
+.fake_targets/$(fulltarget)_studio := cp $(fulltarget) $(studiotarget)
 else
 $(project): lib_$(project) $(unused_objects)
+studio_$(project): $(project) $(foreach d, $(dependencies), studio_$d)
+projecttarget := $(BUILDDIR)/$(liboutput)
+studiotarget := $(BASEDIR)/$(ATMEL_STUDIO_FOLDER)/$(liboutput)
+.fake_targets/$(fulltarget)_studio := cp $(libtarget) $(studiotarget)
 endif
+
+$(studiotarget): .fake_targets/$(fulltarget) $(projecttarget)
+	@echo Copying $@;
+	mkdir -p $(@D)
+	$($<_studio)
 
 # Include additional objects required by this project. These objects can be located in other project-folders!
 # The Objects.mk script should append file-names to the 'objects' variable. This is optional.
 -include $(BASEDIR)/Objects.mk
-
-fulltarget := $(target).$(TARGET_SUFFIX)
 
 # These two fake_target-variables are used by the %.d and %.o targets. Reason: the variables stored here are project-dependent.
 # The pattern used here is a little different from the one for fake_targets described below: Here, not the whole recipe is
@@ -144,6 +157,7 @@ map_$(project): $(target).map
 link_$(project): $(fulltarget)
 $(TARGET_SUFFIX)_$(project): $(fulltarget)
 lib_$(project): $(libtarget)
+studio_$(project): $(studiotarget) $(foreach d, $(dependencies), studio_$d)
 
 ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(BASEDIR)/build-$p $(BASEDIR)/build-$p-debug $(BASEDIR)/build-$p-speed)
 
