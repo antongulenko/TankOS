@@ -9,6 +9,11 @@
 #include <kernel/processes/RoundRobin/rr_internal.h>
 #include <kernel/processes/idle/idle_internal.h>
 
+// This is declared as weak in init.kernel.c
+// This does not necessarily have to be implemented anywhere, but we implemente
+// before_timer here, so we have to call before_scheduler() too.
+void before_scheduler();
+
 Process schedule(BOOL fromTimer) {
 	Process p = dms_schedule(fromTimer);
 	if (!p) p = rr_schedule(fromTimer);
