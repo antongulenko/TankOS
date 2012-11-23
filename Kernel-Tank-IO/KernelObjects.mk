@@ -1,5 +1,5 @@
 
-include DefaultKernelObjects.mk
+include DefaultKernelObjects1.mk
 
 OWN := Kernel-Tank-IO/$(BUILD_DIRNAME)
 
@@ -23,4 +23,4 @@ ifneq ($(origin USE_TWI), undefined)
 	endif
 endif
 
-objects += $(SHARED)/init.kernel.o
+include DefaultKernelObjects2.mk

@@ -1,3 +1,3 @@
 
-include DefaultKernelObjects.mk
-objects += $(SHARED)/init.kernel.o
+include DefaultKernelObjects1.mk
+include DefaultKernelObjects2.mk
