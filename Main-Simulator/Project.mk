@@ -1,6 +1,6 @@
 
 undefine LIBRARY
-dependencies := AntonAvrLib Tank-Shared Kernel-Tank-IO
+dependencies := AntonAvrLib Tank-Shared Kernel-Simulator
 
 BASEDIR := $(get-basedir)
 include Defaults.mk
