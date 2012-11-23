@@ -40,8 +40,8 @@ Process createProcess2(ProcessEntryPoint entryPoint, void *processArgument);
 // The value is given in bytes.
 // additionalMemory bytes will be allocated per process-control-structure for application-usage.
 // The getProcessMemory() function returns a pointer to this additional memory block.
-// To define the additionalMemory for the first/initial main-process, define 
-// the FIRST_PROCESS_ADDITIONAL_MEMORY macro before including the process.kernel into the kernel.
+// To define the additionalMemory for the first/initial main-process, write a non-zero value
+// to __main_process_additional_memory (in process_internal.h) before this kernel module is initialized.
 Process createProcess3(ProcessEntryPoint entryPoint, void *processArgument, uint16_t stackSize, uint8_t additionalMemory);
 
 // Return the additional memory associated with proc. If no memory was reserved,

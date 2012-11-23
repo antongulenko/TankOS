@@ -23,7 +23,7 @@ void before_scheduler() __attribute__((weak));
 void before_scheduler() {}
 
 // Will be executed right before starting timers and enabling interrupts.
-// The process-modules have to be initialized as laste as possible.
+// The process-modules have to be initialized as late as possible.
 void before_timer() {
 	init_process();
 	rr_captureMainProcess(PrioNormal);

@@ -30,7 +30,7 @@ ISR(MILLISECOND_TIMER_INTERRUPT, __attribute__((naked))) {
 	if (__current_process == InvalidProcess) {
 		// This is an invalid condition. The schedule() function is required to return a valid process.
 		// Force a hardware-reset using the watchdog-timer.
-		// Use the idle-scheduler to have a default fallback-process.
+		// Use the idle-scheduler to have a default fallback-process so this does not happen.
 		HARDWARE_RESET();
 	}
 	
