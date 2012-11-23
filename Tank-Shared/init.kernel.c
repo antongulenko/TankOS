@@ -9,10 +9,20 @@
 #include <kernel/devices/timer_m1284P.h>
 #include "timer.h"
 
-// This function can be implemented in user code to have some initialization-code 
-// before the timer starts running.
+// This function can be implemented in user code to have some initialization-code
+// before the scheduler is started.
+void before_scheduler() __attribute__((weak));
+void before_scheduler() {
+}
+
+// This is a kernel-internal function to initialize the scheduler right before
+// the timers start running.
+// When this function is implemented, before_timer() should be called right before
+// returning.
 void before_timer() __attribute__((weak));
-void before_timer() {}
+void before_timer() {
+	before_scheduler();
+}
 
 // Can be defined by application, invoked after everything is set up, right before main()
 void kernel_initialized() __attribute__((weak));
