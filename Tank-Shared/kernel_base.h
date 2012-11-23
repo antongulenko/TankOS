@@ -15,11 +15,9 @@
 #include <kernel/devices/analog_m1284P.h>
 #include <anton_std.h>
 
-#ifdef USE_SCHEDULER
-	#include <kernel/processes/scheduler.h>
-	#include <kernel/processes/process.h>
-	#include <kernel/processes/DMS/dms_api.h>
-	#include <kernel/processes/RoundRobin/rr_api.h>
-#endif
+#include <kernel/processes/process.h>
+#include <kernel/processes/scheduler.h>
+#include <kernel/processes/DMS/dms_api.h>
+#include <kernel/processes/RoundRobin/rr_api.h>
 
 #endif

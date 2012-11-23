@@ -5,9 +5,7 @@
 #include "tank_button.h"
 #include "tank_led.h"
 
-#ifdef USE_TWI
 #include <twi_bgx1.h>
 #include <kernel/TWI/commandQueueExecuter.h>
-#endif
 
 #endif
