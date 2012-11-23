@@ -20,9 +20,9 @@
 unsigned long counters[NUM_PROCESSES];
 Process processes[NUM_PROCESSES];
 
-void processEntry(volatile unsigned long *testMyCounter) {
+void processEntry(unsigned long *testMyCounter) {
 	while (1) {
-		*testMyCounter++;
+		(*testMyCounter)++;
 		switchProcess(processes[
 			#ifdef USE_RANDOM
 				rand()
