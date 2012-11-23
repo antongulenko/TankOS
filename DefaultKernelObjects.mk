@@ -12,14 +12,18 @@ objects += \
 	$(KERNEL)/devices/analog.kernel.o \
 	$(KERNEL)/devices/analog_m1284P.kernel.o
 
-ifeq ($(origin USE_SCHEDULER), undefined)
-	objects += $(KERNEL)/simple_timer.kernel.o
+# process_base and process_ext can be used separately, without the scheduler.
+ifneq ($(origin USE_PROCESS_EXT), undefined)
+	objects += $(KERNEL)/processes/process_ext.kernel.o
 else
+ifneq ($(origin USE_PROCESS), undefined)
+	objects += $(KERNEL)/processes/process_base.kernel.o
+endif
+endif
+
+ifneq ($(origin USE_SCHEDULER), undefined)
 	objects += $(KERNEL)/processes/scheduler.kernel.o
-	ifeq ($(origin USE_PROCESS_EXT), undefined)
-		objects += $(KERNEL)/processes/process_base.kernel.o
-	else
-		objects += $(KERNEL)/processes/process_ext.kernel.o
-	endif
 	objects += $(SHARED)/scheduler.kernel.o
+else
+	objects += $(KERNEL)/simple_timer.kernel.o
 endif

@@ -25,7 +25,6 @@ void before_scheduler() {}
 // Will be executed right before starting timers and enabling interrupts.
 // The process-modules have to be initialized as late as possible.
 void before_timer() {
-	init_process();
 	rr_captureMainProcess(PrioNormal);
 	init_idle_scheduler();
 	before_scheduler();

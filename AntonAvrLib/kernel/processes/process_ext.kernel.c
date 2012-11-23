@@ -33,7 +33,9 @@ typedef struct {
 #define createProcess3 createProcessBase3
 #define getProcessMemory getProcessMemoryBase
 #define init_process init_process_base
+#define SKIP_PROCESS_INIT
 #include "process_base.kernel.c"
+#undef SKIP_PROCESS_INIT
 #undef createProcess
 #undef createProcess2
 #undef createProcess3
@@ -88,7 +90,7 @@ void *getProcessMemory(Process proc) {
 }
 
 // Initialize the API in this header.
-// This is not a KERNEL_INIT-function and has to be called explicitely. This includes initialization
+// This is not a KERNEL_INIT-function and has to be called explicitly. This includes initialization
 // for the basic process-module.
 // This should be called as late as possible, but before starting any scheduler.
 void init_process() {
@@ -101,3 +103,4 @@ void init_process() {
 	initialProcess->stackSize = __default_stack_size;
 	initialProcess->stackTop = __malloc_heap_end;
 }
+KERNEL_INIT(init_process)

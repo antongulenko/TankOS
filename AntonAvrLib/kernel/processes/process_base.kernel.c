@@ -44,6 +44,9 @@ void init_process() {
 	// into, before it will be restored again.
 	__current_process = initializeProcessInternal(__main_process_additional_memory, NULL);
 }
+#ifndef SKIP_PROCESS_INIT
+KERNEL_INIT(init_process)
+#endif
 
 // The address of this function is pushed on the very bottom of the stack of new allocated processes.
 // If the actual process-entry-point returns, it will execute a "ret"-instruction, which will branch here.
@@ -88,7 +91,10 @@ Process createProcess(ProcessEntryPoint entryPoint) {
 	return createProcess2(entryPoint, NULL);
 }
 
-// This method may not call other methods, so that gcc does not save any registers at the beginning.
+// This method is naked, so that gcc does not save any registers at the beginning.
+// With optimizations, it would suffice to avoid calling other functions in here,
+// but without optimizations some register-storing code can only be avoided this way.
+void switchContext(PPCB oldProcess, PPCB newProcess) __attribute__((naked));
 void switchContext(PPCB oldProcess, PPCB newProcess) {
 	PushProcessContext()
 	asm volatile("movw r26, r24"); // Place oldProcess in the X-register
@@ -101,6 +107,8 @@ void switchContext(PPCB oldProcess, PPCB newProcess) {
 	// Enable interrupts here, since we don't have the reti-instruction at the end.
 	// Most likely interrupts would be disabled otherwise, since the status-register is stored in the 
 	// timer-ISR, while interrupts are still disabled.
+	
+	asm volatile("ret");
 }
 
 inline Process getCurrentProcess() {
