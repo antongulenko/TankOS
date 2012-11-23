@@ -1,7 +1,7 @@
 
 #include <kernel_base.h>
 
-#define NUM_PROCESSES 2
+#define NUM_PROCESSES 14
 
 volatile unsigned long counters[NUM_PROCESSES];
 Thread threads[NUM_PROCESSES];
@@ -15,7 +15,7 @@ void processEntry(volatile unsigned long *testMyCounter) {
 void before_scheduler() {
 	threads[0] = getCurrentThread();
 	for (int i = 1; i < NUM_PROCESSES; i++) {
-		threads[i] = createThread3(processEntry, PrioHigh, (void*) (counters + i));
+		threads[i] = createThread3(processEntry, PrioNormal, (void*) (counters + i));
 	}
 }
 

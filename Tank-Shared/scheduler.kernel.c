@@ -26,7 +26,7 @@ void before_scheduler() {}
 // The process-modules have to be initialized as laste as possible.
 void before_timer() {
 	init_process();
-	init_idle_scheduler();
 	rr_captureMainProcess(PrioNormal);
+	init_idle_scheduler();
 	before_scheduler();
 }
