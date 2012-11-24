@@ -11,4 +11,10 @@
 // This can be invoked to switch to the next process chosen by the scheduler.
 void schedule_next();
 
+// Put the processor in sleeping-mode, until the current quantum has expired.
+// This call will return as soon as the current process is scheduled again.
+// During the current quantum, no other processes will be running. This is used to ensure
+// correct semantics when using multiple scheduler-algorithms together, like DMS and RR.
+void yield_quantum();
+
 #endif /* SCHEDULER_H_ */

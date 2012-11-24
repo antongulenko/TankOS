@@ -13,10 +13,15 @@
 #include "../../misc/hardware_reset.h"
 #include "../millisecond_clock.h"
 
+volatile BOOL yielding_quantum = FALSE;
+
 // It's important, that this is naked! Don't let GCC push any registers.
 ISR(MILLISECOND_TIMER_INTERRUPT, __attribute__((naked))) {
 	// First push the current context, before any register may be modified.
 	PushProcessContext()
+	
+	// Notify the yield_quantum() function, that the last quantum is over.
+	yielding_quantum = FALSE;
 	
 	// Count up the millisecond clock.
 	millisecond_clock_tick();

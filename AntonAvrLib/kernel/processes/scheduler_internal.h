@@ -19,4 +19,8 @@ extern Process schedule(BOOL invokedFromTimer);
 // scheduler returned a valid process and __current_process has changed.
 BOOL do_schedule_next(BOOL invokedFromTimer);
 
+// This is set to FALSE when the timer-interrupt is triggered, which means that the
+// previous quantum is over.
+extern volatile BOOL yielding_quantum;
+
 #endif /* SCHEDULER_INTERNAL_H_ */
