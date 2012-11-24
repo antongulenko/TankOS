@@ -17,10 +17,10 @@
 #define SEED_DATA 28485
 #endif
 
-unsigned long counters[NUM_PROCESSES];
+volatile unsigned long counters[NUM_PROCESSES];
 Process processes[NUM_PROCESSES];
 
-void processEntry(unsigned long *testMyCounter) {
+void processEntry(volatile unsigned long *testMyCounter) {
 	while (1) {
 		(*testMyCounter)++;
 		switchProcess(processes[
@@ -41,7 +41,7 @@ void before_scheduler() {
 	
 	processes[0] = getCurrentProcess();
 	for (int i = 1; i < NUM_PROCESSES; i++) {
-		processes[i] = createProcess2(processEntry, counters + i);
+		processes[i] = createProcess2(processEntry, (void*) counters + i);
 	}
 }
 

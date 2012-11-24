@@ -4,12 +4,16 @@
 volatile long long counter = 0;
 volatile long long main_counter = 0;
 
-void MyPeriodicJob() {
-	counter++;
+Process job;
+Process main_thread;
+
+void MyPeriodicJob(volatile long long *counter) {
+	(*counter)++;
 }
 
 void before_scheduler() {
-	createPeriodicJob(&MyPeriodicJob, 50, 0);
+	main_thread = getCurrentProcess();
+	job = createPeriodicJob2(MyPeriodicJob, 10, (void*) &counter);
 }
 
 int main() {

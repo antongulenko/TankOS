@@ -9,7 +9,7 @@ void MyPeriodicJob() {
 }
 
 void before_scheduler() {
-	createPeriodicJob(&MyPeriodicJob, 50, 0);
+	createPeriodicJob(MyPeriodicJob, 10);
 }
 
 int main() {
