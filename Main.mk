@@ -142,7 +142,7 @@ $(project)_dependency_targets = $(foreach d, $(dependencies), $($d_projecttarget
 	$(CC) $(LIB_DIRS) $(LDFLAGS_START) $(objects) $(LIB_ARCHIVES) $(LDFLAGS_END) -o $(fulltarget); \
 	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $(fulltarget)
 
-$(fulltarget): .fake_targets/$(fulltarget) $(objects) $($(project)_dependency_targets)
+$(fulltarget): .fake_targets/$(fulltarget) $(objects) $(dependencies) $($(project)_dependency_targets)
 	$($<_commands)
 
 $(target).map: $(fulltarget)
@@ -155,7 +155,7 @@ size_$(project): $(fulltarget)
 	echo Creating $(liboutput); \
 	$(AR) $(ARFLAGS) -o $(libtarget) $(objects)
 
-$(libtarget): .fake_targets/$(libtarget) $(objects) $($(project)_dependency_targets)
+$(libtarget): .fake_targets/$(libtarget) $(objects) $(dependencies)
 	$($<_commands)
 
 # Shortcuts for execution from console
