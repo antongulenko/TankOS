@@ -1,11 +1,10 @@
 
 # This is separate from the Main.mk file to keep the Main.mk more flexible.
 
-output := $(BASEDIR)
-project := $(BASEDIR)
+output := $(project)
 includes := $(dependencies)
 
-sources := $(shell $(FIND) $(BASEDIR) -name \*.c)
+sources := $(shell $(FIND) $(project) -name \*.c)
 sources := $(subst $(project)/,,$(sources))
 
 ifeq ($(origin LIBRARY), undefined)
@@ -16,12 +15,12 @@ endif
 
 # Only non-kernel and non-main objects are linked/archived automatically.
 # Kernel- or Main- objects must be selected separately when linking, using the project-specific Objects.mk script.
-used_sources := $(shell $(FIND) $(BASEDIR) -name \*.c -and -not -name \*.$(unused_suffix).c)
+used_sources := $(shell $(FIND) $(project) -name \*.c -and -not -name \*.$(unused_suffix).c)
 used_sources := $(subst $(project)/,,$(used_sources))
 objects := $(used_sources:.c=.o)
 
 # These objects are built, even though they are not put into the archive. The purpose is to still compile all sources, when the project is made.
-unused_sources := $(shell $(FIND) $(BASEDIR) -name \*.$(unused_suffix).c)
+unused_sources := $(shell $(FIND) $(project) -name \*.$(unused_suffix).c)
 unused_sources := $(subst $(project)/,,$(unused_sources))
 unused_objects := $(unused_sources:.c=.o)
 

@@ -2,7 +2,7 @@
 LIBRARY :=
 undefine dependencies
 
-BASEDIR := $(get-basedir)
+project := $(get-basedir)
 include Defaults.mk
 include DefaultTankSymbols.mk
 include Main.mk

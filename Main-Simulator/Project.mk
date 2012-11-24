@@ -2,7 +2,7 @@
 undefine LIBRARY
 dependencies := AntonAvrLib Tank-Shared Kernel-Simulator
 
-BASEDIR := $(get-basedir)
+project := $(get-basedir)
 include Defaults.mk
 
 # USE_SCHEDULER :=

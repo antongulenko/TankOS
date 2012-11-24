@@ -10,8 +10,7 @@
 # - includes: (optional) list of directories passed to the compiler to look for include-files
 # - dependencies: (optional) list of projects the current project depends on. Used to generate inputs for the linker.
 # - PLATFORM: 
-# - BASEDIR: 
-# - project: 
+# - project: name of project and also directory of the project.
 
 BUILD_DIRNAME := build-$(PLATFORM)
 ifneq ($(origin DEBUG), undefined)
@@ -23,7 +22,7 @@ ifneq ($(origin SPEED), undefined)
 BUILD_DIRNAME := $(BUILD_DIRNAME)-speed
 endif
 endif
-BUILDDIR := $(BASEDIR)/$(BUILD_DIRNAME)
+BUILDDIR := $(project)/$(BUILD_DIRNAME)
 
 target := $(BUILDDIR)/$(output)
 
@@ -64,13 +63,13 @@ ATMEL_STUDIO_FOLDER ?= Debug
 ifeq ($(origin LIBRARY), undefined)
 $(project): link_$(project) $(unused_objects)
 projecttarget := $(BUILDDIR)/$(output).$(TARGET_SUFFIX)
-studiotarget := $(BASEDIR)/$(ATMEL_STUDIO_FOLDER)/$(output).$(TARGET_SUFFIX)
+studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(output).$(TARGET_SUFFIX)
 .fake_targets/$(fulltarget)_studio := cp $(fulltarget) $(studiotarget)
 else
 $(project): lib_$(project) $(unused_objects)
 studio_$(project): $(project) $(foreach d, $(dependencies), studio_$d)
 $(project)_projecttarget := $(BUILDDIR)/$(liboutput)
-studiotarget := $(BASEDIR)/$(ATMEL_STUDIO_FOLDER)/$(liboutput)
+studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(liboutput)
 .fake_targets/$(fulltarget)_studio := cp $(libtarget) $(studiotarget)
 endif
 
@@ -85,7 +84,7 @@ endif
 
 # Include additional objects required by this project. These objects can be located in other project-folders!
 # The Objects.mk script should append file-names to the 'objects' variable. This is optional.
--include $(BASEDIR)/Objects.mk
+-include $(project)/Objects.mk
 
 # These two fake_target-variables are used by the %.d and %.o targets. Reason: the variables stored here are project-dependent.
 # The pattern used here is a little different from the one for fake_targets described below: Here, not the whole recipe is
@@ -99,7 +98,7 @@ endif
 # (Both modified)
 # Automatically generates transitive include-dependencies for c-files using the compiler.
 # The sed-call fixes the .d-files produced by gcc by prepending the complete path to the .o-files.
-$(BUILDDIR)/%.d: .fake_targets/$(fulltarget) $(BASEDIR)/%.c
+$(BUILDDIR)/%.d: .fake_targets/$(fulltarget) $(project)/%.c
 	mkdir -p $(@D); \
 	set -e; rm -f $@; \
 	$(CC) $($<_depflags) $(word 2, $^) > $@.$$$$; \
@@ -113,14 +112,15 @@ ifneq ($(MAKECMDGOALS), clean)
 endif
 endif
 
-$(BUILDDIR)/%.o: .fake_targets/$(fulltarget) $(BASEDIR)/%.c
+$(BUILDDIR)/%.o: .fake_targets/$(fulltarget) $(project)/%.c
 	@echo $(word 2, $^)
 	mkdir -p $(@D)
 	$(CC) $($<_cflags) -o $@ $(word 2, $^)
 
 MAKE_BUILDDIR := mkdir -p $(BUILDDIR)
 
-dependency_targets := $(foreach d, $(dependencies), $($d_projecttarget))
+# This is defined with =, not :=, so it's evaluated later, when all *_projecttarget variables are defined.
+$(project)_dependency_targets = $(foreach d, $(dependencies), $($d_projecttarget))
 
 # The .fake_targets/* targets and variables are a workaround/hack for a limitation of make.
 # It is not possible to expand variables inside recipe-commands immediately. They are always expanded when the recipe is actually executed.
@@ -142,7 +142,7 @@ dependency_targets := $(foreach d, $(dependencies), $($d_projecttarget))
 	$(CC) $(LIB_DIRS) $(LDFLAGS_START) $(objects) $(LIB_ARCHIVES) $(LDFLAGS_END) -o $(fulltarget); \
 	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $(fulltarget)
 
-$(fulltarget): .fake_targets/$(fulltarget) $(objects) $(dependency_targets)
+$(fulltarget): .fake_targets/$(fulltarget) $(objects) $($(project)_dependency_targets)
 	$($<_commands)
 
 $(target).map: $(fulltarget)
@@ -155,7 +155,7 @@ size_$(project): $(fulltarget)
 	echo Creating $(liboutput); \
 	$(AR) $(ARFLAGS) -o $(libtarget) $(objects)
 
-$(libtarget): .fake_targets/$(libtarget) $(objects) $(dependency_targets)
+$(libtarget): .fake_targets/$(libtarget) $(objects) $($(project)_dependency_targets)
 	$($<_commands)
 
 # Shortcuts for execution from console
@@ -165,7 +165,7 @@ $(TARGET_SUFFIX)_$(project): $(fulltarget)
 lib_$(project): $(libtarget)
 studio_$(project): $(studiotarget) $(foreach d, $(dependencies), studio_$d)
 
-ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(BASEDIR)/build-$p $(BASEDIR)/build-$p-debug $(BASEDIR)/build-$p-speed)
+ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(project)/build-$p $(project)/build-$p-debug $(project)/build-$p-speed)
 
 .fake_targets/clean_$(project)_commands := rm -rf $(ALL_BUILD_DIRS)
 

@@ -2,7 +2,7 @@
 LIBRARY :=
 dependencies := AntonAvrLib Tank-Shared
 
-BASEDIR := $(get-basedir)
+project := $(get-basedir)
 include Defaults.mk
 include DefaultTankSymbols.mk
 
