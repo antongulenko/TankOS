@@ -9,6 +9,7 @@
 #include "../scheduler.h"
 #include "../process_internal.h"
 #include "../../millisecond_clock.h"
+#include <util/atomic.h>
 
 enum JobType {
 	Periodic,
@@ -32,6 +33,8 @@ typedef struct Job_t {
 	// is the milliseconds interval between two invokations of the job.
 	uint32_t period;
 	
+	void *jobArgument;
+	
 	enum JobType jobType;
 } Job, *PJob;
 
@@ -47,13 +50,33 @@ typedef struct {
 
 #define JobMem(proc) ((PJob)getProcessMemory(proc))
 
+typedef void RealJobEntryPoint(void *jobArgument);
+
+Process dms_schedule(BOOL invokedFromTimer);
+
+void schedule_next_dms_job() {
+	// When a DMS job is finished, we try to use the rest of the current CPU-quantum.
+	// We cannot scheduler other Processes than DMS-jobs, because by switching the context
+	// to a non-DMS-Process, the current DMS-job would 'become' that other Process and never
+	// return to the PeriodicJobWrapper/AperiodicJobWrapper function.
+	// So we try to schedule another DMS-job that needs to run right now.
+	Process next;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		next = dms_schedule(FALSE);
+	}
+	if (next != InvalidProcess)
+		switchProcess(next);
+	else
+		yield_quantum();
+}
+
 void PeriodicJobWrapper(Process process) {
 	PJob job = JobMem(process);
 	PPeriodicJob periodicJob = (PPeriodicJob) job;
 	while (1) {
-		job->entryPoint();
+		job->entryPoint(job->jobArgument);
 		periodicJob->nextPeriod += job->period;
-		schedule_next();
+		schedule_next_dms_job();
 	}
 }
 
@@ -61,9 +84,9 @@ void AperiodicJobWrapper(Process process) {
 	PJob job = JobMem(process);
 	PAperiodicJob aperiodicJob = (PAperiodicJob) job;
 	while (1) {
-		job->entryPoint();
+		job->entryPoint(job->jobArgument);
 		aperiodicJob->wantsToRun = FALSE;
-		schedule_next();
+		schedule_next_dms_job();
 	}
 }
 
@@ -123,18 +146,36 @@ PJob initializeJob(Process process, JobEntryPoint entryPoint, uint32_t period, u
 	return job;
 }
 
-Process createPeriodicJob(JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority) {
+Process createPeriodicJob(JobEntryPoint entryPoint, uint32_t period) {
+	return createPeriodicJob3(entryPoint, period, NULL, 0);
+}
+
+Process createPeriodicJob2(JobEntryPoint entryPoint, uint32_t period, void *jobArgument) {
+	return createPeriodicJob3(entryPoint, period, jobArgument, 0);
+}
+
+Process createPeriodicJob3(JobEntryPoint entryPoint, uint32_t period, void *jobArgument, uint8_t userPriority) {
 	Process process = createProcess3(&PeriodicJobWrapper, NULL, __default_stack_size, sizeof(PeriodicJob));
 	PPeriodicJob job = (PPeriodicJob) initializeJob(process, entryPoint, period, userPriority);
 	job->job.jobType = Periodic;
+	job->job.jobArgument = jobArgument;
 	job->nextPeriod = milliseconds_running + period;
 	return process;
 }
 
-Process createAperiodicJob(JobEntryPoint entryPoint, uint32_t minimalPeriod, uint8_t userPriority) {
+Process createAperiodicJob(JobEntryPoint entryPoint, uint32_t minimalPeriod) {
+	return createAperiodicJob3(entryPoint, minimalPeriod, NULL, 0);
+}
+
+Process createAperiodicJob2(JobEntryPoint entryPoint, uint32_t minimalPeriod, void *jobArgument) {
+	return createAperiodicJob3(entryPoint, minimalPeriod, jobArgument, 0);
+}
+
+Process createAperiodicJob3(JobEntryPoint entryPoint, uint32_t minimalPeriod, void *jobArgument, uint8_t userPriority) {
 	Process process = createProcess3(&AperiodicJobWrapper, NULL, __default_stack_size, sizeof(AperiodicJob));
 	PAperiodicJob job = (PAperiodicJob) initializeJob(process, entryPoint, minimalPeriod, userPriority);
 	job->job.jobType = Aperiodic;
+	job->job.jobArgument = jobArgument;
 	job->wantsToRun = FALSE;
 	return process;
 }
