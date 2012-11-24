@@ -69,12 +69,12 @@ studiotarget := $(BASEDIR)/$(ATMEL_STUDIO_FOLDER)/$(output).$(TARGET_SUFFIX)
 else
 $(project): lib_$(project) $(unused_objects)
 studio_$(project): $(project) $(foreach d, $(dependencies), studio_$d)
-projecttarget := $(BUILDDIR)/$(liboutput)
+$(project)_projecttarget := $(BUILDDIR)/$(liboutput)
 studiotarget := $(BASEDIR)/$(ATMEL_STUDIO_FOLDER)/$(liboutput)
 .fake_targets/$(fulltarget)_studio := cp $(libtarget) $(studiotarget)
 endif
 
-$(studiotarget): .fake_targets/$(fulltarget) $(projecttarget)
+$(studiotarget): .fake_targets/$(fulltarget) $($(project)_projecttarget)
 	@echo Copying $@
 	mkdir -p $(@D)
 	$($<_studio)
@@ -120,6 +120,8 @@ $(BUILDDIR)/%.o: .fake_targets/$(fulltarget) $(BASEDIR)/%.c
 
 MAKE_BUILDDIR := mkdir -p $(BUILDDIR)
 
+dependency_targets := $(foreach d, $(dependencies), $($d_projecttarget))
+
 # The .fake_targets/* targets and variables are a workaround/hack for a limitation of make.
 # It is not possible to expand variables inside recipe-commands immediately. They are always expanded when the recipe is actually executed.
 # This file (Main.mk) is included multiple times, and variables defined in this file are redefined with each inclusion.
@@ -140,7 +142,7 @@ MAKE_BUILDDIR := mkdir -p $(BUILDDIR)
 	$(CC) $(LIB_DIRS) $(LDFLAGS_START) $(objects) $(LIB_ARCHIVES) $(LDFLAGS_END) -o $(fulltarget); \
 	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $(fulltarget)
 
-$(fulltarget): .fake_targets/$(fulltarget) $(objects) $(dependencies)
+$(fulltarget): .fake_targets/$(fulltarget) $(objects) $(dependency_targets)
 	$($<_commands)
 
 $(target).map: $(fulltarget)
@@ -153,7 +155,7 @@ size_$(project): $(fulltarget)
 	echo Creating $(liboutput); \
 	$(AR) $(ARFLAGS) -o $(libtarget) $(objects)
 
-$(libtarget): .fake_targets/$(libtarget) $(objects) $(dependencies)
+$(libtarget): .fake_targets/$(libtarget) $(objects) $(dependency_targets)
 	$($<_commands)
 
 # Shortcuts for execution from console
