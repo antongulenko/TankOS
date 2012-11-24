@@ -1,8 +1,8 @@
 
 LIBRARY :=
-dependencies := AntonAvrLib Tank-Shared
-
 project := $(get-basedir)
+include $(project)/Dependencies.mk
+
 include DefaultTankSymbols.mk
 
 # == Motor adjustment step ==
