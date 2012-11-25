@@ -20,9 +20,9 @@
 volatile unsigned long counters[NUM_PROCESSES];
 Process processes[NUM_PROCESSES];
 
-void processEntry(volatile unsigned long *testMyCounter) {
+void processEntry(int index) {
 	while (1) {
-		(*testMyCounter)++;
+		counters[index]++;
 		switchProcess(processes[
 			#ifdef USE_RANDOM
 				rand()
@@ -41,10 +41,10 @@ void before_scheduler() {
 	
 	processes[0] = getCurrentProcess();
 	for (int i = 1; i < NUM_PROCESSES; i++) {
-		processes[i] = createProcess2(processEntry, (void*) counters + i);
+		processes[i] = createProcess2(processEntry, (void*) i);
 	}
 }
 
 int main(void) {
-	processEntry(counters + 0);
+	processEntry(0);
 }
