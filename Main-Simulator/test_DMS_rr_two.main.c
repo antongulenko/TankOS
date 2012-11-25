@@ -7,7 +7,7 @@ volatile unsigned long main_counter = 0;
 Process job;
 Process main_thread;
 
-void MyPeriodicJob(volatile long long *counter) {
+void MyPeriodicJob(volatile unsigned long *counter) {
 	(*counter)++;
 }
 

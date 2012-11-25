@@ -26,7 +26,7 @@ void before_scheduler() {
 		threads[i] = createThread3(threadEntry, PrioNormal, (void*) (threadCounters + i));
 	}
 	for (int i = 0; i < NUM_JOBS; i++) {
-		createPeriodicJob2(MyPeriodicJob, 50, (void*) (jobCounters + i));
+		jobs[i] = createPeriodicJob2(MyPeriodicJob, 10, (void*) (jobCounters + i));
 	}
 }
 
