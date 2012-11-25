@@ -11,10 +11,6 @@
 #include <kernel/devices/motor_smooth_pair.h>
 #include "tank_motor.h"
 
-#ifndef MOTOR_ADJUSTMENT_STEP
-#error MOTOR_ADJUSTMENT_STEP must be defined for the smooth motor control!
-#endif
-
 DEFINE_MOTOR_2Speed_IMPL(LeftMotorBase)
 DEFINE_MOTOR_2Speed_IMPL(RightMotorBase)
 DEFINE_SMOOTH_MOTOR_IMPL(LeftMotor)

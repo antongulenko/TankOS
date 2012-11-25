@@ -8,11 +8,11 @@
 #ifndef KERNEL_BASE_H_
 #define KERNEL_BASE_H_
 
-// All other kernel-API-includes are included over the tank_* includes.
 #include <kernel/millisecond_clock.h>
 #include <kernel/reset_condition.h>
 #include <kernel/processes/mutex/mutex.h>
 #include <kernel/devices/analog_m1284P.h>
+#include <kernel/devices/timer_m1284P.h>
 #include <anton_std.h>
 
 #include <kernel/processes/process.h>

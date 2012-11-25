@@ -8,7 +8,6 @@
 #ifndef TANK_MOTOR_H_
 #define TANK_MOTOR_H_
 
-#include <kernel/devices/timer_m1284P.h>
 #include <kernel/devices/motor.h>
 #include <kernel/devices/motor_smooth.h>
 

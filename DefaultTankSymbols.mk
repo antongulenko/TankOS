@@ -12,6 +12,10 @@
 # TWI_COMMAND_QUEUE :=
 # TWI_COMMAND_QUEUE_SLEEP :=
 
+# TODO -- instead, of using preprocessor-symbols to configure the software timer and it's interrupts,
+# try to use the linker by explicitely binding the differently named symbols together.
+# Both for the timer structures/pointers and the interrupt-vector-functions!
+
 symbols := \
 	ENABLE_SOFTWARE_TIMER_A \
 	TWI_Buffer_Size=255 \
