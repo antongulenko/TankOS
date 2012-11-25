@@ -137,11 +137,12 @@ $(project)_dependency_targets = $(foreach d, $(dependencies), $($d_projecttarget
 # The same trick is used for several other targets. The files in .fake_targets/ are always up-to-date due to a rule in the main Makefile.
 
 # The order of the linker input is important: first the objects, then the libraries, so that symbols found in objects are preferred and
-# objects in libraries can be 'overridden' that way.
+# objects in libraries can be 'overridden' that way. [TODO: verify that this is true]
 .fake_targets/$(fulltarget)_commands := \
 	$(MAKE_BUILDDIR); \
 	echo Linking $(output).$(TARGET_SUFFIX); \
 	$(CC) $(LIB_DIRS) $(LDFLAGS_START) $(objects) $(LIB_ARCHIVES) $(LDFLAGS_END) -o $(fulltarget); \
+	echo; \
 	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $(fulltarget)
 
 $(fulltarget): .fake_targets/$(fulltarget) $(objects) $(dependencies) $($(project)_dependency_targets)
