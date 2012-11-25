@@ -1,5 +1,4 @@
 
-#define USE_TWI
 #include <kernel.h>
 
 MotorDirection left, right;

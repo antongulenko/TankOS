@@ -104,6 +104,36 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="test_analog_fakeMotor.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_analog_interrupts.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_analog_interrupts_fakeMotor.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_motors_buttons.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_motors_buttons_simple.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_motors_buttons_steps.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_raw.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_raw_motors_buttons.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_twi_buttons.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_twi_status.main.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="test_motors_backward.main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -144,9 +174,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="test_analog.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_communication.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="util.c">
