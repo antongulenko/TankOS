@@ -115,13 +115,19 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="test_DMS_idle_many.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_DMS_many.main.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="test_DMS_rr_many.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_DMS_rr_two.main.c">
+    <Compile Include="test_DMS_one.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_DMS_with_idle.main.c">
+    <Compile Include="test_DMS_idle_two.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="test_rr_many.main.c">
