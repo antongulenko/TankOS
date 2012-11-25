@@ -3,8 +3,8 @@
 
 // Test description: let program run for some time, then pause it and check, that both counters differ by 1 or 0.
 
-volatile long long mainCounter = 0;
-volatile long long newCounter = 0;
+volatile unsigned long mainCounter = 0;
+volatile unsigned long newCounter = 0;
 
 Process mainProcess;
 Thread newProcess;

@@ -1,8 +1,8 @@
 
 #include <kernel_base.h>
 
-volatile long long counter = 0;
-volatile long long main_counter = 0;
+volatile unsigned long counter = 0;
+volatile unsigned long main_counter = 0;
 
 void MyPeriodicJob() {
 	counter++;
