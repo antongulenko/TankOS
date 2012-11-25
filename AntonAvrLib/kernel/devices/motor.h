@@ -93,9 +93,7 @@ void initMotor_1Dir1Speed(PMotor1Dir1Speed motor);
 void initMotor_2Dir(PMotor2Dir motor);
 void initMotor_2Speed(PMotor2Speed motor);
 
-#define DEFINE_MOTOR_1Dir1Speed(motorName) extern const PMotor motorName;
-#define DEFINE_MOTOR_2Dir(motorName) extern const PMotor motorName;
-#define DEFINE_MOTOR_2Speed(motorName) extern const PMotor motorName;
+#define DEFINE_MOTOR(motorName) extern const PMotor motorName;
 
 #define INIT_MOTOR_1Dir1Speed(motorName, flags, directionPin, pwmTimer)		\
 		motorName##_ = (Motor1Dir1Speed) { { flags, motor1Dir1Speed_setDirSpeed, motor1Dir1Speed_getDirSpeed, 0, 0xFFFF}, directionPin, pwmTimer };	\

@@ -12,8 +12,8 @@
 #include <kernel/devices/motor.h>
 #include <kernel/devices/motor_smooth.h>
 
-DEFINE_MOTOR_2Speed(LeftMotorBase)
-DEFINE_MOTOR_2Speed(RightMotorBase)
+DEFINE_MOTOR(LeftMotorBase)
+DEFINE_MOTOR(RightMotorBase)
 DEFINE_SMOOTH_MOTOR(LeftMotor)
 DEFINE_SMOOTH_MOTOR(RightMotor)
 

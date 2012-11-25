@@ -105,16 +105,19 @@
     <Compile Include="Main.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Main_testIO.main.c">
+    <Compile Include="testIO.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Main_test_AllLeds.main.c">
+    <Compile Include="test_AllLeds.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Main_test_blink_AllLeds.main.c">
+    <Compile Include="test_blink_AllLeds.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Main_test_blink_reset_condition.main.c">
+    <Compile Include="test_blink_reset_condition.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_leds_and_buttons.main.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

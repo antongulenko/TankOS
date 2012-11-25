@@ -104,13 +104,40 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="test_motors.main.c">
+    <Compile Include="test_motors_backward.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_motors_buttons.main.c">
+    <Compile Include="test_motors_change_backward.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_motors_simple.main.c">
+    <Compile Include="test_motors_change_forward.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_change_steps.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_forward.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_random.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_random_left.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_regulate.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_regulate_backward.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_regulate_backward_left.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_regulate_left.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_regulate_oneAtATime.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="programmable_drive_around.main.c">
@@ -120,6 +147,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="test_io_communication.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="util.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="util.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
