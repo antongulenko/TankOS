@@ -7,7 +7,7 @@
 volatile unsigned long threadCounters[NUM_THREADS];
 Thread threads[NUM_THREADS];
 
-volatile unsigned long jobCounters[NUM_THREADS];
+volatile unsigned long jobCounters[NUM_JOBS];
 Process jobs[NUM_JOBS];
 
 void threadEntry(volatile unsigned long *testMyCounter) {

@@ -170,7 +170,7 @@
     <Compile Include="test_motors_regulate_oneAtATime.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="programmable_drive_around.main.c">
+    <Compile Include="main_programmable_drive_around.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="test_analog.main.c">
