@@ -17,8 +17,8 @@
 #include <avr/interrupt.h>
 
 typedef enum {
-	FALSE,
-	TRUE
+	FALSE = 0,
+	TRUE = 1
 } BOOL;
 
 typedef uint8_t byte;
