@@ -48,6 +48,8 @@ map: map_$(PROJ)
 flash: flash_$(PROJ)
 flashv: flashv_$(PROJ)
 studio: studio_$(PROJ)
+clean_target: clean_target_$(PROJ)
+relink: relink_$(PROJ)
 endif
 
 all: $(AllProjects)
@@ -71,6 +73,8 @@ $(if $(wildcard Build$(PLATFORM).mk),,$(error Illegal platform $(PLATFORM). Avai
 # Function to query the current makefile. Example: current-makefile = $(call which-makefile)
 which-makefile = $(CURDIR)/$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
 get-basedir = $(shell basename $(shell dirname $(call which-makefile)))
+
+# TODO include the projects ordered by dependencies.
 
 ifneq ($(MAKECMDGOALS), projects)
 ifneq ($(MAKECMDGOALS), platforms)

@@ -62,7 +62,7 @@ ATMEL_STUDIO_FOLDER ?= Debug
 # so that all sources in a project are compiled when the project is made.
 ifeq ($(origin LIBRARY), undefined)
 $(project): link_$(project) $(unused_objects)
-projecttarget := $(BUILDDIR)/$(output).$(TARGET_SUFFIX)
+$(project)_projecttarget := $(BUILDDIR)/$(output).$(TARGET_SUFFIX)
 studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(output).$(TARGET_SUFFIX)
 .fake_targets/$(fulltarget)_studio := cp $(fulltarget) $(studiotarget)
 else
@@ -72,6 +72,8 @@ $(project)_projecttarget := $(BUILDDIR)/$(liboutput)
 studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(liboutput)
 .fake_targets/$(fulltarget)_studio := cp $(libtarget) $(studiotarget)
 endif
+
+.fake_targets/$(fulltarget)_projecttarget := $($(project)_projecttarget)
 
 $(studiotarget): .fake_targets/$(fulltarget) $($(project)_projecttarget)
 	@echo Copying $@
@@ -164,6 +166,9 @@ link_$(project): $(fulltarget)
 $(TARGET_SUFFIX)_$(project): $(fulltarget)
 lib_$(project): $(libtarget)
 studio_$(project): $(studiotarget) $(foreach d, $(dependencies), studio_$d)
+clean_target_$(project): .fake_targets/$(fulltarget)
+	rm -f $($<_projecttarget)
+relink_$(project): clean_target_$(project) $(project)
 
 ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(project)/build-$p $(project)/build-$p-debug $(project)/build-$p-speed)
 
@@ -172,4 +177,4 @@ ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(project)/build-$p $(project)/
 clean_$(project): .fake_targets/clean_$(project)
 	$($<_commands)
 
-.PHONY: clean_$(project)
+.PHONY: clean_$(project) clean_target_$(project)
