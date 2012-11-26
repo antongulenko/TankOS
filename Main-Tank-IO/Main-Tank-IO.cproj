@@ -102,7 +102,13 @@
     <Compile Include="LedOperations.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Main.main.c">
+    <Compile Include="Main_empty.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Main_loopComandQueue.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Main_updateButtonStatus.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="testIO.main.c">
