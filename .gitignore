@@ -8,3 +8,4 @@ AVR.atsuo
 make.exe.stackdump
 /mk
 /make_parameters
+/cloc
