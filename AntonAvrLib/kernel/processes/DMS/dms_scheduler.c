@@ -125,15 +125,20 @@ void insertJobIntoList(Process process, PJob job) {
 		Process current = processListHead;
 		Process predecessor = NULL;
 		while (current) {
-			PJob currentJob = JobMem(current);
+			const PJob currentJob = JobMem(current);
 			if (currentJob->period > job->period)
 				break;
 			if (currentJob->period == job->period && currentJob->userPriority < job->userPriority)
 				break;
+			predecessor = current;
 			current = currentJob->nextJob;
 		}
-		job->nextJob = JobMem(predecessor)->nextJob;
-		JobMem(predecessor)->nextJob = process;
+		job->nextJob = current;
+		if (predecessor) {
+			JobMem(predecessor)->nextJob = process;
+		} else {
+			processListHead = process;
+		}
 	}
 }
 
