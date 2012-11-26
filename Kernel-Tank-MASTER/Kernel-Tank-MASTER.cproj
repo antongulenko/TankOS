@@ -78,6 +78,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="init.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel.h">
       <SubType>compile</SubType>
     </Compile>

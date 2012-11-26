@@ -63,7 +63,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="init.kernel.c">
+    <Compile Include="init.kernel.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel_base.h">

@@ -79,6 +79,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="init.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="tank_button.h">
       <SubType>compile</SubType>
     </Compile>
