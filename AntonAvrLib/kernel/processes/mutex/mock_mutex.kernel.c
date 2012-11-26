@@ -12,7 +12,7 @@
 #include "mutex.h"
 
 Mutex mutex_create() {
-	return NULL;
+	return Invalid(Mutex);
 }
 
 void mutex_lock(Mutex mutex) {

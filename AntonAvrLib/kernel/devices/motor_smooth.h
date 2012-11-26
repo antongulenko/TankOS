@@ -50,7 +50,7 @@ void initSmoothMotor(PSmoothMotor motor);
 #define DEFINE_SMOOTH_MOTOR(motorName) extern const PSmoothMotor motorName;
 
 #define INIT_SMOOTH_MOTOR(motorName, realMotor, adjustmentStep)	\
-	motorName##_ = (SmoothMotor) { realMotor, 0, FORWARD, 0, FORWARD, FALSE, adjustmentStep, 0 };		\
+	motorName##_ = (SmoothMotor) { realMotor, 0, FORWARD, 0, FORWARD, FALSE, adjustmentStep, ConstantInvalid(Mutex) };		\
 	initSmoothMotor(motorName);
 
 #define DEFINE_SMOOTH_MOTOR_IMPL(motorName)				\

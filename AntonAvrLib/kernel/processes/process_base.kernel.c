@@ -12,7 +12,7 @@
 #include "process_internal.h"
 #include "scheduler_internal.h"
 
-Process __current_process = NULL;
+Process __current_process = ConstantInvalid(Process);
 
 // Default stack size for newly created processes, if not otherwise given. Also stack size for autom. created main-process.
 // This should only be modified by kernel-modules during initialization.
@@ -24,9 +24,9 @@ uint8_t __main_process_additional_memory = 0;
 
 static Process initializeProcessInternal(uint8_t additionalMemory, void *stackPointer) {
 	PPCB process = (PPCB) calloc(1, sizeof(PCB) + additionalMemory);
-	if (!process) { return InvalidProcess; }
+	if (!process) { return Invalid(Process); }
 	process->stackPointer = stackPointer;
-	return (Process) process;
+	return As(Process, process);
 }
 
 // This is no KERNEL_INIT-function, has to be called explicitly from somewhere else.
@@ -64,7 +64,7 @@ Process createProcess3(ProcessEntryPoint entryPoint, void *parameter, uint16_t s
 	// because the stack grows in opposite direction as the allocation.
 	// 2 and sizeof(PCB) are subtracted because there is an initial context pushed there.
 	uint8_t *stackTop = (uint8_t*) calloc(stackSize, sizeof(uint8_t));
-	if (!stackTop) { return InvalidProcess; }
+	if (!stackTop) { return Invalid(Process); }
 	uint8_t *stackBottom = stackTop + stackSize - 1;
 	// "Push" the address of the ProcessGraveyard and the actual entryPoint
 	*(stackBottom - 0) = LOBYTE((uint16_t) ProcessGraveyard);
@@ -73,11 +73,11 @@ Process createProcess3(ProcessEntryPoint entryPoint, void *parameter, uint16_t s
 	*(stackBottom - 3) = HIBYTE((uint16_t) entryPoint);
 	
 	Process result = initializeProcessInternal(additionalMem, (void*) (stackBottom - INITIAL_STACK_SIZE));
-	if (result == InvalidProcess) { free(stackTop); return InvalidProcess; }
+	if (!IsValid(result)) { free(stackTop); return Invalid(Process); }
 	
 	// "Push" the process-parameter on r25 and r24, following GCCs calling convention.
 	// 6 bytes are pushed on the initial stack below the first register r0
-	if (!parameter) parameter = result;
+	if (!parameter) parameter = result.pointer;
 	*(stackBottom - (6 + 24)) = LOBYTE((uint16_t) parameter);
 	*(stackBottom - (6 + 25)) = HIBYTE((uint16_t) parameter);
 	return result;
@@ -118,9 +118,9 @@ inline Process getCurrentProcess() {
 void switchProcess(Process newProcess) {
 	Process oldCurrentProcess = __current_process;
 	__current_process = newProcess;
-	switchContext((PPCB) oldCurrentProcess, (PPCB) newProcess);
+	switchContext((PPCB) oldCurrentProcess.pointer, (PPCB) newProcess.pointer);
 }
 
 void *getProcessMemory(Process proc) {
-	return proc + sizeof(PCB);
+	return proc.pointer + sizeof(PCB);
 }

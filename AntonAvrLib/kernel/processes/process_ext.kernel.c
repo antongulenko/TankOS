@@ -42,12 +42,12 @@ typedef struct {
 #undef getProcessMemory
 #undef init_process
 
-#define ProcMem(proc) ((PPCBExt)getProcessMemoryBase((Process) proc))
-#define StackPointer(proc) ((uint8_t*)((PPCB)proc)->stackPointer)
+#define ProcMem(proc) ((PPCBExt) getProcessMemoryBase(Cast(Process, proc)))
+#define StackPointer(proc) ((uint8_t*) ((PPCB) proc.pointer)->stackPointer)
 
 Process createProcess3(ProcessEntryPoint entryPoint, void *processArgument, uint16_t stackSize, uint8_t additionalMemory) {
 	Process proc = createProcessBase3(entryPoint, processArgument, stackSize, sizeof(PCBExt) + additionalMemory);
-	if (proc == InvalidProcess) return proc;
+	if (!IsValid(proc)) return proc;
 	PPCBExt ext = ProcMem(proc);
 	ext->processNumber = __nextProcessNumber++;
 	ext->stackSize = stackSize;
@@ -64,12 +64,12 @@ Process createProcess(ProcessEntryPoint entryPoint) {
 }
 
 void freeProcess(Process process) {
-	if (process == getCurrentProcess()) return;
+	if (Equal(process, getCurrentProcess())) return;
 	PPCBExt pcb = ProcMem(process);
 	if (pcb->processNumber != 0) { // Dont free intial stack.
 		free(pcb->stackTop);
 	}
-	free(process);
+	free(process.pointer);
 }
 
 uint8_t getProcessStackSize(Process process) {

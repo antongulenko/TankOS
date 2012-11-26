@@ -23,7 +23,7 @@ void schedule_next() {
 		next = schedule(FALSE);
 	}
 	// This is actually an invalid condition, but no need for a hardware reset here.
-	if (next == InvalidProcess) return;
+	if (IsValid(next)) return;
 	switchProcess(next); // Will not return here until this process is scheduled again.
 }
 

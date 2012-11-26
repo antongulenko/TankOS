@@ -64,7 +64,7 @@ void schedule_next_dms_job() {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		next = dms_schedule(FALSE);
 	}
-	if (next != InvalidProcess)
+	if (IsValid(next))
 		switchProcess(next);
 	else
 		yield_quantum();
@@ -98,7 +98,7 @@ Process dms_schedule(BOOL invokedFromTimer) {
 	// we schedule again; if a higher-prio aperiodic job has woken up, it will be scheduled;
 	// else, the same job should scheduled again, because other periodic threads did not wake up yet.
 	Process current = processListHead;
-	while (current) {
+	while (IsValid(current)) {
 		PJob job = JobMem(current);
 		switch(job->jobType) {
 			case (Periodic):
@@ -114,17 +114,17 @@ Process dms_schedule(BOOL invokedFromTimer) {
 		}
 		current = job->nextJob;
 	}
-	return InvalidProcess;
+	return Invalid(Process);
 }
 
 void insertJobIntoList(Process process, PJob job) {
-	if (!processListHead) {
+	if (!IsValid(processListHead)) {
 		processListHead = process;
-		job->nextJob = NULL;
+		job->nextJob = Invalid(Process);
 	} else {
 		Process current = processListHead;
-		Process predecessor = NULL;
-		while (current) {
+		Process predecessor = Invalid(Process);
+		while (IsValid(current)) {
 			const PJob currentJob = JobMem(current);
 			if (currentJob->period > job->period)
 				break;
@@ -134,7 +134,7 @@ void insertJobIntoList(Process process, PJob job) {
 			current = currentJob->nextJob;
 		}
 		job->nextJob = current;
-		if (predecessor) {
+		if (IsValid(predecessor)) {
 			JobMem(predecessor)->nextJob = process;
 		} else {
 			processListHead = process;

@@ -11,7 +11,6 @@
 #include "../../anton_std.h"
 
 DEFINE_HANDLE(Process);
-#define InvalidProcess ((Process) NULL)
 
 // The processArgument is optional. See createProcess2. Work around the compiler (ignore it),
 // if you do define the parameter and it complains, that the signature does not match this one.
@@ -23,7 +22,7 @@ Process getCurrentProcess();
 // Create a Process. It will not be executed or scheduled.
 // The running Process can switch the context to another Process.
 // This allows 'cooperative' multi-tasking.
-// InvalidProcess is returned, if not enough memory could be allocated to create the process.
+// Invalid(Process) is returned, if not enough memory could be allocated to create the process.
 // The macro DEFAULT_STACK_SIZE determines the stack size, which processes created here will have.
 // It also determines the stack size of the first main-process. If not defined beforehand,
 // it will be defined as 512 by default.

@@ -41,19 +41,19 @@ Thread createThread(ThreadEntryPoint entry) {
 }
 
 Thread createThread2(ThreadEntryPoint entry, ThreadPriority prio) {
-	Thread thread = (Thread) createProcess(entry);
+	Thread thread = Cast(Thread, createProcess(entry));
 	insertThreadIntoQueue(thread, prio);
 	return thread;
 }
 
 Thread createThread3(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter) {
-	Thread thread = (Thread) createProcess2(entry, threadParameter);
+	Thread thread = Cast(Thread, createProcess2(entry, threadParameter));
 	insertThreadIntoQueue(thread, prio);
 	return thread;
 }
 
 Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter, uint16_t stackSize) {
-	Thread thread = (Thread) createProcess3(entry, threadParameter, stackSize, 0);
+	Thread thread = Cast(Thread, createProcess3(entry, threadParameter, stackSize, 0));
 	insertThreadIntoQueue(thread, prio);
 	return thread;
 }
@@ -66,18 +66,18 @@ Process rr_schedule(BOOL invokedFromTimer) {
 	
 	// Nothing to schedule?
 	if (queue->count == 0)
-		return InvalidProcess;
+		return Invalid(Process);
 	
 	PThreadQueueElement current = queue->current;
 	current = current->next == NULL ? queue->first : current->next;
 	queue->current = current;
-	return (Process) current->thread;
+	return Cast(Process, current->thread);
 }
 
 void rr_captureMainProcess(ThreadPriority prio) {
-	insertThreadIntoQueue((Thread) getCurrentProcess(), prio);
+	insertThreadIntoQueue(Cast(Thread, getCurrentProcess()), prio);
 }
 
 Thread getCurrentThread() {
-	return (Thread) getCurrentProcess();
+	return Cast(Thread, getCurrentProcess());
 }

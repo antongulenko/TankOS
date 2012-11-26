@@ -16,8 +16,8 @@ void before_scheduler();
 
 Process schedule(BOOL fromTimer) {
 	Process p = dms_schedule(fromTimer);
-	if (!p) p = rr_schedule(fromTimer);
-	if (!p) p = idle_schedule(fromTimer);
+	if (!IsValid(p)) p = rr_schedule(fromTimer);
+	if (!IsValid(p)) p = idle_schedule(fromTimer);
 	return p;
 }
 

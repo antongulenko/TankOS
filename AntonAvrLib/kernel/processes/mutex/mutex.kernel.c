@@ -14,7 +14,7 @@ typedef struct {
 } RealMutex, *PRealMutex;
 
 Mutex mutex_create() {
-	return (Mutex) malloc(sizeof(RealMutex));
+	return As(Mutex, malloc(sizeof(RealMutex)));
 }
 
 void mutex_lock(Mutex mutex) {

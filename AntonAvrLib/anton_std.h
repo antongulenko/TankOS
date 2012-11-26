@@ -34,9 +34,16 @@ asm ("__RAMPZ__ = 0x3b");
 #define __CONCAT__(A, B) A##B
 
 // macro to define anonymous pointer-types with compiler-checked type-safety.
-// the struct takes one byte to allow void*-like pointer-arithmetics.
+// This whole struct can be cast to a void-pointer.
 #define DEFINE_HANDLE(name)	\
-	typedef struct name##__ { uint8_t unused; } *name;
+	typedef struct name##__ { void *pointer; } name;
+
+#define Invalid(Type) ((Type) { NULL })
+#define ConstantInvalid(Type) { NULL }
+#define IsValid(object) (object.pointer != NULL)
+#define Cast(OtherType, object) ((OtherType) { object.pointer })
+#define As(Type, ptr) ((Type) { ptr })
+#define Equal(object1, object2) (object1.pointer == object2.pointer)
 
 #define LOBYTE(x)        (uint8_t)((uint16_t)x)
 #define HIBYTE(x)        (uint8_t)(((uint16_t)x)>>8)
