@@ -78,6 +78,9 @@
     <Compile Include="motor_smooth_loop.kernel.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="phony.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="scheduler.kernel.c">
       <SubType>compile</SubType>
     </Compile>
@@ -88,6 +91,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="timer.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="twi.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="twi_bgx1.c">

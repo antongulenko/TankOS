@@ -20,17 +20,11 @@ void kernel_initialized() {
 	initialized = TANK_IO_INITIALIZED;
 }
 
-void configure_tank_twi() {
+void configure_twi_IO() {
+	// TODO define this value from the linker??
 	TwiSlaveAddress = TANK_IO_ADDRESS;
-	
-	// TODO define these values from the linker??
-	
-	// The TWI bit rate: Maximal TWI frequency (400 KHz).
-	// 100 = Medium frequency, 250 = Minimal frequency
-	TwiBitRateValue = 17;
-	TwiPrescalerMask = 0;
 }
-KERNEL_INIT(configure_tank_twi)
+KERNEL_INIT(configure_twi_IO)
 
 // ==
 // System

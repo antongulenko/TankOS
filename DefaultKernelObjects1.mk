@@ -16,3 +16,7 @@ objects += \
 	$(KERNEL)/sleep_after_main.kernel.o \
 	$(KERNEL)/devices/analog.kernel.o \
 	$(KERNEL)/devices/analog_m1284P.kernel.o
+
+ifneq ($(origin USE_TWI), undefined)
+	objects += $(SHARED)/twi.kernel.o
+endif
