@@ -237,6 +237,9 @@
     <Compile Include="kernel\reset_condition.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\reset_condition_disable_wdt.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\simple_timer.kernel.c">
       <SubType>compile</SubType>
     </Compile>
