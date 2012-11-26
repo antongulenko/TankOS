@@ -9,7 +9,7 @@
 // without USE_RANDOM, there should be one/two different numbers filling the array.
 
 // If this is not defined, the processes will call each other in a "circle"
-#define USE_RANDOM
+// #define USE_RANDOM
 
 #define NUM_PROCESSES 20
 
