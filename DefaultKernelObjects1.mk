@@ -3,9 +3,9 @@ KERNEL := AntonAvrLib/$(BUILD_DIRNAME)/kernel
 SHARED := Tank-Shared/$(BUILD_DIRNAME)
 
 ifneq ($(origin KEEP_WDT_ENABLED), undefined)
-	obects += $(KERNEL)/reset_condition.kernel.o
+	objects += $(KERNEL)/reset_condition.kernel.o
 else
-	obects += $(KERNEL)/reset_condition_disable_wdt.kernel.o
+	objects += $(KERNEL)/reset_condition_disable_wdt.kernel.o
 endif
 
 objects += \
