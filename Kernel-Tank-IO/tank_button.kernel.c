@@ -6,7 +6,7 @@
  */
 
 #include <kernel/kernel_init.h>
-#include "tank_button.h"
+#include "tank_button_internal.h"
 #include <kernel/processes/mutex/mutex.h>
 #include <kernel/devices/port_m1284P.h>
 
@@ -18,15 +18,13 @@ DEFINE_BUTTON_IMPL(Button1)
 DEFINE_BUTTON_IMPL(Button2)
 DEFINE_BUTTON_IMPL(Button3)
 DEFINE_BUTTON_IMPL(Button4)
-DEFINE_BUTTON_IMPL(ButtonSwitch)
 
 void init_tank_buttons() {
 	#define TANK_BUTTON BUTTON_INVERTED | BUTTON_NEEDS_PULLUP
-	INIT_BUTTON(Button1, PinC5, TANK_BUTTON, 21)
-	INIT_BUTTON(Button2, PinC4, TANK_BUTTON, 20)
-	INIT_BUTTON(Button3, PinC3, TANK_BUTTON, 19)
-	INIT_BUTTON(Button4, PinC2, TANK_BUTTON, 18)
-	INIT_BUTTON(ButtonSwitch, PinD7, TANK_BUTTON, 31)
+	INIT_BUTTON(Button1, PinA0, TANK_BUTTON, 0)
+	INIT_BUTTON(Button2, PinA1, TANK_BUTTON, 1)
+	INIT_BUTTON(Button3, PinA2, TANK_BUTTON, 2)
+	INIT_BUTTON(Button4, PinA3, TANK_BUTTON, 3)
 	buttonMutex = mutex_create();
 }
 KERNEL_INIT(init_tank_buttons)
@@ -37,7 +35,6 @@ uint8_t buttonStatusMask() {
 	if (buttonStatus(Button2)) buttons |= BUTTON_2;
 	if (buttonStatus(Button3)) buttons |= BUTTON_3;
 	if (buttonStatus(Button4)) buttons |= BUTTON_4;
-	if (buttonStatus(ButtonSwitch)) buttons |= BUTTON_SWITCH;
 	return buttons;
 }
 
@@ -61,8 +58,6 @@ void updateButtonStatus() {
 		newlyPressed |= BUTTON_3;
 	if (!(wasPressed & BUTTON_4) && (pressedNow & BUTTON_4))
 		newlyPressed |= BUTTON_4;
-	if (!(wasPressed & BUTTON_SWITCH) && (pressedNow & BUTTON_SWITCH))
-		newlyPressed |= BUTTON_SWITCH;
 	
 	mutex_lock(buttonMutex);
 	buttonsPressedSinceLastCall |= newlyPressed;
@@ -70,56 +65,3 @@ void updateButtonStatus() {
 	
 	wasPressed = pressedNow;
 }
-
-#ifdef FORCE_BUTTON_PIN_CHANGE_INTERRUPTS
-
-// TODO set interrupt numbers and copy the routine for all buttons.
-
-// TODO Not locking the mutex, since interrupts
-// are already disabled here... Works for now, since
-// it simply disables interrupts. When using a real mutex, will
-// have to move all ISRs to normal DMS-processes!...
-#define LOCK_BUTTON_MUTEX() // mutex_lock(buttonMutex);
-#define RELEASE_BUTTON_MUTEX() // mutex_release(buttonMutex);
-
-ISR(PCINTXX_vect) {
-	if (!(wasPressed & BUTTON_1) && buttonStatus(Button1)) {
-		LOCK_BUTTON_MUTEX()
-		pressedButtons |= BUTTON_1;
-		RELEASE_BUTTON_MUTEX()
-	}
-}
-
-ISR(PCINTXX_vect) {
-	if (!(wasPressed & BUTTON_2) && buttonStatus(Button2)) {
-		LOCK_BUTTON_MUTEX()
-		pressedButtons |= BUTTON_2;
-		RELEASE_BUTTON_MUTEX()
-	}
-}
-
-ISR(PCINTXX_vect) {
-	if (!(wasPressed & BUTTON_3) && buttonStatus(Button3)) {
-		LOCK_BUTTON_MUTEX()
-		pressedButtons |= BUTTON_3;
-		RELEASE_BUTTON_MUTEX()
-	}
-}
-
-ISR(PCINTXX_vect) {
-	if (!(wasPressed & BUTTON_4) && buttonStatus(Button4)) {
-		LOCK_BUTTON_MUTEX()
-		pressedButtons |= BUTTON_4;
-		RELEASE_BUTTON_MUTEX()
-	}
-}
-
-ISR(PCINTXX_vect) {
-	if (!(wasPressed & BUTTON_SWITCH) && buttonStatus(ButtonSwitch)) {
-		LOCK_BUTTON_MUTEX()
-		pressedButtons |= BUTTON_SWITCH;
-		RELEASE_BUTTON_MUTEX()
-	}
-}
-
-#endif

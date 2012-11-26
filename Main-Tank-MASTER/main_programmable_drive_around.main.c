@@ -2,6 +2,9 @@
 #define USE_TWI
 #include <kernel.h>
 
+// TODO -- hack, this is unfinished. BUTTON_SWITCH does not exist anymore.
+#define BUTTON_SWITCH BUTTON_1
+
 #define FORWARD_TIME 3000
 #define MAX_SPEED 0x0FFF
 #define TURN_180_time 2000

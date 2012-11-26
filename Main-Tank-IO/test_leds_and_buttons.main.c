@@ -7,13 +7,11 @@ int main() {
 		BOOL b2 = buttonStatus(Button2);
 		BOOL b3 = buttonStatus(Button3);
 		BOOL b4 = buttonStatus(Button4);
-		BOOL bs = buttonStatus(ButtonSwitch);
 		uint16_t mask = 0;
 		if (b1) mask |= _BV(1);
-		if (b2) mask |= _BV(1);
-		if (b3) mask |= _BV(1);
-		if (b4) mask |= _BV(1);
-		if (bs) mask |= _BV(1);
+		if (b2) mask |= _BV(2);
+		if (b3) mask |= _BV(3);
+		if (b4) mask |= _BV(4);
 		setLeds(AllLeds, mask);
 	}
 }

@@ -91,6 +91,9 @@
     <Compile Include="tank_button_commandQueue.kernel.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="tank_button_internal.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="tank_button_interrupts.kernel.c">
       <SubType>compile</SubType>
     </Compile>

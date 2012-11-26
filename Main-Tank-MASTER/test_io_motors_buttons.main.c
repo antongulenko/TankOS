@@ -1,6 +1,9 @@
 
 #include <kernel.h>
 
+// TODO -- hack, this is unfinished. BUTTON_SWITCH does not exist anymore.
+#define BUTTON_SWITCH BUTTON_1
+
 int main() {
 	while (1) {
 		uint8_t buttons = tankIO_pressedButtons();

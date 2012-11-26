@@ -26,7 +26,6 @@ typedef enum {
 	BUTTON_2 = _BV(1),
 	BUTTON_3 = _BV(2),
 	BUTTON_4 = _BV(3),
-	BUTTON_SWITCH = _BV(4)
 } TankButton;
 
 typedef struct {

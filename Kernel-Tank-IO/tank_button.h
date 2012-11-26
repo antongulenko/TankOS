@@ -15,7 +15,6 @@ DEFINE_BUTTON(Button1)
 DEFINE_BUTTON(Button2)
 DEFINE_BUTTON(Button3)
 DEFINE_BUTTON(Button4)
-DEFINE_BUTTON(ButtonSwitch)
 
 uint8_t buttonStatusMask();
 

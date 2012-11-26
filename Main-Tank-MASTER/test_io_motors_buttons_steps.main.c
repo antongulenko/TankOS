@@ -1,6 +1,9 @@
 
 #include <kernel.h>
 
+// TODO -- hack, this is unfinished. BUTTON_SWITCH does not exist anymore.
+#define BUTTON_SWITCH BUTTON_1
+
 #define NUM_STEPS 10
 #define STEP ((uint16_t) 0xFFFF / NUM_STEPS)
 
