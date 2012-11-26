@@ -7,7 +7,12 @@
 
 #include <kernel/kernel_init.h>
 #include <kernel/devices/timer_m1284P.h>
-#include "timer.h"
+#include <timer.h>
+
+// This is a header, and not a kernel.c file, because the 
+// configuration here is preprocessor-based and different kernel-projects
+// will have different configurations. Every kernel-project should define
+// a init.kernel.c file, that includes this header.
 
 // This function can be implemented in user code to have some initialization-code
 // before the scheduler is started.
@@ -28,11 +33,25 @@ void before_timer() {
 void kernel_initialized() __attribute__((weak));
 void kernel_initialized() {}
 
-// TODO put some common init-parts into the AntonLib-kernel
+// TODO put some common init-parts into the AntonLib-kernel?
 void init_kernel() {
 	// Power saving settings
-	ACSR |= _BV(ACD); // Turn off Analog Comparator - not needed
-	// PRR0 |= _BV(PRTIM0) | _BV(PRTIM2); // Turn off unused timers
+	#ifdef DISABLE_ACD
+		ACSR |= _BV(ACD);
+	#endif
+	#ifdef DISABLE_TIMER0
+		PRR0 |= _BV(PRTIM0);
+	#endif
+	#ifdef DISABLE_TIMER1
+		PRR0 |= _BV(PRTIM1);
+	#endif
+	#ifdef DISABLE_TIMER2
+		PRR0 |= _BV(PRTIM2);
+	#endif
+	#ifdef DISABLE_TIMER3
+		PRR0 |= _BV(PRTIM3);
+	#endif
+	// TODO add more power saving settings, check whether these are correct.
 	
 	// WDT-configuration -- resets after 4s (alt.: 8S, 2S, 1S, 500MS, ...)
 	// wdt_enable(WDTO_4S);
