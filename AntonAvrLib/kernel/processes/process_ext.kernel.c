@@ -86,7 +86,7 @@ uint16_t getProcessNumber(Process process) {
 }
 
 void *getProcessMemory(Process proc) {
-	return ProcMem(proc) + ADDITIONAL_MEMORY;
+	return ((void*) ProcMem(proc)) + ADDITIONAL_MEMORY;
 }
 
 // Initialize the API in this header.
