@@ -5,9 +5,4 @@
 # does only when we pass the object files directly.
 -include $(foreach d, $(dependencies), $d/KernelObjects.mk)
 
-ifeq ($(origin MAIN), undefined)
-MAIN_MODULE := $(MAIN_$(project))
-else
-MAIN_MODULE := $(MAIN)
-endif
-objects += $(BUILDDIR)/$(MAIN_MODULE).main.o
+objects += $(BUILDDIR)/$(MAIN_$(project)).main.o
