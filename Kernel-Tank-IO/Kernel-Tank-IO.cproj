@@ -88,6 +88,12 @@
     <Compile Include="kernel.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="tank_button_commandQueue.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_button_interrupts.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="tank_IO_server.kernel.c">
       <SubType>compile</SubType>
     </Compile>
