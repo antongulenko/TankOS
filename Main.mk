@@ -168,7 +168,9 @@ clean_target_$(project): .fake_targets/$(fulltarget)
 	rm -f $($<_projecttarget)
 relink_$(project): clean_target_$(project) $(project)
 
-ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), $(project)/build-$p $(project)/build-$p-debug $(project)/build-$p-speed)
+ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), \
+	$(project)/build-$p $(project)/build-$p-noopt $(project)/build-$p-speed \
+	$(project)/build-$p-debug $(project)/build-$p-debug-noopt $(project)/build-$p-debug-speed)
 
 .fake_targets/clean_$(project)_commands := rm -rf $(ALL_BUILD_DIRS)
 
