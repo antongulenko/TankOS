@@ -14,13 +14,16 @@
 
 BUILD_DIRNAME := build-$(PLATFORM)
 ifneq ($(origin DEBUG), undefined)
-BUILD_DIRNAME := $(BUILD_DIRNAME)-debug
-# In case both DEBUG and SPEED where specified
-undefine SPEED
-else
-ifneq ($(origin SPEED), undefined)
-BUILD_DIRNAME := $(BUILD_DIRNAME)-speed
+	BUILD_DIRNAME := $(BUILD_DIRNAME)-debug
 endif
+ifneq ($(origin NOOPT), undefined)
+	BUILD_DIRNAME := $(BUILD_DIRNAME)-noopt
+	# In case both NOOPT and SPEED have been defined
+	undefine SPEED
+else
+	ifneq ($(origin SPEED), undefined)
+		BUILD_DIRNAME := $(BUILD_DIRNAME)-speed
+	endif
 endif
 BUILDDIR := $(project)/$(BUILD_DIRNAME)
 
@@ -39,12 +42,6 @@ INCLUDE_FLAGS := $(foreach d, $(includes), -I$d)
 # Include the platform-dependent Makefile. It will set all variables required for the rest of this Makefile.
 include Build$(PLATFORM).mk
 
-# To enable debugging, the variable DEBUG has to be defined to something (-D DEBUG=).
-ifeq ($(origin DEBUG), undefined)
-CFLAGS := $(CFLAGS_RELEASE)
-else
-CFLAGS := $(CFLAGS_DEBUG)
-endif
 CFLAGS += $(DEFINE_FLAGS)
 DEPENDENCY_FLAGS += $(DEFINE_FLAGS)
 

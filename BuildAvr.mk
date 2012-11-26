@@ -15,15 +15,23 @@ BASE_FLAGS := $(MCUFLAG) $(INCLUDE_FLAGS) \
 	-Wall
 
 # Compile & assemble, do not link yet
-CFLAGS_RELEASE := $(BASE_FLAGS) -c
-ifeq ($(origin SPEED), undefined)
-CFLAGS_RELEASE := $(CFLAGS_RELEASE) -Os
-else
-CFLAGS_RELEASE := $(CFLAGS_RELEASE) -O3
+CFLAGS := $(BASE_FLAGS) -c
+ifeq ($(origin NOOPT), undefined)
+	ifeq ($(origin SPEED), undefined)
+		CFLAGS += -Os
+	else
+		CFLAGS += -O3
+	endif
 endif
-CFLAGS_DEBUG := $(BASE_FLAGS) -g3 -c -Wno-cpp
-# The -Wno-cpp is to suppress warnings from <util/delay.h>, that optimizations are disabled and delay() won't work correctly.
-# Alternative (which destroys some debug-information): CFLAGS_DEBUG += -O1
+
+ifneq ($(origin DEBUG), undefined)
+	CFLAGS += -g3
+	ifneq ($(origin NOOPT), undefined)
+		# The -Wno-cpp is to suppress warnings from <util/delay.h>, that optimizations are disabled and delay() won't work correctly.
+		# Alternative (which destroys some debug-information): CFLAGS += -O1
+		CFLAGS += -Wno-cpp
+	endif
+endif
 
 LIB_SUFFIX := a
 TARGET_SUFFIX := elf
