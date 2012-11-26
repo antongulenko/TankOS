@@ -12,6 +12,7 @@ BASE_FLAGS := $(MCUFLAG) $(INCLUDE_FLAGS) \
 	-std=gnu99 \
 	-DAVR \
 	-DF_CPU=20000000 \
+	-fshort-enums \
 	-Wall
 
 # Compile & assemble, do not link yet
