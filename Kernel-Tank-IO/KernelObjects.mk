@@ -8,10 +8,10 @@ objects += \
 	$(OWN)/tank_button.kernel.o
 
 ifneq ($(origin USE_TWI), undefined)
+	objects += $(OWN)/tank_IO_server.kernel.o
 	objects += $(KERNEL)/TWI/twi_raw_slave.kernel.o
 	objects += $(KERNEL)/TWI/twi_rpc_slave.kernel.o
 	objects += $(KERNEL)/TWI/twi_rpc_hash_server.kernel.o
-	objects += $(OWN)/tank_IO_server.kernel.o
 	
 	ifneq ($(origin TWI_COMMAND_QUEUE), undefined)
 		objects += $(KERNEL)/TWI/twi_rpc_hash_server_commandQueue.kernel.o
