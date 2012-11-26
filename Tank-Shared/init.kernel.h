@@ -36,7 +36,7 @@ void kernel_initialized() {}
 // TODO put some common init-parts into the AntonLib-kernel?
 void init_kernel() {
 	// Power saving settings
-	#ifdef DISABLE_ACD
+	#ifdef DISABLE_AC
 		ACSR |= _BV(ACD);
 	#endif
 	#ifdef DISABLE_TIMER0
