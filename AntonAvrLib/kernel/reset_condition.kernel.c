@@ -1,10 +1,8 @@
 
 // Additional to the main functionality of this kernel module,
-// the watchdog timer is disabled. Defining the macro KEEP_WDT_ENABLED
-// (e.g. before including this file) keeps the wdt enabled here.
+// the watchdog timer is disabled, if DISABLE_WDT is defined.
 // Disabling the wdt early is important, because it stays enabled after
 // a wdt system-reset, which is used by my HARDWARE_RESET() implementation.
-// #define KEEP_WDT_ENABLED
 
 #include "kernel_init.h"
 #include "reset_condition.h"
@@ -18,7 +16,7 @@ void init_reset_condition() {
 	// be reset in the very beginning.
 	current_reset_status = MCUSR;
 	MCUSR = 0;
-	#ifndef KEEP_WDT_ENABLED
+	#ifdef DISABLE_WDT
 		wdt_disable();
 	#endif
 }
