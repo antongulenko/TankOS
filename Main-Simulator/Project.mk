@@ -5,6 +5,7 @@ include $(project)/Dependencies.mk
 
 include Defaults.mk
 
+undefine USE_TWI
 # USE_SCHEDULER :=
 USE_PROCESS_EXT :=
 
