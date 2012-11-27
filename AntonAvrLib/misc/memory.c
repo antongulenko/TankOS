@@ -14,3 +14,11 @@ uint16_t usedDynamicMemory() {
 uint16_t availableDynamicMemory() {
 	return TotalDynamicMemory - usedDynamicMemory();
 }
+
+float usedDynamicMemoryF() {
+	return usedDynamicMemory() / (float) TotalDynamicMemory;
+}
+
+float availableDynamicMemoryF() {
+	return availableDynamicMemory() / (float) TotalDynamicMemory;
+}

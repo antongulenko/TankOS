@@ -55,4 +55,7 @@ asm ("__RAMPZ__ = 0x3b");
 
 #define delay(x) _delay_ms(x)
 
+// This can be used to ignore unused variables in test-modules
+// #pragma GCC diagnostic ignored "-Wunused-variable"
+
 #endif /* ANTON_STD_H_ */

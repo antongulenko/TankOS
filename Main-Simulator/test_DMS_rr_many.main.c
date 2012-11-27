@@ -1,5 +1,6 @@
 
 #include <kernel_base.h>
+#include <misc/memory.h>
 
 #define NUM_THREADS 12
 #define NUM_JOBS 12
@@ -20,6 +21,8 @@ void MyPeriodicJob(volatile unsigned long *testMyCounter) {
 	(*testMyCounter)++;
 }
 
+#pragma GCC diagnostic ignored "-Wunused-variable"
+
 void before_scheduler() {
 	threads[0] = getCurrentThread();
 	for (int i = 1; i < NUM_THREADS; i++) {
@@ -28,6 +31,8 @@ void before_scheduler() {
 	for (int i = 0; i < NUM_JOBS; i++) {
 		jobs[i] = createPeriodicJob2(MyPeriodicJob, 10, (void*) (jobCounters + i));
 	}
+	
+	float usedMem = usedDynamicMemoryF();
 }
 
 int main() {
