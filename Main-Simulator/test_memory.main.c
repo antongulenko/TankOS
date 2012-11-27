@@ -26,4 +26,9 @@ int main() {
 	uint16_t available3 = availableDynamicMemory();
 	float usedF3 = usedDynamicMemoryF();
 	float availableF3 = availableDynamicMemoryF();
+	
+	void *shouldBeValid = malloc(allocateableDynamicMemory());
+	void *shouldBeNull = malloc(1);
+	float shouldBeOne = usedDynamicMemoryF();
+	uint16_t shouldBeZero = availableDynamicMemory();
 }
