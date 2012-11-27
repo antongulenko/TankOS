@@ -40,6 +40,8 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Main-Simulator", "Main-Simu
 		{BE1571C3-569A-4D09-A8D6-5A33A1EAEC84} = {BE1571C3-569A-4D09-A8D6-5A33A1EAEC84}
 	EndProjectSection
 EndProject
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Test-Scheduler", "Test-Scheduler\Test-Scheduler.cproj", "{1CE899E0-DB1C-4271-A12F-EB6CDE63DBF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|AVR = Debug|AVR
@@ -67,6 +69,9 @@ Global
 		{196C2024-B313-418A-A061-76AA1A2C0F9E}.Debug|AVR.ActiveCfg = Debug|AVR
 		{196C2024-B313-418A-A061-76AA1A2C0F9E}.Release|AVR.ActiveCfg = Release|AVR
 		{196C2024-B313-418A-A061-76AA1A2C0F9E}.Release|AVR.Build.0 = Release|AVR
+		{1CE899E0-DB1C-4271-A12F-EB6CDE63DBF4}.Debug|AVR.ActiveCfg = Debug|AVR
+		{1CE899E0-DB1C-4271-A12F-EB6CDE63DBF4}.Release|AVR.ActiveCfg = Release|AVR
+		{1CE899E0-DB1C-4271-A12F-EB6CDE63DBF4}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
