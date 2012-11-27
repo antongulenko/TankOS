@@ -6,10 +6,10 @@ ld_symbols := \
 	millisecond_timer_A=Timer3A \
 	millisecond_timer_B=Timer3B \
 	__vector_32=MILLISECOND_TIMER_INTERRUPT
+	#__vector_33=...
 
-# TODO -- instead, of using preprocessor-symbols to configure the software timer and it's interrupts,
-# try to use the linker by explicitely binding the differently named symbols together.
-# Both for the timer structures/pointers and the interrupt-vector-functions!
+# These preprocessor symbols are compiled into modules from AntonAvrLib and Tank-Shared,
+# but are relevant for all projects. Don't see a way to handle these things using the linker.
 symbols := \
 	DISABLE_AC \
 	ENABLE_SOFTWARE_TIMER_A \
