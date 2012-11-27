@@ -14,7 +14,7 @@
 #include <tank_IO_protocol.h>
 
 // Define the value needed by twi_raw_slave.kernel.c
-byte TwiSlaveAddress = TANK_IO_ADDRESS;
+const byte TwiSlaveAddress = TANK_IO_ADDRESS;
 
 byte initialized = 0;
 

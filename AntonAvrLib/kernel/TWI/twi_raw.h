@@ -6,9 +6,9 @@
 
 // TWI configurations.
 // Must be linked from another module!
-extern byte TwiSlaveAddress;
-extern byte TwiBitRateValue; // Controls communication-frequency. See manual. -> 0..255!
-extern byte TwiPrescalerMask; // Controls communication-frequency. See manual. -> Includes bits: _BV(TWPS1) | _BV(TWPS0)
+extern const byte TwiSlaveAddress;
+extern const byte TwiBitRateValue; // Controls communication-frequency. See manual. -> 0..255!
+extern const byte TwiPrescalerMask; // Controls communication-frequency. See manual. -> Includes bits: _BV(TWPS1) | _BV(TWPS0)
 
 // Only the seven MSB are valid address bits. The LSB will be replaced.
 typedef struct {
