@@ -2,8 +2,10 @@
 #include <kernel_base.h>
 #include <misc/memory.h>
 
-#define NUM_THREADS 12
-#define NUM_JOBS 12
+// This is too much to fit into memory, the last created DMS job is not valid.
+// Therefore the last jobCounter is not counted up!
+#define NUM_THREADS 15
+#define NUM_JOBS 15
 
 volatile unsigned long threadCounters[NUM_THREADS];
 Thread threads[NUM_THREADS];
