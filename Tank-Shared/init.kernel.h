@@ -31,7 +31,8 @@ void before_timer() {
 
 // Can be defined by application, invoked after everything is set up, right before main()
 void kernel_initialized() __attribute__((weak));
-void kernel_initialized() {}
+void kernel_initialized() {
+}
 
 // TODO put some common init-parts into the AntonLib-kernel?
 void init_kernel() {
@@ -71,9 +72,5 @@ void init_kernel() {
 	
 	sei();
 	kernel_initialized();
-	
-	// This seems necessary, the kernel_initialized function above
-	// resets the global interrupt flag in the simulator for whatever reason.
-	sei();
 }
 KERNEL_INIT(init_kernel)
