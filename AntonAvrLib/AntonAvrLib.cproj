@@ -303,6 +303,12 @@
     <Compile Include="misc\idle.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="misc\memory.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\memory.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="misc\read_buttons_loop.c">
       <SubType>compile</SubType>
     </Compile>
