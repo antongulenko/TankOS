@@ -7,6 +7,6 @@ include Defaults.mk
 include DefaultTankSymbols.mk
 
 USE_SMOOTH_MOTOR_INTERRUPT :=
-ld_symbols := __vector_33=SMOOTH_MOTOR_TIMER_INTERRUPT
+ld_symbols := __vector_33=__vector_SMOOTH_MOTOR_TIMER_INTERRUPT
 
 include Main.mk
