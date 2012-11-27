@@ -11,6 +11,8 @@ extern char __heap_start;
 
 #define TotalDynamicMemory (RAMEND - (uint16_t) &__heap_start)
 
+uint16_t usedDynamicMemory();
+
 // This only takes free() into account, if the freed piece of memory was at the
 // end of the heap. 'Holes' in the heap are not checked.
 uint16_t availableDynamicMemory();
