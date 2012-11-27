@@ -16,7 +16,9 @@
 volatile BOOL yielding_quantum = FALSE;
 
 // It's important, that this is naked! Don't let GCC push any registers.
-ISR(MILLISECOND_TIMER_INTERRUPT, __attribute__((naked))) {
+// Will be bound by the linker to the appropriate timer-ISR.
+void MILLISECOND_TIMER_INTERRUPT() __attribute__ ((interrupt, naked));
+void MILLISECOND_TIMER_INTERRUPT() {
 	// First push the current context, before any register may be modified.
 	PushProcessContext()
 	

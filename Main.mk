@@ -33,6 +33,9 @@ target := $(BUILDDIR)/$(output)
 LIB_DIRS := $(foreach d, $(dependencies), -L$d/$(BUILD_DIRNAME))
 LIB_ARCHIVES := $(foreach d, $(dependencies), -l$d)
 
+# Prepend linker symbol definitions with --defsym=
+LD_SYMBOL_FLAGS := $(foreach s, $(ld_symbols), -Wl,--defsym=$s)
+
 # Prepend preprocessor symbol-definitions with -D
 DEFINE_FLAGS := $(foreach s, $(symbols), -D$s)
 
@@ -138,7 +141,7 @@ $(project)_dependency_targets = $(foreach d, $(dependencies), $($d_projecttarget
 .fake_targets/$(fulltarget)_commands := \
 	$(MAKE_BUILDDIR); \
 	echo Linking $(output).$(TARGET_SUFFIX); \
-	$(CC) $(LIB_DIRS) $(LDFLAGS_START) $(objects) $(LIB_ARCHIVES) $(LDFLAGS_END) -o $(fulltarget); \
+	$(CC) $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(objects) $(LIB_ARCHIVES) $(LDFLAGS_END) -o $(fulltarget); \
 	echo; \
 	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $(fulltarget)
 
