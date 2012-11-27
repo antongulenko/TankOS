@@ -11,5 +11,7 @@ ld_symbols := \
 # These preprocessor symbols are compiled into modules from AntonAvrLib and Tank-Shared,
 # but are relevant for all projects. Don't see a way to handle these things using the linker.
 # TWI_Buffer_Size is hard to extract this way, because it is used at ~3 different places to allocate static buffers.
+# The two alternatives would be declaring the buffers extern and linking them differently for the different projects,
+# or linking TWI_Buffer_Size as uint8_t and allocating the buffers dynamically.
 symbols := \
 	TWI_Buffer_Size=255
