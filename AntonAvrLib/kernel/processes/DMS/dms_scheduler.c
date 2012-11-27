@@ -61,10 +61,7 @@ void schedule_next_dms_job() {
 	// to a non-DMS-Process, the current DMS-job would 'become' that other Process and never
 	// return to the PeriodicJobWrapper/AperiodicJobWrapper function.
 	// So we try to schedule another DMS-job that needs to run right now.
-	Process next;
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		next = dms_schedule(FALSE);
-	}
+	Process next = dms_schedule(FALSE);
 	if (IsValid(next))
 		switchProcess(next);
 	else
@@ -146,14 +143,12 @@ void insertJobIntoList(Process process, PJob job) {
 		}
 	}	
 }
-
-PJob initializeJob(Process process, JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority) {
-	PJob job = JobMem(process);
+	
+void initializeJob(Process process, PJob job, JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority) {
 	job->entryPoint = entryPoint;
 	job->userPriority = userPriority;
 	job->period = period;
 	insertJobIntoList(process, job);
-	return job;
 }
 
 Process createPeriodicJob(JobEntryPoint entryPoint, uint32_t period) {
@@ -166,10 +161,13 @@ Process createPeriodicJob2(JobEntryPoint entryPoint, uint32_t period, void *jobA
 
 Process createPeriodicJob3(JobEntryPoint entryPoint, uint32_t period, void *jobArgument, uint8_t userPriority) {
 	Process process = createProcess3(&PeriodicJobWrapper, NULL, __default_stack_size, sizeof(PeriodicJob));
-	PPeriodicJob job = (PPeriodicJob) initializeJob(process, entryPoint, period, userPriority);
+	if (!IsValid(process))
+		return Invalid(Process);
+	PPeriodicJob job = (PPeriodicJob) JobMem(process);
 	job->job.jobType = Periodic;
 	job->job.jobArgument = jobArgument;
-	job->nextPeriod = milliseconds_running + period;
+	job->nextPeriod = get_milliseconds_running() + period;
+	initializeJob(process, (PJob) job, entryPoint, period, userPriority);
 	return process;
 }
 
@@ -183,10 +181,13 @@ Process createAperiodicJob2(JobEntryPoint entryPoint, uint32_t minimalPeriod, vo
 
 Process createAperiodicJob3(JobEntryPoint entryPoint, uint32_t minimalPeriod, void *jobArgument, uint8_t userPriority) {
 	Process process = createProcess3(&AperiodicJobWrapper, NULL, __default_stack_size, sizeof(AperiodicJob));
-	PAperiodicJob job = (PAperiodicJob) initializeJob(process, entryPoint, minimalPeriod, userPriority);
+	if (!IsValid(process))
+		return Invalid(Process);
+	PAperiodicJob job = (PAperiodicJob) JobMem(process);
 	job->job.jobType = Aperiodic;
 	job->job.jobArgument = jobArgument;
 	job->wantsToRun = FALSE;
+	initializeJob(process, (PJob) job, entryPoint, minimalPeriod, userPriority);
 	return process;
 }
 
