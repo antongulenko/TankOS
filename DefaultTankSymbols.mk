@@ -10,7 +10,6 @@ ld_symbols := \
 
 # These preprocessor symbols are compiled into modules from AntonAvrLib and Tank-Shared,
 # but are relevant for all projects. Don't see a way to handle these things using the linker.
+# TWI_Buffer_Size is hard to extract this way, because it is used at ~3 different places to allocate static buffers.
 symbols := \
-	DISABLE_AC \
-	ENABLE_SOFTWARE_TIMER_A \
 	TWI_Buffer_Size=255

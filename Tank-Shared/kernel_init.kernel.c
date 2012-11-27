@@ -1,5 +1,5 @@
 /*
- * init.kernel
+ * kernel_init.kernel
  *
  * Created: 02.05.2012 15:26:45
  *  Author: Anton
@@ -7,12 +7,8 @@
 
 #include <kernel/kernel_init.h>
 #include <kernel/devices/timer_m1284P.h>
-#include <timer.h>
-
-// This is a header, and not a kernel.c file, because the 
-// configuration here is preprocessor-based and different kernel-projects
-// will have different configurations. Every kernel-project should define
-// a init.kernel.c file, that includes this header.
+#include "timer.h"
+#include "kernel_init.h"
 
 // This function can be implemented in user code to have some initialization-code
 // before the scheduler is started.
@@ -34,24 +30,23 @@ void kernel_initialized() __attribute__((weak));
 void kernel_initialized() {
 }
 
-// TODO put some common init-parts into the AntonLib-kernel?
 void init_kernel() {
 	// Power saving settings
-	#ifdef DISABLE_AC
+	
+	// Analog Comparator
+	if (KERNEL_INIT_MAP & DISABLE_AC)
 		ACSR |= _BV(ACD);
-	#endif
-	#ifdef DISABLE_TIMER0
+	
+	// Timers
+	if (KERNEL_INIT_MAP & DISABLE_TIMER0)
 		PRR0 |= _BV(PRTIM0);
-	#endif
-	#ifdef DISABLE_TIMER1
+	if (KERNEL_INIT_MAP & DISABLE_TIMER1)
 		PRR0 |= _BV(PRTIM1);
-	#endif
-	#ifdef DISABLE_TIMER2
+	if (KERNEL_INIT_MAP & DISABLE_TIMER2)
 		PRR0 |= _BV(PRTIM2);
-	#endif
-	#ifdef DISABLE_TIMER3
+	if (KERNEL_INIT_MAP & DISABLE_TIMER3)
 		PRR0 |= _BV(PRTIM3);
-	#endif
+	
 	// TODO add more power saving settings, check whether these are correct.
 	
 	// WDT-configuration -- resets after 4s (alt.: 8S, 2S, 1S, 500MS, ...)
@@ -63,12 +58,10 @@ void init_kernel() {
 	// AFTER other modules modified __default_stack_size and __main_process_additional_memory
 	before_timer(); // AFTER all other initialization and BEFORE starting the timers/scheduler
 	
-	#ifdef ENABLE_SOFTWARE_TIMER_A
-	enableTimerInterrupt(millisecond_timer_A);
-	#endif
-	#ifdef ENABLE_SOFTWARE_TIMER_B
-	enableTimerInterrupt(millisecond_timer_B);
-	#endif
+	if (KERNEL_INIT_MAP & ENABLE_TIMER_A)
+		enableTimerInterrupt(millisecond_timer_A);
+	if (KERNEL_INIT_MAP & ENABLE_TIMER_B)
+		enableTimerInterrupt(millisecond_timer_B);
 	
 	sei();
 	kernel_initialized();

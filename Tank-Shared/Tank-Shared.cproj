@@ -63,10 +63,16 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="init.kernel.h">
+    <Compile Include="kernel_base.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel_base.h">
+    <Compile Include="kernel_init.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel_init.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel_init_default.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="motor_smooth.h">

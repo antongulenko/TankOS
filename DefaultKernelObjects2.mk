@@ -15,4 +15,6 @@ else
 	objects += $(KERNEL)/simple_timer.kernel.o
 endif
 
-objects += $(OWN)/init.kernel.o
+objects += \
+	$(SHARED)/kernel_init_default.kernel.o \
+	$(SHARED)/kernel_init.kernel.o
