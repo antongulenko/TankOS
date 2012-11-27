@@ -6,6 +6,7 @@
  */ 
 
 #include "rr_api.h"
+#include <util/atomic.h>
 
 #define NUM_PRIOS 7
 
@@ -24,16 +25,17 @@ ThreadPriority highestPrio = PrioLowest;
 ThreadQueue queues[NUM_PRIOS];
 
 void insertThreadIntoQueue(Thread thread, ThreadPriority prio) {
-	// TODO - this is not concurrency-safe.
-	PThreadQueue queue = &queues[prio];
-	PThreadQueueElement elem = (PThreadQueueElement) calloc(1, sizeof(ThreadQueueElement));
-	elem->thread = thread;
-	elem->next = queue->first;
-	queue->first = elem;
-	if (queue->count == 0)
-		queue->current = elem;
-	queue->count++;
-	if (prio > highestPrio) highestPrio = prio;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		PThreadQueue queue = &queues[prio];
+		PThreadQueueElement elem = (PThreadQueueElement) calloc(1, sizeof(ThreadQueueElement));
+		elem->thread = thread;
+		elem->next = queue->first;
+		queue->first = elem;
+		if (queue->count == 0)
+			queue->current = elem;
+		queue->count++;
+		if (prio > highestPrio) highestPrio = prio;
+	}	
 }
 
 Thread createThread(ThreadEntryPoint entry) {
@@ -60,17 +62,20 @@ Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadPa
 
 Process rr_schedule(BOOL invokedFromTimer) {
 	// Lower the top-priority, if necessary. It must be increased at all relevant places!
-	while (highestPrio > 0 && queues[highestPrio].count == 0) highestPrio--;
-	
-	PThreadQueue queue = &queues[highestPrio];
-	
-	// Nothing to schedule?
-	if (queue->count == 0)
-		return Invalid(Process);
-	
-	PThreadQueueElement current = queue->current;
-	current = current->next == NULL ? queue->first : current->next;
-	queue->current = current;
+	PThreadQueueElement current;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		while (highestPrio > 0 && queues[highestPrio].count == 0) highestPrio--;
+		
+		PThreadQueue queue = &queues[highestPrio];
+		
+		// Nothing to schedule?
+		if (queue->count == 0)
+			return Invalid(Process);
+		
+		current = queue->current;
+		current = current->next == NULL ? queue->first : current->next;
+		queue->current = current;
+	}
 	return Cast(Process, current->thread);
 }
 

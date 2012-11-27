@@ -8,6 +8,7 @@
 #include "dms_api.h"
 #include "../scheduler.h"
 #include "../process_internal.h"
+#include "../process_ext.h"
 #include "../../millisecond_clock.h"
 #include <util/atomic.h>
 
@@ -97,49 +98,53 @@ Process dms_schedule(BOOL invokedFromTimer) {
 	// invokedFromTimer parameter is ignored - if a Job calls schedule_next,
 	// we schedule again; if a higher-prio aperiodic job has woken up, it will be scheduled;
 	// else, the same job should scheduled again, because other periodic threads did not wake up yet.
-	Process current = processListHead;
-	while (IsValid(current)) {
-		PJob job = JobMem(current);
-		switch(job->jobType) {
-			case (Periodic):
-				if (((PPeriodicJob) job)->nextPeriod <= milliseconds_running) {
-					return current;
-				}
-				break;
-			case (Aperiodic):
-				if (((PAperiodicJob) job)->wantsToRun == TRUE) {
-					return current;
-				}
-				break;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		Process current = processListHead;
+		while (IsValid(current)) {
+			PJob job = JobMem(current);
+			switch(job->jobType) {
+				case (Periodic):
+					if (((PPeriodicJob) job)->nextPeriod <= milliseconds_running) {
+						return current;
+					}
+					break;
+				case (Aperiodic):
+					if (((PAperiodicJob) job)->wantsToRun == TRUE) {
+						return current;
+					}
+					break;
+			}
+			current = job->nextJob;
 		}
-		current = job->nextJob;
 	}
-	return Invalid(Process);
+	return Invalid(Process);	
 }
 
 void insertJobIntoList(Process process, PJob job) {
-	if (!IsValid(processListHead)) {
-		processListHead = process;
-		job->nextJob = Invalid(Process);
-	} else {
-		Process current = processListHead;
-		Process predecessor = Invalid(Process);
-		while (IsValid(current)) {
-			const PJob currentJob = JobMem(current);
-			if (currentJob->period > job->period)
-				break;
-			if (currentJob->period == job->period && currentJob->userPriority < job->userPriority)
-				break;
-			predecessor = current;
-			current = currentJob->nextJob;
-		}
-		job->nextJob = current;
-		if (IsValid(predecessor)) {
-			JobMem(predecessor)->nextJob = process;
-		} else {
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		if (!IsValid(processListHead)) {
 			processListHead = process;
+			job->nextJob = Invalid(Process);
+		} else {
+			Process current = processListHead;
+			Process predecessor = Invalid(Process);
+			while (IsValid(current)) {
+				const PJob currentJob = JobMem(current);
+				if (currentJob->period > job->period)
+					break;
+				if (currentJob->period == job->period && currentJob->userPriority < job->userPriority)
+					break;
+				predecessor = current;
+				current = currentJob->nextJob;
+			}
+			job->nextJob = current;
+			if (IsValid(predecessor)) {
+				JobMem(predecessor)->nextJob = process;
+			} else {
+				processListHead = process;
+			}
 		}
-	}
+	}	
 }
 
 PJob initializeJob(Process process, JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority) {
@@ -187,4 +192,32 @@ Process createAperiodicJob3(JobEntryPoint entryPoint, uint32_t minimalPeriod, vo
 
 void triggerAperiodicJob(Process proc) {
 	((PAperiodicJob) JobMem(proc))->wantsToRun = TRUE;
+}
+
+void freeJob(Process job) {
+	if (!IsValid(job)) return;
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		Process before = Invalid(Process);
+		while (1) {
+			Process next;
+			if (!IsValid(before))
+				next = processListHead;
+			else
+				next = JobMem(before)->nextJob;
+			if (Equal(next, job)) break;
+			if (!IsValid(next)) {
+				// Process not found in list.
+				job = Invalid(Process);
+				break;
+			}
+			before = next;
+		}
+		if (!IsValid(job)) return;
+		if (!IsValid(before)) {
+			processListHead = JobMem(job)->nextJob;
+		} else {
+			JobMem(before)->nextJob = JobMem(job)->nextJob;
+		}
+	}		
+	freeProcess(job);
 }

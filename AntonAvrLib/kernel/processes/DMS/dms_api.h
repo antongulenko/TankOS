@@ -48,4 +48,8 @@ Process createAperiodicJob3(JobEntryPoint entryPoint, uint32_t minimalPeriod, vo
 // Mark the job as ready to execute. Will be executed as soon as possible.
 void triggerAperiodicJob(Process job);
 
+// Free the memory occupied by the job and stop scheduling it.
+// This required process_ext.kernel.o linked.
+void freeJob(Process job);
+
 #endif /* DMS_API_H_ */
