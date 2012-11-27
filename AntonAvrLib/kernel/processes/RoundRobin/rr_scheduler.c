@@ -61,9 +61,9 @@ Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadPa
 }
 
 Process rr_schedule(BOOL invokedFromTimer) {
-	// Lower the top-priority, if necessary. It must be increased at all relevant places!
 	PThreadQueueElement current;
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		// Lower the top-priority, if necessary. It must be increased at all relevant places!
 		while (highestPrio > 0 && queues[highestPrio].count == 0) highestPrio--;
 		
 		PThreadQueue queue = &queues[highestPrio];
