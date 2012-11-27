@@ -30,3 +30,10 @@ void millisecond_clock_tick() {
 	}		
 	in_clock_tick();
 }
+
+void wait_milliseconds(uint32_t ms) {
+	uint32_t ms = get_milliseconds_running() + ms;
+	while (get_milliseconds_running() < ms)
+		// Idle a little bit to not have interrupts disabled all the time.
+		_delay_us(30);
+}

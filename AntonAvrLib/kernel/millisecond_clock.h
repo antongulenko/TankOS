@@ -22,4 +22,7 @@ uint32_t get_milliseconds_running();
 // This should only be invoked from kernel-modules, once each millisecond.
 void millisecond_clock_tick();
 
+// This wait function takes the millisecond-ticks as reference.
+void wait_milliseconds(uint32_t ms);
+
 #endif /* MILLISECOND_CLOCK_H_ */
