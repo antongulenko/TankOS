@@ -5,7 +5,7 @@
 #include "../kernel_init.h"
 
 // TWI configurations.
-// Must be set from a kernel-module, which is linked before twi_raw.kernel.c
+// Must be linked from another module!
 extern byte TwiSlaveAddress;
 extern byte TwiBitRateValue; // Controls communication-frequency. See manual. -> 0..255!
 extern byte TwiPrescalerMask; // Controls communication-frequency. See manual. -> Includes bits: _BV(TWPS1) | _BV(TWPS0)

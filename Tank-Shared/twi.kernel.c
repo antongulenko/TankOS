@@ -1,13 +1,8 @@
 
-#include <kernel/kernel_init.h>
-#include <kernel/twi/twi_raw.h>
+#include <anton_std.h>
 
-void configure_twi() {
-	// TODO define these values from the linker??
-	
-	// The TWI bit rate: Maximal TWI frequency (400 KHz).
-	// 100 = Medium frequency, 250 = Minimal frequency
-	TwiBitRateValue = 17;
-	TwiPrescalerMask = 0;
-}
-KERNEL_INIT(configure_twi)
+// These variables will be linked for twi_
+// The TWI bit rate: Maximal TWI frequency (400 KHz).
+// 100 = Medium frequency, 250 = Minimal frequency
+byte TwiBitRateValue = 17;
+byte TwiPrescalerMask = 0;

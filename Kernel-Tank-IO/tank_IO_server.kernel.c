@@ -13,18 +13,15 @@
 
 #include <tank_IO_protocol.h>
 
+// Define the value needed by twi_raw_slave.kernel.c
+byte TwiSlaveAddress = TANK_IO_ADDRESS;
+
 byte initialized = 0;
 
 // This is invoked right before main(), see kernel_init.kernel.c
 void kernel_initialized() {
 	initialized = TANK_IO_INITIALIZED;
 }
-
-void configure_twi_IO() {
-	// TODO define this value from the linker??
-	TwiSlaveAddress = TANK_IO_ADDRESS;
-}
-KERNEL_INIT(configure_twi_IO)
 
 // ==
 // System

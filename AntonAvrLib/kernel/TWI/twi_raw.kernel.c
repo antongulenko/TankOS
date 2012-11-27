@@ -25,10 +25,6 @@
 #define TWI_DEBUG_INTERRUPT(status)
 #endif
 
-byte TwiSlaveAddress = 0;
-byte TwiBitRateValue = 0;
-byte TwiPrescalerMask = 0;
-
 TWIDevice TWIBroadcast = { 0 };
 
 #ifdef TWI_Slave
