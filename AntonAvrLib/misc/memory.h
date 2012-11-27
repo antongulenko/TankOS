@@ -18,10 +18,6 @@ uint16_t usedDynamicMemory();
 // end of the heap. 'Holes' in the heap are not checked.
 uint16_t availableDynamicMemory();
 
-// The result of availableDynamicMemory() can not be obtained from malloc()
-// as number of bytes, 2 bytes stay unused (or are used by malloc itself).
-#define allocateableDynamicMemory() (availableDynamicMemory() - 2)
-
 // These two functions give a fraction between 0 and 1.
 float usedDynamicMemoryF();
 float availableDynamicMemoryF();
