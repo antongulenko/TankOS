@@ -1,7 +1,5 @@
 
 #include "tests.h"
-#include <unity.h>
-#include <kernel_base.h>
 #include <misc/memory.h>
 
 uint16_t availableMemory_before = 0;
