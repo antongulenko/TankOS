@@ -105,6 +105,9 @@
     <Compile Include="anton_std.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\buffer_stdout.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\devices\analog.c">
       <SubType>compile</SubType>
     </Compile>

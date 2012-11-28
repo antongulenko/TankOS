@@ -9,5 +9,7 @@ undefine USE_TWI
 # USE_SCHEDULER :=
 USE_PROCESS_EXT :=
 
+USE_BUFFER_STDOUT :=
+
 include DefaultTankSymbols.mk
 include Main.mk
