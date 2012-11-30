@@ -90,7 +90,9 @@ endif
 
 studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(studiotarget)
 projectoutputs := $(foreach o, $(projectoutputs), $(BUILDDIR)/$o)
-$(project)_projectoutputs := $(projectoutputs)
+
+# This is defined using =, not :=, so that it's expanded late.
+$(project)_projectoutputs = $(projectoutputs)
 
 $(project): $(projectoutputs) $(unused_objects)
 
@@ -137,30 +139,29 @@ $(fake)_builddir := $(BUILDDIR)
 $(fake)_ARFLAGS := $(ARFLAGS)
 $(fake)_objects := $(objects)
 
-$(BUILDDIR)/%.$(TARGET_SUFFIX): $(fake) $(BUILDDIR)/%.o $(objects) $(dependencies) $(dependency_targets)
+$(BUILDDIR)/%.$(TARGET_SUFFIX) $(BUILDDIR)/%.map: $(fake) $(BUILDDIR)/%.o $(objects) $(dependencies) $(dependency_targets)
 	$($<_make_builddir)
 	@echo Linking $@
 	$(CC) $($<_fullLinkerFlags1) $($<_builddir)/$*.o $($<_fullLinkerFlags2) -Wl,-Map="$*.map" -o $@
 	@echo
 	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $@
 
-size_$(project)_%: $(BUILDDIR)/%.$(TARGET_SUFFIX)
-	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $<
+size_$(project)_%: $(fake) $(BUILDDIR)/%.$(TARGET_SUFFIX)
+	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $(word 2, $^)
 
 $(BUILDDIR)/lib%.$(LIB_SUFFIX): $(fake) $(objects) $(dependencies)
 	$($<_make_builddir)
 	@echo Creating $@
 	$(AR) $($<_ARFLAGS) -o $@ $($<_objects)
 
-%.map: %.$(TARGET_SUFFIX)
-map_$(project)_%: $(BUILDDIR)/%.map
-link_$(project)_%: $(BUILDDIR)/%.$(TARGET_SUFFIX)
-$(TARGET_SUFFIX)_$(project)_%: $(BUILDDIR)/%.$(TARGET_SUFFIX)
-lib_$(project)_%: $(BUILDDIR)/lib%.$(LIB_SUFFIX)
+link_$(project): $(projectoutputs)
+$(TARGET_SUFFIX)_$(project): $(projectoutputs)
+lib_$(project): $(projectoutputs)
+map_$(project): $(foreach o, $(outputs), $(BUILDDIRS)/$o.map)
 
 studio_$(project): $(studiotarget) $(foreach d, $(dependencies), studio_$d)
 clean_target_$(project): $(fake)
-	rm -f $($<_projecttarget)
+	rm -f $($<_projectoutputs)
 relink_$(project): clean_target_$(project) $(project)
 
 $(fake)_ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), \

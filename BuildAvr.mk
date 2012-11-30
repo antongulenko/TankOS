@@ -63,9 +63,9 @@ ARFLAGS := rcs
 	$(OBJ-DUMP) -h -S $< > $@
 
 # Shortcuts for execution from console
-hex_$(project)_%: $(BUILDDIR)/%.hex
-eep_$(project)_%: $(BUILDDIR)/%.eep
-lss_$(project)_%: $(BUILDDIR)/%.lss
+hex_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.hex)
+eep_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.eep)
+lss_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.lss)
 
 # Aways build the hex-files automatically when linking.
 link_$(project): hex_$(project)
