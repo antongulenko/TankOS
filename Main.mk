@@ -90,9 +90,7 @@ endif
 
 studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(studiotarget)
 projectoutputs := $(foreach o, $(projectoutputs), $(BUILDDIR)/$o)
-
-# This is defined using =, not :=, so that it's expanded late.
-$(project)_projectoutputs = $(projectoutputs)
+$(project)_projectoutputs := $(projectoutputs)
 
 $(project): $(projectoutputs) $(unused_objects)
 
@@ -142,7 +140,7 @@ $(fake)_objects := $(objects)
 $(BUILDDIR)/%.$(TARGET_SUFFIX) $(BUILDDIR)/%.map: $(fake) $(BUILDDIR)/%.o $(objects) $(dependencies) $(dependency_targets)
 	$($<_make_builddir)
 	@echo Linking $@
-	$(CC) $($<_fullLinkerFlags1) $($<_builddir)/$*.o $($<_fullLinkerFlags2) -Wl,-Map="$*.map" -o $@
+	$(CC) $($<_fullLinkerFlags1) $(word 2, $^) $($<_fullLinkerFlags2) -Wl,-Map="$(subst .o,.map,$(word 2, $^))" -o $@
 	@echo
 	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $@
 
