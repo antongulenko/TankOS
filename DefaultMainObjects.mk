@@ -5,4 +5,4 @@
 # does only when we pass the object files directly.
 -include $(foreach d, $(dependencies), $d/KernelObjects.mk)
 
-objects += $(BUILDDIR)/$(MAIN_$(project)).main.o
+studio_output := $(MAIN_$(project)).main

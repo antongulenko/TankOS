@@ -4,13 +4,17 @@
 # (further flags explained in the main makefile called 'Makefile')
 
 # This Makefile expects the following variables:
-# - sources: all source-files being compiled
+# - sources: all source-files being compiled. Dependency .d-files are generated for these.
 # - objects: all objects being compiled and linked (does not necessarily match the list of source-files)
-# - output: filename for linker/archiver-output (without any file-suffix!)
+# - unused_objects: object-files that exist in the project, but are not linked/archived. They are still built together with the project.
+# - outputs: filename(s) for linker/archiver-output (without any file-suffix!). In case of library, the project-objects will be archived in these archives. In case of executable project, the linker is invoked for each output, and an object identified by output will be an additional linker input.
+# - studio_output: the one output that will be copied to the Atmel Studio output directory.
 # - includes: (optional) list of directories passed to the compiler to look for include-files
 # - dependencies: (optional) list of projects the current project depends on. Used to generate inputs for the linker.
-# - PLATFORM: 
+# - PLATFORM: platform dependent make-script Build$(PLATFOMRM).mk will be included.
 # - project: name of project and also directory of the project.
+# - symbols: preprocessor definitions that will be used when compiling.
+# - ld_symbols: symbols, that will be defined by the linker. Form: <symbol>=<address or other symbol>. See the linker manual.
 
 BUILD_DIRNAME := build-$(PLATFORM)
 ifneq ($(origin DEBUG), undefined)
@@ -27,7 +31,18 @@ else
 endif
 BUILDDIR := $(project)/$(BUILD_DIRNAME)
 
-target := $(BUILDDIR)/$(output)
+# The $(fake)_* variables and the $(fake) prerequisites are a workaround/hack for a limitation of make.
+# It is not possible to expand variables inside recipe-commands immediately. They are always expanded when the recipe is actually executed.
+# This file (Main.mk) is included multiple times, and variables defined in this file are redefined with each inclusion.
+# This means, that all variables must be expanded immediately, before the Main.mk file is included again.
+# Otherwise the variables would be redefined and the variables in previous inclusions would expand to the values of the latest inclusion.
+# All variables are defined using := (instead of a simple =), so they are expanded immediately. However, variables in recipe-commands are always expanded late.
+# The workaround is to define target-specific variables with := ($(fakse)_BLABLA), that will never be overwritten because the name includes $(project),
+# and use these variables inside the recipes for the actual target. Since the recipe-commands cannot even use the $(target) variable correctly, a fake target
+# (.fake_targets/...) is created and added as first prerequisite for the actual targets. The recipe-commands can access the name of this prerequisite
+# with $< and the $(target) variable in the prerequisite-name is expanded early. By adding _BLABLA to the prerequisite-name, the correct variable can be expanded.
+# The same trick is used for several other targets. The files in .fake_targets/ are always up-to-date due to a rule in the main Makefile.
+fake := .fake_targets/$(project)
 
 # If dependencies are given, create the according -l and -L flags.
 LIB_DIRS := $(foreach d, $(dependencies), -L$d/$(BUILD_DIRNAME))
@@ -48,59 +63,52 @@ include Build$(PLATFORM).mk
 CFLAGS += $(DEFINE_FLAGS)
 DEPENDENCY_FLAGS += $(DEFINE_FLAGS)
 
-liboutput := lib$(output).$(LIB_SUFFIX)
-libtarget := $(BUILDDIR)/$(liboutput)
-fulltarget := $(target).$(TARGET_SUFFIX)
+$(fake)_cflags := $(CFLAGS)
+$(fake)_depflags := $(DEPENDENCY_FLAGS)
 
 objects := $(addprefix $(BUILDDIR)/, $(objects))
 sources := $(addprefix $(BUILDDIR)/, $(sources))
 unused_objects := $(addprefix $(BUILDDIR)/, $(unused_objects))
+
+# Include additional objects required by this project. These objects can be located in other project-folders!
+# The Objects.mk script should append file-names to the 'objects' variable. This is optional.
+-include $(project)/Objects.mk
 
 ATMEL_STUDIO_FOLDER ?= Debug
 
 # Unused objects (objects which are not archived or linked) are still treated as prerequesites of the project target,
 # so that all sources in a project are compiled when the project is made.
 ifeq ($(origin LIBRARY), undefined)
-$(project): link_$(project) $(unused_objects)
-$(project)_projecttarget := $(BUILDDIR)/$(output).$(TARGET_SUFFIX)
-studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(output).$(TARGET_SUFFIX)
-.fake_targets/$(fulltarget)_studio := cp $(fulltarget) $(studiotarget)
+	projectoutputs := $(foreach o, $(outputs), $o.$(TARGET_SUFFIX))
+	studiotarget := $(project).$(TARGET_SUFFIX)
+	studio_output := $(studio_output).$(TARGET_SUFFIX)
 else
-$(project): lib_$(project) $(unused_objects)
-studio_$(project): $(project) $(foreach d, $(dependencies), studio_$d)
-$(project)_projecttarget := $(BUILDDIR)/$(liboutput)
-studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(liboutput)
-.fake_targets/$(fulltarget)_studio := cp $(libtarget) $(studiotarget)
+	projectoutputs := $(foreach o, $(outputs), lib$o.$(LIB_SUFFIX))
+	studiotarget := lib$(project).$(LIB_SUFFIX)
+	studio_output := lib$(studio_output).$(LIB_SUFFIX)
 endif
 
-.fake_targets/$(fulltarget)_projecttarget := $($(project)_projecttarget)
+studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(studiotarget)
+projectoutputs := $(foreach o, $(projectoutputs), $(BUILDDIR)/$o)
+$(project)_projectoutputs := $(projectoutputs)
 
-$(studiotarget): .fake_targets/$(fulltarget) $($(project)_projecttarget)
+$(project): $(projectoutputs) $(unused_objects)
+
+$(studiotarget): $(BUILDDIR)/$(studio_output)
 	@echo Copying $@
 	mkdir -p $(@D)
-	$($<_studio)
+	cp $< $@
 
 ifneq ($(origin STUDIO), undefined)
 $(project): $(studiotarget)
 endif
-
-# Include additional objects required by this project. These objects can be located in other project-folders!
-# The Objects.mk script should append file-names to the 'objects' variable. This is optional.
--include $(project)/Objects.mk
-
-# These two fake_target-variables are used by the %.d and %.o targets. Reason: the variables stored here are project-dependent.
-# The pattern used here is a little different from the one for fake_targets described below: Here, not the whole recipe is
-# stored in the fake_targets-variable, but just the necessary part. It is accessed through a fake-prerequisite, that is then ignored
-# in the actual recipe by filtering out just the relevant prerequisite using $(word 2, ...).
-.fake_targets/$(fulltarget)_cflags := $(CFLAGS)
-.fake_targets/$(fulltarget)_depflags := $(DEPENDENCY_FLAGS)
 
 # From http://www.gnu.org/software/make/manual/make.html#Automatic-Prerequisites
 # And  http://scottmcpeak.com/autodepend/autodepend.html
 # (Both modified)
 # Automatically generates transitive include-dependencies for c-files using the compiler.
 # The sed-call fixes the .d-files produced by gcc by prepending the complete path to the .o-files.
-$(BUILDDIR)/%.d: .fake_targets/$(fulltarget) $(project)/%.c
+$(BUILDDIR)/%.d: $(fake) $(project)/%.c
 	mkdir -p $(@D); \
 	set -e; rm -f $@; \
 	$(CC) $($<_depflags) $(word 2, $^) > $@.$$$$; \
@@ -114,70 +122,52 @@ ifneq ($(MAKECMDGOALS), clean)
 endif
 endif
 
-$(BUILDDIR)/%.o: .fake_targets/$(fulltarget) $(project)/%.c
+$(BUILDDIR)/%.o: $(fake) $(project)/%.c
 	@echo $(word 2, $^)
 	mkdir -p $(@D)
 	$(CC) $($<_cflags) -o $@ $(word 2, $^)
 
-MAKE_BUILDDIR := mkdir -p $(BUILDDIR)
+dependency_targets := $(foreach d, $(dependencies), $($d_projectoutputs))
 
-# This is defined with =, not :=, so it's evaluated later, when all *_projecttarget variables are defined.
-$(project)_dependency_targets = $(foreach d, $(dependencies), $($d_projecttarget))
+$(fake)_make_builddir := mkdir -p $(BUILDDIR)
+$(fake)_OBJSIZE_FLAGS := $(OBJSIZE_FLAGS)
+$(fake)_fullLinkerFlags1 := $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(objects) $(LIB_ARCHIVES) 
+$(fake)_fullLinkerFlags2 := $(LDFLAGS_END)
+$(fake)_builddir := $(BUILDDIR)
+$(fake)_ARFLAGS := $(ARFLAGS)
+$(fake)_objects := $(objects)
 
-# The .fake_targets/* targets and variables are a workaround/hack for a limitation of make.
-# It is not possible to expand variables inside recipe-commands immediately. They are always expanded when the recipe is actually executed.
-# This file (Main.mk) is included multiple times, and variables defined in this file are redefined with each inclusion.
-# This means, that all variables must be expanded immediately, before the Main.mk file is included again.
-# Otherwise the variables would be redefined and the variables in previous inclusions would expand to the values of the latest inclusion.
-# All variables are defined using := (instead of a simple =), so they are expanded immediately. However, variables in recipe-commands are always expanded late.
-# The workaround is to define target-specific variables with := (make_target_$(target)_commands), that are expanded early, and use these
-# variables as commands for the actual target. Since the recipe-commands cannot even use the $(target) variable correctly, a fake target
-# (.fake_targets/...) is created and added as first prerequisite for the actual targets. The recipe-commands can access the name of this prerequisite
-# with $< and the $(target) variable in the prerequisite-name is expanded early. By adding _commands to the prerequisite-name, the correct variable can be expanded.
-# The same trick is used for several other targets. The files in .fake_targets/ are always up-to-date due to a rule in the main Makefile.
+$(BUILDDIR)/%.$(TARGET_SUFFIX): $(fake) $(BUILDDIR)/%.o $(objects) $(dependencies) $(dependency_targets)
+	$($<_make_builddir)
+	@echo Linking $@
+	$(CC) $($<_fullLinkerFlags1) $($<_builddir)/$*.o $($<_fullLinkerFlags2) -Wl,-Map="$*.map" -o $@
+	@echo
+	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $@
 
-# The order of the linker input is important: first the objects, then the libraries, so that symbols found in objects are preferred and
-# objects in libraries can be 'overridden' that way. [TODO: verify that this is true]
-.fake_targets/$(fulltarget)_commands := \
-	$(MAKE_BUILDDIR); \
-	echo Linking $(output).$(TARGET_SUFFIX); \
-	$(CC) $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(objects) $(LIB_ARCHIVES) $(LDFLAGS_END) -o $(fulltarget); \
-	echo; \
-	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $(fulltarget)
+size_$(project)_%: $(BUILDDIR)/%.$(TARGET_SUFFIX)
+	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $<
 
-$(fulltarget): .fake_targets/$(fulltarget) $(objects) $(dependencies) $($(project)_dependency_targets)
-	$($<_commands)
+$(BUILDDIR)/lib%.$(LIB_SUFFIX): $(fake) $(objects) $(dependencies)
+	$($<_make_builddir)
+	@echo Creating $@
+	$(AR) $($<_ARFLAGS) -o $@ $($<_objects)
 
-$(target).map: $(fulltarget)
+%.map: %.$(TARGET_SUFFIX)
+map_$(project)_%: $(BUILDDIR)/%.map
+link_$(project)_%: $(BUILDDIR)/%.$(TARGET_SUFFIX)
+$(TARGET_SUFFIX)_$(project)_%: $(BUILDDIR)/%.$(TARGET_SUFFIX)
+lib_$(project)_%: $(BUILDDIR)/lib%.$(LIB_SUFFIX)
 
-size_$(project): $(fulltarget)
-	$(OBJ-SIZE) $(OBJSIZE_FLAGS) $<
-
-.fake_targets/$(libtarget)_commands := \
-	$(MAKE_BUILDDIR); \
-	echo Creating $(liboutput); \
-	$(AR) $(ARFLAGS) -o $(libtarget) $(objects)
-
-$(libtarget): .fake_targets/$(libtarget) $(objects) $(dependencies)
-	$($<_commands)
-
-# Shortcuts for execution from console
-map_$(project): $(target).map
-link_$(project): $(fulltarget)
-$(TARGET_SUFFIX)_$(project): $(fulltarget)
-lib_$(project): $(libtarget)
 studio_$(project): $(studiotarget) $(foreach d, $(dependencies), studio_$d)
-clean_target_$(project): .fake_targets/$(fulltarget)
+clean_target_$(project): $(fake)
 	rm -f $($<_projecttarget)
 relink_$(project): clean_target_$(project) $(project)
 
-ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), \
+$(fake)_ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), \
 	$(project)/build-$p $(project)/build-$p-noopt $(project)/build-$p-speed \
 	$(project)/build-$p-debug $(project)/build-$p-debug-noopt $(project)/build-$p-debug-speed)
 
-.fake_targets/clean_$(project)_commands := rm -rf $(ALL_BUILD_DIRS)
-
-clean_$(project): .fake_targets/clean_$(project)
-	$($<_commands)
+clean_$(project): $(fake)
+	rm -rf $($<_ALL_BUILD_DIRS)
 
 .PHONY: clean_$(project) clean_target_$(project)

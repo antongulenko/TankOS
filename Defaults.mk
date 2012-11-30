@@ -1,8 +1,12 @@
 
 # This is separate from the Main.mk file to keep the Main.mk more flexible.
 
-output := $(project)
+ifneq ($(origin dependencies), undefined)
 includes := $(dependencies)
+else
+includes :=
+dependencies :=
+endif
 
 sources := $(shell $(FIND) $(project) -name \*.c)
 sources := $(subst $(project)/,,$(sources))
@@ -23,5 +27,12 @@ objects := $(used_sources:.c=.o)
 unused_sources := $(shell $(FIND) $(project) -name \*.$(unused_suffix).c)
 unused_sources := $(subst $(project)/,,$(unused_sources))
 unused_objects := $(unused_sources:.c=.o)
+
+ifeq ($(origin LIBRARY), undefined)
+outputs := $(subst .o,,$(unused_objects))
+else
+outputs := $(project)
+studio_output := $(project)
+endif
 
 # TODO uncovered: tests, selective linking for tests

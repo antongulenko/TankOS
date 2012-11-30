@@ -39,9 +39,7 @@ TARGET_SUFFIX := elf
 
 # the start-group/end-group flags cause the linker to handle circular dependencies.
 # The objects/libraries are scanned multiple times, until all dependencies are resolved. Link-time is increased, but this is the only way.
-LDFLAGS_START := $(MCUFLAG) \
-	-Wl,-Map="$(target).map" \
-	-Wl,--start-group
+LDFLAGS_START := $(MCUFLAG) -Wl,--start-group
 
 # This part of the linker flags is split off to include the objects of the current project into the start-group/end-group closure
 LDFLAGS_END := -Wl,--end-group -lm
@@ -53,21 +51,21 @@ OBJSIZE_FLAGS := -C --mcu=$(MCU)
 ARFLAGS := rcs
 
 # Time: 130ms
-$(target).hex: $(target).elf
+%.hex: %.elf
 	$(OBJ-COPY) -O ihex -R .eeprom -R .fuse -R .lock -R .signature $< $@
 
 # Time: 70ms
-$(target).eep: $(target).elf
+%.eep: %.elf
 	$(OBJ-COPY) -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0 --no-change-warnings -O ihex $< $@
 
 # Time: 670ms (!)
-$(target).lss: $(target).elf
+%.lss: %.elf
 	$(OBJ-DUMP) -h -S $< > $@
 
 # Shortcuts for execution from console
-hex_$(project): $(target).hex
-eep_$(project): $(target).eep
-lss_$(project): $(target).lss
+hex_$(project)_%: $(BUILDDIR)/%.hex
+eep_$(project)_%: $(BUILDDIR)/%.eep
+lss_$(project)_%: $(BUILDDIR)/%.lss
 
 # Aways build the hex-files automatically when linking.
 link_$(project): hex_$(project)
@@ -91,15 +89,15 @@ AVRDUDE_COMMAND := avrdude -P usb -c usbasp -p $(MCU)
 
 # This command checks connection to the AVR and prints verbose information.
 con:
-	echo Connecting to $(MCU)...
+	@echo Connecting to $(MCU)...
 	-$(AVRDUDE_COMMAND) -n
 
 endif
 
-flash_$(project): $(target).hex
+flash_$(project): $(BUILDDIR)/$(studio_output).hex
 	$(AVRDUDE_COMMAND) -U flash:r:$<
 
-flashv_$(project): $(target).hex
+flashv_$(project): $(BUILDDIR)/$(studio_output).hex
 	$(AVRDUDE_COMMAND) -v -v -U flash:r:$<
 
 .PHONY: flash_$(project) flashv_$(project)

@@ -23,6 +23,9 @@ ifeq ($(origin VERBOSE), undefined)
 .SILENT:
 endif
 
+# Disable builtin rules
+.SUFFIXES:
+
 ifeq ($(origin PLATFORM), undefined)
 PLATFORM := Avr
 endif
