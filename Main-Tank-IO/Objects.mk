@@ -9,17 +9,32 @@
 #		- Pin-change-interrupt (-> main just exits)
 #		- loop-button-updates
 
-# Decide which main() should be used when not testing.
-ifeq ($(origin MAIN_$(project)), undefined)
-	ifneq ($(origin TWI_COMMAND_QUEUE), undefined)
-		MAIN_$(project) := $(BUILDDIR)/Main_loopCommandQueue.main.o
-	else
-		ifneq ($(origin BUTTON_PIN_CHANGE_INTERRUPTS), undefined)
-			MAIN_$(project) := $(BUILDDIR)/Main_empty.kernel.o
-		else
-			MAIN_$(project) := $(BUILDDIR)/Main_updateButtonStatus.kernel.o
-		endif
-	endif
-endif
+USE_TWI:=
 
+my_objects := $(objects)
+
+TWI_COMMAND_QUEUE:=
+undefine BUTTON_PIN_CHANGE_INTERRUPTS
+undefine TWI_COMMAND_QUEUE_SLEEP
+include DefaultMainObjects.mk
+objects_$(project)_Main_loopCommandQueue.main := $(objects)
+
+objects := $(my_objects)
+undefine TWI_COMMAND_QUEUE
+BUTTON_PIN_CHANGE_INTERRUPTS:=
+undefine TWI_COMMAND_QUEUE_SLEEP
+include DefaultMainObjects.mk
+objects_$(project)_Main_empty.main := $(objects)
+
+objects := $(my_objects)
+undefine TWI_COMMAND_QUEUE
+undefine BUTTON_PIN_CHANGE_INTERRUPTS
+TWI_COMMAND_QUEUE_SLEEP:=
+include DefaultMainObjects.mk
+objects_$(project)_Main_updateButtonStatus.main := $(objects)
+
+objects := $(my_objects)
+undefine TWI_COMMAND_QUEUE
+undefine BUTTON_PIN_CHANGE_INTERRUPTS
+undefine TWI_COMMAND_QUEUE_SLEEP
 include DefaultMainObjects.mk
