@@ -15,6 +15,7 @@
 # SPEED: (flag) Instructs platform-dependent Makefiles to optimize for Speed instead of Size. Also switches to yet another build-directory.
 # NOOPT: (flag) Instructs platform-dependent Makefiles to do no optimizations. Also switches to yet another build-directory. This flag takes precedence over the SPEED flag.
 # STUDIO: (flag) If set, the output-artifacts will always be copied to the Atmel Studio output location, to be used in the Atmel Studio simulator. (-> The target 'studio' will be called implicitely).
+# AUTO_DISCOVER: (flag) Causes the makefile to automatically find project-makefiles (Project.mk) and projects. The project might not be in the correct order of their dependencies.
 
 # Possibility to define global parameters here
 -include make_parameters
@@ -29,8 +30,13 @@ endif
 
 FIND := find
 
+ifeq ($(origin AUTO_DISCOVER), undefined)
+AllProjects := Unity AntonAvrLib Tank-Shared Kernel-Tank-MASTER Kernel-Tank-IO Kernel-Simulator Main-Tank-MASTER Main-Tank-IO Main-Simulator Test-Scheduler
+ProjectMakefiles := $(foreach p, $(AllProjects), $p/Project.mk)
+else
 ProjectMakefiles := $(shell $(FIND) . -maxdepth 2 -name Project.mk)
 AllProjects := $(foreach p, $(ProjectMakefiles), $(shell basename $(shell dirname $p)))
+endif
 
 ALL_PLATFORMS := $(shell $(FIND) . -maxdepth 1 -name Build\*.mk | \
 						sed -re 's|./Build(.*).mk|\1|g')
