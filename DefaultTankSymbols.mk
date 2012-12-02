@@ -1,6 +1,11 @@
 
 # KEEP_WDT_ENABLED:=
 
+ifneq ($(origin TWI_COMMAND_QUEUE_SLEEP), undefined)
+	# BUTTON_PIN_CHANGE_INTERRUPTS is implied by TWI_COMMAND_QUEUE_SLEEP
+	BUTTON_PIN_CHANGE_INTERRUPTS:=
+endif
+
 ld_symbols := \
 	millisecond_timer=Timer3 \
 	millisecond_timer_A=Timer3A \
