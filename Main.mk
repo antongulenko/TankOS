@@ -5,8 +5,9 @@
 
 # This Makefile expects the following variables:
 # - sources: all source-files being compiled. Dependency .d-files are generated for these.
-# - objects: all objects being compiled and linked (does not necessarily match the list of source-files)
-# - unused_objects: object-files that exist in the project, but are not linked/archived. They are still built together with the project.
+# - all_objects: all objects that are part of the project.
+# - objects: objects that are linked/archived by default, if objects_$(project)_$(output_name) for a given output is not defined.
+# - objects_$(project)_$(output_name): objects that are linked/archived for the given output. Does not necessarily match sources/all_objects.
 # - outputs: filename(s) for linker/archiver-output (without any file-suffix!). In case of library, the project-objects will be archived in these archives. In case of executable project, the linker is invoked for each output, and an object identified by output will be an additional linker input.
 # - studio_output: the one output that will be copied to the Atmel Studio output directory.
 # - includes: (optional) list of directories passed to the compiler to look for include-files
@@ -66,9 +67,9 @@ DEPENDENCY_FLAGS += $(DEFINE_FLAGS)
 $(fake)_cflags := $(CFLAGS)
 $(fake)_depflags := $(DEPENDENCY_FLAGS)
 
+all_objects := $(addprefix $(BUILDDIR)/, $(all_objects))
 objects := $(addprefix $(BUILDDIR)/, $(objects))
 sources := $(addprefix $(BUILDDIR)/, $(sources))
-unused_objects := $(addprefix $(BUILDDIR)/, $(unused_objects))
 
 # Include additional objects required by this project. These objects can be located in other project-folders!
 # The Objects.mk script should append file-names to the 'objects' variable. This is optional.
@@ -76,8 +77,6 @@ unused_objects := $(addprefix $(BUILDDIR)/, $(unused_objects))
 
 ATMEL_STUDIO_FOLDER ?= Debug
 
-# Unused objects (objects which are not archived or linked) are still treated as prerequesites of the project target,
-# so that all sources in a project are compiled when the project is made.
 ifeq ($(origin LIBRARY), undefined)
 	projectoutputs := $(foreach o, $(outputs), $o.$(TARGET_SUFFIX))
 	studiotarget := $(project).$(TARGET_SUFFIX)
@@ -92,7 +91,7 @@ studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(studiotarget)
 projectoutputs := $(foreach o, $(projectoutputs), $(BUILDDIR)/$o)
 $(project)_projectoutputs := $(projectoutputs)
 
-$(project): $(projectoutputs) $(unused_objects)
+$(project): $(projectoutputs) $(all_objects)
 
 $(studiotarget): $(BUILDDIR)/$(studio_output)
 	@echo Copying $@
@@ -129,33 +128,42 @@ $(BUILDDIR)/%.o: $(fake) $(project)/%.c
 
 dependency_targets := $(foreach d, $(dependencies), $($d_projectoutputs))
 
-$(fake)_make_builddir := mkdir -p $(BUILDDIR)
 $(fake)_OBJSIZE_FLAGS := $(OBJSIZE_FLAGS)
-$(fake)_fullLinkerFlags1 := $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(objects) $(LIB_ARCHIVES) 
-$(fake)_fullLinkerFlags2 := $(LDFLAGS_END)
 $(fake)_builddir := $(BUILDDIR)
 $(fake)_ARFLAGS := $(ARFLAGS)
-$(fake)_objects := $(objects)
+$(fake)_fullLinkerFlags1 := $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(LIB_ARCHIVES) 
+$(fake)_fullLinkerFlags2 := $(LDFLAGS_END)
 
-$(BUILDDIR)/%.$(TARGET_SUFFIX) $(BUILDDIR)/%.map: $(fake) $(BUILDDIR)/%.o $(objects) $(dependencies) $(dependency_targets)
-	$($<_make_builddir)
-	@echo Linking $@
-	$(CC) $($<_fullLinkerFlags1) $(word 2, $^) $($<_fullLinkerFlags2) -Wl,-Map="$(subst .o,.map,$(word 2, $^))" -o $@
+define assign_default_objects
+ifeq ($(origin objects_$(project)_$1), undefined)
+objects_$(project)_$1 := $(objects)
+endif
+endef
+
+define make_output
+$(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(objects_$(project)_$1) $(dependencies) $(dependency_targets)
+	mkdir -p $$($$<_builddir)
+	@echo Linking $$@
+	$(CC) $$($$<_fullLinkerFlags1) $(objects_$(project)_$1) $$(word 2, $$^) $$($$<_fullLinkerFlags2) -Wl,-Map="$$(subst .o,.map,$$(word 2, $$^))" -o $$@
+	$(OBJ-SIZE) $$($$<_OBJSIZE_FLAGS) $$@ | grep :
 	@echo
-	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $@
+
+$(BUILDDIR)/lib$1.$(LIB_SUFFIX): $(fake) $(objects_$(project)_$1) $(dependencies)
+	mkdir -p $$($$<_builddir)
+	@echo Creating $$@
+	$(AR) $$($$<_ARFLAGS) -o $$@ $(objects_$(project)_$1)
+endef
+
+$(foreach o, $(outputs), $(eval $(call assign_default_objects,$o)))
+$(foreach o, $(outputs), $(eval $(call make_output,$o)))
 
 size_$(project)_%: $(fake) $(BUILDDIR)/%.$(TARGET_SUFFIX)
-	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $(word 2, $^)
-
-$(BUILDDIR)/lib%.$(LIB_SUFFIX): $(fake) $(objects) $(dependencies)
-	$($<_make_builddir)
-	@echo Creating $@
-	$(AR) $($<_ARFLAGS) -o $@ $($<_objects)
+	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $(word 2, $^) | grep :
 
 link_$(project): $(projectoutputs)
 $(TARGET_SUFFIX)_$(project): $(projectoutputs)
 lib_$(project): $(projectoutputs)
-map_$(project): $(foreach o, $(outputs), $(BUILDDIRS)/$o.map)
+map_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.map)
 
 studio_$(project): $(studiotarget) $(foreach d, $(dependencies), studio_$d)
 clean_target_$(project): $(fake)
