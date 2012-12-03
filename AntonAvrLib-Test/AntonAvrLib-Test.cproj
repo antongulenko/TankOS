@@ -60,7 +60,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="test_Port.c">
+    <Compile Include="test_port.test.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

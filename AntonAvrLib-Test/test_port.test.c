@@ -1,12 +1,13 @@
 
 #include <unity.h>
 #include <kernel/devices/port.h>
+#include <stdlib.h>
 
 uint8_t port, pin, ddr;
 
-#define PORTTest &port;
-#define PINTest &pin;
-#define DDRTest &ddr;
+#define PORTTest port
+#define PINTest pin
+#define DDRTest ddr
 #define PINTest1 1
 #define PINTest2 4
 
@@ -18,18 +19,18 @@ DEFINE_PORT_IMPL(Test)
 DEFINE_PIN_IMPL(Test, 1)
 DEFINE_PIN_IMPL(Test, 2)
 
-void setup() {
+void setUp() {
 	port = pin = ddr = 0;
-	memset(&PortTest, 0, sizeof(Port));
-	memset(&PinTest1, 0, sizeof(Pin));
-	memset(&PinTest2, 0, sizeof(Pin));
+	memset((void*) PortTest, 0, sizeof(Port));
+	memset((void*) PinTest1, 0, sizeof(Pin));
+	memset((void*) PinTest2, 0, sizeof(Pin));
 	
-	INIT_PORT(Test);
-	INIT_PIN(Test, 1);
-	INIT_PIN(Test, 2);
+	INIT_PORT(Test)
+	INIT_PIN(Test, 1)
+	INIT_PIN(Test, 2)
 }
 
-void teardown() {
+void tearDown() {
 }
 
 void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
@@ -112,7 +113,7 @@ void test_setPinOne_two() {
 
 void test_setPinZero_one() {
 	port = 0xFF;
-	setPinOne(PinTest1, TRUE);
+	setPinOne(PinTest1);
 	assertState(0, ~(1 << PINTest1), 0);
 }
 
