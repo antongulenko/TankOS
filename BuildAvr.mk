@@ -1,4 +1,6 @@
 
+COLOR_FLASH := magenta
+
 CC := avr-gcc
 AR := avr-ar
 OBJ-COPY := avr-objcopy
@@ -96,16 +98,23 @@ con:
 
 endif
 
+define do_flash
+	-color $(COLOR_FLASH)
+	@echo Flashing $2
+	-color off
+	$(AVRDUDE_COMMAND) $1 flash:r:$2
+endef
+
 flash_$(project)_%: $(BUILDDIR)/%.hex
-	$(AVRDUDE_COMMAND) -U flash:r:$<
+	$(call do_flash, -U, $<)
 
 flashv_$(project)_%: $(BUILDDIR)/%.hex
-	$(AVRDUDE_COMMAND) -v -v -U flash:r:$<
+	$(call do_flash, -v -v -U, $<)
 
 flash_$(project): $(BUILDDIR)/$(studio_output).hex
-	$(AVRDUDE_COMMAND) -U flash:r:$<
+	$(call do_flash, -U, $<)
 
 flashv_$(project): $(BUILDDIR)/$(studio_output).hex
-	$(AVRDUDE_COMMAND) -v -v -U flash:r:$<
+	$(call do_flash, -v -v -U, $<)
 
 .PHONY: flash_$(project) flashv_$(project) con
