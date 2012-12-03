@@ -69,8 +69,8 @@ INCLUDE_FLAGS := $(foreach d, $(includes), -I$d)
 # Include the platform-dependent Makefile. It will set all variables required for the rest of this Makefile.
 include Build$(PLATFORM).mk
 
-CFLAGS += $(DEFINE_FLAGS)
-DEPENDENCY_FLAGS += $(DEFINE_FLAGS)
+CFLAGS += $(DEFINE_FLAGS) $(INCLUDE_FLAGS)
+DEPENDENCY_FLAGS += $(DEFINE_FLAGS) $(INCLUDE_FLAGS)
 
 $(fake)_cflags := $(CFLAGS)
 $(fake)_depflags := $(DEPENDENCY_FLAGS)

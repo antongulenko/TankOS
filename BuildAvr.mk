@@ -10,7 +10,7 @@ OBJ-SIZE := avr-size
 MCU := atmega1284p
 MCUFLAG := -mmcu=$(MCU)
 
-BASE_FLAGS := $(MCUFLAG) $(INCLUDE_FLAGS) \
+BASE_FLAGS := $(MCUFLAG) \
 	-std=gnu99 \
 	-DAVR \
 	-DF_CPU=20000000 \
