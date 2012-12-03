@@ -44,7 +44,7 @@ Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Test-Scheduler", "Test-Sche
 EndProject
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "Unity", "Unity\Unity.cproj", "{3A038101-E60C-4E71-97F3-AAC1668EFC0E}"
 EndProject
-Project("{E66E83B9-2572-4076-B26E-6BE79FF3018A}") = "AntonAvrLib-Test", "AntonAvrLib-Test\AntonAvrLib-Test.cppproj", "{855CC7B7-0675-44F6-8403-07891A5B3574}"
+Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "AntonAvrLib-Test", "AntonAvrLib-Test\AntonAvrLib-Test.cproj", "{22836FB3-E2DF-4EDA-B988-AF7E47807128}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -80,10 +80,10 @@ Global
 		{3A038101-E60C-4E71-97F3-AAC1668EFC0E}.Debug|AVR.Build.0 = Debug|AVR
 		{3A038101-E60C-4E71-97F3-AAC1668EFC0E}.Release|AVR.ActiveCfg = Release|AVR
 		{3A038101-E60C-4E71-97F3-AAC1668EFC0E}.Release|AVR.Build.0 = Release|AVR
-		{855CC7B7-0675-44F6-8403-07891A5B3574}.Debug|AVR.ActiveCfg = Debug|AVR
-		{855CC7B7-0675-44F6-8403-07891A5B3574}.Debug|AVR.Build.0 = Debug|AVR
-		{855CC7B7-0675-44F6-8403-07891A5B3574}.Release|AVR.ActiveCfg = Release|AVR
-		{855CC7B7-0675-44F6-8403-07891A5B3574}.Release|AVR.Build.0 = Release|AVR
+		{22836FB3-E2DF-4EDA-B988-AF7E47807128}.Debug|AVR.ActiveCfg = Debug|AVR
+		{22836FB3-E2DF-4EDA-B988-AF7E47807128}.Debug|AVR.Build.0 = Debug|AVR
+		{22836FB3-E2DF-4EDA-B988-AF7E47807128}.Release|AVR.ActiveCfg = Release|AVR
+		{22836FB3-E2DF-4EDA-B988-AF7E47807128}.Release|AVR.Build.0 = Release|AVR
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
