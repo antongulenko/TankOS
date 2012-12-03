@@ -92,6 +92,7 @@ endif
 studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(studiotarget)
 projectoutputs := $(foreach o, $(projectoutputs), $(BUILDDIR)/$o)
 $(project)_projectoutputs := $(projectoutputs)
+$(fake)_projectoutputs := $(projectoutputs)
 
 $(project): $(projectoutputs) $(all_objects)
 
@@ -147,7 +148,7 @@ $(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(o
 	mkdir -p $$($$<_builddir)
 	@echo Linking $$@
 	$(CC) $$($$<_fullLinkerFlags1) $(objects_$(project)_$1) $$(word 2, $$^) $$($$<_fullLinkerFlags2) -Wl,-Map="$$(subst .o,.map,$$(word 2, $$^))" -o $$@
-	$(OBJ-SIZE) $$($$<_OBJSIZE_FLAGS) $$@ | grep :
+	$(OBJ-SIZE) $$($$<_OBJSIZE_FLAGS) $$@ | grep bytes
 	@echo
 
 $(BUILDDIR)/lib$1.$(LIB_SUFFIX): $(fake) $(objects_$(project)_$1) $(dependencies)
@@ -160,7 +161,7 @@ $(foreach o, $(outputs), $(eval $(call assign_default_objects,$o)))
 $(foreach o, $(outputs), $(eval $(call make_output,$o)))
 
 size_$(project)_%: $(fake) $(BUILDDIR)/%.$(TARGET_SUFFIX)
-	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $(word 2, $^) | grep :
+	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $(word 2, $^) | grep bytes
 
 link_$(project): $(projectoutputs)
 $(TARGET_SUFFIX)_$(project): $(projectoutputs)

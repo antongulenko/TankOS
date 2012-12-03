@@ -28,12 +28,26 @@ default_sources := $(subst $(project)/,,$(default_sources))
 objects := $(default_sources:.c=.o)
 
 ifeq ($(origin LIBRARY), undefined)
+
+# Linker outputs
 main_sources := $(shell $(FIND) $(project) -name \*.main.c)
 main_sources := $(subst $(project)/,,$(main_sources))
+ifeq ($(origin MAIN_$(project)), undefined)
+$(error MAIN_$(project) is not defined!)
+endif
+studio_output := $(MAIN_$(project)).main
+ifeq ($(origin DONT_LINK_ALL), undefined)
 outputs := $(subst .c,,$(main_sources))
 else
+outputs := $(studio_output)
+endif
+
+else
+
+# Library outputs
 outputs := $(project)
 studio_output := $(project)
+
 endif
 
 # TODO uncovered: tests, selective linking for tests
