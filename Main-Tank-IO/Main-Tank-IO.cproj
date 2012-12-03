@@ -105,7 +105,7 @@
     <Compile Include="Main_empty.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Main_loopComandQueue.main.c">
+    <Compile Include="Main_loopCommandQueue.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Main_updateButtonStatus.main.c">
