@@ -1,5 +1,6 @@
 
 COLOR_FLASH := magenta
+COLOR_SIZE := cyan
 
 CC := avr-gcc
 AR := avr-ar
@@ -49,7 +50,6 @@ LDFLAGS_END := -Wl,--end-group -lm
 # -Wl,--gc-sections --rodata-writable -mrelax -Wl,--defsym=__stack=0x4000
 
 DEPENDENCY_FLAGS := $(BASE_FLAGS) -MM
-OBJSIZE_FLAGS := -C --mcu=$(MCU)
 ARFLAGS := rcs
 
 # Time: 130ms
@@ -64,19 +64,28 @@ ARFLAGS := rcs
 %.lss: %.elf
 	$(OBJ-DUMP) -h -S $< > $@
 
-# Shortcuts for execution from console
 hex_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.hex)
 eep_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.eep)
 lss_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.lss)
 
 ifeq ($(origin LIBRARY), undefined)
-# Aways build the hex-files automatically when linking.
-$(project): hex_$(project)
+	# Aways build the hex-files automatically when linking.
+	$(project): hex_$(project)
+	ifneq ($(origin LSS), undefined)
+		$(project): lss_$(project)
+	endif
 endif
 
-ifneq ($(origin LSS), undefined)
-link_$(project): lss_$(project)
-endif
+define OPTIONAL_SIZE_COMMAND
+	-color $(COLOR_SIZE)
+	$(OBJ-SIZE) $$@ -C --mcu=$(MCU) | grep bytes
+	-color off
+endef
+
+size_$(project)_%: $(BUILDDIR)/%.$(TARGET_SUFFIX)
+	-color $(COLOR_SIZE)
+	$(OBJ-SIZE) $< -C --mcu=$(MCU) | grep bytes
+	-color off
 
 # =====
 # == AVRDUDE commands

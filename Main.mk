@@ -20,7 +20,6 @@
 # http://code.google.com/p/ansi-color/
 COLOR_COMPILE := green
 COLOR_LINK := bold cyan
-COLOR_SIZE := cyan
 COLOR_ARCHIVE := bold magenta
 COLOR_COPY := faint yellow
 COLOR_GENERATE := faint yellow
@@ -153,7 +152,6 @@ $(BUILDDIR)/%.o: $(fake) $(project)/%.c
 
 dependency_targets := $(foreach d, $(dependencies), $($d_projectoutputs))
 
-$(fake)_OBJSIZE_FLAGS := $(OBJSIZE_FLAGS)
 $(fake)_builddir := $(BUILDDIR)
 $(fake)_ARFLAGS := $(ARFLAGS)
 $(fake)_fullLinkerFlags1 := $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(LIB_ARCHIVES) 
@@ -170,9 +168,7 @@ $(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(o
 	@echo "Linking  $$@"
 	-color off
 	$(CC) $$($$<_fullLinkerFlags1) $(objects_$(project)_$1) $(BUILDDIR)/$1.o $$($$<_fullLinkerFlags2) -Wl,-Map="$$(subst .o,.map,$$(word 2, $$^))" -o $$@
-	-color $(COLOR_SIZE)
-	$(OBJ-SIZE) $$($$<_OBJSIZE_FLAGS) $$@ | grep bytes
-	-color off
+	$(OPTIONAL_SIZE_COMMAND)
 
 $(BUILDDIR)/lib$1.$(LIB_SUFFIX): $(fake) $(objects_$(project)_$1) $(dependencies)
 	mkdir -p $$($$<_builddir)
@@ -184,11 +180,6 @@ endef
 
 $(foreach o, $(outputs), $(eval $(call assign_default_objects,$o)))
 $(foreach o, $(outputs), $(eval $(call make_output,$o)))
-
-size_$(project)_%: $(fake) $(BUILDDIR)/%.$(TARGET_SUFFIX)
-	-color $(COLOR_SIZE)
-	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $(word 2, $^) | grep bytes; $(COLOR)
-	-color off
 
 link_$(project): $(project)
 $(TARGET_SUFFIX)_$(project): $(project)
