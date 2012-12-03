@@ -34,9 +34,9 @@ void tearDown() {
 }
 
 void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
-	TEST_ASSERT_EQUAL_UINT8(exp_pin, pin);
-	TEST_ASSERT_EQUAL_UINT8(exp_port, port);
-	TEST_ASSERT_EQUAL_UINT8(exp_ddr, ddr);
+	TEST_ASSERT_EQUAL_HEX(exp_pin, pin);
+	TEST_ASSERT_EQUAL_HEX(exp_port, port);
+	TEST_ASSERT_EQUAL_HEX(exp_ddr, ddr);
 }
 
 void test_nothingSetAfterInit() {
@@ -86,7 +86,7 @@ void test_readPort() {
 	pin = 0xca;
 	uint8_t val = readPort(PortTest);
 	assertState(0xca, 0, 0);
-	TEST_ASSERT_EQUAL_UINT8(0xca, val);
+	TEST_ASSERT_EQUAL_HEX(0xca, val);
 }
 
 void test_writePin_one() {
