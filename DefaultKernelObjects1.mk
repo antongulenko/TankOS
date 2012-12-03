@@ -1,6 +1,5 @@
 
-KERNEL := AntonAvrLib/$(BUILD_DIRNAME)/kernel
-SHARED := Tank-Shared/$(BUILD_DIRNAME)
+include DefaultObjectVariables.mk
 
 ifneq ($(origin KEEP_WDT_ENABLED), undefined)
 	objects += $(KERNEL)/reset_condition.kernel.o

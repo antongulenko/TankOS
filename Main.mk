@@ -169,7 +169,7 @@ $(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(o
 	-color $(COLOR_LINK)
 	@echo "Linking  $$@"
 	-color off
-	$(CC) $$($$<_fullLinkerFlags1) $(objects_$(project)_$1) $$(word 2, $$^) $$($$<_fullLinkerFlags2) -Wl,-Map="$$(subst .o,.map,$$(word 2, $$^))" -o $$@
+	$(CC) $$($$<_fullLinkerFlags1) $(objects_$(project)_$1) $(BUILDDIR)/$1.o $$($$<_fullLinkerFlags2) -Wl,-Map="$$(subst .o,.map,$$(word 2, $$^))" -o $$@
 	-color $(COLOR_SIZE)
 	$(OBJ-SIZE) $$($$<_OBJSIZE_FLAGS) $$@ | grep bytes
 	-color off
