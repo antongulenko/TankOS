@@ -12,9 +12,14 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+
+#ifdef AVR
 #include <util/delay.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#else
+#define _BV(a) (1 << a)
+#endif
 
 typedef enum {
 	FALSE = 0,
