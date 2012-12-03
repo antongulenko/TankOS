@@ -1,7 +1,7 @@
 
 #include <unity.h>
 #include <kernel/devices/port.h>
-#include <stdlib.h>
+#include <string.h>
 
 uint8_t port, pin, ddr;
 
