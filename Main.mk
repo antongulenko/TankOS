@@ -19,10 +19,10 @@
 
 # http://code.google.com/p/ansi-color/
 COLOR_COMPILE := green
-COLOR_LINK := yellow
+COLOR_LINK := bold cyan
 COLOR_SIZE := cyan
-COLOR_ARCHIVE := yellow
-COLOR_COPY := blue
+COLOR_ARCHIVE := bold magenta
+COLOR_COPY := faint yellow
 
 BUILD_DIRNAME := build-$(PLATFORM)
 ifneq ($(origin DEBUG), undefined)
@@ -104,8 +104,7 @@ $(fake)_projectoutputs := $(projectoutputs)
 $(project): $(projectoutputs) $(all_objects)
 
 $(studiotarget): $(BUILDDIR)/$(studio_output)
-	-color $(COLOR_COPY)
-	@echo Copying $@
+	echo "Copying  $$(color $(COLOR_COPY))$<$$(color off) -> $$(color $(COLOR_COPY))$@$$(color off)"
 	mkdir -p $(@D)
 	cp $< $@
 	-color off
