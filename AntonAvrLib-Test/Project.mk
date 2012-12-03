@@ -10,5 +10,7 @@ undefine STUDIO
 
 include Defaults.mk
 
+includes += AntonAvrLib
 ld_symbols :=
+
 include Main.mk

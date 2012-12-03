@@ -1,1 +1,1 @@
-dependencies := AntonAvrLib Unity
+dependencies := Unity
