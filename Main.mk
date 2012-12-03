@@ -17,6 +17,13 @@
 # - symbols: preprocessor definitions that will be used when compiling.
 # - ld_symbols: symbols, that will be defined by the linker. Form: <symbol>=<address or other symbol>. See the linker manual.
 
+# http://code.google.com/p/ansi-color/
+COLOR_COMPILE := green
+COLOR_LINK := yellow
+COLOR_SIZE := cyan
+COLOR_ARCHIVE := yellow
+COLOR_COPY := blue
+
 BUILD_DIRNAME := build-$(PLATFORM)
 ifneq ($(origin DEBUG), undefined)
 	BUILD_DIRNAME := $(BUILD_DIRNAME)-debug
@@ -97,9 +104,11 @@ $(fake)_projectoutputs := $(projectoutputs)
 $(project): $(projectoutputs) $(all_objects)
 
 $(studiotarget): $(BUILDDIR)/$(studio_output)
+	-color $(COLOR_COPY)
 	@echo Copying $@
 	mkdir -p $(@D)
 	cp $< $@
+	-color off
 
 ifneq ($(origin STUDIO), undefined)
 $(project): $(studiotarget)
@@ -125,8 +134,10 @@ endif
 endif
 
 $(BUILDDIR)/%.o: $(fake) $(project)/%.c
+	-color $(COLOR_COMPILE)
 	@echo $(word 2, $^)
 	mkdir -p $(@D)
+	-color off
 	$(CC) $($<_cflags) -o $@ $(word 2, $^)
 
 dependency_targets := $(foreach d, $(dependencies), $($d_projectoutputs))
@@ -146,14 +157,20 @@ endef
 define make_output
 $(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(objects_$(project)_$1) $(dependencies) $(dependency_targets)
 	mkdir -p $$($$<_builddir)
+	-color $(COLOR_LINK)
 	@echo Linking $$@
+	-color off
 	$(CC) $$($$<_fullLinkerFlags1) $(objects_$(project)_$1) $$(word 2, $$^) $$($$<_fullLinkerFlags2) -Wl,-Map="$$(subst .o,.map,$$(word 2, $$^))" -o $$@
+	-color $(COLOR_SIZE)
 	$(OBJ-SIZE) $$($$<_OBJSIZE_FLAGS) $$@ | grep bytes
+	-color off
 	@echo
 
 $(BUILDDIR)/lib$1.$(LIB_SUFFIX): $(fake) $(objects_$(project)_$1) $(dependencies)
 	mkdir -p $$($$<_builddir)
+	-color $(COLOR_ARCHIVE)
 	@echo Creating $$@
+	-color off
 	$(AR) $$($$<_ARFLAGS) -o $$@ $(objects_$(project)_$1)
 endef
 
@@ -161,11 +178,13 @@ $(foreach o, $(outputs), $(eval $(call assign_default_objects,$o)))
 $(foreach o, $(outputs), $(eval $(call make_output,$o)))
 
 size_$(project)_%: $(fake) $(BUILDDIR)/%.$(TARGET_SUFFIX)
-	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $(word 2, $^) | grep bytes
+	-color $(COLOR_SIZE)
+	$(OBJ-SIZE) $($<_OBJSIZE_FLAGS) $(word 2, $^) | grep bytes; $(COLOR)
+	-color off
 
-link_$(project): $(projectoutputs)
-$(TARGET_SUFFIX)_$(project): $(projectoutputs)
-lib_$(project): $(projectoutputs)
+link_$(project): $(project)
+$(TARGET_SUFFIX)_$(project): $(project)
+lib_$(project): $(project)
 map_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.map)
 
 studio_$(project): $(studiotarget) $(foreach d, $(dependencies), studio_$d)
