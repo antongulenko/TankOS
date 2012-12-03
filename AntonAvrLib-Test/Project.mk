@@ -3,11 +3,12 @@ undefine LIBRARY
 project := $(get-basedir)
 include $(project)/Dependencies.mk
 
-include Defaults.mk
-
 undefine USE_TWI
 undefine USE_SCHEDULER
 undefine USE_PROCESS_EXT
+undefine STUDIO
 
-include DefaultTankSymbols.mk
+include Defaults.mk
+
+ld_symbols :=
 include Main.mk
