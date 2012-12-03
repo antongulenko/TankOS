@@ -20,6 +20,9 @@
 # Possibility to define global parameters here
 -include make_parameters
 
+# Make sure this is at least defined
+MAKECMDGOALS ?=
+
 ifeq ($(origin VERBOSE), undefined)
 .SILENT:
 endif
