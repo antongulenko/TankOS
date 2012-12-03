@@ -67,9 +67,11 @@ DEPENDENCY_FLAGS += $(DEFINE_FLAGS)
 $(fake)_cflags := $(CFLAGS)
 $(fake)_depflags := $(DEPENDENCY_FLAGS)
 
+DEPENDENCY_DIR ?= .d
+
 all_objects := $(addprefix $(BUILDDIR)/, $(all_objects))
 objects := $(addprefix $(BUILDDIR)/, $(objects))
-sources := $(addprefix $(BUILDDIR)/, $(sources))
+dependency_files := $(addprefix $(DEPENDENCY_DIR)/$(project)/, $(sources))
 
 # Include additional objects required by this project. These objects can be located in other project-folders!
 # The Objects.mk script should append file-names to the 'objects' variable. This is optional.
@@ -107,7 +109,7 @@ endif
 # (Both modified)
 # Automatically generates transitive include-dependencies for c-files using the compiler.
 # The sed-call fixes the .d-files produced by gcc by prepending the complete path to the .o-files.
-$(BUILDDIR)/%.d: $(fake) $(project)/%.c
+$(DEPENDENCY_DIR)/$(project)/%.d: $(fake) $(project)/%.c
 	mkdir -p $(@D); \
 	set -e; rm -f $@; \
 	$(CC) $($<_depflags) $(word 2, $^) > $@.$$$$; \
@@ -117,7 +119,7 @@ $(BUILDDIR)/%.d: $(fake) $(project)/%.c
 ifneq ($(MAKECMDGOALS), clean_$(project))
 ifneq ($(MAKECMDGOALS), clean)
 # Include the generated dependency-Makefiles for every source-file (only if not 'clean' is invoked)
--include $(sources:.c=.d)
+-include $(dependency_files:.c=.d)
 endif
 endif
 
