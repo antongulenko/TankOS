@@ -163,7 +163,6 @@ $(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(o
 	-color $(COLOR_SIZE)
 	$(OBJ-SIZE) $$($$<_OBJSIZE_FLAGS) $$@ | grep bytes
 	-color off
-	@echo
 
 $(BUILDDIR)/lib$1.$(LIB_SUFFIX): $(fake) $(objects_$(project)_$1) $(dependencies)
 	mkdir -p $$($$<_builddir)
