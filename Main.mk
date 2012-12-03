@@ -207,4 +207,8 @@ $(fake)_ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), \
 clean_$(project): $(fake)
 	rm -rf $($<_ALL_BUILD_DIRS)
 
+# Execute all outputs of the project. Will fail, if they are not actually executable in the native shell.
+run_$(project): $(fake) $(project)
+	$(foreach o, $($<_projectoutputs), ./$o;)
+
 .PHONY: clean_$(project) clean_target_$(project)

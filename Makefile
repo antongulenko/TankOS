@@ -61,6 +61,7 @@ flashv: flashv_$(PROJ)
 studio: studio_$(PROJ)
 clean_target: clean_target_$(PROJ)
 relink: relink_$(PROJ)
+run: run_$(PROJ)
 endif
 
 all: $(AllProjects)
