@@ -157,7 +157,7 @@ define make_output
 $(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(objects_$(project)_$1) $(dependencies) $(dependency_targets)
 	mkdir -p $$($$<_builddir)
 	-color $(COLOR_LINK)
-	@echo Linking $$@
+	@echo "Linking  $$@"
 	-color off
 	$(CC) $$($$<_fullLinkerFlags1) $(objects_$(project)_$1) $$(word 2, $$^) $$($$<_fullLinkerFlags2) -Wl,-Map="$$(subst .o,.map,$$(word 2, $$^))" -o $$@
 	-color $(COLOR_SIZE)
