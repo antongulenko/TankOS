@@ -23,6 +23,7 @@ COLOR_LINK := bold cyan
 COLOR_SIZE := cyan
 COLOR_ARCHIVE := bold magenta
 COLOR_COPY := faint yellow
+COLOR_GENERATE := faint yellow
 
 BUILD_DIRNAME := build-$(PLATFORM)
 ifneq ($(origin DEBUG), undefined)
@@ -84,6 +85,17 @@ dependency_files := $(addprefix $(DEPENDENCY_DIR)/$(project)/, $(sources))
 # The Objects.mk script should append file-names to the 'objects' variable. This is optional.
 -include $(project)/Objects.mk
 
+# Handle Unity tests. testrunners are generated.
+ifneq ($(origin tests), undefined)
+TEST_RUNNERS_DIR ?= testrunners
+outputs += $(foreach t, $(tests), $(TEST_RUNNERS_DIR)/$t.testrunner)
+$(project)/$(TEST_RUNNERS_DIR)/%.testrunner.c: $(project)/%.test.c
+	mkdir -p $(@D)
+	@echo "$$(color $(COLOR_GENERATE))$@$$(color off) (Generated)"
+	ruby Unity/generate_test_runner.rb $< $@
+.PRECIOUS: $(project)/$(TEST_RUNNERS_DIR)/%.testrunner.c
+endif
+
 ATMEL_STUDIO_FOLDER ?= Debug
 
 ifeq ($(origin LIBRARY), undefined)
@@ -104,7 +116,7 @@ $(fake)_projectoutputs := $(projectoutputs)
 $(project): $(projectoutputs) $(all_objects)
 
 $(studiotarget): $(BUILDDIR)/$(studio_output)
-	echo "Copying  $$(color $(COLOR_COPY))$<$$(color off) -> $$(color $(COLOR_COPY))$@$$(color off)"
+	@echo "Copying  $$(color $(COLOR_COPY))$<$$(color off) -> $$(color $(COLOR_COPY))$@$$(color off)"
 	mkdir -p $(@D)
 	cp $< $@
 	-color off
@@ -148,9 +160,7 @@ $(fake)_fullLinkerFlags1 := $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(LI
 $(fake)_fullLinkerFlags2 := $(LDFLAGS_END)
 
 define assign_default_objects
-ifeq ($(origin objects_$(project)_$1), undefined)
-objects_$(project)_$1 := $(objects)
-endif
+objects_$(project)_$1 ?= $(objects)
 endef
 
 define make_output
