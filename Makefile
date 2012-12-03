@@ -105,4 +105,3 @@ endif
 #  - Kernel-projects should define the kernel-objects they require from other libraries. By default, objects named *.kernel.o are excluded.
 #  - Main-projects can define additional objects to be linked, that should override symbols defined in libraries
 # Take care to APPEND to the 'objects'-variable, as it already contains other objects!
-

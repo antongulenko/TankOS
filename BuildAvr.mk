@@ -67,8 +67,10 @@ hex_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.hex)
 eep_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.eep)
 lss_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.lss)
 
+ifeq ($(origin LIBRARY), undefined)
 # Aways build the hex-files automatically when linking.
-link_$(project): hex_$(project)
+$(project): hex_$(project)
+endif
 
 ifneq ($(origin LSS), undefined)
 link_$(project): lss_$(project)
@@ -94,10 +96,16 @@ con:
 
 endif
 
+flash_$(project)_%: $(BUILDDIR)/%.hex
+	$(AVRDUDE_COMMAND) -U flash:r:$<
+
+flashv_$(project)_%: $(BUILDDIR)/%.hex
+	$(AVRDUDE_COMMAND) -v -v -U flash:r:$<
+
 flash_$(project): $(BUILDDIR)/$(studio_output).hex
 	$(AVRDUDE_COMMAND) -U flash:r:$<
 
 flashv_$(project): $(BUILDDIR)/$(studio_output).hex
 	$(AVRDUDE_COMMAND) -v -v -U flash:r:$<
 
-.PHONY: flash_$(project) flashv_$(project)
+.PHONY: flash_$(project) flashv_$(project) con
