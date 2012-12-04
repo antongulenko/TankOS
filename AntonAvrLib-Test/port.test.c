@@ -1,33 +1,10 @@
 
 #include <unity.h>
-#include <kernel/devices/port.h>
 #include <string.h>
-
-volatile uint8_t port, pin, ddr;
-
-#define PORTTest port
-#define PINTest pin
-#define DDRTest ddr
-#define PINTest1 1
-#define PINTest2 4
-
-DEFINE_PORT(Test)
-DEFINE_PIN(Test, 1)
-DEFINE_PIN(Test, 2)
-
-DEFINE_PORT_IMPL(Test)
-DEFINE_PIN_IMPL(Test, 1)
-DEFINE_PIN_IMPL(Test, 2)
+#include "fake_port.h"
 
 void setUp() {
-	port = pin = ddr = 0;
-	memset((void*) PortTest, 0, sizeof(Port));
-	memset((void*) PinTest1, 0, sizeof(Pin));
-	memset((void*) PinTest2, 0, sizeof(Pin));
-	
-	INIT_PORT(Test)
-	INIT_PIN(Test, 1)
-	INIT_PIN(Test, 2)
+	init_fake_port();
 }
 
 void tearDown() {
