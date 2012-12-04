@@ -3,7 +3,7 @@
 #include <kernel/devices/port.h>
 #include <string.h>
 
-uint8_t port, pin, ddr;
+volatile uint8_t port, pin, ddr;
 
 #define PORTTest port
 #define PINTest pin
@@ -48,8 +48,19 @@ void test_setPortOutput() {
 	assertState(0, 0, 0xFF);
 }
 
+void test_setPortOutput_preset() {
+	ddr = 0xaa;
+	setPortOutput(PortTest);
+	assertState(0, 0, 0xFF);
+}
+
 void test_setPortInput() {
-	port = 0xaa;
+	setPortInput(PortTest);
+	assertState(0, 0, 0);
+}
+
+void test_setPortInput_preset() {
+	ddr = 0xaa;
 	setPortInput(PortTest);
 	assertState(0, 0, 0);
 }
@@ -62,19 +73,20 @@ void test_setPinOutput_one() {
 void test_setPinOutput_two() {
 	setPinOutput(PinTest1);
 	setPinOutput(PinTest2);
-	assertState(0, 0, (1 << PINTest1) || (1 << PINTest2));
+	assertState(0, 0, (1 << PINTest1) | (1 << PINTest2));
 }
 
 void test_setPinInput_one() {
-	port = 0xFF;
+	ddr = 0xFF;
 	setPinInput(PinTest1);
 	assertState(0, 0, ~(1 << PINTest1));
 }
 
 void test_setPinInput_two() {
+	ddr = 0xFF;
 	setPinInput(PinTest1);
 	setPinInput(PinTest2);
-	assertState(0, 0, ~((1 << PINTest1) || (1 << PINTest2)));
+	assertState(0, 0, ~((1 << PINTest1) | (1 << PINTest2)));
 }
 
 void test_writePort() {
@@ -97,7 +109,7 @@ void test_writePin_one() {
 void test_writePin_two() {
 	writePin(PinTest1, TRUE);
 	writePin(PinTest2, TRUE);
-	assertState(0, (1 << PINTest1) || (1 << PINTest2), 0);
+	assertState(0, (1 << PINTest1) | (1 << PINTest2), 0);
 }
 
 void test_setPinOne_one() {
@@ -108,12 +120,12 @@ void test_setPinOne_one() {
 void test_setPinOne_two() {
 	setPinOne(PinTest1);
 	setPinOne(PinTest2);
-	assertState(0, (1 << PINTest1) || (1 << PINTest2), 0);
+	assertState(0, (1 << PINTest1) | (1 << PINTest2), 0);
 }
 
 void test_setPinZero_one() {
 	port = 0xFF;
-	setPinOne(PinTest1);
+	setPinZero(PinTest1);
 	assertState(0, ~(1 << PINTest1), 0);
 }
 
@@ -121,7 +133,7 @@ void test_setPinZero_two() {
 	port = 0xFF;
 	setPinZero(PinTest1);
 	setPinZero(PinTest2);
-	assertState(0, ~((1 << PINTest1) || (1 << PINTest2)), 0);
+	assertState(0, ~((1 << PINTest1) | (1 << PINTest2)), 0);
 }
 
 void test_readPin_1() {
