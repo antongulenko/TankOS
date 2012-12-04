@@ -22,4 +22,6 @@ void disblePinChangeInterrupt(uint8_t pcNumber) {
 	uint8_t maskRegisterBit = pcNumber % 8;
 	uint8_t maskRegisterNumber = pcNumber / 8; // Always rounded down
 	*(maskRegisters[maskRegisterNumber]) &= ~_BV(maskRegisterBit);
+	if (*maskRegisters[maskRegisterNumber] == 0)
+		PCICR &= ~_BV(maskRegisterNumber);
 }
