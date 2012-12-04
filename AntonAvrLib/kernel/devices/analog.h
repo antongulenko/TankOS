@@ -39,7 +39,6 @@ BOOL analogRead(PAnalogInput input, AnalogCallbackFunction callback);
 // Return FALSE, if another conversion is currently running.
 BOOL analogReadLoop(PAnalogInput input, uint8_t *result);
 
-
 #define DEFINE_ANALOG_INPUT(analogInputName) extern const PAnalogInput analogInputName;
 
 #define INIT_ANALOG_INPUT(analogInputName, inputPin, pinNumber)	\
