@@ -105,6 +105,12 @@
     <Compile Include="anton_std.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="fake_registers.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fake_registers.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\buffer_stdout.kernel.c">
       <SubType>compile</SubType>
     </Compile>

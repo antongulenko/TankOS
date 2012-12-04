@@ -61,7 +61,10 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="test_port.test.c">
+    <Compile Include="external_interrupts.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="port.test.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

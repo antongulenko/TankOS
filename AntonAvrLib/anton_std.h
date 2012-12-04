@@ -19,6 +19,7 @@
 #include <avr/interrupt.h>
 #else
 #define _BV(a) (1 << a)
+#include "fake_registers.h"
 #endif
 
 typedef enum {
