@@ -64,6 +64,15 @@
     <Compile Include="external_interrupts.test.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="fake_port.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fake_port.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="led.test.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="port.test.c">
       <SubType>compile</SubType>
     </Compile>

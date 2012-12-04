@@ -7,7 +7,6 @@
 
 #include "led.h"
 #include "port.h"
-#include <util/delay.h>
 
 void enableLed(PLed led) {
 	writePin(led->pin, TRUE);
