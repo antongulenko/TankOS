@@ -14,12 +14,17 @@
 #include <stdlib.h>
 
 #ifdef AVR
+
+// Normal AVR environment
 #include <util/delay.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+
 #else
-#define _BV(a) (1 << a)
+
+// Native test environment
 #include "fake_registers.h"
+
 #endif
 
 typedef enum {
