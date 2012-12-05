@@ -119,7 +119,23 @@ void test_group_redisable() {
 	assertState(0, 0, ALL_LEDS);
 }
 
-void test_group_set_1() {
+void test_group_set_all() {
 	setLeds(Group, 0xFFFF);
 	assertState(0, ALL_LEDS, ALL_LEDS);
 }
+
+void test_group_set_2() {
+	setLeds(Group, LED1 | LED2);
+	assertState(0, _BV(PINTest1) | _BV(PINTest2), ALL_LEDS);
+}
+
+void test_group_set_3() {
+	setLeds(Group, LED1 | LED2 | LED3);
+	assertState(0, ALL_LEDS, ALL_LEDS);
+}
+
+void test_group_set_someOthers() {
+	setLeds(Group, LED1 | ~(LED2 | LED3));
+	assertState(0, _BV(PINTest1), ALL_LEDS);
+}
+
