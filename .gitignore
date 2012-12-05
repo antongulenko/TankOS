@@ -12,3 +12,6 @@ make.exe.stackdump
 /.Unity-master/
 /.d/
 testrunners/
+/.cproject
+/.project
+/.settings/
