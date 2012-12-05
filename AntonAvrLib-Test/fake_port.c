@@ -1,5 +1,6 @@
 
 #include "fake_port.h"
+#include <string.h>
 
 volatile uint8_t port, pin, ddr;
 
@@ -17,4 +18,5 @@ void init_fake_port() {
 	INIT_PORT(Test)
 	INIT_PIN(Test, 1)
 	INIT_PIN(Test, 2)
+	INIT_PIN(Test, 3)
 }
