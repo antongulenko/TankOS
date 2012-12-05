@@ -17,6 +17,7 @@
 # STUDIO: (flag) If set, the output-artifacts will always be copied to the Atmel Studio output location, to be used in the Atmel Studio simulator. (-> The target 'studio' will be called implicitely).
 # AUTO_DISCOVER: (flag) Causes the makefile to automatically find project-makefiles (Project.mk) and projects. The project might not be in the correct order of their dependencies.
 # DONT_LINK_ALL: (flag) Causes only the main output to be produced, not every possible output. For executable objects, this means the linker is invoked only once.
+# IGNORE_COLORS: (flag) Causes colors to be omitted from the output.
 
 # Possibility to define global parameters here
 -include make_parameters
@@ -32,6 +33,11 @@ ifeq ($(origin PLATFORM), undefined)
 PLATFORM := Avr
 endif
 
+ifneq ($(origin IGNORE_COLORS), undefined)
+COLOR := /dev/null
+else
+COLOR := color
+endif
 FIND := find
 
 ifeq ($(origin AUTO_DISCOVER), undefined)
@@ -48,6 +54,7 @@ ALL_PLATFORMS := $(shell $(FIND) . -maxdepth 1 -name Build\*.mk | \
 # Include shortcut-commands for the defined project.
 # This is above the all-command, to make the build-command the default if PROJ is defined.
 ifneq ($(origin PROJ), undefined)
+all: $(PROJ)
 build: $(PROJ)
 hex: hex_$(PROJ)
 eep: eep_$(PROJ)
@@ -62,9 +69,11 @@ studio: studio_$(PROJ)
 clean_target: clean_target_$(PROJ)
 relink: relink_$(PROJ)
 run: run_$(PROJ)
+else
+all: $(AllProjects)
 endif
 
-all: $(AllProjects)
+allprojects: $(AllProjects)
 
 clean: $(foreach p, $(AllProjects), clean_$p)
 

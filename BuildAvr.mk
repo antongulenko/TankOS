@@ -77,15 +77,15 @@ ifeq ($(origin LIBRARY), undefined)
 endif
 
 define OPTIONAL_SIZE_COMMAND
-	-color $(COLOR_SIZE)
+	-$(COLOR) $(COLOR_SIZE)
 	$(OBJ-SIZE) $$@ -C --mcu=$(MCU) | grep bytes
-	-color off
+	-$(COLOR) off
 endef
 
 size_$(project)_%: $(BUILDDIR)/%.$(TARGET_SUFFIX)
-	-color $(COLOR_SIZE)
+	-$(COLOR) $(COLOR_SIZE)
 	$(OBJ-SIZE) $< -C --mcu=$(MCU) | grep bytes
-	-color off
+	-$(COLOR) off
 
 # =====
 # == AVRDUDE commands
@@ -108,9 +108,9 @@ con:
 endif
 
 define do_flash
-	-color $(COLOR_FLASH)
+	-$(COLOR) $(COLOR_FLASH)
 	@echo Flashing $2
-	-color off
+	-$(COLOR) off
 	$(AVRDUDE_COMMAND) $1 flash:r:$2
 endef
 

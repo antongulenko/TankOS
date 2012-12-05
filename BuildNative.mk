@@ -1,6 +1,4 @@
 
-COLOR_FLASH := magenta
-
 CC := gcc
 AR := ar
 OBJ-COPY := objcopy
