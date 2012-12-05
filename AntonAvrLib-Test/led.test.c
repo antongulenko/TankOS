@@ -32,3 +32,94 @@ void setUp() {
 
 void tearDown() {
 }
+
+void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
+	TEST_ASSERT_EQUAL_HEX(exp_pin, pin);
+	TEST_ASSERT_EQUAL_HEX(exp_port, port);
+	TEST_ASSERT_EQUAL_HEX(exp_ddr, ddr);
+}
+
+#define ALL_LEDS _BV(PINTest1) | _BV(PINTest2) | _BV(PINTest3)
+// Bits in a 16 bit word, starting from MSB
+#define LED1 (1 << 15)
+#define LED2 (1 << 14)
+#define LED3 (1 << 13)
+
+void test_disabledAndOutputAfterInit() {
+	assertState(0, 0, ALL_LEDS);
+}
+
+void test_enableOne() {
+	enableLed(Led1);
+	assertState(0, _BV(PINTest1), ALL_LEDS);
+}
+
+void test_enableTwo() {
+	enableLed(Led1);
+	enableLed(Led2);
+	assertState(0, _BV(PINTest1) | _BV(PINTest2), ALL_LEDS);
+}
+
+void test_disableOne() {
+	disableLed(Led1);
+	assertState(0, 0, ALL_LEDS);
+}
+
+void test_disableTwo() {
+	disableLed(Led1);
+	disableLed(Led2);
+	assertState(0, 0, ALL_LEDS);
+}
+
+void test_redisableOne() {
+	enableLed(Led1);
+	disableLed(Led1);
+	assertState(0, 0, ALL_LEDS);
+}
+
+void test_redisableTwo() {
+	enableLed(Led1);
+	enableLed(Led2);
+	disableLed(Led1);
+	disableLed(Led2);
+	assertState(0, 0, ALL_LEDS);
+}
+
+void test_keepOneEnabled() {
+	enableLed(Led1);
+	enableLed(Led2);
+	disableLed(Led2);
+	assertState(0, _BV(PINTest1), ALL_LEDS);
+}
+
+void test_setLedOn() {
+	setLed(Led1, TRUE);
+	assertState(0, _BV(PINTest1), ALL_LEDS);
+}
+
+void test_setLedOff() {
+	setLed(Led1, TRUE);
+	setLed(Led1, FALSE);
+	assertState(0, 0, ALL_LEDS);
+}
+
+void test_group_enable() {
+	enableLeds(Group);
+	assertState(0, ALL_LEDS, ALL_LEDS);
+}
+
+void test_group_disable() {
+	disableLeds(Group);
+	assertState(0, 0, ALL_LEDS);
+}
+
+void test_group_redisable() {
+	enableLeds(Group);
+	disableLeds(Group);
+	assertState(0, 0, ALL_LEDS);
+}
+
+void test_group_set_1() {
+	setLeds(Group, 0xFFFF);
+	assertState(0, ALL_LEDS, ALL_LEDS);
+}
