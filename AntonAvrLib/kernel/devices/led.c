@@ -23,7 +23,7 @@ void setLed(PLed led, BOOL value) {
 void setLeds(PLedGroup leds, uint16_t mask) {
 	uint16_t iMask = 1 << (16 - leds->count);
 	for (int i = leds->count - 1; i >= 0; i--) {
-		setLed(leds->leds[i], iMask & mask);
+		setLed(leds->leds[i], 0 != (iMask & mask));
 		iMask = iMask << 1;
 	}
 }
