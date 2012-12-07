@@ -181,3 +181,53 @@ void test_flashLeds_2() {
 	assertDelayedMS(300, 2);
 }
 
+void test_blinkLed_zero() {
+	blinkLed(Led1, 0);
+	assertDelayedMS(0, 0);
+}
+
+void test_blinkLed_one() {
+	blinkLed(Led1, 1);
+	assertDelayedMS(2 * 200, 2);
+}
+
+void test_blinkLed_n() {
+	blinkLed(Led1, 5);
+	assertDelayedMS(5 * 2 * 200, 5 * 2);
+}
+
+void test_blinkAllLeds_zero() {
+	blinkAllLeds(Group, 0);
+	assertDelayedMS(0, 0);
+}
+
+void test_blinkAllLeds_one() {
+	blinkAllLeds(Group, 1);
+	assertDelayedMS(2 * 200, 2);
+}
+
+void test_blinkAllLeds_n() {
+	blinkAllLeds(Group, 5);
+	assertDelayedMS(5 * 2 * 200, 5 * 2);
+}
+
+void test_blinkLeds_zero() {
+	blinkLeds(Group, LED1 | LED2, 0);
+	assertDelayedMS(0, 0);
+}
+
+void test_blinkLeds_one() {
+	blinkLeds(Group, LED1 | LED2, 1);
+	assertDelayedMS(2 * 200, 2);
+}
+
+void test_blinkLeds_n() {
+	blinkLeds(Group, LED1 | LED2, 5);
+	assertDelayedMS(5 * 2 * 200, 5 * 2);
+}
+
+void test_blink_byte() {
+	// This is a too simple test, nevermind..
+	blinkByte(Group, Group, 5);
+	assertDelayedMS(1500 + 700 + 1200 + 1200, 2 + 2 + 5 + 5);
+}
