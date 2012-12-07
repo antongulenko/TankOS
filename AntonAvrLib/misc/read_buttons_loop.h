@@ -12,4 +12,8 @@ void read_buttons_loop(uint8_t buttonCount, PButton *buttonArray);
 // void button_pressed(PButton button);
 // void button_released(PButton button);
 
+// This variable will be set to true when read_buttons_loop is called.
+// Setting this to false causes the loop to terminate.
+extern BOOL button_loop_running;
+
 #endif
