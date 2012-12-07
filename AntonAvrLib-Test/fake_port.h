@@ -13,9 +13,9 @@ extern volatile uint8_t port, pin, ddr;
 #define PINTest2 4
 #define PINTest3 6
 
-#define PIN1 _BV(PINTest1)
-#define PIN2 _BV(PINTest2)
-#define PIN3 _BV(PINTest3)
+#define Pin1Mask _BV(PINTest1)
+#define Pin2Mask _BV(PINTest2)
+#define Pin3Mask _BV(PINTest3)
 
 DEFINE_PORT(Test)
 DEFINE_PIN(Test, 1)

@@ -42,7 +42,7 @@ void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
 	TEST_ASSERT_EQUAL_HEX(exp_ddr, ddr);
 }
 
-#define ALL_LEDS (PIN1 | PIN2 | PIN3)
+#define ALL_LEDS (Pin1Mask | Pin2Mask | Pin3Mask)
 // Bits in a 16 bit word, starting from MSB
 #define LED1 (1 << 0)
 #define LED2 (1 << 1)
@@ -60,13 +60,13 @@ void test_disabledAndOutputAfterInit() {
 
 void test_enableOne() {
 	enableLed(Led1);
-	assertState(0, PIN1, ALL_LEDS);
+	assertState(0, Pin1Mask, ALL_LEDS);
 }
 
 void test_enableTwo() {
 	enableLed(Led1);
 	enableLed(Led2);
-	assertState(0, PIN1 | PIN2, ALL_LEDS);
+	assertState(0, Pin1Mask | Pin2Mask, ALL_LEDS);
 }
 
 void test_disableOne() {
@@ -98,12 +98,12 @@ void test_keepOneEnabled() {
 	enableLed(Led1);
 	enableLed(Led2);
 	disableLed(Led2);
-	assertState(0, PIN1, ALL_LEDS);
+	assertState(0, Pin1Mask, ALL_LEDS);
 }
 
 void test_setLedOn() {
 	setLed(Led1, TRUE);
-	assertState(0, PIN1, ALL_LEDS);
+	assertState(0, Pin1Mask, ALL_LEDS);
 }
 
 void test_setLedOff() {
@@ -135,7 +135,7 @@ void test_group_set_all() {
 
 void test_group_set_2() {
 	setLeds(Group, LED1 | LED2);
-	assertState(0, PIN1 | PIN2, ALL_LEDS);
+	assertState(0, Pin1Mask | Pin2Mask, ALL_LEDS);
 }
 
 void test_group_set_3() {
@@ -145,7 +145,7 @@ void test_group_set_3() {
 
 void test_group_set_someOthers() {
 	setLeds(Group, LED1 | ~(LED2 | LED3));
-	assertState(0, PIN1, ALL_LEDS);
+	assertState(0, Pin1Mask, ALL_LEDS);
 }
 
 void test_flashLed() {

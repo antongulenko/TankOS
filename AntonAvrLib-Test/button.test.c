@@ -34,70 +34,70 @@ void init_test_button(uint8_t flags) {
 void assertState(BOOL assumedState, BOOL assumedPullup) {
 	BOOL buttonPressed = buttonStatus(Btn);
 	TEST_ASSERT_EQUAL_INT_MESSAGE(assumedState, buttonPressed, "Wrong button status");
-	BOOL pullupEnabled = (port & PIN1) != 0;
+	BOOL pullupEnabled = (port & Pin1Mask) != 0;
 	TEST_ASSERT_EQUAL_INT_MESSAGE(assumedPullup, pullupEnabled, "Wrong pullup state");
-	BOOL isInput = (ddr & PIN1) != 0;
+	BOOL isInput = (ddr & Pin1Mask) != 0;
 	TEST_ASSERT_EQUAL_INT_MESSAGE(FALSE, isInput, "Button was output");
 }
 
 void test_normal_disabled() {
 	init_test_button(BUTTON_NORMAL);
-	pin = ~PIN1;
+	pin = ~Pin1Mask;
 	assertState(FALSE, FALSE);
 }
 
 void test_normal_enabled() {
 	init_test_button(BUTTON_NORMAL);
-	pin = PIN1;
+	pin = Pin1Mask;
 	assertState(TRUE, FALSE);
 }
 
 void test_inverted_disabled() {
 	init_test_button(BUTTON_INVERTED);
-	pin = PIN1;
+	pin = Pin1Mask;
 	assertState(FALSE, FALSE);
 }
 
 void test_inverted_enabled() {
 	init_test_button(BUTTON_INVERTED);
-	pin = ~PIN1;
+	pin = ~Pin1Mask;
 	assertState(TRUE, FALSE);
 }
 
 void test_pullup_disabled() {
 	init_test_button(BUTTON_NEEDS_PULLUP);
-	pin = ~PIN1;
+	pin = ~Pin1Mask;
 	assertState(FALSE, TRUE);
 }
 
 void test_pullup_enabled() {
 	init_test_button(BUTTON_NEEDS_PULLUP);
-	pin = PIN1;
+	pin = Pin1Mask;
 	assertState(TRUE, TRUE);
 }
 
 void test_inverted_pullup_disabled() {
 	init_test_button(BUTTON_INVERTED | BUTTON_NEEDS_PULLUP);
-	pin = PIN1;
+	pin = Pin1Mask;
 	assertState(FALSE, TRUE);
 }
 
 void test_inverted_pullup_enabled() {
 	init_test_button(BUTTON_INVERTED | BUTTON_NEEDS_PULLUP);
-	pin = ~PIN1;
+	pin = ~Pin1Mask;
 	assertState(TRUE, TRUE);
 }
 
 void test_interrupt_disabled() {
 	init_test_button(BUTTON_USE_PIN_CHANGE_INTERRUPT);
-	pin = ~PIN1;
+	pin = ~Pin1Mask;
 	assertState(FALSE, FALSE);
 	TEST_ASSERT_EQUAL(TRUE, isPinChangeInterruptEnabled(TEST_INTERRUPT));
 }
 
 void test_interrupt_enabled() {
 	init_test_button(BUTTON_USE_PIN_CHANGE_INTERRUPT);
-	pin = PIN1;
+	pin = Pin1Mask;
 	assertState(TRUE, FALSE);
 	TEST_ASSERT_EQUAL(TRUE, isPinChangeInterruptEnabled(TEST_INTERRUPT));
 }
