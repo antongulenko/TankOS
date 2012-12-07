@@ -15,11 +15,13 @@ DEFINE_LED_IMPL(Led2)
 DEFINE_LED_IMPL(Led3)
 
 PLed ledGroup[] = { &Led1_, &Led2_, &Led3_ };
+uint32_t StartDelayedMS;
 
 DEFINE_LED_GROUP_IMPL(Group)
 
 void setUp() {
 	init_fake_port();
+	StartDelayedMS = DelayedMS;
 	
 	memset(Led1, 0, sizeof(Led));
 	memset(Led2, 0, sizeof(Led));
@@ -45,6 +47,11 @@ void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
 #define LED1 (1 << 0)
 #define LED2 (1 << 1)
 #define LED3 (1 << 2)
+
+void assertDelayedMS(uint32_t delayedMs) {
+	TEST_ASSERT_EQUAL_INT(delayedMs, DelayedMS - StartDelayedMS);
+	assertState(0, 0, ALL_LEDS);
+}
 
 void test_disabledAndOutputAfterInit() {
 	assertState(0, 0, ALL_LEDS);
@@ -140,47 +147,36 @@ void test_group_set_someOthers() {
 	assertState(0, _BV(PINTest1), ALL_LEDS);
 }
 
-void assertDelayedState(uint32_t startMs, uint32_t delayedMs) {
-	TEST_ASSERT_EQUAL_INT(delayedMs, DelayedMS - startMs);
-	assertState(0, 0, ALL_LEDS);
-}
-
 void test_flashLed() {
-	uint32_t before = DelayedMS;
 	flashLed(Led1, 100);
-	assertDelayedState(before, 100);
+	assertDelayedMS(100);
 }
 
 void test_flashLed_2() {
-	uint32_t before = DelayedMS;
 	flashLed(Led1, 100);
 	flashLed(Led2, 200);
-	assertDelayedState(before, 300);
+	assertDelayedMS(300);
 }
 
 void test_flashAllLeds() {
-	uint32_t before = DelayedMS;
 	flashAllLeds(Group, 100);
-	assertDelayedState(before, 100);
+	assertDelayedMS(100);
 }
 
 void test_flashAllLeds_2() {
-	uint32_t before = DelayedMS;
 	flashAllLeds(Group, 100);
 	flashAllLeds(Group, 200);
-	assertDelayedState(before, 300);
+	assertDelayedMS(300);
 }
 
 void test_flashLeds() {
-	uint32_t before = DelayedMS;
 	flashLeds(Group, LED1 | LED2, 100);
-	assertDelayedState(before, 100);
+	assertDelayedMS(100);
 }
 
 void test_flashLeds_2() {
-	uint32_t before = DelayedMS;
 	flashLeds(Group, LED1 | LED2, 100);
 	flashLeds(Group, LED1 | LED2, 200);
-	assertDelayedState(before, 300);
+	assertDelayedMS(300);
 }
 
