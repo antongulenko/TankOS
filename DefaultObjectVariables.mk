@@ -9,7 +9,11 @@ UNITY := Unity/$(BUILD_DIRNAME)/unity.o
 define set_test_objects
 	objects_$(project)_testrunners/$1.testrunner := \
 		$(UNITY) \
+		AntonAvrLib/$(BUILD_DIRNAME)/misc/delay.o \
 		$(BUILDDIR)/$1.test.o \
-		AntonAvrLib/$(BUILD_DIRNAME)/fake_registers.kernel.o \
 		$2
+	ifeq ($(PLATFORM), Native)
+		objects_$(project)_testrunners/$1.testrunner += \
+			AntonAvrLib/$(BUILD_DIRNAME)/native_simulation.kernel.o
+	endif
 endef

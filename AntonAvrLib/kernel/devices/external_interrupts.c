@@ -25,3 +25,8 @@ void disblePinChangeInterrupt(uint8_t pcNumber) {
 	if (*maskRegisters[maskRegisterNumber] == 0)
 		PCICR &= ~_BV(maskRegisterNumber);
 }
+
+void clear_interrupt_registers() {
+	PCMSK0 = PCMSK1 = PCMSK2 = PCMSK3 = 0;
+	PCICR = 0;
+}

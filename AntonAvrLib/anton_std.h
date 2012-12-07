@@ -23,9 +23,12 @@
 #else
 
 // Native test environment
-#include "fake_registers.h"
+#include "native_simulation.h"
 
 #endif
+
+// After including delay itself.
+#include "misc/delay.h"
 
 typedef enum {
 	FALSE = 0,

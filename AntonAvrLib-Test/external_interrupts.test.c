@@ -1,10 +1,12 @@
  
 #include <unity.h>
 #include <kernel/devices/external_interrupts.h>
-#include <fake_registers.h>
+#include <anton_std.h>
+
+#define PinChangeMasks ((uint32_t) (PCMSK0 << 24 | PCMSK1 << 16 | PCMSK2 << 8 | PCMSK3))
 
 void setUp() {
-	clear_all_regsiters();
+	clear_interrupt_registers();
 }
 
 void tearDown() {
