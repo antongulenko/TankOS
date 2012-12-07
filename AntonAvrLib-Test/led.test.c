@@ -42,9 +42,9 @@ void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
 
 #define ALL_LEDS _BV(PINTest1) | _BV(PINTest2) | _BV(PINTest3)
 // Bits in a 16 bit word, starting from MSB
-#define LED1 (1 << 15)
-#define LED2 (1 << 14)
-#define LED3 (1 << 13)
+#define LED1 (1 << 0)
+#define LED2 (1 << 1)
+#define LED3 (1 << 2)
 
 void test_disabledAndOutputAfterInit() {
 	assertState(0, 0, ALL_LEDS);

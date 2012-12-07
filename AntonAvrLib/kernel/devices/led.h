@@ -26,7 +26,7 @@ void setLed(PLed led, BOOL value);
 
 // Sets the first 16 (or less, if there are less than 16) leds in
 // the led-group according to the given bitmask.
-// The LSB of mask refers to the right-most led (index group-size - 1)
+// If the bit (1 << n) is set, the led group[n] will be activated.
 void setLeds(PLedGroup leds, uint16_t mask);
 
 void enableLeds(PLedGroup leds);
