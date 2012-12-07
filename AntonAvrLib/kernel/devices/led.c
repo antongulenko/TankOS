@@ -42,7 +42,7 @@ void disableLeds(PLedGroup leds) {
 
 static inline void BLINK_DELAY() { delay_ms(200); }
 static inline void DELAY_MS(uint16_t millis) {
-	while (millis--) delay_ms(1);
+	delay_ms(millis);
 }
 
 void blinkLeds(PLedGroup leds, uint16_t ledMask, uint8_t times) {
