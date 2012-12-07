@@ -3,7 +3,7 @@
  *
  * Created: 26.04.2012 16:56:40
  *  Author: Anton
- */ 
+ */
 
 #ifndef LED_H_
 #define LED_H_
@@ -24,8 +24,9 @@ void enableLed(PLed led);
 void disableLed(PLed led);
 void setLed(PLed led, BOOL value);
 
-// Sets the first 16 (or less, if there are less than 16) leds in the led-group according to the given bitmask.
-// The MSB of mask refers to the first led (index 0 in the group array).
+// Sets the first 16 (or less, if there are less than 16) leds in
+// the led-group according to the given bitmask.
+// The LSB of mask refers to the right-most led (index group-size - 1)
 void setLeds(PLedGroup leds, uint16_t mask);
 
 void enableLeds(PLedGroup leds);

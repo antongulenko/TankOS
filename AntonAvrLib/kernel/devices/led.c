@@ -21,7 +21,7 @@ void setLed(PLed led, BOOL value) {
 }
 
 void setLeds(PLedGroup leds, uint16_t mask) {
-	uint16_t iMask = 1 << (16 - leds->count);
+	uint16_t iMask = 1;
 	for (int i = leds->count - 1; i >= 0; i--) {
 		setLed(leds->leds[i], 0 != (iMask & mask));
 		iMask = iMask << 1;
@@ -40,9 +40,9 @@ void disableLeds(PLedGroup leds) {
 	}
 }
 
-static inline void BLINK_DELAY() { _delay_ms(200); }
+static inline void BLINK_DELAY() { delay_ms(200); }
 static inline void DELAY_MS(uint16_t millis) {
-	while (millis--) _delay_ms(1);
+	while (millis--) delay_ms(1);
 }
 
 void blinkLeds(PLedGroup leds, uint16_t ledMask, uint8_t times) {
