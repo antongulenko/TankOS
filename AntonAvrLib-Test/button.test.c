@@ -5,13 +5,12 @@
  *      Author: Anton
  */
 
+#include <unity.h>
+#include <anton_std.h>
+#include "fake_port.h"
+#include <string.h>
 #include <kernel/devices/button.h>
 #include <kernel/devices/external_interrupts.h>
-#include <unity.h>
-#include "fake_port.h"
-#include "fake_delay.h"
-#include <anton_std.h>
-#include <string.h>
 
 DEFINE_BUTTON(Btn);
 DEFINE_BUTTON_IMPL(Btn);
@@ -20,7 +19,6 @@ DEFINE_BUTTON_IMPL(Btn);
 
 void setUp() {
 	init_fake_port();
-	reset_test_delay();
 	memset(Btn, 0, sizeof(Button));
 }
 
