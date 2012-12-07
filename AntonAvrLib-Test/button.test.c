@@ -6,6 +6,7 @@
  */
 
 #include <kernel/devices/button.h>
+#include <kernel/devices/external_interrupts.h>
 #include <unity.h>
 #include "fake_port.h"
 #include "fake_delay.h"
@@ -14,6 +15,8 @@
 
 DEFINE_BUTTON(Btn);
 DEFINE_BUTTON_IMPL(Btn);
+
+#define TEST_INTERRUPT 1
 
 void setUp() {
 	init_fake_port();
@@ -25,7 +28,7 @@ void tearDown() {
 }
 
 void init_test_button(uint8_t flags) {
-	INIT_BUTTON(Btn, PinTest1, flags, 1);
+	INIT_BUTTON(Btn, PinTest1, flags, TEST_INTERRUPT);
 }
 
 void assertState(BOOL assumedState, BOOL assumedPullup) {
@@ -89,11 +92,12 @@ void test_interrupt_disabled() {
 	init_test_button(BUTTON_USE_PIN_CHANGE_INTERRUPT);
 	pin = ~PIN1;
 	assertState(FALSE, FALSE);
-	//TEST_ASSERT_BITS()
+	TEST_ASSERT_EQUAL(TRUE, isPinChangeInterruptEnabled(TEST_INTERRUPT));
 }
 
 void test_interrupt_enabled() {
 	init_test_button(BUTTON_USE_PIN_CHANGE_INTERRUPT);
 	pin = PIN1;
 	assertState(TRUE, FALSE);
+	TEST_ASSERT_EQUAL(TRUE, isPinChangeInterruptEnabled(TEST_INTERRUPT));
 }
