@@ -14,6 +14,7 @@
 // pin change interrupt PCIx, x being the given number.
 void enablePinChangeInterrupt(uint8_t pcNumber);
 void disblePinChangeInterrupt(uint8_t pcNumber);
+BOOL isPinChangeInterruptEnabled(uint8_t pcNumber);
 
 // TODO enable controlling the EICRA (ext interrupt control register A)
 // TODO enable configuring the INT2..0 (external interrupt, not pin change interrupt)

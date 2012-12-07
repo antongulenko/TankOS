@@ -26,6 +26,16 @@ void disblePinChangeInterrupt(uint8_t pcNumber) {
 		PCICR &= ~_BV(maskRegisterNumber);
 }
 
+BOOL isPinChangeInterruptEnabled(uint8_t pcNumber) {
+	if (pcNumber > 31) return FALSE;
+	uint8_t maskRegisterBit = pcNumber % 8;
+	uint8_t maskRegisterNumber = pcNumber / 8; // Always rounded down
+	BOOL isEnabled = (PCICR & _BV(maskRegisterNumber)) != 0;
+	isEnabled &=
+		(*(maskRegisters[maskRegisterNumber]) & _BV(maskRegisterBit)) != 0;
+	return isEnabled;
+}
+
 void clear_interrupt_registers() {
 	PCMSK0 = PCMSK1 = PCMSK2 = PCMSK3 = 0;
 	PCICR = 0;
