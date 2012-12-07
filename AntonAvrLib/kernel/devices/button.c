@@ -23,8 +23,6 @@ void initButton(PButton button) {
 	if (button->flags & BUTTON_NEEDS_PULLUP)
 	setPinOne(button->pin); // Enable intern pull up resistor
 	
-	#ifndef FORCE_BUTTON_PIN_CHANGE_INTERRUPTS
-		if (button->flags & BUTTON_USE_PIN_CHANGE_INTERRUPT)
-	#endif
-	enablePinChangeInterrupt(button->pinChangeInterruptNumber);
+	if (button->flags & BUTTON_USE_PIN_CHANGE_INTERRUPT)
+		enablePinChangeInterrupt(button->pinChangeInterruptNumber);
 }
