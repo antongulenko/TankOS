@@ -111,6 +111,8 @@ studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(studiotarget)
 projectoutputs := $(foreach o, $(projectoutputs), $(BUILDDIR)/$o)
 $(project)_projectoutputs := $(projectoutputs)
 $(fake)_projectoutputs := $(projectoutputs)
+$(fake)_builddir := $(BUILDDIR)
+$(fake)_project := $(project)
 
 $(project): $(projectoutputs) $(all_objects)
 
@@ -132,7 +134,7 @@ $(DEPENDENCY_DIR)/$(project)/%.d: $(fake) $(project)/%.c
 	mkdir -p $(@D); \
 	set -e; rm -f $@; \
 	$(CC) $($<_depflags) $(word 2, $^) > $@.$$$$; \
-	sed -e 's|.*:|$(subst .d,.o,$@):|' < $@.$$$$ > $@; \
+	sed -e 's|.*:|$($<_builddir)/$(subst .d,.o,$(subst $(DEPENDENCY_DIR)/$($<_project)/,,$@)):|' < $@.$$$$ > $@; \
 	rm -f $@.$$$$
 
 ifneq ($(MAKECMDGOALS), clean_$(project))
@@ -151,7 +153,6 @@ $(BUILDDIR)/%.o: $(fake) $(project)/%.c
 
 dependency_targets := $(foreach d, $(dependencies), $($d_projectoutputs))
 
-$(fake)_builddir := $(BUILDDIR)
 $(fake)_ARFLAGS := $(ARFLAGS)
 $(fake)_fullLinkerFlags1 := $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(LIB_ARCHIVES) 
 $(fake)_fullLinkerFlags2 := $(LDFLAGS_END)
