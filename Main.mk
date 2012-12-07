@@ -208,6 +208,6 @@ clean_$(project): $(fake)
 
 # Execute all outputs of the project. Will fail, if they are not actually executable in the native shell.
 run_$(project): $(fake) $(project)
-	$(foreach o, $($<_projectoutputs), ./$o;)
+	$(foreach o, $($<_projectoutputs), ./$o && ) echo ALL TESTS OK
 
 .PHONY: clean_$(project) clean_target_$(project)
