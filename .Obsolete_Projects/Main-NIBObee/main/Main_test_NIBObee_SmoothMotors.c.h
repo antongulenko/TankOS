@@ -14,7 +14,7 @@ int main() {
 	
 	
 	regulateSpeedBackward(LeftMotor, SPEED);
-	_delay_ms(2000);
+	delay_ms(2000);
 	regulateSpeedForward(LeftMotor, SPEED);
 	
 	

@@ -7,6 +7,6 @@ int main() {
 		setSpeedForward(LeftMotorBase, speed);
 		setSpeedForward(RightMotorBase, speed);
 		speed += 13; // 0 to 0xFFFF in ca 5 seconds (excl. computation)
-		_delay_ms(1);
+		delay_ms(1);
 	}
 }

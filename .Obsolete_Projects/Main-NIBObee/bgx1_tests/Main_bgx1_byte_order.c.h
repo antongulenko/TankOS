@@ -52,7 +52,7 @@ void testIllumination() {
 		bgx1_setIllumination(val);
 		sprintf(text, "%u", val);
 		bgx1_print(text);
-		_delay_ms(1);
+		delay_ms(1);
 		val--;
 	}
 }

@@ -6,6 +6,6 @@ int main() {
 	seed();
 	while (1) {
 		regulateDirSpeed(LeftMotor, randomSpeed());
-		_delay_ms(2500);
+		delay_ms(2500);
 	}
 }

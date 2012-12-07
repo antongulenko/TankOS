@@ -46,24 +46,24 @@ void executeCommand(Command com) {
 	
 	switch(com) {
 		case FORW:
-			_delay_ms(FORWARD_TIME);
+			delay_ms(FORWARD_TIME);
 			break;
 		case BACKW:
 			regulateSpeedBackward(LeftMotor, MAX_SPEED);
 			regulateSpeedForward(RightMotor, MAX_SPEED);
-			_delay_ms(TURN_180_time);
+			delay_ms(TURN_180_time);
 			regulateSpeedForward(LeftMotor, MAX_SPEED);
 			break;
 		case RIGHT:
 			regulateSpeedForward(LeftMotor, MAX_SPEED);
 			regulateSpeedBackward(RightMotor, MAX_SPEED);
-			_delay_ms(TURN_90_time);
+			delay_ms(TURN_90_time);
 			regulateSpeedForward(RightMotor, MAX_SPEED);
 			break;
 		case LEFT:
 			regulateSpeedBackward(LeftMotor, MAX_SPEED);
 			regulateSpeedForward(RightMotor, MAX_SPEED);
-			_delay_ms(TURN_90_time);
+			delay_ms(TURN_90_time);
 			regulateSpeedForward(LeftMotor, MAX_SPEED);
 			break;
 		case NO_COMMAND: // Should not happen.
@@ -93,7 +93,7 @@ void executeCommands() {
 }
 
 int main() {
-	while (!tankIO_isInitialized()) _delay_ms(20);
+	while (!tankIO_isInitialized()) delay_ms(20);
 	
 	reset();
 	while (1) {

@@ -7,7 +7,7 @@
 #include <util/delay.h>
 #include <stdio.h>
 
-#define delay(a) _delay_ms(a)
+#define delay(a) delay_ms(a)
 
 #include "res/smily.xbm"
 
@@ -78,7 +78,7 @@ int main() {
 	
 	blink_reset_condition(AllLeds);
 	
-	while (!bgx1_initialized()) _delay_ms(30);
+	while (!bgx1_initialized()) delay_ms(30);
 	
 	bgx1_setStatus(0xff);
 	

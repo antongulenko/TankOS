@@ -67,7 +67,7 @@ asm ("__RAMPZ__ = 0x3b");
 #define enable_interrupts() sei()
 #define disable_interrupts() cli()
 
-#define delay(x) _delay_ms(x)
+#define delay(x) delay_ms(x)
 
 // This can be used to ignore unused variables in test-modules
 // #pragma GCC diagnostic ignored "-Wunused-variable"

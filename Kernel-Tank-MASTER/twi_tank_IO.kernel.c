@@ -8,6 +8,6 @@ TWIDevice tank_IO = { TANK_IO_ADDRESS };
 
 void tankIO_wait() {
 	while (!tankIO_isInitialized() != TANK_IO_INITIALIZED) {
-		_delay_ms(20);
+		delay_ms(20);
 	}
 }

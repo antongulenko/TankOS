@@ -7,7 +7,7 @@
 
 int main() {
 	
-	while (!bgx1_initialized()) _delay_ms(30);
+	while (!bgx1_initialized()) delay_ms(30);
 	
 	uint8_t keys = 0;
 	

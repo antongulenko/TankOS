@@ -9,7 +9,7 @@
 int main() {
 	uint8_t bgx1_Keys;
 	
-	while (!bgx1_initialized()) _delay_ms(30);
+	while (!bgx1_initialized()) delay_ms(30);
 	bgx1_setStatus(0xff);
 	
 	while(1) {

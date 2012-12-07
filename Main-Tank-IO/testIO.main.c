@@ -19,7 +19,7 @@ void leds_special() {
 	led_operation_1();
 	#ifndef USE_ISR
 		while (1) {
-			_delay_ms(TICK_AFTER_MS);
+			delay_ms(TICK_AFTER_MS);
 			led_operation_tick();
 		}
 	#endif

@@ -8,10 +8,14 @@
 #ifndef DELAY_H_
 #define DELAY_H_
 
+// This module is there to keep track of number of MS that
+// have been delayed. Mainly for tests.
+
 extern uint32_t DelayedMS;
 
-#define delay_ms(ms) \
-	DelayedMS += ms; \
-	_delay_ms(ms)
+static inline void delay_ms(uint32_t ms) {
+	DelayedMS += ms;
+	_delay_ms(ms);
+}
 
 #endif /* DELAY_H_ */

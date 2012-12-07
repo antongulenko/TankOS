@@ -312,7 +312,7 @@ void WAIT_FOR_TWI() {
 			// This macro can be added here to include a ms-delay after each
 			// TWI-transmission.
 			#ifdef TWI_DELAY
-			_delay_ms(TWI_DELAY);
+			delay_ms(TWI_DELAY);
 			#endif
 			break;
 		}
