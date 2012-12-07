@@ -74,7 +74,7 @@ DEPENDENCY_FLAGS += $(DEFINE_FLAGS) $(INCLUDE_FLAGS)
 $(fake)_cflags := $(CFLAGS)
 $(fake)_depflags := $(DEPENDENCY_FLAGS)
 
-DEPENDENCY_DIR ?= .d
+DEPENDENCY_DIR ?= .d/$(BUILD_DIRNAME)
 
 all_objects := $(addprefix $(BUILDDIR)/, $(all_objects))
 objects := $(addprefix $(BUILDDIR)/, $(objects))
