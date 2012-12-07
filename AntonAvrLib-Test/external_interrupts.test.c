@@ -13,16 +13,20 @@ void tearDown() {
 }
 
 void performTest(uint8_t controlRegister, int *pinChangeNumbers, int count) {
+	// This is not a good test, since most of the logic of the actual
+	// module is repeated here...
 	uint32_t expectedRegisterData = 0;
 	for (int i = 0; i < count; i++) {
 		int num = pinChangeNumbers[i];
+		int absNum = abs(num);
 		if (num < 0) {
-			num = abs(num);
-			disblePinChangeInterrupt((uint8_t) num);
-			expectedRegisterData &= ~(1 << (30 - num));
+			disblePinChangeInterrupt((uint8_t) absNum);
+			if (absNum < 31)
+				expectedRegisterData &= ~(1 << (30 - absNum));
 		} else {
-			enablePinChangeInterrupt((uint8_t) num);
-			expectedRegisterData |= 1 << (30 - num);
+			enablePinChangeInterrupt((uint8_t) absNum);
+			if (absNum < 31)
+				expectedRegisterData |= 1 << (30 - absNum);
 		}
 	}
 	TEST_ASSERT_EQUAL_HEX(expectedRegisterData, PinChangeMasks);
@@ -106,4 +110,25 @@ void test_redisableTwo_2() {
 void test_keepEnabled() {
 	int testPins[] = { 27, 3, -27 };
 	performTest(_BV(0), testPins, 3);
+}
+
+void test_enableIgnoresWrongNumber() {
+	int testPins[] = { 50 };
+	performTest(0, testPins, 3);
+}
+
+void test_disableIgnoresWrongNumber() {
+	int testPins[] = { -50 };
+	performTest(0, testPins, 3);
+}
+
+void test_isEnabled_true() {
+	enablePinChangeInterrupt(20);
+	TEST_ASSERT_EQUAL_INT(TRUE, isPinChangeInterruptEnabled(20));
+}
+
+void test_isEnabled_false() {
+	PCMSK0 = PCMSK1 = PCMSK2 = PCMSK3 = 0xFF;
+	disblePinChangeInterrupt(20);
+	TEST_ASSERT_EQUAL_INT(FALSE, isPinChangeInterruptEnabled(20));
 }
