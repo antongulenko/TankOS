@@ -1,5 +1,7 @@
 
-KERNEL := AntonAvrLib/$(BUILD_DIRNAME)/kernel
+KERNEL_BASE := AntonAvrLib/$(BUILD_DIRNAME)
+KERNEL := $(KERNEL_BASE)/kernel
+MISC := $(KERNEL_BASE)/misc
 SHARED := Tank-Shared/$(BUILD_DIRNAME)
 UNITY := Unity/$(BUILD_DIRNAME)/unity.o
 
@@ -15,6 +17,6 @@ define set_test_objects
 		$2
 	ifeq ($(PLATFORM), Native)
 		objects_$(project)_testrunners/$1.testrunner += \
-			AntonAvrLib/$(BUILD_DIRNAME)/native_simulation.kernel.o
+			$(KERNEL_BASE)/native_simulation.kernel.o
 	endif
 endef
