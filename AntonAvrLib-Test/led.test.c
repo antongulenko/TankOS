@@ -48,8 +48,9 @@ void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
 #define LED2 (1 << 1)
 #define LED3 (1 << 2)
 
-void assertDelayedMS(uint32_t delayedMs) {
+void assertDelayedMS(uint32_t delayedMs, uint16_t delayCalls) {
 	TEST_ASSERT_EQUAL_INT(delayedMs, DelayedMS);
+	TEST_ASSERT_EQUAL_INT(delayCalls, DelayMSCalled);
 	assertState(0, 0, ALL_LEDS);
 }
 
@@ -149,34 +150,34 @@ void test_group_set_someOthers() {
 
 void test_flashLed() {
 	flashLed(Led1, 100);
-	assertDelayedMS(100);
+	assertDelayedMS(100, 1);
 }
 
 void test_flashLed_2() {
 	flashLed(Led1, 100);
 	flashLed(Led2, 200);
-	assertDelayedMS(300);
+	assertDelayedMS(300, 2);
 }
 
 void test_flashAllLeds() {
 	flashAllLeds(Group, 100);
-	assertDelayedMS(100);
+	assertDelayedMS(100, 1);
 }
 
 void test_flashAllLeds_2() {
 	flashAllLeds(Group, 100);
 	flashAllLeds(Group, 200);
-	assertDelayedMS(300);
+	assertDelayedMS(300, 2);
 }
 
 void test_flashLeds() {
 	flashLeds(Group, LED1 | LED2, 100);
-	assertDelayedMS(100);
+	assertDelayedMS(100, 1);
 }
 
 void test_flashLeds_2() {
 	flashLeds(Group, LED1 | LED2, 100);
 	flashLeds(Group, LED1 | LED2, 200);
-	assertDelayedMS(300);
+	assertDelayedMS(300, 2);
 }
 
