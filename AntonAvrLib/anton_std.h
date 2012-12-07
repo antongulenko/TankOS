@@ -27,8 +27,14 @@
 
 #endif
 
-// After including delay itself.
-#include "misc/delay.h"
+// This allows adding some code to each delay_ms call.
+// Intended for testing, to keep track of delay_ms calls.
+// AFTER including _delay_ms itself.
+void delay_ms_action(uint32_t ms);
+static inline void delay_ms(uint32_t ms) {
+	delay_ms_action(ms);
+	_delay_ms(ms);
+}
 
 typedef enum {
 	FALSE = 0,

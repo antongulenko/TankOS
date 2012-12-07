@@ -3,6 +3,7 @@
 #include <kernel/devices/led.h>
 #include <string.h>
 #include "fake_port.h"
+#include "fake_delay.h"
 #include <anton_std.h>
 
 DEFINE_LED(Led1)
@@ -15,13 +16,12 @@ DEFINE_LED_IMPL(Led2)
 DEFINE_LED_IMPL(Led3)
 
 PLed ledGroup[] = { &Led1_, &Led2_, &Led3_ };
-uint32_t StartDelayedMS;
 
 DEFINE_LED_GROUP_IMPL(Group)
 
 void setUp() {
 	init_fake_port();
-	StartDelayedMS = DelayedMS;
+	reset_test_delay();
 	
 	memset(Led1, 0, sizeof(Led));
 	memset(Led2, 0, sizeof(Led));
@@ -49,7 +49,7 @@ void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
 #define LED3 (1 << 2)
 
 void assertDelayedMS(uint32_t delayedMs) {
-	TEST_ASSERT_EQUAL_INT(delayedMs, DelayedMS - StartDelayedMS);
+	TEST_ASSERT_EQUAL_INT(delayedMs, DelayedMS);
 	assertState(0, 0, ALL_LEDS);
 }
 

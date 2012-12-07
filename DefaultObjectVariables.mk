@@ -9,8 +9,9 @@ UNITY := Unity/$(BUILD_DIRNAME)/unity.o
 define set_test_objects
 	objects_$(project)_testrunners/$1.testrunner := \
 		$(UNITY) \
-		AntonAvrLib/$(BUILD_DIRNAME)/misc/delay.o \
 		$(BUILDDIR)/$1.test.o \
+		$(BUILDDIR)/fake_port.o \
+		$(BUILDDIR)/fake_delay.o \
 		$2
 	ifeq ($(PLATFORM), Native)
 		objects_$(project)_testrunners/$1.testrunner += \
