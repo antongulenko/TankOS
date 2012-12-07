@@ -3,6 +3,7 @@
 #include <kernel/devices/led.h>
 #include <string.h>
 #include "fake_port.h"
+#include <fake_registers.h>
 
 DEFINE_LED(Led1)
 DEFINE_LED(Led2)
@@ -139,3 +140,33 @@ void test_group_set_someOthers() {
 	assertState(0, _BV(PINTest1), ALL_LEDS);
 }
 
+void assertDelayedState(uint32_t startMs, uint32_t delayedMs) {
+	TEST_ASSERT_EQUAL_INT(delayedMs, DelayedMS - startMs);
+	assertState(0, 0, ALL_LEDS);
+}
+
+void test_flashLed() {
+	uint32_t before = DelayedMS;
+	flashLed(Led1, 100);
+	assertDelayedState(before, 100);
+}
+
+void test_flashLed_2() {
+	uint32_t before = DelayedMS;
+	flashLed(Led1, 100);
+	flashLed(Led2, 200);
+	assertDelayedState(before, 300);
+}
+
+void test_flashAllLeds() {
+	uint32_t before = DelayedMS;
+	flashAllLeds(Group, 100);
+	assertDelayedState(before, 100);
+}
+
+void test_flashAllLeds_2() {
+	uint32_t before = DelayedMS;
+	flashAllLeds(Group, 100);
+	flashAllLeds(Group, 200);
+	assertDelayedState(before, 300);
+}
