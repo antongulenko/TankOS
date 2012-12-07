@@ -3,7 +3,7 @@
 #include <kernel/devices/led.h>
 #include <string.h>
 #include "fake_port.h"
-#include <fake_registers.h>
+#include <anton_std.h>
 
 DEFINE_LED(Led1)
 DEFINE_LED(Led2)
@@ -170,3 +170,17 @@ void test_flashAllLeds_2() {
 	flashAllLeds(Group, 200);
 	assertDelayedState(before, 300);
 }
+
+void test_flashLeds() {
+	uint32_t before = DelayedMS;
+	flashLeds(Group, LED1 | LED2, 100);
+	assertDelayedState(before, 100);
+}
+
+void test_flashLeds_2() {
+	uint32_t before = DelayedMS;
+	flashLeds(Group, LED1 | LED2, 100);
+	flashLeds(Group, LED1 | LED2, 200);
+	assertDelayedState(before, 300);
+}
+
