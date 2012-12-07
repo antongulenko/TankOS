@@ -10,6 +10,7 @@ undefine STUDIO
 
 include Defaults.mk
 
+undefine $(project)_exclusive_platform
 includes += AntonAvrLib
 ld_symbols :=
 

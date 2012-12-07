@@ -1,6 +1,9 @@
 
 # This is separate from the Main.mk file to keep the Main.mk more flexible.
 
+# Most projects can only be built for the Avr platform.
+$(project)_exclusive_platform := Avr
+
 ifneq ($(origin dependencies), undefined)
 includes := $(dependencies)
 else
