@@ -61,7 +61,19 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="button.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="ButtonLoopReader.test.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="external_interrupts.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fake_delay.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="fake_delay.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="fake_port.c">

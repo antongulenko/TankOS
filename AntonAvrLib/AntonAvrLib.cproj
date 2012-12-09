@@ -213,6 +213,9 @@
     <Compile Include="kernel\processes\mutex\mutex.kernel.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\processes\process.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\processes\process_base.h">
       <SubType>compile</SubType>
     </Compile>
