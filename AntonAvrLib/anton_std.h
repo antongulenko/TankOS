@@ -19,6 +19,8 @@
 #include <util/delay.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <util/twi.h>
+#include <util/atomic.h>
 
 #else
 
@@ -74,6 +76,12 @@ asm ("__RAMPZ__ = 0x3b");
 #define disable_interrupts() cli()
 
 #define delay(x) delay_ms(x)
+
+static inline void turn_word(uint16_t *word) {
+	uint8_t temp = ((uint8_t*) word)[0];
+	((uint8_t*) word)[0] = ((uint8_t*) word)[1];
+	((uint8_t*) word)[1] = temp;
+}
 
 // This can be used to ignore unused variables in test-modules
 // #pragma GCC diagnostic ignored "-Wunused-variable"
