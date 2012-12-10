@@ -20,15 +20,15 @@ BOOL start_master_operation();
 // They handle TWI state machine.
 
 static inline TwiHandlerStatus HandlerStatus_OK(byte controlRegister) {
-	return (TwiHandlerStatus) { controlRegister, TWI_HANDLER_OK };
+	return (TwiHandlerStatus) { TWI_HANDLER_OK, controlRegister };
 }
 
 static inline TwiHandlerStatus HandlerStatus_FINISHED(byte controlRegister) {
-	return (TwiHandlerStatus) { controlRegister, TWI_HANDLER_FINISHED };
+	return (TwiHandlerStatus) { TWI_HANDLER_FINISHED, controlRegister };
 }
 
 static inline TwiHandlerStatus HandlerStatus_ERROR() {
-	return (TwiHandlerStatus) { 0, TWI_HANDLER_ERROR };
+	return (TwiHandlerStatus) { TWI_HANDLER_ERROR, 0 };
 }
 
 #define twi_base_registers _BV(TWEN) | _BV(TWINT) | _BV(TWIE)
