@@ -17,3 +17,6 @@ $(eval $(call set_test_objects,ButtonLoopReader,\
 	$(KERNEL)/devices/port.o \
 	$(KERNEL)/devices/external_interrupts.o \
 	$(MISC)/ButtonLoopReader.o))
+
+$(eval $(call set_test_objects,twi_raw,\
+	$(KERNEL)/TWI/twi_raw.o))
