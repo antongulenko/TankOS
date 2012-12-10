@@ -51,6 +51,7 @@ static void initiate_twi() {
 	twi_running = TRUE;
 	twi_error = TWI_No_Error;
 	start_master_operation();
+	TWCR = twi_start().controlRegister;
 }
 
 void twiSend(TWIDevice _targetDevice, TWIBuffer data) {
