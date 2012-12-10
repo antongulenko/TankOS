@@ -21,6 +21,8 @@
 #include <avr/interrupt.h>
 #include <util/twi.h>
 #include <util/atomic.h>
+#include <avr/sleep.h>
+#include <avr/wdt.h>
 
 #else
 

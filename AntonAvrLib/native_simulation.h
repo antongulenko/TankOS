@@ -26,6 +26,23 @@ extern REGISTER PCICR;
 #define ATOMIC_RESTORESTATE
 #define ATOMIC_FORCEON
 
+// == Sleep
+#define sleep_enable()
+#define set_sleep_mode(SleepMode)
+#define SLEEP_MODE_IDLE
+#define sleep_cpu()
+
+// == WDT
+#define WDRF 0
+extern REGISTER MCUSR;
+#define wdt_enable(mode)
+#define WDTO_15MS
+#define wdt_disable()
+
+// == Reset Condition
+#define PORF 1
+#define BORF 2
+
 // == TWI
 #define TWIE 0
 #define TWEN 1

@@ -6,6 +6,8 @@ REGISTER PCICR;
 
 REGISTER TWCR, TWDR, TWBR, TWSR, TWAR, TWAMR;
 
+REGISTER MCUSR;
+
 void _delay_ms(double ms) {
 	// Nothing, just pretend.
 }

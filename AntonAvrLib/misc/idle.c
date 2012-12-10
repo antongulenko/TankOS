@@ -1,6 +1,5 @@
 
 #include "idle.h"
-#include <avr/sleep.h>
 #include "../anton_std.h"
 
 void processor_idle() {

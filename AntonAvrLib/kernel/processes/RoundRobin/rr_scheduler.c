@@ -6,7 +6,6 @@
  */ 
 
 #include "rr_api.h"
-#include <util/atomic.h>
 
 #define NUM_PRIOS 7
 

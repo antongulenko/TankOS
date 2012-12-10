@@ -1,6 +1,5 @@
 
 #include "millisecond_clock.h"
-#include <util/atomic.h>
 
 // This module should be linked together with either
 // processes/scheduler.kernel or simple_timer.kernel, depending

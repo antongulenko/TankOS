@@ -5,12 +5,10 @@
  *  Author: Anton
  */ 
 
-#include <avr/sleep.h>
 #include "../../anton_std.h"
 #include "scheduler.h"
 #include "../../misc/idle.h"
 #include "scheduler_internal.h"
-#include <util/atomic.h>
 
 // This function does not need to be naked or anything, because the process that
 // invoked it has saved all its registers, that are important. As this function

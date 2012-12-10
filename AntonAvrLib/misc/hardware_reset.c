@@ -7,7 +7,6 @@
 
 #include "../anton_std.h"
 #include "hardware_reset.h"
-#include <avr/wdt.h>
 
 void HARDWARE_RESET() {
 	cli();

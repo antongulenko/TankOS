@@ -10,7 +10,6 @@
 #include "../process_internal.h"
 #include "../process_ext.h"
 #include "../../millisecond_clock.h"
-#include <util/atomic.h>
 
 enum JobType {
 	Periodic,

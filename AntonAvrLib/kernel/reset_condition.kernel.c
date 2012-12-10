@@ -6,7 +6,6 @@
 
 #include "kernel_init.h"
 #include "reset_condition.h"
-#include <avr/wdt.h>
 
 uint8_t current_reset_status = 0;
 
