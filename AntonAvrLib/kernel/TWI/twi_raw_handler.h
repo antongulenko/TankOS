@@ -17,11 +17,13 @@ typedef struct TwiHandlerStatus {
 	byte controlRegister;
 } TwiHandlerStatus;
 
+typedef uint16_t TwiStatus;
+
 // These functions handle the TWI interrupt.
 // Only one of these must be called, depending on whether the device
 // operates in Master-only or Slave-and-Master mode
-TwiHandlerStatus twi_handle(uint8_t status);
-TwiHandlerStatus twi_handle_slave(uint8_t status);
+TwiHandlerStatus twi_handle(TwiStatus status);
+TwiHandlerStatus twi_handle_slave(TwiStatus status);
 
 // These functions initialize the TWI hardware.
 // Only one of these must be called, depending on whether the device

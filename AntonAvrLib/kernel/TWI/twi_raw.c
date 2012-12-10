@@ -90,7 +90,7 @@ void twiWaitForCompletion(uint16_t msWaitEachIteration) {
 	}
 }
 
-TwiHandlerStatus twi_handle(uint8_t status) {
+TwiHandlerStatus twi_handle(TwiStatus status) {
 	switch(status) {
 // Master
 		case TW_START:

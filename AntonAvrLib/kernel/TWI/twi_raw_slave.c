@@ -16,7 +16,7 @@ void twi_init_slave() {
 	TWCR |= _BV(TWEA);
 }
 
-static inline TwiHandlerStatus twi_handle_slave_switch(uint8_t status) {
+static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
 	switch (status) {
 // Slave Transmitter
 		case TW_ST_SLA_ACK:
