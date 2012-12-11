@@ -23,7 +23,6 @@ ExpectedTwiOp expectedOps[20];
 int numExpectedOps;
 int handledExpectedOps;
 TwiError expectedError;
-BOOL expectedHandlerError;
 BOOL twiHasTerminated;
 
 void setUp() {
@@ -32,8 +31,10 @@ void setUp() {
 	twi_init();
 	numExpectedOps = handledExpectedOps = 0;
 	expectedError = TWI_No_Error;
-	expectedHandlerError = FALSE;
 	twiHasTerminated = FALSE;
+	testBuffer.size = sizeof(testData);
+	// The twi_running flag is not cleared by the twi_raw module itself!
+	twi_running = FALSE;
 }
 
 void tearDown() {
@@ -72,29 +73,37 @@ void startTwiTest(byte initalControlRegister) {
 		TEST_ASSERT_EQUAL_HEX_MESSAGE(operation.dataRegister,
 					TWDR, "Unexpected Data Register");
 
-		BOOL errorStatus = result.status == TWI_HANDLER_ERROR;
-		switch (result.status) {
-			case TWI_HANDLER_FINISHED:
-			case TWI_HANDLER_ERROR:
-				TEST_ASSERT_EQUAL_HEX_MESSAGE(expectedError, twi_error, "Unexpected error-state");
-				TEST_ASSERT_EQUAL_MESSAGE(expectedHandlerError, errorStatus, "Error was expected!");
-				TEST_ASSERT_EQUAL_MESSAGE(numExpectedOps, handledExpectedOps, "TWI terminated too early!");
-				twiHasTerminated = TRUE;
-				break;
-			case TWI_HANDLER_OK:
-				TEST_ASSERT_EQUAL_HEX_MESSAGE(TWI_No_Error, twi_error, "twi_error set too early!");
-				TEST_ASSERT_MESSAGE(twi_running, "twi_running flag was reset!");
-				// More to tests here?
-				break;
-			default:
-				TEST_FAIL_MESSAGE("Unexpected TwiHandler result status");
-				break;
+		if (result.handlerFinished) {
+			TEST_ASSERT_EQUAL_HEX_MESSAGE(expectedError, twi_error, "Unexpected error-state");
+			TEST_ASSERT_EQUAL_MESSAGE(numExpectedOps, handledExpectedOps, "TWI terminated too early!");
+			twiHasTerminated = TRUE;
+		} else {
+			TEST_ASSERT_EQUAL_HEX_MESSAGE(TWI_No_Error, twi_error, "twi_error set too early!");
+			TEST_ASSERT_MESSAGE(twi_running, "twi_running flag was reset!");
+			// More to tests here?
 		}
 	}
 	TEST_ASSERT_MESSAGE(twiHasTerminated, "TWI has not terminated in time!");
 }
 
-void test_send() {
+void test_send_successfull_0() {
+	testBuffer.size = 0;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MT_SLA_ACK, _BV(TWSTO), testDevice.address);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
+
+void test_send_successfull_1() {
+	testBuffer.size = 1;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MT_SLA_ACK, 0, testData[0]);
+	expectTwiOp(TW_MT_DATA_ACK, _BV(TWSTO), testData[0]);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
+
+void test_send_successfull_all() {
 	expectTwiOp(TW_START, 0, testDevice.address);
 	expectTwiOp(TW_MT_SLA_ACK, 0, testData[0]);
 	expectTwiOp(TW_MT_DATA_ACK, 0, testData[1]);
@@ -107,12 +116,91 @@ void test_send() {
 	startTwiTest(_BV(TWSTA));
 }
 
-// Test scenarios
-// Arbitration lost
-// SLA NACK
-// DATA NACK
-// illegal status
-// no info
+void test_send_arbitrationLost() {
+	expectedError = TWI_Arbitration_Lost;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MR_ARB_LOST, 0, testDevice.address);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
 
+void test_send_arbitrationLost_duringSend() {
+	expectedError = TWI_Arbitration_Lost;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MT_SLA_ACK, 0, testData[0]);
+	expectTwiOp(TW_MR_ARB_LOST, 0, testData[0]);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
+
+void test_send_arbitrationLost_duringLaterSend() {
+	// Can this actually happen on the device??
+	expectedError = TWI_Arbitration_Lost;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MT_SLA_ACK, 0, testData[0]);
+	expectTwiOp(TW_MT_DATA_ACK, 0, testData[1]);
+	expectTwiOp(TW_MT_DATA_ACK, 0, testData[2]);
+	expectTwiOp(TW_MR_ARB_LOST, 0, testData[2]);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
+
+void test_send_slaNack() {
+	expectedError = TWI_SlaveAddress_NoAck;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MT_SLA_NACK, _BV(TWSTO), testDevice.address);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
+
+void test_send_dataNack() {
+	expectedError = TWI_Master_TooMuchDataTransmitted;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MT_SLA_ACK, 0, testData[0]);
+	expectTwiOp(TW_MT_DATA_NACK, _BV(TWSTO), testData[0]);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
+
+void test_send_laterDataNack() {
+	expectedError = TWI_Master_TooMuchDataTransmitted;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MT_SLA_ACK, 0, testData[0]);
+	expectTwiOp(TW_MT_DATA_ACK, 0, testData[1]);
+	expectTwiOp(TW_MT_DATA_ACK, 0, testData[2]);
+	expectTwiOp(TW_MT_DATA_NACK, _BV(TWSTO), testData[2]);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
+
+void test_send_NoInfoInterrupt() {
+	expectedError = TWI_No_Info_Interrupt;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MT_SLA_ACK, 0, testData[0]);
+	expectTwiOp(TW_NO_INFO, 0, testData[0]);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
+
+void test_send_BusError() {
+	expectedError = TWI_Bus_Error;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MT_SLA_ACK, 0, testData[0]);
+	expectTwiOp(TW_BUS_ERROR, _BV(TWSTO), testData[0]);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
+
+void test_send_IllegalStatus() {
+	// This should never happen in hardware.
+	expectedError = TWI_Illegal_Status;
+	expectTwiOp(TW_START, 0, testDevice.address);
+	expectTwiOp(TW_MT_SLA_ACK, 0, testData[0]);
+	expectTwiOp(0xcc, 0, testData[0]);
+	twiSend(testDevice, testBuffer);
+	startTwiTest(_BV(TWSTA));
+}
+
+// Test scenarios
 // master receive mode
 // send + receive
