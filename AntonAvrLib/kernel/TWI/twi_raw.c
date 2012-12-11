@@ -98,7 +98,8 @@ TwiHandlerStatus twi_handle(TwiStatus status) {
 		case TW_REP_START:
 			// Start has been acknowledged, now send the slave address. Is already either READ or WRITE.
 			return twi_send(targetDevice.address);
-		case TW_MR_ARB_LOST: // OR TW_MT_ARB_LOST
+		case TW_MR_ARB_LOST:
+		case TW_MT_ARB_LOST:
 			twi_error = TWI_Arbitration_Lost;
 			return twi_end(); // No Stop
 // Master Transmitter
@@ -126,7 +127,8 @@ TwiHandlerStatus twi_handle(TwiStatus status) {
 			return twi_stop();
 		case TW_MR_DATA_NACK:
 			// We have aborted the transmission. Everything seems normal.
-			// Cannot tell whether we have received too much or not enough or the exactly correct amount...
+			// Cannot tell whether we have received too much or not enough
+			// or the exactly correct amount. We read the last byte of the transmission.
 			twi_read_byte();
 			return twi_stop_or_next();
 // Misc
