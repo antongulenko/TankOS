@@ -132,12 +132,12 @@ TwiHandlerStatus twi_handle(TwiStatus status) {
 // Misc
 		case TW_NO_INFO:
 			twi_error = TWI_No_Info_Interrupt;
-			return HandlerStatus_ERROR();
+			return twi_end();
 		case TW_BUS_ERROR:
 			twi_error = TWI_Bus_Error;
-			return HandlerStatus_ERROR();
+			return twi_stop();
 		default:
 			twi_error = TWI_Illegal_Status;
-			return HandlerStatus_ERROR();
+			return twi_end();
 	}
 }

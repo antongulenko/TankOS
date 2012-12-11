@@ -9,11 +9,7 @@
 #define TWI_RAW_HANDLER_H_
 
 typedef struct TwiHandlerStatus {
-	enum {
-		TWI_HANDLER_OK, // -> Control register will be set
-		TWI_HANDLER_FINISHED, // -> twi_running will be reset, implies TWI_HANDLER_OK
-		TWI_HANDLER_ERROR // -> twi_running will be reset
-	} status;
+	BOOL handlerFinished; // Causes twi_running to be reset.
 	byte controlRegister;
 } TwiHandlerStatus;
 
