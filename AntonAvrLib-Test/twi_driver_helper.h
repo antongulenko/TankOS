@@ -5,8 +5,8 @@
  *      Author: Anton
  */
 
-#ifndef twi_driver_HELPER_H_
-#define twi_driver_HELPER_H_
+#ifndef twi_driver_test_HELPER_H_
+#define twi_driver_test_HELPER_H_
 
 #include <anton_std.h>
 #include <kernel/TWI/twi_driver.h>
@@ -57,4 +57,4 @@ void assertReceivedByte(byte expectedByte);
 // twi_driver call has been made (like twiSend())
 void startTwiTest();
 
-#endif /* twi_driver_HELPER_H_ */
+#endif /* twi_driver_test_HELPER_H_ */
