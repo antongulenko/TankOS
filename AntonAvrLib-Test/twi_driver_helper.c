@@ -10,6 +10,11 @@
 #include <unity.h>
 #include <string.h>
 
+// Implemented by modules using this module.
+TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status);
+
+byte defaultControlFlags;
+
 const byte TwiSlaveAddress = 0xa9;
 const byte TwiBitRateValue = 0xdd;
 const byte TwiPrescalerMask = 0xcc;
@@ -52,14 +57,9 @@ void twi_tests_setUp() {
 	receiveBuffer.size = sizeof(expectedReceiveData);
 }
 
-static byte fullControlRegister(byte reg) {
-	// These bite are always required
-	return reg | _BV(TWEN) | _BV(TWINT) | _BV(TWIE);
-}
-
 void expectTwiOp(TwiStatus status, byte controlRegister, byte dataRegister, BOOL isWrite) {
 	expectedOps[numExpectedOps].status = status;
-	expectedOps[numExpectedOps].controlRegister = fullControlRegister(controlRegister);
+	expectedOps[numExpectedOps].controlRegister = defaultControlFlags | controlRegister;
 	expectedOps[numExpectedOps].dataRegister = dataRegister;
 	expectedOps[numExpectedOps].isWrite = isWrite;
 	numExpectedOps++;
@@ -97,7 +97,7 @@ void assertReceivedByte(byte expectedByte) {
 }
 
 void startTwiTest() {
-	byte initalControlRegister = fullControlRegister(_BV(TWSTA));
+	byte initalControlRegister = defaultControlFlags | _BV(TWSTA);
 	TEST_ASSERT_EQUAL_HEX_MESSAGE(initalControlRegister, TWCR, "Wrong initial control register");
 	TEST_ASSERT_EQUAL_HEX_MESSAGE(0xFF, TWDR, "Data register changed too early");
 
@@ -106,7 +106,7 @@ void startTwiTest() {
 		if (!operation.isWrite) {
 			TWDR = operation.dataRegister;
 		}
-		TwiHandlerStatus result = twi_handle(operation.status);
+		TwiHandlerStatus result = twi_test_handle_interrupt(operation.status);
 		TEST_ASSERT_EQUAL_HEX_MESSAGE(operation.controlRegister,
 					result.controlRegister, "Unexpected Control Register");
 		TEST_ASSERT_EQUAL_HEX_MESSAGE(operation.dataRegister, TWDR,

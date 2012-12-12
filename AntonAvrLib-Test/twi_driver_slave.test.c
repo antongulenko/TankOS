@@ -10,10 +10,15 @@
 
 void setUp() {
 	twi_tests_setUp();
+	defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE) | _BV(TWEA);
 	twi_init_slave();
 }
 
 void tearDown() {
+}
+
+TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
+	return twi_handle_slave(status);
 }
 
 void test_initialization() {

@@ -14,6 +14,8 @@
 
 extern const byte TwiSlaveAddress;
 
+extern byte defaultControlFlags;
+
 extern TWIDevice testDevice;
 extern const byte receiveAddress;
 
