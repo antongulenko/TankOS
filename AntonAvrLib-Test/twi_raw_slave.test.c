@@ -59,3 +59,13 @@ void test_transmitReceive_Success();
 void test_transmitReceive_ErrorPhase1();
 void test_transmitReceive_ErrorPhase2();
 void test_transmitReceive_LostSecondArbitration();
+
+// == Slave tests
+// = Slave Transmitter
+//   - Transmit 0, 1, n byte
+//   - TWI_Slave_NotEnoughDataTransmitted
+//   - TWI_Slave_TooMuchDataTransmitted
+// = Slave Receiver
+//   - Receive 0, 1, n byte
+//   - TWI_Slave_NotEnoughDataReceived
+//   - Duplicate receive tests for GCALL

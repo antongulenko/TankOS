@@ -7,6 +7,8 @@
 #include "twi_raw_internal.h"
 #include "twi_raw_slave_handler.h"
 
+// TODO -- Stop receiving data, when local buffer is full.
+
 byte twi_defaultSlaveBufferData[TWI_Buffer_Size];
 TWIBuffer twi_defaultSlaveBuffer = { twi_defaultSlaveBufferData, TWI_Buffer_Size };
 
