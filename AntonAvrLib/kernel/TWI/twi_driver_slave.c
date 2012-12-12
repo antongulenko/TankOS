@@ -15,6 +15,8 @@ TWIBuffer twi_defaultSlaveBuffer = { twi_defaultSlaveBufferData, TWI_Buffer_Size
 void twi_init_slave() {
 	TWAR = TwiSlaveAddress;
 	twi_init();
+
+	// Enable acknowledging of Master-requests (Slave-mode).
 	TWCR |= _BV(TWEA);
 	twi_defaultControlFlags |= _BV(TWEA);
 }
@@ -69,8 +71,6 @@ static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
 TwiHandlerStatus twi_handle_slave(TwiStatus status) {
 	TwiHandlerStatus result = twi_handle_slave_switch(status);
 	if (result.handlerFinished) {
-		// Enable acknowledging of Master-requests (Slave-mode).
-		result.controlRegister |= _BV(TWEA);
 		twi_buffer = twi_defaultSlaveBuffer;
 	}
 	return result;
