@@ -12,6 +12,8 @@
 #include <kernel/TWI/twi_raw.h>
 #include <kernel/TWI/twi_raw_handler.h>
 
+extern const byte TwiSlaveAddress;
+
 extern TWIDevice testDevice;
 extern const byte receiveAddress;
 
