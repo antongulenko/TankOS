@@ -16,6 +16,7 @@ void twi_init_slave() {
 	TWAR = TwiSlaveAddress;
 	twi_init();
 	TWCR |= _BV(TWEA);
+	twi_defaultControlFlags |= _BV(TWEA);
 }
 
 static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {

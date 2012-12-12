@@ -27,18 +27,18 @@ static inline TwiHandlerStatus HandlerStatus_FINISHED(byte controlRegister) {
 	return (TwiHandlerStatus) { TRUE, controlRegister };
 }
 
-#define twi_base_registers _BV(TWEN) | _BV(TWINT) | _BV(TWIE)
+extern byte twi_defaultControlFlags;
 
 static inline TwiHandlerStatus twi_start() {
-	return HandlerStatus_OK(twi_base_registers | _BV(TWSTA));
+	return HandlerStatus_OK(twi_defaultControlFlags | _BV(TWSTA));
 }
 
 static inline TwiHandlerStatus twi_ack() {
-	return HandlerStatus_OK(twi_base_registers | _BV(TWEA));
+	return HandlerStatus_OK(twi_defaultControlFlags | _BV(TWEA));
 }
 
 static inline TwiHandlerStatus twi_continue() {
-	return HandlerStatus_OK(twi_base_registers);
+	return HandlerStatus_OK(twi_defaultControlFlags);
 }
 
 static inline TwiHandlerStatus twi_send_ack(byte data) {
@@ -53,12 +53,12 @@ static inline TwiHandlerStatus twi_send(byte data) {
 
 static inline TwiHandlerStatus twi_stop() {
 	// Implies twi_running = false!
-	return HandlerStatus_FINISHED(twi_base_registers | _BV(TWSTO));
+	return HandlerStatus_FINISHED(twi_defaultControlFlags | _BV(TWSTO));
 }
 
 static inline TwiHandlerStatus twi_end() {
 	// Implies twi_running = false!
-	return HandlerStatus_FINISHED(twi_base_registers);
+	return HandlerStatus_FINISHED(twi_defaultControlFlags);
 }
 
 static inline TwiHandlerStatus twi_stop_or_next() {

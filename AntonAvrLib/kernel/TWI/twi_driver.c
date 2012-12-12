@@ -22,10 +22,13 @@ int handledBytes;
 volatile BOOL twi_running = FALSE;
 TwiError twi_error;
 
+byte twi_defaultControlFlags;
+
 void twi_init() {
 	TWDR = 0xFF;
 	TWBR = TwiBitRateValue;
 	TWSR = TwiPrescalerMask; // Writing the non-prescaler bits will be ignored.
+	twi_defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE);
 	TWCR = _BV(TWIE) | _BV(TWEN);
 }
 
