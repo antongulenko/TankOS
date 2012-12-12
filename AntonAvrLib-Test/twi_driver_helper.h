@@ -55,6 +55,8 @@ void assertReceivedByte(byte expectedByte);
 
 // This must be called after all expectations have been set up and the initial
 // twi_driver call has been made (like twiSend())
-void startTwiTest();
+void startTwiTest(byte initialControlRegister);
+void startTwiMasterTest();
+void startTwiSlaveTest();
 
 #endif /* twi_driver_test_HELPER_H_ */

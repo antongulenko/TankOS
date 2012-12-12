@@ -96,9 +96,8 @@ void assertReceivedByte(byte expectedByte) {
 	assertReceivedData(&expectedByte, 1);
 }
 
-void startTwiTest() {
-	byte initalControlRegister = defaultControlFlags | _BV(TWSTA);
-	TEST_ASSERT_EQUAL_HEX_MESSAGE(initalControlRegister, TWCR, "Wrong initial control register");
+void startTwiTest(byte initialControlRegister) {
+	TEST_ASSERT_EQUAL_HEX_MESSAGE(initialControlRegister, TWCR, "Wrong initial control register");
 	TEST_ASSERT_EQUAL_HEX_MESSAGE(0xFF, TWDR, "Data register changed too early");
 
 	while (handledExpectedOps < numExpectedOps) {
@@ -125,4 +124,12 @@ void startTwiTest() {
 		}
 	}
 	TEST_ASSERT_MESSAGE(twiHasTerminated, "TWI has not terminated in time!");
+}
+
+void startTwiMasterTest() {
+	startTwiTest(_BV(TWSTA) | defaultControlFlags);
+}
+
+void startTwiSlaveTest() {
+	startTwiTest(defaultControlFlags & ~_BV(TWINT));
 }

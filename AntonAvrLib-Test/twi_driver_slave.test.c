@@ -8,13 +8,24 @@
 #include <unity.h>
 #include "twi_driver_helper.h"
 
+int masterRequestCalls;
+int masterTransmissionCalls;
+int expectedMasterRequestCalls;
+int expectedMasterTransmissionCalls;
+
 void setUp() {
 	twi_tests_setUp();
 	defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE) | _BV(TWEA);
 	twi_init_slave();
+	masterTransmissionCalls = masterRequestCalls = 0;
+	expectedMasterRequestCalls = expectedMasterTransmissionCalls = 0;
 }
 
 void tearDown() {
+	TEST_ASSERT_EQUAL_INT_MESSAGE(expectedMasterRequestCalls, masterRequestCalls,
+			"Wrong number of master requests!");
+	TEST_ASSERT_EQUAL_INT_MESSAGE(expectedMasterTransmissionCalls, masterTransmissionCalls,
+				"Wrong number of master transmissions!");
 }
 
 TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
@@ -30,10 +41,12 @@ void test_initialization() {
 }
 
 TWIBuffer twi_handleMasterRequest() {
-	return (TWIBuffer) { 0 };
+	masterRequestCalls++;
+	return sendBuffer;
 }
 
 void twi_handleMasterTransmission(TWIBuffer twi_buffer) {
+	masterTransmissionCalls++;
 }
 
 // These tests are implemented in twi_driver_baseTests.c
@@ -65,12 +78,51 @@ void test_transmitReceive_ErrorPhase1();
 void test_transmitReceive_ErrorPhase2();
 void test_transmitReceive_LostSecondArbitration();
 
+void test_slave_transmit_successfull_1 () {
+	expectedMasterRequestCalls = 1;
+	sendBuffer.size = 1;
+	expectTwiWriteOp(TW_ST_SLA_ACK, 0, sendData[0]);
+	// TODO double-check: is twi session really already over, without receiving NACK?
+	// 						(same for successfull_n test)
+	startTwiSlaveTest();
+}
+
+void test_slave_transmit_successfull_n () {
+	expectedMasterRequestCalls = 1;
+	expectTwiWriteOp(TW_ST_SLA_ACK, _BV(TWEA), sendData[0]);
+	expectTwiWriteOp(TW_ST_DATA_ACK, _BV(TWEA), sendData[1]);
+	expectTwiWriteOp(TW_ST_DATA_ACK, _BV(TWEA), sendData[2]);
+	expectTwiWriteOp(TW_ST_DATA_ACK, _BV(TWEA), sendData[3]);
+	expectTwiWriteOp(TW_ST_DATA_ACK, _BV(TWEA), sendData[4]);
+	expectTwiWriteOp(TW_ST_DATA_ACK, 0, sendData[5]);
+	startTwiSlaveTest();
+}
+
+void test_slave_transmit_not_enough_0 () {
+	expectedMasterRequestCalls = 1;
+	sendBuffer.size = 0;
+	expectedError = TWI_Slave_NotEnoughDataTransmitted;
+	expectTwiWriteOp(TW_ST_SLA_ACK, 0, TwiIllegalByte);
+	expectTwiControlOp(TW_ST_LAST_DATA, _BV(TWEA));
+	startTwiSlaveTest();
+}
+
+void test_slave_transmit_not_enough_1 () {
+	expectedMasterRequestCalls = 1;
+	sendBuffer.size = 1;
+	expectedError = TWI_Slave_NotEnoughDataTransmitted;
+	expectTwiWriteOp(TW_ST_SLA_ACK, 0, sendData[0]);
+	expectTwiControlOp(TW_ST_LAST_DATA, _BV(TWEA));
+	startTwiSlaveTest();
+}
+
 // == Slave tests
 // = Slave Transmitter
-//   - Transmit 0, 1, n byte
-//   - TWI_Slave_NotEnoughDataTransmitted
-//   - TWI_Slave_TooMuchDataTransmitted
+//   - Transmit 1, n byte
+//   - TWI_Slave_NotEnoughDataTransmitted (mit 0, (1,) n byte)
+//   - TWI_Slave_TooMuchDataTransmitted (mit n byte)
 // = Slave Receiver
 //   - Receive 0, 1, n byte
 //   - TWI_Slave_NotEnoughDataReceived
 //   - Duplicate receive tests for GCALL
+// = Both: being addressed after arbitration lost
