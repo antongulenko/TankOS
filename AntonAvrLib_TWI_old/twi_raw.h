@@ -1,5 +1,5 @@
-#ifndef TWI_RAW_H_
-#define TWI_RAW_H_
+#ifndef twi_driver_H_
+#define twi_driver_H_
 
 #include "../../anton_std.h"
 #include "../kernel_init.h"

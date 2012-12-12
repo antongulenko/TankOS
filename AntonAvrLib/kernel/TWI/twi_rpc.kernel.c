@@ -14,7 +14,7 @@ TWIBuffer sendBuffer = { sendBufferData, TWI_Buffer_Size };
 #ifdef TWI_Slave
 	// Reuse the internal twi-receive-buffer to also store results of the rpc-call.
 	// This buffer-variable has no special associated data-array, but always uses
-	// the internal buffer in twi_raw.kernel.h
+	// the internal buffer in twi_driver.kernel.h
 	TWIBuffer receiveBuffer;
 
 	// Must be implemented elsewhere. The result (if any) must be placed in the 

@@ -1,12 +1,12 @@
 /*
- * twi_raw_handler.h
+ * twi_driver_handler.h
  *
  *  Created on: 10.12.2012
  *      Author: Anton
  */
 
-#ifndef TWI_RAW_HANDLER_H_
-#define TWI_RAW_HANDLER_H_
+#ifndef twi_driver_HANDLER_H_
+#define twi_driver_HANDLER_H_
 
 typedef struct TwiHandlerStatus {
 	BOOL handlerFinished; // Causes twi_running to be reset.
@@ -27,4 +27,4 @@ TwiHandlerStatus twi_handle_slave(TwiStatus status);
 void twi_init();
 void twi_init_slave();
 
-#endif /* TWI_RAW_HANDLER_H_ */
+#endif /* twi_driver_HANDLER_H_ */

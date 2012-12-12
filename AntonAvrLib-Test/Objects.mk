@@ -18,13 +18,13 @@ $(eval $(call set_test_objects,ButtonLoopReader,\
 	$(KERNEL)/devices/external_interrupts.o \
 	$(MISC)/ButtonLoopReader.o))
 
-$(eval $(call set_test_objects,twi_raw,\
-	$(BUILDDIR)/twi_raw_baseTests.o \
-	$(BUILDDIR)/twi_raw_helper.o \
-	$(KERNEL)/TWI/twi_raw.o))
+$(eval $(call set_test_objects,twi_driver,\
+	$(BUILDDIR)/twi_driver_baseTests.o \
+	$(BUILDDIR)/twi_driver_helper.o \
+	$(KERNEL)/TWI/twi_driver.o))
 
-$(eval $(call set_test_objects,twi_raw_slave,\
-	$(BUILDDIR)/twi_raw_baseTests.o \
-	$(BUILDDIR)/twi_raw_helper.o \
-	$(KERNEL)/TWI/twi_raw.o \
-	$(KERNEL)/TWI/twi_raw_slave.o))
+$(eval $(call set_test_objects,twi_driver_slave,\
+	$(BUILDDIR)/twi_driver_baseTests.o \
+	$(BUILDDIR)/twi_driver_helper.o \
+	$(KERNEL)/TWI/twi_driver.o \
+	$(KERNEL)/TWI/twi_driver_slave.o))

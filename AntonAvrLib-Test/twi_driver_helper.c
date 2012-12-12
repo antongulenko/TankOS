@@ -1,11 +1,11 @@
 /*
- * twi_raw_helper.c
+ * twi_driver_helper.c
  *
  *  Created on: 12.12.2012
  *      Author: Anton
  */
 
-#include "twi_raw_helper.h"
+#include "twi_driver_helper.h"
 
 #include <unity.h>
 #include <string.h>
@@ -46,7 +46,7 @@ void twi_tests_setUp() {
 	expectedError = TWI_No_Error;
 	twiHasTerminated = FALSE;
 	sendBuffer.size = sizeof(sendData);
-	// The twi_running flag is not cleared by the twi_raw module itself!
+	// The twi_running flag is not cleared by the twi_driver module itself!
 	twi_running = FALSE;
 	memset(receiveData, 0, sizeof(receiveData));
 	receiveBuffer.size = sizeof(expectedReceiveData);

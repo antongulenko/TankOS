@@ -15,7 +15,7 @@ endif
 
 ifneq ($(origin USE_TWI), undefined)
 	objects += \
-		$(KERNEL)/TWI/twi_raw.kernel.o \
+		$(KERNEL)/TWI/twi_driver.kernel.o \
 		$(KERNEL)/TWI/twi_rpc.kernel.o \
 		$(OWN)/twi_tank_IO.kernel.o
 endif

@@ -1,16 +1,16 @@
 /*
- * twi_raw_helper.h
+ * twi_driver_helper.h
  *
  *  Created on: 12.12.2012
  *      Author: Anton
  */
 
-#ifndef TWI_RAW_HELPER_H_
-#define TWI_RAW_HELPER_H_
+#ifndef twi_driver_HELPER_H_
+#define twi_driver_HELPER_H_
 
 #include <anton_std.h>
-#include <kernel/TWI/twi_raw.h>
-#include <kernel/TWI/twi_raw_handler.h>
+#include <kernel/TWI/twi_driver.h>
+#include <kernel/TWI/twi_driver_handler.h>
 
 extern const byte TwiSlaveAddress;
 
@@ -41,4 +41,4 @@ void assertReceivedByte(byte expectedByte);
 
 void startTwiTest();
 
-#endif /* TWI_RAW_HELPER_H_ */
+#endif /* twi_driver_HELPER_H_ */

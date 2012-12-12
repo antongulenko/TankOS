@@ -5,8 +5,8 @@
  *      Author: Anton
  */
 
-#include "twi_raw.h"
-#include "twi_raw_internal.h"
+#include "twi_driver.h"
+#include "twi_driver_internal.h"
 
 const TWIDevice TWIBroadcast = { 0 };
 

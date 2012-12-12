@@ -1,6 +1,6 @@
 
-#include "twi_raw_handler.h"
-#include "twi_raw.h"
+#include "twi_driver_handler.h"
+#include "twi_driver.h"
 #include "../kernel_init.h"
 
 KERNEL_INIT(TWI_INIT_FUNCTION)

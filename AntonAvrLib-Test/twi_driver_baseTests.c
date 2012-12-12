@@ -7,7 +7,7 @@
 
 #include <unity.h>
 #include <anton_std.h>
-#include "twi_raw_helper.h"
+#include "twi_driver_helper.h"
 
 // These signatures were copied from a generated testrunner.
 // They are here because the tests from this file are used by other .test.c files,

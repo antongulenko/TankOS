@@ -1,7 +1,7 @@
 #ifndef TWI_RPC_H_
 #define TWI_RPC_H_
 
-#include "twi_raw.h"
+#include "twi_driver.h"
 
 // The contents of the parameters-buffer will be copied into a dedicated buffer
 // before sending the data. This way, the data can (and should) passed into here 

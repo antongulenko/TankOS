@@ -1,24 +1,37 @@
+/*
+ * twi_driver_master.test.c
+ *
+ *  Created on: 12.12.2012
+ *      Author: Anton
+ */
 
 #include <unity.h>
-#include "twi_raw_helper.h"
+#include "twi_driver_helper.h"
 
 void setUp() {
 	twi_tests_setUp();
-	twi_init();
+	twi_init_slave();
 }
 
 void tearDown() {
 }
 
 void test_initialization() {
-	TEST_ASSERT_EQUAL_HEX(0, TWAR);
+	TEST_ASSERT_EQUAL_HEX(TwiSlaveAddress, TWAR);
 	TEST_ASSERT_EQUAL_HEX(TwiBitRateValue, TWBR);
 	TEST_ASSERT_EQUAL_HEX(TwiPrescalerMask, TWSR);
-	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE), TWCR);
+	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE) | _BV(TWEA), TWCR);
 	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
 }
 
-// These tests are implemented in twi_raw_baseTests.c
+TWIBuffer twi_handleMasterRequest() {
+	return (TWIBuffer) { 0 };
+}
+
+void twi_handleMasterTransmission(TWIBuffer twi_buffer) {
+}
+
+// These tests are implemented in twi_driver_baseTests.c
 // The signatures are copied here so that the Unity testrunner generator includes them.
 void test_send_successfull_0();
 void test_send_successfull_1();
@@ -46,3 +59,13 @@ void test_transmitReceive_Success();
 void test_transmitReceive_ErrorPhase1();
 void test_transmitReceive_ErrorPhase2();
 void test_transmitReceive_LostSecondArbitration();
+
+// == Slave tests
+// = Slave Transmitter
+//   - Transmit 0, 1, n byte
+//   - TWI_Slave_NotEnoughDataTransmitted
+//   - TWI_Slave_TooMuchDataTransmitted
+// = Slave Receiver
+//   - Receive 0, 1, n byte
+//   - TWI_Slave_NotEnoughDataReceived
+//   - Duplicate receive tests for GCALL

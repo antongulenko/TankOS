@@ -267,13 +267,13 @@
     <Compile Include="kernel\TWI\commandQueueExecuter_sleep.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_raw.h">
+    <Compile Include="kernel\TWI\twi_driver.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_raw.kernel.c">
+    <Compile Include="kernel\TWI\twi_driver.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_raw_slave.kernel.c">
+    <Compile Include="kernel\TWI\twi_driver_slave.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\twi_rpc.h">

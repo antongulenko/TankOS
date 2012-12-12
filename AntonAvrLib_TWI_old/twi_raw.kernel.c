@@ -1,5 +1,5 @@
 
-// This file is also included by twi_raw_slave.kernel.c, which defines TWI_Slave,
+// This file is also included by twi_driver_slave.kernel.c, which defines TWI_Slave,
 // thus altering the functionality of this module.
 
 // Macros relevant for this kernel-module
@@ -7,7 +7,7 @@
 // - TWI_Buffer_Size -- Mandatory for Slave-devices. Defines number of bytes reserved for receiving 
 //							requests from Master devices.
 
-#include "twi_raw.h"
+#include "twi_driver.h"
 #include <util/twi.h>
 #include <util/atomic.h>
 

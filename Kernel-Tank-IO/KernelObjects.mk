@@ -9,7 +9,7 @@ objects += \
 
 ifneq ($(origin USE_TWI), undefined)
 	objects += $(OWN)/tank_IO_server.kernel.o
-	objects += $(KERNEL)/TWI/twi_raw_slave.kernel.o
+	objects += $(KERNEL)/TWI/twi_driver_slave.kernel.o
 	objects += $(KERNEL)/TWI/twi_rpc_slave.kernel.o
 	objects += $(KERNEL)/TWI/twi_rpc_hash_server.kernel.o
 	

@@ -2,7 +2,7 @@
 #define TWI_TANK_IO_H_
 
 #include <tank_IO_protocol.h>
-#include <kernel/TWI/twi_raw.h>
+#include <kernel/TWI/twi_driver.h>
 
 extern TWIDevice tank_IO;
 

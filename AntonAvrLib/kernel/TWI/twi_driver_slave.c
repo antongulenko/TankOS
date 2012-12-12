@@ -3,9 +3,9 @@
 // for non-slave-TWI devices.
 
 #define TWI_Slave
-#include "twi_raw.h"
-#include "twi_raw_internal.h"
-#include "twi_raw_slave_handler.h"
+#include "twi_driver.h"
+#include "twi_driver_internal.h"
+#include "twi_driver_slave_handler.h"
 
 // TODO -- Stop receiving data, when local buffer is full.
 

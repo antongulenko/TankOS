@@ -1,7 +1,7 @@
 #ifndef TWI_BGX1_H_
 #define TWI_BGX1_H_
 
-#include <kernel/TWI/twi_raw.h>
+#include <kernel/TWI/twi_driver.h>
 #ifdef _KERNEL_
 TWIDevice bgx1 = { 11 << 1 };
 #else

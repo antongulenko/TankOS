@@ -1,14 +1,14 @@
 /*
- * twi_raw_internal.h
+ * twi_driver_internal.h
  *
  *  Created on: 10.12.2012
  *      Author: Anton
  */
 
-#ifndef TWI_RAW_INTERNAL_H_
-#define TWI_RAW_INTERNAL_H_
+#ifndef twi_driver_INTERNAL_H_
+#define twi_driver_INTERNAL_H_
 
-#include "twi_raw_handler.h"
+#include "twi_driver_handler.h"
 
 extern int handledBytes;
 extern TWIBuffer twi_buffer;
@@ -16,7 +16,7 @@ extern TWIBuffer twi_buffer;
 BOOL start_master_operation();
 
 // These static inline functions are shared between
-// twi_raw and twi_raw_slave for the sake of performance.
+// twi_driver and twi_driver_slave for the sake of performance.
 // They handle TWI state machine.
 
 static inline TwiHandlerStatus HandlerStatus_OK(byte controlRegister) {
@@ -90,4 +90,4 @@ static inline void twi_read_byte() {
 		twi_buffer.data[handledBytes++] = TWDR;
 }
 
-#endif /* TWI_RAW_INTERNAL_H_ */
+#endif /* twi_driver_INTERNAL_H_ */
