@@ -12,7 +12,6 @@
 // These signatures were copied from a generated testrunner.
 // They are here because the tests from this file are used by other .test.c files,
 // which need to contain the complete signatures (including a header does not work).
-extern void test_initialization();
 extern void test_send_successfull_0();
 extern void test_send_successfull_1();
 extern void test_send_successfull_all();
@@ -39,14 +38,6 @@ extern void test_transmitReceive_Success();
 extern void test_transmitReceive_ErrorPhase1();
 extern void test_transmitReceive_ErrorPhase2();
 extern void test_transmitReceive_LostSecondArbitration();
-
-void test_initialization() {
-	TEST_ASSERT_EQUAL_HEX(0, TWAR);
-	TEST_ASSERT_EQUAL_HEX(TwiBitRateValue, TWBR);
-	TEST_ASSERT_EQUAL_HEX(TwiPrescalerMask, TWSR);
-	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE), TWCR);
-	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
-}
 
 // ===========
 // === Master Transmit Mode

@@ -10,9 +10,16 @@ void setUp() {
 void tearDown() {
 }
 
+void test_initialization() {
+	TEST_ASSERT_EQUAL_HEX(0, TWAR);
+	TEST_ASSERT_EQUAL_HEX(TwiBitRateValue, TWBR);
+	TEST_ASSERT_EQUAL_HEX(TwiPrescalerMask, TWSR);
+	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE), TWCR);
+	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
+}
+
 // These tests are implemented in twi_raw_baseTests.c
 // The signatures are copied here so that the Unity testrunner generator includes them.
-void test_initialization();
 void test_send_successfull_0();
 void test_send_successfull_1();
 void test_send_successfull_all();
