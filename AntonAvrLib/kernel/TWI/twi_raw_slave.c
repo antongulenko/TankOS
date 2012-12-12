@@ -12,7 +12,7 @@ TWIBuffer twi_defaultSlaveBuffer = { twi_defaultSlaveBufferData, TWI_Buffer_Size
 
 void twi_init_slave() {
 	TWAR = TwiSlaveAddress;
-	init_twi();
+	twi_init();
 	TWCR |= _BV(TWEA);
 }
 
@@ -59,13 +59,13 @@ static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
 			twi_handleMasterTransmission((TWIBuffer) { twi_buffer.data, handledBytes } );
 			return twi_end(); // Transmission finished normally. Cannot tell whether Master wanted to send more.
 		default:
-			return twi_handler(status);
+			return twi_handle(status);
 	}
 }
 
-TwiHandlerStatus twi_handle_slave(uint8_t status) {
+TwiHandlerStatus twi_handle_slave(TwiStatus status) {
 	TwiHandlerStatus result = twi_handle_slave_switch(status);
-	if (result.status == TWI_HANDLER_FINISHED) {
+	if (result.handlerFinished) {
 		// Enable acknowledging of Master-requests (Slave-mode).
 		result.controlRegister |= _BV(TWEA);
 		twi_buffer = twi_defaultSlaveBuffer;
