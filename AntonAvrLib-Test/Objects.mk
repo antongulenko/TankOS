@@ -19,4 +19,6 @@ $(eval $(call set_test_objects,ButtonLoopReader,\
 	$(MISC)/ButtonLoopReader.o))
 
 $(eval $(call set_test_objects,twi_raw,\
+	$(BUILDDIR)/twi_raw_baseTests.o \
+	$(BUILDDIR)/twi_raw_helper.o \
 	$(KERNEL)/TWI/twi_raw.o))
