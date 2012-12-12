@@ -8,6 +8,7 @@
 #include "twi_driver_slave_handler.h"
 
 // TODO -- Stop receiving data, when local buffer is full.
+// TODO -- Implement configuration of GC calls (TWGCE bit, LSB in TWAR)
 
 byte twi_defaultSlaveBufferData[TWI_Buffer_Size];
 TWIBuffer twi_defaultSlaveBuffer = { twi_defaultSlaveBufferData, TWI_Buffer_Size };
@@ -21,11 +22,18 @@ void twi_init_slave() {
 	twi_defaultControlFlags |= _BV(TWEA);
 }
 
+static inline void twiStartSlaveOperation() {
+	twi_error = TWI_No_Error;
+	twi_running = TRUE;
+	handledBytes = 0;
+}
+
 static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
 	switch (status) {
 // Slave Transmitter
 		case TW_ST_SLA_ACK:
 		case TW_ST_ARB_LOST_SLA_ACK:
+			twiStartSlaveOperation();
 			twi_buffer = twi_handleMasterRequest();
 			/* no break */
 		case TW_ST_DATA_ACK:
@@ -34,7 +42,7 @@ static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
 					// At least one more byte after this one.
 					? twi_send_ack(twi_buffer.data[handledBytes++])
 					// Sending last byte!
-					: twi_send(twi_buffer.data[handledBytes++]);
+					: twi_send_last(twi_buffer.data[handledBytes++]);
 		case TW_ST_LAST_DATA:
 			twi_error = TWI_Slave_NotEnoughDataTransmitted;
 			return twi_end();
@@ -48,6 +56,7 @@ static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
 		case TW_SR_ARB_LOST_SLA_ACK:
 		case TW_SR_GCALL_ACK:
 		case TW_SR_ARB_LOST_GCALL_ACK:
+			twiStartSlaveOperation();
 			return twi_ack_receive();
 		case TW_SR_DATA_ACK:
 		case TW_SR_GCALL_DATA_ACK:

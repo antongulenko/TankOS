@@ -33,12 +33,22 @@ static inline TwiHandlerStatus twi_start() {
 	return HandlerStatus_OK(twi_defaultControlFlags | _BV(TWSTA));
 }
 
+static inline TwiHandlerStatus twi_stop() {
+	// Implies twi_running = false!
+	return HandlerStatus_FINISHED(twi_defaultControlFlags | _BV(TWSTO));
+}
+
 static inline TwiHandlerStatus twi_ack() {
 	return HandlerStatus_OK(twi_defaultControlFlags | _BV(TWEA));
 }
 
 static inline TwiHandlerStatus twi_continue() {
 	return HandlerStatus_OK(twi_defaultControlFlags);
+}
+
+static inline TwiHandlerStatus twi_end() {
+	// Implies twi_running = false!
+	return HandlerStatus_FINISHED(twi_defaultControlFlags);
 }
 
 static inline TwiHandlerStatus twi_send_ack(byte data) {
@@ -51,14 +61,9 @@ static inline TwiHandlerStatus twi_send(byte data) {
 	return twi_continue();
 }
 
-static inline TwiHandlerStatus twi_stop() {
-	// Implies twi_running = false!
-	return HandlerStatus_FINISHED(twi_defaultControlFlags | _BV(TWSTO));
-}
-
-static inline TwiHandlerStatus twi_end() {
-	// Implies twi_running = false!
-	return HandlerStatus_FINISHED(twi_defaultControlFlags);
+static inline TwiHandlerStatus twi_send_last(byte data) {
+	TWDR = data;
+	return twi_end();
 }
 
 static inline TwiHandlerStatus twi_stop_or_next() {
