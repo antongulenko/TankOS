@@ -379,7 +379,66 @@ void test_receive_IllegalStatus() {
 // modes are tested separately. Should be enough to test the transition from
 // master-transmitter to master-receiver mode.
 
-// Successfull
-// Error during first phase
-// Error during second phase
-// Second arbitration lost
+void test_transmitReceive_Success() {
+	sendBuffer.size = 3;
+	receiveBuffer.size = 3;
+	expectTwiWriteOp(TW_START, 0, testDevice.address);
+	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
+	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[1]);
+	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[2]);
+	expectTwiControlOp(TW_MT_DATA_ACK, _BV(TWSTA));
+	expectTwiWriteOp(TW_START, 0, receiveAddress);
+	expectTwiControlOp(TW_MR_SLA_ACK, _BV(TWEA));
+	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedReceiveData[0]);
+	expectTwiReadOp(TW_MR_DATA_ACK, 0, expectedReceiveData[1]);
+	expectTwiReadOp(TW_MR_DATA_NACK, _BV(TWSTO), expectedReceiveData[2]);
+	twiSendReceive(testDevice, sendBuffer, receiveBuffer);
+	startTwiTest();
+	assertReceivedData(expectedReceiveData, 3);
+}
+
+void test_transmitReceive_ErrorPhase1() {
+	expectedError = TWI_Bus_Error;
+	sendBuffer.size = 3;
+	receiveBuffer.size = 3;
+	expectTwiWriteOp(TW_START, 0, testDevice.address);
+	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
+	expectTwiControlOp(TW_BUS_ERROR, _BV(TWSTO));
+	twiSendReceive(testDevice, sendBuffer, receiveBuffer);
+	startTwiTest();
+	assertReceivedNoData();
+}
+
+void test_transmitReceive_ErrorPhase2() {
+	expectedError = TWI_Bus_Error;
+	sendBuffer.size = 3;
+	receiveBuffer.size = 3;
+	expectTwiWriteOp(TW_START, 0, testDevice.address);
+	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
+	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[1]);
+	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[2]);
+	expectTwiControlOp(TW_MT_DATA_ACK, _BV(TWSTA));
+	expectTwiWriteOp(TW_START, 0, receiveAddress);
+	expectTwiControlOp(TW_MR_SLA_ACK, _BV(TWEA));
+	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedByte);
+	expectTwiControlOp(TW_BUS_ERROR, _BV(TWSTO));
+	twiSendReceive(testDevice, sendBuffer, receiveBuffer);
+	startTwiTest();
+	assertReceivedByte(expectedByte);
+}
+
+void test_transmitReceive_LostSecondArbitration() {
+	expectedError = TWI_Arbitration_Lost;
+	sendBuffer.size = 3;
+	receiveBuffer.size = 3;
+	expectTwiWriteOp(TW_START, 0, testDevice.address);
+	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
+	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[1]);
+	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[2]);
+	expectTwiControlOp(TW_MT_DATA_ACK, _BV(TWSTA));
+	expectTwiWriteOp(TW_START, 0, receiveAddress);
+	expectTwiControlOp(TW_MR_ARB_LOST, 0);
+	twiSendReceive(testDevice, sendBuffer, receiveBuffer);
+	startTwiTest();
+	assertReceivedNoData();
+}
