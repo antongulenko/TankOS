@@ -37,12 +37,28 @@ static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
 			twi_buffer = twi_handleMasterRequest();
 			/* no break */
 		case TW_ST_DATA_ACK:
-			return
-				handledBytes < twi_buffer.size - 1
-					// At least one more byte after this one.
-					? twi_send_ack(twi_buffer.data[handledBytes++])
-					// Sending last byte!
-					: twi_send_last(twi_buffer.data[handledBytes++]);
+			if (handledBytes < twi_buffer.size - 1) {
+				// At least one more byte after this one.
+				return twi_send_ack(twi_buffer.data[handledBytes++]);
+			} else {
+				// We send the last byte now, that means we expect the Master
+				// to send a NACK after this. Problem: we don't know whether he will
+				// do this or not (in which case we'll get TW_ST_LAST_DATA status).
+				// This means, we don't really know whether the TWI operation is still
+				// running or not, but our best bet is to declare it finished after this.
+				if (handledBytes >= twi_buffer.size) {
+					// We should send the last byte, but we don't have any data left.
+					// Only possible case: twi_handleMasterRequest() returned a buffer
+					// with size = 0
+					// We have to write something to the bus, so we write all ones
+					// to simulate that we are not listening anymore.
+					twi_error = TWI_Slave_NotEnoughDataTransmitted;
+					return twi_send_last(TwiIllegalByte);
+				} else {
+					// Sending last byte normally
+					return twi_send_last(twi_buffer.data[handledBytes++]);
+				}
+			}
 		case TW_ST_LAST_DATA:
 			twi_error = TWI_Slave_NotEnoughDataTransmitted;
 			return twi_end();
