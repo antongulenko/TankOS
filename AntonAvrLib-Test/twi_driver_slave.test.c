@@ -103,6 +103,22 @@ void test_slave_transmit_not_enough_0 () {
 	sendBuffer.size = 0;
 	expectedError = TWI_Slave_NotEnoughDataTransmitted;
 	expectTwiWriteOp(TW_ST_SLA_ACK, 0, TwiIllegalByte);
+	startTwiSlaveTest();
+}
+
+void test_slave_transmit_not_enough_0_masterExpectsMoreThan1 () {
+	expectedMasterRequestCalls = 1;
+	sendBuffer.size = 0;
+	expectedError = TWI_Slave_NotEnoughDataTransmitted;
+	expectTwiWriteOp(TW_ST_SLA_ACK, 0, TwiIllegalByte);
+	startTwiSlaveTest();
+
+	// The TWI slave cannot distinguish this test-case from test_slave_transmit_not_enough_0
+	// because after sending TwiIllegalByte, we don't know whether the Master will give
+	// us a NACK (which would be good), or still expect more data and give an ACK
+	// (which would be unexpected). In the second case, we can only declare the TWI
+	// operation finished and handle the next TW_ST_LAST_DATA status correctly.
+	TWDR = 0xFF;
 	expectTwiControlOp(TW_ST_LAST_DATA, _BV(TWEA));
 	startTwiSlaveTest();
 }
@@ -110,16 +126,45 @@ void test_slave_transmit_not_enough_0 () {
 void test_slave_transmit_not_enough_1 () {
 	expectedMasterRequestCalls = 1;
 	sendBuffer.size = 1;
-	expectedError = TWI_Slave_NotEnoughDataTransmitted;
 	expectTwiWriteOp(TW_ST_SLA_ACK, 0, sendData[0]);
+	startTwiSlaveTest();
+
+	// The comment in test_slave_transmit_not_enough_0_masterExpectsMoreThan1
+	// applies here as well.
+	TWDR = 0xFF;
+	expectedError = TWI_Slave_NotEnoughDataTransmitted;
 	expectTwiControlOp(TW_ST_LAST_DATA, _BV(TWEA));
+	startTwiSlaveTest();
+}
+
+void test_slave_transmit_not_enough_n () {
+	expectedMasterRequestCalls = 1;
+	sendBuffer.size = 3;
+	expectTwiWriteOp(TW_ST_SLA_ACK, _BV(TWEA), sendData[0]);
+	expectTwiWriteOp(TW_ST_DATA_ACK, _BV(TWEA), sendData[1]);
+	expectTwiWriteOp(TW_ST_DATA_ACK, 0, sendData[2]);
+	startTwiSlaveTest();
+
+	// The comment in test_slave_transmit_not_enough_0_masterExpectsMoreThan1
+	// applies here as well.
+	TWDR = 0xFF;
+	expectedError = TWI_Slave_NotEnoughDataTransmitted;
+	expectTwiControlOp(TW_ST_LAST_DATA, _BV(TWEA));
+	startTwiSlaveTest();
+}
+
+void test_slave_transmit_tooMuchData() {
+	expectedMasterRequestCalls = 1;
+	expectedError = TWI_Slave_TooMuchDataTransmitted;
+	expectTwiWriteOp(TW_ST_SLA_ACK, _BV(TWEA), sendData[0]);
+	expectTwiWriteOp(TW_ST_DATA_ACK, _BV(TWEA), sendData[1]);
+	expectTwiWriteOp(TW_ST_DATA_ACK, _BV(TWEA), sendData[2]);
+	expectTwiControlOp(TW_ST_DATA_NACK, _BV(TWEA));
 	startTwiSlaveTest();
 }
 
 // == Slave tests
 // = Slave Transmitter
-//   - Transmit 1, n byte
-//   - TWI_Slave_NotEnoughDataTransmitted (mit 0, (1,) n byte)
 //   - TWI_Slave_TooMuchDataTransmitted (mit n byte)
 // = Slave Receiver
 //   - Receive 0, 1, n byte
