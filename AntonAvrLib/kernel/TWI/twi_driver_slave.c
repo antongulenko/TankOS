@@ -3,11 +3,7 @@
 #include "twi_driver_internal.h"
 #include "twi_driver_slave_handler.h"
 
-// TODO -- Stop receiving data, when local buffer is full.
 // TODO -- Implement configuration of GC calls (TWGCE bit, LSB in TWAR)
-
-byte twi_defaultSlaveBufferData[TWI_Buffer_Size];
-TWIBuffer twi_defaultSlaveBuffer = { twi_defaultSlaveBufferData, TWI_Buffer_Size };
 
 void twi_init_slave() {
 	TWAR = TwiSlaveAddress;
@@ -20,18 +16,18 @@ void twi_init_slave() {
 	twi_defaultControlFlags |= _BV(TWEA);
 }
 
-static inline void twiStartSlaveOperation() {
+static inline void startSlaveOperation() {
 	twi_error = TWI_No_Error;
 	twi_running = TRUE;
 	handledBytes = 0;
 }
 
-static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
+TwiHandlerStatus twi_handle_slave(TwiStatus status) {
 	switch (status) {
 // Slave Transmitter
 		case TW_ST_SLA_ACK:
 		case TW_ST_ARB_LOST_SLA_ACK:
-			twiStartSlaveOperation();
+			startSlaveOperation();
 			twi_buffer = twi_handleMasterRequest();
 			/* no break */
 		case TW_ST_DATA_ACK:
@@ -45,7 +41,7 @@ static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
 				// expecting ACKs, until the Master sends a NACK and we enter the TW_ST_DATA_NACK
 				// state. This state is supposed to be a kind of error-state, but we use it
 				// as regular last state so we definitely know when the TWI operation is over.
-				return twi_send_ack(twi_buffer.data[handledBytes++]);
+				return twi_send(twi_buffer.data[handledBytes++]);
 			} else {
 				// Following the strategy described in above comment, we have to give the
 				// Master some data until it gives us the NACK we are waiting for (in case
@@ -53,7 +49,7 @@ static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
 				// the TWI operation already, the Master would receive all ones, because the
 				// TWI lines are pulled up. We imitate this by explicitely sending all ones.
 				twi_error = TWI_Slave_NotEnoughDataTransmitted;
-				return twi_send_ack(TwiIllegalByte);
+				return twi_send(TwiIllegalByte);
 			}
 		case TW_ST_LAST_DATA:
 			// Because of the strategy described above, this state should NEVER be entered,
@@ -71,31 +67,39 @@ static inline TwiHandlerStatus twi_handle_slave_switch(TwiStatus status) {
 		case TW_SR_ARB_LOST_SLA_ACK:
 		case TW_SR_GCALL_ACK:
 		case TW_SR_ARB_LOST_GCALL_ACK:
-			twiStartSlaveOperation();
-			return twi_ack_receive();
+			startSlaveOperation();
+			twi_buffer = twi_masterTransmissionStarting();
+			return twi_continue();
 		case TW_SR_DATA_ACK:
 		case TW_SR_GCALL_DATA_ACK:
-			twi_read_byte();
-			return twi_ack_receive();
-		case TW_SR_STOP:
-			// Transmission ended early.
-			twi_error = TWI_Slave_NotEnoughDataReceived;
-			/* no break */
+			if (handledBytes < twi_buffer.size) {
+				twi_read_byte();
+			} else {
+				twi_error = TWI_Slave_TooMuchDataReceived;
+			}
+			// Following the same strategy as in Slave Transmitter mode, we always
+			// acknowledge received data, even if we already stopped copying it into
+			// the receive buffer because it is full. We wait for the Master to give
+			// us a STOP condition and send us to the TW_SR_STOP state.
+			return twi_continue();
 		case TW_SR_DATA_NACK:
 		case TW_SR_GCALL_DATA_NACK:
-			twi_read_byte();
-			// Invoke application-code before releasing the bus. The twi_buffer should be copied quickly.
-			twi_handleMasterTransmission((TWIBuffer) { twi_buffer.data, handledBytes } );
-			return twi_end(); // Transmission finished normally. Cannot tell whether Master wanted to send more.
+			// Following the strategy described above, this state should never be entered,
+			// because we never return a NACK to the Master. We still handle this, to be sure.
+			if (handledBytes < twi_buffer.size) {
+				twi_read_byte();
+			}
+			/* no break */
+		case TW_SR_STOP:
+			if (handledBytes < twi_buffer.size) {
+				// Transmission ended early.
+				twi_error = TWI_Slave_NotEnoughDataReceived;
+			}
+			// Invoke application-code before releasing the bus.
+			// This event should be handled quickly.
+			twi_masterTransmissionEnded((TWIBuffer) { twi_buffer.data, handledBytes } );
+			return twi_end();
 		default:
 			return twi_handle(status);
 	}
-}
-
-TwiHandlerStatus twi_handle_slave(TwiStatus status) {
-	TwiHandlerStatus result = twi_handle_slave_switch(status);
-	if (result.handlerFinished) {
-		twi_buffer = twi_defaultSlaveBuffer;
-	}
-	return result;
 }

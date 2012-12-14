@@ -44,12 +44,12 @@ typedef enum TwiError {
 	// Master Receive mode is ONLY left, when master issues a STOP, which happens after he received
 	//		EXACTLY the amount of bytes specified in the prepared buffer.
 	//		--> If slave already stopped transmitting earlier, we continue receiving 0xff.
-	//		--> If slave wanted to transmit more, he has no chance of telling us.
+	//		--> If slave wanted to transmit more, it has no chance of telling us.
 
 	TWI_Slave_NotEnoughDataTransmitted,
 	TWI_Slave_TooMuchDataTransmitted,
-	TWI_Slave_NotEnoughDataReceived
-	// Cannot tell, if Master would have sent more data, because Slave simply terminates transmission with the No Ack.
+	TWI_Slave_NotEnoughDataReceived,
+	TWI_Slave_TooMuchDataReceived
 
 } TwiError;
 
