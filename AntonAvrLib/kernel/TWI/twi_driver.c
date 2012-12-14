@@ -32,6 +32,7 @@ void twi_init() {
 	TWCR = _BV(TWIE) | _BV(TWEN);
 	twi_error = TWI_No_Error;
 	twi_running = FALSE;
+	twi_buffer = EmptyBuffer;
 }
 
 BOOL start_master_operation() {

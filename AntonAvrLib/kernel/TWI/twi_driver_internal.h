@@ -9,6 +9,9 @@
 #define twi_driver_INTERNAL_H_
 
 #include "twi_driver_handler.h"
+#include "twi_driver.h"
+
+#define EmptyBuffer (TWIBuffer) { 0, 0 }
 
 extern int handledBytes;
 extern TWIBuffer twi_buffer;
@@ -24,6 +27,8 @@ static inline TwiHandlerStatus HandlerStatus_OK(byte controlRegister) {
 }
 
 static inline TwiHandlerStatus HandlerStatus_FINISHED(byte controlRegister) {
+	// Make sure application buffers are but corrupted by faulty TWI operations.
+	twi_buffer = EmptyBuffer;
 	return (TwiHandlerStatus) { TRUE, controlRegister };
 }
 
@@ -91,7 +96,7 @@ static inline void twi_read_byte() {
 	// is zero (because in Master-Receiver mode, we have to receive
 	// AT LEAST one byte, so we will end up here, even if the receive-
 	// buffer has no space at all reserved. Fix by skipping this byte).
-	if (handledBytes < twi_buffer.size)
+	if (twi_buffer.data != NULL && handledBytes < twi_buffer.size)
 		twi_buffer.data[handledBytes++] = TWDR;
 }
 
