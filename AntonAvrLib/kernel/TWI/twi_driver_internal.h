@@ -11,8 +11,6 @@
 #include "twi_driver_handler.h"
 #include "twi_driver.h"
 
-#define EmptyBuffer (TWIBuffer) { 0, 0 }
-
 extern int handledBytes;
 extern TWIBuffer twi_buffer;
 

@@ -29,6 +29,8 @@ typedef struct TWIBuffer {
 	uint16_t size;
 } TWIBuffer;
 
+#define EmptyBuffer (TWIBuffer) { 0, 0 }
+
 typedef enum TwiError {
 	TWI_No_Error,
 
