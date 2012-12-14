@@ -51,8 +51,6 @@ void twi_tests_setUp() {
 	expectedError = TWI_No_Error;
 	twiHasTerminated = FALSE;
 	sendBuffer.size = sizeof(sendData);
-	// The twi_running flag is not cleared by the twi_driver module itself!
-	twi_running = FALSE;
 	memset(receiveData, 0, sizeof(receiveData));
 	receiveBuffer.size = sizeof(expectedReceiveData);
 }
@@ -79,13 +77,13 @@ void expectTwiControlOp(TwiStatus status, byte controlRegister) {
 	expectTwiReadOp(status, controlRegister, 0xff);
 }
 
-void assertReceivedData(byte *data, int size) {
+void assertReceivedData(byte *expectedData, int size) {
 	if (size > 0)
-		TEST_ASSERT_EQUAL_UINT8_ARRAY_MESSAGE(data, receiveData,
-			size, "Received wrong or not enought data!");
-	if (size < sizeof(receiveData))
+		TEST_ASSERT_EQUAL_UINT8_ARRAY_MESSAGE(expectedData, receiveData,
+			size, "Received wrong or not enough data!");
+	for (; size < sizeof(receiveData); size++)
 		TEST_ASSERT_EQUAL_HEX_MESSAGE(0, receiveData[size],
-				"Too much data received!");
+			"Too much data received or receive-buffer corrupted!");
 }
 
 void assertReceivedNoData() {
@@ -99,6 +97,7 @@ void assertReceivedByte(byte expectedByte) {
 void startTwiTest(byte initialControlRegister) {
 	TEST_ASSERT_EQUAL_HEX_MESSAGE(initialControlRegister, TWCR, "Wrong initial control register");
 	TEST_ASSERT_EQUAL_HEX_MESSAGE(0xFF, TWDR, "Data register changed too early");
+	TEST_ASSERT_EQUAL_HEX_MESSAGE(TWI_No_Error, twi_error, "twi_error set before test began!");
 
 	while (handledExpectedOps < numExpectedOps) {
 		ExpectedTwiOp operation = expectedOps[handledExpectedOps++];
@@ -118,9 +117,8 @@ void startTwiTest(byte initialControlRegister) {
 			TEST_ASSERT_EQUAL_MESSAGE(numExpectedOps, handledExpectedOps, "TWI terminated too early!");
 			twiHasTerminated = TRUE;
 		} else {
-			TEST_ASSERT_EQUAL_HEX_MESSAGE(TWI_No_Error, twi_error, "twi_error set too early!");
 			TEST_ASSERT_MESSAGE(twi_running, "twi_running flag was reset!");
-			// More to tests here?
+			// twi_error can already be set here, before all interrupts have been handled.
 		}
 	}
 	TEST_ASSERT_MESSAGE(twiHasTerminated, "TWI has not terminated in time!");
@@ -131,5 +129,5 @@ void startTwiMasterTest() {
 }
 
 void startTwiSlaveTest() {
-	startTwiTest(defaultControlFlags & ~_BV(TWINT));
+	startTwiTest((defaultControlFlags | _BV(TWEA)) & ~_BV(TWINT));
 }
