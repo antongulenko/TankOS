@@ -52,6 +52,7 @@ void twi_tests_setUp() {
 	twiHasTerminated = FALSE;
 	sendBuffer.size = sizeof(sendData);
 	memset(receiveData, 0, sizeof(receiveData));
+	receiveBuffer.data = receiveData;
 	receiveBuffer.size = sizeof(expectedReceiveData);
 }
 
