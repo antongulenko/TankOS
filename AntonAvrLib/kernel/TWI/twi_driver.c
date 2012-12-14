@@ -53,6 +53,38 @@ BOOL start_master_operation() {
 	return FALSE;
 }
 
+static inline TwiHandlerStatus twi_start() {
+	return HandlerStatus_CONTINUE(twi_defaultControlFlags | _BV(TWSTA));
+}
+
+static inline TwiHandlerStatus twi_stop() {
+	return HandlerStatus_FINISHED(twi_defaultControlFlags | _BV(TWSTO));
+}
+
+static inline TwiHandlerStatus twi_stop_or_next() {
+	if (!start_master_operation()) {
+		return twi_stop();
+	} else {
+		// Next operation, without releasing the bus. Repeated START condition!
+		return twi_start();
+	}
+}
+
+static inline TwiHandlerStatus twi_ack() {
+	return HandlerStatus_CONTINUE(twi_defaultControlFlags | _BV(TWEA));
+}
+
+static inline TwiHandlerStatus twi_ack_receive() {
+	// Directly after a (repeated) start condition, in MR mode,
+	// buffer size 0 and 1 both lead to a NACK of the first received byte.
+	// In case of buffer size 0, this byte will be 'useless'.
+	if (handledBytes + 1 < twi_buffer.size) {
+		return twi_ack(); // Still more than one byte to go.
+	} else {
+		return twi_continue();  // Want to receive just one more byte. Next byte will get NOT ACK.
+	}
+}
+
 static void initiate_twi() {
 	twi_running = TRUE;
 	twi_error = TWI_No_Error;
