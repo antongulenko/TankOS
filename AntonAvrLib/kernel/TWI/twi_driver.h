@@ -45,6 +45,9 @@ typedef enum TwiError {
 	//		EXACTLY the amount of bytes specified in the prepared buffer.
 	//		--> If slave already stopped transmitting earlier, we continue receiving 0xff.
 	//		--> If slave wanted to transmit more, it has no chance of telling us.
+	// Actually, with our own TWI Slave mode implementation, even the TWI_Master_TooMuchDataTransmitted
+	// state cannot be detected, because the slave continues acknowledging the data even
+	// if it is not really reading it anymore.
 
 	TWI_Slave_NotEnoughDataTransmitted,
 	TWI_Slave_TooMuchDataTransmitted,
