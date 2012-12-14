@@ -28,3 +28,13 @@ $(eval $(call set_test_objects,twi_driver_slave,\
 	$(BUILDDIR)/twi_driver_helper.o \
 	$(KERNEL)/TWI/twi_driver.o \
 	$(KERNEL)/TWI/twi_driver_slave.o))
+
+$(eval $(call set_test_objects,twi_rpc_client,\
+	$(BUILDDIR)/TestRpcClient.o \
+	$(KERNEL)/TWI/twi_driver.o \
+	$(KERNEL)/TWI/twi_rpc_client.o ))
+
+$(eval $(call set_test_objects,twi_rpc_server,\
+	$(KERNEL)/TWI/twi_driver.o \
+	$(KERNEL)/TWI/twi_driver_slave.o \
+	$(KERNEL)/TWI/twi_rpc_server.kernel.o ))
