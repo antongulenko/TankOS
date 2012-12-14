@@ -19,7 +19,7 @@ static TWIDevice targetDevice;
 TWIBuffer twi_buffer;
 int handledBytes;
 
-volatile BOOL twi_running = FALSE;
+volatile BOOL twi_running;
 TwiError twi_error;
 
 byte twi_defaultControlFlags;
@@ -30,6 +30,8 @@ void twi_init() {
 	TWSR = TwiPrescalerMask; // Writing the non-prescaler bits will be ignored.
 	twi_defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE);
 	TWCR = _BV(TWIE) | _BV(TWEN);
+	twi_error = TWI_No_Error;
+	twi_running = FALSE;
 }
 
 BOOL start_master_operation() {
