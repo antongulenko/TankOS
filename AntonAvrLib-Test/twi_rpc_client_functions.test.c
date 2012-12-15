@@ -7,14 +7,29 @@
 
 #include "TestRpcClient.h"
 #include "fake_twi_driver.h"
+#include <string.h>
+#include <unity.h>
 
-byte bufferData[100];
-const TWIBuffer clientBuffer = { bufferData, sizeof(bufferData) };
+byte clientData[100];
+
+TestResStruct expectedResults = { 3.219f, { 'a', '0', 'x' } };
+
+BOOL expectingParameters, expectingResults;
 
 void setUp() {
 	fake_twi_driver_setUp();
-	twi_rpc_client_init(clientBuffer);
+	memset(clientData, 0, sizeof(clientData));
+	twi_rpc_client_init((TWIBuffer) { clientData, sizeof(clientData) });
+
+	returnedReceiveData.size = sizeof(TestResStruct);
+	returnedReceiveData.data = (byte*) &expectedResults;
+
+	expectingParameters = expectingResults = FALSE;
 }
 
 void tearDown() {
+	TEST_ASSERT_EQUAL_MESSAGE(expectingParameters, sent,
+			"tpc call did not behave as expected (sending data)");
+	TEST_ASSERT_EQUAL_MESSAGE(expectingResults, received,
+			"tpc call did not behave as expected (receiving data)");
 }
