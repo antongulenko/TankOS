@@ -10,7 +10,7 @@
 // RPC_CLIENT_IMPLEMENTATION macro, which enables the generation of the function
 // bodies.
 
-#include "twi_rpc.h"
+#include "twi_rpc_client.h"
 
 #ifndef TWI_DEVICE
 #error This module requires TWI_DEVICE to be defined!
@@ -38,7 +38,7 @@
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize };			\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize };		\
 		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
-		WAIT_FOR_TWI();															\
+		twiWaitForCompletion(0);															\
 	}
 
 #define TWI_RPC_FUNCTION_VARARGS(funcName, operationByte, ArgStruct, ResStruct)	\
@@ -47,7 +47,7 @@
 		ResStruct result;														\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) };	\
 		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
-		WAIT_FOR_TWI();															\
+		twiWaitForCompletion(0);															\
 		return result;															\
 	}
 
@@ -56,7 +56,7 @@
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) };		\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize };		\
 		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
-		WAIT_FOR_TWI();															\
+		twiWaitForCompletion(0);															\
 	}
 
 #define TWI_RPC_FUNCTION(funcName, operationByte, ArgStruct, ResStruct)			\
@@ -65,7 +65,7 @@
 		ResStruct result;														\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) };	\
 		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
-		WAIT_FOR_TWI();															\
+		twiWaitForCompletion(0);															\
 		return result;															\
 	}
 
@@ -77,28 +77,28 @@
 	void funcName(ArgStruct *parameters, uint16_t argSize) {			\
 		TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize };	\
 		twi_rpc_oneway(TWI_DEVICE, operationByte, buf);					\
-		WAIT_FOR_TWI();													\
+		twiWaitForCompletion(0);													\
 	}
 
 #define TWI_RPC_FUNCTION_VOID(funcName, operationByte, ArgStruct)				\
 	void funcName(ArgStruct parameters) {										\
 		TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) };	\
 		twi_rpc_oneway(TWI_DEVICE, operationByte, buf);							\
-		WAIT_FOR_TWI();															\
+		twiWaitForCompletion(0);															\
 	}
 
 #define TWI_RPC_FUNCTION_PVOID(funcName, operationByte, ArgStruct)				\
 	void funcName(ArgStruct parameters) {										\
 		TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) };	\
 		twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, buf);					\
-		WAIT_FOR_TWI();															\
+		twiWaitForCompletion(0);															\
 	}
 
 #define TWI_RPC_FUNCTION_PVOID_VAR(funcName, operationByte, ArgStruct)	\
 	void funcName(ArgStruct *parameters, uint16_t argSize) {			\
 		TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize };	\
 		twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, buf);			\
-		WAIT_FOR_TWI();													\
+		twiWaitForCompletion(0);													\
 	}
 
 
@@ -112,7 +112,7 @@
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };						\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) };	\
 		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
-		WAIT_FOR_TWI();															\
+		twiWaitForCompletion(0);															\
 		return result;															\
 	}
 
@@ -121,7 +121,7 @@
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };						\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize };		\
 		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
-		WAIT_FOR_TWI();															\
+		twiWaitForCompletion(0);															\
 	}
 
 // ==
@@ -132,14 +132,14 @@
 	void funcName() {											\
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };		\
 		twi_rpc_oneway(TWI_DEVICE, operationByte, argBuf);		\
-		WAIT_FOR_TWI();											\
+		twiWaitForCompletion(0);											\
 	}
 
 #define TWI_RPC_FUNCTION_PNOTIFY(funcName, operationByte)		\
 	void funcName() {											\
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };		\
 		twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, argBuf);\
-		WAIT_FOR_TWI();											\
+		twiWaitForCompletion(0);											\
 	}
 
 #else
