@@ -45,8 +45,14 @@ void twiSend(TWIDevice targetDevice, TWIBuffer data) {
 }
 
 void fillReceiveData(TWIBuffer *buf) {
-	buf->size = returnedReceiveData.size;
-	memcpy(buf->data, returnedReceiveData.data, returnedReceiveData.size);
+	memcpy(buf->data, returnedReceiveData.data,
+			returnedReceiveData.size <= buf->size
+			? returnedReceiveData.size
+			: buf->size);
+	if (buf->size > returnedReceiveData.size) {
+		memset(buf->data + returnedReceiveData.size, TwiIllegalByte,
+				buf->size - returnedReceiveData.size);
+	}
 }
 
 void twiReceive(TWIDevice targetDevice, TWIBuffer _receiveBuffer) {
