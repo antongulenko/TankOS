@@ -30,6 +30,7 @@ typedef struct TWIBuffer {
 } TWIBuffer;
 
 #define EmptyBuffer (TWIBuffer) { 0, 0 }
+#define StaticEmptyBuffer { 0, 0 }
 
 typedef enum TwiError {
 	TWI_No_Error,
