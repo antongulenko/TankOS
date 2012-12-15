@@ -26,6 +26,7 @@ void setUp() {
 }
 
 void tearDown() {
+	TEST_ASSERT_FALSE_MESSAGE(waitedForCompletion, "Should not have waited for completion");
 }
 
 void assertParametersInBuffer(TWIBuffer buf) {
