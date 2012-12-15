@@ -11,7 +11,7 @@ TWIBuffer receiveBuffer;
 
 // This stores the result of an rpc call. The memory-buffer behind this is
 // the same as in receiveBuffer, the size should be different.
-TWIBuffer resultBuffer = EmptyBuffer;
+TWIBuffer resultBuffer = StaticEmptyBuffer;
 
 void twi_rpc_server_init(TWIBuffer in_out_buffer) {
 	receiveBuffer = in_out_buffer;
