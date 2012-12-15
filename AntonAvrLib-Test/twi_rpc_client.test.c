@@ -77,4 +77,9 @@ void test_rpc_pseudo_oneway() {
 	assertParametersInBuffer(sendBuffer);
 	TEST_ASSERT_MESSAGE(sent, "twi_rpc_pseudo_oneway call has not sent anything");
 	TEST_ASSERT_MESSAGE(received, "twi_rpc_pseudo_oneway call has not received anything");
+
+	TEST_ASSERT_EQUAL_MESSAGE(receiveBuffer.size, 0,
+			"RPC pseudo oneway call wanted to receive data");
+	TEST_ASSERT_EQUAL_MESSAGE(receiveBuffer.data, 0,
+			"RPC pseudo oneway call passed a valid buffer pointer");
 }
