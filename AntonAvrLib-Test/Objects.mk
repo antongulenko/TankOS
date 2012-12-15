@@ -30,11 +30,14 @@ $(eval $(call set_test_objects,twi_driver_slave,\
 	$(KERNEL)/TWI/twi_driver_slave.o))
 
 $(eval $(call set_test_objects,twi_rpc_client,\
+	$(BUILDDIR)/fake_twi_driver.o \
+	$(KERNEL)/TWI/twi_rpc_client.o ))
+
+$(eval $(call set_test_objects,twi_rpc_client_functions,\
+	$(BUILDDIR)/fake_twi_driver.o \
 	$(BUILDDIR)/TestRpcClient.o \
-	$(KERNEL)/TWI/twi_driver.o \
 	$(KERNEL)/TWI/twi_rpc_client.o ))
 
 $(eval $(call set_test_objects,twi_rpc_server,\
-	$(KERNEL)/TWI/twi_driver.o \
-	$(KERNEL)/TWI/twi_driver_slave.o \
+	$(BUILDDIR)/fake_twi_driver.o \
 	$(KERNEL)/TWI/twi_rpc_server.kernel.o ))

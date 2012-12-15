@@ -7,3 +7,14 @@
 
 #include <kernel/TWI/twi_rpc_server_handler.h>
 #include <kernel/TWI/twi_rpc_server.h>
+
+void twi_handleRpcRequest(byte operation, TWIBuffer *in_out_buffer) {
+	// TODO handle request
+}
+
+void setUp() {
+
+}
+
+void tearDown() {
+}
