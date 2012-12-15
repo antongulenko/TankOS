@@ -39,6 +39,8 @@ extern void test_transmitReceive_ErrorPhase1();
 extern void test_transmitReceive_ErrorPhase2();
 extern void test_transmitReceive_LostSecondArbitration();
 
+// TODO -- test twiWaitForCompletion() !!!
+
 // ===========
 // === Master Transmit Mode
 // ===========
