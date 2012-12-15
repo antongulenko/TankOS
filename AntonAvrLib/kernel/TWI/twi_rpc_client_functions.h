@@ -148,6 +148,8 @@
 // Functions signatures for regular headers
 // ==
 
+// Functions with Arguments and Results
+
 #define TWI_RPC_FUNCTION_VAR(funcName, operationByte, ArgStruct, ResStruct)		\
 	void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize);
 
@@ -160,14 +162,21 @@
 #define TWI_RPC_FUNCTION(funcName, operationByte, ArgStruct, ResStruct)			\
 	ResStruct funcName(ArgStruct parameters);
 
-#define TWI_RPC_FUNCTION_VOID_VAR(funcName, operationByte, ArgStruct)	\
+// Functions with only Arguments
+
+#define TWI_RPC_FUNCTION_VOID_VAR(funcName, operationByte, ArgStruct)			\
 	void funcName(ArgStruct *parameters, uint16_t argSize);
 
 #define TWI_RPC_FUNCTION_VOID(funcName, operationByte, ArgStruct)				\
 	void funcName(ArgStruct parameters);
 
-#define TWI_RPC_FUNCTION_PVOID(a, b, c) TWI_RPC_FUNCTION_VOID(a, b, c)
-#define TWI_RPC_FUNCTION_PVOID_VAR(a, b, c) TWI_RPC_FUNCTION_VOID_VAR(a, b, c)
+#define TWI_RPC_FUNCTION_PVOID(funcName, operationByte, ArgStruct) 				\
+	TWI_RPC_FUNCTION_VOID(funcName, operationByte, ArgStruct)
+
+#define TWI_RPC_FUNCTION_PVOID_VAR(funcName, operationByte, ArgStruct) 			\
+	TWI_RPC_FUNCTION_VOID_VAR(funcName, operationByte, ArgStruct)
+
+// Functions with only Results
 
 #define TWI_RPC_FUNCTION_NOARGS(funcName, operationByte, ResStruct)				\
 	ResStruct funcName();
@@ -175,13 +184,13 @@
 #define TWI_RPC_FUNCTION_NOARGS_VAR(funcName, operationByte, ResStruct)			\
 	void funcName(ResStruct *out_result, uint16_t resultSize);
 
-#define TWI_RPC_FUNCTION_NOARGS_VAR(funcName, operationByte, ResStruct)			\
-	void funcName(ResStruct *out_result, uint16_t resultSize);
+// Functions with neither Arguments nor Results
 
-#define TWI_RPC_FUNCTION_NOTIFY(funcName, operationByte)		\
+#define TWI_RPC_FUNCTION_NOTIFY(funcName, operationByte)						\
 	void funcName();
 
-#define TWI_RPC_FUNCTION_PNOTIFY(a, b) TWI_RPC_FUNCTION_NOTIFY(a, b)
+#define TWI_RPC_FUNCTION_PNOTIFY(funcName, operationByte)						\
+	TWI_RPC_FUNCTION_NOTIFY(funcName, operationByte)
 
 #endif
 
