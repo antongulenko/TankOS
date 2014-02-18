@@ -9,7 +9,7 @@
 #define TESTRPCCLIENT_H_
 
 #include <kernel/TWI/twi_driver.h>
-#include "fake_twi_driver.h"
+#include "fake_twi_driver_master.h"
 
 #define TWI_DEVICE test_device
 

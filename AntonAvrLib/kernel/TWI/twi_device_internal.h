@@ -1,5 +1,4 @@
 
-#include "twi_driver_handler.h"
 #include "twi_driver.h"
 #include "../kernel_init.h"
 

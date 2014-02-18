@@ -8,7 +8,6 @@
 #ifndef twi_driver_INTERNAL_H_
 #define twi_driver_INTERNAL_H_
 
-#include "twi_driver_handler.h"
 #include "twi_driver.h"
 
 extern int handledBytes;

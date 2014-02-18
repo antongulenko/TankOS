@@ -5,7 +5,7 @@
  *      Author: Anton
  */
 
-#include "fake_twi_driver.h"
+#include "fake_twi_driver_master.h"
 #include <kernel/TWI/twi_rpc_client.h>
 #include <string.h>
 #include <unity.h>
@@ -20,7 +20,7 @@ const byte operation = 0xab;
 byte expectedReceiveData[] = { 0xaa, 0xbb, 0x92 };
 
 void setUp() {
-	fake_twi_driver_setUp();
+	fake_twi_driver_master_setUp();
 	memset(clientData, 0, sizeof(clientData));
 	twi_rpc_client_init((TWIBuffer) { clientData, sizeof(clientData) });
 }

@@ -10,7 +10,6 @@
 
 #include <anton_std.h>
 #include <kernel/TWI/twi_driver.h>
-#include <kernel/TWI/twi_driver_handler.h>
 
 extern const byte TwiSlaveAddress;
 

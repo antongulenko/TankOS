@@ -6,6 +6,7 @@
  */
 
 #include <unity.h>
+#include <kernel/TWI/twi_driver_slave.h>
 #include "twi_driver_helper.h"
 
 int masterRequestCalls;
@@ -14,36 +15,6 @@ int masterTransmissionEndedCalls;
 int expectedMasterRequestCalls;
 int expectedMasterTransmissionStartingCalls;
 int expectedMasterTransmissionEndedCalls;
-
-void setUp() {
-	twi_tests_setUp();
-	defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE) | _BV(TWEA);
-	twi_init_slave();
-	masterTransmissionStartingCalls = masterTransmissionEndedCalls = masterRequestCalls = 0;
-	expectedMasterRequestCalls = expectedMasterTransmissionStartingCalls =
-			expectedMasterTransmissionEndedCalls = 0;
-}
-
-void tearDown() {
-	TEST_ASSERT_EQUAL_INT_MESSAGE(expectedMasterRequestCalls, masterRequestCalls,
-			"Wrong number of master requests!");
-	TEST_ASSERT_EQUAL_INT_MESSAGE(expectedMasterTransmissionStartingCalls, masterTransmissionStartingCalls,
-				"Wrong number of master transmissions started!");
-	TEST_ASSERT_EQUAL_INT_MESSAGE(expectedMasterTransmissionEndedCalls, masterTransmissionEndedCalls,
-				"Wrong number of master transmissions ended!");
-}
-
-TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
-	return twi_handle_slave(status);
-}
-
-void test_initialization() {
-	TEST_ASSERT_EQUAL_HEX(TwiSlaveAddress, TWAR);
-	TEST_ASSERT_EQUAL_HEX(TwiBitRateValue, TWBR);
-	TEST_ASSERT_EQUAL_HEX(TwiPrescalerMask, TWSR);
-	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE) | _BV(TWEA), TWCR);
-	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
-}
 
 TWIBuffer twi_handleMasterRequest() {
 	masterRequestCalls++;
@@ -58,8 +29,43 @@ TWIBuffer twi_masterTransmissionStarting() {
 void twi_masterTransmissionEnded(TWIBuffer buffer) {
 	masterTransmissionEndedCalls++;
 	TEST_ASSERT_EQUAL_PTR_MESSAGE(receiveBuffer.data, buffer.data,
-			"Wrong buffer pointer passed to twi_masterTransmissionEnded()");
+	"Wrong buffer pointer passed to twi_masterTransmissionEnded()");
 	receiveBuffer = buffer;
+}
+
+void setUp() {
+	twi_tests_setUp();
+	defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE) | _BV(TWEA);
+	twi_init_slave();
+	twi_init_slave_callbacks(
+		twi_handleMasterRequest,
+		twi_masterTransmissionStarting,
+		twi_masterTransmissionEnded
+	);
+	masterTransmissionStartingCalls = masterTransmissionEndedCalls = masterRequestCalls = 0;
+	expectedMasterRequestCalls = expectedMasterTransmissionStartingCalls =
+			expectedMasterTransmissionEndedCalls = 0;
+}
+
+void tearDown() {
+	TEST_ASSERT_EQUAL_INT_MESSAGE(expectedMasterRequestCalls, masterRequestCalls,
+			"Wrong number of master requests!");
+	TEST_ASSERT_EQUAL_INT_MESSAGE(expectedMasterTransmissionStartingCalls, masterTransmissionStartingCalls,
+			"Wrong number of master transmissions started!");
+	TEST_ASSERT_EQUAL_INT_MESSAGE(expectedMasterTransmissionEndedCalls, masterTransmissionEndedCalls,
+			"Wrong number of master transmissions ended!");
+}
+
+TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
+	return twi_handle_slave(status);
+}
+
+void test_initialization() {
+	TEST_ASSERT_EQUAL_HEX(TwiSlaveAddress, TWAR);
+	TEST_ASSERT_EQUAL_HEX(TwiBitRateValue, TWBR);
+	TEST_ASSERT_EQUAL_HEX(TwiPrescalerMask, TWSR);
+	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE) | _BV(TWEA), TWCR);
+	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
 }
 
 // These tests are implemented in twi_driver_baseTests.c

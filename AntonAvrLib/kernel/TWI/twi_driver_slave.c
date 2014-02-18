@@ -1,7 +1,6 @@
 
-#include "twi_driver.h"
 #include "twi_driver_internal.h"
-#include "twi_driver_slave_handler.h"
+#include "twi_driver_slave.h"
 
 // TODO -- Implement configuration of GC calls (TWGCE bit, LSB in TWAR)
 
@@ -14,6 +13,21 @@ void twi_init_slave() {
 	// described in the long comments in the switch below.
 	TWCR |= _BV(TWEA);
 	twi_defaultControlFlags |= _BV(TWEA);
+}
+
+// The callback functions called by this module.
+static TWIBuffer (*twi_handleMasterRequest)();
+static TWIBuffer (*twi_masterTransmissionStarting)();
+static void (*twi_masterTransmissionEnded)(TWIBuffer twi_buffer);
+
+void twi_init_slave_callbacks(
+		TWIBuffer (*new_twi_handleMasterRequest)(),
+		TWIBuffer (*new_twi_masterTransmissionStarting)(),
+		void (*new_twi_masterTransmissionEnded)(TWIBuffer twi_buffer))
+{
+	twi_handleMasterRequest = new_twi_handleMasterRequest;
+	twi_masterTransmissionStarting = new_twi_masterTransmissionStarting;
+	twi_masterTransmissionEnded = new_twi_masterTransmissionEnded;
 }
 
 static inline void startSlaveOperation() {

@@ -6,7 +6,7 @@
  */
 
 #include "TestRpcClient.h"
-#include "fake_twi_driver.h"
+#include "fake_twi_driver_master.h"
 #include <string.h>
 #include <unity.h>
 
@@ -17,7 +17,7 @@ TestResStruct expectedResults = { 3.219f, { 'a', '0', 'x' } };
 BOOL expectingParameters, expectingResults;
 
 void setUp() {
-	fake_twi_driver_setUp();
+	fake_twi_driver_master_setUp();
 	memset(clientData, 0, sizeof(clientData));
 	twi_rpc_client_init((TWIBuffer) { clientData, sizeof(clientData) });
 
