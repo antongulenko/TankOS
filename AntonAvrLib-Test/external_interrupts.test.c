@@ -114,12 +114,12 @@ void test_keepEnabled() {
 
 void test_enableIgnoresWrongNumber() {
 	int testPins[] = { 50 };
-	performTest(0, testPins, 3);
+	performTest(0, testPins, 1);
 }
 
 void test_disableIgnoresWrongNumber() {
 	int testPins[] = { -50 };
-	performTest(0, testPins, 3);
+	performTest(0, testPins, 1);
 }
 
 void test_isEnabled_true() {
