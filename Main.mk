@@ -45,7 +45,7 @@ BUILDDIR := $(project)/$(BUILD_DIRNAME)
 # This means, that all variables must be expanded immediately, before the Main.mk file is included again.
 # Otherwise the variables would be redefined and the variables in previous inclusions would expand to the values of the latest inclusion.
 # All variables are defined using := (instead of a simple =), so they are expanded immediately. However, variables in recipe-commands are always expanded late.
-# The workaround is to define target-specific variables with := ($(fakse)_BLABLA), that will never be overwritten because the name includes $(project),
+# The workaround is to define target-specific variables with := ($(fake)_BLABLA), that will never be overwritten because the name includes $(project),
 # and use these variables inside the recipes for the actual target. Since the recipe-commands cannot even use the $(target) variable correctly, a fake target
 # (.fake_targets/...) is created and added as first prerequisite for the actual targets. The recipe-commands can access the name of this prerequisite
 # with $< and the $(target) variable in the prerequisite-name is expanded early. By adding _BLABLA to the prerequisite-name, the correct variable can be expanded.

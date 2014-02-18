@@ -15,7 +15,7 @@
 # SPEED: (flag) Instructs platform-dependent Makefiles to optimize for Speed instead of Size. Also switches to yet another build-directory.
 # NOOPT: (flag) Instructs platform-dependent Makefiles to do no optimizations. Also switches to yet another build-directory. This flag takes precedence over the SPEED flag.
 # STUDIO: (flag) If set, the output-artifacts will always be copied to the Atmel Studio output location, to be used in the Atmel Studio simulator. (-> The target 'studio' will be called implicitely).
-# AUTO_DISCOVER: (flag) Causes the makefile to automatically find project-makefiles (Project.mk) and projects. The project might not be in the correct order of their dependencies.
+# AUTO_DISCOVER: (flag) Causes the makefile to automatically find project-makefiles (Project.mk) and projects. The projects might not be in the correct order of their dependencies.
 # DONT_LINK_ALL: (flag) Causes only the main output to be produced, not every possible output. For executable objects, this means the linker is invoked only once.
 # IGNORE_COLORS: (flag) Causes colors to be omitted from the output.
 
@@ -38,7 +38,7 @@ COLOR := /dev/null
 else
 COLOR := color
 endif
-FIND := find
+FIND ?= find
 
 ifeq ($(origin AUTO_DISCOVER), undefined)
 AllProjects := Unity AntonAvrLib AntonAvrLib-Test Tank-Shared Kernel-Tank-MASTER Kernel-Tank-IO Kernel-Simulator Main-Tank-MASTER Main-Tank-IO Main-Simulator Test-Scheduler

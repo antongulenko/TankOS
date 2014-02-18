@@ -13,7 +13,6 @@ void twi_handleRpcRequest(byte operation, TWIBuffer *in_out_buffer) {
 }
 
 void setUp() {
-
 }
 
 void tearDown() {
