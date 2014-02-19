@@ -102,13 +102,10 @@
     <Folder Include="uthash\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="anton_std.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="anton_std.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="fake_registers.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="fake_registers.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\buffer_stdout.kernel.c">
@@ -258,49 +255,55 @@
     <Compile Include="kernel\sleep_after_main.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\commandQueueExecuter_loop.kernel.c">
+    <Compile Include="kernel\TWI\twi_device_master.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\commandQueueExecuter.h">
+    <Compile Include="kernel\TWI\twi_device_internal.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\commandQueueExecuter_sleep.kernel.c">
+    <Compile Include="kernel\TWI\twi_device_slave.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_driver_master.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\twi_driver.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_driver.kernel.c">
+    <Compile Include="kernel\TWI\twi_driver_internal.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_driver_slave.kernel.c">
+    <Compile Include="kernel\TWI\twi_driver_master.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc.h">
+    <Compile Include="kernel\TWI\twi_driver_slave.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc.kernel.c">
+    <Compile Include="kernel\TWI\twi_driver_slave.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\TWI\twi_rpc_client.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\TWI\twi_rpc_client.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc_commandQueue_protocol.h">
+    <Compile Include="kernel\TWI\twi_rpc_client_functions.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc_hash_server.kernel.c">
+    <Compile Include="kernel\TWI\twi_rpc_server.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc_hash_server.h">
+    <Compile Include="kernel\TWI\twi_rpc_server.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc_hash_server_commandQueue.h">
+    <Compile Include="kernel\TWI\twi_rpc_server_handler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc_hash_server_commandQueue.kernel.c">
+    <Compile Include="misc\ButtonLoopReader.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\TWI\twi_rpc_slave.kernel.c">
+    <Compile Include="misc\ButtonLoopReader.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="misc\hardware_reset.c">
@@ -321,10 +324,10 @@
     <Compile Include="misc\memory.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\read_buttons_loop.c">
+    <Compile Include="native_simulation.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\read_buttons_loop.h">
+    <Compile Include="native_simulation.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="uthash\utarray.h">
