@@ -30,47 +30,46 @@ ifeq ($(origin VERBOSE), undefined)
 endif
 
 ifeq ($(origin PLATFORM), undefined)
-PLATFORM := Avr
+    PLATFORM := Avr
 endif
 
 ifneq ($(origin IGNORE_COLORS), undefined)
-COLOR := /dev/null
+    COLOR := true
 else
-COLOR := color
+    COLOR := color
 endif
 FIND ?= find
 
 ifeq ($(origin AUTO_DISCOVER), undefined)
-AllProjects := Unity AntonAvrLib AntonAvrLib-Test Tank-Shared Kernel-Tank-MASTER Kernel-Tank-IO Kernel-Simulator Main-Tank-MASTER Main-Tank-IO Main-Simulator Test-Scheduler
-ProjectMakefiles := $(foreach p, $(AllProjects), $p/Project.mk)
+    AllProjects := Unity AntonAvrLib AntonAvrLib-Test Tank-Shared Kernel-Tank-MASTER Kernel-Tank-IO Kernel-Simulator Main-Tank-MASTER Main-Tank-IO Main-Simulator Test-Scheduler
+    ProjectMakefiles := $(foreach p, $(AllProjects), $p/Project.mk)
 else
-ProjectMakefiles := $(shell $(FIND) . -maxdepth 2 -name Project.mk)
-AllProjects := $(foreach p, $(ProjectMakefiles), $(shell basename $(shell dirname $p)))
+    ProjectMakefiles := $(shell $(FIND) . -maxdepth 2 -name Project.mk)
+    AllProjects := $(foreach p, $(ProjectMakefiles), $(shell basename $(shell dirname $p)))
 endif
 
-ALL_PLATFORMS := $(shell $(FIND) . -maxdepth 1 -name Build\*.mk | \
-						sed -re 's|./Build(.*).mk|\1|g')
+ALL_PLATFORMS := $(shell $(FIND) . -maxdepth 1 -name Build\*.mk | sed -re 's|./Build(.*).mk|\1|g')
 
 # Include shortcut-commands for the defined project.
 # This is above the all-command, to make the build-command the default if PROJ is defined.
 ifneq ($(origin PROJ), undefined)
-all: $(PROJ)
-build: $(PROJ)
-hex: hex_$(PROJ)
-eep: eep_$(PROJ)
-lss: lss_$(PROJ)
-link: link_$(PROJ)
-size: size_$(PROJ)
-lib: lib_$(PROJ)
-map: map_$(PROJ)
-flash: flash_$(PROJ)
-flashv: flashv_$(PROJ)
-studio: studio_$(PROJ)
-clean_target: clean_target_$(PROJ)
-relink: relink_$(PROJ)
-run: run_$(PROJ)
+    all: $(PROJ)
+    build: $(PROJ)
+    hex: hex_$(PROJ)
+    eep: eep_$(PROJ)
+    lss: lss_$(PROJ)
+    link: link_$(PROJ)
+    size: size_$(PROJ)
+    lib: lib_$(PROJ)
+    map: map_$(PROJ)
+    flash: flash_$(PROJ)
+    flashv: flashv_$(PROJ)
+    studio: studio_$(PROJ)
+    clean_target: clean_target_$(PROJ)
+    relink: relink_$(PROJ)
+    run: run_$(PROJ)
 else
-all: $(AllProjects)
+    all: $(AllProjects)
 endif
 
 allprojects: $(AllProjects)
@@ -98,9 +97,9 @@ get-basedir = $(shell basename $(shell dirname $(call which-makefile)))
 # TODO include the projects ordered by dependencies.
 
 ifneq ($(MAKECMDGOALS), projects)
-ifneq ($(MAKECMDGOALS), platforms)
-include $(ProjectMakefiles)
-endif
+    ifneq ($(MAKECMDGOALS), platforms)
+        include $(ProjectMakefiles)
+    endif
 endif
 
 # Each project has two project-specific makefiles: Project.mk and (optionally) Objects.mk
