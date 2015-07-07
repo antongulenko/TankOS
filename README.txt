@@ -9,6 +9,9 @@ The whole thing is build either by the AVR Studio projects, or by the Makefile. 
 
 The following are some notes for the developers.
 
+Ubuntu packages:
+sudo apt-get install gcc-avr gdb-avr avrp avrprog avr-libc usbprog usbprog-gui simulavr
+
 == Timers Master
 Timer0: Left Motor
 Timer1 (A and B): Unused

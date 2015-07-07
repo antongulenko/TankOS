@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Atmel Studio Solution File, Format Version 11.00
 Project("{D1100916-62DA-4D80-A9B4-55A1E7CCEEB3}") = "AntonAvrLib", "AntonAvrLib\AntonAvrLib.cproj", "{C9075471-D535-4009-B72F-2841FDEB487C}"

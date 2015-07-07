@@ -1,3 +1,4 @@
+#!/bin/sh
 
 # This script creates a 'GNUmakefile' with almost the same functionality as the present 'Makefile'
 # There are three differences:
@@ -16,17 +17,15 @@
 
 # Dry-execute make once, to create all depended-on sub-Makefiles (.d).
 # make reexecutes itself after that, which causes a double data-base being printed to GNUmakefile.
-make -q -f Makefile    $1 $2 $3 $4 $5 $6 $7 $8 $9 > /dev/null
+make -q -f Makefile $@ > /dev/null
 
-make -q -f Makefile -p $1 $2 $3 $4 $5 $6 $7 $8 $9 > GNUmakefile.tmp
+make -q -f Makefile -p $@ > GNUmakefile
 
-echo '# This Makefile was created with the following options:' > GNUmakefile
-echo '#' $1 $2 $3 $4 $5 $6 $7 $8 $9 >> GNUmakefile
-echo >> GNUmakefile
+# Remove lines starting with '!'. Also, remove the MAKEFLAGS used to create this database dump.
+sed -i GNUmakefile \
+    -e 's|^!.*$||' \
+    -e 's|^MAKEFLAGS.*$|MAKEFLAGS \= \-\- \$\(MAKEOVERRIDES\)|' \
 
-# Remove lines starting with '!'. Also, remove the MAKEFLAGS used to create this data-base dump.
-sed \
-	-e 's|^!.*$||' \
-	-e 's|^MAKEFLAGS.*$|MAKEFLAGS \= \-\- \$\(MAKEOVERRIDES\)|' \
-	< GNUmakefile.tmp >> GNUmakefile
-rm GNUmakefile.tmp
+cat >> GNUmakefile <<< "# This Makefile was created with the following options:
+# $@
+"
