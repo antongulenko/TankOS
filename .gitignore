@@ -1,18 +1,29 @@
-Debug/
-Release/
+
+/_old_*
+/cloc
+/configureme
+
+# === Local configuration files
+/make_parameters
+/mk
+
+# === Build and temporary make files
+GNUmakefile
+/.d/
 .fake_targets/
 */build-*/
-GNUmakefile
-AVR.atsuo
-/configureme
-make.exe.stackdump
-/mk
-/make_parameters
-/cloc
-/.Unity-master/
-/.d/
+
+# === Unity tests
 testrunners/
+/.Unity-master/
+
+# === ???
 /.cproject
 /.project
 /.settings/
-/_old_tests/
+
+# === Windows specific
+AVR.atsuo
+*.exe.stackdump
+Debug/
+Release/
