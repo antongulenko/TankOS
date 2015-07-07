@@ -1,1 +1,0 @@
-/cygdrive/c/Dev/CLOC\ 1.56/cloc.exe "C:\Dev\AVR\_AVR.git" --exclude-ext=d --exclude-dir=".Unity-master,uthash,.Obsolete_Projects,testrunners" --force-lang="make,mk" --not-match-f="GNUmakefile|unity.c|unity.h|unity_internals.h|.*.rb"
