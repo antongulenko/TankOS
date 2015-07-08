@@ -68,13 +68,6 @@ extern volatile BOOL twi_running;
 // Read-only.
 extern TwiError twi_error;
 
-// Wait for the current TWI operation to finish.
-// With concurrency, and with two operations quickly following each other,
-// the end of the current operation might be skipped.
-// Optionally, define non-zero msWaitEachIteration to add a delay between two
-// completion checks.
-void twiWaitForCompletion(uint16_t msWaitEachIteration);
-
 // This is used for the communication between the TWI interrupt handler
 // and the functions actually handling the interrupt (twi_handle, twi_handle_slave)
 typedef struct TwiHandlerStatus {

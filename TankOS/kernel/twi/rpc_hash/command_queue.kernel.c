@@ -1,5 +1,5 @@
 
-// This file extended twi_rpc_hash_server by
+// This file extends server.kernel.c by
 // adding a server-side command queue with a fixed size.
 // VOID and NOTIFY calls are put in the queue and worked on asynchronously.
 // Calls, that return results, still are performed in the regular fashion.
@@ -14,8 +14,7 @@
 #endif
 
 #include <kernel_init.h>
-#include "command_queue_protocol.h"
-#include "server_command_queue.h"
+#include "command_queue.h"
 #include <kernel/processes/mutex/mutex.h>
 
 CommandQueueElement commandQueue[COMMAND_QUEUE_SIZE];

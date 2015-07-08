@@ -9,12 +9,12 @@ PTwiFunction twiRpcFunctions = NULL;
 
 // buffer contains the arguments and the result afterwards.
 void twi_handleRpcRequest(byte operation, TWIBuffer *buffer) {
-	PTwiFunction result;
-	HASH_FIND_INT(twiRpcFunctions, &operation, result);
-	if (result)
-	result->associatedFunction(buffer);
-	else
-	// Illegal operation... would be nice to have some error-handling.
-	// Simply avoid sending random data.
-	buffer->size = 0;
+    PTwiFunction result;
+    HASH_FIND_INT(twiRpcFunctions, &operation, result);
+    if (result)
+        result->associatedFunction(buffer);
+    else
+        // Illegal operation... would be nice to have some error-handling.
+        // Simply avoid sending random data.
+        buffer->size = 0;
 }

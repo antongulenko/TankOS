@@ -1,7 +1,9 @@
 
 // This file is for the 'server' side, where the actual handling functions are defined.
+// Handlers for RPC calls can be added to a hash-table mapping the operation-byte to
+// handler functions. This saves memory compared to a complete 256-entry table.
 
-#include "twi_rpc.h"
+#include <kernel/twi/rpc/twi_rpc.h>
 
 #define HASH_FUNCTION HASH_SAX // Use other function to operate with short keys.
 #include <uthash/uthash.h>
