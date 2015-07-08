@@ -8,6 +8,8 @@
 #ifndef TWI_RPC_SERVER_H_
 #define TWI_RPC_SERVER_H_
 
+#include "twi_driver.h"
+
 // The in_out_buffer will be used to store received parameter data and also
 // to store result data to be returned to the client. It should be big enough
 // to always handle this.

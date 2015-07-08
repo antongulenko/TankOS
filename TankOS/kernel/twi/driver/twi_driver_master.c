@@ -136,7 +136,7 @@ TwiHandlerStatus twi_handle(TwiStatus status) {
 		case TW_REP_START:
 			// Start has been acknowledged, now send the slave address. Is already either READ or WRITE.
 			return twi_send(targetDevice.address);
-		case TW_MR_ARB_LOST:
+		//case TW_MR_ARB_LOST: // This is the same value as the next one
 		case TW_MT_ARB_LOST:
 			twi_error = TWI_Arbitration_Lost;
 			return twi_end(); // No Stop

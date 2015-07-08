@@ -8,7 +8,7 @@
 #ifndef FAKE_TWI_DRIVER_SLAVE_H_
 #define FAKE_TWI_DRIVER_SLAVE_H_
 
-#include <kernel/TWI/twi_driver_slave.h>
+#include <kernel/twi/twi_driver_slave.h>
 
 
 

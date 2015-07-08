@@ -1,7 +1,7 @@
 
 /_old_*
 /cloc
-/configureme
+/simulator.sh
 
 # === Local configuration files
 /make_parameters

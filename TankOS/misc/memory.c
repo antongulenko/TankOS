@@ -1,3 +1,5 @@
+#ifdef AVR
+// Only compiles on Avr platform
 
 #include "memory.h"
 
@@ -8,7 +10,7 @@ extern char *__brkval;
 static uint16_t _usedDynamicMemory() {
 	uint16_t mainProcessStack = RAMEND - (uint16_t) __malloc_heap_end;
 	uint16_t usedHeap = (uint16_t) __brkval - (uint16_t) __malloc_heap_start;
-	
+
 	// 2 additional bytes seem to always be used by malloc.
 	return mainProcessStack + usedHeap + 2;
 }
@@ -34,3 +36,5 @@ float usedDynamicMemoryF() {
 float availableDynamicMemoryF() {
 	return availableDynamicMemory() / (float) TotalDynamicMemory;
 }
+
+#endif // AVR

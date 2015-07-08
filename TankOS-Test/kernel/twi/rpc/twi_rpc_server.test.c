@@ -6,7 +6,7 @@
  */
 
 #include "fake_twi_driver_slave.h"
-#include <kernel/TWI/twi_rpc_server.h>
+#include <kernel/twi/twi_rpc_server.h>
 
 void twi_handleRpcRequest(byte operation, TWIBuffer *in_out_buffer) {
 	// TODO handle request

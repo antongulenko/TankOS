@@ -1,6 +1,6 @@
 
 #include <unity.h>
-#include <kernel/TWI/twi_driver_master.h>
+#include <kernel/twi/twi_driver_master.h>
 #include "twi_driver_helper.h"
 
 void setUp() {

@@ -8,12 +8,12 @@
 #ifndef TESTRPCCLIENT_H_
 #define TESTRPCCLIENT_H_
 
-#include <kernel/TWI/twi_driver.h>
+#include <kernel/twi/twi_driver.h>
 #include "fake_twi_driver_master.h"
 
 #define TWI_DEVICE test_device
 
-#include <kernel/TWI/twi_rpc_client_functions.h>
+#include <kernel/twi/twi_rpc_client_functions.h>
 
 typedef struct TestArgStruct {
 	int arg1;

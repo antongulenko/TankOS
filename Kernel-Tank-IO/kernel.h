@@ -6,6 +6,6 @@
 #include "tank_led.h"
 
 #include <twi_bgx1.h>
-#include <kernel/TWI/commandQueueExecuter.h>
+#include <kernel/twi/commandQueueExecuter.h>
 
 #endif

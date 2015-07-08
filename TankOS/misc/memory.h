@@ -1,3 +1,6 @@
+#ifdef AVR
+// Only compiles on Avr platform
+
 #ifndef MEMORY___H_
 #define MEMORY___H_
 
@@ -22,4 +25,5 @@ uint16_t availableDynamicMemory();
 float usedDynamicMemoryF();
 float availableDynamicMemoryF();
 
-#endif
+#endif // MEMORY___H_
+#endif // AVR

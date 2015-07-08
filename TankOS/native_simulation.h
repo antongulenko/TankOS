@@ -15,10 +15,15 @@ typedef uint8_t REGISTER;
 
 // == delay
 void _delay_ms(double ms);
+void _delay_us(double us);
 
 // == External interrupts
 extern REGISTER PCMSK0, PCMSK1, PCMSK2, PCMSK3;
 extern REGISTER PCICR;
+
+uint8_t _interrupts_enabled; // Can be used by tests
+void sei(); // Enable external interrupts
+void cli(); // Disable external interrupts
 
 // == Atomic
 // TODO -- this should be testable somehow.
@@ -61,7 +66,6 @@ enum {
 	TW_MT_SLA_ACK,
 	TW_MT_SLA_NACK,
 	TW_MT_DATA_NACK,
-	TW_MT_ARB_LOST,
 	TW_MR_SLA_ACK,
 	TW_MR_DATA_ACK,
 	TW_MR_SLA_NACK,
@@ -81,7 +85,11 @@ enum {
 	TW_SR_DATA_NACK,
 	TW_SR_GCALL_DATA_NACK,
 	TW_NO_INFO,
-	TW_BUS_ERROR
+	TW_BUS_ERROR,
+    TW_MT_ARB_LOST = TW_MR_ARB_LOST, // They are the same in avr-libc
 };
+
+// == Timers
+#define COM0B0
 
 #endif

@@ -8,7 +8,7 @@
 #ifndef FAKE_TWI_DRIVER_MASTER_H_
 #define FAKE_TWI_DRIVER_MASTER_H_
 
-#include <kernel/TWI/twi_driver_master.h>
+#include <kernel/twi/twi_driver_master.h>
 
 void fake_twi_driver_master_setUp();
 

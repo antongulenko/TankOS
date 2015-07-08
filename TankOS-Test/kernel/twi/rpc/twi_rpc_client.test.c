@@ -6,7 +6,7 @@
  */
 
 #include "fake_twi_driver_master.h"
-#include <kernel/TWI/twi_rpc_client.h>
+#include <kernel/twi/twi_rpc_client.h>
 #include <string.h>
 #include <unity.h>
 

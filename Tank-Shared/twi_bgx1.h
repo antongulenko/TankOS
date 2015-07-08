@@ -1,7 +1,7 @@
 #ifndef TWI_BGX1_H_
 #define TWI_BGX1_H_
 
-#include <kernel/TWI/twi_driver.h>
+#include <kernel/twi/twi_driver.h>
 #ifdef _KERNEL_
 TWIDevice bgx1 = { 11 << 1 };
 #else
@@ -12,7 +12,8 @@ extern TWIDevice bgx1;
 #endif
 #define TWI_DEVICE bgx1
 
-#include <kernel/TWI/twi_rpc_client.h>
+#include <kernel/twi/twi_rpc_client.h>
+#include <kernel/twi/twi_rpc_client_functions.h>
 #include <avr/pgmspace.h>
 
 #define BGX1_VERSION 0x0103
@@ -26,7 +27,7 @@ enum {
   CMD_SetStatus       = 0x03, // (uint8_t status) -> ()
   //CMD_ReadEEPROM      = 0x04, // (uint16_t address, uint8_t size) -> (uint8_t[] data)
   //CMD_WriteEEPROM     = 0x05, // (uint16_t address, uint8_t size, uint8_t[] data) -> ()
-  
+
   // Display:
   CMD_Move            = 0x10, // (uint8_t x, uint8_t y) -> ()
   CMD_Mode            = 0x11, // (uint8_t mode) -> ()
@@ -52,8 +53,8 @@ enum {
   CMD_GetAnalog       = 0x41, // (uint8_t idx) -> (uint16_t value)
   CMD_SyncInterface   = 0x42, // (uint8_t leds) -> (uint8_t keys)
   CMD_SetIllumination = 0x43, // (uint16_t value) -> ()
-  
-  CMD_INVALID         = 0xff 
+
+  CMD_INVALID         = 0xff
 };
 
 // System

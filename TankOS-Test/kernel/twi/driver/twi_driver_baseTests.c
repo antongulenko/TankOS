@@ -8,7 +8,7 @@
 #include <unity.h>
 #include <tank_os_common.h>
 #include "twi_driver_helper.h"
-#include <kernel/TWI/twi_driver_master.h>
+#include <kernel/twi/twi_driver_master.h>
 
 // These signatures were copied from a generated testrunner.
 // They are here because the tests from this file are used by other .test.c files,

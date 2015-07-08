@@ -6,7 +6,7 @@
  */
 
 #include <unity.h>
-#include <kernel/TWI/twi_driver_slave.h>
+#include <kernel/twi/twi_driver_slave.h>
 #include "twi_driver_helper.h"
 
 int masterRequestCalls;

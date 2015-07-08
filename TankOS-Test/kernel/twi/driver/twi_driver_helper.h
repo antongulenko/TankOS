@@ -9,7 +9,7 @@
 #define twi_driver_test_HELPER_H_
 
 #include <tank_os_common.h>
-#include <kernel/TWI/twi_driver.h>
+#include <kernel/twi/twi_driver.h>
 
 extern const byte TwiSlaveAddress;
 

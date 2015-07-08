@@ -3,7 +3,7 @@
  *
  * Created: 21.04.2012 14:48:42
  *  Author: Anton
- */ 
+ */
 
 #ifndef HARWARE_RESET_H_
 #define HARWARE_RESET_H_
