@@ -5,10 +5,10 @@
 $(project)_exclusive_platform := Avr
 
 ifneq ($(origin dependencies), undefined)
-includes := $(dependencies)
+    includes := $(dependencies)
 else
-includes :=
-dependencies :=
+    includes :=
+    dependencies :=
 endif
 
 TEST_PROJECT_SUFFIX ?= -Test
@@ -24,30 +24,30 @@ ifeq ($(origin LIBRARY), undefined)
 	# Linker outputs
 	main_sources := $(shell $(FIND) $(project) -name \*.main.c)
 	main_sources := $(subst $(project)/,,$(main_sources))
-	
+
 	ifneq ($(origin STUDIO), undefined)
 		ifeq ($(origin MAIN_$(project)), undefined)
 			$(error MAIN_$(project) is not defined!)
 		endif
 		studio_output := $(MAIN_$(project)).main
 	endif
-	
+
 	ifeq ($(origin DONT_LINK_ALL), undefined)
 		outputs := $(subst .c,,$(main_sources))
 	else
 		outputs := $(studio_output)
 	endif
-	
+
 	ifneq ($(filter %$(TEST_PROJECT_SUFFIX), $(project)),)
 		unused_suffix := testrunner
 	else
 		unused_suffix := main
 	endif
-	
+
 	# Test-files are handled specially. They end with .test.c
 	tests := $(shell $(FIND) $(project) -name \*.test.c)
 	tests := $(subst $(project)/,,$(tests))
-	tests := $(subst .test.c,,$(tests))	
+	tests := $(subst .test.c,,$(tests))
 else
 	# Library outputs
 	unused_suffix := kernel
