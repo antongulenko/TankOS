@@ -12,18 +12,10 @@ GNUmakefile
 /.d/
 .fake_targets/
 */build-*/
+Debug/
+Release/
 
 # === Unity tests
 testrunners/
-/.Unity-master/
+/_Unity-master/
 
-# === ???
-/.cproject
-/.project
-/.settings/
-
-# === Windows specific
-AVR.atsuo
-*.exe.stackdump
-Debug/
-Release/

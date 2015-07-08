@@ -26,7 +26,7 @@
 MAKECMDGOALS ?=
 
 ifeq ($(origin VERBOSE), undefined)
-.SILENT:
+    .SILENT:
 endif
 
 ifeq ($(origin PLATFORM), undefined)
@@ -34,6 +34,7 @@ ifeq ($(origin PLATFORM), undefined)
 endif
 
 ifneq ($(origin IGNORE_COLORS), undefined)
+    # TODO run $(shell type color &> /dev/null) and check result code
     COLOR := true
 else
     COLOR := color

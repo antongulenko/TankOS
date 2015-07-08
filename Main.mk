@@ -162,7 +162,7 @@ $(BUILDDIR)/%.o: $(fake) $(project)/%.c
 dependency_targets := $(foreach d, $(dependencies), $($d_projectoutputs))
 
 $(fake)_ARFLAGS := $(ARFLAGS)
-$(fake)_fullLinkerFlags1 := $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(LIB_ARCHIVES) 
+$(fake)_fullLinkerFlags1 := $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(LIB_ARCHIVES)
 $(fake)_fullLinkerFlags2 := $(LDFLAGS_END)
 
 define assign_default_objects
