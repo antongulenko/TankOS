@@ -1,11 +1,8 @@
 
-/_old_*
-/cloc
-/simulator.sh
-
-# === Local configuration files
+# === Local configuration files and scripts
 /make_parameters
 /mk
+/simulator.sh
 
 # === Build and temporary make files
 GNUmakefile
@@ -17,5 +14,4 @@ Release/
 
 # === Unity tests
 testrunners/
-/_Unity-master/
 
