@@ -9,7 +9,7 @@
 #include <tank_os_common.h>
 #include <misc/ButtonLoopReader.h>
 #include <kernel/devices/button.h>
-#include "fake_port.h"
+#include <mocks/port.h>
 
 int timeToLive, expectedPresses;
 
@@ -32,7 +32,7 @@ void setUp() {
 	init_fake_port();
 	reader = ButtonLoopReader_Create(2, buttonArray,
 			my_button_pressed, my_button_released);
-	
+
 	expectedPresses = 0;
 	timesPressed[0] = FALSE;
 	timesPressed[1] = FALSE;

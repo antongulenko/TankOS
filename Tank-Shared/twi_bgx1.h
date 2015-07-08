@@ -1,7 +1,7 @@
 #ifndef TWI_BGX1_H_
 #define TWI_BGX1_H_
 
-#include <kernel/twi/twi_driver.h>
+#include <kernel/twi/driver/driver.h>
 #ifdef _KERNEL_
 TWIDevice bgx1 = { 11 << 1 };
 #else
@@ -12,8 +12,8 @@ extern TWIDevice bgx1;
 #endif
 #define TWI_DEVICE bgx1
 
-#include <kernel/twi/twi_rpc_client.h>
-#include <kernel/twi/twi_rpc_client_functions.h>
+#include <kernel/twi/rpc/client.h>
+#include <kernel/twi/rpc/client_functions.h>
 #include <avr/pgmspace.h>
 
 #define BGX1_VERSION 0x0103

@@ -2,7 +2,7 @@
 #include <unity.h>
 #include <string.h>
 #include <tank_os_common.h>
-#include "fake_port.h"
+#include <mocks/port.h>
 
 void setUp() {
 	init_fake_port();

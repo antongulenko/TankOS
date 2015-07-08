@@ -9,7 +9,7 @@
 #include "tank_button.h"
 #include <misc/hardware_reset.h>
 #include <kernel/kernel_init.h>
-#include <kernel/twi/twi_rpc_server.h>
+#include <kernel/twi/rpc/server.h>
 
 #include <tank_IO_protocol.h>
 

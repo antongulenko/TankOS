@@ -4,7 +4,7 @@
 #ifndef MEMORY___H_
 #define MEMORY___H_
 
-#include "../tank_os_common.h"
+#include <tank_os_common.h>
 
 // 'Dynamic memory' here includes heap and stack.
 // Values given in bytes.

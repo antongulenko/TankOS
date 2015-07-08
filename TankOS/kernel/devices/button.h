@@ -9,7 +9,7 @@
 #define BUTTON_H_
 
 #include "port.h"
-#include "../../tank_os_common.h"
+#include <tank_os_common.h>
 
 #define BUTTON_NORMAL 0
 #define BUTTON_INVERTED _BV(0)

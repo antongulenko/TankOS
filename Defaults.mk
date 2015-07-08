@@ -4,10 +4,10 @@
 # Most projects can only be built for the Avr platform.
 $(project)_exclusive_platform := Avr
 
+includes := $(project)
 ifneq ($(origin dependencies), undefined)
-    includes := $(dependencies)
+    includes += $(dependencies)
 else
-    includes :=
     dependencies :=
 endif
 

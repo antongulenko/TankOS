@@ -2,8 +2,8 @@
 #include <unity.h>
 #include <kernel/devices/led.h>
 #include <string.h>
-#include "fake_port.h"
-#include "fake_delay.h"
+#include <mocks/port.h>
+#include <mocks/delay.h>
 #include <tank_os_common.h>
 
 DEFINE_LED(Led1)
@@ -22,7 +22,7 @@ DEFINE_LED_GROUP_IMPL(Group)
 void setUp() {
 	init_fake_port();
 	reset_test_delay();
-	
+
 	memset(Led1, 0, sizeof(Led));
 	memset(Led2, 0, sizeof(Led));
 	memset(Led3, 0, sizeof(Led));

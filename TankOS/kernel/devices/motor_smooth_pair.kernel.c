@@ -5,7 +5,7 @@
  *  Author: Anton
  */
 
-#include "../../tank_os_common.h"
+#include <tank_os_common.h>
 #include "motor_smooth.h"
 
 // This kernel module provides the motor_smooth_tick for 2 motors,

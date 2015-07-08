@@ -8,7 +8,7 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
-#include "../../tank_os_common.h"
+#include <tank_os_common.h>
 #include "port.h"
 
 // Uncovered timer/counter features:

@@ -2,7 +2,7 @@
 #define TWI_TANK_IO_H_
 
 #include <tank_IO_protocol.h>
-#include <kernel/twi/twi_driver.h>
+#include <kernel/twi/driver/driver.h>
 
 extern TWIDevice tank_IO;
 
@@ -11,7 +11,7 @@ extern TWIDevice tank_IO;
 #endif
 #define TWI_DEVICE tank_IO
 
-#include <kernel/twi/twi_rpc_client.h>
+#include <kernel/twi/rpc/client.h>
 
 TWI_RPC_FUNCTION_NOTIFY	(tankIO_reset, TANK_IO_reset)
 TWI_RPC_FUNCTION_NOARGS	(tankIO_isInitialized, TANK_IO_isInitialized, uint8_t)

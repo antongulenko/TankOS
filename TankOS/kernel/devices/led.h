@@ -9,7 +9,7 @@
 #define LED_H_
 
 #include "port.h"
-#include "../../tank_os_common.h"
+#include <tank_os_common.h>
 
 typedef struct {
 	PPin pin;

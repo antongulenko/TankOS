@@ -1,7 +1,7 @@
 #ifndef PORT_H_
 #define PORT_H_
 
-#include "../../tank_os_common.h"
+#include <tank_os_common.h>
 
 typedef struct {
 	volatile uint8_t *port; // output-register

@@ -7,7 +7,7 @@
 
 #include <unity.h>
 #include <tank_os_common.h>
-#include "fake_port.h"
+#include <mocks/port.h>
 #include <string.h>
 #include <kernel/devices/button.h>
 #include <kernel/devices/external_interrupts.h>

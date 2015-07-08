@@ -5,7 +5,7 @@
  *  Author: Anton
  */
 
-#include "../kernel_init.h"
+#include <kernel_init.h>
 #include "analog.h"
 
 extern AnalogCallbackFunction analogCallbackFunction;

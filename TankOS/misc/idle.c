@@ -1,6 +1,6 @@
 
 #include "idle.h"
-#include "../tank_os_common.h"
+#include <tank_os_common.h>
 
 void processor_idle() {
 	sleep_enable();

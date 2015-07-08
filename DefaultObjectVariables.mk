@@ -12,8 +12,8 @@ define set_test_objects
 	objects_$(project)_testrunners/$1.testrunner := \
 		$(UNITY) \
 		$(BUILDDIR)/$1.test.o \
-		$(BUILDDIR)/fake_port.o \
-		$(BUILDDIR)/fake_delay.o \
+		$(BUILDDIR)/mocks/port.o \
+		$(BUILDDIR)/mocks/delay.o \
 		$2
 	ifeq ($(PLATFORM), Native)
 		objects_$(project)_testrunners/$1.testrunner += \
