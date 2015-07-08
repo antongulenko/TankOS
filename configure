@@ -26,6 +26,7 @@ sed -i GNUmakefile \
     -e 's|^!.*$||' \
     -e 's|^MAKEFLAGS.*$|MAKEFLAGS \= \-\- \$\(MAKEOVERRIDES\)|' \
 
-cat >> GNUmakefile <<< "# This Makefile was created with the following options:
+header="# This Makefile was created with the following options:
 # $@
 "
+echo "$header" >> GNUmakefile
