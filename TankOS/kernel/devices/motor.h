@@ -8,7 +8,7 @@
 #ifndef MOTOR_H_
 #define MOTOR_H_
 
-#include "../../anton_std.h"
+#include "../../tank_os_common.h"
 #include "timer.h"
 
 #define MOTOR_NORMAL 0

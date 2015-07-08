@@ -5,7 +5,7 @@
  *  Author: Anton
  */ 
 
-#include "../anton_std.h"
+#include "../tank_os_common.h"
 #include "hardware_reset.h"
 
 void HARDWARE_RESET() {

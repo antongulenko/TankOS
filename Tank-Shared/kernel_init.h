@@ -1,7 +1,7 @@
 #ifndef _KERNEL_INIT_SHARED_H_
 #define _KERNEL_INIT_SHARED_H_
 
-#include <anton_std.h>
+#include <tank_os_common.h>
 
 #define DISABLE_TIMER0 _BV(4)
 #define DISABLE_TIMER1 _BV(1)

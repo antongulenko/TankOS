@@ -1,7 +1,7 @@
 #ifndef twi_driver_H_
 #define twi_driver_H_
 
-#include "../../anton_std.h"
+#include "../../tank_os_common.h"
 
 #ifndef TWI_Buffer_Size
 #define TWI_Buffer_Size 512

@@ -4,7 +4,7 @@
 #include <string.h>
 #include "fake_port.h"
 #include "fake_delay.h"
-#include <anton_std.h>
+#include <tank_os_common.h>
 
 DEFINE_LED(Led1)
 DEFINE_LED(Led2)

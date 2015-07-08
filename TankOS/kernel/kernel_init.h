@@ -2,7 +2,7 @@
 #define _KERNEL_INIT_H_
 
 // Include this for convenience, since most kernel-modules include the init-module.
-#include "../anton_std.h"
+#include "../tank_os_common.h"
 
 // This makro registers a function to be executed in .init8, after all 
 // other of gcc's initialization-code, and before jumping to main().

@@ -9,7 +9,7 @@
 #define ANALOG_H_
 
 #include "port.h"
-#include "../../anton_std.h"
+#include "../../tank_os_common.h"
 
 // Interface for single-ended analog input pins.
 // No differential analog input supported.

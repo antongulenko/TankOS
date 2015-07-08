@@ -5,7 +5,7 @@
  *      Author: Anton
  */
 
-#include <anton_std.h>
+#include <tank_os_common.h>
 
 uint32_t DelayedMS = 0;
 uint16_t DelayMSCalled = 0;
@@ -15,7 +15,7 @@ void reset_test_delay() {
 	DelayMSCalled = 0;
 }
 
-// Overrides the weak function defined in anton_std.h
+// Overrides the weak function defined in tank_os_common.h
 void delay_ms_action(uint32_t ms) {
 	DelayedMS += ms;
 	DelayMSCalled++;

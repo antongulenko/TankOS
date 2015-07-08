@@ -8,7 +8,7 @@
 #ifndef MUTEX_H_
 #define MUTEX_H_
 
-#include "../../../anton_std.h"
+#include "../../../tank_os_common.h"
 
 // Use handle and not defined struct here, to enable multiple implementations.
 DEFINE_HANDLE(Mutex)

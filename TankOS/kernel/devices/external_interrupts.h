@@ -8,7 +8,7 @@
 #ifndef EXTERNAL_INTERRUPTS_H_
 #define EXTERNAL_INTERRUPTS_H_
 
-#include "../../anton_std.h"
+#include "../../tank_os_common.h"
 
 // pcNumber is 0..31 and these functions will enable the 
 // pin change interrupt PCIx, x being the given number.

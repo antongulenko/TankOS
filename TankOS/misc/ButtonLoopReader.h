@@ -1,7 +1,7 @@
 #ifndef READ_BUTTONS_LOOP_
 #define READ_BUTTONS_LOOP_
 
-#include "../anton_std.h"
+#include "../tank_os_common.h"
 #include "../kernel/devices/button.h"
 
 DEFINE_HANDLE(ButtonLoopReader);

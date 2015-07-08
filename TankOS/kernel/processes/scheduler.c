@@ -5,7 +5,7 @@
  *  Author: Anton
  */ 
 
-#include "../../anton_std.h"
+#include "../../tank_os_common.h"
 #include "scheduler.h"
 #include "../../misc/idle.h"
 #include "scheduler_internal.h"

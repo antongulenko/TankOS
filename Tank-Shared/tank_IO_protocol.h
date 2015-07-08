@@ -1,7 +1,7 @@
 #ifndef TANK_IO_PROTOCOL_H_
 #define TANK_IO_PROTOCOL_H_
 
-#include <anton_std.h>
+#include <tank_os_common.h>
 
 #define TANK_IO_ADDRESS (11 << 2)
 

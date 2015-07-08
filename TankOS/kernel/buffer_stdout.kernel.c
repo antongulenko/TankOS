@@ -1,6 +1,6 @@
 
 #include "kernel_init.h"
-#include "../anton_std.h"
+#include "../tank_os_common.h"
 #include <stdio.h>
 
 #ifndef STDOUT_BUFFER_SIZE

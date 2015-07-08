@@ -13,7 +13,7 @@
 #include <kernel/processes/mutex/mutex.h>
 #include <kernel/devices/analog_m1284P.h>
 #include <kernel/devices/timer_m1284P.h>
-#include <anton_std.h>
+#include <tank_os_common.h>
 
 #include <kernel/processes/process.h>
 #include <kernel/processes/scheduler.h>

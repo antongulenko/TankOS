@@ -8,7 +8,7 @@
 #ifndef PROCESS_INTERNAL_H_
 #define PROCESS_INTERNAL_H_
 
-#include "../../anton_std.h"
+#include "../../tank_os_common.h"
 #include "process_base.h"
 
 extern uint16_t __default_stack_size;

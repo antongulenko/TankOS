@@ -1,14 +1,14 @@
 /*
- * anton_std.h
+ * tank_os_common.h
  *
  * -- Some default includes and defines
- * 
+ *
  * Created: 08.02.2012 23:34:38
  *  Author: Anton
- */ 
+ */
 
-#ifndef ANTON_STD_H_
-#define ANTON_STD_H_
+#ifndef TANK_OS_COMMON_H_
+#define TANK_OS_COMMON_H_
 
 #include <stdint.h>
 #include <stdlib.h>
@@ -88,4 +88,4 @@ static inline void turn_word(uint16_t *word) {
 // This can be used to ignore unused variables in test-modules
 // #pragma GCC diagnostic ignored "-Wunused-variable"
 
-#endif /* ANTON_STD_H_ */
+#endif /* TANK_OS_COMMON_H_ */

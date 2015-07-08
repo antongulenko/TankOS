@@ -1,5 +1,5 @@
 
-#include <anton_std.h>
+#include <tank_os_common.h>
 #include "motor_smooth.h"
 
 // Nothing to do here, motor_smooth_pair_tick() can be called safely,
