@@ -42,7 +42,7 @@ endif
 FIND ?= find
 
 ifeq ($(origin AUTO_DISCOVER), undefined)
-    AllProjects := Unity AntonAvrLib AntonAvrLib-Test Tank-Shared Kernel-Tank-MASTER Kernel-Tank-IO Kernel-Simulator Main-Tank-MASTER Main-Tank-IO Main-Simulator Test-Scheduler
+    AllProjects := Unity TankOS TankOS-Test Tank-Shared Kernel-Tank-MASTER Kernel-Tank-IO Kernel-Simulator Main-Tank-MASTER Main-Tank-IO Main-Simulator Test-Scheduler
     ProjectMakefiles := $(foreach p, $(AllProjects), $p/Project.mk)
 else
     ProjectMakefiles := $(shell $(FIND) . -maxdepth 2 -name Project.mk)

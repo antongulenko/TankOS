@@ -1,1 +1,1 @@
-dependencies := AntonAvrLib Tank-Shared Kernel-Simulator Unity
+dependencies := TankOS Tank-Shared Kernel-Simulator Unity

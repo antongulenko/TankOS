@@ -1,1 +1,1 @@
-dependencies := AntonAvrLib Tank-Shared
+dependencies := TankOS Tank-Shared

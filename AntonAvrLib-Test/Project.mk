@@ -11,7 +11,7 @@ undefine STUDIO
 include Defaults.mk
 
 undefine $(project)_exclusive_platform
-includes += AntonAvrLib
+includes += TankOS
 ld_symbols :=
 
 include Main.mk

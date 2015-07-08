@@ -1,1 +1,1 @@
-dependencies := AntonAvrLib Tank-Shared Kernel-Tank-MASTER
+dependencies := TankOS Tank-Shared Kernel-Tank-MASTER
