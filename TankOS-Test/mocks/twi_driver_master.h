@@ -27,4 +27,6 @@ extern TWIBuffer returnedReceiveData;
 // that use this module.
 extern const TWIDevice test_device;
 
+extern TwiError twi_error;
+
 #endif /* F_AKE_TWI_DRIVER_MASTER_H_ */

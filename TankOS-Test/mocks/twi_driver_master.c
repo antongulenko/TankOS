@@ -13,6 +13,8 @@ const TWIDevice test_device = { 0x9c };
 BOOL twiCalled;
 BOOL waitedForCompletion;
 
+TwiError twi_error;
+
 // This device is the one that is passed to functions in this fake module
 TWIDevice device;
 uint16_t waitForCompletionTime;
@@ -29,6 +31,7 @@ void fake_twi_driver_master_setUp() {
 	sendBuffer = receiveBuffer = EmptyBuffer;
 	device = (TWIDevice) { 0 };
 	returnedReceiveData = EmptyBuffer;
+    twi_error = TWI_No_Error;
 }
 
 void assertNotCalledYet(BOOL *flag) {

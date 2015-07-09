@@ -6,6 +6,12 @@
 #include <unity.h>
 #include "twi_driver_slave.h"
 
+TwiError twi_error;
+
+void fake_twi_driver_slave_setUp() {
+    twi_error = TWI_No_Error;
+}
+
 TWIBuffer (*twi_handleMasterRequest)();
 TWIBuffer (*twi_masterTransmissionStarting)();
 void (*twi_masterTransmissionEnded)(TWIBuffer twi_buffer);

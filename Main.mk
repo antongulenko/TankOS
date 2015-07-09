@@ -91,7 +91,7 @@ TEST_RUNNERS_DIR ?= testrunners
 outputs += $(foreach t, $(tests), $(TEST_RUNNERS_DIR)/$t.testrunner)
 $(project)/$(TEST_RUNNERS_DIR)/%.testrunner.c: $(project)/%.test.c
 	mkdir -p $(@D)
-	@echo $$($(COLOR) $(COLOR_GENERATE))"$@"$$($(COLOR) off)" (Generated)
+	@echo $$($(COLOR) $(COLOR_GENERATE))$@$$($(COLOR) off) "(Generated)"
 	ruby Unity/generate_test_runner.rb $< $@
 .PRECIOUS: $(project)/$(TEST_RUNNERS_DIR)/%.testrunner.c
 endif
@@ -118,7 +118,7 @@ $(fake)_project := $(project)
 $(project): $(projectoutputs) $(all_objects)
 
 $(studiotarget): $(BUILDDIR)/$(studio_output)
-	@echo "Copying  "$$($(COLOR) $(COLOR_COPY))"$<"$$($(COLOR) off)" -> "$$($(COLOR) $(COLOR_COPY))"$@"$$($(COLOR) off)
+	@echo Copying $$($(COLOR) $(COLOR_COPY))$<$$($(COLOR) off) -> $$($(COLOR) $(COLOR_COPY))$@$$($(COLOR) off)
 	mkdir -p $(@D)
 	cp $< $@
 
@@ -154,7 +154,9 @@ endif
 endif
 
 $(BUILDDIR)/%.o: $(fake) $(project)/%.c
-	@echo $$($(COLOR) $(COLOR_COMPILE))"$(word 2, $^)"$$($(COLOR) off)
+	-$(COLOR) $(COLOR_COMPILE)
+	@echo $(word 2, $^)
+	-$(COLOR) off
 	mkdir -p $(@D)
 	$(CC) $($<_cflags) -o $@ $(word 2, $^)
 
@@ -171,13 +173,17 @@ endef
 define make_output
 $(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(objects_$(project)_$1) $(dependencies) $(dependency_targets)
 	mkdir -p $$($$<_builddir)
-	@echo $$($(COLOR) $(COLOR_LINK))"Linking  $$@"$$($(COLOR) off)
+	-$(COLOR) $(COLOR_LINK)
+	@echo Linking $$@
+	-$(COLOR) off
 	$(CC) $$($$<_fullLinkerFlags1) $(objects_$(project)_$1) $(BUILDDIR)/$1.o $$($$<_fullLinkerFlags2) -Wl,-Map="$$(subst .o,.map,$$(word 2, $$^))" -o $$@
 	$(OPTIONAL_SIZE_COMMAND)
 
 $(BUILDDIR)/lib$1.$(LIB_SUFFIX): $(fake) $(objects_$(project)_$1) $(dependencies)
 	mkdir -p $$($$<_builddir)
-	@echo $$($(COLOR) $(COLOR_ARCHIVE))"Creating $$@"$$($(COLOR) off)
+	-$(COLOR) $(COLOR_ARCHIVE)
+	@echo Creating $$@
+	-$(COLOR) off
 	$(AR) $$($$<_ARFLAGS) -o $$@ $(objects_$(project)_$1)
 endef
 

@@ -40,4 +40,4 @@ $(eval $(call set_test_objects,kernel/twi/rpc/client_functions,\
 
 $(eval $(call set_test_objects,kernel/twi/rpc/server,\
 	$(BUILDDIR)/mocks/twi_driver_slave.o \
-	$(KERNEL)/twi/rpc/server.kernel.o ))
+	$(KERNEL)/twi/rpc/server.o ))

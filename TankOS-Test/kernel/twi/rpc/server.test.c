@@ -9,13 +9,8 @@
 #include <unity.h>
 #include <string.h>
 
-/*
-TWIBuffer (*twi_handleMasterRequest)();
-TWIBuffer (*twi_masterTransmissionStarting)();
-void (*twi_masterTransmissionEnded)(TWIBuffer twi_buffer);
-*/
-
 byte expectedOperation;
+TWIBuffer sendBuffer;
 
 struct _s_parameterData {
     int param1;
@@ -27,6 +22,8 @@ struct _s_resultData {
     int res2;
     char res3;
 } resultData = { { 2.11, 4.55 }, 43, 'p' };
+
+byte expectedResultData[sizeof(resultData) + 2];
 
 void assert_buffer(TWIBuffer buffer, byte* expectedData, int expectedSize, char *bufferName) {
     char msg1[100];
@@ -49,24 +46,44 @@ void twi_handleRpcRequest(byte operation, TWIBuffer *in_out_buffer) {
 byte server_io_data[100];
 
 void setUp() {
+    fake_twi_driver_slave_setUp();
     TWIBuffer server_io_buffer = (TWIBuffer) { server_io_data, sizeof(server_io_data) };
     twi_rpc_server_init(server_io_buffer);
     expectedOperation = 0;
+    memcpy(expectedResultData + 2, &resultData, sizeof(resultData));
+    expectedResultData[0] = 0;
+    expectedResultData[1] = 0;
+    sendBuffer = EmptyBuffer;
 }
 
 void tearDown() {
+    expectedResultData[1] = expectedOperation;
+
+    assert_buffer(sendBuffer, (byte*) &expectedResultData, sizeof(expectedResultData), "rpc server result data");
 }
 
 void test_full_request() {
     expectedOperation = 101;
+    expectedResultData[0] = TWI_RPC_no_error;
 
     TWIBuffer receiveBuffer = twi_masterTransmissionStarting();
     receiveBuffer.data[0] = expectedOperation;
     memcpy(receiveBuffer.data + 1, &parameterData, sizeof(parameterData));
     receiveBuffer.size = sizeof(parameterData) + 1;
-    twi_masterTransmissionEnded(receiveBuffer);
 
-    // Now check the data that would be sent to the client/master
-    TWIBuffer sendBuffer = twi_handleMasterRequest();
-    assert_buffer(sendBuffer, (byte*) &resultData, sizeof(resultData), "rpc server result data");
+    twi_masterTransmissionEnded(receiveBuffer);
+    sendBuffer = twi_handleMasterRequest();
+}
+
+void test_full_request_error() {
+    expectedOperation = 102;
+    expectedResultData[0] = TWI_RPC_no_error;
+
+    TWIBuffer receiveBuffer = twi_masterTransmissionStarting();
+    receiveBuffer.data[0] = expectedOperation;
+    memcpy(receiveBuffer.data + 1, &parameterData, sizeof(parameterData));
+    receiveBuffer.size = sizeof(parameterData) + 1;
+
+    twi_masterTransmissionEnded(receiveBuffer);
+    sendBuffer = twi_handleMasterRequest();
 }
