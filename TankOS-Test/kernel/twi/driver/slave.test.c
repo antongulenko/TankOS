@@ -1,6 +1,4 @@
 /*
- * twi_driver_master.test.c
- *
  *  Created on: 12.12.2012
  *      Author: Anton
  */

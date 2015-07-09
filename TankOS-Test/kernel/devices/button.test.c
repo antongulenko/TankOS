@@ -1,6 +1,4 @@
 /*
- * button.test.c
- *
  *  Created on: 07.12.2012
  *      Author: Anton
  */

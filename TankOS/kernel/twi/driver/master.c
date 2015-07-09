@@ -1,6 +1,4 @@
 /*
- * master.c
- *
  *  Created on: 10.12.2012
  *      Author: Anton
  */

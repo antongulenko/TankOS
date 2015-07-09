@@ -1,6 +1,4 @@
 /*
- * client.test.c
- *
  *  Created on: 14.12.2012
  *      Author: Anton
  */
@@ -69,7 +67,7 @@ void test_rpc_send() {
 void test_rpc_oneway() {
 	twi_rpc_oneway(test_device, operation, parameterBuffer);
 	assertParametersInBuffer(sendBuffer);
-	TEST_ASSERT_MESSAGE(sent, "twi_rpc call has not sent anything");
+	TEST_ASSERT_MESSAGE(sent, "twi_rpc_oneway call has not sent anything");
 	TEST_ASSERT_FALSE_MESSAGE(received, "twi_rpc_oneway call has received something");
 }
 
@@ -79,8 +77,8 @@ void test_rpc_pseudo_oneway() {
 	TEST_ASSERT_MESSAGE(sent, "twi_rpc_pseudo_oneway call has not sent anything");
 	TEST_ASSERT_MESSAGE(received, "twi_rpc_pseudo_oneway call has not received anything");
 
-	TEST_ASSERT_EQUAL_MESSAGE(receiveBuffer.size, 0,
+	TEST_ASSERT_EQUAL_MESSAGE(0, receiveBuffer.size,
 			"RPC pseudo oneway call wanted to receive data");
-	TEST_ASSERT_EQUAL_MESSAGE(receiveBuffer.data, 0,
+	TEST_ASSERT_EQUAL_MESSAGE(0, receiveBuffer.data,
 			"RPC pseudo oneway call passed a valid buffer pointer");
 }

@@ -1,6 +1,4 @@
 /*
- * rpc_client.h
- *
  *  Created on: 14.12.2012
  *      Author: Anton
  */
@@ -26,7 +24,7 @@ typedef struct TestResStruct {
 } TestResStruct;
 
 enum {
-	OP_RPC_VAR,
+	OP_RPC_VAR = 55,
 	OP_RPC_VARARGS,
 	OP_RPC_VARRES,
 	OP_RPC_NORMAL,

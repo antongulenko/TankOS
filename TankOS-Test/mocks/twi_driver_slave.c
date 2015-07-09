@@ -1,6 +1,4 @@
 /*
- * twi_driver_slave.c
- *
  *  Created on: 15.12.2012
  *      Author: Anton
  */
