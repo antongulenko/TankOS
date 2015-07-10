@@ -12,11 +12,11 @@
 typedef enum {
     TWI_RPC_waiting,
     TWI_RPC_handling_request,
-    TWI_RPC_waiting_for_response,
+    TWI_RPC_waiting_to_respond,
 } RpcServerOperation;
 
-extern RpcServerOperation rpc_server_state;
-extern RpcServerStatus rpc_server_error;
+extern RpcServerOperation rpc_server_operation;
+extern RpcServerStatus rpc_server_status;
 
 // The in_out_buffer will be used to store received parameter data and also
 // to store result data to be returned to the client. It should be big enough

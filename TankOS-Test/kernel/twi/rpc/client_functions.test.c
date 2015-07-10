@@ -14,10 +14,11 @@ byte clientLibraryBuffer[100];
 TestArgStruct parameters = { 43, 63.429f };
 TestResStruct expectedResults = { 22, 4.219f, { 'a', '0', 'x' } };
 TestResStruct results;
-byte serverResponse[2 + sizeof(expectedResults)];
+byte serverResponse[3 + sizeof(expectedResults)];
 
 BOOL expectingParameters, expectingResults, emptyResults;
 byte expectedOperation;
+RpcHandlerStatus handlerStatus = 31;
 
 void setUp() {
     // Library initialization
@@ -71,7 +72,7 @@ void tearDown() {
         expectedStatus.server_status = TWI_RPC_no_error;
         expectedStatus.status = TWI_RPC_call_success;
         if (emptyResults) {
-            TEST_ASSERT_EQUAL_MESSAGE(2, mock_driver.receiveBuffer.size,
+            TEST_ASSERT_EQUAL_MESSAGE(3, mock_driver.receiveBuffer.size,
                 "Wrong size of data was received from server.");
         } else {
             TEST_ASSERT_EQUAL_INT8_ARRAY_MESSAGE(&expectedResults, &results, sizeof(results),
@@ -92,7 +93,15 @@ void tearDown() {
 void expect_operation(byte operation) {
     expectedOperation = operation;
     serverResponse[0] = TWI_RPC_no_error;
-    serverResponse[1] = operation;
+    serverResponse[1] = handlerStatus;
+    serverResponse[sizeof(serverResponse) - 1] = operation;
+}
+
+void expect_pseudo_operation(byte operation) {
+    expectedOperation = operation;
+    serverResponse[0] = TWI_RPC_no_error;
+    serverResponse[1] = handlerStatus;
+    serverResponse[2] = operation;
 }
 
 void test_rpcVar() {
@@ -137,7 +146,7 @@ void test_rpcPVoid() {
     expectingParameters = TRUE;
     expectingResults = TRUE;
     emptyResults = TRUE;
-    expect_operation(OP_RPC_PVOID);
+    expect_pseudo_operation(OP_RPC_PVOID);
     rpcPVoid(parameters);
 }
 
@@ -145,7 +154,7 @@ void test_rpcPVoidVar() {
     expectingParameters = TRUE;
     expectingResults = TRUE;
     emptyResults = TRUE;
-    expect_operation(OP_RPC_PVOID_VAR);
+    expect_pseudo_operation(OP_RPC_PVOID_VAR);
     rpcPVoidVar(&parameters, sizeof(parameters));
 }
 
@@ -174,6 +183,6 @@ void test_rpcPNotify() {
     expectingParameters = FALSE;
     expectingResults = TRUE;
     emptyResults = TRUE;
-    expect_operation(OP_RPC_PNOTIFY);
+    expect_pseudo_operation(OP_RPC_PNOTIFY);
     rpcPNotify();
 }

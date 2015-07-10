@@ -2,6 +2,7 @@
 #define TWI_RPC_H_
 
 #include <kernel/twi/driver/master.h>
+#include "server_handler.h"
 #include "status.h"
 
 typedef enum {
@@ -18,6 +19,7 @@ typedef enum {
 
 typedef struct {
     RpcClientStatus status;
+    RpcHandlerStatus handler_status;
     RpcServerStatus server_status;
 } RpcClientResult;
 
