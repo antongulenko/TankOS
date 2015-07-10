@@ -1,9 +1,13 @@
 
 #include "client.h"
 #include <string.h>
+#include <stdlib.h>
 
 TWIBuffer sendBuffer = { 0, 0 };
 uint16_t sendBufferSize;
+TWIBuffer receiveBuffer = { 0, 0 };
+
+static RpcClientResult small_buffer_error = { TWI_RPC_call_error_send_buffer_too_small, TWI_RPC_invalid };
 
 void twi_rpc_client_init(TWIBuffer parameterBuffer) {
 	sendBuffer = parameterBuffer;
@@ -20,27 +24,56 @@ static inline BOOL fillSendBuffer(byte operation, TWIBuffer parameters) {
     return TRUE;
 }
 
-static inline RpcClientStatus status() {
-    return twi_error == TWI_No_Error ? TWI_RPC_success : TWI_RPC_driver_error;
+static inline RpcClientStatus fix_status(RpcClientStatus status, RpcServerStatus server_status) {
+    if (twi_error != TWI_No_Error)
+        // Might override another error status, but driver error is probably the root cause.
+        status =  TWI_RPC_call_error_driver;
+    if (status < TWI_RPC_call_error && server_status >= TWI_RPC_error)
+        // Only set server-error status it no other error is detected.
+        status = TWI_RPC_call_error_server;
+    return status;
 }
 
-RpcClientStatus twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters) {
-	if (!fillSendBuffer(operation, parameters))
-        return TWI_RPC_send_buffer_too_small;
+static inline RpcClientResult status(TWIBuffer result, byte expectedOperation) {
+    RpcServerStatus server_status = TWI_RPC_unknown;
+    RpcClientStatus status = TWI_RPC_call_success;
+    if (result.size < 2) {
+        // Should not be possible, indicates a bug.
+        status = TWI_RPC_call_error_unknown;
+    } else {
+        server_status = result.data[0];
+        byte operation = result.data[1];
+        if (operation != expectedOperation)
+            status = TWI_RPC_call_error_wrong_operation_byte;
+    }
+    status = fix_status(status, server_status);
+    return (RpcClientResult) { status, server_status };
+}
+
+RpcClientResult twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters) {
+	if (!fillSendBuffer(operation, parameters)) return small_buffer_error;
 	twiSend(device, sendBuffer);
-    return status();
+    RpcClientStatus status = fix_status(TWI_RPC_call_success_oneway, TWI_RPC_unknown);
+    return (RpcClientResult) { status, TWI_RPC_unknown };
 }
 
-RpcClientStatus twi_rpc_pseudo_oneway(TWIDevice device, byte operation, TWIBuffer parameters) {
-	if (!fillSendBuffer(operation, parameters))
-        return TWI_RPC_send_buffer_too_small;
-	twiSendReceive(device, sendBuffer, (TWIBuffer) { 0, 0 });
-    return status();
+RpcClientResult twi_rpc_pseudo_oneway(TWIDevice device, byte operation, TWIBuffer parameters) {
+	if (!fillSendBuffer(operation, parameters)) return small_buffer_error;
+    byte responseData[2];
+    TWIBuffer responseBuffer = { responseData, sizeof(responseData) };
+    twiSendReceive(device, sendBuffer, responseBuffer);
+    return status(responseBuffer, operation);
 }
 
-RpcClientStatus twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer) {
-	if (!fillSendBuffer(operation, parameters))
-        return TWI_RPC_send_buffer_too_small;
-	twiSendReceive(device, sendBuffer, resultBuffer);
-    return status();
+RpcClientResult twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer) {
+	if (!fillSendBuffer(operation, parameters)) return small_buffer_error;
+    // Receive into a buffer allocated on the stack
+    size_t size = resultBuffer.size + 2;
+    byte *responseData = alloca(size);
+    memset(responseData, 0, size);
+    TWIBuffer responseBuffer = { responseData, size };
+    twiSendReceive(device, sendBuffer, responseBuffer);
+    RpcClientResult result = status(responseBuffer, operation);
+    memcpy(resultBuffer.data, responseData + 2, responseBuffer.size - 2);
+    return result;
 }

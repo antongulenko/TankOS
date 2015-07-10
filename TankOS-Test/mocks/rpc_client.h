@@ -10,6 +10,7 @@
 #include "twi_driver_master.h"
 
 #define TWI_DEVICE test_device
+#define TWI_RPC_STATUS_VARIABLE test_rpc_status
 
 #include <kernel/twi/rpc/client_functions.h>
 
@@ -19,7 +20,8 @@ typedef struct TestArgStruct {
 } TestArgStruct;
 
 typedef struct TestResStruct {
-	float res1;
+	int res0;
+    float res1;
 	char res2[3];
 } TestResStruct;
 

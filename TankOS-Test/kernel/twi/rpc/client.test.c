@@ -9,133 +9,164 @@
 #include <string.h>
 #include <unity.h>
 
-byte clientData[10];
+byte clientLibraryBuffer[100];
 
 byte parameterData[] = { 9, 1, 0xdd, 0xac };
 const TWIBuffer parameterBuffer = { parameterData, sizeof(parameterData) };
+byte responseBufferData[10];
+TWIBuffer responseBuffer = { responseBufferData, sizeof(responseBufferData) };
+byte serverResponseData[] = { 0x0, 0x0, 0xaa, 0xbb, 0x92 }; // First two bytes used for server status
+const byte responseData[] = { 0xaa, 0xbb, 0x92 };
 
 const byte operation = 0xab;
-RpcClientStatus status;
-RpcClientStatus expectedStatus;
+RpcClientResult status;
+RpcClientResult expectedStatus;
 
-byte expectedReceiveData[] = { 0xaa, 0xbb, 0x92 };
+BOOL expectedSend, expectedReceive;
 
 void setUp() {
-	fake_twi_driver_master_setUp();
-	memset(clientData, 0, sizeof(clientData));
-	twi_rpc_client_init((TWIBuffer) { clientData, sizeof(clientData) });
-    expectedStatus = TWI_RPC_success;
-    status = TWI_RPC_unknown_error;
+    // Library initialization
+    fake_twi_driver_master_setUp();
+    memset(clientLibraryBuffer, 0, sizeof(clientLibraryBuffer));
+    twi_rpc_client_init((TWIBuffer) { clientLibraryBuffer, sizeof(clientLibraryBuffer) });
+
+    memset(responseBufferData, 0, sizeof(responseBufferData));
+    responseBuffer.size = sizeof(responseBufferData);
+    serverResponseData[0] = serverResponseData[1] = 0;
+
+    // This will be returned by mocked twi master driver.
+    mock_driver.returnedReceiveData.data = serverResponseData;
+    mock_driver.returnedReceiveData.size = 0;
+
+    status.status = TWI_RPC_call_error_unknown;
+    status.server_status = TWI_RPC_invalid;
+    expectedSend = expectedReceive = FALSE;
 }
 
 void tearDown() {
-    TEST_ASSERT_EQUAL_INT_MESSAGE(expectedStatus, status, "Unexpected rpc client result status");
-	TEST_ASSERT_FALSE_MESSAGE(waitedForCompletion, "Should not have waited for completion");
+    // Make sure parameters have been transmitted correctly
+    if (expectedSend) {
+        TEST_ASSERT_EQUAL_INT_MESSAGE(sizeof(parameterData) + 1, mock_driver.sendBuffer.size,
+                "Parameter send buffer has wrong size");
+        TEST_ASSERT_EQUAL_UINT8_MESSAGE(operation, mock_driver.sendBuffer.data[0],
+                "Operation byte not correctly set");
+        TEST_ASSERT_EQUAL_UINT8_ARRAY_MESSAGE(parameterData, mock_driver.sendBuffer.data + 1, sizeof(parameterData),
+                "Parameter data is not correct");
+    }
+
+    // Check returned values
+    TEST_ASSERT_EQUAL_INT_MESSAGE(expectedStatus.status, status.status, "Unexpected rpc client result status");
+    TEST_ASSERT_EQUAL_INT_MESSAGE(expectedStatus.server_status, status.server_status, "Unexpected rpc client server status");
+	TEST_ASSERT_FALSE_MESSAGE(mock_driver.waitedForCompletion, "Should not have waited for completion");
+    TEST_ASSERT_EQUAL_MESSAGE(expectedSend, mock_driver.sent, "rpc call should (not) have sent something");
+    TEST_ASSERT_EQUAL_MESSAGE(expectedReceive, mock_driver.received, "rpc call should (not) have received something");
 }
 
-void assertParametersInBuffer(TWIBuffer buf) {
-	TEST_ASSERT_EQUAL_INT_MESSAGE(sizeof(parameterData) + 1, buf.size,
-			"Parameter send buffer has wrong size");
-	TEST_ASSERT_EQUAL_UINT8_MESSAGE(operation, buf.data[0],
-			"Operation byte not correctly set");
-	TEST_ASSERT_EQUAL_UINT8_ARRAY_MESSAGE(parameterData, buf.data + 1, sizeof(parameterData),
-			"Parameter data is not correct");
-}
-
-void assertResultInBuffer(TWIBuffer buf) {
-	TEST_ASSERT_EQUAL_INT_MESSAGE(sizeof(expectedReceiveData), buf.size,
-				"Buffer with received data has wrong size");
-	TEST_ASSERT_EQUAL_UINT8_ARRAY_MESSAGE(expectedReceiveData, buf.data, sizeof(expectedReceiveData),
-				"Received data is not correct");
+void prepare_expected_status(RpcClientStatus s, RpcServerStatus ser) {
+    expectedStatus.status = s;
+    expectedStatus.server_status = ser;
+    if (expectedReceive) {
+        serverResponseData[0] = ser;
+        serverResponseData[1] = operation;
+    }
 }
 
 void test_rpc_send() {
-	// Prepare a buffer to receive the rpc call results.
-	byte resultBufferData[10];
-	memset(resultBufferData, 0, sizeof(resultBufferData));
-	TWIBuffer resultBuffer = (TWIBuffer) { resultBufferData, sizeof(expectedReceiveData) };
-
-	// Instruct the fake_twi_driver to return some well-known data.
-	returnedReceiveData.size = sizeof(expectedReceiveData);
-	returnedReceiveData.data = expectedReceiveData;
-
-	status = twi_rpc(test_device, operation, parameterBuffer, resultBuffer);
-	TEST_ASSERT_MESSAGE(sent, "twi_rpc call has not sent anything");
-	TEST_ASSERT_MESSAGE(received, "twi_rpc call has not received anything");
-	assertParametersInBuffer(sendBuffer);
-
-	// Our own resultBuffer should be the same as the receiveBuffer passed from
-	// twi_rpc_client into the fake_twi_driver.
-	assertResultInBuffer(resultBuffer);
-	assertResultInBuffer(receiveBuffer);
+    expectedSend = expectedReceive = TRUE;
+    prepare_expected_status(TWI_RPC_call_success, TWI_RPC_no_error);
+    mock_driver.returnedReceiveData.size = sizeof(serverResponseData);
+    status = twi_rpc(test_device, operation, parameterBuffer, responseBuffer);
 }
 
 void test_rpc_oneway() {
+    expectedSend = TRUE; expectedReceive = FALSE;
+    prepare_expected_status(TWI_RPC_call_success_oneway, TWI_RPC_unknown);
 	status = twi_rpc_oneway(test_device, operation, parameterBuffer);
-	assertParametersInBuffer(sendBuffer);
-	TEST_ASSERT_MESSAGE(sent, "twi_rpc_oneway call has not sent anything");
-	TEST_ASSERT_FALSE_MESSAGE(received, "twi_rpc_oneway call has received something");
 }
 
 void test_rpc_pseudo_oneway() {
+    expectedSend = expectedReceive = TRUE;
+    mock_driver.returnedReceiveData.size = 2; // Only status and operation bytes.
+    prepare_expected_status(TWI_RPC_call_success, TWI_RPC_no_error);
 	status = twi_rpc_pseudo_oneway(test_device, operation, parameterBuffer);
-	assertParametersInBuffer(sendBuffer);
-	TEST_ASSERT_MESSAGE(sent, "twi_rpc_pseudo_oneway call has not sent anything");
-	TEST_ASSERT_MESSAGE(received, "twi_rpc_pseudo_oneway call has not received anything");
-
-	TEST_ASSERT_EQUAL_MESSAGE(0, receiveBuffer.size,
-			"RPC pseudo oneway should receive empty data");
-	TEST_ASSERT_EQUAL_MESSAGE(0, receiveBuffer.data,
-			"RPC pseudo oneway call passed a valid buffer pointer");
 }
 
 void test_send_buffer_too_small() {
-    expectedStatus = TWI_RPC_send_buffer_too_small;
-    byte big_data[sizeof(clientData)] = { 1 };
-    TWIBuffer big_buffer = (TWIBuffer) { big_data, sizeof(big_data) };
-    TWIBuffer resultBuffer = (TWIBuffer) { big_data, sizeof(expectedReceiveData) };
-    status = twi_rpc(test_device, operation, big_buffer, resultBuffer);
+    expectedSend = FALSE; expectedReceive = FALSE;
+    prepare_expected_status(TWI_RPC_call_error_send_buffer_too_small, TWI_RPC_invalid);
 
-    TEST_ASSERT_FALSE_MESSAGE(sent, "twi rpc should not have sent anything");
-	TEST_ASSERT_FALSE_MESSAGE(received, "twi rpc call should not have received anything");
+    byte big_data[sizeof(clientLibraryBuffer)] = { 1 };
+    TWIBuffer big_buffer = (TWIBuffer) { big_data, sizeof(big_data) };
+    status = twi_rpc(test_device, operation, big_buffer, responseBuffer);
 }
 
 void test_send_buffer_too_small_oneway() {
-    expectedStatus = TWI_RPC_send_buffer_too_small;
-    byte big_data[sizeof(clientData)] = { 1 };
+    expectedSend = FALSE; expectedReceive = FALSE;
+    prepare_expected_status(TWI_RPC_call_error_send_buffer_too_small, TWI_RPC_invalid);
+
+    byte big_data[sizeof(clientLibraryBuffer)] = { 1 };
     TWIBuffer big_buffer = (TWIBuffer) { big_data, sizeof(big_data) };
     status = twi_rpc_oneway(test_device, operation, big_buffer);
-
-    TEST_ASSERT_FALSE_MESSAGE(sent, "twi rpc should not have sent anything");
-	TEST_ASSERT_FALSE_MESSAGE(received, "twi rpc call should not have received anything");
 }
 
 void test_send_buffer_too_small_pseudo_oneway() {
-    expectedStatus = TWI_RPC_send_buffer_too_small;
-    byte big_data[sizeof(clientData)] = { 1 };
+    expectedSend = FALSE; expectedReceive = FALSE;
+    prepare_expected_status(TWI_RPC_call_error_send_buffer_too_small, TWI_RPC_invalid);
+
+    byte big_data[sizeof(clientLibraryBuffer)] = { 1 };
     TWIBuffer big_buffer = (TWIBuffer) { big_data, sizeof(big_data) };
     status = twi_rpc_pseudo_oneway(test_device, operation, big_buffer);
-
-    TEST_ASSERT_FALSE_MESSAGE(sent, "twi rpc should not have sent anything");
-	TEST_ASSERT_FALSE_MESSAGE(received, "twi rpc call should not have received anything");
 }
 
-void test_send_buffer_twi_error() {
-    expectedStatus = TWI_RPC_driver_error;
+void test_twi_error() {
+    expectedSend = TRUE; expectedReceive = TRUE;
+    prepare_expected_status(TWI_RPC_call_error_driver, TWI_RPC_invalid);
+    mock_driver.returnedReceiveData.size = sizeof(serverResponseData);
     twi_error = TWI_Bus_Error;
-    byte resultBufferData[10];
-	TWIBuffer resultBuffer = (TWIBuffer) { resultBufferData, sizeof(expectedReceiveData) };
-    status = twi_rpc(test_device, operation, parameterBuffer, resultBuffer);
+    status = twi_rpc(test_device, operation, parameterBuffer, responseBuffer);
 }
 
-void test_send_buffer_oneway_twi_error() {
-    expectedStatus = TWI_RPC_driver_error;
+void test_oneway_twi_error() {
+    expectedSend = TRUE; expectedReceive = FALSE;
+    prepare_expected_status(TWI_RPC_call_error_driver, TWI_RPC_unknown);
     twi_error = TWI_Bus_Error;
     status = twi_rpc_oneway(test_device, operation, parameterBuffer);
 }
 
-void test_send_buffer_pseudo_oneway_twi_error() {
-    expectedStatus = TWI_RPC_driver_error;
+void test_pseudo_oneway_twi_error() {
+    expectedSend = TRUE; expectedReceive = TRUE;
+    prepare_expected_status(TWI_RPC_call_error_driver, TWI_RPC_invalid);
+    mock_driver.returnedReceiveData.size = 2;
     twi_error = TWI_Bus_Error;
+    status = twi_rpc_pseudo_oneway(test_device, operation, parameterBuffer);
+}
+
+void test_server_error() {
+    expectedSend = TRUE; expectedReceive = TRUE;
+    prepare_expected_status(TWI_RPC_call_error_server, TWI_RPC_error);
+    mock_driver.returnedReceiveData.size = sizeof(serverResponseData);
+    status = twi_rpc(test_device, operation, parameterBuffer, responseBuffer);
+}
+
+void test_pseudo_oneway_server_error() {
+    expectedSend = TRUE; expectedReceive = TRUE;
+    prepare_expected_status(TWI_RPC_call_error_server, TWI_RPC_error);
+    mock_driver.returnedReceiveData.size = 2;
+    status = twi_rpc_pseudo_oneway(test_device, operation, parameterBuffer);
+}
+
+void test_wrong_operation_byte() {
+    expectedSend = TRUE; expectedReceive = TRUE;
+    prepare_expected_status(TWI_RPC_call_error_wrong_operation_byte, TWI_RPC_no_error);
+    mock_driver.returnedReceiveData.size = sizeof(serverResponseData);
+    mock_driver.returnedReceiveData.data[1] = 0xdd;
+    status = twi_rpc(test_device, operation, parameterBuffer, responseBuffer);
+}
+
+void test_pseudo_oneway_wrong_operation_byte() {
+    expectedSend = TRUE; expectedReceive = TRUE;
+    prepare_expected_status(TWI_RPC_call_error_wrong_operation_byte, TWI_RPC_no_error);
+    mock_driver.returnedReceiveData.size = 2;
+    mock_driver.returnedReceiveData.data[1] = 0xdd;
     status = twi_rpc_pseudo_oneway(test_device, operation, parameterBuffer);
 }

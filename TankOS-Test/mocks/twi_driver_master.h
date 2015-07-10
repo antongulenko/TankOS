@@ -10,22 +10,24 @@
 
 void fake_twi_driver_master_setUp();
 
-extern BOOL twiCalled;
-extern BOOL waitedForCompletion;
+extern struct _s_mock_driver {
+    BOOL twiCalled;
+    BOOL waitedForCompletion;
 
-extern TWIDevice device;
-extern uint16_t waitForCompletionTime;
+    TWIDevice device;
+    uint16_t waitForCompletionTime;
 
-extern BOOL sent, received;
-extern TWIBuffer sendBuffer, receiveBuffer;
+    BOOL sent, received;
+    TWIBuffer sendBuffer, receiveBuffer;
 
-// The content of this buffer will be copied into the receive buffer(s)
-// that are passed into this fake module.
-extern TWIBuffer returnedReceiveData;
+    // The content of this buffer will be copied into the receive buffer(s)
+    // that are passed into this fake module.
+    TWIBuffer returnedReceiveData;
+} mock_driver;
 
 // This is not really related to twi_driver, but is used by all tests
 // that use this module.
-extern const TWIDevice test_device;
+const TWIDevice test_device;
 
 extern TwiError twi_error;
 

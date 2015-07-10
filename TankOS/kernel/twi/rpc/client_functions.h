@@ -9,11 +9,17 @@
 // Then, a source file should include that other header and define the
 // RPC_CLIENT_IMPLEMENTATION macro, which enables the generation of the function
 // bodies.
+// TWI_RPC_STATUS_VARIABLE must also be defined and will be used as the variable name for
+// a globale variable containing the RpcClientResult value returned by each rpc call.
 
 #include "client.h"
 
 #ifndef TWI_DEVICE
 #error This module requires TWI_DEVICE to be defined!
+#endif
+
+#ifndef TWI_RPC_STATUS_VARIABLE
+#error This module requires TWI_RPC_STATUS_VARIABLE to be defined!
 #endif
 
 // Regarding the macros named ..PVOID.. and ..PNOTIFY:
@@ -28,6 +34,8 @@
 // in other .c files using the function-prototypes.
 #ifdef RPC_CLIENT_IMPLEMENTATION
 
+RpcClientResult TWI_RPC_STATUS_VARIABLE;
+
 // ==
 // Functions with Arguments and Results
 // ==
@@ -37,7 +45,7 @@
 	void funcName(ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize) {	\
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize };			\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize };		\
-		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);				        \
 		twiWaitForCompletion(0);												\
 	}
 
@@ -46,7 +54,7 @@
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) parameters, argSize };			\
 		ResStruct result;														\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) };	\
-		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
 		twiWaitForCompletion(0);												\
 		return result;															\
 	}
@@ -55,7 +63,7 @@
 	void funcName(ArgStruct parameters, ResStruct *out_result, uint16_t resultSize) {	\
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) };		\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize };		\
-		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
 		twiWaitForCompletion(0);												\
 	}
 
@@ -64,7 +72,7 @@
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) };\
 		ResStruct result;														\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) };	\
-		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
 		twiWaitForCompletion(0);												\
 		return result;															\
 	}
@@ -76,28 +84,28 @@
 #define TWI_RPC_FUNCTION_VOID_VAR(funcName, operationByte, ArgStruct)	\
 	void funcName(ArgStruct *parameters, uint16_t argSize) {			\
 		TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize };	\
-		twi_rpc_oneway(TWI_DEVICE, operationByte, buf);					\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc_oneway(TWI_DEVICE, operationByte, buf);					\
 		twiWaitForCompletion(0);										\
 	}
 
 #define TWI_RPC_FUNCTION_VOID(funcName, operationByte, ArgStruct)				\
 	void funcName(ArgStruct parameters) {										\
 		TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) };	\
-		twi_rpc_oneway(TWI_DEVICE, operationByte, buf);							\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc_oneway(TWI_DEVICE, operationByte, buf);							\
 		twiWaitForCompletion(0);												\
 	}
 
 #define TWI_RPC_FUNCTION_PVOID(funcName, operationByte, ArgStruct)				\
 	void funcName(ArgStruct parameters) {										\
 		TWIBuffer buf = (TWIBuffer) { (byte*) &parameters, sizeof(ArgStruct) };	\
-		twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, buf);					\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, buf);					\
 		twiWaitForCompletion(0);												\
 	}
 
 #define TWI_RPC_FUNCTION_PVOID_VAR(funcName, operationByte, ArgStruct)	\
 	void funcName(ArgStruct *parameters, uint16_t argSize) {			\
 		TWIBuffer buf = (TWIBuffer) { (byte*) parameters, argSize };	\
-		twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, buf);			\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, buf);			\
 		twiWaitForCompletion(0);										\
 	}
 
@@ -111,7 +119,7 @@
 		ResStruct result;														\
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };						\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) &result, sizeof(ResStruct) };	\
-		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
 		twiWaitForCompletion(0);												\
 		return result;															\
 	}
@@ -120,7 +128,7 @@
 	void funcName(ResStruct *out_result, uint16_t resultSize) {					\
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };						\
 		TWIBuffer resBuf = (TWIBuffer) { (byte*) out_result, resultSize };		\
-		twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc(TWI_DEVICE, operationByte, argBuf, resBuf);						\
 		twiWaitForCompletion(0);												\
 	}
 
@@ -131,18 +139,20 @@
 #define TWI_RPC_FUNCTION_NOTIFY(funcName, operationByte)		\
 	void funcName() {											\
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };		\
-		twi_rpc_oneway(TWI_DEVICE, operationByte, argBuf);		\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc_oneway(TWI_DEVICE, operationByte, argBuf);		\
 		twiWaitForCompletion(0);											\
 	}
 
 #define TWI_RPC_FUNCTION_PNOTIFY(funcName, operationByte)		\
 	void funcName() {											\
 		TWIBuffer argBuf = (TWIBuffer) { (byte*) NULL, 0 };		\
-		twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, argBuf);\
+		TWI_RPC_STATUS_VARIABLE = twi_rpc_pseudo_oneway(TWI_DEVICE, operationByte, argBuf);\
 		twiWaitForCompletion(0);											\
 	}
 
 #else
+
+extern RpcClientResult TWI_RPC_STATUS_VARIABLE;
 
 // ==
 // Functions signatures for regular headers
