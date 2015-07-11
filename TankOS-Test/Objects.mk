@@ -41,3 +41,10 @@ $(eval $(call set_test_objects,kernel/twi/rpc/client_functions,\
 $(eval $(call set_test_objects,kernel/twi/rpc/server,\
 	$(BUILDDIR)/mocks/twi_driver_slave.o \
 	$(KERNEL)/twi/rpc/server.o ))
+
+$(eval $(call set_test_objects,kernel/twi/rpc/end_to_end,\
+	$(BUILDDIR)/mocks/twi_driver_slave.o \
+    $(BUILDDIR)/mocks/rpc_client.o \
+    $(BUILDDIR)/mocks/twi_end_to_end.o \
+    $(KERNEL)/twi/rpc/server.o \
+    $(KERNEL)/twi/rpc/client.o ))

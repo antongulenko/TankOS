@@ -12,7 +12,7 @@ extern TWIBuffer (*twi_handleMasterRequest)();
 extern TWIBuffer (*twi_masterTransmissionStarting)();
 extern void (*twi_masterTransmissionEnded)(TWIBuffer twi_buffer);
 
-extern TwiError twi_error;
+//extern TwiError twi_error;
 
 void fake_twi_driver_slave_setUp();
 

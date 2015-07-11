@@ -37,13 +37,20 @@ void assert_buffer(TWIBuffer buffer, byte* expectedData, int expectedSize, char 
     TEST_ASSERT_EQUAL_INT8_ARRAY_MESSAGE(expectedData, buffer.data, expectedSize, msg2);
 }
 
+BOOL respond_big_data = FALSE;
+
 RpcHandlerStatus twi_handleRpcRequest(byte operation, TWIBuffer *in_out_buffer) {
 	TEST_ASSERT_EQUAL_INT_MESSAGE(expectedOperation, operation,
             "Unexpected operation byte received by rpc server");
-    assert_buffer(*in_out_buffer, (byte*) &parameterData, sizeof(parameterData), "rpc server parameter data");
-
-    memcpy(in_out_buffer->data, &resultData, sizeof(resultData));
-    in_out_buffer->size = sizeof(resultData);
+    int size;
+    if (respond_big_data) {
+        size = in_out_buffer->size;
+    } else {
+        assert_buffer(*in_out_buffer, (byte*) &parameterData, sizeof(parameterData), "rpc server parameter data");
+        size = sizeof(resultData);
+        memcpy(in_out_buffer->data, &resultData, sizeof(resultData));
+    }
+    in_out_buffer->size = size;
     return handlerStatus;
 }
 
@@ -60,12 +67,10 @@ void setUp() {
     expectedResultData[1] = handlerStatus;
     expectedResultData[sizeof(expectedResultData) - 1] = expectedOperation;
     sendBuffer = EmptyBuffer;
+    respond_big_data = FALSE;
 }
 
 void tearDown() {
-    // If it's byte 0, the wrong server status wass sent.
-    // If it's byte 1, the wrong operation byte was sent.
-    // The rest means wrong result data was sent.
     assert_buffer(sendBuffer, (byte*) &expectedResultData, expectedResult.size, "rpc server result data");
 }
 
@@ -105,6 +110,33 @@ void test_end_without_start() {
     byte buf[2];
     TWIBuffer receiveBuffer = { buf, sizeof(buf) };
     // End transmission without having initiated it. Simulated driver error.
+    twi_masterTransmissionEnded(receiveBuffer);
+    sendBuffer = twi_handleMasterRequest();
+}
+
+void test_buffer_too_small_receiving() {
+    respond_big_data = TRUE;
+    expect_error(TWI_RPC_error_buffer_too_small);
+
+    TWIBuffer receiveBuffer = initiate_transmission();
+    receiveBuffer.size = sizeof(server_io_data);
+    memset(receiveBuffer.data + 1, 0x9a, receiveBuffer.size - 1); // Fill with random stuff
+    twi_error = TWI_Slave_TooMuchDataReceived;
+
+    twi_masterTransmissionEnded(receiveBuffer);
+    sendBuffer = twi_handleMasterRequest();
+}
+
+void test_buffer_too_small_sending() {
+    respond_big_data = TRUE;
+    expect_error(TWI_RPC_error_buffer_too_small);
+    expectedResultData[1] = handlerStatus;
+    expectedResultData[2] = expectedOperation;
+
+    TWIBuffer receiveBuffer = initiate_transmission();
+    receiveBuffer.size = sizeof(server_io_data) - 1;
+    memset(receiveBuffer.data + 1, 0x9a, receiveBuffer.size - 1); // Fill with random stuff
+
     twi_masterTransmissionEnded(receiveBuffer);
     sendBuffer = twi_handleMasterRequest();
 }
