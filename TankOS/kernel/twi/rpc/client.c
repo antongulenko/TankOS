@@ -23,7 +23,7 @@ static inline BOOL fillSendBuffer(byte operation, TWIBuffer parameters) {
     return TRUE;
 }
 
-static inline RpcClientStatus fix_status(RpcClientStatus status, RpcServerStatus server_status) {
+static inline RpcClientStatus finalize_status(RpcClientStatus status, RpcServerStatus server_status) {
     if (twi_error != TWI_No_Error)
         // Might override another error status, but driver error is probably the root cause.
         status =  TWI_RPC_call_error_driver;
@@ -43,19 +43,25 @@ static inline RpcClientResult status(TWIBuffer result, byte expectedOperation) {
     } else {
         server_status = result.data[0];
         handler_status = result.data[1];
-        byte operation = result.data[result.size - 1];
+        byte operation;
+        if (server_status >= TWI_RPC_error) {
+            // In case of errors, server does not transmit the actual response data.
+            operation = result.data[2];
+        } else {
+            operation = result.data[result.size - 1];
+        }
         if (operation != expectedOperation) {
             status = TWI_RPC_call_error_wrong_operation_byte;
         }
     }
-    status = fix_status(status, server_status);
+    status = finalize_status(status, server_status);
     return (RpcClientResult) { status, handler_status, server_status };
 }
 
 RpcClientResult twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters) {
 	if (!fillSendBuffer(operation, parameters)) return small_buffer_error;
 	twiSend(device, sendBuffer);
-    RpcClientStatus status = fix_status(TWI_RPC_call_success_oneway, TWI_RPC_unknown);
+    RpcClientStatus status = finalize_status(TWI_RPC_call_success_oneway, TWI_RPC_unknown);
     return (RpcClientResult) { status, TWI_RPC_handler_unknown, TWI_RPC_unknown };
 }
 
@@ -75,7 +81,6 @@ RpcClientResult twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, 
     memset(responseData, 0, size);
     TWIBuffer responseBuffer = { responseData, size };
     twiSendReceive(device, sendBuffer, responseBuffer);
-    RpcClientResult result = status(responseBuffer, operation);
     memcpy(resultBuffer.data, responseData + 2, responseBuffer.size - 3);
-    return result;
+    return status(responseBuffer, operation);
 }

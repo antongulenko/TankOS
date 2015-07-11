@@ -8,7 +8,6 @@
 
 #include <kernel/twi/driver/driver.h>
 
-// These values are just con
 typedef enum {
     TWI_RPC_handler_ok = 0,
     TWI_RPC_handler_illegal_operation = 1,
@@ -16,6 +15,8 @@ typedef enum {
     TWI_RPC_handler_error = 3, // and higher
     TWI_RPC_handler_unknown = 255
 } RpcHandlerStatus;
+
+char *RpcHandlerStatus_string(RpcHandlerStatus handler_status);
 
 #define ILLEGAL_OPERATION 255
 

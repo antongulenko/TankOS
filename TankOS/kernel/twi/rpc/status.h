@@ -11,6 +11,7 @@ typedef enum {
 
     TWI_RPC_error = 20, // Not used, marker value for >= comparisons
 
+    TWI_RPC_error_handler, // Handler returned error status. Check RpcHandlerStatus value.
     TWI_RPC_error_standalone_response, // Response has been requested without previously transmitting parameters.
     TWI_RPC_error_missing_operation_byte, // Transmitted parameter data was empty (need at least one operation-byte).
     TWI_RPC_error_buffer_too_small,

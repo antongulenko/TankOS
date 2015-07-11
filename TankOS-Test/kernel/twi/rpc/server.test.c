@@ -11,7 +11,7 @@
 #include <string.h>
 
 const byte expectedOperation = 0x2e;
-const RpcHandlerStatus handlerStatus = 33;
+const RpcHandlerStatus handlerStatus = TWI_RPC_handler_ok;
 TWIBuffer sendBuffer;
 
 struct _s_parameterData {

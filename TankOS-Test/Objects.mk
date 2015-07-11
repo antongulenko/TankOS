@@ -47,4 +47,5 @@ $(eval $(call set_test_objects,kernel/twi/rpc/end_to_end,\
     $(BUILDDIR)/mocks/rpc_client.o \
     $(BUILDDIR)/mocks/twi_end_to_end.o \
     $(KERNEL)/twi/rpc/server.o \
-    $(KERNEL)/twi/rpc/client.o ))
+    $(KERNEL)/twi/rpc/client.o \
+    $(KERNEL)/twi/rpc/server_handler.o ))

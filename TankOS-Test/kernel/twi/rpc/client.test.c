@@ -154,7 +154,7 @@ void test_pseudo_oneway_twi_error() {
 void test_server_error() {
     expectedSend = TRUE; expectedReceive = TRUE;
     prepare_expected_status(TWI_RPC_call_error_server, TWI_RPC_error, handlerStatus);
-    mock_driver.returnedReceiveData.size = sizeof(serverResponseData);
+    expect_pseudo_oneway();
     status = twi_rpc(test_device, operation, parameterBuffer, responseBuffer);
 }
 

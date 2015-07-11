@@ -95,6 +95,8 @@ static TWIBuffer twi_handleMasterRequest() {
     if (rpc_server_status < TWI_RPC_error) {
         if (receiveBuffer.size < resultBuffer.size + 3) {
             rpc_server_status = TWI_RPC_error_buffer_too_small;
+        } else if (lastHandlerStatus != TWI_RPC_handler_ok) {
+            rpc_server_status = TWI_RPC_error_handler;
         } else {
             // Here we prepare the actual response data.
             // receiveBuffer and resultBuffer share the same backing memory, so use memmove.

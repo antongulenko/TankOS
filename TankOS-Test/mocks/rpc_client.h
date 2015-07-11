@@ -55,4 +55,8 @@ TWI_RPC_FUNCTION_NOARGS_VAR(rpcNoargsVar, OP_RPC_NOARGS_VAR, TestResStruct)
 TWI_RPC_FUNCTION_NOTIFY(rpcNotify, OP_RPC_NOTIFY)
 TWI_RPC_FUNCTION_PNOTIFY(rpcPNotify, OP_RPC_PNOTIFY)
 
+// These are "wrong", used in end_to_end.test.c
+TWI_RPC_FUNCTION(rpcNormal_wrongOperation, OP_RPC_PNOTIFY, TestArgStruct, TestResStruct)
+TWI_RPC_FUNCTION(rpcNormal_wrongParameters, OP_RPC_NORMAL, int, TestResStruct)
+
 #endif /* TESTRPCCLIENT_H_ */
