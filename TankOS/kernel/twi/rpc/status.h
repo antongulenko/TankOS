@@ -22,4 +22,6 @@ typedef enum {
     TWI_RPC_error_driver // More detailed error states result from TWI_RPC_error_driver + TwiError values
 } RpcServerStatus;
 
+char *RpcServerStatus_string(RpcServerStatus server_status);
+
 #endif

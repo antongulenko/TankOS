@@ -62,24 +62,16 @@ void test_success() {
 }
 
 void test_wrong_parameters() {
-    TestResStruct res = rpcNormal_wrongParameters(11);
+    rpcNormal_wrongParameters(11);
     assert_client_status(TWI_RPC_call_error_server, TWI_RPC_error_handler, TWI_RPC_handler_illegal_parameters);
 }
 
 void test_wrong_operation() {
-    TestResStruct res = rpcNormal_wrongOperation((TestArgStruct) { 22, 56.5 });
+    rpcNormal_wrongOperation((TestArgStruct) { 22, 56.5 });
     assert_client_status(TWI_RPC_call_error_server, TWI_RPC_error_handler, TWI_RPC_handler_illegal_operation);
 }
 
 void test_handler_error() {
-    TestResStruct res = rpcNormal((TestArgStruct) { 33, 33.0 });
+    rpcNormal((TestArgStruct) { 33, 33.0 });
     assert_client_status(TWI_RPC_call_error_server, TWI_RPC_error_handler, TWI_RPC_handler_error + 20);
-}
-
-void test_handler_status_string() {
-    TEST_ASSERT_EQUAL_STRING("RPC handler ok", RpcHandlerStatus_string(TWI_RPC_handler_ok));
-    TEST_ASSERT_EQUAL_STRING("RPC handler illegal parameters", RpcHandlerStatus_string(TWI_RPC_handler_illegal_parameters));
-    TEST_ASSERT_EQUAL_STRING("RPC handler illegal operation", RpcHandlerStatus_string(TWI_RPC_handler_illegal_operation));
-    TEST_ASSERT_EQUAL_STRING("RPC handler status unknown", RpcHandlerStatus_string(TWI_RPC_handler_unknown));
-    TEST_ASSERT_EQUAL_STRING("RPC handler error 44", RpcHandlerStatus_string(TWI_RPC_handler_error + 44));
 }
