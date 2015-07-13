@@ -3,19 +3,20 @@
 
 #include "server_handler_functions.h"
 
-// The hash-structure used by the uthash implementation
+// The uthash structure storing all registered handler functions.
 PTwiFunction twiRpcFunctions = NULL;
+
+TwiRpcHandlerFunction *find_handler_function(byte operation) {
+    PTwiFunction handler = NULL;
+    HASH_FIND_BYTE(twiRpcFunctions, &operation, handler);
+    return handler ? handler->handlerFunction : NULL;
+}
 
 // buffer contains the arguments and the result afterwards.
 RpcHandlerStatus twi_handleRpcRequest(byte operation, TWIBuffer *buffer) {
-    PTwiFunction handler = NULL;
-    HASH_FIND_INT(twiRpcFunctions, &operation, handler);
-    //handler = NULL;
-    //HASH_FIND_INT(twiRpcFunctions, &operation, handler);
-    //handler = NULL;
-    if (handler) {
-        printf("Invoking function handler\n");
-        return handler->handlerFunction(buffer);
+    TwiRpcHandlerFunction *handlerFunction = find_handler_function(operation);
+    if (handlerFunction) {
+        return handlerFunction(buffer);
     } else {
         buffer->size = 0;
         return TWI_RPC_handler_illegal_operation;

@@ -1,7 +1,7 @@
-#include <stdio.h>
 
 #include "twi_driver_slave.h"
 #include <kernel/twi/driver/master.h>
+#include <string.h>
 
 // This module implements the TWI master by transferring data directly to the locally linked
 // TWI slave. This allows testing the entire TWI/RPC code end-to-end in one test module.

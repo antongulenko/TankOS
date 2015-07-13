@@ -1,5 +1,7 @@
 
 #include <kernel/twi/driver/master.h>
+#include <kernel/twi/rpc/server.h>
+#include <kernel/twi/rpc/client.h>
 #include <mocks/twi_driver_slave.h>
 #include <mocks/rpc_server.h>
 #include <unity.h>

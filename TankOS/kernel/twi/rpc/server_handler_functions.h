@@ -9,6 +9,11 @@
 #define HASH_FUNCTION HASH_SAX // Use other function to operate with short keys.
 #include <uthash/uthash.h>
 
+#define HASH_ADD_BYTE(head,bytefield,add)                                          \
+    HASH_ADD(hh,head,bytefield,sizeof(byte),add)
+#define HASH_FIND_BYTE(head,findbyte,out)                                          \
+    HASH_FIND(hh,head,findbyte,sizeof(byte),out)
+
 // This function is always implemented through a *_handler() function
 // created by one of the macros below.
 typedef RpcHandlerStatus TwiRpcHandlerFunction(TWIBuffer *buffer);
@@ -29,7 +34,7 @@ extern PTwiFunction twiRpcFunctions;
 	void funcName##_register_function() {											\
 		/* The second macro parameter 'operation' is the name of the key-field in */\
 		/* the TwiFunction struct! Do not change to 'operationByte'. */				\
-		HASH_ADD_INT(twiRpcFunctions, operation, &funcName##_function);				\
+		HASH_ADD_BYTE(twiRpcFunctions, operation, &funcName##_function);			\
 	}																				\
 	KERNEL_INIT(funcName##_register_function)
 
