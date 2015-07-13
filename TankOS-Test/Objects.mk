@@ -66,3 +66,7 @@ $(eval $(call set_test_objects,kernel/twi/rpc/end_to_end,\
 
 $(eval $(call set_test_objects,kernel/twi/rpc/strings,\
     $(KERNEL)/twi/rpc/strings.o ))
+
+$(eval $(call set_test_objects,kernel/twi/services/reset_condition,\
+    $(KERNEL)/reset_condition.kernel.o \
+    $(KERNEL)/twi/services/reset_condition.o ))
