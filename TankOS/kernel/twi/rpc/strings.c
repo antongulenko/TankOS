@@ -1,8 +1,9 @@
 
-#include <kernel/twi/rpc/server_status.h>
-#include <kernel/twi/rpc/server_handler.h>
+#include "strings.h"
 #include <stdio.h>
 
+// 3 place holder chars should be enough...
+// TODO use safe version of sprintf.
 char RpcServerStatus_string_buf1[] = "RPC server twi error (XXXXXX)";
 char RpcServerStatus_string_buf2[] = "RPC server invalid status (XXXXXX)";
 
@@ -35,14 +36,16 @@ char *RpcServerStatus_string(RpcServerStatus server_status) {
             ;
     }
     if (server_status >= TWI_RPC_error_driver) {
-        sprintf(RpcServerStatus_string_buf1, "RPC server twi error (%i)", server_status - TWI_RPC_error_driver);
+        snprintf(RpcServerStatus_string_buf1, sizeof(RpcServerStatus_string_buf1),
+                 "RPC server twi error (%i)", server_status - TWI_RPC_error_driver);
         return RpcServerStatus_string_buf1;
     }
-    sprintf(RpcServerStatus_string_buf2, "RPC server invalid status (%i)", server_status);
+    snprintf(RpcServerStatus_string_buf2, sizeof(RpcServerStatus_string_buf2),
+             "RPC server invalid status (%i)", server_status);
     return RpcServerStatus_string_buf2;
 }
 
-static char RpcHandlerStatus_string_buf[] = "RPC handler error XXXXXXX"; // 3 place holder chars should be enough.
+static char RpcHandlerStatus_string_buf[] = "RPC handler error XXXXXXX";
 
 char *RpcHandlerStatus_string(RpcHandlerStatus handler_status) {
     switch (handler_status) {
@@ -58,6 +61,46 @@ char *RpcHandlerStatus_string(RpcHandlerStatus handler_status) {
             // fall through
             ;
     }
-    sprintf(RpcHandlerStatus_string_buf, "RPC handler error %i", handler_status - TWI_RPC_handler_error);
+    snprintf(RpcHandlerStatus_string_buf, sizeof(RpcHandlerStatus_string_buf),
+             "RPC handler error %i", handler_status - TWI_RPC_handler_error);
     return RpcHandlerStatus_string_buf;
+}
+
+char RpcClientStatus_string_buf[] = "RPC call invalid status (XXXXXX)";
+
+char *RpcClientStatus_string(RpcClientStatus status) {
+    switch (status) {
+        case TWI_RPC_call_success:
+            return "RPC call success";
+        case TWI_RPC_call_success_oneway:
+            return "RPC call success (oneway)";
+        case TWI_RPC_call_error_send_buffer_too_small:
+            return "RPC call error: send buffer too small";
+        case TWI_RPC_call_error_driver:
+            return "RPC call driver error";
+        case TWI_RPC_call_error_server:
+            return "RPC call server error";
+        case TWI_RPC_call_error_wrong_operation_byte:
+            return "RPC call error: wrong operation byte";
+        case TWI_RPC_call_error_unknown:
+            return "RPC call unknown error";
+        case TWI_RPC_call_error:
+            // fall through
+            ;
+    }
+    snprintf(RpcClientStatus_string_buf, sizeof(RpcClientStatus_string_buf),
+             "RPC call invalid status (%i)", status);
+    return RpcClientStatus_string_buf;
+}
+
+char RpcClientResult_string_buf[140]; // Longest possible result should be approx. 130 chars.
+
+char *RpcClientResult_string(RpcClientResult result) {
+    char *status = RpcClientStatus_string(result.status);
+    char *handler_status = RpcHandlerStatus_string(result.handler_status);
+    char *server_status = RpcServerStatus_string(result.server_status);
+
+    snprintf(RpcClientResult_string_buf, sizeof(RpcClientResult_string_buf),
+             "RPC(%s, %s, %s)", status, server_status, handler_status);
+    return RpcClientResult_string_buf;
 }
