@@ -3,18 +3,19 @@
 // Handlers for RPC calls can be added to a hash-table mapping the operation-byte to
 // handler functions. This saves memory compared to a complete 256-entry table.
 
-#include <kernel/twi/rpc/twi_rpc.h>
+#include "server_handler.h"
+#include <kernel/kernel_init.h>
 
 #define HASH_FUNCTION HASH_SAX // Use other function to operate with short keys.
 #include <uthash/uthash.h>
 
 // This function is always implemented through a *_handler() function
 // created by one of the macros below.
-typedef void TwiRpcFunction(TWIBuffer *buffer);
+typedef RpcHandlerStatus TwiRpcHandlerFunction(TWIBuffer *buffer);
 
 typedef struct {
 	byte operation; // The hash-key
-	TwiRpcFunction *associatedFunction;
+	TwiRpcHandlerFunction *handlerFunction;
 	UT_hash_handle hh;
 } TwiFunction, *PTwiFunction;
 
@@ -23,7 +24,7 @@ extern PTwiFunction twiRpcFunctions;
 
 // This base-macro defines the global TwiFunction struct and registers
 // it in the hash-table for twi-function-handlers.
-#define TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)						\
+#define TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)					\
 	TwiFunction funcName##_function = { operationByte, funcName##_handler, {0} };	\
 	void funcName##_register_function() {											\
 		/* The second macro parameter 'operation' is the name of the key-field in */\
@@ -32,53 +33,48 @@ extern PTwiFunction twiRpcFunctions;
 	}																				\
 	KERNEL_INIT(funcName##_register_function)
 
-// Function funcName must have signature:
-// void funcName(ArgStruct *args, uint16_t argSize, TWIBuffer *resultBuffer);
-// The arguments reside in the same buffer as the results, so must be read first.
+// Signature: RpcHandlerStatus funcName(ArgStruct *args, uint16_t argSize, TWIBuffer *resultBuffer)
 #define TWI_RPC_SERVER_FUNCTION(funcName, operationByte, ArgStruct, ResultStruct)	\
-	void funcName##_handler(TWIBuffer *buffer) {									\
-		ArgStruct *args = (ArgStruct*) buffer->data;								\
-		funcName(args, buffer->size, buffer);										\
+	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {						\
+        ArgStruct *args = (ArgStruct*) alloca(buffer->size);                        \
+        memcpy(args, buffer->data, buffer->size);                                   \
+		return funcName(args, buffer->size, buffer);								\
 	}																				\
-	TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
+	TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)
 
-// Signature: void funcName(ArgStruct *args, uint16_t size)
+// Signature: RpcHandlerStatus funcName(ArgStruct *args, uint16_t size)
 #define TWI_RPC_SERVER_FUNCTION_VOID(funcName, operationByte, ArgStruct)	\
-	void funcName##_handler(TWIBuffer *buffer) {							\
-		funcName((ArgStruct*) buffer->data, buffer->size);					\
+	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {				\
 		buffer->size = 0;													\
+        return funcName((ArgStruct*) buffer->data, buffer->size);			\
 	}																		\
-	TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
+	TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)
 
-// Signature: void funcName(TWIBuffer *resultBuffer)
+// Signature: RpcHandlerStatus funcName(TWIBuffer *resultBuffer)
 #define TWI_RPC_SERVER_FUNCTION_NOARGS(funcName, operationByte, ResultStruct)		\
-	void funcName##_handler(TWIBuffer *buffer) {									\
-		funcName(buffer);															\
+	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {						\
+		return funcName(buffer);													\
 	}																				\
-	TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
+	TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)
 
-// Signature: void funcName()
+// Signature: RpcHandlerStatus funcName()
 #define TWI_RPC_SERVER_FUNCTION_NOTIFY(funcName, operationByte)	\
-	void funcName##_handler(TWIBuffer *buffer) {				\
-		funcName();												\
-		buffer->size = 0;										\
+	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {	\
+		buffer->size = 0;                                       \
+        return funcName();										\
 	}															\
-	TWI_RPC_SERVER_FUNCTION_BASE(funcName, operationByte)
-
-// To let applications be source-code compatible to twi_rpc_hash_server_commandQueue.
-#define TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(a, b, c) TWI_RPC_SERVER_FUNCTION_VOID(a, b, c)
-#define TWI_RPC_SERVER_FUNCTION_ASYNC_NOTIFY(a, b) TWI_RPC_SERVER_FUNCTION_NOTIFY(a, b)
+	TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)
 
 // ==
 // Macros for the actual function-implementations.
 // ==
 
 // Fills the buffer with the result, assuming a struct of fixed size is returned.
-#define FILL_RESULT(resultBuffer, result, ResultType)	\
+#define FILL_RESULT(resultBuffer, ResultType, result)	\
 	*(ResultType*) resultBuffer->data = result;			\
 	resultBuffer->size = sizeof(ResultType);
 
 // Fills the buffer with a variable amount of data from the result pointer.
-#define FILL_VAR_RESULT(resultBuffer, result, size)		\
-	memcpy(resultBuffer->data, result, size);			\
-	resultBuffer->size = size;
+#define FILL_VAR_RESULT(resultBuffer, the_size, result)		\
+	memcpy(resultBuffer->data, result, the_size);			\
+	resultBuffer->size = the_size;

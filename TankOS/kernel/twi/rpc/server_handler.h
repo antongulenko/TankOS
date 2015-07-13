@@ -16,8 +16,6 @@ typedef enum {
     TWI_RPC_handler_unknown = 255
 } RpcHandlerStatus;
 
-char *RpcHandlerStatus_string(RpcHandlerStatus handler_status);
-
 #define ILLEGAL_OPERATION 255
 
 // This function is invoked to handle rpc calls coming in from a client/master.

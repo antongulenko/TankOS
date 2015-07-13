@@ -3,8 +3,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-TWIBuffer sendBuffer = { 0, 0 };
-uint16_t sendBufferSize;
+static TWIBuffer sendBuffer = { 0, 0 };
+static uint16_t sendBufferSize;
 
 static RpcClientResult small_buffer_error = { TWI_RPC_call_error_send_buffer_too_small, TWI_RPC_handler_unknown, TWI_RPC_invalid };
 

@@ -7,7 +7,7 @@
 #define TWI_RPC_SERVER_H_
 
 #include <kernel/twi/driver/driver.h>
-#include "status.h"
+#include "server_status.h"
 
 typedef enum {
     TWI_RPC_waiting,

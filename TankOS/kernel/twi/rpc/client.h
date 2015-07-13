@@ -3,7 +3,7 @@
 
 #include <kernel/twi/driver/master.h>
 #include "server_handler.h"
-#include "status.h"
+#include "server_status.h"
 
 typedef enum {
     TWI_RPC_call_success,

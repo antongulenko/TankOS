@@ -1,7 +1,6 @@
 
 #include <unity.h>
-#include <kernel/twi/rpc/status.h>
-#include <kernel/twi/rpc/server_handler.h>
+#include <kernel/twi/rpc/strings.h>
 
 void setUp() {
 }

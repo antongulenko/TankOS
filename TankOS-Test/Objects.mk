@@ -50,5 +50,13 @@ $(eval $(call set_test_objects,kernel/twi/rpc/end_to_end,\
     $(KERNEL)/twi/rpc/client.o ))
 
 $(eval $(call set_test_objects,kernel/twi/rpc/strings,\
-    $(KERNEL)/twi/rpc/strings.o \
+    $(KERNEL)/twi/rpc/strings.o ))
+
+$(eval $(call set_test_objects,kernel/twi/rpc/server_handler_functions,\
+    $(BUILDDIR)/mocks/twi_driver_slave.o \
+    $(BUILDDIR)/mocks/rpc_server.o \
+    $(BUILDDIR)/mocks/twi_end_to_end.o \
+    $(KERNEL)/twi/rpc/server.o \
+    $(KERNEL)/twi/rpc/client.o \
+    $(KERNEL)/twi/rpc/server_handler_functions.kernel.o \
     ))
