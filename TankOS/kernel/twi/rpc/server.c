@@ -3,6 +3,7 @@
 #include "server_handler.h"
 #include "server.h"
 #include <string.h>
+#include <stdio.h>
 
 // The interface in this header is implemented by this module (included only as reference).
 #include <kernel/twi/driver/slave.h>
@@ -125,6 +126,7 @@ static TWIBuffer twi_handleMasterRequest() {
 }
 
 void twi_rpc_server_init(TWIBuffer in_out_buffer) {
+    rpc_server_operation = TWI_RPC_waiting;
 	receiveBuffer = in_out_buffer;
     reset_results();
 	twi_init_slave_callbacks(

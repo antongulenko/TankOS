@@ -58,5 +58,6 @@ TWI_RPC_FUNCTION_PNOTIFY(rpcPNotify, OP_RPC_PNOTIFY)
 // These are "wrong", used in end_to_end.test.c
 TWI_RPC_FUNCTION(rpcNormal_wrongOperation, OP_RPC_PNOTIFY, TestArgStruct, TestResStruct)
 TWI_RPC_FUNCTION(rpcNormal_wrongParameters, OP_RPC_NORMAL, int, TestResStruct)
+TWI_RPC_FUNCTION_PVOID(rpcPVoid_handlerError, OP_RPC_VOID, TestArgStruct)
 
 #endif /* TESTRPCCLIENT_H_ */

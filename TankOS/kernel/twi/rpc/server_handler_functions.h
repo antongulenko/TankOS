@@ -50,8 +50,9 @@ extern PTwiFunction twiRpcFunctions;
 // Signature: RpcHandlerStatus funcName(ArgStruct *args, uint16_t size)
 #define TWI_RPC_SERVER_FUNCTION_VOID(funcName, operationByte, ArgStruct)	\
 	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {				\
-		buffer->size = 0;													\
-        return funcName((ArgStruct*) buffer->data, buffer->size);			\
+        RpcHandlerStatus result = funcName((ArgStruct*) buffer->data, buffer->size);			\
+        buffer->size = 0;	                                                \
+        return result;                                                      \
 	}																		\
 	TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)
 

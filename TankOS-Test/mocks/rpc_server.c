@@ -31,6 +31,9 @@ RpcHandlerStatus server_void_function(TestArgStruct *args, uint16_t size) {
     if (size != sizeof(TestArgStruct))
         return TWI_RPC_handler_illegal_parameters;
     receivedArgs = *args;
+    if (args->arg1 == (int) args->arg2) {
+        return TWI_RPC_handler_error + 20;
+    }
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_VOID(server_void_function, OP_RPC_VOID, TestArgStruct)
