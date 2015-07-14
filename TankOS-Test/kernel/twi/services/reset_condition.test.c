@@ -29,7 +29,7 @@ void setUp() {
 
 void tearDown() {
     assert_correct_status(status);
-    TEST_ASSERT_BITS_MESSAGE(0xffffffff, expectedCondition, condition,
+    TEST_ASSERT_EQUAL_BITS_MESSAGE(expectedCondition, condition,
         "Wrong reset condition bits returned");
 }
 
