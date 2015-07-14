@@ -1,12 +1,11 @@
 /* ==========================================
     Unity Project - A Test Framework for C
-    Copyright (c) 2007 Mike Karlesky, Mark VanderVoord, Greg Williams
+    Copyright (c) 2007-14 Mike Karlesky, Mark VanderVoord, Greg Williams
     [Released under MIT License. Please refer to license.txt for details]
 ========================================== */
 
 #ifndef UNITY_FRAMEWORK_H
 #define UNITY_FRAMEWORK_H
-
 #define UNITY
 
 #include "unity_internals.h"
@@ -14,10 +13,18 @@
 //-------------------------------------------------------
 // Configuration Options
 //-------------------------------------------------------
+// All options described below should be passed as a compiler flag to all files using Unity. If you must add #defines, place them BEFORE the #include above.
 
-// Integers
-//     - Unity assumes 32 bit integers by default
-//     - If your compiler treats ints of a different size, define UNITY_INT_WIDTH
+// Integers/longs/pointers
+//     - Unity attempts to automatically discover your integer sizes
+//       - define UNITY_EXCLUDE_STDINT_H to stop attempting to look in <stdint.h>
+//       - define UNITY_EXCLUDE_LIMITS_H to stop attempting to look in <limits.h>
+//       - define UNITY_EXCLUDE_SIZEOF to stop attempting to use sizeof in macros
+//     - If you cannot use the automatic methods above, you can force Unity by using these options:
+//       - define UNITY_SUPPORT_64
+//       - define UNITY_INT_WIDTH
+//       - UNITY_LONG_WIDTH
+//       - UNITY_POINTER_WIDTH
 
 // Floats
 //     - define UNITY_EXCLUDE_FLOAT to disallow floating point comparisons
@@ -42,21 +49,6 @@
 
 // Parameterized Tests
 //     - you'll want to create a define of TEST_CASE(...) which basically evaluates to nothing
-
-//-------------------------------------------------------
-// Test Running Macros
-//-------------------------------------------------------
-
-#define TEST_PROTECT() (setjmp(Unity.AbortFrame) == 0)
-
-#define TEST_ABORT() {longjmp(Unity.AbortFrame, 1);}
-
-#ifndef RUN_TEST
-#define RUN_TEST(func, line_num) UnityDefaultTestRun(func, #func, line_num)
-#endif
-
-#define TEST_LINE_NUM (Unity.CurrentTestLineNumber)
-#define TEST_IS_IGNORED (Unity.CurrentTestIgnored)
 
 //-------------------------------------------------------
 // Basic Fail and Ignore
@@ -106,7 +98,15 @@
 
 //Integer Ranges (of all sizes)
 #define TEST_ASSERT_INT_WITHIN(delta, expected, actual)                                            UNITY_TEST_ASSERT_INT_WITHIN(delta, expected, actual, __LINE__, NULL)
+#define TEST_ASSERT_INT8_WITHIN(delta, expected, actual)                                           UNITY_TEST_ASSERT_INT8_WITHIN(delta, expected, actual, __LINE__, NULL)
+#define TEST_ASSERT_INT16_WITHIN(delta, expected, actual)                                          UNITY_TEST_ASSERT_INT16_WITHIN(delta, expected, actual, __LINE__, NULL)
+#define TEST_ASSERT_INT32_WITHIN(delta, expected, actual)                                          UNITY_TEST_ASSERT_INT32_WITHIN(delta, expected, actual, __LINE__, NULL)
+#define TEST_ASSERT_INT64_WITHIN(delta, expected, actual)                                          UNITY_TEST_ASSERT_INT64_WITHIN(delta, expected, actual, __LINE__, NULL)
 #define TEST_ASSERT_UINT_WITHIN(delta, expected, actual)                                           UNITY_TEST_ASSERT_UINT_WITHIN(delta, expected, actual, __LINE__, NULL)
+#define TEST_ASSERT_UINT8_WITHIN(delta, expected, actual)                                          UNITY_TEST_ASSERT_UINT8_WITHIN(delta, expected, actual, __LINE__, NULL)
+#define TEST_ASSERT_UINT16_WITHIN(delta, expected, actual)                                         UNITY_TEST_ASSERT_UINT16_WITHIN(delta, expected, actual, __LINE__, NULL)
+#define TEST_ASSERT_UINT32_WITHIN(delta, expected, actual)                                         UNITY_TEST_ASSERT_UINT32_WITHIN(delta, expected, actual, __LINE__, NULL)
+#define TEST_ASSERT_UINT64_WITHIN(delta, expected, actual)                                         UNITY_TEST_ASSERT_UINT64_WITHIN(delta, expected, actual, __LINE__, NULL)
 #define TEST_ASSERT_HEX_WITHIN(delta, expected, actual)                                            UNITY_TEST_ASSERT_HEX32_WITHIN(delta, expected, actual, __LINE__, NULL)
 #define TEST_ASSERT_HEX8_WITHIN(delta, expected, actual)                                           UNITY_TEST_ASSERT_HEX8_WITHIN(delta, expected, actual, __LINE__, NULL)
 #define TEST_ASSERT_HEX16_WITHIN(delta, expected, actual)                                          UNITY_TEST_ASSERT_HEX16_WITHIN(delta, expected, actual, __LINE__, NULL)
@@ -116,6 +116,7 @@
 //Structs and Strings
 #define TEST_ASSERT_EQUAL_PTR(expected, actual)                                                    UNITY_TEST_ASSERT_EQUAL_PTR((expected), (actual), __LINE__, NULL)
 #define TEST_ASSERT_EQUAL_STRING(expected, actual)                                                 UNITY_TEST_ASSERT_EQUAL_STRING(expected, actual, __LINE__, NULL)
+#define TEST_ASSERT_EQUAL_STRING_LEN(expected, actual, len)                                        UNITY_TEST_ASSERT_EQUAL_STRING_LEN(expected, actual, len, __LINE__, NULL)
 #define TEST_ASSERT_EQUAL_MEMORY(expected, actual, len)                                            UNITY_TEST_ASSERT_EQUAL_MEMORY(expected, actual, len, __LINE__, NULL)
 
 //Arrays
@@ -145,6 +146,11 @@
 #define TEST_ASSERT_FLOAT_IS_INF(actual)                                                           UNITY_TEST_ASSERT_FLOAT_IS_INF(actual, __LINE__, NULL)
 #define TEST_ASSERT_FLOAT_IS_NEG_INF(actual)                                                       UNITY_TEST_ASSERT_FLOAT_IS_NEG_INF(actual, __LINE__, NULL)
 #define TEST_ASSERT_FLOAT_IS_NAN(actual)                                                           UNITY_TEST_ASSERT_FLOAT_IS_NAN(actual, __LINE__, NULL)
+#define TEST_ASSERT_FLOAT_IS_DETERMINATE(actual)                                                   UNITY_TEST_ASSERT_FLOAT_IS_DETERMINATE(actual, __LINE__, NULL)
+#define TEST_ASSERT_FLOAT_IS_NOT_INF(actual)                                                       UNITY_TEST_ASSERT_FLOAT_IS_NOT_INF(actual, __LINE__, NULL)
+#define TEST_ASSERT_FLOAT_IS_NOT_NEG_INF(actual)                                                   UNITY_TEST_ASSERT_FLOAT_IS_NOT_NEG_INF(actual, __LINE__, NULL)
+#define TEST_ASSERT_FLOAT_IS_NOT_NAN(actual)                                                       UNITY_TEST_ASSERT_FLOAT_IS_NOT_NAN(actual, __LINE__, NULL)
+#define TEST_ASSERT_FLOAT_IS_NOT_DETERMINATE(actual)                                               UNITY_TEST_ASSERT_FLOAT_IS_NOT_DETERMINATE(actual, __LINE__, NULL)
 
 //Double (If Enabled)
 #define TEST_ASSERT_DOUBLE_WITHIN(delta, expected, actual)                                         UNITY_TEST_ASSERT_DOUBLE_WITHIN(delta, expected, actual, __LINE__, NULL)
@@ -153,6 +159,11 @@
 #define TEST_ASSERT_DOUBLE_IS_INF(actual)                                                          UNITY_TEST_ASSERT_DOUBLE_IS_INF(actual, __LINE__, NULL)
 #define TEST_ASSERT_DOUBLE_IS_NEG_INF(actual)                                                      UNITY_TEST_ASSERT_DOUBLE_IS_NEG_INF(actual, __LINE__, NULL)
 #define TEST_ASSERT_DOUBLE_IS_NAN(actual)                                                          UNITY_TEST_ASSERT_DOUBLE_IS_NAN(actual, __LINE__, NULL)
+#define TEST_ASSERT_DOUBLE_IS_DETERMINATE(actual)                                                  UNITY_TEST_ASSERT_DOUBLE_IS_DETERMINATE(actual, __LINE__, NULL)
+#define TEST_ASSERT_DOUBLE_IS_NOT_INF(actual)                                                      UNITY_TEST_ASSERT_DOUBLE_IS_NOT_INF(actual, __LINE__, NULL)
+#define TEST_ASSERT_DOUBLE_IS_NOT_NEG_INF(actual)                                                  UNITY_TEST_ASSERT_DOUBLE_IS_NOT_NEG_INF(actual, __LINE__, NULL)
+#define TEST_ASSERT_DOUBLE_IS_NOT_NAN(actual)                                                      UNITY_TEST_ASSERT_DOUBLE_IS_NOT_NAN(actual, __LINE__, NULL)
+#define TEST_ASSERT_DOUBLE_IS_NOT_DETERMINATE(actual)                                              UNITY_TEST_ASSERT_DOUBLE_IS_NOT_DETERMINATE(actual, __LINE__, NULL)
 
 //-------------------------------------------------------
 // Test Asserts (with additional messages)
@@ -192,7 +203,15 @@
 
 //Integer Ranges (of all sizes)
 #define TEST_ASSERT_INT_WITHIN_MESSAGE(delta, expected, actual, message)                           UNITY_TEST_ASSERT_INT_WITHIN(delta, expected, actual, __LINE__, message)
+#define TEST_ASSERT_INT8_WITHIN_MESSAGE(delta, expected, actual, message)                          UNITY_TEST_ASSERT_INT8_WITHIN(delta, expected, actual, __LINE__, message)
+#define TEST_ASSERT_INT16_WITHIN_MESSAGE(delta, expected, actual, message)                         UNITY_TEST_ASSERT_INT16_WITHIN(delta, expected, actual, __LINE__, message)
+#define TEST_ASSERT_INT32_WITHIN_MESSAGE(delta, expected, actual, message)                         UNITY_TEST_ASSERT_INT32_WITHIN(delta, expected, actual, __LINE__, message)
+#define TEST_ASSERT_INT64_WITHIN_MESSAGE(delta, expected, actual, message)                         UNITY_TEST_ASSERT_INT64_WITHIN(delta, expected, actual, __LINE__, message)
 #define TEST_ASSERT_UINT_WITHIN_MESSAGE(delta, expected, actual, message)                          UNITY_TEST_ASSERT_UINT_WITHIN(delta, expected, actual, __LINE__, message)
+#define TEST_ASSERT_UINT8_WITHIN_MESSAGE(delta, expected, actual, message)                         UNITY_TEST_ASSERT_UINT8_WITHIN(delta, expected, actual, __LINE__, message)
+#define TEST_ASSERT_UINT16_WITHIN_MESSAGE(delta, expected, actual, message)                        UNITY_TEST_ASSERT_UINT16_WITHIN(delta, expected, actual, __LINE__, message)
+#define TEST_ASSERT_UINT32_WITHIN_MESSAGE(delta, expected, actual, message)                        UNITY_TEST_ASSERT_UINT32_WITHIN(delta, expected, actual, __LINE__, message)
+#define TEST_ASSERT_UINT64_WITHIN_MESSAGE(delta, expected, actual, message)                        UNITY_TEST_ASSERT_UINT64_WITHIN(delta, expected, actual, __LINE__, message)
 #define TEST_ASSERT_HEX_WITHIN_MESSAGE(delta, expected, actual, message)                           UNITY_TEST_ASSERT_HEX32_WITHIN(delta, expected, actual, __LINE__, message)
 #define TEST_ASSERT_HEX8_WITHIN_MESSAGE(delta, expected, actual, message)                          UNITY_TEST_ASSERT_HEX8_WITHIN(delta, expected, actual, __LINE__, message)
 #define TEST_ASSERT_HEX16_WITHIN_MESSAGE(delta, expected, actual, message)                         UNITY_TEST_ASSERT_HEX16_WITHIN(delta, expected, actual, __LINE__, message)
@@ -201,7 +220,7 @@
 
 //Structs and Strings
 #define TEST_ASSERT_EQUAL_PTR_MESSAGE(expected, actual, message)                                   UNITY_TEST_ASSERT_EQUAL_PTR(expected, actual, __LINE__, message)
-#define TEST_ASSERT_EQUAL_STRING_MESSAGE(expected, actual, message)                                UNITY_TEST_ASSERT_EQUAL_STRING(expected, actual, __LINE__, message)
+#define TEST_ASSERT_EQUAL_STRING_LEN_MESSAGE(expected, actual, len, message)                       UNITY_TEST_ASSERT_EQUAL_STRING_LEN(expected, actual, len, __LINE__, message)
 #define TEST_ASSERT_EQUAL_MEMORY_MESSAGE(expected, actual, len, message)                           UNITY_TEST_ASSERT_EQUAL_MEMORY(expected, actual, len, __LINE__, message)
 
 //Arrays
@@ -231,6 +250,11 @@
 #define TEST_ASSERT_FLOAT_IS_INF_MESSAGE(actual, message)                                          UNITY_TEST_ASSERT_FLOAT_IS_INF(actual, __LINE__, message)
 #define TEST_ASSERT_FLOAT_IS_NEG_INF_MESSAGE(actual, message)                                      UNITY_TEST_ASSERT_FLOAT_IS_NEG_INF(actual, __LINE__, message)
 #define TEST_ASSERT_FLOAT_IS_NAN_MESSAGE(actual, message)                                          UNITY_TEST_ASSERT_FLOAT_IS_NAN(actual, __LINE__, message)
+#define TEST_ASSERT_FLOAT_IS_DETERMINATE_MESSAGE(actual, message)                                  UNITY_TEST_ASSERT_FLOAT_IS_DETERMINATE(actual, __LINE__, message)
+#define TEST_ASSERT_FLOAT_IS_NOT_INF_MESSAGE(actual, message)                                      UNITY_TEST_ASSERT_FLOAT_IS_NOT_INF(actual, __LINE__, message)
+#define TEST_ASSERT_FLOAT_IS_NOT_NEG_INF_MESSAGE(actual, message)                                  UNITY_TEST_ASSERT_FLOAT_IS_NOT_NEG_INF(actual, __LINE__, message)
+#define TEST_ASSERT_FLOAT_IS_NOT_NAN_MESSAGE(actual, message)                                      UNITY_TEST_ASSERT_FLOAT_IS_NOT_NAN(actual, __LINE__, message)
+#define TEST_ASSERT_FLOAT_IS_NOT_DETERMINATE_MESSAGE(actual, message)                              UNITY_TEST_ASSERT_FLOAT_IS_NOT_DETERMINATE(actual, __LINE__, message)
 
 //Double (If Enabled)
 #define TEST_ASSERT_DOUBLE_WITHIN_MESSAGE(delta, expected, actual, message)                        UNITY_TEST_ASSERT_DOUBLE_WITHIN(delta, expected, actual, __LINE__, message)
@@ -239,4 +263,11 @@
 #define TEST_ASSERT_DOUBLE_IS_INF_MESSAGE(actual, message)                                         UNITY_TEST_ASSERT_DOUBLE_IS_INF(actual, __LINE__, message)
 #define TEST_ASSERT_DOUBLE_IS_NEG_INF_MESSAGE(actual, message)                                     UNITY_TEST_ASSERT_DOUBLE_IS_NEG_INF(actual, __LINE__, message)
 #define TEST_ASSERT_DOUBLE_IS_NAN_MESSAGE(actual, message)                                         UNITY_TEST_ASSERT_DOUBLE_IS_NAN(actual, __LINE__, message)
+#define TEST_ASSERT_DOUBLE_IS_DETERMINATE_MESSAGE(actual, message)                                 UNITY_TEST_ASSERT_DOUBLE_IS_DETERMINATE(actual, __LINE__, message)
+#define TEST_ASSERT_DOUBLE_IS_NOT_INF_MESSAGE(actual, message)                                     UNITY_TEST_ASSERT_DOUBLE_IS_NOT_INF(actual, __LINE__, message)
+#define TEST_ASSERT_DOUBLE_IS_NOT_NEG_INF_MESSAGE(actual, message)                                 UNITY_TEST_ASSERT_DOUBLE_IS_NOT_NEG_INF(actual, __LINE__, message)
+#define TEST_ASSERT_DOUBLE_IS_NOT_NAN_MESSAGE(actual, message)                                     UNITY_TEST_ASSERT_DOUBLE_IS_NOT_NAN(actual, __LINE__, message)
+#define TEST_ASSERT_DOUBLE_IS_NOT_DETERMINATE_MESSAGE(actual, message)                             UNITY_TEST_ASSERT_DOUBLE_IS_NOT_DETERMINATE(actual, __LINE__, message)
+
+//end of UNITY_FRAMEWORK_H
 #endif
