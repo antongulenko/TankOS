@@ -14,7 +14,17 @@ void init_native_simulation();
 #define _BV(a) (1 << a)
 typedef unsigned int uint32_t;
 typedef unsigned char uint8_t;
+typedef unsigned short uint16_t;
 typedef uint8_t REGISTER;
+
+// == Memory
+// TODO get this right for x86 platforms
+extern uint16_t __brkval;
+extern char __heap_start; // Defined by linker, set in Project.mk to 0x200
+#define RAMEND 0xffff
+#define RAMSTART 0x100
+#define __malloc_heap_end RAMEND
+#define __malloc_heap_start &__heap_start
 
 // == delay
 void _delay_ms(double ms);

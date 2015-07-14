@@ -17,7 +17,13 @@ TWI_RPC_SERVER_FUNCTION_NOARGS(query_milliseconds_handler, QUERY_MILLISECONDS_OP
 
 static RpcHandlerStatus do_hardware_reset_handler() {
     HARDWARE_RESET();
-    // This should never really return...
+    // This should never really return.
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_NOTIFY(do_hardware_reset_handler, HARDWARE_RESET_OPERATION)
+
+static RpcHandlerStatus query_memory_info_handler(TWIBuffer *resultBuffer) {
+    FILL_RESULT(resultBuffer, MemoryInfo, memoryInfo());
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION_NOARGS(query_memory_info_handler, QUERY_MEMORY_INFO_OPERATION)

@@ -12,6 +12,6 @@ include Defaults.mk
 
 undefine $(project)_exclusive_platform
 includes += TankOS
-ld_symbols :=
+ld_symbols := __heap_start=0x200
 
 include Main.mk

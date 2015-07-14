@@ -1,6 +1,3 @@
-#ifdef AVR
-// Only compiles on Avr platform
-
 #ifndef MEMORY___H_
 #define MEMORY___H_
 
@@ -25,5 +22,15 @@ uint16_t availableDynamicMemory();
 float usedDynamicMemoryF();
 float availableDynamicMemoryF();
 
+typedef struct {
+    uint16_t used_static;
+    uint16_t total_dynamic;
+    uint16_t used_dynamic;
+    uint16_t available_dynamic;
+    float used_dynamic_f;
+    float available_dynamic_f;
+} MemoryInfo;
+
+MemoryInfo memoryInfo();
+
 #endif // MEMORY___H_
-#endif // AVR
