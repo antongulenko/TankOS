@@ -3,7 +3,6 @@
 #include "server_handler.h"
 #include "server.h"
 #include <string.h>
-#include <stdio.h>
 
 // The interface in this header is implemented by this module (included only as reference).
 #include <kernel/twi/driver/slave.h>

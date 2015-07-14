@@ -14,8 +14,6 @@
 
 // TODO rename the twi_error to twi_client_error and twi_server_error?
 
-#include <stdio.h>
-
 void twiSend(TWIDevice targetDevice, TWIBuffer data) {
     twi_error = TWI_No_Error;
     TWIBuffer receiveBuffer = twi_masterTransmissionStarting();

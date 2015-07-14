@@ -46,8 +46,6 @@ float availableDynamicMemoryF() {
 	return availableDynamicMemory() / (float) TotalDynamicMemory;
 }
 
-#include <stdio.h>
-
 MemoryInfo memoryInfo() {
     MemoryInfo info;
     info.used_static = UsedStaticMemory;

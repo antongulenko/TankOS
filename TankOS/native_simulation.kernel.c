@@ -8,8 +8,6 @@
 #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
 #endif
 
-#include <stdio.h>
-
 void init_native_simulation() {
     PCMSK0 = PCMSK1 = PCMSK2 = PCMSK3 = 0;
     PCICR = 0;

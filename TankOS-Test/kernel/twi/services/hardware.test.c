@@ -51,8 +51,6 @@ void test_hardware_reset() {
     TEST_ASSERT_MESSAGE(hardware_reset_triggered, "Hardware reset not triggered");
 }
 
-#include <stdio.h>
-
 void test_memory_info() {
     init_reset_condition();
     __brkval = 0x500;
