@@ -35,7 +35,7 @@ void test_success() {
     assert_client_status(TWI_RPC_call_success, TWI_RPC_no_error, TWI_RPC_handler_ok);
     TEST_ASSERT_EQUAL_INT_MESSAGE(23, res.res0, "Wrong first result");
     TEST_ASSERT_EQUAL_FLOAT_MESSAGE(59.5f, res.res1, "Wrong second result");
-    TEST_ASSERT_EQUAL_STRING_MESSAGE("Ho", res.res2, "Wrong third result");
+    TEST_ASSERT_EQUAL_STRING("Ho", res.res2);
 }
 
 void test_wrong_parameters() {

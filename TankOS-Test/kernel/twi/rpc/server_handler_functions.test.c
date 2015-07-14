@@ -45,7 +45,7 @@ void test_rpc_function() {
 
     TEST_ASSERT_EQUAL_INT_MESSAGE(46, resData.res0, "res0 unexpected value");
     TEST_ASSERT_EQUAL_FLOAT_MESSAGE(11.3, resData.res1, "res1 unexpected value");
-    TEST_ASSERT_EQUAL_STRING_MESSAGE("Ho", resData.res2, "res2 unexpected value");
+    TEST_ASSERT_EQUAL_STRING("Ho", resData.res2);
     TEST_ASSERT_EQUAL_INT_MESSAGE(45, receivedArgs.arg1, "arg1 unexpected value");
     TEST_ASSERT_EQUAL_FLOAT_MESSAGE(8.3, receivedArgs.arg2, "arg2 unexpected value");
 }
@@ -70,7 +70,7 @@ void test_rpc_noargs_function() {
 
     TEST_ASSERT_EQUAL_INT_MESSAGE(defaultResult.res0, resData.res0, "res0 unexpected value");
     TEST_ASSERT_EQUAL_FLOAT_MESSAGE(defaultResult.res1, resData.res1, "res1 unexpected value");
-    TEST_ASSERT_EQUAL_STRING_MESSAGE(defaultResult.res2, resData.res2, "res2 unexpected value");
+    TEST_ASSERT_EQUAL_STRING(defaultResult.res2, resData.res2);
 }
 
 void test_rpc_notify_function() {

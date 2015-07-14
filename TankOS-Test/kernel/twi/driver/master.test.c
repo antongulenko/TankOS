@@ -1,7 +1,7 @@
 
 #include <unity.h>
 #include <kernel/twi/driver/master.h>
-#include "helper.h"
+#include <kernel/twi/driver/helper.h>
 
 void setUp() {
 	twi_tests_setUp();

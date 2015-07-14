@@ -5,7 +5,7 @@
 
 #include <unity.h>
 #include <kernel/twi/driver/slave.h>
-#include "helper.h"
+#include <kernel/twi/driver/helper.h>
 
 int masterRequestCalls;
 int masterTransmissionStartingCalls;
@@ -27,7 +27,7 @@ TWIBuffer twi_masterTransmissionStarting() {
 void twi_masterTransmissionEnded(TWIBuffer buffer) {
 	masterTransmissionEndedCalls++;
 	TEST_ASSERT_EQUAL_PTR_MESSAGE(receiveBuffer.data, buffer.data,
-	"Wrong buffer pointer passed to twi_masterTransmissionEnded()");
+	        "Wrong buffer pointer passed to twi_masterTransmissionEnded()");
 	receiveBuffer = buffer;
 }
 
