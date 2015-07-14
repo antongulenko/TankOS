@@ -1,5 +1,5 @@
 
-#include <kernel/twi/services/reset_condition.h>
+#include <kernel/twi/services/hardware.h>
 #include <kernel/twi/rpc/server.h>
 #include <kernel/twi/rpc/client.h>
 #include <kernel/reset_condition.h>
@@ -33,7 +33,7 @@ void tearDown() {
         "Wrong reset condition bits returned");
 }
 
-void test_query_condition_1() {
+void test_reset_condition_1() {
     MCUSR = _BV(PORF) | _BV(BORF);
     expectedCondition = PowerOnReset | BrownOutReset;
     init_reset_condition();
@@ -41,7 +41,7 @@ void test_query_condition_1() {
     status = query_reset_condition(test_device, &condition);
 }
 
-void test_query_condition_2() {
+void test_reset_condition_2() {
     MCUSR = 0;
     expectedCondition = OtherReset;
     init_reset_condition();

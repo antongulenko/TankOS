@@ -1,5 +1,5 @@
 
-#include "reset_condition.h"
+#include "hardware.h"
 #include <kernel/twi/rpc/server_handler_functions.h>
 
 RpcHandlerStatus query_reset_status_handler(TWIBuffer *resultBuffer) {

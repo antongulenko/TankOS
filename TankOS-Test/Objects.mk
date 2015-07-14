@@ -71,14 +71,14 @@ $(eval $(call set_test_objects,kernel/twi/rpc/end_to_end,\
 $(eval $(call set_test_objects,kernel/twi/rpc/strings,\
     $(KERNEL)/twi/rpc/strings.o ))
 
-$(eval $(call set_test_objects,kernel/twi/services/reset_condition,\
+$(eval $(call set_test_objects,kernel/twi/services/hardware,\
     $(BUILDDIR)/mocks/assertions.o \
     $(BUILDDIR)/mocks/twi_driver_slave.o \
     $(BUILDDIR)/mocks/twi_end_to_end.o \
     $(KERNEL)/reset_condition.kernel.o \
     $(KERNEL)/reset_condition.o \
-    $(KERNEL)/twi/services/reset_condition.o \
-    $(KERNEL)/twi/services/reset_condition.kernel.o \
+    $(KERNEL)/twi/services/hardware.o \
+    $(KERNEL)/twi/services/hardware.kernel.o \
     $(KERNEL)/twi/rpc/strings.o \
     $(KERNEL)/twi/rpc/server.o \
     $(KERNEL)/twi/rpc/client.o \
