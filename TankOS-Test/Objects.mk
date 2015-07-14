@@ -77,6 +77,7 @@ $(eval $(call set_test_objects,kernel/twi/services/hardware,\
     $(BUILDDIR)/mocks/twi_end_to_end.o \
     $(KERNEL)/reset_condition.kernel.o \
     $(KERNEL)/reset_condition.o \
+    $(KERNEL)/millisecond_clock.o \
     $(KERNEL)/twi/services/hardware.o \
     $(KERNEL)/twi/services/hardware.kernel.o \
     $(KERNEL)/twi/rpc/strings.o \

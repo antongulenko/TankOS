@@ -3,6 +3,7 @@
 
 #include <kernel/twi/rpc/client_functions.h>
 #include <kernel/reset_condition.h>
+#include <kernel/millisecond_clock.h>
 
 enum {
     QUERY_RESET_STATUS_OPERATION = 0x01,
