@@ -9,8 +9,6 @@
 #include <mocks/rpc_client.h>
 #include <string.h>
 
-void init_reset_condition(); // kernel/reset_condition.kernel.c
-
 RpcClientResult status;
 ResetCondition expectedCondition;
 ResetCondition condition;

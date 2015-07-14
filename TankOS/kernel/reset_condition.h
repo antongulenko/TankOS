@@ -26,4 +26,6 @@ ResetCondition getResetCondition();
 // Implemented in reset_condition.kernel.c
 uint8_t rawResetConditionByte();
 
+void init_reset_condition();
+
 #endif /* RESET_CONDITION_H_ */
