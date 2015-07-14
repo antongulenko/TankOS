@@ -12,8 +12,7 @@ define set_test_objects
 	objects_$(project)_testrunners/$1.testrunner := \
 		$(UNITY) \
 		$(BUILDDIR)/$1.test.o \
-		$(BUILDDIR)/mocks/port.o \
-		$(BUILDDIR)/mocks/delay.o \
+        $(KERNEL_BASE)/tank_os_common.o \
 		$2
 	ifeq ($(PLATFORM), Native)
 		objects_$(project)_testrunners/$1.testrunner += \

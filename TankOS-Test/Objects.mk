@@ -2,21 +2,31 @@
 include DefaultObjectVariables.mk
 
 $(eval $(call set_test_objects,kernel/devices/port,\
-	$(KERNEL)/devices/port.o))
+    $(BUILDDIR)/mocks/port.o \
+    $(BUILDDIR)/mocks/delay.o \
+	$(KERNEL)/devices/port.o ))
 
 $(eval $(call set_test_objects,kernel/devices/external_interrupts,\
-	$(KERNEL)/devices/external_interrupts.o))
+	$(KERNEL)/devices/external_interrupts.o ))
 
 $(eval $(call set_test_objects,kernel/devices/led,\
-	$(KERNEL)/devices/port.o $(KERNEL)/devices/led.o))
+    $(BUILDDIR)/mocks/port.o \
+    $(BUILDDIR)/mocks/delay.o \
+	$(KERNEL)/devices/port.o \
+    $(KERNEL)/devices/led.o ))
 
 $(eval $(call set_test_objects,kernel/devices/button,\
-	$(KERNEL)/devices/port.o $(KERNEL)/devices/button.o $(KERNEL)/devices/external_interrupts.o))
+    $(BUILDDIR)/mocks/port.o \
+    $(BUILDDIR)/mocks/delay.o \
+	$(KERNEL)/devices/port.o \
+    $(KERNEL)/devices/button.o \
+    $(KERNEL)/devices/external_interrupts.o ))
 
 $(eval $(call set_test_objects,misc/ButtonLoopReader,\
 	$(KERNEL)/devices/port.o \
 	$(KERNEL)/devices/external_interrupts.o \
-	$(MISC)/ButtonLoopReader.o))
+    $(BUILDDIR)/mocks/port.o \
+	$(MISC)/ButtonLoopReader.o ))
 
 $(eval $(call set_test_objects,kernel/twi/driver/master,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \

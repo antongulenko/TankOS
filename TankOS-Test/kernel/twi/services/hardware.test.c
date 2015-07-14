@@ -5,7 +5,6 @@
 #include <kernel/twi/rpc/client.h>
 #include <mocks/rpc_client.h>
 
-#include <native_simulation.h>
 #include <unity.h>
 #include <mocks/assertions.h>
 #include <string.h>

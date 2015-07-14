@@ -1,6 +1,15 @@
 
 #include "native_simulation.h"
 
+void init_native_simulation() {
+    PCMSK0 = PCMSK1 = PCMSK2 = PCMSK3 = 0;
+    PCICR = 0;
+    TWCR = TWDR = TWBR = TWSR = TWAR = TWAMR = 0;
+    MCUSR = 0;
+    hardware_reset_triggered = 0;
+    _interrupts_enabled = 0;
+}
+
 REGISTER PCMSK0, PCMSK1, PCMSK2, PCMSK3;
 REGISTER PCICR;
 
@@ -24,11 +33,12 @@ void cei() {
     _interrupts_enabled = 0;
 }
 
-void sei () {
+void sei() {
     _interrupts_enabled = 1;
 }
 
 void HARDWARE_RESET() {
-    // TODO somehow simluate a more complete hardware reset.
+    init_native_simulation();
     hardware_reset_triggered = 1;
+    MCUSR = _BV(WDRF); // Real HARDWARE_RESET is implemented through Watchdog Timeout
 }

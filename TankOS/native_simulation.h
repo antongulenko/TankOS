@@ -1,6 +1,9 @@
 #ifndef NATIVE_SIMULATION_H_
 #define NATIVE_SIMULATION_H_
 
+// Resets all variables
+void init_native_simulation();
+
 // This is included when we do a native build.
 // Instead of preprocessor-macros for hardware addresses, some registers
 // are simply represented as global data.
