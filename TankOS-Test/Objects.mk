@@ -72,5 +72,15 @@ $(eval $(call set_test_objects,kernel/twi/rpc/strings,\
     $(KERNEL)/twi/rpc/strings.o ))
 
 $(eval $(call set_test_objects,kernel/twi/services/reset_condition,\
+    $(BUILDDIR)/mocks/assertions.o \
+    $(BUILDDIR)/mocks/twi_driver_slave.o \
+    $(BUILDDIR)/mocks/twi_end_to_end.o \
     $(KERNEL)/reset_condition.kernel.o \
-    $(KERNEL)/twi/services/reset_condition.o ))
+    $(KERNEL)/reset_condition.o \
+    $(KERNEL)/twi/services/reset_condition.o \
+    $(KERNEL)/twi/services/reset_condition.kernel.o \
+    $(KERNEL)/twi/rpc/strings.o \
+    $(KERNEL)/twi/rpc/server.o \
+    $(KERNEL)/twi/rpc/client.o \
+    $(KERNEL)/twi/rpc/client_functions.o \
+    $(KERNEL)/twi/rpc/server_handler_functions.kernel.o ))

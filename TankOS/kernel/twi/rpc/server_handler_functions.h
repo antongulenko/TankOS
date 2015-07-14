@@ -39,7 +39,7 @@ extern PTwiFunction twiRpcFunctions;
 	KERNEL_INIT(funcName##_register_function)
 
 // Signature: RpcHandlerStatus funcName(ArgStruct *args, uint16_t argSize, TWIBuffer *resultBuffer)
-#define TWI_RPC_SERVER_FUNCTION(funcName, operationByte, ArgStruct, ResultStruct)	\
+#define TWI_RPC_SERVER_FUNCTION(funcName, operationByte, ArgStruct)	                \
 	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {						\
         ArgStruct *args = (ArgStruct*) alloca(buffer->size);                        \
         memcpy(args, buffer->data, buffer->size);                                   \
@@ -48,16 +48,16 @@ extern PTwiFunction twiRpcFunctions;
 	TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)
 
 // Signature: RpcHandlerStatus funcName(ArgStruct *args, uint16_t size)
-#define TWI_RPC_SERVER_FUNCTION_VOID(funcName, operationByte, ArgStruct)	\
-	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {				\
-        RpcHandlerStatus result = funcName((ArgStruct*) buffer->data, buffer->size);			\
-        buffer->size = 0;	                                                \
-        return result;                                                      \
-	}																		\
+#define TWI_RPC_SERVER_FUNCTION_VOID(funcName, operationByte, ArgStruct)	         \
+	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {				         \
+        RpcHandlerStatus result = funcName((ArgStruct*) buffer->data, buffer->size); \
+        buffer->size = 0;	                                                         \
+        return result;                                                               \
+	}																		         \
 	TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)
 
 // Signature: RpcHandlerStatus funcName(TWIBuffer *resultBuffer)
-#define TWI_RPC_SERVER_FUNCTION_NOARGS(funcName, operationByte, ResultStruct)		\
+#define TWI_RPC_SERVER_FUNCTION_NOARGS(funcName, operationByte)		                \
 	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {						\
 		return funcName(buffer);													\
 	}																				\

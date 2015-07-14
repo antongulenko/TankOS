@@ -3,36 +3,31 @@
  *
  * Created: 28.04.2012 11:05:02
  *  Author: Anton
- */ 
+ */
 
 #include "reset_condition.h"
 
-uint16_t resetStatusBitmask() {
+uint8_t current_reset_status = 0;
+
+ResetCondition getResetCondition() {
 	uint16_t mask = 0;
-	uint8_t status = getResetStatus();
+	uint8_t status = current_reset_status;
 	if (status & _BV(PORF)) {
 		// Power-On-Reset-Flag
-		mask |= _BV(15);
+		mask |= PowerOnReset;
 	}
 	if (status & _BV(WDRF)) {
 		// Watch-Dog-Reset-Flag
-		mask |= _BV(14);
+		mask |= WatchDogReset;
 	}
 	if (status & _BV(BORF)) {
 		// Brown-Out-Reset-Flag
-		mask |= _BV(13);
+		mask |= BrownOutReset;
 	}
-	if (!mask) mask = _BV(12);
+	if (!mask) mask = OtherReset;
 	return mask;
 }
 
-void blink_reset_condition(PLedGroup leds) {
-	disableLeds(leds);
-	blinkLeds(leds, resetStatusBitmask(), 4);
-}
-
-void blink_reset_condition_byte(PLedGroup blinker, PLedGroup notifier) {
-	disableLeds(blinker);
-	disableLeds(notifier);
-	blinkByte(blinker, notifier, getResetStatus());
+uint8_t rawResetConditionByte() {
+	return current_reset_status;
 }

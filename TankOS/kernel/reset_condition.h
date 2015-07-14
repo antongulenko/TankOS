@@ -3,26 +3,27 @@
  *
  * Created: 21.04.2012 14:48:42
  *  Author: Anton
- */ 
+ */
 
 #ifndef RESET_CONDITION_H_
 #define RESET_CONDITION_H_
 
 #include "devices/led.h"
 
-// This requires init_reset_condition.kernel to be part of the kernel.
-uint8_t getResetStatus();
+typedef enum {
+    PowerOnReset = _BV(15),
+    WatchDogReset = _BV(14),
+    BrownOutReset = _BV(13),
+    OtherReset = _BV(12)
+} ResetConditionBit;
 
-// Return a bitmask with the bits set, as described in blink_reset_condition().
-uint16_t resetStatusBitmask();
+typedef uint16_t ResetCondition;
 
-// For ca. a second, indicate with the given LED-group, what caused the current reset.
-// At least 4 LEDs are required, and will be used from the beginning of the array.
-// LED 1: power-down reset, LED 2: Watchdog-reset,
-// LED 3: Brown-Out-reset, LED 4: something else
-void blink_reset_condition(PLedGroup leds);
+// Return a bitmask describing the current reset status.
+ResetCondition getResetCondition();
 
-// Uses blinkByte() from led.h
-void blink_reset_condition_byte(PLedGroup blinker, PLedGroup notifier);
+// Return the raw value of MCUSR read after the last boot.
+// Implemented in reset_condition.kernel.c
+uint8_t rawResetConditionByte();
 
 #endif /* RESET_CONDITION_H_ */

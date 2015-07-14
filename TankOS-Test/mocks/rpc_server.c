@@ -24,7 +24,7 @@ RpcHandlerStatus server_function(TestArgStruct *args, uint16_t argSize, TWIBuffe
     resultBuffer->size += (sizeof(TestResStruct) - sizeof(TestArgStruct));
     return TWI_RPC_handler_ok;
 }
-TWI_RPC_SERVER_FUNCTION(server_function, OP_RPC_NORMAL, TestArgStruct, TestResStruct)
+TWI_RPC_SERVER_FUNCTION(server_function, OP_RPC_NORMAL, TestArgStruct)
 
 RpcHandlerStatus server_void_function(TestArgStruct *args, uint16_t size) {
     received_void = TRUE;
@@ -43,7 +43,7 @@ RpcHandlerStatus server_noargs_function(TWIBuffer *resultBuffer) {
     FILL_RESULT(resultBuffer, TestResStruct, defaultResult)
     return TWI_RPC_handler_ok;
 }
-TWI_RPC_SERVER_FUNCTION_NOARGS(server_noargs_function, OP_RPC_NOARGS, TestResStruct)
+TWI_RPC_SERVER_FUNCTION_NOARGS(server_noargs_function, OP_RPC_NOARGS)
 
 RpcHandlerStatus server_notify_function() {
     received_notify = TRUE;
