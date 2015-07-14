@@ -51,7 +51,7 @@ void test_rpc_function() {
 }
 
 void test_rpc_void_function() {
-    RpcClientResult result = twi_rpc_pseudo_oneway(device, OP_RPC_VOID, sendBuffer);
+    RpcClientResult result = twi_rpc_void(device, OP_RPC_VOID, sendBuffer);
     assert_correct_status(result);
 
     TEST_ASSERT_MESSAGE(received_void, "Routine 'void' not called");
@@ -74,7 +74,7 @@ void test_rpc_noargs_function() {
 }
 
 void test_rpc_notify_function() {
-    RpcClientResult result = twi_rpc_pseudo_oneway(device, OP_RPC_NOTIFY, sendBuffer);
+    RpcClientResult result = twi_rpc_void(device, OP_RPC_NOTIFY, sendBuffer);
     assert_correct_status(result);
 
     TEST_ASSERT_MESSAGE(received_notify, "Routine 'notify' not called");
@@ -82,7 +82,7 @@ void test_rpc_notify_function() {
 }
 
 void test_rpc_real_oneway_function() {
-    RpcClientResult result = twi_rpc_oneway(device, OP_RPC_NOTIFY, sendBuffer);
+    RpcClientResult result = twi_rpc_async(device, OP_RPC_NOTIFY, sendBuffer);
     assert_status(result, (RpcClientResult) { TWI_RPC_call_success_oneway, TWI_RPC_handler_unknown, TWI_RPC_unknown });
 
     TEST_ASSERT_MESSAGE(received_notify, "Routine 'notify' not called");
@@ -90,8 +90,8 @@ void test_rpc_real_oneway_function() {
 }
 
 void test_rpc_real_oneway_function_discarded_response() {
-    twi_rpc_oneway(device, OP_RPC_NOTIFY, sendBuffer);
-    RpcClientResult result = twi_rpc_pseudo_oneway(device, OP_RPC_NOTIFY, sendBuffer);
+    twi_rpc_async(device, OP_RPC_NOTIFY, sendBuffer);
+    RpcClientResult result = twi_rpc_void(device, OP_RPC_NOTIFY, sendBuffer);
 
     assert_status(result, (RpcClientResult) { TWI_RPC_call_success, TWI_RPC_handler_ok, TWI_RPC_previous_response_discarded });
 

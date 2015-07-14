@@ -40,6 +40,9 @@ $(eval $(call set_test_objects,kernel/twi/rpc/server,\
 $(eval $(call set_test_objects,kernel/twi/rpc/client_functions,\
 	$(BUILDDIR)/mocks/twi_driver_master.o \
 	$(BUILDDIR)/mocks/rpc_client.o \
+    $(BUILDDIR)/mocks/assertions.o \
+    $(KERNEL)/twi/rpc/client_functions.o \
+    $(KERNEL)/twi/rpc/strings.o \
 	$(KERNEL)/twi/rpc/client.o ))
 
 $(eval $(call set_test_objects,kernel/twi/rpc/server_handler_functions,\
@@ -60,6 +63,7 @@ $(eval $(call set_test_objects,kernel/twi/rpc/end_to_end,\
     $(BUILDDIR)/mocks/twi_end_to_end.o \
     $(BUILDDIR)/mocks/assertions.o \
     $(KERNEL)/twi/rpc/strings.o \
+    $(KERNEL)/twi/rpc/client_functions.o \
     $(KERNEL)/twi/rpc/server.o \
     $(KERNEL)/twi/rpc/client.o \
     $(KERNEL)/twi/rpc/server_handler_functions.kernel.o ))

@@ -9,9 +9,6 @@
 #include <kernel/twi/driver/driver.h>
 #include "twi_driver_master.h"
 
-#define TWI_DEVICE test_device
-#define TWI_RPC_STATUS_VARIABLE test_rpc_status
-
 #include <kernel/twi/rpc/client_functions.h>
 
 typedef struct TestArgStruct {
@@ -32,12 +29,12 @@ enum {
 	OP_RPC_NORMAL,
 	OP_RPC_VOID_VAR,
 	OP_RPC_VOID,
-	OP_RPC_PVOID,
-	OP_RPC_PVOID_VAR,
+	OP_RPC_ASYNC,
+	OP_RPC_ASYNC_VAR,
 	OP_RPC_NOARGS,
 	OP_RPC_NOARGS_VAR,
 	OP_RPC_NOTIFY,
-	OP_RPC_PNOTIFY
+	OP_RPC_NOTIFY_ASYNC
 };
 
 // Define one function of each type for the test rpc client
@@ -48,16 +45,16 @@ TWI_RPC_FUNCTION_VARRES(rpcVarRes, OP_RPC_VARRES, TestArgStruct, TestResStruct)
 TWI_RPC_FUNCTION(rpcNormal, OP_RPC_NORMAL, TestArgStruct, TestResStruct)
 TWI_RPC_FUNCTION_VOID_VAR(rpcVoidVar, OP_RPC_VOID_VAR, TestArgStruct)
 TWI_RPC_FUNCTION_VOID(rpcVoid, OP_RPC_VOID, TestArgStruct)
-TWI_RPC_FUNCTION_PVOID(rpcPVoid, OP_RPC_PVOID, TestArgStruct)
-TWI_RPC_FUNCTION_PVOID_VAR(rpcPVoidVar, OP_RPC_PVOID_VAR, TestArgStruct)
+TWI_RPC_FUNCTION_ASYNC(rpcAsync, OP_RPC_ASYNC, TestArgStruct)
+TWI_RPC_FUNCTION_ASYNC_VAR(rpcAsyncVar, OP_RPC_ASYNC_VAR, TestArgStruct)
 TWI_RPC_FUNCTION_NOARGS(rpcNoargs, OP_RPC_NOARGS, TestResStruct)
 TWI_RPC_FUNCTION_NOARGS_VAR(rpcNoargsVar, OP_RPC_NOARGS_VAR, TestResStruct)
 TWI_RPC_FUNCTION_NOTIFY(rpcNotify, OP_RPC_NOTIFY)
-TWI_RPC_FUNCTION_PNOTIFY(rpcPNotify, OP_RPC_PNOTIFY)
+TWI_RPC_FUNCTION_NOTIFY_ASYNC(rpcNotifyAsync, OP_RPC_NOTIFY_ASYNC)
 
 // These are "wrong", used in end_to_end.test.c
-TWI_RPC_FUNCTION(rpcNormal_wrongOperation, OP_RPC_PNOTIFY, TestArgStruct, TestResStruct)
-TWI_RPC_FUNCTION(rpcNormal_wrongParameters, OP_RPC_NORMAL, int, TestResStruct)
-TWI_RPC_FUNCTION_PVOID(rpcPVoid_handlerError, OP_RPC_VOID, TestArgStruct)
+TWI_RPC_FUNCTION_VOID(rpcNormal_wrongOperation, OP_RPC_ASYNC, TestArgStruct)
+TWI_RPC_FUNCTION_VOID(rpcNormal_wrongParameters, OP_RPC_VOID, int)
+TWI_RPC_FUNCTION_VOID(rpcPVoid_handlerError, OP_RPC_VOID, TestArgStruct)
 
 #endif /* TESTRPCCLIENT_H_ */

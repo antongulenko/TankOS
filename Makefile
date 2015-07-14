@@ -77,6 +77,11 @@ allprojects: $(AllProjects)
 
 clean: $(foreach p, $(AllProjects), clean_$p)
 
+clean_all: clean
+	rm -r .fake_targets
+	rm -r .d
+	find -name testrunners -type d -exec rm -r {} +
+
 projects:
 	@echo Available projects: $(AllProjects)
 

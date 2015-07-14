@@ -25,17 +25,16 @@ typedef struct {
 
 // The contents of the parameters-buffer will be copied into a dedicated buffer
 // before sending the data. This way, the data can (and should) passed into here
-// from the stack. The resultBuffer must be allocated on the heap.
+// from the stack. The resultBuffer will be filled asynchronosouly should be allocated on the heap.
 RpcClientResult twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, TWIBuffer resultBuffer);
 
-// 'oneway' is like a void-function, data is sent to the client and no results
-// are received back (the bus is released after sending the parameters).
-RpcClientResult twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
+// Empty results will be received, in order to receive the server status and sanity check data.
+// This way the server handler will be executed synchronously.
+RpcClientResult twi_rpc_void(TWIDevice device, byte operation, TWIBuffer parameters);
 
-// Acts like a normal oneway operation, but after sending the parameters,
-// an additional START and immediate STOP is transmitted,
-// like an 'empty' argument reception.
-RpcClientResult twi_rpc_pseudo_oneway(TWIDevice device, byte operation, TWIBuffer parameters);
+// No results will be received after transmitting the parameters. No server/handler status will be received,
+// the handler will run asynchronously.
+RpcClientResult twi_rpc_async(TWIDevice device, byte operation, TWIBuffer parameters);
 
 // parameterBuffer is the buffer mentioned in the comment above twi_rpc.
 // It must be big enough to fit all parameters passed to functions in this module,

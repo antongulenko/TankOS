@@ -8,6 +8,7 @@
 #include <kernel/twi/rpc/client_functions.h>
 #include <string.h>
 #include <unity.h>
+#include <mocks/assertions.h>
 
 byte clientLibraryBuffer[100];
 
@@ -20,6 +21,8 @@ BOOL expectingParameters, expectingResults, emptyResults;
 byte expectedOperation;
 RpcHandlerStatus handlerStatus = 31;
 
+RpcClientResult status;
+
 void setUp() {
     // Library initialization
 	fake_twi_driver_master_setUp();
@@ -27,6 +30,7 @@ void setUp() {
     twi_rpc_client_init((TWIBuffer) { clientLibraryBuffer, sizeof(clientLibraryBuffer) });
 
     memset(&results, 0, sizeof(results));
+    memset(&status, 0, sizeof(status));
     memcpy(serverResponse + 2, (char*) &expectedResults, sizeof(expectedResults));
 
 	mock_driver.returnedReceiveData.size = sizeof(serverResponse);
@@ -71,6 +75,7 @@ void tearDown() {
     if (expectingResults) {
         expectedStatus.server_status = TWI_RPC_no_error;
         expectedStatus.status = TWI_RPC_call_success;
+        expectedStatus.handler_status = handlerStatus;
         if (emptyResults) {
             TEST_ASSERT_EQUAL_MESSAGE(3, mock_driver.receiveBuffer.size,
                 "Wrong size of data was received from server.");
@@ -81,13 +86,11 @@ void tearDown() {
     } else {
         expectedStatus.server_status = TWI_RPC_unknown;
         expectedStatus.status = TWI_RPC_call_success_oneway;
+        expectedStatus.handler_status = TWI_RPC_handler_unknown;
         TEST_ASSERT_EQUAL_MESSAGE(0, mock_driver.receiveBuffer.size,
             "Data was received unexpectedly.");
     }
-    TEST_ASSERT_EQUAL_MESSAGE(expectedStatus.status, test_rpc_status.status,
-            "Unexpected rpc call result status");
-    TEST_ASSERT_EQUAL_MESSAGE(expectedStatus.server_status, test_rpc_status.server_status,
-            "Unexpected rpc call server status");
+    assert_status(expectedStatus, status);
 }
 
 void expect_operation(byte operation) {
@@ -97,7 +100,7 @@ void expect_operation(byte operation) {
     serverResponse[sizeof(serverResponse) - 1] = operation;
 }
 
-void expect_pseudo_operation(byte operation) {
+void expect_void_operation(byte operation) {
     expectedOperation = operation;
     serverResponse[0] = TWI_RPC_no_error;
     serverResponse[1] = handlerStatus;
@@ -107,82 +110,82 @@ void expect_pseudo_operation(byte operation) {
 void test_rpcVar() {
     expectingParameters = expectingResults = TRUE;
     expect_operation(OP_RPC_VAR);
-    rpcVar(&parameters, sizeof(parameters), &results, sizeof(results));
+    status = rpcVar(test_device, &parameters, sizeof(parameters), &results, sizeof(results));
 }
 
 void test_rpcVarArgs() {
     expectingParameters = expectingResults = TRUE;
     expect_operation(OP_RPC_VARARGS);
-    results = rpcVarArgs(&parameters, sizeof(parameters));
+    status = rpcVarArgs(test_device, &parameters, sizeof(parameters), &results);
 }
 
 void test_rpcVarRes() {
     expectingParameters = expectingResults = TRUE;
     expect_operation(OP_RPC_VARRES);
-    rpcVarRes(parameters, &results, sizeof(results));
+    status = rpcVarRes(test_device, parameters, &results, sizeof(results));
 }
 
 void test_rpcNormal() {
     expectingParameters = expectingResults = TRUE;
     expect_operation(OP_RPC_NORMAL);
-    results = rpcNormal(parameters);
+    status = rpcNormal(test_device, parameters, &results);
 }
 
 void test_rpcVoidVar() {
     expectingParameters = TRUE;
-    expectingResults = FALSE;
-    expect_operation(OP_RPC_VOID_VAR);
-    rpcVoidVar(&parameters, sizeof(parameters));
+    expectingResults = TRUE;
+    emptyResults = TRUE;
+    expect_void_operation(OP_RPC_VOID_VAR);
+    status = rpcVoidVar(test_device, &parameters, sizeof(parameters));
 }
 
 void test_rpcVoid() {
     expectingParameters = TRUE;
+    expectingResults = TRUE;
+    emptyResults = TRUE;
+    expect_void_operation(OP_RPC_VOID);
+    status = rpcVoid(test_device, parameters);
+}
+
+void test_rpcAsync() {
+    expectingParameters = TRUE;
     expectingResults = FALSE;
-    expect_operation(OP_RPC_VOID);
-    rpcVoid(parameters);
+    expect_operation(OP_RPC_ASYNC);
+    status = rpcAsync(test_device, parameters);
 }
 
-void test_rpcPVoid() {
+void test_rpcAsyncVar() {
     expectingParameters = TRUE;
-    expectingResults = TRUE;
-    emptyResults = TRUE;
-    expect_pseudo_operation(OP_RPC_PVOID);
-    rpcPVoid(parameters);
-}
-
-void test_rpcPVoidVar() {
-    expectingParameters = TRUE;
-    expectingResults = TRUE;
-    emptyResults = TRUE;
-    expect_pseudo_operation(OP_RPC_PVOID_VAR);
-    rpcPVoidVar(&parameters, sizeof(parameters));
+    expectingResults = FALSE;
+    expect_operation(OP_RPC_ASYNC_VAR);
+    status = rpcAsyncVar(test_device, &parameters, sizeof(parameters));
 }
 
 void test_rpcNoargs() {
     expectingParameters = FALSE;
     expectingResults = TRUE;
     expect_operation(OP_RPC_NOARGS);
-    results = rpcNoargs();
+    status = rpcNoargs(test_device, &results);
 }
 
 void test_rpcNoargsVar() {
     expectingParameters = FALSE;
     expectingResults = TRUE;
     expect_operation(OP_RPC_NOARGS_VAR);
-    rpcNoargsVar(&results, sizeof(results));
+    status = rpcNoargsVar(test_device, &results, sizeof(results));
 }
 
 void test_rpcNotify() {
     expectingParameters = FALSE;
-    expectingResults = FALSE;
-    expect_operation(OP_RPC_NOTIFY);
-    rpcNotify();
-}
-
-void test_rpcPNotify() {
-    expectingParameters = FALSE;
     expectingResults = TRUE;
     emptyResults = TRUE;
-    expect_pseudo_operation(OP_RPC_PNOTIFY);
-    rpcPNotify();
+    expect_void_operation(OP_RPC_NOTIFY);
+    status = rpcNotify(test_device);
+}
+
+void test_rpcNotifyAsync() {
+    expectingParameters = FALSE;
+    expectingResults = FALSE;
+    expect_operation(OP_RPC_NOTIFY_ASYNC);
+    status = rpcNotifyAsync(test_device);
 }

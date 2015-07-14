@@ -91,14 +91,14 @@ void test_rpc_send() {
 void test_rpc_oneway() {
     expectedSend = TRUE; expectedReceive = FALSE;
     prepare_expected_status(TWI_RPC_call_success_oneway, TWI_RPC_unknown, TWI_RPC_handler_unknown);
-	status = twi_rpc_oneway(test_device, operation, parameterBuffer);
+	status = twi_rpc_async(test_device, operation, parameterBuffer);
 }
 
 void test_rpc_pseudo_oneway() {
     expectedSend = expectedReceive = TRUE;
     expect_pseudo_oneway();
     prepare_expected_status(TWI_RPC_call_success, TWI_RPC_no_error, handlerStatus);
-	status = twi_rpc_pseudo_oneway(test_device, operation, parameterBuffer);
+	status = twi_rpc_void(test_device, operation, parameterBuffer);
 }
 
 void test_send_buffer_too_small() {
@@ -116,7 +116,7 @@ void test_send_buffer_too_small_oneway() {
 
     byte big_data[sizeof(clientLibraryBuffer)] = { 1 };
     TWIBuffer big_buffer = (TWIBuffer) { big_data, sizeof(big_data) };
-    status = twi_rpc_oneway(test_device, operation, big_buffer);
+    status = twi_rpc_async(test_device, operation, big_buffer);
 }
 
 void test_send_buffer_too_small_pseudo_oneway() {
@@ -125,7 +125,7 @@ void test_send_buffer_too_small_pseudo_oneway() {
 
     byte big_data[sizeof(clientLibraryBuffer)] = { 1 };
     TWIBuffer big_buffer = (TWIBuffer) { big_data, sizeof(big_data) };
-    status = twi_rpc_pseudo_oneway(test_device, operation, big_buffer);
+    status = twi_rpc_void(test_device, operation, big_buffer);
 }
 
 void test_twi_error() {
@@ -140,7 +140,7 @@ void test_oneway_twi_error() {
     expectedSend = TRUE; expectedReceive = FALSE;
     prepare_expected_status(TWI_RPC_call_error_driver, TWI_RPC_unknown, TWI_RPC_handler_unknown);
     twi_error = TWI_Bus_Error;
-    status = twi_rpc_oneway(test_device, operation, parameterBuffer);
+    status = twi_rpc_async(test_device, operation, parameterBuffer);
 }
 
 void test_pseudo_oneway_twi_error() {
@@ -148,7 +148,7 @@ void test_pseudo_oneway_twi_error() {
     prepare_expected_status(TWI_RPC_call_error_driver, TWI_RPC_invalid, TWI_RPC_handler_unknown);
     expect_pseudo_oneway();
     twi_error = TWI_Bus_Error;
-    status = twi_rpc_pseudo_oneway(test_device, operation, parameterBuffer);
+    status = twi_rpc_void(test_device, operation, parameterBuffer);
 }
 
 void test_server_error() {
@@ -162,7 +162,7 @@ void test_pseudo_oneway_server_error() {
     expectedSend = TRUE; expectedReceive = TRUE;
     prepare_expected_status(TWI_RPC_call_error_server, TWI_RPC_error, handlerStatus);
     expect_pseudo_oneway();
-    status = twi_rpc_pseudo_oneway(test_device, operation, parameterBuffer);
+    status = twi_rpc_void(test_device, operation, parameterBuffer);
 }
 
 void test_wrong_operation_byte() {
@@ -178,5 +178,5 @@ void test_pseudo_oneway_wrong_operation_byte() {
     prepare_expected_status(TWI_RPC_call_error_wrong_operation_byte, TWI_RPC_no_error, handlerStatus);
     expect_pseudo_oneway();
     serverResponseData[2] = 0xdd;
-    status = twi_rpc_pseudo_oneway(test_device, operation, parameterBuffer);
+    status = twi_rpc_void(test_device, operation, parameterBuffer);
 }

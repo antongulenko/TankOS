@@ -58,14 +58,14 @@ static inline RpcClientResult status(TWIBuffer result, byte expectedOperation) {
     return (RpcClientResult) { status, handler_status, server_status };
 }
 
-RpcClientResult twi_rpc_oneway(TWIDevice device, byte operation, TWIBuffer parameters) {
+RpcClientResult twi_rpc_async(TWIDevice device, byte operation, TWIBuffer parameters) {
 	if (!fillSendBuffer(operation, parameters)) return small_buffer_error;
 	twiSend(device, sendBuffer);
     RpcClientStatus status = finalize_status(TWI_RPC_call_success_oneway, TWI_RPC_unknown);
     return (RpcClientResult) { status, TWI_RPC_handler_unknown, TWI_RPC_unknown };
 }
 
-RpcClientResult twi_rpc_pseudo_oneway(TWIDevice device, byte operation, TWIBuffer parameters) {
+RpcClientResult twi_rpc_void(TWIDevice device, byte operation, TWIBuffer parameters) {
 	if (!fillSendBuffer(operation, parameters)) return small_buffer_error;
     byte responseData[3];
     TWIBuffer responseBuffer = { responseData, sizeof(responseData) };
