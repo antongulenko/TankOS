@@ -6,11 +6,15 @@
 // 'Dynamic memory' here includes heap and stack.
 // Values given in bytes.
 
-// This is filled by the linker.
-extern char __heap_start;
+// This header and module require the following defines/variables:
+// DYNAMIC_MEMORY_START - where does the malloc allocation heap start
+// ALLOCATED_HEAP_END - the first address NOT allocated by malloc
+// RAMEND, RAMSTART - start/end of RAM (including static memory)
+// MALLOC_START - like DYNAMIC_MEMORY_START, but used by the malloc implementation
+// MALLOC_END - similar to RAMEND, but might additionally exclude stack memory
 
-#define TotalDynamicMemory (RAMEND - (uint16_t) &__heap_start)
-#define UsedStaticMemory ((uint16_t) &__heap_start - RAMSTART)
+#define TotalDynamicMemory (RAMEND - (uint16_t) DYNAMIC_MEMORY_START)
+#define UsedStaticMemory ((uint16_t) DYNAMIC_MEMORY_START - RAMSTART)
 
 uint16_t usedDynamicMemory();
 

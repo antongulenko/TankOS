@@ -1,13 +1,6 @@
 
 #include "native_simulation.h"
 
-// TODO
-// On x86 the memory handlings are not really correct, but sufficient for unit tests...
-#ifndef AVR
-#pragma GCC diagnostic ignored "-Wpointer-to-int-cast"
-#pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
-#endif
-
 void init_native_simulation() {
     PCMSK0 = PCMSK1 = PCMSK2 = PCMSK3 = 0;
     PCICR = 0;
@@ -15,10 +8,18 @@ void init_native_simulation() {
     MCUSR = 0;
     hardware_reset_triggered = 0;
     _interrupts_enabled = 0;
-    __brkval = (uint16_t) __malloc_heap_start;
+
+    // Some fake values
+    DYNAMIC_MEMORY_START = 0x200;
+    ALLOCATED_HEAP_END = DYNAMIC_MEMORY_START;
+    MALLOC_END = RAMEND - 0x100;
+    MALLOC_START = DYNAMIC_MEMORY_START;
 }
 
-uint16_t __brkval;
+uint16_t DYNAMIC_MEMORY_START;
+uint16_t ALLOCATED_HEAP_END;
+uint16_t MALLOC_END;
+uint16_t MALLOC_START;
 
 REGISTER PCMSK0, PCMSK1, PCMSK2, PCMSK3;
 REGISTER PCICR;

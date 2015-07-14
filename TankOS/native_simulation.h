@@ -18,13 +18,13 @@ typedef unsigned short uint16_t;
 typedef uint8_t REGISTER;
 
 // == Memory
-// TODO get this right for x86 platforms
-extern uint16_t __brkval;
-extern char __heap_start; // Defined by linker, set in Project.mk to 0x200
-#define RAMEND 0xffff
+// TODO use correct values x86 platforms?
+extern uint16_t DYNAMIC_MEMORY_START;
+extern uint16_t ALLOCATED_HEAP_END;
+extern uint16_t MALLOC_END;
+extern uint16_t MALLOC_START;
 #define RAMSTART 0x100
-#define __malloc_heap_end RAMEND
-#define __malloc_heap_start &__heap_start
+#define RAMEND 0xffff
 
 // == delay
 void _delay_ms(double ms);

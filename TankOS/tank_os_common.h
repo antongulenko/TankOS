@@ -24,6 +24,13 @@
 #include <avr/sleep.h>
 #include <avr/wdt.h>
 
+extern char __heap_start;
+extern char *__brkval;
+#define DYNAMIC_MEMORY_START (&__heap_start)
+#define ALLOCATED_HEAP_END __brkval
+#define MALLOC_START __malloc_heap_start
+#define MALLOC_END __malloc_heap_end
+
 #else
 
 // Native test environment

@@ -53,17 +53,21 @@ void test_hardware_reset() {
 
 void test_memory_info() {
     init_reset_condition();
-    __brkval = 0x500;
+    DYNAMIC_MEMORY_START = 0x200;
+    ALLOCATED_HEAP_END = 0x500;
+    MALLOC_END = RAMEND - 0x100;
+    MALLOC_START = DYNAMIC_MEMORY_START + 0x100;
 
     MemoryInfo info;
     RpcClientResult status = query_memory_info(test_device, &info);
     assert_correct_status(status);
 
-    uint16_t total = 0xffff - 0x200;
-    uint16_t used = 0x500 - 0x200 + 2;
-    uint16_t available = 0xffff - 0x500 - 2;
-    TEST_ASSERT_EQUAL_UINT16_MESSAGE(total, info.total_dynamic, "Wrong used dynamic memory reported");
-    TEST_ASSERT_EQUAL_UINT16_MESSAGE(0x200 - 0x100, info.used_static, "Wrong used dynamic memory reported");
+    uint16_t total = RAMEND - DYNAMIC_MEMORY_START;
+    uint16_t used = ALLOCATED_HEAP_END - DYNAMIC_MEMORY_START + 2;
+    uint16_t available = RAMEND - ALLOCATED_HEAP_END - 2;
+
+    TEST_ASSERT_EQUAL_UINT16_MESSAGE(total, info.total_dynamic, "Wrong total dynamic memory reported");
+    TEST_ASSERT_EQUAL_UINT16_MESSAGE(DYNAMIC_MEMORY_START - RAMSTART, info.used_static, "Wrong used static memory reported");
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(used, info.used_dynamic, "Wrong used dynamic memory reported");
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(available, info.available_dynamic, "Wrong available dynamic memory reported");
     TEST_ASSERT_EQUAL_FLOAT_MESSAGE((float) used / (float) total, info.used_dynamic_f, "Wrong used dynamic memory (float) reported");
