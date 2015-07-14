@@ -6,11 +6,13 @@
 #include <kernel/millisecond_clock.h>
 
 enum {
-    QUERY_RESET_STATUS_OPERATION = 0x01,
-    QUERY_MILLISECONDS_OPERATION = 0x02,
+    QUERY_RESET_STATUS_OPERATION = 1,
+    QUERY_MILLISECONDS_OPERATION,
+    HARDWARE_RESET_OPERATION,
 };
 
 TWI_RPC_FUNCTION_NOARGS(query_reset_condition, QUERY_RESET_STATUS_OPERATION, ResetCondition)
 TWI_RPC_FUNCTION_NOARGS(query_milliseconds, QUERY_MILLISECONDS_OPERATION, uint32_t)
+TWI_RPC_FUNCTION_NOTIFY_ASYNC(do_hardware_reset, HARDWARE_RESET_OPERATION) // Async since after reset no reply will be possible
 
 #endif // TWI_SERVICE_HARDWARE_H_

@@ -1,5 +1,5 @@
-#ifndef FAKE_REGISTERS_H_
-#define FAKE_REGISTERS_H_
+#ifndef NATIVE_SIMULATION_H_
+#define NATIVE_SIMULATION_H_
 
 // This is included when we do a native build.
 // Instead of preprocessor-macros for hardware addresses, some registers
@@ -48,6 +48,10 @@ extern REGISTER MCUSR;
 #define PORF 1
 #define BORF 2
 
+// == Hardware reset
+extern uint8_t hardware_reset_triggered;
+void HARDWARE_RESET();
+
 // == TWI
 #define TWIE 0
 #define TWEN 1
@@ -89,7 +93,4 @@ enum {
     TW_MT_ARB_LOST = TW_MR_ARB_LOST, // They are the same in avr-libc
 };
 
-// == Timers
-#define COM0B0
-
-#endif
+#endif // NATIVE_SIMULATION_H_

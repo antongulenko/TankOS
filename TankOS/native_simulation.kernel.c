@@ -8,6 +8,8 @@ REGISTER TWCR, TWDR, TWBR, TWSR, TWAR, TWAMR;
 
 REGISTER MCUSR;
 
+uint8_t hardware_reset_triggered = 0;
+
 void _delay_ms(double ms) {
     // Nothing, just pretend.
 }
@@ -24,4 +26,9 @@ void cei() {
 
 void sei () {
     _interrupts_enabled = 1;
+}
+
+void HARDWARE_RESET() {
+    // TODO somehow simluate a more complete hardware reset.
+    hardware_reset_triggered = 1;
 }

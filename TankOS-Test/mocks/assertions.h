@@ -6,6 +6,7 @@
 
 void assert_status(RpcClientResult expected, RpcClientResult result);
 void assert_correct_status(RpcClientResult result);
+void assert_correct_async_status(RpcClientResult result);
 
 #define TEST_ASSERT_EQUAL_BITS(expected, actual) \
     TEST_ASSERT_BITS(0xffffffff, actual, condition);

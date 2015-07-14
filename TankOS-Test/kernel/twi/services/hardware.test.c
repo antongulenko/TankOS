@@ -44,3 +44,10 @@ void test_milliseconds() {
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(expectedTime, time,
         "Wrong milliseconds value returned");
 }
+
+void test_hardware_reset() {
+    hardware_reset_triggered = 0;
+    RpcClientResult status = do_hardware_reset(test_device);
+    assert_correct_async_status(status);
+    TEST_ASSERT_MESSAGE(hardware_reset_triggered, "Hardware reset not triggered");
+}

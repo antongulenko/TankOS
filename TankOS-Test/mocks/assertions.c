@@ -18,3 +18,7 @@ void assert_status(RpcClientResult expected, RpcClientResult result) {
 void assert_correct_status(RpcClientResult result) {
     assert_status((RpcClientResult) { TWI_RPC_call_success, TWI_RPC_handler_ok, TWI_RPC_no_error }, result);
 }
+
+void assert_correct_async_status(RpcClientResult result) {
+    assert_status((RpcClientResult) { TWI_RPC_call_success_oneway, TWI_RPC_handler_unknown, TWI_RPC_unknown }, result);
+}
