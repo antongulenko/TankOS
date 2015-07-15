@@ -96,3 +96,16 @@ $(eval $(call set_test_objects,kernel/twi/services/hardware,\
     $(KERNEL)/twi/rpc/client.o \
     $(KERNEL)/twi/rpc/client_functions.o \
     $(KERNEL)/twi/rpc/server_handler_functions.kernel.o ))
+
+$(eval $(call set_test_objects,kernel/twi/services/test,\
+    $(BUILDDIR)/mocks/assertions.o \
+    $(BUILDDIR)/mocks/twi_driver_slave.o \
+    $(BUILDDIR)/mocks/twi_end_to_end.o \
+    $(BUILDDIR)/kernel/twi/services/test.o \
+    $(KERNEL)/twi/services/test.o \
+    $(KERNEL)/twi/services/test.kernel.o \
+    $(KERNEL)/twi/rpc/strings.o \
+    $(KERNEL)/twi/rpc/server.o \
+    $(KERNEL)/twi/rpc/client.o \
+    $(KERNEL)/twi/rpc/client_functions.o \
+    $(KERNEL)/twi/rpc/server_handler_functions.kernel.o ))
