@@ -7,7 +7,7 @@
 
 #include "early_init.h"
 
-#define EEPROM_RESET_COUNTER_ADDR ((uint16_t*) 3)
+uint16_t EEMEM eeprom_reset_counter;
 
 // This counter will not be overwritten by software. Upon a hardware reset,
 // the memory section will be cleared to zero, but software resets (jumping to address 0) will keep this intact.
@@ -48,13 +48,13 @@ void increment_software_reset_counter() {
 }
 
 void increment_eeprom_reset_counter() {
-    uint16_t val = eeprom_read_word(EEPROM_RESET_COUNTER_ADDR);
+    uint16_t val = eeprom_read_word(&eeprom_reset_counter);
     val++;
-    eeprom_update_word(EEPROM_RESET_COUNTER_ADDR, val);
+    eeprom_update_word(&eeprom_reset_counter, val);
 }
 
 uint16_t getEepromResets() {
-    return eeprom_read_word(EEPROM_RESET_COUNTER_ADDR);
+    return eeprom_read_word(&eeprom_reset_counter);
 }
 
 void init_reset_condition() {
