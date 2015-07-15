@@ -7,13 +7,13 @@
 
 #include "early_init.h"
 
-#define EEPROM_HARDWARE_RESET_COUNTER ((uint16_t*) 0)
+#define EEPROM_RESET_COUNTER_ADDR ((uint16_t*) 3)
 
 // This counter will not be overwritten by software. Upon a hardware reset,
 // the memory section will be cleared to zero, but software resets (jumping to address 0) will keep this intact.
 uint16_t software_reset_counter __attribute__ ((section (".noinit")));
 
-// To confirm completed initialization, this will be writton to init_mask when main is entered.
+// To confirm completed initialization, this will be writton to __initialization_complete_mask when main is entered.
 #define INIT_MASK_INITIALIZED 0x5a
 
 byte __initialization_complete_mask = 0;
@@ -47,14 +47,14 @@ void increment_software_reset_counter() {
     software_reset_counter++;
 }
 
-void increment_hardware_reset_counter() {
-    uint16_t val = eeprom_read_word(EEPROM_HARDWARE_RESET_COUNTER);
+void increment_eeprom_reset_counter() {
+    uint16_t val = eeprom_read_word(EEPROM_RESET_COUNTER_ADDR);
     val++;
-    eeprom_update_word(EEPROM_HARDWARE_RESET_COUNTER, val);
+    eeprom_update_word(EEPROM_RESET_COUNTER_ADDR, val);
 }
 
-uint16_t getHardwareResets() {
-    return eeprom_read_word(EEPROM_HARDWARE_RESET_COUNTER);
+uint16_t getEepromResets() {
+    return eeprom_read_word(EEPROM_RESET_COUNTER_ADDR);
 }
 
 void init_reset_condition() {

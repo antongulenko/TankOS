@@ -32,14 +32,14 @@ typedef struct {
 } InitStatus;
 
 InitStatus getInitStatus();
-uint16_t getHardwareResets();
+uint16_t getEepromResets();
 
 // This should be called after all kernel initialization is completed, e.g. as first statement in main()
 void initialization_completed();
 
 // These are part of the initialization sequence.
 void init_reset_condition();
-void increment_hardware_reset_counter();
+void increment_eeprom_reset_counter();
 void increment_software_reset_counter();
 
 #endif /* RESET_CONDITION_H_ */

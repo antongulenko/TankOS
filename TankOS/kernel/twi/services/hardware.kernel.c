@@ -34,8 +34,8 @@ static RpcHandlerStatus query_init_status_handler(TWIBuffer *resultBuffer) {
 }
 TWI_RPC_SERVER_FUNCTION_NOARGS(query_init_status_handler, QUERY_INIT_STATUS_OPERATION)
 
-static RpcHandlerStatus query_hardware_resets_handler(TWIBuffer *resultBuffer) {
-    FILL_RESULT(resultBuffer, uint16_t, getHardwareResets());
+static RpcHandlerStatus query_eeprom_resets_handler(TWIBuffer *resultBuffer) {
+    FILL_RESULT(resultBuffer, uint16_t, getEepromResets());
     return TWI_RPC_handler_ok;
 }
-TWI_RPC_SERVER_FUNCTION_NOARGS(query_hardware_resets_handler, QUERY_HARDWARE_RESETS_OPERATION)
+TWI_RPC_SERVER_FUNCTION_NOARGS(query_eeprom_resets_handler, QUERY_EEPROM_RESETS_OPERATION)
