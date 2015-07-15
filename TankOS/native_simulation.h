@@ -106,4 +106,8 @@ enum {
     TW_MT_ARB_LOST = TW_MR_ARB_LOST, // They are the same in avr-libc
 };
 
+// eeprom
+uint16_t eeprom_read_word(uint16_t *addr);
+void eeprom_update_word(uint16_t *addr, uint16_t value);
+
 #endif // NATIVE_SIMULATION_H_

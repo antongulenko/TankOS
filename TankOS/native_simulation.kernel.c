@@ -53,3 +53,15 @@ void HARDWARE_RESET() {
     hardware_reset_triggered = 1;
     MCUSR = _BV(WDRF); // Real HARDWARE_RESET is implemented through Watchdog Timeout
 }
+
+static unsigned char eeprom_data[4096];
+
+uint16_t eeprom_read_word(uint16_t *addr) {
+    #pragma GCC diagnostic ignored "-Wpointer-to-int-cast"
+    return ((uint16_t*) eeprom_data)[(int) addr];
+}
+
+void eeprom_update_word(uint16_t *addr, uint16_t value) {
+    #pragma GCC diagnostic ignored "-Wpointer-to-int-cast"
+    ((uint16_t*) eeprom_data)[(int) addr] = value;
+}

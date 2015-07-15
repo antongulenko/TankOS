@@ -92,8 +92,11 @@ void test_init_status() {
 }
 
 void test_hardware_resets() {
+    uint16_t current = getHardwareResets();
+    increment_hardware_reset_counter();
+    increment_hardware_reset_counter();
     uint16_t resets;
     RpcClientResult status = query_hardware_resets(test_device, &resets);
     assert_correct_status(status);
-    TEST_ASSERT_EQUAL_UINT16_MESSAGE(1, resets, "Wrong hardware resets");
+    TEST_ASSERT_EQUAL_UINT16_MESSAGE(current + 2, resets, "Wrong hardware resets");
 }
