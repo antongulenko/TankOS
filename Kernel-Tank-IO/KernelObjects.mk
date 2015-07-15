@@ -9,18 +9,9 @@ objects += \
 
 ifneq ($(origin USE_TWI), undefined)
 	objects += $(OWN)/tank_IO_server.kernel.o
-	objects += $(KERNEL)/TWI/twi_driver_slave.kernel.o
-	objects += $(KERNEL)/TWI/twi_rpc_slave.kernel.o
-	objects += $(KERNEL)/TWI/twi_rpc_hash_server.kernel.o
-	
-	ifneq ($(origin TWI_COMMAND_QUEUE), undefined)
-		objects += $(KERNEL)/TWI/twi_rpc_hash_server_commandQueue.kernel.o
-		ifneq ($(origin TWI_COMMAND_QUEUE_SLEEP), undefined)
-			objects += $(KERNEL)/TWI/commandQueueExecuter_sleep.kernel.o
-		else
-			objects += $(KERNEL)/TWI/commandQueueExecuter_loop.kernel.o
-		endif
-	endif
+	objects += $(KERNEL)/twi/twi_driver_slave.kernel.o
+	objects += $(KERNEL)/twi/twi_rpc_slave.kernel.o
+	objects += $(KERNEL)/twi/twi_rpc_hash_server.kernel.o
 endif
 
 ifneq ($(origin BUTTON_PIN_CHANGE_INTERRUPTS), undefined)

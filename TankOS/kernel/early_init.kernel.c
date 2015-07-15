@@ -5,18 +5,14 @@
 // a wdt system-reset, which is used by the HARDWARE_RESET() implementation.
 
 #include "kernel_init.h"
-#include "reset_condition.h"
+#include "early_init.h"
 
-extern uint8_t current_reset_status;
-
-void init_reset_condition() {
+static void first_initialization() {
 	// Read and reset the MCU-status-register.
 	// This kernel-file should be included in the very beginning, as MCUSR should
 	// be reset in the very beginning.
-	current_reset_status = MCUSR;
-	MCUSR = 0;
-	#ifdef DISABLE_WDT
-		wdt_disable();
-	#endif
+	init_reset_condition();
+    wdt_disable();
+    increment_software_reset_counter();
 }
-KERNEL_INIT(init_reset_condition)
+KERNEL_INIT(first_initialization)

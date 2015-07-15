@@ -27,3 +27,15 @@ static RpcHandlerStatus query_memory_info_handler(TWIBuffer *resultBuffer) {
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_NOARGS(query_memory_info_handler, QUERY_MEMORY_INFO_OPERATION)
+
+static RpcHandlerStatus query_init_status_handler(TWIBuffer *resultBuffer) {
+    FILL_RESULT(resultBuffer, InitStatus, getInitStatus());
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION_NOARGS(query_init_status_handler, QUERY_INIT_STATUS_OPERATION)
+
+static RpcHandlerStatus query_hardware_resets_handler(TWIBuffer *resultBuffer) {
+    FILL_RESULT(resultBuffer, uint16_t, getHardwareResets());
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION_NOARGS(query_hardware_resets_handler, QUERY_HARDWARE_RESETS_OPERATION)

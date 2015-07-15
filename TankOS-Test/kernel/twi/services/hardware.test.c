@@ -73,3 +73,27 @@ void test_memory_info() {
     TEST_ASSERT_EQUAL_FLOAT_MESSAGE((float) used / (float) total, info.used_dynamic_f, "Wrong used dynamic memory (float) reported");
     TEST_ASSERT_EQUAL_FLOAT_MESSAGE((float) available / (float) total, info.available_dynamic_f, "Wrong available dynamic (float) memory reported");
 }
+
+extern byte __initialization_complete_mask;
+extern uint16_t software_reset_counter;
+
+void test_init_status() {
+    __initialization_complete_mask = 0;
+    software_reset_counter = 0;
+    increment_software_reset_counter();
+    initialization_completed();
+
+    InitStatus result;
+    RpcClientResult status = query_init_status(test_device, &result);
+    assert_correct_status(status);
+
+    TEST_ASSERT_EQUAL_UINT16_MESSAGE(1, result.software_resets, "Wrong software resets");
+    TEST_ASSERT_EQUAL_UINT16_MESSAGE(1, result.initialized, "Not initialized");
+}
+
+void test_hardware_resets() {
+    uint16_t resets;
+    RpcClientResult status = query_hardware_resets(test_device, &resets);
+    assert_correct_status(status);
+    TEST_ASSERT_EQUAL_UINT16_MESSAGE(1, resets, "Wrong hardware resets");
+}

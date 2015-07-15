@@ -85,8 +85,8 @@ $(eval $(call set_test_objects,kernel/twi/services/hardware,\
     $(BUILDDIR)/mocks/assertions.o \
     $(BUILDDIR)/mocks/twi_driver_slave.o \
     $(BUILDDIR)/mocks/twi_end_to_end.o \
-    $(KERNEL)/reset_condition.kernel.o \
-    $(KERNEL)/reset_condition.o \
+    $(KERNEL)/early_init.kernel.o \
+    $(KERNEL)/early_init.o \
     $(MISC)/memory.o \
     $(KERNEL)/millisecond_clock.o \
     $(KERNEL)/twi/services/hardware.o \

@@ -9,7 +9,7 @@
 #define KERNEL_BASE_H_
 
 #include <kernel/millisecond_clock.h>
-#include <kernel/reset_condition.h>
+#include <kernel/early_init.h>
 #include <kernel/processes/mutex/mutex.h>
 #include <kernel/devices/analog_m1284P.h>
 #include <kernel/devices/timer_m1284P.h>
