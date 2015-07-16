@@ -7,7 +7,7 @@ objects += \
 	$(OWN)/tank_led.kernel.o \
 	$(OWN)/tank_button.kernel.o
 
-ifneq ($(origin USE_TWI), undefined)
+ifeq ($(USE_TWI), true)
 	objects += $(KERNEL)/twi/driver/slave.kernel.o
 	objects += $(KERNEL)/twi/rpc/server_handler_functions.kernel.o
     objects += $(OWN)/tank_io_twi.kernel.o

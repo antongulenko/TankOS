@@ -1,14 +1,14 @@
 
 # process_base and process_ext can be used separately, without the scheduler.
-ifneq ($(origin USE_PROCESS_EXT), undefined)
+ifeq ($(USE_PROCESS_EXT), true)
 	objects += $(KERNEL)/processes/process_ext.kernel.o
 else
-ifneq ($(origin USE_PROCESS), undefined)
+ifeq ($(USE_PROCESS), true)
 	objects += $(KERNEL)/processes/process_base.kernel.o
 endif
 endif
 
-ifneq ($(origin USE_SCHEDULER), undefined)
+ifeq ($(origin USE_SCHEDULER), true)
 	objects += $(KERNEL)/processes/scheduler.kernel.o
 	objects += $(SHARED)/scheduler.kernel.o
 else

@@ -5,7 +5,7 @@
 $(project)_exclusive_platform := Avr
 
 includes := $(project)
-ifneq ($(origin dependencies), undefined)
+ifdef dependencies
     includes += $(dependencies)
 else
     dependencies :=
@@ -18,24 +18,29 @@ sources := $(subst $(project)/,,$(sources))
 
 all_objects := $(sources:.c=.o)
 
-undefine tests
+tests :=
 
-ifeq ($(origin LIBRARY), undefined)
+ifeq ($(LIBRARY), true)
+    # Library outputs
+    unused_suffix := kernel
+    outputs := $(project)
+    studio_output := $(project)
+else
     # Linker outputs
     main_sources := $(shell $(FIND) $(project) -name \*.main.c)
     main_sources := $(subst $(project)/,,$(main_sources))
 
-    ifneq ($(origin STUDIO), undefined)
-        ifeq ($(origin MAIN_$(project)), undefined)
+    ifeq ($(STUDIO), true)
+        ifndef MAIN_$(project))
             $(error MAIN_$(project) is not defined!)
         endif
         studio_output := $(MAIN_$(project)).main
     endif
 
-    ifeq ($(origin DONT_LINK_ALL), undefined)
-        outputs := $(subst .c,,$(main_sources))
-    else
+    ifeq ($(DONT_LINK_ALL), true)
         outputs := $(studio_output)
+    else
+        outputs := $(subst .c,,$(main_sources))
     endif
 
     ifneq ($(filter %$(TEST_PROJECT_SUFFIX), $(project)),)
@@ -48,11 +53,6 @@ ifeq ($(origin LIBRARY), undefined)
     tests := $(shell $(FIND) $(project) -name \*.test.c)
     tests := $(subst $(project)/,,$(tests))
     tests := $(subst .test.c,,$(tests))
-else
-    # Library outputs
-    unused_suffix := kernel
-    outputs := $(project)
-    studio_output := $(project)
 endif
 
 # Only non-kernel and non-main objects are linked/archived automatically.

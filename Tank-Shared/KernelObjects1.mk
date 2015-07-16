@@ -13,10 +13,10 @@ objects += \
 	$(KERNEL)/devices/analog.kernel.o \
 	$(KERNEL)/devices/analog_m1284P.kernel.o
 
-ifneq ($(origin USE_BUFFER_STDOUT), undefined)
+ifeq ($(USE_BUFFER_STDOUT), true)
 	objects += $(KERNEL)/buffer_stdout.kernel.o
 endif
 
-ifneq ($(origin USE_TWI), undefined)
+ifeq ($(USE_TWI), true)
 	objects += $(SHARED)/twi.kernel.o
 endif

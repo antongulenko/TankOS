@@ -1,1 +1,1 @@
-undefine dependencies
+dependencies :=

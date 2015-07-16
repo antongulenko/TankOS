@@ -6,31 +6,31 @@ OBJ-DUMP := objdump
 OPTIONAL_SIZE_COMMAND :=
 
 BASE_FLAGS :=  \
-	-std=gnu99 \
-	-fshort-enums \
-	-Wall \
-	-Wno-missing-braces # Generated in Unity/unity.c
+    -std=gnu99 \
+    -fshort-enums \
+    -Wall \
+    -Wno-missing-braces # Generated in Unity/unity.c
 
 # Compile & assemble, do not link yet
 CFLAGS := $(BASE_FLAGS) -c
-ifeq ($(origin NOOPT), undefined)
-	ifeq ($(origin SPEED), undefined)
-		CFLAGS += -Os
-	else
-		CFLAGS += -O3
-	endif
+ifneq ($(NOOPT), true)
+    ifeq ($(SPEED), true)
+        CFLAGS += -O3
+    else
+        CFLAGS += -Os
+    endif
 endif
 
-ifneq ($(origin DEBUG), undefined)
-	CFLAGS += -g3
+ifeq ($(DEBUG), true)
+    CFLAGS += -g3
 endif
 
 LIB_SUFFIX := a
 OS ?=
 ifeq ($(OS),Windows_NT)
-	TARGET_SUFFIX := exe
+    TARGET_SUFFIX := exe
 else
-	TARGET_SUFFIX := out
+    TARGET_SUFFIX := out
 endif
 
 # the start-group/end-group flags cause the linker to handle circular dependencies.
@@ -49,8 +49,8 @@ ARFLAGS := rcs
 
 lss_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.lss)
 
-ifeq ($(origin LIBRARY), undefined)
-ifneq ($(origin LSS), undefined)
-$(project): lss_$(project)
-endif
+ifneq ($(LIBRARY), true)
+    ifeq ($(origin LSS), true)
+        $(project): lss_$(project)
+    endif
 endif

@@ -1,6 +1,6 @@
 
 # The following flags and variables can be defined to affect the behaviour of this Makefile.
-# (flag = variable that is just checked for existence, value irrelevant. Defined like this on the command-line: 'VERBOSE=')
+# (A flag is set if the value is 'true'. Defined like this on the command-line: 'VERBOSE=true')
 # VERBOSE: (flag) Causes make to print all executed shell-commands
 # PLATFORM: String identifying target build-platform. A platform-specific Makefile called Build$(PLATFORM).mk is required.
 #			Defaults to 'Avr'.
@@ -19,41 +19,51 @@
 # DONT_LINK_ALL: (flag) Causes only the main output to be produced, not every possible output. For executable objects, this means the linker is invoked only once.
 # IGNORE_COLORS: (flag) Causes colors to be omitted from the output.
 
+VERBOSE ?= false
+DEBUG ?= false
+SPEED ?= false
+NOOPT ?= false
+STUDIO ?= false
+AUTO_DISCOVER ?= false
+DONT_LINK_ALL ?= false
+IGNORE_COLORS ?= false
+
+MAIN ?=
+PROJ ?=
+MAKECMDGOALS ?=
+
 # Possibility to define global parameters here
 -include make_parameters
 
-# Make sure this is at least defined
-MAKECMDGOALS ?=
-
-ifeq ($(origin VERBOSE), undefined)
+ifneq ($(VERBOSE), true)
     .SILENT:
 endif
 
-ifeq ($(origin PLATFORM), undefined)
+ifndef PLATFORM
     PLATFORM := Avr
 endif
 
-ifneq ($(origin IGNORE_COLORS), undefined)
-    # TODO run $(shell type color &> /dev/null) and check result code
+ifeq ($(IGNORE_COLORS), true)
     COLOR := true
 else
+    # TODO run $(shell type color &> /dev/null) and check result code
     COLOR := color
 endif
 FIND ?= find
 
-ifeq ($(origin AUTO_DISCOVER), undefined)
-    AllProjects := Unity TankOS TankOS-Test Tank-Shared Kernel-Tank-MASTER Kernel-Tank-IO Kernel-Simulator Main-Tank-MASTER Main-Tank-IO Main-Simulator Test-Scheduler
-    ProjectMakefiles := $(foreach p, $(AllProjects), $p/Project.mk)
-else
+ifeq ($(AUTO_DISCOVER), true)
     ProjectMakefiles := $(shell $(FIND) . -maxdepth 2 -name Project.mk)
     AllProjects := $(foreach p, $(ProjectMakefiles), $(shell basename $(shell dirname $p)))
+else
+    AllProjects := Unity TankOS TankOS-Test Tank-Shared Kernel-Tank-MASTER Kernel-Tank-IO Kernel-Simulator Main-Tank-MASTER Main-Tank-IO Main-Simulator Test-Scheduler
+    ProjectMakefiles := $(foreach p, $(AllProjects), $p/Project.mk)
 endif
 
 ALL_PLATFORMS := $(shell $(FIND) . -maxdepth 1 -name Build\*.mk | sed -re 's|./Build(.*).mk|\1|g')
 
 # Include shortcut-commands for the defined project.
 # This is above the all-command, to make the build-command the default if PROJ is defined.
-ifneq ($(origin PROJ), undefined)
+ifdef PROJ
     all: $(PROJ)
     build: $(PROJ)
     hex: hex_$(PROJ)

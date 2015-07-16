@@ -20,17 +20,17 @@ BASE_FLAGS := $(MCUFLAG) \
 
 # Compile & assemble, do not link yet
 CFLAGS := $(BASE_FLAGS) -c
-ifeq ($(origin NOOPT), undefined)
-    ifeq ($(origin SPEED), undefined)
-        CFLAGS += -Os
-    else
+ifneq ($(NOOPT), true)
+    ifeq ($(SPEED), true)
         CFLAGS += -O3
+    else
+        CFLAGS += -Os
     endif
 endif
 
-ifneq ($(origin DEBUG), undefined)
+ifeq ($(DEBUG), true)
     CFLAGS += -g3
-        ifneq ($(origin NOOPT), undefined)
+    ifeq ($(NOOPT), true)
         # The -Wno-cpp is to suppress warnings from <util/delay.h>, that optimizations are disabled and delay() won't work correctly.
         # Alternative (which destroys some debug-information): CFLAGS += -O1
         CFLAGS += -Wno-cpp
@@ -68,18 +68,16 @@ hex_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.hex)
 eep_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.eep)
 lss_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.lss)
 
-ifeq ($(origin LIBRARY), undefined)
+ifneq ($(LIBRARY), true)
     # Aways build the hex-files automatically when linking.
     $(project): hex_$(project)
-    ifneq ($(origin LSS), undefined)
+    ifeq ($(LSS), true)
         $(project): lss_$(project)
     endif
 endif
 
 define OPTIONAL_SIZE_COMMAND
-	-$(COLOR) $(COLOR_SIZE)
-	$(OBJ-SIZE) $$@ -C --mcu=$(MCU) | grep bytes
-	-$(COLOR) off
+    -$(COLOR) $(COLOR_SIZE); $(OBJ-SIZE) $$@ -C --mcu=$(MCU) | grep bytes; $(COLOR) off
 endef
 
 size_$(project)_%: $(BUILDDIR)/%.$(TARGET_SUFFIX)
@@ -92,7 +90,7 @@ size_$(project)_%: $(BUILDDIR)/%.$(TARGET_SUFFIX)
 # =====
 
 # Define these things just once.
-ifeq ($(origin AVRDUDE_COMMAND), undefined)
+ifndef AVRDUDE_COMMAND
 
 # -v : for verbose, -v -v : extra verbose.
 # -n : do not write anything to device
@@ -108,10 +106,10 @@ con:
 endif
 
 define do_flash
-	-$(COLOR) $(COLOR_FLASH)
-	@echo Flashing $2
-	-$(COLOR) off
-	$(AVRDUDE_COMMAND) $1 flash:r:$2
+    -$(COLOR) $(COLOR_FLASH)
+    @echo Flashing $2
+    -$(COLOR) off
+    $(AVRDUDE_COMMAND) $1 flash:r:$2
 endef
 
 flash_$(project)_%: $(BUILDDIR)/%.hex

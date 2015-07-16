@@ -7,13 +7,13 @@ objects += \
 	$(KERNEL)/devices/motor_smooth_pair.kernel.o \
 	$(OWN)/tank_motor.kernel.o
 
-ifneq ($(origin USE_SMOOTH_MOTOR_INTERRUPT), undefined)
+ifeq ($(USE_SMOOTH_MOTOR_INTERRUPT), true)
 	objects += $(SHARED)/motor_smooth_interrupt.kernel.o
 else
 	objects += $(SHARED)/motor_smooth_loop.kernel.o
 endif
 
-ifneq ($(origin USE_TWI), undefined)
+ifeq ($(USE_TWI), true)
 	objects += \
 		$(KERNEL)/TWI/twi_driver.kernel.o \
 		$(KERNEL)/TWI/twi_rpc.kernel.o \

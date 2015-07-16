@@ -1,9 +1,9 @@
 
-undefine LIBRARY
+LIBRARY := false
 project := $(get-basedir)
 include $(project)/Dependencies.mk
 
-undefine STUDIO
+STUDIO := false
 
 include Defaults.mk
 include Tank-Shared/DefaultTankSymbols.mk

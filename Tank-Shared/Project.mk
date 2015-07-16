@@ -1,5 +1,5 @@
 
-LIBRARY :=
+LIBRARY := true
 project := $(get-basedir)
 include $(project)/Dependencies.mk
 

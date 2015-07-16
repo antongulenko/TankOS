@@ -26,17 +26,17 @@ COLOR_GENERATE := faint yellow
 COLOR_TESTS_OK := green
 
 BUILD_DIRNAME := build-$(PLATFORM)
-ifneq ($(origin DEBUG), undefined)
-	BUILD_DIRNAME := $(BUILD_DIRNAME)-debug
+ifeq ($(DEBUG), true)
+    BUILD_DIRNAME := $(BUILD_DIRNAME)-debug
 endif
-ifneq ($(origin NOOPT), undefined)
-	BUILD_DIRNAME := $(BUILD_DIRNAME)-noopt
-	# In case both NOOPT and SPEED have been defined
-	undefine SPEED
+ifeq ($(NOOPT), true)
+    BUILD_DIRNAME := $(BUILD_DIRNAME)-noopt
+    # In case both NOOPT and SPEED have been defined
+    SPEED := false
 else
-	ifneq ($(origin SPEED), undefined)
-		BUILD_DIRNAME := $(BUILD_DIRNAME)-speed
-	endif
+    ifeq ($(SPEED), true)
+        BUILD_DIRNAME := $(BUILD_DIRNAME)-speed
+    endif
 endif
 BUILDDIR := $(project)/$(BUILD_DIRNAME)
 
@@ -86,7 +86,7 @@ dependency_files := $(addprefix $(DEPENDENCY_DIR)/$(project)/, $(sources))
 -include $(project)/Objects.mk
 
 # Handle Unity tests. testrunners are generated.
-ifneq ($(origin tests), undefined)
+ifdef tests
 TEST_RUNNERS_DIR ?= testrunners
 outputs += $(foreach t, $(tests), $(TEST_RUNNERS_DIR)/$t.testrunner)
 $(project)/$(TEST_RUNNERS_DIR)/%.testrunner.c: $(project)/%.test.c
@@ -98,14 +98,14 @@ endif
 
 ATMEL_STUDIO_FOLDER ?= Debug
 
-ifeq ($(origin LIBRARY), undefined)
-	projectoutputs := $(foreach o, $(outputs), $o.$(TARGET_SUFFIX))
-	studiotarget := $(project).$(TARGET_SUFFIX)
-	studio_output := $(studio_output).$(TARGET_SUFFIX)
+ifeq ($(LIBRARY), true)
+    projectoutputs := $(foreach o, $(outputs), lib$o.$(LIB_SUFFIX))
+    studiotarget := lib$(project).$(LIB_SUFFIX)
+    studio_output := lib$(studio_output).$(LIB_SUFFIX)
 else
-	projectoutputs := $(foreach o, $(outputs), lib$o.$(LIB_SUFFIX))
-	studiotarget := lib$(project).$(LIB_SUFFIX)
-	studio_output := lib$(studio_output).$(LIB_SUFFIX)
+    projectoutputs := $(foreach o, $(outputs), $o.$(TARGET_SUFFIX))
+    studiotarget := $(project).$(TARGET_SUFFIX)
+    studio_output := $(studio_output).$(TARGET_SUFFIX)
 endif
 
 studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(studiotarget)
@@ -122,7 +122,7 @@ $(studiotarget): $(BUILDDIR)/$(studio_output)
 	mkdir -p $(@D)
 	cp $< $@
 
-ifneq ($(origin STUDIO), undefined)
+ifeq ($(STUDIO), true)
 $(project): $(studiotarget)
 endif
 
@@ -170,7 +170,7 @@ $(fake)_fullLinkerFlags1 := $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(LI
 $(fake)_fullLinkerFlags2 := $(LDFLAGS_END)
 
 define assign_default_objects
-objects_$(project)_$1 ?= $(objects)
+    objects_$(project)_$1 ?= $(objects)
 endef
 
 define make_output
