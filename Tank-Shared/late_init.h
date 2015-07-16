@@ -1,5 +1,5 @@
-#ifndef _KERNEL_INIT_SHARED_H_
-#define _KERNEL_INIT_SHARED_H_
+#ifndef _LATE_INIT_SHARED_H_
+#define _LATE_INIT_SHARED_H_
 
 #include <tank_os_common.h>
 

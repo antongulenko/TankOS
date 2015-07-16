@@ -1,13 +1,11 @@
 /*
- * scheduler.c
- *
  * Created: 26.04.2012 17:06:02
  *  Author: Anton
- */ 
+ */
 
 #include <tank_os_common.h>
+#include <misc/idle.h>
 #include "scheduler.h"
-#include "../../misc/idle.h"
 #include "scheduler_internal.h"
 
 // This function does not need to be naked or anything, because the process that

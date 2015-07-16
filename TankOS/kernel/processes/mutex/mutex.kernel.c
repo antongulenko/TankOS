@@ -1,6 +1,4 @@
 /*
- * mutex.kernel
- *
  * Created: 26.04.2012 17:06:02
  *  Author: Anton
  */
@@ -22,7 +20,7 @@ void mutex_lock(Mutex mutex) {
 }
 
 BOOL mutex_trylock(Mutex mutex) {
-	// TODO	
+	// TODO
 	return TRUE;
 }
 

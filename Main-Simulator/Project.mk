@@ -6,10 +6,10 @@ include $(project)/Dependencies.mk
 STUDIO:=
 
 include Defaults.mk
+include Tank-Shared/DefaultTankSymbols.mk
 
 undefine USE_TWI
 USE_SCHEDULER :=
 USE_PROCESS_EXT :=
 
-include DefaultTankSymbols.mk
 include Main.mk

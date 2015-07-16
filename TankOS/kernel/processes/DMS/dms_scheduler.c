@@ -1,15 +1,13 @@
 /*
- * dms_scheduler.c
- *
  * Created: 28.04.2012 18:27:00
  *  Author: Anton
- */ 
+ */
 
 #include "dms_api.h"
-#include "../scheduler.h"
-#include "../process_internal.h"
-#include "../process_ext.h"
-#include "../../millisecond_clock.h"
+#include <kernel/processes/scheduler.h>
+#include <kernel/processes/process_internal.h>
+#include <kernel/processes/process_ext.h>
+#include <kernel/millisecond_clock.h>
 
 enum JobType {
 	Periodic,
@@ -21,20 +19,20 @@ typedef struct Job_t {
 	// Two jobs with the same period have to be decided, the second sorting parameter is
 	// a priority given by the user.
 	uint8_t userPriority;
-	
+
 	// This function will be executed each time the job is invoked.
 	JobEntryPoint *entryPoint;
-	
+
 	// Single-Linked list link
 	Process nextJob;
-	
+
 	// For the aperiodic job, this is the minimum period. It is not checked, but if the
 	// job is scheduled more often, the DMS semantics are broken. For periodic jobs, this
 	// is the milliseconds interval between two invokations of the job.
 	uint32_t period;
-	
+
 	void *jobArgument;
-	
+
 	enum JobType jobType;
 } Job, *PJob;
 
@@ -113,7 +111,7 @@ Process dms_schedule(BOOL invokedFromTimer) {
 			current = job->nextJob;
 		}
 	}
-	return Invalid(Process);	
+	return Invalid(Process);
 }
 
 void insertJobIntoList(Process process, PJob job) {
@@ -140,9 +138,9 @@ void insertJobIntoList(Process process, PJob job) {
 				processListHead = process;
 			}
 		}
-	}	
+	}
 }
-	
+
 void initializeJob(Process process, PJob job, JobEntryPoint entryPoint, uint32_t period, uint8_t userPriority) {
 	job->entryPoint = entryPoint;
 	job->userPriority = userPriority;
@@ -218,6 +216,6 @@ void freeJob(Process job) {
 		} else {
 			JobMem(before)->nextJob = JobMem(job)->nextJob;
 		}
-	}		
+	}
 	freeProcess(job);
 }

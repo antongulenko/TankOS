@@ -12,14 +12,14 @@ PTimerPair millisecond_timer;
 PTimer millisecond_timer_A;
 PTimer millisecond_timer_B;
 
-void init_timer() {
+static void init_timer() {
 	setWaveformGenerationMode(millisecond_timer, clear_timer_on_match);
 	setTimerClockSelect(millisecond_timer, prescale_8);
-	
+
 	// --> 8 * 2500 = 20000 @ 20MHz
 	// results in one compare-match every millisecond.
 	#define MILLISECOND_TIMER_VALUE ((uint16_t) 2500)
-	
+
 	setTimerCompareValue(millisecond_timer_A, MILLISECOND_TIMER_VALUE);
 	setTimerCompareValue(millisecond_timer_B, MILLISECOND_TIMER_VALUE);
 }

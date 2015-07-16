@@ -5,7 +5,7 @@
  *  Author: Anton
  */
 
-#include <kernel_init.h>
+#include <kernel/kernel_init.h>
 #include "analog_m1284P.h"
 #include "port_m1284P.h"
 

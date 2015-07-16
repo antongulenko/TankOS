@@ -3,27 +3,27 @@
  *
  * Created: 22.04.2012 17:29:22
  *  Author: Anton
- */ 
+ */
 
 #ifndef MOTOR_SMOOTH_H_
 #define MOTOR_SMOOTH_H_
 
 #include "motor.h"
-#include "../processes/mutex/mutex.h"
+#include <kernel/processes/mutex/mutex.h>
 
 // This struct contains additional data enabling a smoother control
 // over the motor speed.
 typedef struct {
 	PMotor motor; // Using pointer enables to also put PMotor2DirPins here
-	
+
 	// Current state
 	uint16_t currentSpeed;
 	MotorDirection currentDirection;
-	
+
 	// Target state
 	uint16_t targetSpeed;
 	MotorDirection targetDirection;
-	
+
 	// Control data
 	BOOL tickRunning;
 	uint16_t adjustmentStep;

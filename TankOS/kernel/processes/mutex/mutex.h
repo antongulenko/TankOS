@@ -1,14 +1,12 @@
 /*
- * mutex.h
- *
  * Created: 11.02.2012 12:10:15
  *  Author: Anton
- */ 
+ */
 
 #ifndef MUTEX_H_
 #define MUTEX_H_
 
-#include "../../../tank_os_common.h"
+#include <tank_os_common.h>
 
 // Use handle and not defined struct here, to enable multiple implementations.
 DEFINE_HANDLE(Mutex)

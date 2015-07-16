@@ -60,5 +60,3 @@ endif
 default_sources := $(shell $(FIND) $(project) -name \*.c -and -not -name \*.$(unused_suffix).c)
 default_sources := $(subst $(project)/,,$(default_sources))
 objects := $(default_sources:.c=.o)
-
-# TODO uncovered: tests, selective linking for tests

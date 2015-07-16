@@ -1,5 +1,5 @@
 
-include DefaultObjectVariables.mk
+include Tank-Shared/DefaultObjectVariables.mk
 
 $(eval $(call set_test_objects,kernel/devices/port,\
     $(BUILDDIR)/mocks/port.o \

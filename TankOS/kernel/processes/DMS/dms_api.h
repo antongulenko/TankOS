@@ -1,16 +1,14 @@
 /*
- * dms_api.h
- *
  * Created: 16.02.2012 00:33:32
  *  Author: Anton
- */ 
+ */
 
 // #define USE_DMS
 
 #ifndef DMS_API_H_
 #define DMS_API_H_
 
-#include "../process.h"
+#include <kernel/processes/process.h>
 
 typedef void JobEntryPoint(/* void *jobArgument */);
 

@@ -3,7 +3,7 @@
  *
  * Created: 28.04.2012 18:31:06
  *  Author: Anton
- */ 
+ */
 
 #include "rr_api.h"
 
@@ -34,7 +34,7 @@ void insertThreadIntoQueue(Thread thread, ThreadPriority prio) {
 			queue->current = elem;
 		queue->count++;
 		if (prio > highestPrio) highestPrio = prio;
-	}	
+	}
 }
 
 Thread createThread(ThreadEntryPoint entry) {
@@ -64,13 +64,13 @@ Process rr_schedule(BOOL invokedFromTimer) {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		// Lower the top-priority, if necessary. It must be increased at all relevant places!
 		while (highestPrio > 0 && queues[highestPrio].count == 0) highestPrio--;
-		
+
 		PThreadQueue queue = &queues[highestPrio];
-		
+
 		// Nothing to schedule?
 		if (queue->count == 0)
 			return Invalid(Process);
-		
+
 		current = queue->current;
 		current = current->next == NULL ? queue->first : current->next;
 		queue->current = current;

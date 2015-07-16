@@ -5,7 +5,7 @@
  *  Author: Anton
  */ 
 
-#include <kernel_init.h>
+#include <kernel/kernel_init.h>
 #include "timer_m1284P.h"
 
 DEFINE_TIMER_PAIR_IMPL(Timer0)

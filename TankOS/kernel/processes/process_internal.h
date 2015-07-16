@@ -1,9 +1,7 @@
 /*
- * process_internal.h
- *
  * Created: 03.02.2012 16:47:05
  *  Author: Anton
- */ 
+ */
 
 #ifndef PROCESS_INTERNAL_H_
 #define PROCESS_INTERNAL_H_
@@ -25,7 +23,7 @@ typedef struct {
 // The currently active process. Will be set to the first process before entering main(). Can be safely cast to PPCB.
 extern Process __current_process;
 
-// How the program counter (PC) is handled: 
+// How the program counter (PC) is handled:
 // 1. context-switch after interrupt: before executing the ISR, the current PC is pushed onto
 //		the current stack. Now the context is changed (including the stack-pointer) -> the reti-
 //		instruction will pop the PC from the changed stack and return there.

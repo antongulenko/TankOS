@@ -1,8 +1,6 @@
 
 #include <kernel.h>
 
-// Funktioniert.
-
 #include <util/delay.h>
 
 int i = 0;

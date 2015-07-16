@@ -1,9 +1,7 @@
 /*
- * scheduler_internal.h
- *
  * Created: 17.02.2012 00:12:41
  *  Author: Anton
- */ 
+ */
 
 #ifndef SCHEDULER_INTERNAL_H_
 #define SCHEDULER_INTERNAL_H_
@@ -11,7 +9,7 @@
 #include "process_base.h"
 
 // The scheduler or kernel should implement this function. It is not implemented in scheduler.kernel.
-// The parameter will be TRUE if the timer-ISR called the scheduler, and FALSE, if 
+// The parameter will be TRUE if the timer-ISR called the scheduler, and FALSE, if
 // another process did so ('voluntarily').
 extern Process schedule(BOOL invokedFromTimer);
 

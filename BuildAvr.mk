@@ -21,20 +21,20 @@ BASE_FLAGS := $(MCUFLAG) \
 # Compile & assemble, do not link yet
 CFLAGS := $(BASE_FLAGS) -c
 ifeq ($(origin NOOPT), undefined)
-	ifeq ($(origin SPEED), undefined)
-		CFLAGS += -Os
-	else
-		CFLAGS += -O3
-	endif
+    ifeq ($(origin SPEED), undefined)
+        CFLAGS += -Os
+    else
+        CFLAGS += -O3
+    endif
 endif
 
 ifneq ($(origin DEBUG), undefined)
-	CFLAGS += -g3
-	ifneq ($(origin NOOPT), undefined)
-		# The -Wno-cpp is to suppress warnings from <util/delay.h>, that optimizations are disabled and delay() won't work correctly.
-		# Alternative (which destroys some debug-information): CFLAGS += -O1
-		CFLAGS += -Wno-cpp
-	endif
+    CFLAGS += -g3
+        ifneq ($(origin NOOPT), undefined)
+        # The -Wno-cpp is to suppress warnings from <util/delay.h>, that optimizations are disabled and delay() won't work correctly.
+        # Alternative (which destroys some debug-information): CFLAGS += -O1
+        CFLAGS += -Wno-cpp
+    endif
 endif
 
 LIB_SUFFIX := a
@@ -69,11 +69,11 @@ eep_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.eep)
 lss_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.lss)
 
 ifeq ($(origin LIBRARY), undefined)
-	# Aways build the hex-files automatically when linking.
-	$(project): hex_$(project)
-	ifneq ($(origin LSS), undefined)
-		$(project): lss_$(project)
-	endif
+    # Aways build the hex-files automatically when linking.
+    $(project): hex_$(project)
+    ifneq ($(origin LSS), undefined)
+        $(project): lss_$(project)
+    endif
 endif
 
 define OPTIONAL_SIZE_COMMAND

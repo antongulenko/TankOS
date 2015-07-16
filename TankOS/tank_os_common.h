@@ -24,6 +24,7 @@
 #include <avr/sleep.h>
 #include <avr/wdt.h>
 #include <avr/eeprom.h>
+#include <alloca.h>
 
 extern char __heap_start;
 extern char *__brkval;

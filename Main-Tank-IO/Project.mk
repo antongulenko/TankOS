@@ -6,5 +6,5 @@ include $(project)/Dependencies.mk
 undefine STUDIO
 
 include Defaults.mk
-include DefaultTankSymbols.mk
+include Tank-Shared/DefaultTankSymbols.mk
 include Main.mk

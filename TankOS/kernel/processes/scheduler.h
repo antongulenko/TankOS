@@ -1,9 +1,7 @@
 /*
- * scheduler.h
- *
  * Created: 11.02.2012 12:10:15
  *  Author: Anton
- */ 
+ */
 
 #ifndef SCHEDULER_H_
 #define SCHEDULER_H_

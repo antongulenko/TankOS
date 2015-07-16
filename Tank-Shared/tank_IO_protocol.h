@@ -2,8 +2,7 @@
 #define TANK_IO_PROTOCOL_H_
 
 #include <tank_os_common.h>
-
-#define TANK_IO_ADDRESS (11 << 2)
+#include <tank_io_address.h>
 
 // A random value, that is returned by TANK_IO_isInitialized to mean
 // "true". "Random" value to assert correct communication.
@@ -85,12 +84,12 @@ enum {
 	TANK_IO_reset = 0xA0, // () => ()
 	// Returns FALSE, while the IO-controller is not yet operational
 	TANK_IO_isInitialized = 0xA1, // () => uint8_t
-	
+
 	// == Input
 	TANK_IO_buttonStatus = 0xA2, // () => uint8_t
 	// Buttons, that have been pressed since the last call to this.
 	TANK_IO_pressedButtons = 0xA3, // () => uint8_t
-	
+
 	// == Output. Mirrors API of kernel/devices/led.h
 	TANK_IO_enableLed = 0xA4, // SingleLed => ()
 	TANK_IO_disableLed = 0xA5, // SingleLed => ()

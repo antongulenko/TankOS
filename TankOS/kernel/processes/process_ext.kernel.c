@@ -1,9 +1,7 @@
 /*
- * process_ext.kernel
- *
  * Created: 15.02.2012 20:22:31
  *  Author: Anton
- */ 
+ */
 
 // This kernel module includes the module process.kernel.c, so these two modules
 // must not be linked together!
@@ -17,7 +15,7 @@ uint16_t __nextProcessNumber = 1;
 typedef struct {
 	uint16_t processNumber;
 	uint16_t stackSize;
-	
+
 	// The pointer to the stack-buffer for this process. Needed for freeProcess().
 	void *stackTop;
 } PCBExt, *PPCBExt;

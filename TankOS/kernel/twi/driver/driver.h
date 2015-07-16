@@ -3,10 +3,6 @@
 
 #include <tank_os_common.h>
 
-#ifndef TWI_Buffer_Size
-#define TWI_Buffer_Size 512
-#endif
-
 // Since the twi-lines are pulled up, this byte is transmitted by default,
 // even when the Slave switches to not-addressed-mode (stops sending/receiving actively).
 #define TwiIllegalByte 0xff

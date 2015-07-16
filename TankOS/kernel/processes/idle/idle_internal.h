@@ -1,7 +1,7 @@
 #ifndef IDLE_SCHEDULER_INTERNAL_
 #define IDLE_SCHEDULER_INTERNAL_
 
-#include "../process.h"
+#include <kernel/processes/process.h>
 
 void init_idle_scheduler();
 

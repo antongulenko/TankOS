@@ -1,11 +1,9 @@
-#ifndef KERNEL_H_
-#define KERNEL_H_
+#ifndef KERNEL_TANK_IO_H_
+#define KERNEL_TANK_IO_H_
 
 #include <kernel_base.h>
 #include "tank_button.h"
 #include "tank_led.h"
-
-#include <twi_bgx1.h>
-#include <kernel/twi/rpc_hash/command_queue_executor.h>
+#include "tank_io_address.h"
 
 #endif

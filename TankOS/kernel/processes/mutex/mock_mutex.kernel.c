@@ -1,6 +1,4 @@
 /*
- * mock_mutex.kernel
- *
  * Created: 26.04.2012 17:06:02
  *  Author: Anton
  */

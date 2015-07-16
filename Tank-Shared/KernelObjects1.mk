@@ -1,8 +1,10 @@
 
-include DefaultObjectVariables.mk
+include Tank-Shared/DefaultObjectVariables.mk
+SHARED := Tank-Shared/$(BUILD_DIRNAME)
 
 objects += \
     $(KERNEL)/early_init.kernel.o \
+    $(KERNEL)/early_init_eeprom.kernel.o \
 	$(KERNEL)/devices/port_m1284P.kernel.o \
 	$(KERNEL)/devices/timer_m1284P.kernel.o \
 	$(SHARED)/timer.kernel.o \

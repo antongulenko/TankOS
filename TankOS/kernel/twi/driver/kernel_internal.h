@@ -1,6 +1,6 @@
 
 #include "driver.h"
-#include <kernel_init.h>
+#include <kernel/kernel_init.h>
 
 KERNEL_INIT(TWI_INIT_FUNCTION)
 

@@ -140,15 +140,18 @@ $(DEPENDENCY_DIR)/$(project)/%.d: $(fake) $(project)/%.c
 
 ifneq ($(MAKECMDGOALS), clean_$(project))
 ifneq ($(MAKECMDGOALS), clean)
+ifneq ($(MAKECMDGOALS), clean_all)
 
 # Projects can define $(project)_exclusive_platform to suppress dependencies for certain platforms.
 $(project)_exclusive_platform ?=
 skip_dependencies := $(subst $(PLATFORM),,$($(project)_exclusive_platform))
+
 ifndef skip_dependencies
 
 # Include the generated dependency-Makefiles for every source-file (only if not 'clean' is invoked)
 -include $(dependency_files:.c=.d)
 
+endif
 endif
 endif
 endif

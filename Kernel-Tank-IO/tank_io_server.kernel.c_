@@ -13,32 +13,6 @@
 
 #include <tank_IO_protocol.h>
 
-// Define the value needed by twi_driver_slave.kernel.c
-const byte TwiSlaveAddress = TANK_IO_ADDRESS;
-
-byte initialized = 0;
-
-// This is invoked right before main(), see kernel_init.kernel.c
-void kernel_initialized() {
-	initialized = TANK_IO_INITIALIZED;
-}
-
-// ==
-// System
-// ==
-
-void tankIO_server_reset() {
-	initialized = FALSE; // In case the master queries this.
-	HARDWARE_RESET();
-}
-// This is declared ASYNC to cleanly terminate the current TWI-connection.
-TWI_RPC_SERVER_FUNCTION_ASYNC_NOTIFY	(tankIO_server_reset, TANK_IO_reset)
-
-void TANKIO_server_isInitialized(TWIBuffer *result) {
-	FILL_RESULT(result, initialized, BOOL)
-}
-TWI_RPC_SERVER_FUNCTION_NOARGS	(TANKIO_server_isInitialized, TANK_IO_isInitialized, BOOL)
-
 // ==
 // Input
 // ==

@@ -1,4 +1,4 @@
 
 OWN := Kernel-Simulator/$(BUILD_DIRNAME)
-include DefaultKernelObjects1.mk
-include DefaultKernelObjects2.mk
+include Tank-Shared/KernelObjects1.mk
+include Tank-Shared/KernelObjects2.mk

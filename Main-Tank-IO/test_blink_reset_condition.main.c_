@@ -1,8 +1,6 @@
 
 #include <kernel.h>
 
-// Funktioniert.
-
 #include <misc/hardware_reset.h>
 
 int main() {

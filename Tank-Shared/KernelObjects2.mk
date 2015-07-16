@@ -16,5 +16,5 @@ else
 endif
 
 objects += \
-	$(SHARED)/kernel_init_default.kernel.o \
-	$(SHARED)/kernel_init.kernel.o
+	$(SHARED)/late_init_default.kernel.o \
+	$(SHARED)/late_init.kernel.o

@@ -1,6 +1,6 @@
 
 #include "idle_internal.h"
-#include "../process_internal.h"
+#include <kernel/processes/process_internal.h>
 
 Process __idle_process;
 

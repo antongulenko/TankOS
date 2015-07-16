@@ -3,12 +3,12 @@
  *
  * Created: 21.04.2012 19:05:05
  *  Author: Anton
- */ 
+ */
 
 #ifndef RR_API_H_
 #define RR_API_H_
 
-#include "../process.h"
+#include <kernel/processes/process.h>
 
 // In this API, Processes are called Threads.
 DEFINE_HANDLE(Thread)

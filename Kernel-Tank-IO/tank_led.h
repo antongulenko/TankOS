@@ -1,12 +1,10 @@
 /*
- * nibobee_led.h
- *
  * Created: 28.04.2012 00:56:00
  *  Author: Anton
- */ 
+ */
 
-#ifndef NIBOBEE_LED_H_
-#define NIBOBEE_LED_H_
+#ifndef TANK_LED_H_
+#define TANK_LED_H_
 
 #include <kernel/devices/led.h>
 

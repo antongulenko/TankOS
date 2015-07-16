@@ -1,12 +1,10 @@
 /*
- * process_base.h
- *
  * Created: 03.02.2012 16:37:49
  *  Author: Anton
- */ 
+ */
 
-#ifndef PROCESS_API_H_
-#define PROCESS_API_H_
+#ifndef PROCESS_BASE_API_H_
+#define PROCESS_BASE_API_H_
 
 #include <tank_os_common.h>
 
@@ -31,7 +29,7 @@ Process createProcess(ProcessEntryPoint entryPoint);
 // The processArgument pointer will be passed as argument when the process starts.
 // The process-entry-point does not have to define the parameter.
 // If it does not define it, and processArgument is given, it will be ignored.
-// If it defines it, and processArgument is not given (or is given as NULL), it will 
+// If it defines it, and processArgument is not given (or is given as NULL), it will
 // receive a pointer to the process itself.
 Process createProcess2(ProcessEntryPoint entryPoint, void *processArgument);
 
@@ -52,4 +50,4 @@ void *getProcessMemory(Process proc);
 // This should not be used, if a dedicated scheduler is used, the result can be undefined.
 void switchProcess(Process newProcess);
 
-#endif /* PROCESS_API_H_ */
+#endif /* PROCESS_BASE_API_H_ */

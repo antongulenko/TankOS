@@ -3,10 +3,10 @@
  *
  * Created: 02.05.2012 15:44:37
  *  Author: Anton
- */ 
+ */
 
-#ifndef KERNEL_BASE_H_
-#define KERNEL_BASE_H_
+#ifndef KERNEL_BASE_SHARED_H_
+#define KERNEL_BASE_SHARED_H_
 
 #include <kernel/millisecond_clock.h>
 #include <kernel/early_init.h>
