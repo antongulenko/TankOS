@@ -39,6 +39,8 @@ else
             $(error MAIN_$(project) is not defined!)
         endif
         primary_output := $(MAIN_$(project)).main
+    else
+        primary_output := NOT-POSSBILE-FOR-TEST-PROJECTS
     endif
 
     ifeq ($(DONT_LINK_ALL), true)
