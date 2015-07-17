@@ -18,9 +18,6 @@ all_objects := $(sources:.c=.o)
 
 ifneq ($(filter %$(TEST_PROJECT_SUFFIX), $(project)),)
     test_project := true
-    ifeq ($(DONT_LINK_ALL),true)
-        $(error DONT_LINK_ALL cannot be enabled for test project $(project))
-    endif
     # primary_output will not be defined for test projects
 else
     test_project := false
