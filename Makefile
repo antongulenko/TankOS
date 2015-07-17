@@ -19,6 +19,9 @@
 # DONT_LINK_ALL: (flag) Causes only the main output to be produced, not every possible output. For executable objects, this means the linker is invoked only once.
 # IGNORE_COLORS: (flag) Causes colors to be omitted from the output.
 
+# A warning about whitespace: this Makefile (and all included *.mk files) mix tabs and spaces as indentation in order to fullfill GNU make requirements.
+# When editing, make whitespace visible and leave all indentation in their original state!
+
 VERBOSE ?= false
 DEBUG ?= false
 SPEED ?= false
