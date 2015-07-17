@@ -181,7 +181,7 @@ $(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(o
 $(BUILDDIR)/lib$1.$(LIB_SUFFIX): $(fake) $(objects_$(project)_$1) $(dependencies)
 	@echo "$$$$($$(COLOR) $$(COLOR_ARCHIVE))Creating $$@$$$$($$(COLOR) off)"
 	mkdir -p $$($$<_builddir)
-	$(AR) $$($$<_ARFLAGS) -o $$@ $(objects_$(project)_$1)
+	$(AR) $$($$<_ARFLAGS) $$@ $(objects_$(project)_$1)
 endef
 
 $(foreach o, $(outputs), $(eval $(call assign_default_objects,$o)))
