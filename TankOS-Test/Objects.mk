@@ -31,11 +31,13 @@ $(eval $(call set_test_objects,misc/ButtonLoopReader,\
 $(eval $(call set_test_objects,kernel/twi/driver/master,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
+    $(BUILDDIR)/mocks/delay.o \
 	$(KERNEL)/twi/driver/master.o))
 
 $(eval $(call set_test_objects,kernel/twi/driver/slave,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
+    $(BUILDDIR)/mocks/delay.o \
 	$(KERNEL)/twi/driver/master.o \
 	$(KERNEL)/twi/driver/slave.o))
 
