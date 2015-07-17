@@ -8,8 +8,10 @@
 # - all_objects: all objects that are part of the project.
 # - objects: objects that are linked/archived by default, if objects_$(project)_$(output_name) for a given output is not defined.
 # - objects_$(project)_$(output_name): objects that are linked/archived for the given output. Does not necessarily match sources/all_objects.
-# - outputs: filename(s) for linker/archiver-output (without any file-suffix!). In case of library, the project-objects will be archived in these archives. In case of executable project, the linker is invoked for each output, and an object identified by output will be an additional linker input.
-# - studio_output: the one output that will be copied to the Atmel Studio output directory.
+# - outputs: filename(s) for linker/archiver-output (without any file-suffix!).
+#        In case of library, the project-objects will be archived in these archives.
+#        In case of executable project, linker is invoked for each output, and an object identified by output will be an additional linker input.
+# - primary_output: the one output that will be copied to the Atmel Studio output directory.
 # - includes: (optional) list of directories passed to the compiler to look for include-files
 # - dependencies: (optional) list of projects the current project depends on. Used to generate inputs for the linker.
 # - PLATFORM: platform dependent make-script Build$(PLATFOMRM).mk will be included.
@@ -87,25 +89,22 @@ dependency_files := $(addprefix $(DEPENDENCY_DIR)/$(project)/, $(sources))
 
 # Handle Unity tests. testrunners are generated.
 ifdef tests
-TEST_RUNNERS_DIR ?= testrunners
 outputs += $(foreach t, $(tests), $(TEST_RUNNERS_DIR)/$t.testrunner)
 $(project)/$(TEST_RUNNERS_DIR)/%.testrunner.c: $(project)/%.test.c
 	mkdir -p $(@D)
-	@echo $$($(COLOR) $(COLOR_GENERATE))$@$$($(COLOR) off) "(Generated)"
+	@echo "$$($(COLOR) $(COLOR_GENERATE))$@$$($(COLOR) off) (Generated)"
 	ruby Unity/generate_test_runner.rb $< $@
 .PRECIOUS: $(project)/$(TEST_RUNNERS_DIR)/%.testrunner.c
 endif
 
-ATMEL_STUDIO_FOLDER ?= Debug
-
 ifeq ($(LIBRARY), true)
     projectoutputs := $(foreach o, $(outputs), lib$o.$(LIB_SUFFIX))
     studiotarget := lib$(project).$(LIB_SUFFIX)
-    studio_output := lib$(studio_output).$(LIB_SUFFIX)
+    primary_output := lib$(primary_output).$(LIB_SUFFIX)
 else
     projectoutputs := $(foreach o, $(outputs), $o.$(TARGET_SUFFIX))
     studiotarget := $(project).$(TARGET_SUFFIX)
-    studio_output := $(studio_output).$(TARGET_SUFFIX)
+    primary_output := $(primary_output).$(TARGET_SUFFIX)
 endif
 
 studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(studiotarget)
@@ -117,13 +116,15 @@ $(fake)_project := $(project)
 
 $(project): $(projectoutputs) $(all_objects)
 
-$(studiotarget): $(BUILDDIR)/$(studio_output)
-	@echo Copying $$($(COLOR) $(COLOR_COPY))$<$$($(COLOR) off) -> $$($(COLOR) $(COLOR_COPY))$@$$($(COLOR) off)
+$(studiotarget): $(BUILDDIR)/$(primary_output)
+	@echo "Copying $$($(COLOR) $(COLOR_COPY))$<$$($(COLOR) off) -> $$($(COLOR) $(COLOR_COPY))$@$$($(COLOR) off)"
 	mkdir -p $(@D)
 	cp $< $@
 
 ifeq ($(STUDIO), true)
-$(project): $(studiotarget)
+ifneq ($(test_project), true)
+    $(project): $(studiotarget)
+endif
 endif
 
 # From http://www.gnu.org/software/make/manual/make.html#Automatic-Prerequisites
@@ -133,10 +134,9 @@ endif
 # The sed-call fixes the .d-files produced by gcc by prepending the complete path to the .o-files.
 $(DEPENDENCY_DIR)/$(project)/%.d: $(fake) $(project)/%.c
 	mkdir -p $(@D); \
-	set -e; rm -f $@; \
-	$(CC) $($<_depflags) $(word 2, $^) > $@.$$$$; \
-	sed -e 's|.*:|$($<_builddir)/$(subst .d,.o,$(subst $(DEPENDENCY_DIR)/$($<_project)/,,$@)):|' < $@.$$$$ > $@; \
-	rm -f $@.$$$$
+	set -e; \
+	$(CC) $($<_depflags) $(word 2, $^) > $@; \
+	sed -i -e 's|.*:|$($<_builddir)/$(subst .d,.o,$(subst $(DEPENDENCY_DIR)/$($<_project)/,,$@)):|' $@;
 
 ifneq ($(MAKECMDGOALS), clean_$(project))
 ifneq ($(MAKECMDGOALS), clean)
@@ -157,9 +157,7 @@ endif
 endif
 
 $(BUILDDIR)/%.o: $(fake) $(project)/%.c
-	-$(COLOR) $(COLOR_COMPILE)
-	@echo $(word 2, $^)
-	-$(COLOR) off
+	@echo "$$($(COLOR) $(COLOR_COMPILE))$(word 2, $^)$$($(COLOR) off)"
 	mkdir -p $(@D)
 	$(CC) $($<_cflags) -o $@ $(word 2, $^)
 
@@ -175,18 +173,14 @@ endef
 
 define make_output
 $(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(objects_$(project)_$1) $(dependencies) $(dependency_targets)
+	@echo "$$$$($$(COLOR) $$(COLOR_LINK))Linking $$@$$$$($$(COLOR) off)"
 	mkdir -p $$($$<_builddir)
-	-$(COLOR) $(COLOR_LINK)
-	@echo Linking $$@
-	-$(COLOR) off
 	$(CC) $$($$<_fullLinkerFlags1) $(objects_$(project)_$1) $(BUILDDIR)/$1.o $$($$<_fullLinkerFlags2) -Wl,-Map="$$(subst .o,.map,$$(word 2, $$^))" -o $$@
 	$(OPTIONAL_SIZE_COMMAND)
 
 $(BUILDDIR)/lib$1.$(LIB_SUFFIX): $(fake) $(objects_$(project)_$1) $(dependencies)
+	@echo "$$$$($$(COLOR) $$(COLOR_ARCHIVE))Creating $$@$$$$($$(COLOR) off)"
 	mkdir -p $$($$<_builddir)
-	-$(COLOR) $(COLOR_ARCHIVE)
-	@echo Creating $$@
-	-$(COLOR) off
 	$(AR) $$($$<_ARFLAGS) -o $$@ $(objects_$(project)_$1)
 endef
 

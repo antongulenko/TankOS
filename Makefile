@@ -32,6 +32,10 @@ MAIN ?=
 PROJ ?=
 MAKECMDGOALS ?=
 
+ATMEL_STUDIO_FOLDER ?= Debug
+TEST_PROJECT_SUFFIX ?= -Test
+TEST_RUNNERS_DIR ?= testrunners
+
 # Possibility to define global parameters here
 -include make_parameters
 
@@ -52,6 +56,7 @@ endif
 FIND ?= find
 
 ifeq ($(AUTO_DISCOVER), true)
+    # TODO implement auto discovery ordered by dependencies.
     ProjectMakefiles := $(shell $(FIND) . -maxdepth 2 -name Project.mk)
     AllProjects := $(foreach p, $(ProjectMakefiles), $(shell basename $(shell dirname $p)))
 else
@@ -90,9 +95,8 @@ clean: $(foreach p, $(AllProjects), clean_$p)
 clean_all: clean
 	rm -r .fake_targets
 	rm -r .d
-	find -name testrunners -type d -exec rm -r {} +
-	find -name Debug -type d -exec rm -r {} +
-	find -name Release -type d -exec rm -r {} +
+	find -name $(TEST_RUNNERS_DIR) -type d -exec rm -r {} +
+	find -name $(ATMEL_STUDIO_FOLDER) -type d -exec rm -r {} +
 
 projects:
 	@echo Available projects: $(AllProjects)
@@ -111,8 +115,6 @@ $(if $(wildcard Build$(PLATFORM).mk),,$(error Illegal platform $(PLATFORM). Avai
 # Function to query the current makefile. Example: current-makefile = $(call which-makefile)
 which-makefile = $(CURDIR)/$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
 get-basedir = $(shell basename $(shell dirname $(call which-makefile)))
-
-# TODO include the projects ordered by dependencies.
 
 ifneq ($(MAKECMDGOALS), projects)
     ifneq ($(MAKECMDGOALS), platforms)

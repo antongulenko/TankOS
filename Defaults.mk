@@ -11,39 +11,46 @@ else
     dependencies :=
 endif
 
-TEST_PROJECT_SUFFIX ?= -Test
-
 sources := $(shell $(FIND) $(project) -name \*.c)
 sources := $(subst $(project)/,,$(sources))
 
 all_objects := $(sources:.c=.o)
 
+ifneq ($(filter %$(TEST_PROJECT_SUFFIX), $(project)),)
+    test_project := true
+    ifeq ($(DONT_LINK_ALL),true)
+        $(error DONT_LINK_ALL cannot be enabled for test project $(project))
+    endif
+    # primary_output will not be defined for test projects
+else
+    test_project := false
+endif
 tests :=
 
 ifeq ($(LIBRARY), true)
     # Library outputs
     unused_suffix := kernel
     outputs := $(project)
-    studio_output := $(project)
+    primary_output := $(project)
 else
     # Linker outputs
     main_sources := $(shell $(FIND) $(project) -name \*.main.c)
     main_sources := $(subst $(project)/,,$(main_sources))
 
-    ifeq ($(STUDIO), true)
-        ifndef MAIN_$(project))
+    ifneq ($(test_project),true)
+        ifndef MAIN_$(project)
             $(error MAIN_$(project) is not defined!)
         endif
-        studio_output := $(MAIN_$(project)).main
+        primary_output := $(MAIN_$(project)).main
     endif
 
     ifeq ($(DONT_LINK_ALL), true)
-        outputs := $(studio_output)
+        outputs := $(primary_output)
     else
         outputs := $(subst .c,,$(main_sources))
     endif
 
-    ifneq ($(filter %$(TEST_PROJECT_SUFFIX), $(project)),)
+    ifeq ($(test_project),true)
         unused_suffix := testrunner
     else
         unused_suffix := main

@@ -100,16 +100,14 @@ AVRDUDE_COMMAND := avrdude -P usb -c usbasp -p $(MCU)
 
 # This command checks connection to the AVR and prints verbose information.
 con:
-	@echo Connecting to $(MCU)...
+	@echo "Connecting to $(MCU)..."
 	-$(AVRDUDE_COMMAND) -n
 
 endif
 
 define do_flash
-    -$(COLOR) $(COLOR_FLASH)
-    @echo Flashing $2
-    -$(COLOR) off
-    $(AVRDUDE_COMMAND) $1 flash:r:$2
+	@echo "$$($(COLOR) $(COLOR_FLASH))Flashing $2$$($(COLOR) off)"
+	$(AVRDUDE_COMMAND) $1 flash:r:$2
 endef
 
 flash_$(project)_%: $(BUILDDIR)/%.hex
@@ -118,10 +116,10 @@ flash_$(project)_%: $(BUILDDIR)/%.hex
 flashv_$(project)_%: $(BUILDDIR)/%.hex
 	$(call do_flash, -v -v -U, $<)
 
-flash_$(project): $(BUILDDIR)/$(studio_output).hex
+flash_$(project): $(BUILDDIR)/$(primary_output).hex
 	$(call do_flash, -U, $<)
 
-flashv_$(project): $(BUILDDIR)/$(studio_output).hex
+flashv_$(project): $(BUILDDIR)/$(primary_output).hex
 	$(call do_flash, -v -v -U, $<)
 
 .PHONY: flash_$(project) flashv_$(project) con

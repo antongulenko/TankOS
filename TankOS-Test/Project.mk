@@ -6,7 +6,6 @@ include $(project)/Dependencies.mk
 USE_TWI := false
 USE_SCHEDULER := false
 USE_PROCESS_EXT := false
-STUDIO := false
 
 include Defaults.mk
 
