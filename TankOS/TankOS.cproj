@@ -1,0 +1,425 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>6.2</ProjectVersion>
+    <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
+    <ProjectGuid>{21cf85d1-51b1-4141-ab40-75708a6e5661}</ProjectGuid>
+    <avrdevice>ATmega1284P</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>StaticLibrary</OutputType>
+    <Language>C</Language>
+    <OutputFileName>lib$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.a</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AvrGccProjectExtensions>
+    </AvrGccProjectExtensions>
+    <AssemblyName>TankOS</AssemblyName>
+    <Name>TankOS</Name>
+    <RootNamespace>TankOS</RootNamespace>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <CacheFlash>true</CacheFlash>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress />
+    <UncachedRange />
+    <preserveEEPROM>true</preserveEEPROM>
+    <OverrideVtorValue />
+    <BootSegment>2</BootSegment>
+    <eraseonlaunchrule>1</eraseonlaunchrule>
+    <AsfFrameworkConfig>
+      <framework-data xmlns="">
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.21.0" />
+        </dependencies>
+      </framework-data>
+    </AsfFrameworkConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>NDEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>DEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="kernel\" />
+    <Folder Include="kernel\devices\" />
+    <Folder Include="kernel\processes\" />
+    <Folder Include="kernel\processes\DMS\" />
+    <Folder Include="kernel\processes\idle\" />
+    <Folder Include="kernel\processes\mutex\" />
+    <Folder Include="kernel\processes\RoundRobin\" />
+    <Folder Include="kernel\twi\" />
+    <Folder Include="kernel\twi\driver\" />
+    <Folder Include="kernel\twi\rpc\" />
+    <Folder Include="kernel\twi\services\" />
+    <Folder Include="misc\" />
+    <Folder Include="uthash\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="kernel\buffer_stdout.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\analog.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\analog.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\analog.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\analog_m1284P.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\analog_m1284P.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\button.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\button.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\external_interrupts.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\external_interrupts.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\led.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\led.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\motor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\motor_smooth.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\motor_smooth.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\motor_smooth_pair.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\motor_smooth_pair.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\port.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\port.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\port_m1284P.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\port_m1284P.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\timer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\timer_m1284P.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\timer_m1284P.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\early_init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\early_init.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\early_init.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\early_init_eeprom.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\kernel_init.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\millisecond_clock.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\millisecond_clock.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\DMS\dms_api.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\DMS\dms_internal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\DMS\dms_scheduler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\idle\idle_internal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\idle\idle_scheduler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\mutex\atomic_mutex.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\mutex\mock_mutex.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\mutex\mutex.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\mutex\mutex.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\process.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\process_base.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\process_base.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\process_ext.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\process_ext.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\process_internal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\RoundRobin\rr_api.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\RoundRobin\rr_internal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\RoundRobin\rr_scheduler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\scheduler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\scheduler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\scheduler.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\scheduler_internal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\simple_timer.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\sleep_after_main.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\driver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\internal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\kernel_internal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\master.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\master.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\master.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\slave.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\slave.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\slave.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\client.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\client.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\client_functions.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\client_functions.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\server.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\server.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\server_handler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\server_handler_functions.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\server_handler_functions.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\server_status.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\strings.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\strings.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\hardware.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\hardware.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\hardware.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\test.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\test.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\ButtonLoopReader.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\ButtonLoopReader.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\hardware_reset.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\hardware_reset.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\idle.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\idle.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\memory.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\memory.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="native_simulation.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="native_simulation.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_os_common.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_os_common.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uthash\utarray.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uthash\uthash.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uthash\utlist.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="uthash\utstring.h">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="uthash\LICENSE">
+      <SubType>compile</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
+</Project>

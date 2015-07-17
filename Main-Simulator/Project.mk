@@ -2,7 +2,7 @@ LIBRARY := false
 project := $(get-basedir)
 dependencies := TankOS Tank-Shared Kernel-Simulator
 
-MAIN_$(project) ?= test_rr_many
+MAIN_$(project) ?= test_empty
 
 USE_TWI := false
 USE_SCHEDULER := true

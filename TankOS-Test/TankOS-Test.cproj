@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>6.2</ProjectVersion>
+    <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
+    <ProjectGuid>{5a845d66-2a74-4758-846e-d8f7e62615bd}</ProjectGuid>
+    <avrdevice>ATmega1284P</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AssemblyName>TankOS-Test</AssemblyName>
+    <Name>TankOS-Test</Name>
+    <RootNamespace>TankOS-Test</RootNamespace>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <CacheFlash>true</CacheFlash>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress />
+    <UncachedRange />
+    <preserveEEPROM>true</preserveEEPROM>
+    <OverrideVtorValue />
+    <BootSegment>2</BootSegment>
+    <eraseonlaunchrule>1</eraseonlaunchrule>
+    <AsfFrameworkConfig>
+      <framework-data xmlns="">
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.21.0" />
+        </dependencies>
+      </framework-data>
+    </AsfFrameworkConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>NDEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>DEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="kernel\" />
+    <Folder Include="kernel\devices\" />
+    <Folder Include="kernel\twi\" />
+    <Folder Include="kernel\twi\driver\" />
+    <Folder Include="kernel\twi\rpc\" />
+    <Folder Include="kernel\twi\services\" />
+    <Folder Include="misc\" />
+    <Folder Include="mocks\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="kernel\devices\button.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\external_interrupts.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\led.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\port.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\base_tests.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\helper.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\helper.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\master.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\slave.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\client.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\client_functions.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\end_to_end.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\server.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\server_handler_functions.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\strings.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\hardware.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\test.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\ButtonLoopReader.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\assertions.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\assertions.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\delay.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\delay.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\port.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\port.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\rpc_client.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\rpc_client.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\rpc_server.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\rpc_server.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\twi_driver_master.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\twi_driver_master.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\twi_driver_slave.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\twi_driver_slave.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\twi_end_to_end.c">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
+</Project>
