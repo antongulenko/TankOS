@@ -7,13 +7,13 @@ MISC := $(KERNEL_BASE)/misc
 # Usage:
 # $(eval $(call set_test_objects,test_file, some.o additional.o test.o objects.o))
 define set_test_objects
-	objects_$(project)_testrunners/$1.testrunner := \
-		Unity/$(BUILD_DIRNAME)/unity.o \
-		$(KERNEL_BASE)/tank_os_common.o \
+    objects_$(project)_testrunners/$1.testrunner := \
+        Unity/$(BUILD_DIRNAME)/unity.o \
+        $(KERNEL_BASE)/tank_os_common.o \
         $(BUILDDIR)/$1.test.o \
-		$2
-	ifeq ($(PLATFORM), Native)
-		objects_$(project)_testrunners/$1.testrunner += \
-			$(KERNEL_BASE)/native_simulation.kernel.o
-	endif
+        $2
+    ifeq ($(PLATFORM), Native)
+        objects_$(project)_testrunners/$1.testrunner += \
+            $(KERNEL_BASE)/native_simulation.kernel.o
+    endif
 endef

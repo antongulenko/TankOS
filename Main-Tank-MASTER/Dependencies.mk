@@ -1,1 +1,0 @@
-dependencies := TankOS Tank-Shared Kernel-Tank-MASTER

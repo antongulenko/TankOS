@@ -1,13 +1,13 @@
-
 LIBRARY := false
 project := $(get-basedir)
-include $(project)/Dependencies.mk
+dependencies := TankOS Tank-Shared Kernel-Simulator
 
-include Defaults.mk
-include Tank-Shared/DefaultTankSymbols.mk
+MAIN_$(project) ?= test_rr_many
 
 USE_TWI := false
 USE_SCHEDULER := true
 USE_PROCESS_EXT := true
 
+include Defaults.mk
+include Tank-Shared/DefaultTankSymbols.mk
 include Main.mk

@@ -1,7 +1,8 @@
-
 LIBRARY := false
 project := $(get-basedir)
-include $(project)/Dependencies.mk
+dependencies := TankOS Tank-Shared Kernel-Tank-IO
+
+MAIN_$(project) ?= Main_empty
 
 include Defaults.mk
 include Tank-Shared/DefaultTankSymbols.mk

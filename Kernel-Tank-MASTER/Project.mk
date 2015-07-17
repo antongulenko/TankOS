@@ -1,7 +1,6 @@
-
 LIBRARY := true
 project := $(get-basedir)
-include $(project)/Dependencies.mk
+dependencies := TankOS Tank-Shared
 
 # == Motor adjustment step ==
 # Resolution is 16 bit (65535), one adjustment each millisecond

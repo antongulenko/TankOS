@@ -55,6 +55,9 @@ BUILDDIR := $(project)/$(BUILD_DIRNAME)
 # The same trick is used for several other targets. The files in .fake_targets/ are always up-to-date due to a rule in the main Makefile.
 fake := .fake_targets/$(project)
 
+# Filter out dependency projects that cannot be built on the current platform.
+dependencies := $(foreach dep, $(dependencies), $(if $(filter $(PLATFORM),$($(dep)_exclusive_platform)),$(dep),))
+
 # If dependencies are given, create the according -l and -L flags.
 LIB_DIRS := $(foreach d, $(dependencies), -L$d/$(BUILD_DIRNAME))
 LIB_ARCHIVES := $(foreach d, $(dependencies), -l$d)
@@ -142,16 +145,9 @@ ifneq ($(MAKECMDGOALS), clean_$(project))
 ifneq ($(MAKECMDGOALS), clean)
 ifneq ($(MAKECMDGOALS), clean_all)
 
-# Projects can define $(project)_exclusive_platform to suppress dependencies for certain platforms.
-$(project)_exclusive_platform ?=
-skip_dependencies := $(subst $(PLATFORM),,$($(project)_exclusive_platform))
-
-ifndef skip_dependencies
-
 # Include the generated dependency-Makefiles for every source-file (only if not 'clean' is invoked)
 -include $(dependency_files:.c=.d)
 
-endif
 endif
 endif
 endif
@@ -166,6 +162,10 @@ dependency_targets := $(foreach d, $(dependencies), $($d_projectoutputs))
 $(fake)_ARFLAGS := $(ARFLAGS)
 $(fake)_fullLinkerFlags1 := $(LIB_DIRS) $(LD_SYMBOL_FLAGS) $(LDFLAGS_START) $(LIB_ARCHIVES)
 $(fake)_fullLinkerFlags2 := $(LDFLAGS_END)
+
+ifndef $(project)_exclusive_platform
+    $(project)_exclusive_platform := $(PLATFORM)
+endif
 
 define assign_default_objects
     objects_$(project)_$1 ?= $(objects)
@@ -185,7 +185,14 @@ $(BUILDDIR)/lib$1.$(LIB_SUFFIX): $(fake) $(objects_$(project)_$1) $(dependencies
 endef
 
 $(foreach o, $(outputs), $(eval $(call assign_default_objects,$o)))
-$(foreach o, $(outputs), $(eval $(call make_output,$o)))
+
+ifeq ($($(project)_exclusive_platform),$(PLATFORM))
+    $(foreach o, $(outputs), $(eval $(call make_output,$o)))
+else
+    ifeq ($(VERBOSE),true)
+        $(warning Cannot build $(project) outputs for $(PLATFORM) platform, only $($(project)_exclusive_platform).)
+    endif
+endif
 
 link_$(project): $(project)
 $(TARGET_SUFFIX)_$(project): $(project)

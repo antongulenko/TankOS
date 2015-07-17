@@ -1,7 +1,7 @@
-
 LIBRARY := true
 project := $(get-basedir)
-include $(project)/Dependencies.mk
+dependencies :=
 
 include Defaults.mk
+$(project)_exclusive_platform :=
 include Main.mk

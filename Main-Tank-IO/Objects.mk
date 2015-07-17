@@ -4,7 +4,6 @@
 #    - Main_budyLoop: loop for button updates
 
 USE_TWI := false
-MAIN_$(project) ?= Main_empty
 
 include DefaultMainObjects.mk
 my_objects := $(objects)

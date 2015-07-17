@@ -1,15 +1,15 @@
-
 LIBRARY := false
 project := $(get-basedir)
-include $(project)/Dependencies.mk
+dependencies := TankOS Tank-Shared Kernel-Simulator Unity
 
-include Defaults.mk
-include Tank-Shared/DefaultTankSymbols.mk
+MAIN_$(project) ?= TestRunner
 
 USE_TWI := false
 USE_SCHEDULER := true
 USE_PROCESS_EXT := true
-
 USE_BUFFER_STDOUT := true
 
+include Defaults.mk
+$(project)_exclusive_platform :=
+include Tank-Shared/DefaultTankSymbols.mk
 include Main.mk

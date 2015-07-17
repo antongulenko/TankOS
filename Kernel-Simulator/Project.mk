@@ -1,10 +1,6 @@
-
 LIBRARY := true
 project := $(get-basedir)
-include $(project)/Dependencies.mk
+dependencies := TankOS Tank-Shared
 
 include Defaults.mk
-
-# No additional symbols
-
 include Main.mk
