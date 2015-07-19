@@ -6,6 +6,8 @@
 #ifndef BUFFER_STDOUT_H_
 #define BUFFER_STDOUT_H_
 
+#include <stdio.h>
+
 #ifndef STDOUT_BUFFER_SIZE
 #define STDOUT_BUFFER_SIZE 1024
 #endif
