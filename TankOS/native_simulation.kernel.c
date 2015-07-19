@@ -1,6 +1,15 @@
 
 #include "native_simulation.h"
 
+void delay_ms_hook(uint32_t ms) __attribute__((weak));
+void delay_ms_hook(uint32_t ms) {
+	// Nothing by default.
+}
+void delay_us_hook(uint32_t us) __attribute__((weak));
+void delay_us_hook(uint32_t us) {
+	// Nothing by default.
+}
+
 void init_native_simulation() {
     PCMSK0 = PCMSK1 = PCMSK2 = PCMSK3 = 0;
     PCICR = 0;
@@ -29,14 +38,6 @@ REGISTER TWCR, TWDR, TWBR, TWSR, TWAR, TWAMR;
 REGISTER MCUSR;
 
 uint8_t hardware_reset_triggered = 0;
-
-void _delay_ms(double ms) {
-    // Nothing, just pretend.
-}
-
-void _delay_us(double us) {
-    // Nothing, just pretend.
-}
 
 uint8_t _interrupts_enabled = 1;
 

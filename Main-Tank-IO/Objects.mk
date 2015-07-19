@@ -1,9 +1,7 @@
 
 # There are several configurations for the IO processor:
 #    - Main_empty: Use Pin-change-interrupt to update button-status
-#    - Main_budyLoop: loop for button updates
-
-USE_TWI := false
+#    - Main_busyLoop: loop for button updates
 
 include DefaultMainObjects.mk
 my_objects := $(objects)

@@ -9,7 +9,7 @@
 void run_leds() {
 	int i = 0;
 	while (1) {
-		flashLed(AllLeds->leds[i], 200);
+		flashLed(AllLeds->leds[i]);
 		i++;
 		i %= AllLeds->count;
 	}
@@ -42,7 +42,7 @@ int main() {
 	//run_leds();
 	// leds_special(); // Maybe run this also with USE_ISR.
 	//test_buttons();
-	
+
 	// test_communication_raw();
 	test_communication_raw_steer_motors();
 }
@@ -57,14 +57,14 @@ ISR(CLOCKISR_B) {
 #endif
 
 void test_communication_raw() {
-	
+
 	DDRD = 0xff;
 	DDRB = 0xff;
 	DDRC = 0;
-	
+
 	PORTD = 0xff;
 	PORTB = 0xff;
-	
+
 	while (1) {
 		uint8_t c = PINC;
 		uint8_t c0 = (c & (1 << PINC0)) != 0;
@@ -73,12 +73,12 @@ void test_communication_raw() {
 			PORTB = 0xff;
 		} else {
 			PORTB = 0;
-		}			
+		}
 		if (c1) {
 			PORTD = 0xff;
 		} else {
 			PORTD = 0;
-		}			
+		}
 	}
 }
 
@@ -86,7 +86,7 @@ void test_communication_raw_steer_motors() {
 	DDRC |= _BV(DDC0) | _BV(DDC1); // set as output
 	while (1) {
 		uint8_t p = PORTC;
-		
+
 		if (buttonStatus(Button1)) {
 			p |= (1 << PORTC0);
 			enableLeds(LeftLeds);
@@ -94,16 +94,16 @@ void test_communication_raw_steer_motors() {
 			p &= ~(1 << PORTC0);
 			disableLeds(LeftLeds);
 		}
-		
+
 		if (buttonStatus(Button2)) {
 			p |= (1 << PORTC1);
 			enableLeds(RightLeds);
-		} else {						
+		} else {
 			p &= ~(1 << PORTC1);
 			disableLeds(RightLeds);
 		}
-		
+
 		PORTC = p;
 	}
-	
+
 }

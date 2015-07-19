@@ -9,7 +9,6 @@ MISC := $(KERNEL_BASE)/misc
 define set_test_objects
     objects_$(project)_testrunners/$1.testrunner := \
         Unity/$(BUILD_DIRNAME)/unity.o \
-        $(KERNEL_BASE)/tank_os_common.o \
         $(BUILDDIR)/$1.test.o \
         $2
     ifeq ($(PLATFORM), Native)

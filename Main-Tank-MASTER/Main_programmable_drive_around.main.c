@@ -1,5 +1,4 @@
 
-#define USE_TWI
 #include <kernel.h>
 
 // TODO -- hack, this is unfinished. BUTTON_SWITCH does not exist anymore.
@@ -43,7 +42,7 @@ void addCommand(Command com) {
 void executeCommand(Command com) {
 	commandQueueFilled = commandQueueFilled >> 1;
 	updateLeds();
-	
+
 	switch(com) {
 		case FORW:
 			delay_ms(FORWARD_TIME);
@@ -85,7 +84,7 @@ void reset() {
 void executeCommands() {
 	if (nextCommand == 0) return;
 	blinkAll(3);
-	
+
 	while (nextCommand) {
 		nextCommand--;
 		executeCommand(commands[nextCommand]);
@@ -94,7 +93,7 @@ void executeCommands() {
 
 int main() {
 	while (!tankIO_isInitialized()) delay_ms(20);
-	
+
 	reset();
 	while (1) {
 		uint8_t buttons = tankIO_pressedButtons();
@@ -114,5 +113,5 @@ int main() {
 			executeCommands();
 			reset();
 		}
-	}		
+	}
 }

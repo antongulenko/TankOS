@@ -14,6 +14,7 @@
 // single sequence, and we are in the initial context, so we cannot return anywhere).
 // We still have to store used registers etc, which is why we have this separate short function calling the actual one.
 #define KERNEL_INIT(functionName)													\
+    void __attribute__ ((noinline)) functionName();                                 \
 	void functionName##_kernel_init() __attribute__((naked, section(".init8")));	\
 	void functionName##_kernel_init() { functionName(); }
 

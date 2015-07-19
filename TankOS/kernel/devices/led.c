@@ -3,7 +3,7 @@
  *
  * Created: 26.04.2012 17:04:20
  *  Author: Anton
- */ 
+ */
 
 #include "led.h"
 #include "port.h"
@@ -40,9 +40,11 @@ void disableLeds(PLedGroup leds) {
 	}
 }
 
-static inline void BLINK_DELAY() { delay_ms(200); }
-static inline void DELAY_MS(uint16_t millis) {
-	delay_ms(200 /* millis */);
+static inline void BLINK_DELAY() { delay_ms(BLINK_DELAY_MS); }
+static inline void FLASH_DELAY_MS(uint16_t millis) {
+	// This very inaccurate, but the delay is flexible at runtime.
+    while (millis-- > 0)
+        delay_ms(1);
 }
 
 void blinkLeds(PLedGroup leds, uint16_t ledMask, uint8_t times) {
@@ -69,13 +71,13 @@ void blinkLed(PLed led, uint8_t times) {
 
 void flashLed(PLed led, const uint16_t millis) {
 	enableLed(led);
-	DELAY_MS(millis);
+	FLASH_DELAY_MS(millis);
 	disableLed(led);
 }
 
 void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis) {
 	setLeds(leds, ledMask);
-	DELAY_MS(millis);
+	FLASH_DELAY_MS(millis);
 	disableLeds(leds);
 }
 

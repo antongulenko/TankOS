@@ -44,7 +44,7 @@ PLed allLedsArray[] = {
 				&Green1_, &Green2_, &Green3_, &Yellow1_, &Yellow2_,
 				&Red1_, &Red2_, &Red3_, &Red4_, &Red5_ };
 
-static __attribute__ ((noinline)) void init_tank_leds() {
+static void init_tank_leds() {
 	INIT_LED(White1, PinB0)
 	INIT_LED(White2, PinB1)
 	INIT_LED(White3, PinB2)
@@ -62,7 +62,7 @@ static __attribute__ ((noinline)) void init_tank_leds() {
 	INIT_LED(Red3, PinD4)
 	INIT_LED(Red4, PinD5)
 	INIT_LED(Red5, PinD6)
-	
+
 	INIT_LED_GROUP(RedLeds, redLedsArray, 5)
 	INIT_LED_GROUP(YellowLeds, yellowLedsArray, 2)
 	INIT_LED_GROUP(WhiteLeds, whiteLedsArray, 5)
