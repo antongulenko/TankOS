@@ -21,7 +21,7 @@ static FILE stdout_buffer_stream = FDEV_SETUP_STREAM(buffer_stdout_putchar, NULL
 // TODO -- also implement a getchar. For this, change the last
 // parameter above to _FDEV_SETUP_RW, and add a getchar function instead of NULL
 
-void init_stdio_buffer() {
+__attribute__ ((noinline)) void init_stdio_buffer() {
 	stdout = &stdout_buffer_stream;
 }
 KERNEL_INIT(init_stdio_buffer)

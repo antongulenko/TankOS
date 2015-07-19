@@ -126,7 +126,7 @@ $(studiotarget): $(BUILDDIR)/$(primary_output)
 
 ifeq ($(STUDIO), true)
 ifneq ($(test_project), true)
-    $(project): $(studiotarget)
+$(project): $(studiotarget)
 endif
 endif
 

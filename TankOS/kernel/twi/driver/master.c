@@ -22,7 +22,7 @@ TwiError twi_error;
 
 byte twi_defaultControlFlags;
 
-void twi_init() {
+__attribute__ ((noinline)) void twi_init() {
 	TWDR = 0xFF;
 	TWBR = TwiBitRateValue;
 	TWSR = TwiPrescalerMask; // Writing the non-prescaler bits will be ignored.
@@ -122,8 +122,8 @@ void twiWaitForCompletion(uint16_t msWaitEachIteration) {
 			still_running = twi_running;
 		}
 		if (!still_running) return;
-		if (msWaitEachIteration != 0)
-			delay_ms(msWaitEachIteration);
+		//if (msWaitEachIteration != 0)
+		//	delay_ms(msWaitEachIteration);
 	}
 }
 

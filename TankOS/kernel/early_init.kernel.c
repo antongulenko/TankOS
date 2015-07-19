@@ -7,7 +7,7 @@
 #include "kernel_init.h"
 #include "early_init.h"
 
-static void first_initialization() {
+__attribute__ ((noinline)) void early_initialization() {
 	// Read and reset the MCU-status-register.
 	// This kernel-file should be included in the very beginning, as MCUSR should
 	// be reset in the very beginning.
@@ -15,4 +15,4 @@ static void first_initialization() {
     wdt_disable();
     increment_software_reset_counter();
 }
-KERNEL_INIT(first_initialization)
+KERNEL_INIT(early_initialization)

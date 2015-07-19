@@ -17,7 +17,7 @@ ISR(ADC_vect) {
 		analogCallbackFunction(ADCH);
 }
 
-void init_analog() {
+__attribute__ ((noinline)) void init_analog() {
 	// Initialize the ADC settings. See description in analog.h.
 	ADMUX =
 		_BV(REFS0)	  // REFS1..0 = 0b01 -> AVCC as reference voltage.

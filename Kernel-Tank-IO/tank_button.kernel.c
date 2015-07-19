@@ -19,7 +19,7 @@ DEFINE_BUTTON_IMPL(Button2)
 DEFINE_BUTTON_IMPL(Button3)
 DEFINE_BUTTON_IMPL(Button4)
 
-void init_tank_buttons() {
+__attribute__ ((noinline)) void init_tank_buttons() {
 	#define TANK_BUTTON BUTTON_INVERTED | BUTTON_NEEDS_PULLUP
 	INIT_BUTTON(Button1, PinA0, TANK_BUTTON, 0)
 	INIT_BUTTON(Button2, PinA1, TANK_BUTTON, 1)

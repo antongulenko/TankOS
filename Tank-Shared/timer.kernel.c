@@ -12,7 +12,7 @@ PTimerPair millisecond_timer;
 PTimer millisecond_timer_A;
 PTimer millisecond_timer_B;
 
-static void init_timer() {
+static __attribute__ ((noinline)) void init_tank_timer() {
 	setWaveformGenerationMode(millisecond_timer, clear_timer_on_match);
 	setTimerClockSelect(millisecond_timer, prescale_8);
 
@@ -23,4 +23,4 @@ static void init_timer() {
 	setTimerCompareValue(millisecond_timer_A, MILLISECOND_TIMER_VALUE);
 	setTimerCompareValue(millisecond_timer_B, MILLISECOND_TIMER_VALUE);
 }
-KERNEL_INIT(init_timer)
+KERNEL_INIT(init_tank_timer)

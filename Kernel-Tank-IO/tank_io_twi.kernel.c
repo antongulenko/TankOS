@@ -9,7 +9,7 @@ const byte TwiSlaveAddress = TANK_IO_ADDRESS;
 
 static byte server_io_buffer[256];
 
-static void do_init_rpc_server() {
+static __attribute__ ((noinline)) void init_rpc_server() {
     twi_rpc_server_init((TWIBuffer) { server_io_buffer, sizeof(server_io_buffer) });
 }
-KERNEL_INIT(do_init_rpc_server)
+KERNEL_INIT(init_rpc_server)

@@ -47,7 +47,7 @@ void increment_software_reset_counter() {
     software_reset_counter++;
 }
 
-void increment_eeprom_reset_counter() {
+__attribute__ ((noinline)) void increment_eeprom_reset_counter() {
     uint16_t val = eeprom_read_word(&eeprom_reset_counter);
     val++;
     eeprom_update_word(&eeprom_reset_counter, val);

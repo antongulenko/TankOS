@@ -16,7 +16,7 @@ DEFINE_MOTOR_2Speed_IMPL(RightMotorBase)
 DEFINE_SMOOTH_MOTOR_IMPL(LeftMotor)
 DEFINE_SMOOTH_MOTOR_IMPL(RightMotor)
 
-void init_tank_motors() {
+static __attribute__ ((noinline)) void init_tank_motors() {
 	SmoothMotor1 = LeftMotor;
 	SmoothMotor2 = RightMotor;
 	

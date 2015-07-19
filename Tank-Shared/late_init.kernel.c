@@ -24,7 +24,7 @@ void before_timer() {
 	before_scheduler();
 }
 
-static void late_init_kernel() {
+static __attribute__ ((noinline)) void late_init_kernel() {
 	// Power saving settings
 
 	// Analog Comparator

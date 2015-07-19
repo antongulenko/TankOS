@@ -31,7 +31,7 @@ extern PTwiFunction twiRpcFunctions;
 // it in the hash-table for twi-function-handlers.
 #define TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)					\
 	TwiFunction funcName##_function = { operationByte, funcName##_handler, {0} };	\
-	void funcName##_register_function() {											\
+	static __attribute__ ((noinline)) void funcName##_register_function() {			\
 		/* The second macro parameter 'operation' is the name of the key-field in */\
 		/* the TwiFunction struct! Do not change to 'operationByte'. */				\
 		HASH_ADD_BYTE(twiRpcFunctions, operation, &funcName##_function);			\

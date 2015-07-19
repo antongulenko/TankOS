@@ -91,7 +91,7 @@ void *getProcessMemory(Process proc) {
 // This is not a KERNEL_INIT-function and has to be called explicitly. This includes initialization
 // for the basic process-module.
 // This should be called as late as possible, but before starting any scheduler.
-void init_process() {
+__attribute__ ((noinline)) void init_process() {
 	// Incrementing this variable must be done before the process.kernel init-routine.
 	// Other kernels would need to define a KERNEL_INIT function, but here we can just do it before the base-function.
 	__main_process_additional_memory += ADDITIONAL_MEMORY;
