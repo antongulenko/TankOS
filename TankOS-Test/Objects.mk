@@ -115,3 +115,18 @@ $(eval $(call set_test_objects,kernel/twi/services/test,\
 $(eval $(call set_test_objects,kernel/buffer_stdout,\
     $(KERNEL)/buffer_stdout.o \
     $(KERNEL)/processes/mutex/mutex.kernel.o ))
+
+$(eval $(call set_test_objects,kernel/twi/services/buffer_stdout,\
+    $(BUILDDIR)/mocks/assertions.o \
+    $(BUILDDIR)/mocks/twi_driver_slave.o \
+    $(BUILDDIR)/mocks/twi_end_to_end.o \
+    $(BUILDDIR)/kernel/twi/services/test.o \
+    $(KERNEL)/twi/services/buffer_stdout.o \
+    $(KERNEL)/twi/services/buffer_stdout.kernel.o \
+    $(KERNEL)/buffer_stdout.o \
+    $(KERNEL)/processes/mutex/mutex.kernel.o \
+    $(KERNEL)/twi/rpc/strings.o \
+    $(KERNEL)/twi/rpc/server.o \
+    $(KERNEL)/twi/rpc/client.o \
+    $(KERNEL)/twi/rpc/client_functions.o \
+    $(KERNEL)/twi/rpc/server_handler_functions.kernel.o ))
