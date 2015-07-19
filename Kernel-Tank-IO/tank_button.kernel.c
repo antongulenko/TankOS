@@ -19,7 +19,7 @@ DEFINE_BUTTON_IMPL(Button2)
 DEFINE_BUTTON_IMPL(Button3)
 DEFINE_BUTTON_IMPL(Button4)
 
-__attribute__ ((noinline)) void init_tank_buttons() {
+void init_tank_buttons() {
 	#define TANK_BUTTON BUTTON_INVERTED | BUTTON_NEEDS_PULLUP
 	INIT_BUTTON(Button1, PinA0, TANK_BUTTON, 0)
 	INIT_BUTTON(Button2, PinA1, TANK_BUTTON, 1)
@@ -49,7 +49,7 @@ uint8_t pressedButtons() {
 void updateButtonStatus() {
 	uint8_t pressedNow = buttonStatusMask();
 	uint8_t newlyPressed = 0;
-	
+
 	if (!(wasPressed & BUTTON_1) && (pressedNow & BUTTON_1))
 		newlyPressed |= BUTTON_1;
 	if (!(wasPressed & BUTTON_2) && (pressedNow & BUTTON_2))
@@ -58,10 +58,10 @@ void updateButtonStatus() {
 		newlyPressed |= BUTTON_3;
 	if (!(wasPressed & BUTTON_4) && (pressedNow & BUTTON_4))
 		newlyPressed |= BUTTON_4;
-	
+
 	mutex_lock(buttonMutex);
 	buttonsPressedSinceLastCall |= newlyPressed;
 	mutex_release(buttonMutex);
-	
+
 	wasPressed = pressedNow;
 }

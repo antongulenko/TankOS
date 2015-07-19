@@ -13,7 +13,7 @@ DEFINE_PORT_AND_PINS_IMPL(B)
 DEFINE_PORT_AND_PINS_IMPL(C)
 DEFINE_PORT_AND_PINS_IMPL(D)
 
-__attribute__ ((noinline)) void init_ports_m1284P() {
+static void init_ports_m1284P() {
 	INIT_PORT_AND_PINS(A);
 	INIT_PORT_AND_PINS(B);
 	INIT_PORT_AND_PINS(C);

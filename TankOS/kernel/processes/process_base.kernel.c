@@ -28,7 +28,7 @@ static Process initializeProcessInternal(uint8_t additionalMemory, void *stackPo
 }
 
 // This is no KERNEL_INIT-function, has to be called explicitly from somewhere else.
-__attribute__ ((noinline)) void init_process() {
+ void init_process() {
 	// Initialize the malloc-tunables. This tells malloc to ignore the stack-pointer when
 	// allocating memory (otherwise it would attempt to detect heap-stack-collisions).
 	// When using multiple processes, we have multiple stacks and this collision-detection

@@ -7,7 +7,7 @@
 #include "kernel_init.h"
 #include "early_init.h"
 
-__attribute__ ((noinline)) void early_initialization() {
+ void early_initialization() {
 	// Read and reset the MCU-status-register.
 	// This kernel-file should be included in the very beginning, as MCUSR should
 	// be reset in the very beginning.

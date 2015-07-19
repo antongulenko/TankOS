@@ -12,7 +12,7 @@ PTimerPair millisecond_timer;
 PTimer millisecond_timer_A;
 PTimer millisecond_timer_B;
 
-static __attribute__ ((noinline)) void init_tank_timer() {
+static void init_tank_timer() {
 	setWaveformGenerationMode(millisecond_timer, clear_timer_on_match);
 	setTimerClockSelect(millisecond_timer, prescale_8);
 

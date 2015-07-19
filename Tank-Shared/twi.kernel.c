@@ -13,10 +13,10 @@ static byte twi_io_buffer[256];
 
 // One of the following should be KERNEL_INITed in another kernel module
 
-__attribute__ ((noinline)) void init_rpc_server_buffer() {
+ void init_rpc_server_buffer() {
     twi_rpc_server_init((TWIBuffer) { twi_io_buffer, sizeof(twi_io_buffer) });
 }
 
-__attribute__ ((noinline)) void init_rpc_client_buffer() {
+ void init_rpc_client_buffer() {
     twi_rpc_client_init((TWIBuffer) { twi_io_buffer, sizeof(twi_io_buffer) });
 }
