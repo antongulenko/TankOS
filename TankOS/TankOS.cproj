@@ -115,6 +115,12 @@
     <Folder Include="uthash\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="kernel\buffer_stdout.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\buffer_stdout.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\buffer_stdout.kernel.c">
       <SubType>compile</SubType>
     </Compile>
@@ -395,9 +401,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="native_simulation.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="tank_os_common.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_os_common.h">
