@@ -98,6 +98,7 @@ clean: $(foreach p, $(AllProjects), clean_$p)
 clean_all: clean
 	rm -rf .fake_targets
 	rm -rf .d
+	rm -f GNUmakefile # Created by configure script
 	find -name $(TEST_RUNNERS_DIR) -type d -exec rm -r {} +
 	find -name $(ATMEL_STUDIO_FOLDER) -type d -exec rm -r {} +
 
