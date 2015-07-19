@@ -1,6 +1,8 @@
 #ifndef NATIVE_SIMULATION_H_
 #define NATIVE_SIMULATION_H_
 
+#include <stdint.h>
+
 // Resets all variables
 void init_native_simulation();
 
@@ -12,10 +14,11 @@ void init_native_simulation();
 
 // == Types
 #define _BV(a) (1 << a)
-typedef unsigned int uint32_t;
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
 typedef uint8_t REGISTER;
+
+// == stdio.h
+// This is not usable, only to make the code compile somehow.
+#define FDEV_SETUP_STREAM(a,b,c) {0}
 
 // == Memory
 // TODO use correct values x86 platforms?

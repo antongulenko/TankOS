@@ -1,11 +1,12 @@
 /*
  * Created: 19.07.2015 11:28:28
  *  Author: anton
- */ 
+ */
 
 #ifndef BUFFER_STDOUT_H_
 #define BUFFER_STDOUT_H_
 
+#include <tank_os_common.h>
 #include <stdio.h>
 
 #ifndef STDOUT_BUFFER_SIZE
@@ -20,12 +21,13 @@ typedef struct {
 	uint32_t dropped;
 } BufferStatus;
 
-BufferStatus stdout_buffer_status();
+BufferStatus buffer_stdout_status();
 
-// Copy the stdout buffer into the target buffer and return the number of 
+// Copy the stdout buffer into the target buffer and return the number of
 // chars copied. Reset dropped_chars and start filling the internal buffer from the beginning.
-uint16_t stdout_buffer_flush(char *target_buffer, uint16_t size);
+uint16_t buffer_stdout_flush(char *target_buffer, uint16_t size);
 
-extern FILE stdout_buffer_stream;
+extern FILE buffer_stdout_stream;
+int buffer_stdout_putchar(char c, FILE *f);
 
 #endif /* BUFFER_STDOUT_H_ */

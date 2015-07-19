@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 static void _init_stdout_buffer() {
-	stdout = &stdout_buffer_stream;
+	stdout = &buffer_stdout_stream;
 	init_buffer_stdout();
 }
 KERNEL_INIT(_init_stdout_buffer)

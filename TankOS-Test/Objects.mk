@@ -111,3 +111,7 @@ $(eval $(call set_test_objects,kernel/twi/services/test,\
     $(KERNEL)/twi/rpc/client.o \
     $(KERNEL)/twi/rpc/client_functions.o \
     $(KERNEL)/twi/rpc/server_handler_functions.kernel.o ))
+
+$(eval $(call set_test_objects,kernel/buffer_stdout,\
+    $(KERNEL)/buffer_stdout.o \
+    $(KERNEL)/processes/mutex/mutex.kernel.o ))
