@@ -1,5 +1,4 @@
 
-#define USE_TWI
 #include <kernel.h>
 
 void testStatus() {
@@ -33,10 +32,10 @@ int main() {
 }
 
 void test_communication_raw() {
-	
+
 	DDRC = 0xff;
 	uint8_t b = 0;
-	
+
 	while (1) {
 		if (b) {
 			PORTC = ~(1 << PORTC0);
@@ -47,7 +46,7 @@ void test_communication_raw() {
 		}
 		delay(2000);
 	}
-	
+
 }
 
 void test_communication_raw_steer_motors() {
@@ -60,12 +59,12 @@ void test_communication_raw_steer_motors() {
 			regulateStopMotor(LeftMotor);
 		} else {
 			regulateSpeedForward(LeftMotor, 0xFFFF);
-		}			
+		}
 		if (c1) {
 			regulateStopMotor(RightMotor);
 		} else {
 			regulateSpeedForward(RightMotor, 0xFFFF);
 		}
 	}
-	
+
 }

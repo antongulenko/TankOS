@@ -4,10 +4,6 @@ dependencies := TankOS Tank-Shared Kernel-Tank-MASTER
 
 MAIN_$(project) ?= test_motors_forward
 
-USE_TWI := true
-USE_PROCESS_EXT := true
-USE_SMOOTH_MOTOR_INTERRUPT := true
-
 include Defaults.mk
 include Tank-Shared/DefaultTankSymbols.mk
 
