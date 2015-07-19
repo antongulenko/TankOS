@@ -27,8 +27,17 @@ extern uint16_t MALLOC_START;
 #define RAMEND 0xffff
 
 // == delay
-void _delay_ms(double ms);
-void _delay_us(double us);
+// This allows adding some code to each delay_ms call.
+// Intended for testing, to keep track of delay_ms calls.
+void delay_ms_hook(uint32_t ms);
+void delay_us_hook(uint32_t us);
+
+static inline void delay_ms(uint32_t ms) {
+	delay_ms_hook(ms);
+}
+static inline void delay_us(uint32_t us) {
+	delay_us_hook(us);
+}
 
 // == External interrupts
 extern REGISTER PCMSK0, PCMSK1, PCMSK2, PCMSK3;

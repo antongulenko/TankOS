@@ -14,40 +14,10 @@
 #include <stdlib.h>
 
 #ifdef AVR
-
-// Normal AVR environment
-#include <util/delay.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
-#include <util/twi.h>
-#include <util/atomic.h>
-#include <avr/sleep.h>
-#include <avr/wdt.h>
-#include <avr/eeprom.h>
-#include <alloca.h>
-
-extern char __heap_start;
-extern char *__brkval;
-#define DYNAMIC_MEMORY_START (&__heap_start)
-#define ALLOCATED_HEAP_END __brkval
-#define MALLOC_START __malloc_heap_start
-#define MALLOC_END __malloc_heap_end
-
+#include "hardware.h"
 #else
-
-// Native test environment
 #include "native_simulation.h"
-
 #endif
-
-// This allows adding some code to each delay_ms call.
-// Intended for testing, to keep track of delay_ms calls.
-// AFTER including _delay_ms itself.
-void delay_ms_action(uint32_t ms);
-static inline void delay_ms(uint32_t ms) {
-	delay_ms_action(ms);
-	_delay_ms(ms);
-}
 
 typedef enum {
 	FALSE = 0,

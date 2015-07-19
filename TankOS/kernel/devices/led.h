@@ -8,6 +8,10 @@
 #ifndef LED_H_
 #define LED_H_
 
+#ifndef BLINK_DELAY_MS
+#define BLINK_DELAY_MS 200
+#endif
+
 #include "port.h"
 #include <tank_os_common.h>
 
@@ -40,7 +44,7 @@ void flashLed(PLed led, const uint16_t millis);
 void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis);
 void flashAllLeds(PLedGroup leds, uint16_t millis);
 
-// notifier-group will blink to notify the data, then the byte will be 
+// notifier-group will blink to notify the data, then the byte will be
 // flashed with the display group. Will be shifted to flash remaining bits.
 void blinkByte(PLedGroup display, PLedGroup notifier, byte data);
 

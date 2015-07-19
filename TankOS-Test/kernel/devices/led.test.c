@@ -150,35 +150,35 @@ void test_group_set_someOthers() {
 
 void test_flashLed() {
 	flashLed(Led1, 100);
-	assertDelayedMS(100, 1);
+	assertDelayedMS(100, 100);
 }
 
 void test_flashLed_2() {
 	flashLed(Led1, 100);
 	flashLed(Led2, 200);
-	assertDelayedMS(300, 2);
+	assertDelayedMS(300, 300);
 }
 
 void test_flashAllLeds() {
 	flashAllLeds(Group, 100);
-	assertDelayedMS(100, 1);
+	assertDelayedMS(100, 100);
 }
 
 void test_flashAllLeds_2() {
 	flashAllLeds(Group, 100);
 	flashAllLeds(Group, 200);
-	assertDelayedMS(300, 2);
+	assertDelayedMS(300, 300);
 }
 
 void test_flashLeds() {
 	flashLeds(Group, LED1 | LED2, 100);
-	assertDelayedMS(100, 1);
+	assertDelayedMS(100, 100);
 }
 
 void test_flashLeds_2() {
 	flashLeds(Group, LED1 | LED2, 100);
 	flashLeds(Group, LED1 | LED2, 200);
-	assertDelayedMS(300, 2);
+	assertDelayedMS(300, 300);
 }
 
 void test_blinkLed_zero() {
@@ -229,5 +229,5 @@ void test_blinkLeds_n() {
 void test_blink_byte() {
 	// This is a too simple test, nevermind..
 	blinkByte(Group, Group, 5);
-	assertDelayedMS(1500 + 700 + 1200 + 1200, 2 + 2 + 5 + 5);
+	assertDelayedMS(1500 + 700 + 1200 + 1200, 1500 + 700 + 2 + 5 + 5);
 }

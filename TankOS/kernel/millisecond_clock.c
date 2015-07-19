@@ -26,7 +26,7 @@ void in_clock_tick() {}
 void millisecond_clock_tick() {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		milliseconds_running++;
-	}		
+	}
 	in_clock_tick();
 }
 
@@ -34,5 +34,5 @@ void wait_milliseconds(uint32_t ms) {
 	uint32_t end = get_milliseconds_running() + ms;
 	while (get_milliseconds_running() < end)
 		// Idle a little bit to not have interrupts disabled all the time.
-		_delay_us(30);
+		delay_us(30);
 }
