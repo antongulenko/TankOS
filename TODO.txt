@@ -1,39 +1,21 @@
 
 == Milestones
 
-- Dragon:
-	- IDE kabel bestellen
-	- Stecker auf die Platine löten, mit den IDE kabeln verbinden
-	- Öffungen vorne, Bohrungen für die Abstandhalter
-	- HVPP verbindung für ATTiny 84 stecken
+- IO-Prozessor auf Breadboard testen. TWI mit Beaglebone.
 
-- Tank
-	- USB/Tiny
-		- Tiny per HVPP flashen
-		- Testen: avrdude + USB + tiny + JTAG
-	- Buttons
-		- Leitungen für Buttons, die mit JTAG kollidieren, umlöten
-		- Buttons repariern, dass sie nicht alle resetten. Reset-Leitung auf den Kippschalter legen.
-	- IO-Prozessor
-		- Testen, dass der IO-Prozessor per JTAG programmierbar ist (Dragon + avrdude)
-		- Lämpchen und Buttons auf IO Prozessor testen.
-	- Makefiles
+- Makefiles
 		- Add avrdude commands: check-connection, flash (inkl. chip-erase), (read+write eeeprom)
-	- TWI
-		- IO Prozessor mit TWI-Server flashen, Testprogramm auf Master flashen. TWI Testen + debuggen.
-	- BGX1-Display
-		- Lösung finden, dass buttons/LEDs benutzbar sind, wenn das Display ins Panel eingelassen ist
-		- an TWI anklemmen, Ansteuerung testen
-	- OFFEN: TWI over USB
-		- Tiny mit TWI suchen (mit selben pinout wie der 84)
-		- TWI implementierung in software? (für Tiny oder für Linux GPIO)
+
+- Use Processes, Scheduler?
 
 - Linux
-	- Mainboard nochmal prüfen - alle Ports vorhanden? Datenblätter runterladen
-	- USB-Hub/Verteiler?
-	- SSD holen (8 oder 16 GB, super-schnell, 1,8")
+	- Beaglebone DatenblÃ¤tter etc.
+	- USB-Hub/Verteiler? WLAN-Modul?
+	- kleine, schnelle SSD holen
 
-- Use Schedler?
+== Refactorings
+
+- Interrupt handler mit Processes/scheduling integrieren?
 
 == TODO
 
@@ -41,3 +23,5 @@
 
 - PWM (8-bit timer) mit maximalem wert eingestellt (256) liefert nur 4,6V !!!
 	-> entweder fixen oder dann einen elektronischen workaround
+
+- alle Buttons resetten (?) Reset-Leitung auf den Kippschalter legen.
