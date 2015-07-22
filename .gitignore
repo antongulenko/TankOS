@@ -6,8 +6,8 @@
 
 # === Build and temporary make files
 GNUmakefile
-/.d/
-.fake_targets/
+/.make-dependencies
+.make-fake-targets/
 */build-*/
 Debug/
 Release/

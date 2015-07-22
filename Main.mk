@@ -53,7 +53,7 @@ BUILDDIR := $(project)/$(BUILD_DIRNAME)
 # (.fake_targets/...) is created and added as first prerequisite for the actual targets. The recipe-commands can access the name of this prerequisite
 # with $< and the $(target) variable in the prerequisite-name is expanded early. By adding _BLABLA to the prerequisite-name, the correct variable can be expanded.
 # The same trick is used for several other targets. The files in .fake_targets/ are always up-to-date due to a rule in the main Makefile.
-fake := .fake_targets/$(project)
+fake := $(FAKE_TARGETS_DIR)/$(project)
 
 # Filter out dependency projects that cannot be built on the current platform.
 dependencies := $(foreach dep, $(dependencies), $(if $(filter $(PLATFORM),$($(dep)_exclusive_platform)),$(dep),))
@@ -80,7 +80,9 @@ DEPENDENCY_FLAGS += $(DEFINE_FLAGS) $(INCLUDE_FLAGS)
 $(fake)_cflags := $(CFLAGS)
 $(fake)_depflags := $(DEPENDENCY_FLAGS)
 
-DEPENDENCY_DIR ?= .d/$(BUILD_DIRNAME)
+ifndef DEPENDENCY_DIR
+DEPENDENCY_DIR := $(GCC_DEP_DIR)/$(BUILD_DIRNAME)
+endif
 
 all_objects := $(addprefix $(BUILDDIR)/, $(all_objects))
 objects := $(addprefix $(BUILDDIR)/, $(objects))
@@ -145,6 +147,7 @@ ifneq ($(MAKECMDGOALS), clean_$(project))
 ifneq ($(MAKECMDGOALS), clean)
 ifneq ($(MAKECMDGOALS), clean_all)
 
+# TODO in older Make versions, MAKECMDGOALS is not available, find alternative mechanism
 # Include the generated dependency-Makefiles for every source-file (only if not 'clean' is invoked)
 -include $(dependency_files:.c=.d)
 
@@ -168,7 +171,9 @@ ifndef $(project)_exclusive_platform
 endif
 
 define assign_default_objects
-    objects_$(project)_$1 ?= $(objects)
+    ifndef objects_$(project)_$1
+        objects_$(project)_$1 := $(objects)
+    endif
 endef
 
 define make_output
@@ -215,4 +220,4 @@ clean_$(project): $(fake)
 run_$(project): $(fake) $(project)
 	$(foreach o, $($<_projectoutputs), ./$o && ) echo $$($(COLOR) $(COLOR_TESTS_OK))"ALL TESTS OK"$$($(COLOR) off)
 
-.PHONY: clean_$(project) clean_target_$(project)
+.PHONY: clean_$(project) clean_target_$(project) clean_all

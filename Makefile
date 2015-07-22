@@ -22,25 +22,27 @@
 # A warning about whitespace: this Makefile (and all included *.mk files) mix tabs and spaces as indentation in order to fullfill GNU make requirements.
 # When editing, make whitespace visible and leave all indentation in their original state!
 
-VERBOSE ?= false
-DEBUG ?= false
-SPEED ?= false
-NOOPT ?= false
-STUDIO ?= false
-AUTO_DISCOVER ?= false
-DONT_LINK_ALL ?= false
-IGNORE_COLORS ?= false
+VERBOSE := false
+DEBUG := false
+SPEED := false
+NOOPT := false
+STUDIO := false
+AUTO_DISCOVER := false
+DONT_LINK_ALL := false
+IGNORE_COLORS := false
 
-MAIN ?=
-PROJ ?=
-MAKECMDGOALS ?=
+MAIN :=
+PROJ :=
+MAKECMDGOALS :=
 
-ATMEL_STUDIO_FOLDER ?= Debug
-TEST_PROJECT_SUFFIX ?= -Test
-TEST_RUNNERS_DIR ?= testrunners
+ATMEL_STUDIO_FOLDER := Debug
+TEST_PROJECT_SUFFIX := -Test
+TEST_RUNNERS_DIR := testrunners
+FAKE_TARGETS_DIR := .make-fake-targets
+GCC_DEP_DIR := .make-dependencies
 
 # Possibility to define global parameters here
--include make_parameters
+include make_parameters
 
 ifneq ($(VERBOSE), true)
     .SILENT:
@@ -96,8 +98,8 @@ allprojects: $(AllProjects)
 clean: $(foreach p, $(AllProjects), clean_$p)
 
 clean_all: clean
-	rm -rf .fake_targets
-	rm -rf .d
+	rm -rf $(FAKE_TARGETS_DIR)
+	rm -rf $(GCC_DEP_DIR)
 	rm -f GNUmakefile # Created by configure script
 	find -name $(TEST_RUNNERS_DIR) -type d -exec rm -r {} +
 	find -name $(ATMEL_STUDIO_FOLDER) -type d -exec rm -r {} +
@@ -109,7 +111,7 @@ platforms:
 	@echo Available platforms: $(ALL_PLATFORMS)
 
 # Fake-targets should be always up-to-date to not cause the actual targets to be constantly rebuilt. See Main.mk.
-.fake_targets/%:
+$(FAKE_TARGETS_DIR)/%:
 	mkdir -p $(@D); touch $@
 
 # Check, if the platform-dependent Makefile is present.

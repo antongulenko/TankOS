@@ -2,7 +2,9 @@ LIBRARY := false
 project := $(get-basedir)
 dependencies := TankOS Tank-Shared Kernel-Tank-MASTER
 
-MAIN_$(project) ?= test_motors_forward
+ifndef MAIN_$(project)
+MAIN_$(project) := test_motors_forward
+endif
 
 include Defaults.mk
 include Tank-Shared/DefaultTankSymbols.mk

@@ -2,7 +2,9 @@ LIBRARY := false
 project := $(get-basedir)
 dependencies := TankOS Tank-Shared
 
-MAIN_$(project) ?= twi-tool
+ifndef MAIN_$(project)
+MAIN_$(project) := twi-tool
+endif
 
 include Defaults.mk
 

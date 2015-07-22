@@ -26,7 +26,6 @@ ifeq ($(DEBUG), true)
 endif
 
 LIB_SUFFIX := a
-OS ?=
 ifeq ($(OS),Windows_NT)
     TARGET_SUFFIX := exe
 else
