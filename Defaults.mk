@@ -1,6 +1,10 @@
 
 # This is separate from the Main.mk file to keep the Main.mk more flexible.
 
+# Reset variables between projects
+ld_symbols :=
+symbols :=
+
 # Most projects can only be built for the Avr platform.
 $(project)_exclusive_platform := Avr
 
