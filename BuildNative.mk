@@ -37,6 +37,10 @@ endif
 # The objects/libraries are scanned multiple times, until all dependencies are resolved. Link-time is increased, but this is the only way.
 LDFLAGS_START := -Wl,--start-group
 
+ifneq ($(filter arm%,$(shell uname -m)),)
+LDFLAGS_START := -Wl,--no-enum-size-warning $(LDFLAGS_START)
+endif
+
 # This part of the linker flags is split off to include the objects of the current project into the start-group/end-group closure
 LDFLAGS_END := -Wl,--end-group -lm
 
