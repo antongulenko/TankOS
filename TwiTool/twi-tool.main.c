@@ -1,6 +1,7 @@
 
 #include "twi-master-linux.h"
 #include <stdio.h>
+#include <kernel/twi/rpc/client_functions_registry.h>
 
 void check_error() {
     if (twi_error != TWI_No_Error) {
@@ -12,6 +13,17 @@ void check_error() {
 }
 
 int main(int argc, char **argv) {
+    if (argc != 3) {
+        printf("Need 2 parameters: Device address (hex), query-function to apply.\n");
+        printf("Available functions:\n");
+        
+        ClientFunctionRegistryEntry iter;
+        for (iter = clientFunctionRegisty; iter != NULL; iter = iter->hh.next) {
+            printf("%s\n", iter->name);
+        }
+    }
+    
+    /*
     bus_number = 0;
     twi_init();
     check_error();
@@ -25,6 +37,7 @@ int main(int argc, char **argv) {
         printf("%x ", data[i]);
     }
     printf("\n");
+    */
     return 0;
 }
 
