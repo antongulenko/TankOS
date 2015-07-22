@@ -82,6 +82,7 @@ static void twi_masterTransmissionEnded(TWIBuffer parameters) {
 	byte operation = parameters.data[0];
 	parameters.data++; // Skip the operation-byte
 	parameters.size--;
+    // TODO - at this point the handler has no way of knowing how much result-data can be placed in the buffer...
 	lastHandlerStatus = twi_handleRpcRequest(operation, &parameters);
     lastHandledOperation = operation;
 	resultBuffer = parameters;

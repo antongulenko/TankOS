@@ -19,7 +19,7 @@ RpcHandlerStatus server_function(TestArgStruct *args, uint16_t argSize, TWIBuffe
     receivedArgs = *args;
     args->arg1++;
     args->arg2 += 3.0;
-    FILL_VAR_RESULT(resultBuffer, sizeof(TestArgStruct), args)
+    FILL_VAR_RESULT(resultBuffer, args, sizeof(TestArgStruct))
     memcpy(((TestResStruct*) resultBuffer->data)->res2, "Ho", 3);
     resultBuffer->size += (sizeof(TestResStruct) - sizeof(TestArgStruct));
     return TWI_RPC_handler_ok;

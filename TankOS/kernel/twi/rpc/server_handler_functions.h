@@ -31,13 +31,14 @@ extern PTwiFunction twiRpcFunctions;
 // it in the hash-table for twi-function-handlers.
 #define TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)					\
 	TwiFunction funcName##_function = { operationByte, funcName##_handler, {0} };	\
-	static void funcName##_register_function() {			\
+	static void funcName##_register_function() {			                        \
 		/* The second macro parameter 'operation' is the name of the key-field in */\
 		/* the TwiFunction struct! Do not change to 'operationByte'. */				\
 		HASH_ADD_BYTE(twiRpcFunctions, operation, &funcName##_function);			\
 	}																				\
 	KERNEL_INIT(funcName##_register_function)
 
+// TODO set buffer size to 0 before passing to handler
 // Signature: RpcHandlerStatus funcName(ArgStruct *args, uint16_t argSize, TWIBuffer *resultBuffer)
 #define TWI_RPC_SERVER_FUNCTION(funcName, operationByte, ArgStruct)	                \
 	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {						\
@@ -56,6 +57,7 @@ extern PTwiFunction twiRpcFunctions;
 	}																		         \
 	TWI_RPC_SERVER_REGISTER_FUNCTION(funcName, operationByte)
 
+// TODO set buffer size to 0 before passing to handler
 // Signature: RpcHandlerStatus funcName(TWIBuffer *resultBuffer)
 #define TWI_RPC_SERVER_FUNCTION_NOARGS(funcName, operationByte)		                \
 	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {						\
@@ -77,10 +79,10 @@ extern PTwiFunction twiRpcFunctions;
 
 // Fills the buffer with the result, assuming a struct of fixed size is returned.
 #define FILL_RESULT(resultBuffer, ResultType, result)	\
-	*(ResultType*) resultBuffer->data = result;			\
-	resultBuffer->size = sizeof(ResultType);
+	*(ResultType*) (resultBuffer)->data = result;			\
+	(resultBuffer)->size = sizeof(ResultType);
 
 // Fills the buffer with a variable amount of data from the result pointer.
-#define FILL_VAR_RESULT(resultBuffer, the_size, result)		\
-	memcpy(resultBuffer->data, result, the_size);			\
-	resultBuffer->size = the_size;
+#define FILL_VAR_RESULT(resultBuffer, result, the_size)		\
+	memcpy((resultBuffer)->data, result, the_size);			\
+	(resultBuffer)->size = the_size;
