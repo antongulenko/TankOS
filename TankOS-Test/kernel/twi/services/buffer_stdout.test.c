@@ -41,7 +41,7 @@ void test_query_status() {
 
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 
-inline void request_buffer(uint16_t buf_size, uint16_t expected_size, char* expected_text) {
+void request_buffer(uint16_t buf_size, uint16_t expected_size, char* expected_text) {
     char buf[sizeof(uint16_t) + buf_size];
     RpcClientResult status = flush_stdout_buffer(test_device, buf_size, buf, sizeof(buf));
     assert_correct_status(status);
