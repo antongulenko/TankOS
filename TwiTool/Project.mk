@@ -8,6 +8,7 @@ endif
 
 include Defaults.mk
 
+symbols += RPC_CLIENT_FUNCTION_REGISTRY
 $(project)_exclusive_platform := Native
 
 include Main.mk

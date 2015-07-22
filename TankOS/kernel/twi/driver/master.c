@@ -115,15 +115,13 @@ void twiSendReceive(TWIDevice _targetDevice, TWIBuffer sendData, TWIBuffer recei
 	initiate_twi();
 }
 
-void twiWaitForCompletion(uint16_t msWaitEachIteration) {
+void twiWaitForCompletion() {
 	while (1) {
 		uint8_t still_running;
 		ATOMIC_BLOCK(ATOMIC_FORCEON) {
 			still_running = twi_running;
 		}
 		if (!still_running) return;
-		//if (msWaitEachIteration != 0)
-		//	delay_ms(msWaitEachIteration);
 	}
 }
 

@@ -57,6 +57,12 @@ $(eval $(call set_test_objects,kernel/twi/rpc/client_functions,\
     $(KERNEL)/twi/rpc/strings.o \
 	$(KERNEL)/twi/rpc/client.o ))
 
+$(eval $(call set_test_objects,kernel/twi/rpc/client_functions_registry,\
+	$(BUILDDIR)/mocks/twi_driver_master.o \
+	$(BUILDDIR)/mocks/rpc_client.o \
+    $(KERNEL)/twi/rpc/client_functions.o \
+	$(KERNEL)/twi/rpc/client.o ))
+
 $(eval $(call set_test_objects,kernel/twi/rpc/server_handler_functions,\
     $(BUILDDIR)/mocks/twi_driver_slave.o \
     $(BUILDDIR)/mocks/rpc_server.o \

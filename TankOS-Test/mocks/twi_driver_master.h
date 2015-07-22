@@ -15,7 +15,6 @@ extern struct _s_mock_driver {
     BOOL waitedForCompletion;
 
     TWIDevice device;
-    uint16_t waitForCompletionTime;
 
     BOOL sent, received;
     TWIBuffer sendBuffer, receiveBuffer;

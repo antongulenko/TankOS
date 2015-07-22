@@ -11,7 +11,6 @@ struct _s_mock_driver mock_driver = {
     FALSE, // twiCalled
     FALSE, // waitedForCompletion
     { 0 }, // device
-    0, // waitForCompletionTime
     FALSE, // sent
     FALSE, // received
     StaticEmptyBuffer, // sendBuffer
@@ -73,7 +72,6 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer _recei
 	fillReceiveData(&_receiveBuffer);
 }
 
-void twiWaitForCompletion(uint16_t msWaitEachIteration) {
+void twiWaitForCompletion() {
 	assertNotCalledYet(&mock_driver.waitedForCompletion);
-	mock_driver.waitForCompletionTime = msWaitEachIteration;
 }

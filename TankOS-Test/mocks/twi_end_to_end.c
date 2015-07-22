@@ -56,6 +56,6 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
     twi_error = TWI_No_Error;
 }
 
-void twiWaitForCompletion(uint16_t msWaitEachIteration) {
+void twiWaitForCompletion() {
     // No-op, no asynchronous transmission.
 }

@@ -15,7 +15,7 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
 // the end of the current operation might be skipped.
 // Optionally, define non-zero msWaitEachIteration to add a delay between two
 // completion checks.
-void twiWaitForCompletion(uint16_t msWaitEachIteration);
+void twiWaitForCompletion();
 
 // This function will handle the TWI interrupt for a device in master mode.
 TwiHandlerStatus twi_handle(TwiStatus status);

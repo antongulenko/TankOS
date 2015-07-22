@@ -47,8 +47,6 @@ void tearDown() {
 			"rpc call did not behave as expected (receiving data)");
     TEST_ASSERT_TRUE_MESSAGE(mock_driver.waitedForCompletion,
             "rpc call did not wait for completion");
-    TEST_ASSERT_EQUAL_MESSAGE(0, mock_driver.waitForCompletionTime,
-            "rpc did not execute busy loop waiting for completion");
     TEST_ASSERT_TRUE_MESSAGE(mock_driver.twiCalled, "twi not called during rpc");
 
     // Check data that is sent by the client
