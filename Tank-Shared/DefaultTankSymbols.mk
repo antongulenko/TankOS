@@ -8,4 +8,4 @@ ld_symbols += \
     millisecond_timer_A=Timer3A \
     millisecond_timer_B=Timer3B
 
-symbols := __AVR_ATmega1284P__
+symbols += __AVR_ATmega1284P__
