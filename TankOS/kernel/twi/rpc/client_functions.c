@@ -47,14 +47,6 @@ RpcQueryFunction lookupClientFunction(char *name) {
     HASH_FIND_STR(clientFunctionRegisty, name, result);
     if (result != NULL)
         return result->function;
-    else {
-        printf("Not found! %s\n", name);
-
-        ClientFunctionRegistryEntry result;
-        for(result=clientFunctionRegisty; result != NULL; result=result->hh.next) {
-            printf("Entry %p registered at %s\n", result->function, result->name);
-        }
-
+    else
         return NULL;
-    }
 }
