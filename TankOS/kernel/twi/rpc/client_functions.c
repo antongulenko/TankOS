@@ -1,7 +1,6 @@
 
 #include "client_functions.h"
-#include <string.h>
-#include <uthash/uthash.h>
+#include "client_functions_registry.h"
 
 RpcClientResult twi_rpc_client(TWIDevice device, byte operationByte, byte *parameters, uint16_t argSize, byte *out_result, uint16_t resultSize) {
     TWIBuffer argBuf = (TWIBuffer) { parameters, argSize };
@@ -25,22 +24,12 @@ RpcClientResult twi_rpc_client_async(TWIDevice device, byte operationByte, byte 
     return res;
 }
 
-typedef struct {
-    char *name;
-    RpcQueryFunction function;
-    UT_hash_handle hh;
-} _ClientFunctionRegistryEntry, *ClientFunctionRegistryEntry;
-
-ClientFunctionRegistryEntry clientFunctionRegisty = NULL;
-
 void registerClientFunction(char *funcName, RpcQueryFunction function) {
     ClientFunctionRegistryEntry entry = calloc(1, sizeof(_ClientFunctionRegistryEntry));
     entry->name = funcName;
     entry->function = function;
     HASH_ADD_STR(clientFunctionRegisty, name, entry);
 }
-
-#include <stdio.h>
 
 RpcQueryFunction lookupClientFunction(char *name) {
     ClientFunctionRegistryEntry result = NULL;
