@@ -13,6 +13,6 @@ define set_test_objects
         $2
     ifeq ($(PLATFORM), Native)
         objects_$(project)_testrunners/$1.testrunner += \
-            $(KERNEL_BASE)/native_simulation.kernel.o
+            $(KERNEL_BASE)/simulation/simulation.kernel.o
     endif
 endef

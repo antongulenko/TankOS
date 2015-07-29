@@ -19,3 +19,6 @@ extern char *__brkval;
 
 #define delay_ms(ms) _delay_ms(ms)
 #define delay_us(us) _delay_us(us)
+
+#define INTERRUPT_HANDLER(name) ISR(name)
+#define INTERRUPT_FUNCTION __attribute__ ((interrupt))

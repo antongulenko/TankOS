@@ -9,7 +9,7 @@
 void run_leds() {
 	int i = 0;
 	while (1) {
-		flashLed(AllLeds->leds[i]);
+		flashLed(AllLeds->leds[i], 500);
 		i++;
 		i %= AllLeds->count;
 	}
@@ -49,7 +49,7 @@ int main() {
 
 #ifdef USE_ISR
 uint16_t ticks = 0;
-ISR(CLOCKISR_B) {
+INTERRUPT_HANDLER(CLOCKISR_B) {
 	ticks++;
 	if (ticks % TICK_AFTER_MS)
 		led_operation_tick();

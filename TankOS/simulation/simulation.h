@@ -2,6 +2,21 @@
 #define NATIVE_SIMULATION_H_
 
 #include <stdint.h>
+#define _BV(a) (1 << a)
+
+uint8_t *__registerByte(uint16_t offset);
+uint16_t *__registerWord(uint16_t offset);
+
+// Include memory definitions for Atmega 1284p, copied from the AVR library.
+// Registers are simulated through a dedicated memory buffer.
+// This mostly mirrors the avr/io.h header.
+#define _SFR_MEM8(addr) (*__registerByte(addr))
+#define _SFR_MEM16(addr) (*__registerWord(addr))
+#define _SFR_IO8(addr) (*__registerByte(addr))
+#define _SFR_IO16(addr) (*__registerWord(addr))
+#include "iom1284p.h"
+#include "portpins.h"
+#include "common.h"
 
 // Resets all variables
 void init_native_simulation();
@@ -11,10 +26,6 @@ void init_native_simulation();
 // are simply represented as global data.
 
 // This also contains some definitions to make code compile for the native env.
-
-// == Types
-#define _BV(a) (1 << a)
-typedef uint8_t REGISTER;
 
 // == stdio.h
 // This is not usable, only to make the code compile somehow.
@@ -42,10 +53,6 @@ static inline void delay_us(uint32_t us) {
 	delay_us_hook(us);
 }
 
-// == External interrupts
-extern REGISTER PCMSK0, PCMSK1, PCMSK2, PCMSK3;
-extern REGISTER PCICR;
-
 uint8_t _interrupts_enabled; // Can be used by tests
 void sei(); // Enable external interrupts
 void cli(); // Disable external interrupts
@@ -63,30 +70,15 @@ void cli(); // Disable external interrupts
 #define sleep_cpu()
 
 // == WDT
-#define WDRF 0
-extern REGISTER MCUSR;
 #define wdt_enable(mode)
 #define WDTO_15MS
 #define wdt_disable()
-
-// == Reset Condition
-#define PORF 1
-#define BORF 2
 
 // == Hardware reset
 extern uint8_t hardware_reset_triggered;
 void HARDWARE_RESET();
 
 // == TWI
-#define TWIE 0
-#define TWEN 1
-#define TWSTA 2
-#define TWSTO 3
-#define TWEA 4
-#define TWINT 5
-
-extern REGISTER TWCR, TWDR, TWBR, TWSR, TWAR, TWAMR;
-
 enum {
 	TW_START,
 	TW_REP_START,
@@ -118,9 +110,16 @@ enum {
     TW_MT_ARB_LOST = TW_MR_ARB_LOST, // They are the same in avr-libc
 };
 
-// eeprom
+#define TW_STATUS_MASK  (_BV(TWS7)|_BV(TWS6)|_BV(TWS5)|_BV(TWS4)|_BV(TWS3))
+#define TW_STATUS		(TWSR & TW_STATUS_MASK)
+
+// == eeprom
 #define EEMEM
 uint16_t eeprom_read_word(uint16_t *addr);
 void eeprom_update_word(uint16_t *addr, uint16_t value);
+
+// == function attributes
+#define INTERRUPT_HANDLER(name) void interrupt_##name()
+#define INTERRUPT_FUNCTION
 
 #endif // NATIVE_SIMULATION_H_

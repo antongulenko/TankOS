@@ -120,7 +120,7 @@ $(eval $(call set_test_objects,kernel/twi/services/test,\
 
 $(eval $(call set_test_objects,kernel/buffer_stdout,\
     $(KERNEL)/buffer_stdout.o \
-    $(KERNEL)/processes/mutex/mutex.kernel.o ))
+    $(KERNEL)/mutex/mock_mutex.kernel.o ))
 
 $(eval $(call set_test_objects,kernel/twi/services/buffer_stdout,\
     $(BUILDDIR)/mocks/assertions.o \
@@ -130,7 +130,7 @@ $(eval $(call set_test_objects,kernel/twi/services/buffer_stdout,\
     $(KERNEL)/twi/services/buffer_stdout.o \
     $(KERNEL)/twi/services/buffer_stdout.kernel.o \
     $(KERNEL)/buffer_stdout.o \
-    $(KERNEL)/processes/mutex/mutex.kernel.o \
+    $(KERNEL)/mutex/mock_mutex.kernel.o \
     $(KERNEL)/twi/rpc/strings.o \
     $(KERNEL)/twi/rpc/server.o \
     $(KERNEL)/twi/rpc/client.o \

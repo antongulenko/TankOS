@@ -1,5 +1,27 @@
 
-#include "native_simulation.h"
+#include "simulation.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+uint8_t __registerData[4096 * 4];
+
+static void checkRegisterOffset(uint16_t offset) {
+    if (offset > sizeof(__registerData)) {
+        printf("Register data offset %x is larger than register page size %lu.\n", offset, (long unsigned int) sizeof(__registerData));
+        exit(1);
+    }
+}
+
+uint8_t *__registerByte(uint16_t offset) {
+    checkRegisterOffset(offset);
+    return (uint8_t*) __registerData + offset;
+}
+
+uint16_t *__registerWord(uint16_t offset) {
+    checkRegisterOffset(offset + 1);
+    return (uint16_t*) __registerData + offset;
+}
 
 void delay_ms_hook(uint32_t ms) __attribute__((weak));
 void delay_ms_hook(uint32_t ms) {
@@ -11,10 +33,8 @@ void delay_us_hook(uint32_t us) {
 }
 
 void init_native_simulation() {
-    PCMSK0 = PCMSK1 = PCMSK2 = PCMSK3 = 0;
-    PCICR = 0;
-    TWCR = TWDR = TWBR = TWSR = TWAR = TWAMR = 0;
-    MCUSR = 0;
+    memset(__registerData, 0, sizeof(__registerData));
+
     hardware_reset_triggered = 0;
     _interrupts_enabled = 0;
 
@@ -29,13 +49,6 @@ uint16_t DYNAMIC_MEMORY_START;
 uint16_t ALLOCATED_HEAP_END;
 uint16_t MALLOC_END;
 uint16_t MALLOC_START;
-
-REGISTER PCMSK0, PCMSK1, PCMSK2, PCMSK3;
-REGISTER PCICR;
-
-REGISTER TWCR, TWDR, TWBR, TWSR, TWAR, TWAMR;
-
-REGISTER MCUSR;
 
 uint8_t hardware_reset_triggered = 0;
 

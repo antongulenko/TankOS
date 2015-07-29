@@ -1,20 +1,22 @@
 
+== Sanity tests
+
+- AVR with simple LED blinking routine. Try to measure _delay_ms precision.
+- Flash full Tank-IO kernel, test startup routine with blinking.
+- Add complete button/LED circuit, test.
+- Add TWI curcuit with Beaglebone.
+
 == Milestones
 
-- IO-Prozessor auf Breadboard testen. TWI mit Beaglebone.
-
-- Makefiles
-		- Add avrdude commands: check-connection, flash (inkl. chip-erase), (read+write eeeprom)
-
 - Use Processes, Scheduler?
-
-- Linux
-	- Beaglebone Datenblätter etc.
-	- USB-Hub/Verteiler? WLAN-Modul?
-	- kleine, schnelle SSD holen
+- Makefiles
+		- Add avrdude commands: flash (inkl. chip-erase), (read+write eeeprom)
 
 == Refactorings
 
+- Extract HAL layer in TankOS, with generic interface and multiple implementations
+    - implementations based on platform: AVR, Linux, Simulation
+    - folders in TankOS, only
 - Interrupt handler mit Processes/scheduling integrieren?
 
 == TODO

@@ -7,7 +7,7 @@
 
 #include <kernel/kernel_init.h>
 #include "tank_button_internal.h"
-#include <kernel/processes/mutex/mutex.h>
+#include <kernel/mutex/mutex.h>
 #include <kernel/devices/port_m1284P.h>
 
 Mutex buttonMutex;

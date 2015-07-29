@@ -10,7 +10,7 @@
 
 #include <kernel/millisecond_clock.h>
 #include <kernel/early_init.h>
-#include <kernel/processes/mutex/mutex.h>
+#include <kernel/mutex/mutex.h>
 #include <kernel/devices/analog_m1284P.h>
 #include <kernel/devices/timer_m1284P.h>
 #include <tank_os_common.h>

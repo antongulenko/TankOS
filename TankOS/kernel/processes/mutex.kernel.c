@@ -5,7 +5,7 @@
 
 // TODO put down some Mutex implementation :)
 
-#include "mutex.h"
+#include <kernel/mutex/mutex.h>
 
 typedef struct {
 	// TODO

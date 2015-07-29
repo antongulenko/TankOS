@@ -1,6 +1,7 @@
 
 #include <kernel/kernel_init.h>
 #include <kernel/twi/driver/driver.h>
+#include "tank_io_address.h"
 
 const byte TwiSlaveAddress = TANK_IO_ADDRESS;
 

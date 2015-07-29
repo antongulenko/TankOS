@@ -4,7 +4,7 @@
 
 KERNEL_INIT(TWI_INIT_FUNCTION)
 
-ISR(TWI_vect) {
+INTERRUPT_HANDLER(TWI_vect) {
 	TwiHandlerStatus status = TWI_HANDLE_FUNCTION(TW_STATUS);
 
 	// Set the control register first!

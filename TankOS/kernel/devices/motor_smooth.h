@@ -9,7 +9,7 @@
 #define MOTOR_SMOOTH_H_
 
 #include "motor.h"
-#include <kernel/processes/mutex/mutex.h>
+#include <kernel/mutex/mutex.h>
 
 // This struct contains additional data enabling a smoother control
 // over the motor speed.

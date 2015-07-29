@@ -1,4 +1,3 @@
-include DefaultMainObjects.mk
 include Tank-Shared/DefaultObjectVariables.mk
 
 objects += \
@@ -7,5 +6,6 @@ objects += \
     $(KERNEL)/twi/services/hardware.o \
     $(KERNEL)/twi/services/hardware.kernel.o \
     $(KERNEL)/twi/services/buffer_stdout.kernel.o \
-    $(KERNEL)/twi/services/buffer_stdout.o
-
+    $(KERNEL)/twi/services/buffer_stdout.o \
+    $(KERNEL)/mutex/mock_mutex.kernel.o \
+    $(KERNEL_BASE)/simulation/simulation.kernel.o

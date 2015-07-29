@@ -6,7 +6,7 @@
  */
 
 #include "buffer_stdout.h"
-#include <kernel/processes/mutex/mutex.h>
+#include <kernel/mutex/mutex.h>
 #include <string.h>
 
 static Mutex flush_mutex;

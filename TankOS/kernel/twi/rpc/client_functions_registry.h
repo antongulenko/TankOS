@@ -2,6 +2,8 @@
 #define TWI_CLIENT_FUNCTIONS_REGISTRY_H_
 
 #include "client_functions.h"
+
+#define HASH_FUNCTION HASH_SAX
 #include <uthash/uthash.h>
 
 typedef struct {

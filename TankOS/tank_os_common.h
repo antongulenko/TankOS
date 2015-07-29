@@ -14,9 +14,9 @@
 #include <stdlib.h>
 
 #ifdef AVR
-#include "hardware.h"
+#include "avr_hardware.h"
 #else
-#include "native_simulation.h"
+#include "simulation/simulation.h"
 #endif
 
 typedef enum {
