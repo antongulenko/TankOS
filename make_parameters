@@ -30,7 +30,7 @@ ifeq ($(CONFIG), tests)
     PROJ := TankOS-Test
     PLATFORM = Native
     SPEED := true
-    LSS := true
+default: run
 
 endif
 ifeq ($(CONFIG), tank)

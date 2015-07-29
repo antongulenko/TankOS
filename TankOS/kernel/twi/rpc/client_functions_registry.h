@@ -12,6 +12,8 @@ typedef struct {
     UT_hash_handle hh;
 } _ClientFunctionRegistryEntry, *ClientFunctionRegistryEntry;
 
-ClientFunctionRegistryEntry clientFunctionRegisty = NULL;
+extern ClientFunctionRegistryEntry clientFunctionRegisty;
+
+RpcQueryFunction lookupClientFunction(char *name);
 
 #endif // TWI_CLIENT_FUNCTIONS_REGISTRY_H_

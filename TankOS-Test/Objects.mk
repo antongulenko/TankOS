@@ -32,14 +32,14 @@ $(eval $(call set_test_objects,kernel/twi/driver/master,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
     $(BUILDDIR)/mocks/delay.o \
-	$(KERNEL)/twi/driver/master.o))
+	$(KERNEL)/twi/driver/master_avr.kernel.o))
 
 $(eval $(call set_test_objects,kernel/twi/driver/slave,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
     $(BUILDDIR)/mocks/delay.o \
 	$(KERNEL)/twi/driver/master.o \
-	$(KERNEL)/twi/driver/slave.o))
+	$(KERNEL)/twi/driver/slave_avr.kernel.o))
 
 $(eval $(call set_test_objects,kernel/twi/rpc/client,\
 	$(BUILDDIR)/mocks/twi_driver_master.o \

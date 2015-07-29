@@ -2,6 +2,8 @@
 #include "client_functions.h"
 #include "client_functions_registry.h"
 
+ClientFunctionRegistryEntry clientFunctionRegisty = NULL;
+
 RpcClientResult twi_rpc_client(TWIDevice device, byte operationByte, byte *parameters, uint16_t argSize, byte *out_result, uint16_t resultSize) {
     TWIBuffer argBuf = (TWIBuffer) { parameters, argSize };
 	TWIBuffer resBuf = (TWIBuffer) { out_result, resultSize };

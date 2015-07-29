@@ -10,4 +10,3 @@ extern unsigned short bus_number;
 extern char *twi_error_description;
 
 #endif // TWI_MASTER_LINUX_H_
-

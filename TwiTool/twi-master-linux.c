@@ -65,6 +65,10 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
     twiReceive(targetDevice, receiveBuffer);
 }
 
+void twiWaitForCompletion() {
+    // No-op. TODO no multi threading.
+}
+
 void twi_init() {
     snprintf(filename, sizeof(filename) - 1, "%s%d", i2c_file_prefix, bus_number);
     file = open(filename, O_RDWR);
