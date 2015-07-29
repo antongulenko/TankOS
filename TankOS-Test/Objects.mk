@@ -32,14 +32,16 @@ $(eval $(call set_test_objects,kernel/twi/driver/master,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
     $(BUILDDIR)/mocks/delay.o \
-	$(KERNEL)/twi/driver/master_avr.kernel.o))
+	$(KERNEL)/twi/driver/master_init.kernel.o \
+    $(KERNEL)/twi/driver/master.kernel.o ))
 
 $(eval $(call set_test_objects,kernel/twi/driver/slave,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
     $(BUILDDIR)/mocks/delay.o \
-	$(KERNEL)/twi/driver/master.o \
-	$(KERNEL)/twi/driver/slave_avr.kernel.o))
+    $(KERNEL)/twi/driver/master.kernel.o \
+    $(KERNEL)/twi/driver/slave_init.kernel.o \
+	$(KERNEL)/twi/driver/slave.kernel.o))
 
 $(eval $(call set_test_objects,kernel/twi/rpc/client,\
 	$(BUILDDIR)/mocks/twi_driver_master.o \
@@ -60,6 +62,7 @@ $(eval $(call set_test_objects,kernel/twi/rpc/client_functions,\
 $(eval $(call set_test_objects,kernel/twi/rpc/client_functions_registry,\
 	$(BUILDDIR)/mocks/twi_driver_master.o \
 	$(BUILDDIR)/mocks/rpc_client.o \
+    $(BUILDDIR)/mocks/rpc_client_registry.o \
     $(KERNEL)/twi/rpc/client_functions.o \
 	$(KERNEL)/twi/rpc/client.o ))
 

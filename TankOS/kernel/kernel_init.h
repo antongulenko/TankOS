@@ -4,6 +4,8 @@
 // Include this for convenience, since most kernel-modules include the init-module.
 #include <tank_os_common.h>
 
+#include <stdio.h>
+
 #ifdef AVR
 
 // This makro registers a function to be executed in .init8, after all
@@ -23,7 +25,7 @@
 // On non-AVR systems, .init8 might not be available, the constructor attribute is a
 // more general way to express the same thing.
 #define KERNEL_INIT(functionName)										                \
-	__attribute__ ((constructor)) void functionName##_kernel_init() { functionName(); }
+	__attribute__ ((constructor)) void functionName##_kernel_init() { printf("Init %s\n", #functionName); functionName(); }
 
 #endif // AVR
 

@@ -1,5 +1,6 @@
 
 #include <kernel/twi/rpc/client_functions.h>
+#include <kernel/twi/rpc/client_functions_registry.h>
 #include <unity.h>
 #include <mocks/rpc_client.h>
 

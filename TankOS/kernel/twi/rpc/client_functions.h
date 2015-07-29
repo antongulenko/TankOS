@@ -37,9 +37,6 @@ RpcClientResult twi_rpc_client_async(TWIDevice device, byte operationByte, byte 
 #define REGISTER_CLIENT_FUNCTION(funcName)
 #endif // RPC_CLIENT_FUNCTION_REGISTRY
 
-// TODO register all functions, but we need info about number of parameters etc...
-#define _REGISTER_CLIENT_FUNCTION(funcName)
-
 // ==
 // Function signatures for regular headers
 // ==
@@ -49,29 +46,29 @@ RpcClientResult twi_rpc_client_async(TWIDevice device, byte operationByte, byte 
 
 #define TWI_RPC_FUNCTION_VAR(funcName, operationByte, ArgStruct, ResStruct)		                                                     \
 	RpcClientResult funcName(TWIDevice device, ArgStruct *parameters, uint16_t argSize, ResStruct *out_result, uint16_t resultSize); \
-    _REGISTER_CLIENT_FUNCTION(funcName)
+    REGISTER_CLIENT_FUNCTION(funcName)
 
 #define TWI_RPC_FUNCTION_VARARGS(funcName, operationByte, ArgStruct, ResStruct)	                                \
 	RpcClientResult funcName(TWIDevice device, ArgStruct *parameters, uint16_t argSize, ResStruct *out_result); \
-    _REGISTER_CLIENT_FUNCTION(funcName)
+    REGISTER_CLIENT_FUNCTION(funcName)
 
 #define TWI_RPC_FUNCTION_VARRES(funcName, operationByte, ArgStruct, ResStruct)	                                  \
 	RpcClientResult funcName(TWIDevice device, ArgStruct parameters, ResStruct *out_result, uint16_t resultSize); \
-    _REGISTER_CLIENT_FUNCTION(funcName)
+    REGISTER_CLIENT_FUNCTION(funcName)
 
 #define TWI_RPC_FUNCTION(funcName, operationByte, ArgStruct, ResStruct)			             \
 	RpcClientResult funcName(TWIDevice device, ArgStruct parameters, ResStruct *out_result); \
-    _REGISTER_CLIENT_FUNCTION(funcName)
+    REGISTER_CLIENT_FUNCTION(funcName)
 
 // Functions with only Arguments
 
 #define TWI_RPC_FUNCTION_VOID_VAR(funcName, operationByte, ArgStruct)			         \
 	RpcClientResult funcName(TWIDevice device, ArgStruct *parameters, uint16_t argSize); \
-    _REGISTER_CLIENT_FUNCTION(funcName)
+    REGISTER_CLIENT_FUNCTION(funcName)
 
 #define TWI_RPC_FUNCTION_VOID(funcName, operationByte, ArgStruct)				\
 	RpcClientResult funcName(TWIDevice device, ArgStruct parameters);           \
-    _REGISTER_CLIENT_FUNCTION(funcName)
+    REGISTER_CLIENT_FUNCTION(funcName)
 
 #define TWI_RPC_FUNCTION_ASYNC(funcName, operationByte, ArgStruct) 				\
 	TWI_RPC_FUNCTION_VOID(funcName, operationByte, ArgStruct)
@@ -83,11 +80,11 @@ RpcClientResult twi_rpc_client_async(TWIDevice device, byte operationByte, byte 
 
 #define TWI_RPC_FUNCTION_NOARGS(funcName, operationByte, ResStruct)				\
 	RpcClientResult funcName(TWIDevice device, ResStruct *out_result);          \
-    _REGISTER_CLIENT_FUNCTION(funcName)
+    REGISTER_CLIENT_FUNCTION(funcName)
 
 #define TWI_RPC_FUNCTION_NOARGS_VAR(funcName, operationByte, ResStruct)			            \
 	RpcClientResult funcName(TWIDevice device, ResStruct *out_result, uint16_t resultSize); \
-    _REGISTER_CLIENT_FUNCTION(funcName)
+    REGISTER_CLIENT_FUNCTION(funcName)
 
 // Functions with neither Arguments nor Results
 

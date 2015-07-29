@@ -4,23 +4,15 @@
 #include <string.h>
 #include <stdlib.h>
 
-uint8_t __registerData[4096 * 4];
+uint8_t __registerData_mem[4096 * 4];
+uint8_t __registerData_io[4096 * 4];
 
-static void checkRegisterOffset(uint16_t offset) {
-    if (offset > sizeof(__registerData)) {
-        printf("Register data offset %x is larger than register page size %lu.\n", offset, (long unsigned int) sizeof(__registerData));
+uint8_t *__register(uint16_t offset, uint8_t size, uint8_t *buffer, unsigned long int buffer_size) {
+    if (offset + size - 1 > buffer_size) {
+        printf("Register data offset %x is larger than register page size %lu.\n", offset, (long unsigned int) buffer_size);
         exit(1);
     }
-}
-
-uint8_t *__registerByte(uint16_t offset) {
-    checkRegisterOffset(offset);
-    return (uint8_t*) __registerData + offset;
-}
-
-uint16_t *__registerWord(uint16_t offset) {
-    checkRegisterOffset(offset + 1);
-    return (uint16_t*) __registerData + offset;
+    return (uint8_t*) buffer + offset;
 }
 
 void delay_ms_hook(uint32_t ms) __attribute__((weak));
@@ -33,7 +25,8 @@ void delay_us_hook(uint32_t us) {
 }
 
 void init_native_simulation() {
-    memset(__registerData, 0, sizeof(__registerData));
+    memset(__registerData_mem, 0, sizeof(__registerData_mem));
+    memset(__registerData_io, 0, sizeof(__registerData_io));
 
     hardware_reset_triggered = 0;
     _interrupts_enabled = 0;

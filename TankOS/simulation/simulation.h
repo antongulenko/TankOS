@@ -4,16 +4,18 @@
 #include <stdint.h>
 #define _BV(a) (1 << a)
 
-uint8_t *__registerByte(uint16_t offset);
-uint16_t *__registerWord(uint16_t offset);
+extern uint8_t __registerData_mem[4096 * 4];
+extern uint8_t __registerData_io[4096 * 4];
+
+uint8_t *__register(uint16_t offset, uint8_t size, uint8_t *buffer, unsigned long int buffer_size);
 
 // Include memory definitions for Atmega 1284p, copied from the AVR library.
 // Registers are simulated through a dedicated memory buffer.
 // This mostly mirrors the avr/io.h header.
-#define _SFR_MEM8(addr) (*__registerByte(addr))
-#define _SFR_MEM16(addr) (*__registerWord(addr))
-#define _SFR_IO8(addr) (*__registerByte(addr))
-#define _SFR_IO16(addr) (*__registerWord(addr))
+#define _SFR_MEM8(addr) (*__register(addr, 1, __registerData_mem, sizeof(__registerData_mem)))
+#define _SFR_MEM16(addr) (*(uint16_t*)__register(addr, 2, __registerData_mem, sizeof(__registerData_mem)))
+#define _SFR_IO8(addr) (*__register(addr, 1, __registerData_io, sizeof(__registerData_io)))
+#define _SFR_IO16(addr) (*(uint16_t*)__register(addr, 2, __registerData_io, sizeof(__registerData_io)))
 #include "iom1284p.h"
 #include "portpins.h"
 #include "common.h"
