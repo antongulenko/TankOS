@@ -1,0 +1,56 @@
+
+#CONFIG := tank
+#CONFIG := simulator
+#CONFIG := tests
+#CONFIG := twitool
+
+ifeq ($(CONFIG), simulator)
+
+    USE_PROCESS := false
+    USE_PROCESS_EXT := false
+    USE_SCHEDULER := false
+
+    USE_BUFFER_STDOUT := true
+    USE_TWI := true
+
+    MAIN_Main-Simulator := test_empty
+
+    PROJ := Main-Simulator
+    PLATFORM := Avr
+    STUDIO := true
+    DONT_LINK_ALL := true
+
+    NOOPT := true
+    DEBUG := true
+    LSS := true
+
+endif
+ifeq ($(CONFIG), tests)
+
+    PROJ := TankOS-Test
+    PLATFORM = Native
+    SPEED := true
+    LSS := true
+
+endif
+ifeq ($(CONFIG), tank)
+
+    USE_TWI := true
+
+    PLATFORM := Avr
+    LSS := true
+    SPEED := true
+    # DONT_LINK_ALL := true
+
+    ifndef PROJ
+        $(error Please define PROJ= on the command line)
+    endif
+
+endif
+ifeq ($(CONFIG), twitool)
+
+    PLATFORM := Native
+    PROJ := TwiTool
+    SPEED := true
+
+endif
