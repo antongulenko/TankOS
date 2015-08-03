@@ -27,6 +27,8 @@ RpcClientResult twi_rpc_client_async(TWIDevice device, byte operationByte, byte 
 // ==
 // The 3. functionality explained above
 
+// TODO - register additional information about parameter/argument size
+
 #define REGISTER_CLIENT_FUNCTION(funcName) \
     void funcName##_registering() { \
         registerClientFunction(#funcName, (RpcQueryFunction) &funcName); \

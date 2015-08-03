@@ -6,18 +6,9 @@
 - Add complete button/LED circuit, test.
 - Add TWI curcuit with Beaglebone.
 
-== Milestones
-
-- Use Processes, Scheduler?
-- Makefiles
-		- Add avrdude commands: flash (inkl. chip-erase), (read+write eeeprom)
-
 == Refactorings
 
-- Extract HAL layer in TankOS, with generic interface and multiple implementations
-    - implementations based on platform: AVR, Linux, Simulation
-    - folders in TankOS, only
-- Interrupt handler mit Processes/scheduling integrieren?
+- Add interrupt-handling concept for Processes/Scheduler
 
 == TODO
 
