@@ -21,7 +21,7 @@ void printFunctions() {
     printf("Available functions:\n");
     ClientFunctionRegistryEntry iter;
     for (iter = clientFunctionRegisty; iter != NULL; iter = iter->hh.next) {
-        printf("%s\n", iter->name);
+        printf("* %s\n", iter->name);
     }
 }
 
