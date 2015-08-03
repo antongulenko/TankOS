@@ -48,6 +48,11 @@ ifneq ($(VERBOSE), true)
     .SILENT:
 endif
 
+ifndef OS
+    # TODO find better way to check for the OS.
+    OS := Linux
+endif
+
 ifndef PLATFORM
     PLATFORM := Avr
 endif
