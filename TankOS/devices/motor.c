@@ -3,10 +3,9 @@
  *
  * Created: 26.04.2012 17:24:51
  *  Author: Anton
- */ 
+ */
 
 #include "motor.h"
-#include "timer.h"
 
 static void setMotorValues(PMotor motor, uint16_t speed, MotorDirection direction) {
 	if (motor->flags & MOTOR_INVERSE_SPEED) speed = 0xFFFF - speed;
@@ -64,7 +63,7 @@ void setSpeed(PMotor motor, uint16_t speed, MotorDirection direction) {
 		stopMotor(motor);
 		return;
 	}
-	
+
 	setMotorValues(motor, speed, direction);
 	if (getSpeed(motor) == 0) {
 		// Work around a timer-internal issue:
@@ -72,7 +71,7 @@ void setSpeed(PMotor motor, uint16_t speed, MotorDirection direction) {
 		// the speed value here is not 0, because then just the high byte is used
 		// as compare value. In other words, the 8-bit resolution is of course not
 		// enough to represent all 16-bit values. This will happen for speed values < 256.
-		
+
 		stopMotor(motor);
 	}
 }
@@ -92,7 +91,7 @@ int16_t getDirSpeed(PMotor motor) {
 	if (dir == MOTOR_STOPPED) return 0;
 	dir = convertDirection(motor, dir);
 	speed = convertSpeed(motor, speed);
-	
+
 	// This is symmetric to the shift in motor_toUnsignedSpeed.
 	int16_t val = abs((int16_t) (speed >> 1));
 	if (dir == BACKWARD)
@@ -125,7 +124,7 @@ static void setMotorTimerCompareValue(PTimer timer, uint16_t speed, MotorDirecti
 	else
 		enableOutputCompare(timer);
 	setTimerCompareValue(timer, speed);
-}	
+}
 
 void motor1Dir1Speed_setDirSpeed(PMotor _motor, uint16_t speed, MotorDirection dir) {
 	PMotor1Dir1Speed motor = (PMotor1Dir1Speed) _motor;
@@ -166,7 +165,7 @@ void motor2Dir_getDirSpeed(PMotor _motor, uint16_t *speed, MotorDirection *dir) 
 	else *dir = MOTOR_STOPPED;
 	if (*dir == MOTOR_STOPPED)
 		*speed = 0;
-	else 
+	else
 		*speed = getTimerCompareValue(motor->pwmTimer);
 }
 

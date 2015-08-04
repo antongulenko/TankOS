@@ -1,12 +1,10 @@
 /*
- * timer_m1284P.kernel
- *
  * Created: 28.04.2012 11:29:04
  *  Author: Anton
- */ 
+ */
 
 #include <kernel/kernel_init.h>
-#include "timer_m1284P.h"
+#include "timer.h"
 
 DEFINE_TIMER_PAIR_IMPL(Timer0)
 DEFINE_TIMER_PAIR_IMPL(Timer1)

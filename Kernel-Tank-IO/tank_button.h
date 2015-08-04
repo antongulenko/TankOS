@@ -3,12 +3,12 @@
  *
  * Created: 28.04.2012 00:56:00
  *  Author: Anton
- */ 
+ */
 
 #ifndef TANK_BUTTON_H_
 #define TANK_BUTTON_H_
 
-#include <kernel/devices/button.h>
+#include <devices/button.h>
 #include <tank_IO_protocol.h>
 
 DEFINE_BUTTON(Button1)

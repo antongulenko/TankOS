@@ -6,7 +6,6 @@
  */
 
 #include "led.h"
-#include "port.h"
 
 void enableLed(PLed led) {
 	writePin(led->pin, TRUE);

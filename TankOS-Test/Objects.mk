@@ -9,17 +9,17 @@ $(eval $(call set_test_objects,kernel/devices/port,\
 $(eval $(call set_test_objects,kernel/devices/external_interrupts,\
 	$(KERNEL)/devices/external_interrupts.o ))
 
-$(eval $(call set_test_objects,kernel/devices/led,\
+$(eval $(call set_test_objects,devices/led,\
     $(BUILDDIR)/mocks/port.o \
     $(BUILDDIR)/mocks/delay.o \
 	$(KERNEL)/devices/port.o \
-    $(KERNEL)/devices/led.o ))
+    $(KERNEL_BASE)/devices/led.o ))
 
-$(eval $(call set_test_objects,kernel/devices/button,\
+$(eval $(call set_test_objects,devices/button,\
     $(BUILDDIR)/mocks/port.o \
     $(BUILDDIR)/mocks/delay.o \
 	$(KERNEL)/devices/port.o \
-    $(KERNEL)/devices/button.o \
+    $(KERNEL_BASE)/devices/button.o \
     $(KERNEL)/devices/external_interrupts.o ))
 
 $(eval $(call set_test_objects,misc/ButtonLoopReader,\

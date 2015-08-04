@@ -2,7 +2,7 @@
 #define READ_BUTTONS_LOOP_
 
 #include <tank_os_common.h>
-#include <kernel/devices/button.h>
+#include <devices/button.h>
 
 DEFINE_HANDLE(ButtonLoopReader);
 

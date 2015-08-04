@@ -1,6 +1,6 @@
 
 #include "tank_button_internal.h"
-#include <kernel/devices/port_m1284P.h>
+#include <m1284P/port.h>
 
 // TODO buttonMutex not used here, because the ISRs are atomic.
 // -- still, this can go wrong when using a real mutex implementation in

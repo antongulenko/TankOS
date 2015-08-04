@@ -6,7 +6,7 @@
 
 #include <kernel/kernel_init.h>
 #include <kernel/millisecond_clock.h>
-#include <kernel/devices/timer_m1284P.h>
+#include <m1284P/timer.h>
 
 PTimerPair millisecond_timer;
 PTimer millisecond_timer_A;

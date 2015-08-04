@@ -8,7 +8,7 @@
 #include <kernel/kernel_init.h>
 #include "tank_button_internal.h"
 #include <kernel/mutex/mutex.h>
-#include <kernel/devices/port_m1284P.h>
+#include <m1284P/port.h>
 
 Mutex buttonMutex;
 uint8_t buttonsPressedSinceLastCall = 0;

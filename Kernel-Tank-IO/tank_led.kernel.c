@@ -1,13 +1,11 @@
 /*
- * tank_led.kernel
- *
  * Created: 28.04.2012 11:02:16
  *  Author: Anton
  */
 
 #include "tank_led.h"
 #include <kernel/kernel_init.h>
-#include <kernel/devices/port_m1284P.h>
+#include <m1284P/port.h>
 
 DEFINE_LED_IMPL(White1)
 DEFINE_LED_IMPL(White2)

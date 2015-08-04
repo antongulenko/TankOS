@@ -90,7 +90,7 @@ enum {
 	// Buttons, that have been pressed since the last call to this.
 	TANK_IO_pressedButtons = 0xA3, // () => uint8_t
 
-	// == Output. Mirrors API of kernel/devices/led.h
+	// == Output. Mirrors API of devices/led.h
 	TANK_IO_enableLed = 0xA4, // SingleLed => ()
 	TANK_IO_disableLed = 0xA5, // SingleLed => ()
 	TANK_IO_setLed = 0xA6, // SetLedParam => ()

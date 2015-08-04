@@ -1,12 +1,10 @@
 /*
- * port_m1284p.kernel
- *
  * Created: 28.04.2012 11:26:42
  *  Author: Anton
  */
 
 #include <kernel/kernel_init.h>
-#include "port_m1284P.h"
+#include "port.h"
 
 DEFINE_PORT_AND_PINS_IMPL(A)
 DEFINE_PORT_AND_PINS_IMPL(B)

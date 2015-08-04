@@ -12,7 +12,7 @@
 #define BLINK_DELAY_MS 200
 #endif
 
-#include "port.h"
+#include <kernel/devices/port.h>
 #include <tank_os_common.h>
 
 typedef struct {

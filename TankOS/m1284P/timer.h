@@ -1,15 +1,13 @@
 /*
- * timer_m1284P.h
- *
  * Created: 27.04.2012 17:35:43
  *  Author: Anton
- */ 
+ */
 
 #ifndef TIMER_M1284P_H_
 #define TIMER_M1284P_H_
 
-#include "timer.h"
-#include "port_m1284P.h"
+#include <kernel/devices/timer.h>
+#include "port.h"
 
 DEFINE_TIMER_PAIR(Timer0)
 DEFINE_TIMER_PAIR(Timer1)

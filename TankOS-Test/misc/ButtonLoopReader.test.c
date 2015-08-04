@@ -6,7 +6,7 @@
 #include <unity.h>
 #include <tank_os_common.h>
 #include <misc/ButtonLoopReader.h>
-#include <kernel/devices/button.h>
+#include <devices/button.h>
 #include <mocks/port.h>
 
 int timeToLive, expectedPresses;

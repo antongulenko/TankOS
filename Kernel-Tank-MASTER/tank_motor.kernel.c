@@ -1,14 +1,12 @@
 /*
- * tank_motor.kernel
- *
  * Created: 28.04.2012 11:01:19
  *  Author: Anton
  */
 
 #include <kernel/kernel_init.h>
-#include <kernel/devices/timer_m1284P.h>
-#include <kernel/devices/motor.h>
-#include <kernel/devices/motor_smooth_pair.h>
+#include <m1284P/timer.h>
+#include <devices/motor.h>
+#include <devices/motor_smooth_pair.h>
 #include "tank_motor.h"
 
 DEFINE_MOTOR_2Speed_IMPL(LeftMotorBase)

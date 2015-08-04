@@ -11,8 +11,8 @@
 #include <kernel/millisecond_clock.h>
 #include <kernel/early_init.h>
 #include <kernel/mutex/mutex.h>
-#include <kernel/devices/analog_m1284P.h>
-#include <kernel/devices/timer_m1284P.h>
+#include <m1284P/analog.h>
+#include <m1284P/timer.h>
 #include <tank_os_common.h>
 
 #include <kernel/processes/process.h>

@@ -4,7 +4,7 @@
  */
 
 #include <kernel/kernel_init.h>
-#include <kernel/devices/timer_m1284P.h>
+#include <m1284P/timer.h>
 #include <kernel/early_init.h>
 #include "timer.h"
 #include "late_init.h"

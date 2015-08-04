@@ -1,6 +1,6 @@
 
 #include <unity.h>
-#include <kernel/devices/led.h>
+#include <devices/led.h>
 #include <string.h>
 #include <mocks/port.h>
 #include <mocks/delay.h>

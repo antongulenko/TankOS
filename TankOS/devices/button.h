@@ -3,12 +3,12 @@
  *
  * Created: 26.04.2012 17:30:26
  *  Author: Anton
- */ 
+ */
 
 #ifndef BUTTON_H_
 #define BUTTON_H_
 
-#include "port.h"
+#include <kernel/devices/port.h>
 #include <tank_os_common.h>
 
 #define BUTTON_NORMAL 0

@@ -6,7 +6,7 @@
 #ifndef TANK_LED_H_
 #define TANK_LED_H_
 
-#include <kernel/devices/led.h>
+#include <devices/led.h>
 
 DEFINE_LED(White1)
 DEFINE_LED(White2) // This one is actually red.

@@ -1,13 +1,11 @@
 /*
- * analog_m1284P.kernel
- *
  * Created: 28.04.2012 11:29:04
  *  Author: Anton
  */
 
 #include <kernel/kernel_init.h>
-#include "analog_m1284P.h"
-#include "port_m1284P.h"
+#include "analog.h"
+#include "port.h"
 
 #define INIT_ANALOG_INPUT_M1284P(number)	\
 	INIT_ANALOG_INPUT(Analog##number, PinA##number, number)

@@ -7,7 +7,7 @@
 #include <tank_os_common.h>
 #include <mocks/port.h>
 #include <string.h>
-#include <kernel/devices/button.h>
+#include <devices/button.h>
 #include <kernel/devices/external_interrupts.h>
 
 DEFINE_BUTTON(Btn);

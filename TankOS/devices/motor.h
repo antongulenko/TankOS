@@ -9,7 +9,7 @@
 #define MOTOR_H_
 
 #include <tank_os_common.h>
-#include "timer.h"
+#include <kernel/devices/timer.h>
 
 #define MOTOR_NORMAL 0
 

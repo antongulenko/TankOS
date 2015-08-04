@@ -3,13 +3,13 @@
  *
  * Created: 28.04.2012 00:47:33
  *  Author: Anton
- */ 
+ */
 
 #ifndef TANK_MOTOR_H_
 #define TANK_MOTOR_H_
 
-#include <kernel/devices/motor.h>
-#include <kernel/devices/motor_smooth.h>
+#include <devices/motor.h>
+#include <devices/motor_smooth.h>
 
 DEFINE_MOTOR(LeftMotorBase)
 DEFINE_MOTOR(RightMotorBase)

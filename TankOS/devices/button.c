@@ -6,7 +6,7 @@
  */
 
 #include "button.h"
-#include "external_interrupts.h"
+#include <kernel/devices/external_interrupts.h>
 
 BOOL buttonStatus(PButton button) {
 	BOOL val = readPin(button->pin);
