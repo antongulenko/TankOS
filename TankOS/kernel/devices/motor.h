@@ -3,7 +3,7 @@
  *
  * Created: 22.04.2012 17:29:22
  *  Author: Anton
- */ 
+ */
 
 #ifndef MOTOR_H_
 #define MOTOR_H_
@@ -12,10 +12,16 @@
 #include "timer.h"
 
 #define MOTOR_NORMAL 0
-#define MOTOR_INVERSE_SPEED (1 << 1) // => 'high voltage' pwm signal means slow motor rotation
-#define MOTOR_INVERSE_DIRECTION (1 << 2) // => motor rotating forward, if direction-pin set to 0
-#define MOTOR_EXACT_CONVERSION (1 << 4) // => if minValue/maxValue is defined, this leads to an exact conversion from the 
-										// set speed into the min-max interval. Else, the values are simply 'cropped'.
+
+#define MOTOR_INVERSE_SPEED (1 << 1)
+// => 'high voltage' pwm signal means slow motor rotation
+
+#define MOTOR_INVERSE_DIRECTION (1 << 2)
+// => motor rotating forward, if direction-pin set to 0
+
+#define MOTOR_EXACT_CONVERSION (1 << 4)
+// => if minValue/maxValue is defined, this leads to an exact conversion from the
+// set speed into the min-max interval. Else, the values are simply 'cropped'.
 
 typedef enum {
 	BACKWARD = 0, // It's important that this is zero.
@@ -27,7 +33,7 @@ typedef struct _Motor {
 	uint8_t flags; // MOTOR_* defines above
 	void (*setter)(struct _Motor *motor, uint16_t speed, MotorDirection dir);
 	void (*getter)(struct _Motor *motor, uint16_t *speed, MotorDirection *dir);
-	
+
 	// These 2 values bind possible timer-compare-values into an interval.
 	// They are applied, AFTER MOTOR_INVERSE_SPEED was applied, so they
 	// reflect the real min/max voltage level.
