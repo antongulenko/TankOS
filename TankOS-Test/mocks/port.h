@@ -6,22 +6,17 @@
 
 extern volatile uint8_t port, pin, ddr;
 
-#define PORTTest port
-#define PINTest pin
-#define DDRTest ddr
-#define PINTest1 1
-#define PINTest2 4
-#define PINTest3 6
+#define testPin1_num 1
+#define testPin2_num 4
+#define testPin3_num 6
+#define testPin1_mask _BV(testPin1_num)
+#define testPin2_mask _BV(testPin2_num)
+#define testPin3_mask _BV(testPin3_num)
 
-#define Pin1Mask _BV(PINTest1)
-#define Pin2Mask _BV(PINTest2)
-#define Pin3Mask _BV(PINTest3)
-
-DEFINE_PORT(Test)
-DEFINE_PIN(Test, 1)
-DEFINE_PIN(Test, 2)
-DEFINE_PIN(Test, 3)
+extern Port testPort;
+extern Pin testPin1, testPin2, testPin3;
 
 void init_fake_port();
+void destroy_fake_port();
 
 #endif

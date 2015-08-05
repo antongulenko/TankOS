@@ -21,10 +21,10 @@ DEFINE_BUTTON_IMPL(Button4)
 
 void init_tank_buttons() {
 	#define TANK_BUTTON BUTTON_INVERTED | BUTTON_NEEDS_PULLUP
-	INIT_BUTTON(Button1, PinA0, TANK_BUTTON, 0)
-	INIT_BUTTON(Button2, PinA1, TANK_BUTTON, 1)
-	INIT_BUTTON(Button3, PinA2, TANK_BUTTON, 2)
-	INIT_BUTTON(Button4, PinA3, TANK_BUTTON, 3)
+	INIT_BUTTON(Button1, pinA0, TANK_BUTTON, 0)
+	INIT_BUTTON(Button2, pinA1, TANK_BUTTON, 1)
+	INIT_BUTTON(Button3, pinA2, TANK_BUTTON, 2)
+	INIT_BUTTON(Button4, pinA3, TANK_BUTTON, 3)
 	buttonMutex = mutex_create();
 }
 KERNEL_INIT(init_tank_buttons)

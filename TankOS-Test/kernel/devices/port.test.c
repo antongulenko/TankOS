@@ -9,6 +9,7 @@ void setUp() {
 }
 
 void tearDown() {
+    destroy_fake_port();
 }
 
 void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
@@ -22,108 +23,108 @@ void test_nothingSetAfterInit() {
 }
 
 void test_setPortOutput() {
-	setPortOutput(PortTest);
+	setPortOutput(testPort);
 	assertState(0, 0, 0xFF);
 }
 
 void test_setPortOutput_preset() {
 	ddr = 0xaa;
-	setPortOutput(PortTest);
+	setPortOutput(testPort);
 	assertState(0, 0, 0xFF);
 }
 
 void test_setPortInput() {
-	setPortInput(PortTest);
+	setPortInput(testPort);
 	assertState(0, 0, 0);
 }
 
 void test_setPortInput_preset() {
 	ddr = 0xaa;
-	setPortInput(PortTest);
+	setPortInput(testPort);
 	assertState(0, 0, 0);
 }
 
 void test_setPinOutput_one() {
-	setPinOutput(PinTest1);
-	assertState(0, 0, Pin1Mask);
+	setPinOutput(testPin1);
+	assertState(0, 0, testPin1_mask);
 }
 
 void test_setPinOutput_two() {
-	setPinOutput(PinTest1);
-	setPinOutput(PinTest2);
-	assertState(0, 0, Pin1Mask | Pin2Mask);
+	setPinOutput(testPin1);
+	setPinOutput(testPin2);
+	assertState(0, 0, testPin1_mask | testPin2_mask);
 }
 
 void test_setPinInput_one() {
 	ddr = 0xFF;
-	setPinInput(PinTest1);
-	assertState(0, 0, ~Pin1Mask);
+	setPinInput(testPin1);
+	assertState(0, 0, ~testPin1_mask);
 }
 
 void test_setPinInput_two() {
 	ddr = 0xFF;
-	setPinInput(PinTest1);
-	setPinInput(PinTest2);
-	assertState(0, 0, ~(Pin1Mask | Pin2Mask));
+	setPinInput(testPin1);
+	setPinInput(testPin2);
+	assertState(0, 0, ~(testPin1_mask | testPin2_mask));
 }
 
 void test_writePort() {
-	writePort(PortTest, 0xda);
+	writePort(testPort, 0xda);
 	assertState(0, 0xda, 0);
 }
 
 void test_readPort() {
 	pin = 0xca;
-	uint8_t val = readPort(PortTest);
+	uint8_t val = readPort(testPort);
 	assertState(0xca, 0, 0);
 	TEST_ASSERT_EQUAL_HEX(0xca, val);
 }
 
 void test_writePin_one() {
-	writePin(PinTest1, TRUE);
-	assertState(0, Pin1Mask, 0);
+	writePin(testPin1, TRUE);
+	assertState(0, testPin1_mask, 0);
 }
 
 void test_writePin_two() {
-	writePin(PinTest1, TRUE);
-	writePin(PinTest2, TRUE);
-	assertState(0, Pin1Mask | Pin2Mask, 0);
+	writePin(testPin1, TRUE);
+	writePin(testPin2, TRUE);
+	assertState(0, testPin1_mask | testPin2_mask, 0);
 }
 
 void test_setPinOne_one() {
-	setPinOne(PinTest1);
-	assertState(0, Pin1Mask, 0);
+	setPinOne(testPin1);
+	assertState(0, testPin1_mask, 0);
 }
 
 void test_setPinOne_two() {
-	setPinOne(PinTest1);
-	setPinOne(PinTest2);
-	assertState(0, Pin1Mask | Pin2Mask, 0);
+	setPinOne(testPin1);
+	setPinOne(testPin2);
+	assertState(0, testPin1_mask | testPin2_mask, 0);
 }
 
 void test_setPinZero_one() {
 	port = 0xFF;
-	setPinZero(PinTest1);
-	assertState(0, ~Pin1Mask, 0);
+	setPinZero(testPin1);
+	assertState(0, ~testPin1_mask, 0);
 }
 
 void test_setPinZero_two() {
 	port = 0xFF;
-	setPinZero(PinTest1);
-	setPinZero(PinTest2);
-	assertState(0, ~(Pin1Mask | Pin2Mask), 0);
+	setPinZero(testPin1);
+	setPinZero(testPin2);
+	assertState(0, ~(testPin1_mask | testPin2_mask), 0);
 }
 
 void test_readPin_1() {
-	pin = 1 << PINTest1;
-	BOOL val = readPin(PinTest1);
+	pin = testPin1_mask;
+	BOOL val = readPin(testPin1);
 	TEST_ASSERT_EQUAL_INT(TRUE, val);
-	assertState(Pin1Mask, 0, 0);
+	assertState(testPin1_mask, 0, 0);
 }
 
 void test_readPin_0() {
-	pin = ~(1 << PINTest1);
-	BOOL val = readPin(PinTest1);
+	pin = ~(testPin1_mask);
+	BOOL val = readPin(testPin1);
 	TEST_ASSERT_EQUAL_INT(FALSE, val);
-	assertState(~Pin1Mask, 0, 0);
+	assertState(~testPin1_mask, 0, 0);
 }

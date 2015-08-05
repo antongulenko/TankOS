@@ -45,8 +45,9 @@ asm ("__RAMPZ__ = 0x3b");
 #define ConstantInvalid(Type) { NULL }
 #define IsValid(object) (object.pointer != NULL)
 #define Cast(OtherType, object) ((OtherType) { object.pointer })
-#define As(Type, ptr) ((Type) { ptr })
 #define Equal(object1, object2) (object1.pointer == object2.pointer)
+#define As(Type, ptr) ((Type) { ptr })
+#define Get(Type, handle) ((Type*) handle.pointer)
 
 #define LOBYTE(x)        (uint8_t)((uint16_t)x)
 #define HIBYTE(x)        (uint8_t)(((uint16_t)x)>>8)

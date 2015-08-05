@@ -22,7 +22,7 @@
 typedef void (*AnalogCallbackFunction)(uint8_t value);
 
 typedef struct {
-	PPin pin;
+	Pin pin;
 	uint8_t pinNumber; // 0..7, corresponding e.g. to PinA0..PinA7
 } AnalogInput, *PAnalogInput;
 

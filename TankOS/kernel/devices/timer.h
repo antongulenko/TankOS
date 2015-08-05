@@ -3,7 +3,7 @@
  *
  * Created: 23.04.2012 16:46:50
  *  Author: Anton
- */ 
+ */
 
 #ifndef _TIMER_H_
 #define _TIMER_H_
@@ -19,13 +19,13 @@
 typedef enum {
 	wgm_normal,
 	clear_timer_on_match,
-	
+
 	// TOP value is set by setTimerCompareValue()
 	// On 16-bit timers, if one of TIMER_RESOLUTION_9bit or TIMER_RESOLUTION_10bit
 	// is set, the setting with the reduced resolution will be used.
 	pwm_phase_correct,
 	pwm_fast,
-	
+
 	// Following only for Timer 1 & 3 (16-bit timers).
 	pwm_phase_and_frequency_correct // TOP value is set by setTimerCompareValueXX()
 } WaveformGenerationMode;
@@ -82,7 +82,7 @@ typedef struct {
 	PTimerPair timer;
 	volatile uint8_t *outputCompareRegister;
 	TIMER_TYPE type;
-	PPin outputComparePin;
+	Pin outputComparePin;
 } Timer, *PTimer;
 
 // Configuration-routines for timers. This alters the timer-control-registers only.

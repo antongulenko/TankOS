@@ -25,7 +25,7 @@ static void startConversion(PAnalogInput input) {
 		admux &= 0xE0 | ~input->pinNumber;
 		ADMUX = admux;
 	}
-	ADCSRA |= _BV(ADSC) | _BV(ADEN); // Start the conversion	
+	ADCSRA |= _BV(ADSC) | _BV(ADEN); // Start the conversion
 }
 
 BOOL analogRead(PAnalogInput input, AnalogCallbackFunction callback) {
@@ -46,10 +46,10 @@ BOOL analogReadLoop(PAnalogInput input, uint8_t *result) {
 	ADCSRA &= ~_BV(ADIE);
 	startConversion(input);
 	while (conversionRunning()) ;
-	// We only use 8-bit resolution, left-aligned. It's enough to 
+	// We only use 8-bit resolution, left-aligned. It's enough to
 	// read the high-register of the result.
 	*result = ADCH;
 	// Clear interrupt flag to make sure the interrupt does not fire later
 	ADCSRA &= ~_BV(ADIF);
-	return TRUE;	
+	return TRUE;
 }

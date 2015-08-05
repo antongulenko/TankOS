@@ -18,7 +18,7 @@
 
 typedef struct {
 	uint8_t flags;
-	PPin pin;
+	Pin pin;
 	uint8_t pinChangeInterruptNumber;
 } Button, *PButton;
 

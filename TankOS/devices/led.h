@@ -16,7 +16,7 @@
 #include <tank_os_common.h>
 
 typedef struct {
-	PPin pin;
+	Pin pin;
 } Led, *PLed;
 
 typedef struct {

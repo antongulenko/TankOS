@@ -8,7 +8,7 @@
 #include "port.h"
 
 #define INIT_ANALOG_INPUT_M1284P(number)	\
-	INIT_ANALOG_INPUT(Analog##number, PinA##number, number)
+	INIT_ANALOG_INPUT(Analog##number, pinA##number, number)
 
 DEFINE_ANALOG_INPUT_IMPL(Analog0)
 DEFINE_ANALOG_INPUT_IMPL(Analog1)

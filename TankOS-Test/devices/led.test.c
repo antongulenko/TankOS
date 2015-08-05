@@ -27,13 +27,14 @@ void setUp() {
 	memset(Led2, 0, sizeof(Led));
 	memset(Led3, 0, sizeof(Led));
 	memset(Group, 0, sizeof(LedGroup));
-	INIT_LED(Led1, PinTest1);
-	INIT_LED(Led2, PinTest2);
-	INIT_LED(Led3, PinTest3);
+	INIT_LED(Led1, testPin1);
+	INIT_LED(Led2, testPin2);
+	INIT_LED(Led3, testPin3);
 	INIT_LED_GROUP(Group, ledGroup, 3);
 }
 
 void tearDown() {
+    destroy_fake_port();
 }
 
 void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
@@ -42,11 +43,11 @@ void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
 	TEST_ASSERT_EQUAL_HEX(exp_ddr, ddr);
 }
 
-#define ALL_LEDS (Pin1Mask | Pin2Mask | Pin3Mask)
+#define ALL_LEDS (testPin1_mask | testPin2_mask | testPin3_mask)
 // Bits in a 16 bit word, starting from MSB
-#define LED1 (1 << 0)
-#define LED2 (1 << 1)
-#define LED3 (1 << 2)
+#define LED1 _BV(0)
+#define LED2 _BV(1)
+#define LED3 _BV(2)
 
 void assertDelayedMS(uint32_t delayedMs, uint16_t delayCalls) {
 	TEST_ASSERT_EQUAL_INT(delayedMs, DelayedMS);
@@ -60,13 +61,13 @@ void test_disabledAndOutputAfterInit() {
 
 void test_enableOne() {
 	enableLed(Led1);
-	assertState(0, Pin1Mask, ALL_LEDS);
+	assertState(0, testPin1_mask, ALL_LEDS);
 }
 
 void test_enableTwo() {
 	enableLed(Led1);
 	enableLed(Led2);
-	assertState(0, Pin1Mask | Pin2Mask, ALL_LEDS);
+	assertState(0, testPin1_mask | testPin2_mask, ALL_LEDS);
 }
 
 void test_disableOne() {
@@ -98,12 +99,12 @@ void test_keepOneEnabled() {
 	enableLed(Led1);
 	enableLed(Led2);
 	disableLed(Led2);
-	assertState(0, Pin1Mask, ALL_LEDS);
+	assertState(0, testPin1_mask, ALL_LEDS);
 }
 
 void test_setLedOn() {
 	setLed(Led1, TRUE);
-	assertState(0, Pin1Mask, ALL_LEDS);
+	assertState(0, testPin1_mask, ALL_LEDS);
 }
 
 void test_setLedOff() {
@@ -135,7 +136,7 @@ void test_group_set_all() {
 
 void test_group_set_2() {
 	setLeds(Group, LED1 | LED2);
-	assertState(0, Pin1Mask | Pin2Mask, ALL_LEDS);
+	assertState(0, testPin1_mask | testPin2_mask, ALL_LEDS);
 }
 
 void test_group_set_3() {
@@ -145,7 +146,7 @@ void test_group_set_3() {
 
 void test_group_set_someOthers() {
 	setLeds(Group, LED1 | ~(LED2 | LED3));
-	assertState(0, Pin1Mask, ALL_LEDS);
+	assertState(0, testPin1_mask, ALL_LEDS);
 }
 
 void test_flashLed() {

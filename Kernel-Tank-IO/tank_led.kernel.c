@@ -43,23 +43,23 @@ PLed allLedsArray[] = {
 				&Red1_, &Red2_, &Red3_, &Red4_, &Red5_ };
 
 static void init_tank_leds() {
-	INIT_LED(White1, PinB0)
-	INIT_LED(White2, PinB1)
-	INIT_LED(White3, PinB2)
-	INIT_LED(White4, PinB3)
-	INIT_LED(White5, PinB4)
+	INIT_LED(White1, pinB0)
+	INIT_LED(White2, pinB1)
+	INIT_LED(White3, pinB2)
+	INIT_LED(White4, pinB3)
+	INIT_LED(White5, pinB4)
 
-	INIT_LED(Green1, PinB5)
-	INIT_LED(Green2, PinB6)
-	INIT_LED(Green3, PinB7)
-	INIT_LED(Yellow1, PinD0)
-	INIT_LED(Yellow2, PinD1)
+	INIT_LED(Green1, pinB5)
+	INIT_LED(Green2, pinB6)
+	INIT_LED(Green3, pinB7)
+	INIT_LED(Yellow1, pinD0)
+	INIT_LED(Yellow2, pinD1)
 
-	INIT_LED(Red1, PinD2)
-	INIT_LED(Red2, PinD3)
-	INIT_LED(Red3, PinD4)
-	INIT_LED(Red4, PinD5)
-	INIT_LED(Red5, PinD6)
+	INIT_LED(Red1, pinD2)
+	INIT_LED(Red2, pinD3)
+	INIT_LED(Red3, pinD4)
+	INIT_LED(Red4, pinD5)
+	INIT_LED(Red5, pinD6)
 
 	INIT_LED_GROUP(RedLeds, redLedsArray, 5)
 	INIT_LED_GROUP(YellowLeds, yellowLedsArray, 2)

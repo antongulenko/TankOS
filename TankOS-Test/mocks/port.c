@@ -4,19 +4,20 @@
 
 volatile uint8_t port, pin, ddr;
 
-DEFINE_PORT_IMPL(Test)
-DEFINE_PIN_IMPL(Test, 1)
-DEFINE_PIN_IMPL(Test, 2)
-DEFINE_PIN_IMPL(Test, 3)
+Port testPort;
+Pin testPin1, testPin2, testPin3;
 
 void init_fake_port() {
 	port = pin = ddr = 0;
-	memset((void*) PortTest, 0, sizeof(Port));
-	memset((void*) PinTest1, 0, sizeof(Pin));
-	memset((void*) PinTest2, 0, sizeof(Pin));
+    testPort = newPort(&port, &pin, &ddr);
+    testPin1 = newPin(testPort, testPin1_num);
+    testPin2 = newPin(testPort, testPin2_num);
+    testPin3 = newPin(testPort, testPin3_num);
+}
 
-	INIT_PORT(Test)
-	INIT_PIN(Test, 1)
-	INIT_PIN(Test, 2)
-	INIT_PIN(Test, 3)
+void destroy_fake_port() {
+ 	destroyPort(testPort);
+    destroyPin(testPin1);
+    destroyPin(testPin2);
+    destroyPin(testPin3);
 }

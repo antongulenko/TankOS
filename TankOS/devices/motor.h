@@ -49,7 +49,7 @@ typedef struct _Motor {
 
 typedef struct {
 	Motor base;
-	PPin direction;
+	Pin direction;
 	PTimer pwmTimer;
 } Motor1Dir1Speed, *PMotor1Dir1Speed;
 
@@ -67,8 +67,8 @@ void motor2Dir_getDirSpeed(PMotor motor, uint16_t *speed, MotorDirection *dir);
 
 typedef struct {
 	Motor base;
-	PPin direction1;
-	PPin direction2;
+	Pin direction1;
+	Pin direction2;
 	PTimer pwmTimer;
 } Motor2Dir, *PMotor2Dir;
 
