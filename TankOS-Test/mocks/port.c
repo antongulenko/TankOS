@@ -16,8 +16,8 @@ void init_fake_port() {
 }
 
 void destroy_fake_port() {
- 	destroyPort(testPort);
     destroyPin(testPin1);
     destroyPin(testPin2);
     destroyPin(testPin3);
+    destroyPort(testPort);
 }

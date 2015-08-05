@@ -79,6 +79,8 @@ void writePin(Pin pin, BOOL value) {
         setPinZero(pin);
 }
 
+extern uint8_t port;
+
 void setPinOne(Pin pin) {
 	*PIN->port->port |= PIN->mask;
 }

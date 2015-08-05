@@ -8,32 +8,10 @@
 
 #include <devices/led.h>
 
-DEFINE_LED(White1)
-DEFINE_LED(White2) // This one is actually red.
-DEFINE_LED(White3)
-DEFINE_LED(White4)
-DEFINE_LED(White5)
+extern Led whiteLed1, whiteLed2, whiteLed3, whiteLed4, whiteLed5; // Nr 2 is actually red
+extern Led redLed1, redLed2, redLed3, redLed4, redLed5;
+extern Led greenLed1, greenLed2, greenLed3, yellowLed1, yellowLed2;
 
-DEFINE_LED(Red1)
-DEFINE_LED(Red2)
-DEFINE_LED(Red3)
-DEFINE_LED(Red4)
-DEFINE_LED(Red5)
-
-DEFINE_LED(Green1)
-DEFINE_LED(Green2)
-DEFINE_LED(Green3)
-DEFINE_LED(Yellow1)
-DEFINE_LED(Yellow2)
-
-DEFINE_LED_GROUP(RedLeds)
-DEFINE_LED_GROUP(YellowLeds)
-DEFINE_LED_GROUP(WhiteLeds)
-DEFINE_LED_GROUP(GreenLeds)
-DEFINE_LED_GROUP(MiddleLeds)
-DEFINE_LED_GROUP(AllLeds)
-
-#define LeftLeds WhiteLeds
-#define RightLeds RedLeds
+extern LedGroup redLeds, yellowLeds, whiteLeds, greenLeds, lefLeds, middleLeds, rightLeds, allLeds;
 
 #endif /* TANK_LED_H_ */

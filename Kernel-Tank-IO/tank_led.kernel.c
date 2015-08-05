@@ -7,65 +7,50 @@
 #include <kernel/kernel_init.h>
 #include <m1284P/port.h>
 
-DEFINE_LED_IMPL(White1)
-DEFINE_LED_IMPL(White2)
-DEFINE_LED_IMPL(White3)
-DEFINE_LED_IMPL(White4)
-DEFINE_LED_IMPL(White5)
+Led whiteLed1, whiteLed2, whiteLed3, whiteLed4, whiteLed5;
+Led redLed1, redLed2, redLed3, redLed4, redLed5;
+Led greenLed1, greenLed2, greenLed3, yellowLed1, yellowLed2;
 
-DEFINE_LED_IMPL(Red1)
-DEFINE_LED_IMPL(Red2)
-DEFINE_LED_IMPL(Red3)
-DEFINE_LED_IMPL(Red4)
-DEFINE_LED_IMPL(Red5)
+LedGroup redLeds, yellowLeds, whiteLeds, greenLeds, leftLeds, middleLeds, rightLeds, allLeds;
 
-DEFINE_LED_IMPL(Green1)
-DEFINE_LED_IMPL(Green2)
-DEFINE_LED_IMPL(Green3)
-DEFINE_LED_IMPL(Yellow1)
-DEFINE_LED_IMPL(Yellow2)
+#define ELEMS(arr) (sizeof(arr) / sizeof arr[0])
 
-DEFINE_LED_GROUP_IMPL(RedLeds)
-DEFINE_LED_GROUP_IMPL(YellowLeds)
-DEFINE_LED_GROUP_IMPL(WhiteLeds)
-DEFINE_LED_GROUP_IMPL(GreenLeds)
-DEFINE_LED_GROUP_IMPL(MiddleLeds)
-DEFINE_LED_GROUP_IMPL(AllLeds)
-
-PLed redLedsArray[] = { &Red1_, &Red2_, &Red3_, &Red4_, &Red5_ };
-PLed yellowLedsArray[] = { &Yellow1_, &Yellow2_ };
-PLed whiteLedsArray[] = { &White1_, &White2_, &White3_, &White4_, &White5_ };
-PLed greenLedsArray[] = { &Green1_, &Green2_, &Green3_ };
-PLed middleLedsArray[] = { &Green1_, &Green2_, &Green3_, &Yellow1_, &Yellow2_ };
-PLed allLedsArray[] = {
-				&White1_, &White2_, &White3_, &White4_, &White5_,
-				&Green1_, &Green2_, &Green3_, &Yellow1_, &Yellow2_,
-				&Red1_, &Red2_, &Red3_, &Red4_, &Red5_ };
+static Led whiteLedsArray[] = { &whiteLed1, &whiteLed2, &whiteLed3, &whiteLed4, &whiteLed5 };
+static Led redLedsArray[] = { &redLed1, &redLed2, &redLed3, &redLed4, &redLed5 };
+static Led greenLedsArray[] = { &greenLed1, &greenLed2, &greenLed3 };
+static Led yellowLedsArray[] = { &yellowLed1, &yellowLed2 };
+static Led middleLedsArray[] = { &greenLed1, &greenLed2, &greenLed3, &yellowLed1, &yellowLed2 };
+static Led allLedsArray[] = {
+				&whiteLed1, &whiteLed2, &whiteLed3, &whiteLed4, &whiteLed5,
+				&greenLed1, &greenLed2, &greenLed3, &yellowLed1, &yellowLed2,
+				&redLed1, &redLed2, &redLed3, &redLed4, &redLed5 };
 
 static void init_tank_leds() {
-	INIT_LED(White1, pinB0)
-	INIT_LED(White2, pinB1)
-	INIT_LED(White3, pinB2)
-	INIT_LED(White4, pinB3)
-	INIT_LED(White5, pinB4)
+    whiteLed1 = newLed(pinB0);
+	whiteLed2 = newLed(pinB1);
+	whiteLed3 = newLed(pinB2);
+	whiteLed4 = newLed(pinB3);
+	whiteLed5 = newLed(pinB4);
 
-	INIT_LED(Green1, pinB5)
-	INIT_LED(Green2, pinB6)
-	INIT_LED(Green3, pinB7)
-	INIT_LED(Yellow1, pinD0)
-	INIT_LED(Yellow2, pinD1)
+    redLed1 = newLed(pinD2);
+	redLed2 = newLed(pinD3);
+	redLed3 = newLed(pinD4);
+	redLed4 = newLed(pinD5);
+	redLed5 = newLed(pinD6);
 
-	INIT_LED(Red1, pinD2)
-	INIT_LED(Red2, pinD3)
-	INIT_LED(Red3, pinD4)
-	INIT_LED(Red4, pinD5)
-	INIT_LED(Red5, pinD6)
+	greenLed1 = newLed(pinB5);
+	greenLed2 = newLed(pinB6);
+	greenLed3 = newLed(pinB7);
+	yellowLed1 = newLed(pinD0);
+	yellowLed2 = newLed(pinD1);
 
-	INIT_LED_GROUP(RedLeds, redLedsArray, 5)
-	INIT_LED_GROUP(YellowLeds, yellowLedsArray, 2)
-	INIT_LED_GROUP(WhiteLeds, whiteLedsArray, 5)
-	INIT_LED_GROUP(GreenLeds, greenLedsArray, 3)
-	INIT_LED_GROUP(MiddleLeds, middleLedsArray, 5)
-	INIT_LED_GROUP(AllLeds, allLedsArray, 15)
+	redLeds = newLedGroup(redLedsArray, ELEMS(redLedsArray));
+	yellowLeds = newLedGroup(yellowLedsArray, ELEMS(yellowLedsArray));
+	whiteLeds = newLedGroup(whiteLedsArray, ELEMS(whiteLedsArray));
+	greenLeds = newLedGroup(greenLedsArray, ELEMS(greenLedsArray));
+	leftLeds = whiteLeds;
+    middleLeds = newLedGroup(middleLedsArray, ELEMS(middleLedsArray));
+	rightLeds = redLeds;
+    allLeds = newLedGroup(allLedsArray, ELEMS(allLedsArray));
 }
 KERNEL_INIT(init_tank_leds)

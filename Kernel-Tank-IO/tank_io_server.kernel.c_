@@ -33,7 +33,7 @@ TWI_RPC_SERVER_FUNCTION_NOARGS	(tankIO_server_pressedButtons, TANK_IO_pressedBut
 // Local converting functions
 // ==
 
-PLedGroup toLedGroup(TankIoLeds leds) {
+LedGroup toLedGroup(TankIoLeds leds) {
 	switch (leds) {
 		case LEDS_ALL:
 			return AllLeds;
@@ -56,7 +56,7 @@ PLedGroup toLedGroup(TankIoLeds leds) {
 	}
 }
 
-PLed toLed(SingleLed led) {
+Led toLed(SingleLed led) {
 	return toLedGroup(led.leds)->leds[led.index];
 }
 
@@ -135,12 +135,3 @@ void tankIO_server_flashAllLeds(FlashAllLedsParam *param, uint16_t size) {
 	flashAllLeds(toLedGroup(param->leds), param->milliseconds);
 }
 TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(tankIO_server_flashAllLeds, TANK_IO_flashAllLeds, FlashAllLedsParam)
-
-// ==
-// Other
-// ==
-
-void tankIO_server_blinkByte(BlinkByteParam *param, uint16_t size) {
-	blinkByte(toLedGroup(param->display), toLedGroup(param->notifier), param->data);
-}
-TWI_RPC_SERVER_FUNCTION_ASYNC_VOID(tankIO_server_blinkByte, TANK_IO_blinkByte, BlinkByteParam)

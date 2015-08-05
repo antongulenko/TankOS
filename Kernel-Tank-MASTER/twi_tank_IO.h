@@ -35,8 +35,6 @@ TWI_RPC_FUNCTION_VOID	(tankIO_flashLed, TANK_IO_flashLed, FlashLedParam)
 TWI_RPC_FUNCTION_VOID	(tankIO_flashLeds, TANK_IO_flashLeds, FlashLedsParam)
 TWI_RPC_FUNCTION_VOID	(tankIO_flashAllLeds, TANK_IO_flashAllLeds, FlashAllLedsParam)
 
-TWI_RPC_FUNCTION_VOID	(tankIO_blinkByte, TANK_IO_blinkByte, BlinkByteParam)
-
 // Loop, until the IO-processor is initialized.
 void tankIO_wait();
 

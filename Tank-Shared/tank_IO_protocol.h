@@ -106,8 +106,6 @@ enum {
 	TANK_IO_flashLed = 0xAD, // FlashLedParam => ()
 	TANK_IO_flashLeds = 0xAE, // FlashLedsParam => ()
 	TANK_IO_flashAllLeds = 0xAF, // FlashAllLedsParam => ()
-
-	TANK_IO_blinkByte = 0xB0, // BlinkByteParam => ()
 };
 
 #endif

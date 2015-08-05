@@ -6,41 +6,33 @@
 #include <mocks/delay.h>
 #include <tank_os_common.h>
 
-DEFINE_LED(Led1)
-DEFINE_LED(Led2)
-DEFINE_LED(Led3)
-DEFINE_LED_GROUP(Group)
-
-DEFINE_LED_IMPL(Led1)
-DEFINE_LED_IMPL(Led2)
-DEFINE_LED_IMPL(Led3)
-
-PLed ledGroup[] = { &Led1_, &Led2_, &Led3_ };
-
-DEFINE_LED_GROUP_IMPL(Group)
+Led Led1, Led2, Led3;
+LedGroup Group;
+Led ledGroup[3];
 
 void setUp() {
 	init_fake_port();
 	reset_test_delay();
 
-	memset(Led1, 0, sizeof(Led));
-	memset(Led2, 0, sizeof(Led));
-	memset(Led3, 0, sizeof(Led));
-	memset(Group, 0, sizeof(LedGroup));
-	INIT_LED(Led1, testPin1);
-	INIT_LED(Led2, testPin2);
-	INIT_LED(Led3, testPin3);
-	INIT_LED_GROUP(Group, ledGroup, 3);
+    Led1 = newLed(testPin1);
+    Led2 = newLed(testPin2);
+    Led3 = newLed(testPin3);
+    memcpy(ledGroup, (Led[]) { Led1, Led2, Led3 }, sizeof(ledGroup));
+    Group = newLedGroup(ledGroup, 3);
 }
 
 void tearDown() {
+    destroyLedGroup(Group);
+    destroyLed(Led1);
+    destroyLed(Led2);
+    destroyLed(Led3);
     destroy_fake_port();
 }
 
 void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
-	TEST_ASSERT_EQUAL_HEX(exp_pin, pin);
-	TEST_ASSERT_EQUAL_HEX(exp_port, port);
-	TEST_ASSERT_EQUAL_HEX(exp_ddr, ddr);
+	TEST_ASSERT_EQUAL_HEX_MESSAGE(exp_pin, pin, "Wrong pin value");
+	TEST_ASSERT_EQUAL_HEX_MESSAGE(exp_ddr, ddr, "Wrong ddr value");
+    TEST_ASSERT_EQUAL_HEX_MESSAGE(exp_port, port, "Wrong port value");
 }
 
 #define ALL_LEDS (testPin1_mask | testPin2_mask | testPin3_mask)
@@ -119,7 +111,7 @@ void test_group_enable() {
 }
 
 void test_group_disable() {
-	disableLeds(Group);
+    disableLeds(Group);
 	assertState(0, 0, ALL_LEDS);
 }
 
@@ -225,10 +217,4 @@ void test_blinkLeds_one() {
 void test_blinkLeds_n() {
 	blinkLeds(Group, LED1 | LED2, 5);
 	assertDelayedMS(5 * 2 * 200, 5 * 2);
-}
-
-void test_blink_byte() {
-	// This is a too simple test, nevermind..
-	blinkByte(Group, Group, 5);
-	assertDelayedMS(1500 + 700 + 1200 + 1200, 1500 + 700 + 2 + 5 + 5);
 }

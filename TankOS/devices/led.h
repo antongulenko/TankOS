@@ -8,62 +8,39 @@
 #ifndef LED_H_
 #define LED_H_
 
+#include <kernel/devices/port.h>
+#include <tank_os_common.h>
+
 #ifndef BLINK_DELAY_MS
 #define BLINK_DELAY_MS 200
 #endif
 
-#include <kernel/devices/port.h>
-#include <tank_os_common.h>
+DEFINE_HANDLE(Led)
+DEFINE_HANDLE(LedGroup)
 
-typedef struct {
-	Pin pin;
-} Led, *PLed;
+Led newLed(Pin pin);
+void destroyLed(Led led);
+LedGroup newLedGroup(Led *leds, uint8_t count);
+void destroyLedGroup(LedGroup led);
 
-typedef struct {
-	PLed *leds;
-	uint8_t count;
-} LedGroup, *PLedGroup;
-
-void enableLed(PLed led);
-void disableLed(PLed led);
-void setLed(PLed led, BOOL value);
+void enableLed(Led led);
+void disableLed(Led led);
+void setLed(Led led, BOOL value);
 
 // Sets the first 16 (or less, if there are less than 16) leds in
 // the led-group according to the given bitmask.
 // If the bit (1 << n) is set, the led group[n] will be activated.
-void setLeds(PLedGroup leds, uint16_t mask);
+void setLeds(LedGroup leds, uint16_t mask);
 
-void enableLeds(PLedGroup leds);
-void disableLeds(PLedGroup leds);
+void enableLeds(LedGroup leds);
+void disableLeds(LedGroup leds);
 
-void blinkLed(PLed led, const uint8_t times);
-void blinkLeds(PLedGroup leds, uint16_t ledMask, uint8_t times);
-void blinkAllLeds(PLedGroup leds, uint8_t times);
+void blinkLed(Led led, const uint8_t times);
+void blinkLeds(LedGroup leds, uint16_t ledMask, uint8_t times);
+void blinkAllLeds(LedGroup leds, uint8_t times);
 
-void flashLed(PLed led, const uint16_t millis);
-void flashLeds(PLedGroup leds, uint16_t ledMask, uint16_t millis);
-void flashAllLeds(PLedGroup leds, uint16_t millis);
-
-// notifier-group will blink to notify the data, then the byte will be
-// flashed with the display group. Will be shifted to flash remaining bits.
-void blinkByte(PLedGroup display, PLedGroup notifier, byte data);
-
-void initLed(PLed led);
-
-#define DEFINE_LED(ledName)	extern const PLed ledName;
-#define DEFINE_LED_GROUP(groupName)	extern const PLedGroup groupName;
-
-#define INIT_LED(ledName, pinName)	\
-	ledName##_ = (Led) { pinName };	\
-	initLed(ledName);
-#define INIT_LED_GROUP(groupName, groupArrayPointer, count) \
-	groupName##_ = (LedGroup) { groupArrayPointer, count };
-
-#define DEFINE_LED_IMPL(ledName)	\
-	Led ledName##_;					\
-	const PLed ledName = &ledName##_;
-#define DEFINE_LED_GROUP_IMPL(groupName)	\
-	LedGroup groupName##_;					\
-	const PLedGroup groupName = &groupName##_;
+void flashLed(Led led, const uint16_t millis);
+void flashLeds(LedGroup leds, uint16_t ledMask, uint16_t millis);
+void flashAllLeds(LedGroup leds, uint16_t millis);
 
 #endif /* LED_H_ */
