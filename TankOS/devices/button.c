@@ -28,12 +28,21 @@ Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber) {
 }
 
 Button destroyButton(Button button) {
-    // TODO - log error if FALSE
-    deOccupyPin(PIN, PinButtonInput);
+    if (buttonValid(button))
+        deOccupyPin(PIN, PinButtonInput);
     return Invalid(Button);
 }
 
+BOOL buttonValid(Button button) {
+    if (!IsValid(button))
+        return FALSE;
+    if (pinOccupation(PIN) != PinButtonInput)
+        return FALSE;
+    return TRUE;
+}
+
 BOOL buttonStatus(Button button) {
+    if (!buttonValid(button)) return FALSE;
 	BOOL val = readPin(PIN);
     ConfigData data = pinConfigData(PIN, PinButtonInput);
 	if (data.data[0] /* flags */ & ButtonInverted) val = !val;

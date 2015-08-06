@@ -24,6 +24,7 @@ DEFINE_HANDLE(Button)
 
 Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber);
 Button destroyButton(Button button);
+BOOL buttonValid(Button button);
 
 BOOL buttonStatus(Button button);
 

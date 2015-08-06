@@ -24,9 +24,17 @@ AnalogInput newAnalogInput(Pin inputPin) {
 }
 
 AnalogInput destroyAnalogInput(AnalogInput input) {
-    // TODO - log error if FALSE
-    deOccupyPin(PIN, PinAnalogInput);
+    if (analogInputValid(input))
+        deOccupyPin(PIN, PinAnalogInput);
     return Invalid(AnalogInput);
+}
+
+BOOL analogInputValid(AnalogInput input) {
+    if (!IsValid(input))
+        return FALSE;
+    if (pinOccupation(PIN) != PinAnalogInput)
+        return FALSE;
+    return TRUE;
 }
 
 inline static BOOL conversionRunning() {
@@ -50,6 +58,7 @@ static void startConversion(Pin input) {
 }
 
 BOOL analogRead(AnalogInput input, AnalogCallbackFunction callback) {
+    if (!analogInputValid(input)) return FALSE;
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		if (conversionRunning()) return FALSE;
 	}
@@ -60,6 +69,7 @@ BOOL analogRead(AnalogInput input, AnalogCallbackFunction callback) {
 }
 
 BOOL analogReadLoop(AnalogInput input, uint8_t *result) {
+    if (!analogInputValid(input)) return FALSE;
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		if (conversionRunning()) return FALSE;
 	}

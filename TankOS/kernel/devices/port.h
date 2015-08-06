@@ -11,6 +11,8 @@ Port destroyPort(Port port);
 Pin newPin(Port port, uint8_t pinNumber);
 Pin destroyPin(Pin pin);
 
+// == Pin GPIO functionality (always available for every pin)
+
 void setPortOutput(Port port);
 void setPortInput(Port port);
 

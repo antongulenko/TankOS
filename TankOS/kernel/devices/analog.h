@@ -26,6 +26,7 @@ BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber);
 
 AnalogInput newAnalogInput(Pin inputPin);
 AnalogInput destroyAnalogInput(AnalogInput input);
+BOOL analogInputValid(AnalogInput input);
 
 // Start an analog conversion of the given input.
 // Return immediately. When the conversion is finished, the callback-
