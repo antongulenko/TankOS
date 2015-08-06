@@ -7,14 +7,14 @@
 
 #include "analog.h"
 
-#define INPUT Cast(Pin, input)
+#define PIN Cast(Pin, input)
 
 // Used in analog.kernel.c
 void (*analogCallbackFunction) (uint8_t result);
 
 BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber) {
-    #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
-    return registerPinConfig(pin, PinAnalogInput, (void*) (long) pinNumber);
+    ConfigData data = { pinNumber, 0, 0, 0 };
+    return registerPinConfig(pin, PinAnalogInput, data);
 }
 
 AnalogInput newAnalogInput(Pin inputPin) {
@@ -24,7 +24,8 @@ AnalogInput newAnalogInput(Pin inputPin) {
 }
 
 AnalogInput destroyAnalogInput(AnalogInput input) {
-    // TODO - de-occupy pin.
+    // TODO - log error if FALSE
+    deOccupyPin(PIN, PinAnalogInput);
     return Invalid(AnalogInput);
 }
 
@@ -35,8 +36,8 @@ inline static BOOL conversionRunning() {
 }
 
 static void startConversion(Pin input) {
-    #pragma GCC diagnostic ignored "-Wpointer-to-int-cast"
-    uint8_t pinNum = (uint8_t) pinConfigData(input, PinAnalogInput);
+    ConfigData data = pinConfigData(input, PinAnalogInput);
+    uint8_t pinNum = data.data[0];
 	ATOMIC_BLOCK(ATOMIC_FORCEON) {
 		uint8_t admux = ADMUX;
 		// Set _only_ MUX4..0, the 5 LSB of ADMUX.
@@ -54,7 +55,7 @@ BOOL analogRead(AnalogInput input, AnalogCallbackFunction callback) {
 	}
 	analogCallbackFunction = callback;
 	ADCSRA |= _BV(ADIE);
-	startConversion(INPUT);
+	startConversion(PIN);
 	return TRUE;
 }
 
@@ -64,7 +65,7 @@ BOOL analogReadLoop(AnalogInput input, uint8_t *result) {
 	}
 	// Disable interrupts, because we poll the result in a busy-loop
 	ADCSRA &= ~_BV(ADIE);
-	startConversion(INPUT);
+	startConversion(PIN);
 	while (conversionRunning()) ;
 	// We only use 8-bit resolution, left-aligned. It's enough to
 	// read the high-register of the result.

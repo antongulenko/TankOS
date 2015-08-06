@@ -32,14 +32,20 @@ BOOL readPin(Pin pin);
 // To prevent duplicate use of a pin, an occupation flag is set once a certain config data is extracted.
 // External modules can allocate and register config data and later read and evaluate it.
 
+typedef struct ConfigData {
+    byte data[4];
+} ConfigData;
+
 typedef enum {
     PinNoOccupation = 0,
     PinGPIO = 1 // Available for every pin to be used as general IO pin.
 } PinConfigTag;
 
-BOOL registerPinConfig(Pin pin, PinConfigTag tag, void *configData); // return FALSE if configuration with that tag is already present or if malloc failed.
+BOOL registerPinConfig(Pin pin, PinConfigTag tag, ConfigData configData); // return FALSE if configuration with that tag is already present or if malloc failed.
 BOOL occupyPin(Pin pin, PinConfigTag tag); // return FALSE if pin is already occupied or requested configuration is not available.
+BOOL occupyPinDirectly(Pin pin, PinConfigTag tag, ConfigData configData); // Occupy without registering. return FALSE if pin already occupied.
 PinConfigTag pinOccupation(Pin pin);
-void *pinConfigData(Pin pin, PinConfigTag tag); // return NULL if pin not occupied or is occupied by different configuration than the given tag.
+ConfigData pinConfigData(Pin pin, PinConfigTag tag); // return {0} if pin not occupied or is occupied by different configuration than the given tag.
+BOOL deOccupyPin(Pin pin, PinConfigTag tag); // return FALSE, if pin was not occupied by tag.
 
 #endif

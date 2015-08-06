@@ -19,22 +19,22 @@ void tearDown() {
 
 PinConfigTag myTag1 = 100;
 PinConfigTag myTag2 = 200;
-byte configData1[2]; // Content doesn't matter
-byte configData2[2];
+ConfigData configData1 = { 1, 2, 3, 4 };
+ConfigData configData2 = { 5, 6, 7, 8 };
 
-void do_register(int run, PinConfigTag tag, void *data, BOOL expect_success) {
+void do_register(int run, PinConfigTag tag, ConfigData data, BOOL expect_success) {
     BOOL res = registerPinConfig(p, tag, data);
     char buf[] = "Registration nr XXXXX did not work as expected";
     sprintf(buf, "Registration nr %i did not work as expected", run);
     TEST_ASSERT_EQUAL_MESSAGE(expect_success, res, buf);
 }
 
-void run_test(PinConfigTag tag, void *expectedData) {
+void run_test(PinConfigTag tag, ConfigData expectedData) {
     BOOL res = occupyPin(p, tag);
     TEST_ASSERT_TRUE_MESSAGE(res, "Could not occupy pin");
-    if (expectedData) {
-        void *data = pinConfigData(p, tag);
-        TEST_ASSERT_EQUAL_PTR_MESSAGE(expectedData, data, "Wrong config data returned");
+    if (expectedData.data[0] != 0) {
+        ConfigData data = pinConfigData(p, tag);
+        TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expectedData, &data, sizeof data, "Wrong config data returned");
     }
     PinConfigTag occ = pinOccupation(p);
     TEST_ASSERT_EQUAL_INT_MESSAGE(tag, occ, "Pin not occupied by right tag");
@@ -42,9 +42,9 @@ void run_test(PinConfigTag tag, void *expectedData) {
     TEST_ASSERT_FALSE_MESSAGE(res, "Pin was re-occupied");
     occ = pinOccupation(p);
     TEST_ASSERT_EQUAL_INT_MESSAGE(tag, occ, "Pin not occupied by right tag (second try)");
-    if (expectedData) {
-        void *data = pinConfigData(p, tag);
-        TEST_ASSERT_EQUAL_PTR_MESSAGE(expectedData, data, "Wrong config data returned (second try)");
+    if (expectedData.data[0] != 0) {
+        ConfigData data = pinConfigData(p, tag);
+        TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expectedData, &data, sizeof data, "Wrong config data returned (second try)");
     }
 }
 
@@ -54,11 +54,11 @@ void test_initially_no_occupation() {
 }
 
 void test_register_GPIO() {
-    do_register(0, PinGPIO, NULL, FALSE);
+    do_register(0, PinGPIO, (ConfigData) {0}, FALSE);
 }
 
 void test_GPIO() {
-    run_test(PinGPIO, NULL);
+    run_test(PinGPIO, (ConfigData) {0});
 }
 
 void test_custom_register() {
@@ -89,5 +89,5 @@ void test_custom_occupy_3() {
 void test_gpio_with_custom_config() {
     do_register(1, myTag1, configData1, TRUE);
     do_register(2, myTag2, configData2, TRUE);
-    run_test(PinGPIO, NULL);
+    run_test(PinGPIO, (ConfigData) {0});
 }

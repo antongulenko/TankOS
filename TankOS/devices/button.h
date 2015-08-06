@@ -20,6 +20,8 @@ typedef enum {
 
 DEFINE_HANDLE(Button)
 
+#define PinButtonInput 4
+
 Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber);
 Button destroyButton(Button button);
 

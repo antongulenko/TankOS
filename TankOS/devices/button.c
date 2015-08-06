@@ -8,40 +8,34 @@
 #include "button.h"
 #include <kernel/devices/external_interrupts.h>
 
-typedef struct {
-	uint8_t flags;
-	Pin pin;
-	uint8_t pinChangeInterruptNumber;
-} _Button;
+#define PIN Cast(Pin, button)
 
-#define BUTTON Get(_Button, button)
-
-static void initButton(_Button *button) {
-	setPinInput(button->pin);
-	if (button->flags & ButtonNeedsPullup)
-	    setPinOne(button->pin); // Enable internal pull up resistor
-	if (button->flags & ButtonUsePinChangeInterrupt)
-		enablePinChangeInterrupt(button->pinChangeInterruptNumber);
+static void initButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber) {
+	setPinInput(pin);
+	if (flags & ButtonNeedsPullup)
+	    setPinOne(pin); // Enable internal pull up resistor
+	if (flags & ButtonUsePinChangeInterrupt)
+		enablePinChangeInterrupt(pinChangeInterruptNumber);
 }
 
 Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber) {
-    _Button *button = malloc(sizeof(_Button));
-    if (!button) return Invalid(Button);
-    button->flags = flags;
-    button->pin = pin;
-    button->pinChangeInterruptNumber = pinChangeInterruptNumber;
-    initButton(button);
-    return As(Button, button);
+    ConfigData data = { flags, pinChangeInterruptNumber, 0, 0 };
+    if (!occupyPinDirectly(pin, PinButtonInput, data)) {
+        return Invalid(Button);
+    }
+    initButton(pin, flags, pinChangeInterruptNumber);
+    return Cast(Button, pin);
 }
 
 Button destroyButton(Button button) {
-    if (IsValid(button))
-        free(BUTTON);
+    // TODO - log error if FALSE
+    deOccupyPin(PIN, PinButtonInput);
     return Invalid(Button);
 }
 
 BOOL buttonStatus(Button button) {
-	BOOL val = readPin(BUTTON->pin);
-	if (BUTTON->flags & ButtonInverted) val = !val;
+	BOOL val = readPin(PIN);
+    ConfigData data = pinConfigData(PIN, PinButtonInput);
+	if (data.data[0] /* flags */ & ButtonInverted) val = !val;
 	return val;
 }
