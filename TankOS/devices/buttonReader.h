@@ -6,11 +6,11 @@
 
 DEFINE_HANDLE(ButtonReader);
 
-typedef void (*button_callback)(Button button);
+typedef void (*ButtonCallbackFunction)(Button button);
 
 ButtonReader newButtonReader(
 		Button *buttonArray, uint8_t buttonCount,
-		button_callback button_pressed, button_callback button_released);
+		ButtonCallbackFunction button_pressed, ButtonCallbackFunction button_released);
 
 ButtonReader destroyButtonReader(ButtonReader reader);
 

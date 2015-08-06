@@ -17,7 +17,6 @@
 // This also allows for a greater clock-frequency of the ADC.
 // Values are read on-demand, no free-running mode.
 // Both interrupt-driven and looping reads are supported.
-// See comments at function-headers for further details.
 
 typedef void (*AnalogCallbackFunction)(uint8_t value);
 

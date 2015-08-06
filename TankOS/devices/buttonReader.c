@@ -6,8 +6,8 @@ typedef struct {
 	volatile BOOL running;
 	uint8_t buttonCount;
 	Button *buttonArray;
-	button_callback button_pressed;
-	button_callback button_released;
+	ButtonCallbackFunction button_pressed;
+	ButtonCallbackFunction button_released;
 	BOOL *hasBeenPressed;
 	BOOL inUse;
 } _ButtonReader;
@@ -15,7 +15,7 @@ typedef struct {
 #define READER Get(_ButtonReader, reader)
 
 ButtonReader newButtonReader(Button *buttonArray, uint8_t buttonCount,
-		                        button_callback button_pressed, button_callback button_released) {
+		                        ButtonCallbackFunction button_pressed, ButtonCallbackFunction button_released) {
 	BOOL *hasBeenPressed = calloc(buttonCount, sizeof(BOOL));
 	if (!hasBeenPressed) return Invalid(ButtonReader);
 	_ButtonReader *reader = malloc(sizeof(_ButtonReader));
