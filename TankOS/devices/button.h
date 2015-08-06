@@ -21,7 +21,7 @@ typedef enum {
 DEFINE_HANDLE(Button)
 
 Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber);
-void destroyButton(Button button);
+Button destroyButton(Button button);
 
 BOOL buttonStatus(Button button);
 

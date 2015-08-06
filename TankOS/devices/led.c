@@ -27,9 +27,10 @@ Led newLed(Pin pin) {
     return As(Led, led);
 }
 
-void destroyLed(Led led) {
+Led destroyLed(Led led) {
     if (IsValid(led))
         free(LED);
+    return Invalid(Led);
 }
 
 LedGroup newLedGroup(Led *leds, uint8_t count) {
@@ -40,9 +41,10 @@ LedGroup newLedGroup(Led *leds, uint8_t count) {
     return As(LedGroup, group);
 }
 
-void destroyLedGroup(LedGroup group) {
+LedGroup destroyLedGroup(LedGroup group) {
     if (IsValid(group))
         free(GROUP);
+    return Invalid(LedGroup);
 }
 
 void enableLed(Led led) {

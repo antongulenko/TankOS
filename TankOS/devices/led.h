@@ -19,9 +19,9 @@ DEFINE_HANDLE(Led)
 DEFINE_HANDLE(LedGroup)
 
 Led newLed(Pin pin);
-void destroyLed(Led led);
+Led destroyLed(Led led);
 LedGroup newLedGroup(Led *leds, uint8_t count);
-void destroyLedGroup(LedGroup led);
+LedGroup destroyLedGroup(LedGroup led);
 
 void enableLed(Led led);
 void disableLed(Led led);

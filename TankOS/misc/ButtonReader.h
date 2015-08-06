@@ -12,7 +12,7 @@ ButtonReader newButtonReader(
 		Button *buttonArray, uint8_t buttonCount,
 		button_callback button_pressed, button_callback button_released);
 
-void destroyButtonReader(ButtonReader reader);
+ButtonReader destroyButtonReader(ButtonReader reader);
 
 // Enter an eternal loop, reading the status of the given buttons
 // and invoking the weak function button_pressed() whenever a button

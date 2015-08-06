@@ -7,9 +7,9 @@ DEFINE_HANDLE(Port)
 DEFINE_HANDLE(Pin)
 
 Port newPort(volatile uint8_t *port, volatile uint8_t *pin, volatile uint8_t *ddr);
-void destroyPort(Port port);
+Port destroyPort(Port port);
 Pin newPin(Port port, uint8_t pinNumber);
-void destroyPin(Pin pin);
+Pin destroyPin(Pin pin);
 
 void setPortOutput(Port port);
 void setPortInput(Port port);

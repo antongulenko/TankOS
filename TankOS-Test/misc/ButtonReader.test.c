@@ -47,7 +47,7 @@ void tearDown() {
 	TEST_ASSERT_EQUAL_MESSAGE(expectedPresses, timesPressed[1], "Wrong # of presses");
 	TEST_ASSERT_EQUAL_MESSAGE(expectedPresses, timesReleased[0], "Wrong # of releases");
 	TEST_ASSERT_EQUAL_MESSAGE(expectedPresses, timesReleased[1], "Wrong # of releases");
-	destroyButtonReader(reader);
+	reader = destroyButtonReader(reader);
     destroy_fake_port();
 }
 

@@ -30,9 +30,10 @@ Port newPort(volatile uint8_t *port_reg, volatile uint8_t *pin_reg, volatile uin
     return As(Port, port);
 }
 
-void destroyPort(Port port) {
+Port destroyPort(Port port) {
     if (IsValid(port))
         free(PORT);
+    return Invalid(Port);
 }
 
 Pin newPin(Port port, uint8_t pinNumber) {
@@ -43,9 +44,10 @@ Pin newPin(Port port, uint8_t pinNumber) {
     return As(Pin, pin);
 }
 
-void destroyPin(Pin pin) {
+Pin destroyPin(Pin pin) {
     if (IsValid(pin))
         free(PIN);
+    return Invalid(Pin);
 }
 
 void setPortOutput(Port port) {

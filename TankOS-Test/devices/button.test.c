@@ -18,7 +18,7 @@ void setUp() {
 }
 
 void tearDown() {
-    destroyButton(Btn);
+    Btn = destroyButton(Btn);
     destroy_fake_port();
 }
 

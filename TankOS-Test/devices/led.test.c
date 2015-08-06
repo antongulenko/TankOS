@@ -22,10 +22,10 @@ void setUp() {
 }
 
 void tearDown() {
-    destroyLedGroup(Group);
-    destroyLed(Led1);
-    destroyLed(Led2);
-    destroyLed(Led3);
+    Group = destroyLedGroup(Group);
+    Led1 = destroyLed(Led1);
+    Led2 = destroyLed(Led2);
+    Led3 = destroyLed(Led3);
     destroy_fake_port();
 }
 

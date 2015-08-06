@@ -34,9 +34,10 @@ Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber) {
     return As(Button, button);
 }
 
-void destroyButton(Button button) {
+Button destroyButton(Button button) {
     if (IsValid(button))
         free(BUTTON);
+    return Invalid(Button);
 }
 
 BOOL buttonStatus(Button button) {

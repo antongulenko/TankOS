@@ -33,12 +33,14 @@ ButtonReader newButtonReader(Button *buttonArray, uint8_t buttonCount,
 	return As(ButtonReader, reader);
 }
 
-void destroyButtonReader(ButtonReader reader) {
-	if (!IsValid(reader)) return;
-	READER->running = FALSE;
-	while (READER->inUse) ; // Wait until the loop exits.
-	free(READER->hasBeenPressed);
-	free(READER);
+ButtonReader destroyButtonReader(ButtonReader reader) {
+    if (IsValid(reader)) {
+        READER->running = FALSE;
+        while (READER->inUse) ; // Wait until the loop exits.
+        free(READER->hasBeenPressed);
+        free(READER);
+    }
+    return Invalid(ButtonReader);
 }
 
 void stopButtonReader(ButtonReader reader) {
