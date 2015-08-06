@@ -15,7 +15,7 @@ void seed() {
 DEFINE_MOTOR_2Speed_IMPL(FakeMotor)
 
 void init_fake_motor() {
-	INIT_MOTOR_2Speed(FakeMotor, MOTOR_NORMAL, Timer2A, Timer2B)
+	INIT_MOTOR_2Speed(FakeMotor, MotorNormal, Timer2A, Timer2B)
 }
 
 uint8_t ana_result = 0;

@@ -23,31 +23,31 @@ void setupMotors(uint16_t initialValue) {
 
 int main() {
 	tankIO_wait();
-	left = right = MOTOR_STOPPED;
+	left = right = MotorStopped;
 	while (1) {
 		uint8_t btns = tankIO_buttonStatus();
 		if (btns & BUTTON_SWITCH) {
 			MotorDirection newLeft, newRight;
 			if (btns | BUTTON_1) 
-				newLeft = FORWARD;
+				newLeft = MotorForward;
 			else if (btns | BUTTON_2)
-				newLeft = BACKWARD;
+				newLeft = MotorBackward;
 			if (btns | BUTTON_3)
-				newRight = FORWARD;
+				newRight = MotorForward;
 			else if (btns | BUTTON_4)
-				newRight = BACKWARD;
+				newRight = MotorBackward;
 			
-			if (newRight == FORWARD) {
+			if (newRight == MotorForward) {
 				PORTC |= _BV(PORTC2);
 				PORTC &= ~_BV(PORTC3);
-			} else if (newRight == BACKWARD) {
+			} else if (newRight == MotorBackward) {
 				PORTC |= _BV(PORTC3);
 				PORTC &= ~_BV(PORTC2);
 			}
-			if (newLeft == FORWARD) {
+			if (newLeft == MotorForward) {
 				PORTC |= _BV(PORTC4);
 				PORTC &= ~_BV(PORTC5);
-			} else if (newLeft == BACKWARD) {
+			} else if (newLeft == MotorBackward) {
 				PORTC |= _BV(PORTC5);
 				PORTC &= ~_BV(PORTC4);
 			}

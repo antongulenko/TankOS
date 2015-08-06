@@ -6,7 +6,6 @@ objects += \
     $(KERNEL)/early_init.kernel.o \
     $(KERNEL)/early_init_eeprom.kernel.o \
     $(KERNEL_BASE)/m1284P/port.kernel.o \
-    $(KERNEL_BASE)/m1284P/timer.kernel.o \
     $(SHARED)/timer.kernel.o \
     $(KERNEL)/mutex/atomic_mutex.kernel.o \
     $(KERNEL)/sleep_after_main.kernel.o \

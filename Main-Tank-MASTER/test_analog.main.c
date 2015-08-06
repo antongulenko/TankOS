@@ -14,7 +14,7 @@
 int main() {
 	setSpeedForward(LeftMotorBase, 0xFFFF);
 	
-	PMotor motor;
+	Motor motor;
 	#ifdef USE_FAKE_MOTOR
 		init_fake_motor();
 		motor = FakeMotor;

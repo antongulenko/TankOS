@@ -19,7 +19,7 @@ static void init_tank_motors() {
 	SmoothMotor2 = RightMotor;
 
 	// No exact conversion, because we have the full voltage range!
-	#define TANK_MOTOR_FLAGS MOTOR_NORMAL
+	#define TANK_MOTOR_FLAGS MotorNormal
 
 	INIT_MOTOR_2Speed(LeftMotorBase, TANK_MOTOR_FLAGS, Timer0A, Timer0B)
 	INIT_MOTOR_2Speed(RightMotorBase, TANK_MOTOR_FLAGS, Timer2A, Timer2B)

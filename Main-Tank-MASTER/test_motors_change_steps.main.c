@@ -3,7 +3,7 @@
 
 int main() {
 	uint16_t speed;
-	const MotorDirection dir = FORWARD;
+	const MotorDirection dir = MotorForward;
 	while (1) {
 		speed = 13071; // 1/5
 		setSpeed(LeftMotorBase, speed, dir);

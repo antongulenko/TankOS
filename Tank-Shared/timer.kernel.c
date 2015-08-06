@@ -8,9 +8,9 @@
 #include <kernel/millisecond_clock.h>
 #include <m1284P/timer.h>
 
-PTimerPair millisecond_timer;
-PTimer millisecond_timer_A;
-PTimer millisecond_timer_B;
+TimerPair millisecond_timer;
+Timer millisecond_timer_A;
+Timer millisecond_timer_B;
 
 static void init_tank_timer() {
 	setWaveformGenerationMode(millisecond_timer, clear_timer_on_match);
@@ -20,7 +20,7 @@ static void init_tank_timer() {
 	// results in one compare-match every millisecond.
 	#define MILLISECOND_TIMER_VALUE ((uint16_t) 2500)
 
-	setTimerCompareValue(millisecond_timer_A, MILLISECOND_TIMER_VALUE);
-	setTimerCompareValue(millisecond_timer_B, MILLISECOND_TIMER_VALUE);
+	setTimerValue(millisecond_timer_A, MILLISECOND_TIMER_VALUE);
+	setTimerValue(millisecond_timer_B, MILLISECOND_TIMER_VALUE);
 }
 KERNEL_INIT(init_tank_timer)

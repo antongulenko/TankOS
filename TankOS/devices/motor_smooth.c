@@ -3,7 +3,7 @@
  *
  * Created: 26.04.2012 17:24:51
  *  Author: Anton
- */ 
+ */
 
 #include "motor_smooth.h"
 
@@ -16,7 +16,7 @@ void motor_smooth_stop_tick(PSmoothMotor motor);
 uint16_t motor_toUnsignedSpeed(int16_t speed);
 
 void regulateStopMotor(PSmoothMotor motor) {
-	regulateSpeed(motor, 0, MOTOR_STOPPED);
+	regulateSpeed(motor, 0, MotorStopped);
 }
 
 void regulateSpeed(PSmoothMotor motor, uint16_t speed, MotorDirection direction) {
@@ -31,19 +31,19 @@ void regulateSpeed(PSmoothMotor motor, uint16_t speed, MotorDirection direction)
 }
 
 void regulateSpeedForward(PSmoothMotor motor, uint16_t speed) {
-	regulateSpeed(motor, speed, FORWARD);
+	regulateSpeed(motor, speed, MotorForward);
 }
 
 void regulateSpeedBackward(PSmoothMotor motor, uint16_t speed) {
-	regulateSpeed(motor, speed, BACKWARD);
+	regulateSpeed(motor, speed, MotorBackward);
 }
 
 void regulateDirSpeed(PSmoothMotor motor, int16_t speed) {
 	if (speed == 0) {
 		regulateStopMotor(motor);
 	} else {
-		regulateSpeed(motor, motor_toUnsignedSpeed(speed), speed < 0 ? BACKWARD : FORWARD);
-	}		
+		regulateSpeed(motor, motor_toUnsignedSpeed(speed), speed < 0 ? MotorBackward : MotorForward);
+	}
 }
 
 int motor_smooth_needsTick(PSmoothMotor motor) {
@@ -53,7 +53,7 @@ int motor_smooth_needsTick(PSmoothMotor motor) {
 
 void motor_smooth_tick(PSmoothMotor motor) {
 	mutex_lock(motor->mutex);
-	
+
 	// Make sure to not do this if not needed...
 	if (motor_smooth_needsTick(motor)) {
 		// Load all values into registers.
@@ -61,14 +61,16 @@ void motor_smooth_tick(PSmoothMotor motor) {
 		uint16_t currentSpeed = motor->currentSpeed;
 		uint16_t targetSpeed = motor->targetSpeed;
 		uint16_t adjustment = motor->adjustmentStep;
-		
+
 		if (motor->currentDirection != targetDir) {
 			// Slowing down until we can change the direction.
 			if (currentSpeed < adjustment) {
 				// Reached zero. Now we either finished stopping,
 				// or can continue in the other direction.
-				currentSpeed = motor->motor->minValue;
-				if (targetDir != MOTOR_STOPPED)
+
+                // TODO this is wrong.
+				currentSpeed = 0; //motor->motor->minValue;
+				if (targetDir != MotorStopped)
 					// Avoid stopping the motor when changing direction.
 					currentSpeed++;
 				motor->currentDirection = targetDir;
@@ -91,11 +93,11 @@ void motor_smooth_tick(PSmoothMotor motor) {
 				}
 			}
 		}
-		
+
 		// After the calculations, update the actual value!
 		motor->currentSpeed = currentSpeed;
 		setSpeed(motor->motor, currentSpeed, motor->currentDirection);
-		
+
 		// If we are ready adjusting, stop ticking.
 		if (!motor_smooth_needsTick(motor)) {
 			motor_smooth_stop_tick(motor);

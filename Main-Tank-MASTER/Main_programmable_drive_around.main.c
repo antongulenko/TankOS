@@ -4,7 +4,7 @@
 // TODO -- hack, this is unfinished. BUTTON_SWITCH does not exist anymore.
 #define BUTTON_SWITCH BUTTON_1
 
-#define FORWARD_TIME 3000
+#define MotorForward_TIME 3000
 #define MAX_SPEED 0x0FFF
 #define TURN_180_time 2000
 #define TURN_90_time 1000
@@ -45,7 +45,7 @@ void executeCommand(Command com) {
 
 	switch(com) {
 		case FORW:
-			delay_ms(FORWARD_TIME);
+			delay_ms(MotorForward_TIME);
 			break;
 		case BACKW:
 			regulateSpeedBackward(LeftMotor, MAX_SPEED);

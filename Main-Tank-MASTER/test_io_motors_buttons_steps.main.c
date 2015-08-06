@@ -41,9 +41,9 @@ int main() {
 		
 		MotorDirection dir;
 		if (buttons & BUTTON_SWITCH) {
-			dir = FORWARD;
+			dir = MotorForward;
 		} else {
-			dir = BACKWARD;
+			dir = MotorBackward;
 		}
 		
 		regulateSpeed(LeftMotor, speedLeft, dir);
