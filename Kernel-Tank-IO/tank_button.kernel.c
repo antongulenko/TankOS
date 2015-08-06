@@ -14,27 +14,24 @@ Mutex buttonMutex;
 uint8_t buttonsPressedSinceLastCall = 0;
 uint8_t wasPressed = 0;
 
-DEFINE_BUTTON_IMPL(Button1)
-DEFINE_BUTTON_IMPL(Button2)
-DEFINE_BUTTON_IMPL(Button3)
-DEFINE_BUTTON_IMPL(Button4)
+Button button1, button2, button3, button4;
 
 void init_tank_buttons() {
-	#define TANK_BUTTON BUTTON_INVERTED | BUTTON_NEEDS_PULLUP
-	INIT_BUTTON(Button1, pinA0, TANK_BUTTON, 0)
-	INIT_BUTTON(Button2, pinA1, TANK_BUTTON, 1)
-	INIT_BUTTON(Button3, pinA2, TANK_BUTTON, 2)
-	INIT_BUTTON(Button4, pinA3, TANK_BUTTON, 3)
+	#define TANK_BUTTON (ButtonInverted | ButtonNeedsPullup)
+	button1 = newButton(pinA0, TANK_BUTTON, 0);
+	button2 = newButton(pinA1, TANK_BUTTON, 1);
+	button3 = newButton(pinA2, TANK_BUTTON, 2);
+	button4 = newButton(pinA3, TANK_BUTTON, 3);
 	buttonMutex = mutex_create();
 }
 KERNEL_INIT(init_tank_buttons)
 
 uint8_t buttonStatusMask() {
-	uint8_t buttons = 0;
-	if (buttonStatus(Button1)) buttons |= BUTTON_1;
-	if (buttonStatus(Button2)) buttons |= BUTTON_2;
-	if (buttonStatus(Button3)) buttons |= BUTTON_3;
-	if (buttonStatus(Button4)) buttons |= BUTTON_4;
+	TankButtonMask buttons = 0;
+	if (buttonStatus(button1)) buttons |= BUTTON_1;
+	if (buttonStatus(button2)) buttons |= BUTTON_2;
+	if (buttonStatus(button3)) buttons |= BUTTON_3;
+	if (buttonStatus(button4)) buttons |= BUTTON_4;
 	return buttons;
 }
 
@@ -47,8 +44,8 @@ uint8_t pressedButtons() {
 }
 
 void updateButtonStatus() {
-	uint8_t pressedNow = buttonStatusMask();
-	uint8_t newlyPressed = 0;
+	TankButtonMask pressedNow = buttonStatusMask();
+	TankButtonMask newlyPressed = 0;
 
 	if (!(wasPressed & BUTTON_1) && (pressedNow & BUTTON_1))
 		newlyPressed |= BUTTON_1;

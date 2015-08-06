@@ -5,7 +5,7 @@
 typedef struct _ReaderData {
 	volatile BOOL running;
 	uint8_t buttonCount;
-	PButton *buttonArray;
+	Button *buttonArray;
 	button_callback button_pressed;
 	button_callback button_released;
 	BOOL *hasBeenPressed;
@@ -13,7 +13,7 @@ typedef struct _ReaderData {
 } ReaderData, *PReaderData;
 
 ButtonLoopReader ButtonLoopReader_Create(
-		uint8_t buttonCount, PButton *buttonArray,
+		uint8_t buttonCount, Button *buttonArray,
 		button_callback button_pressed,
 		button_callback button_released) {
 	// Allocate space to memorize the status of all the buttons.
@@ -52,11 +52,11 @@ void ButtonLoopReader_Start(ButtonLoopReader _reader) {
 	memset(reader->hasBeenPressed, 0, reader->buttonCount * sizeof(BOOL));
 	reader->running = TRUE;
 	reader->inUse = TRUE;
-	
+
 	// Loop reading the button events, until the variable is reset.
 	while (reader->running) {
 		for (int i = 0; i < reader->buttonCount; i++) {
-			PButton button = reader->buttonArray[i];
+			Button button = reader->buttonArray[i];
 			BOOL isPressed = buttonStatus(button);
 			if (!reader->hasBeenPressed[i] && isPressed)
 				if (reader->button_pressed) reader->button_pressed(button);

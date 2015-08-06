@@ -12,25 +12,22 @@
 int timeToLive, expectedPresses;
 
 // random values
-PButton Btn1 = (PButton) 400;
-PButton Btn2 = (PButton) 800;
+Button Btn1 = Constant(400);
+Button Btn2 = Constant(800);
 
-#define BtnIndex(btn) (btn == Btn1 ? 0 : 1)
+#define BtnIndex(btn) (Equal(btn, Btn1) ? 0 : 1)
 
 // These are just fake values so we can distinguish the two buttons.
 int timesPressed[2], timesReleased[2];
-PButton buttonArray[2];
+Button buttonArray[2];
 BOOL lastButtonStatus[2];
 ButtonLoopReader reader;
 
-void my_button_pressed(PButton button);
-void my_button_released(PButton button);
+void my_button_pressed(Button button);
+void my_button_released(Button button);
 
 void setUp() {
 	init_fake_port();
-	reader = ButtonLoopReader_Create(2, buttonArray,
-			my_button_pressed, my_button_released);
-
 	expectedPresses = 0;
 	timesPressed[0] = FALSE;
 	timesPressed[1] = FALSE;
@@ -40,6 +37,9 @@ void setUp() {
 	lastButtonStatus[1] = FALSE;
 	buttonArray[0] = Btn1;
 	buttonArray[1] = Btn2;
+
+    reader = ButtonLoopReader_Create(2, buttonArray,
+			my_button_pressed, my_button_released);
 }
 
 void tearDown() {
@@ -48,6 +48,7 @@ void tearDown() {
 	TEST_ASSERT_EQUAL_MESSAGE(expectedPresses, timesReleased[0], "Wrong # of releases");
 	TEST_ASSERT_EQUAL_MESSAGE(expectedPresses, timesReleased[1], "Wrong # of releases");
 	ButtonLoopReader_Destroy(reader);
+    destroy_fake_port();
 }
 
 void invokeLoop() {
@@ -57,7 +58,7 @@ void invokeLoop() {
 	ButtonLoopReader_Start(reader);
 }
 
-void my_button_pressed(PButton button) {
+void my_button_pressed(Button button) {
 	TEST_ASSERT_EQUAL_MESSAGE(timesPressed[BtnIndex(button)],
 			timesReleased[BtnIndex(button)], "Pressed != Released");
 	timesPressed[BtnIndex(button)]++;
@@ -66,7 +67,7 @@ void my_button_pressed(PButton button) {
 		ButtonLoopReader_Stop(reader);
 }
 
-void my_button_released(PButton button) {
+void my_button_released(Button button) {
 	TEST_ASSERT_EQUAL_MESSAGE(timesReleased[BtnIndex(button)],
 			timesPressed[BtnIndex(button)] - 1, "Pressed - 1 != Released");
 	timesReleased[BtnIndex(button)]++;
@@ -75,7 +76,7 @@ void my_button_released(PButton button) {
 		ButtonLoopReader_Stop(reader);
 }
 
-BOOL buttonStatus(PButton button) {
+BOOL buttonStatus(Button button) {
 	// Toggle the button satus with each query.
 	BOOL result = lastButtonStatus[BtnIndex(button)];
 	lastButtonStatus[BtnIndex(button)] = !lastButtonStatus[BtnIndex(button)];

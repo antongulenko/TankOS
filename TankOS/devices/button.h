@@ -8,33 +8,21 @@
 #ifndef BUTTON_H_
 #define BUTTON_H_
 
-#include <kernel/devices/port.h>
 #include <tank_os_common.h>
+#include <kernel/devices/port.h>
 
-#define BUTTON_NORMAL 0
-#define BUTTON_INVERTED _BV(0)
-#define BUTTON_NEEDS_PULLUP _BV(1)
-#define BUTTON_USE_PIN_CHANGE_INTERRUPT _BV(2)
+typedef enum {
+    ButtonNormal = 0,
+    ButtonInverted = _BV(0),
+    ButtonNeedsPullup = _BV(1),
+    ButtonUsePinChangeInterrupt = _BV(2)
+} ButtonType;
 
-typedef struct {
-	uint8_t flags;
-	Pin pin;
-	uint8_t pinChangeInterruptNumber;
-} Button, *PButton;
+DEFINE_HANDLE(Button)
 
-// Read the current button status.
-BOOL buttonStatus(PButton button);
+Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber);
+void destroyButton(Button button);
 
-void initButton(PButton button);
-
-#define DEFINE_BUTTON(buttonName) extern const PButton buttonName;
-
-#define INIT_BUTTON(buttonName, pinName, flags, interruptNumber)	\
-	buttonName##_ = (Button) { flags, pinName, interruptNumber };	\
-	initButton(buttonName);
-
-#define DEFINE_BUTTON_IMPL(buttonName)				\
-	Button buttonName##_;						\
-	const PButton buttonName = &buttonName##_;
+BOOL buttonStatus(Button button);
 
 #endif /* BUTTON_H_ */

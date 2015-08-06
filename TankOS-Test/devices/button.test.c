@@ -10,22 +10,20 @@
 #include <devices/button.h>
 #include <kernel/devices/external_interrupts.h>
 
-DEFINE_BUTTON(Btn);
-DEFINE_BUTTON_IMPL(Btn);
-
+Button Btn;
 #define TEST_INTERRUPT 1
 
 void setUp() {
 	init_fake_port();
-	memset(Btn, 0, sizeof(Button));
 }
 
 void tearDown() {
+    destroyButton(Btn);
     destroy_fake_port();
 }
 
 void init_test_button(uint8_t flags) {
-	INIT_BUTTON(Btn, testPin1, flags, TEST_INTERRUPT);
+    Btn = newButton(testPin1, flags, TEST_INTERRUPT);
 }
 
 void assertState(BOOL assumedState, BOOL assumedPullup) {
@@ -38,62 +36,62 @@ void assertState(BOOL assumedState, BOOL assumedPullup) {
 }
 
 void test_normal_disabled() {
-	init_test_button(BUTTON_NORMAL);
+	init_test_button(ButtonNormal);
 	pin = ~testPin1_mask;
 	assertState(FALSE, FALSE);
 }
 
 void test_normal_enabled() {
-	init_test_button(BUTTON_NORMAL);
+	init_test_button(ButtonNormal);
 	pin = testPin1_mask;
 	assertState(TRUE, FALSE);
 }
 
 void test_inverted_disabled() {
-	init_test_button(BUTTON_INVERTED);
+	init_test_button(ButtonInverted);
 	pin = testPin1_mask;
 	assertState(FALSE, FALSE);
 }
 
 void test_inverted_enabled() {
-	init_test_button(BUTTON_INVERTED);
+	init_test_button(ButtonInverted);
 	pin = ~testPin1_mask;
 	assertState(TRUE, FALSE);
 }
 
 void test_pullup_disabled() {
-	init_test_button(BUTTON_NEEDS_PULLUP);
+	init_test_button(ButtonNeedsPullup);
 	pin = ~testPin1_mask;
 	assertState(FALSE, TRUE);
 }
 
 void test_pullup_enabled() {
-	init_test_button(BUTTON_NEEDS_PULLUP);
+	init_test_button(ButtonNeedsPullup);
 	pin = testPin1_mask;
 	assertState(TRUE, TRUE);
 }
 
 void test_inverted_pullup_disabled() {
-	init_test_button(BUTTON_INVERTED | BUTTON_NEEDS_PULLUP);
+	init_test_button(ButtonInverted | ButtonNeedsPullup);
 	pin = testPin1_mask;
 	assertState(FALSE, TRUE);
 }
 
 void test_inverted_pullup_enabled() {
-	init_test_button(BUTTON_INVERTED | BUTTON_NEEDS_PULLUP);
+	init_test_button(ButtonInverted | ButtonNeedsPullup);
 	pin = ~testPin1_mask;
 	assertState(TRUE, TRUE);
 }
 
 void test_interrupt_disabled() {
-	init_test_button(BUTTON_USE_PIN_CHANGE_INTERRUPT);
+	init_test_button(ButtonUsePinChangeInterrupt);
 	pin = ~testPin1_mask;
 	assertState(FALSE, FALSE);
 	TEST_ASSERT_EQUAL(TRUE, isPinChangeInterruptEnabled(TEST_INTERRUPT));
 }
 
 void test_interrupt_enabled() {
-	init_test_button(BUTTON_USE_PIN_CHANGE_INTERRUPT);
+	init_test_button(ButtonUsePinChangeInterrupt);
 	pin = testPin1_mask;
 	assertState(TRUE, FALSE);
 	TEST_ASSERT_EQUAL(TRUE, isPinChangeInterruptEnabled(TEST_INTERRUPT));

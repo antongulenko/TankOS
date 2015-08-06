@@ -6,10 +6,10 @@
 
 DEFINE_HANDLE(ButtonLoopReader);
 
-typedef void (*button_callback)(PButton button);
+typedef void (*button_callback)(Button button);
 
 ButtonLoopReader ButtonLoopReader_Create(
-		uint8_t buttonCount, PButton *buttonArray,
+		uint8_t buttonCount, Button *buttonArray,
 		button_callback button_pressed,
 		button_callback button_released);
 void ButtonLoopReader_Destroy(ButtonLoopReader reader);

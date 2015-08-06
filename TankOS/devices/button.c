@@ -8,17 +8,39 @@
 #include "button.h"
 #include <kernel/devices/external_interrupts.h>
 
-BOOL buttonStatus(PButton button) {
-	BOOL val = readPin(button->pin);
-	if (button->flags & BUTTON_INVERTED) val = !val;
-	return val;
+typedef struct {
+	uint8_t flags;
+	Pin pin;
+	uint8_t pinChangeInterruptNumber;
+} _Button;
+
+#define BUTTON Get(_Button, button)
+
+static void initButton(_Button *button) {
+	setPinInput(button->pin);
+	if (button->flags & ButtonNeedsPullup)
+	    setPinOne(button->pin); // Enable internal pull up resistor
+	if (button->flags & ButtonUsePinChangeInterrupt)
+		enablePinChangeInterrupt(button->pinChangeInterruptNumber);
 }
 
-void initButton(PButton button) {
-	setPinInput(button->pin);
-	if (button->flags & BUTTON_NEEDS_PULLUP)
-	setPinOne(button->pin); // Enable intern pull up resistor
+Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber) {
+    _Button *button = malloc(sizeof(_Button));
+    if (!button) return Invalid(Button);
+    button->flags = flags;
+    button->pin = pin;
+    button->pinChangeInterruptNumber = pinChangeInterruptNumber;
+    initButton(button);
+    return As(Button, button);
+}
 
-	if (button->flags & BUTTON_USE_PIN_CHANGE_INTERRUPT)
-		enablePinChangeInterrupt(button->pinChangeInterruptNumber);
+void destroyButton(Button button) {
+    if (IsValid(button))
+        free(BUTTON);
+}
+
+BOOL buttonStatus(Button button) {
+	BOOL val = readPin(BUTTON->pin);
+	if (BUTTON->flags & ButtonInverted) val = !val;
+	return val;
 }
