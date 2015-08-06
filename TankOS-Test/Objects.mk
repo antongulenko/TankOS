@@ -22,7 +22,7 @@ $(eval $(call set_test_objects,devices/button,\
     $(KERNEL_BASE)/devices/button.o \
     $(KERNEL)/devices/external_interrupts.o ))
 
-$(eval $(call set_test_objects,misc/ButtonReader,\
+$(eval $(call set_test_objects,devices/buttonReader,\
 	$(KERNEL)/devices/port.o \
 	$(KERNEL)/devices/external_interrupts.o \
     $(BUILDDIR)/mocks/port.o \

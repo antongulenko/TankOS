@@ -26,4 +26,19 @@ void setPinZero(Pin pin);
 
 BOOL readPin(Pin pin);
 
+// == Pin configuration
+// Each pin can have a linked list of configuration data attached. Every entry
+// describes a possible usage of the pin, like analog input, pwm output, etc.
+// To prevent duplicate use of a pin, an occupation flag is set once a certain config data is extracted.
+// External modules can allocate and register config data and later read and evaluate it.
+
+typedef enum {
+    PinNoOccupation = 0,
+    PinGIO = 1 // Available for every pin to be used as general IO pin.
+} PinConfigTag;
+
+BOOL registerPinConfig(Pin pin, PinConfigTag tag, void *configData); // return FALSE if configuration with that tag is already present or if malloc failed.
+void *occupyPin(Pin pin, PinConfigTag tag); // return NULL if pin is already occupied or requested configuration is not available.
+PinConfigTag pinOccupation(Pin pin);
+
 #endif

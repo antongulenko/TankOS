@@ -7,19 +7,12 @@
 #include "analog.h"
 #include "port.h"
 
-#define INIT_ANALOG_INPUT_M1284P(number)	\
-	INIT_ANALOG_INPUT(Analog##number, pinA##number, number)
+AnalogInput analog0, analog1, analog2, analog3, analog4, analog5, analog6, analog7;
 
-DEFINE_ANALOG_INPUT_IMPL(Analog0)
-DEFINE_ANALOG_INPUT_IMPL(Analog1)
-DEFINE_ANALOG_INPUT_IMPL(Analog2)
-DEFINE_ANALOG_INPUT_IMPL(Analog3)
-DEFINE_ANALOG_INPUT_IMPL(Analog4)
-DEFINE_ANALOG_INPUT_IMPL(Analog5)
-DEFINE_ANALOG_INPUT_IMPL(Analog6)
-DEFINE_ANALOG_INPUT_IMPL(Analog7)
+void init_analog_m1284P() {
+    #define INIT_ANALOG_INPUT_M1284P(number) \
+	    analog##number = newAnalogInput(pinA##number, number);
 
- void init_analog_m1284P() {
 	INIT_ANALOG_INPUT_M1284P(0)
 	INIT_ANALOG_INPUT_M1284P(1)
 	INIT_ANALOG_INPUT_M1284P(2)

@@ -26,11 +26,11 @@ void ana_callback(uint8_t result) {
 	ana_res_ready = TRUE;
 }
 
-BOOL ana_read(PAnalogInput input) {
+BOOL ana_read(AnalogInput input) {
 	return analogReadLoop(input, &ana_result);
 }
 
-BOOL ana_read_interrupt(PAnalogInput input) {
+BOOL ana_read_interrupt(AnalogInput input) {
 	ana_res_ready = FALSE;
 	if (!analogRead(input, ana_callback)) return FALSE;
 	while (!ana_res_ready) ;

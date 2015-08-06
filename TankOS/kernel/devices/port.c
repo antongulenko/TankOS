@@ -13,9 +13,17 @@ typedef struct {
 	volatile uint8_t *ddr; // data-direction-register
 } _Port;
 
+typedef struct PinConfigEntry {
+    PinConfigTag tag;
+    void *configData;
+    struct PinConfigEntry *next;
+} PinConfigEntry;
+
 typedef struct {
 	_Port *port;
 	uint8_t mask; // Single bit identifying the pin-bit in the port/pin/ddr registers
+    PinConfigEntry config;
+    PinConfigTag occupation;
 } _Pin;
 
 #define PORT Get(_Port, port)
@@ -41,6 +49,10 @@ Pin newPin(Port port, uint8_t pinNumber) {
     if (!pin) return Invalid(Pin);
     pin->port = PORT;
     pin->mask = _BV(pinNumber);
+    pin->occupation = PinNoOccupation;
+    pin->config.tag = PinGIO;
+    pin->config.next = NULL;
+    pin->config.configData = NULL; // Not required
     return As(Pin, pin);
 }
 
@@ -96,4 +108,41 @@ BOOL readPin(Pin pin) {
 		return TRUE;
 	else
 		return FALSE;
+}
+
+// == Pin configuration
+
+BOOL registerPinConfig(Pin pin, PinConfigTag tag, void *configData) {
+    PinConfigEntry *head = &PIN->config;
+    while (head->next != NULL) {
+        if (head->tag == tag) return FALSE;
+        head = head->next;
+    }
+    PinConfigEntry *config = malloc(sizeof(PinConfigEntry));
+    if (!config) return FALSE;
+    head->next = config;
+    config->next = NULL;
+    config->tag = tag;
+    config->configData = configData;
+    return TRUE;
+}
+
+void *occupyPin(Pin pin, PinConfigTag tag) {
+    if (PIN->occupation != PinNoOccupation)
+        return NULL;
+    PinConfigEntry *head = &PIN->config;
+    void *configData = NULL;
+    do {
+        if (head->tag == tag) {
+            configData = head->configData;
+            break;
+        }
+    } while ((head = head->next) != NULL);
+    if (configData != NULL)
+        PIN->occupation = tag;
+    return configData;
+}
+
+PinConfigTag pinOccupation(Pin pin) {
+    return PIN->occupation;
 }

@@ -12,7 +12,7 @@ DEFINE_MOTOR(FakeMotor)
 void init_fake_motor();
 
 extern uint8_t ana_result;
-BOOL ana_read(PAnalogInput input);
-BOOL ana_read_interrupt(PAnalogInput input);
+BOOL ana_read(AnalogInput input);
+BOOL ana_read_interrupt(AnalogInput input);
 
 #endif
