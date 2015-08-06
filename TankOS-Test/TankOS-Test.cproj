@@ -162,7 +162,7 @@
     <Compile Include="kernel\twi\services\test.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\ButtonLoopReader.test.c">
+    <Compile Include="misc\ButtonReader.test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\assertions.c">

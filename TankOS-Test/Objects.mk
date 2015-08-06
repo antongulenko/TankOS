@@ -22,11 +22,11 @@ $(eval $(call set_test_objects,devices/button,\
     $(KERNEL_BASE)/devices/button.o \
     $(KERNEL)/devices/external_interrupts.o ))
 
-$(eval $(call set_test_objects,misc/ButtonLoopReader,\
+$(eval $(call set_test_objects,misc/ButtonReader,\
 	$(KERNEL)/devices/port.o \
 	$(KERNEL)/devices/external_interrupts.o \
     $(BUILDDIR)/mocks/port.o \
-	$(MISC)/ButtonLoopReader.o ))
+	$(MISC)/ButtonReader.o ))
 
 $(eval $(call set_test_objects,kernel/twi/driver/master,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \

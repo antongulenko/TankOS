@@ -373,10 +373,10 @@
     <Compile Include="kernel\twi\services\test.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\ButtonLoopReader.c">
+    <Compile Include="misc\ButtonReader.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\ButtonLoopReader.h">
+    <Compile Include="misc\ButtonReader.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="misc\hardware_reset.c">

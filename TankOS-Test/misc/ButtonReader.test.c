@@ -5,7 +5,7 @@
 
 #include <unity.h>
 #include <tank_os_common.h>
-#include <misc/ButtonLoopReader.h>
+#include <misc/ButtonReader.h>
 #include <devices/button.h>
 #include <mocks/port.h>
 
@@ -21,7 +21,7 @@ Button Btn2 = Constant(800);
 int timesPressed[2], timesReleased[2];
 Button buttonArray[2];
 BOOL lastButtonStatus[2];
-ButtonLoopReader reader;
+ButtonReader reader;
 
 void my_button_pressed(Button button);
 void my_button_released(Button button);
@@ -38,7 +38,7 @@ void setUp() {
 	buttonArray[0] = Btn1;
 	buttonArray[1] = Btn2;
 
-    reader = ButtonLoopReader_Create(2, buttonArray,
+    reader = newButtonReader(buttonArray, 2,
 			my_button_pressed, my_button_released);
 }
 
@@ -47,7 +47,7 @@ void tearDown() {
 	TEST_ASSERT_EQUAL_MESSAGE(expectedPresses, timesPressed[1], "Wrong # of presses");
 	TEST_ASSERT_EQUAL_MESSAGE(expectedPresses, timesReleased[0], "Wrong # of releases");
 	TEST_ASSERT_EQUAL_MESSAGE(expectedPresses, timesReleased[1], "Wrong # of releases");
-	ButtonLoopReader_Destroy(reader);
+	destroyButtonReader(reader);
     destroy_fake_port();
 }
 
@@ -55,7 +55,7 @@ void invokeLoop() {
 	// buttonStatus is queried twice because we have two buttons,
 	// and twice because we have two states (pressed and released).
 	timeToLive = expectedPresses * 4;
-	ButtonLoopReader_Start(reader);
+	startButtonReader(reader);
 }
 
 void my_button_pressed(Button button) {
@@ -64,7 +64,7 @@ void my_button_pressed(Button button) {
 	timesPressed[BtnIndex(button)]++;
 	timeToLive--;
 	if (timeToLive <= 0)
-		ButtonLoopReader_Stop(reader);
+		stopButtonReader(reader);
 }
 
 void my_button_released(Button button) {
@@ -73,7 +73,7 @@ void my_button_released(Button button) {
 	timesReleased[BtnIndex(button)]++;
 	timeToLive--;
 	if (timeToLive <= 0)
-		ButtonLoopReader_Stop(reader);
+		stopButtonReader(reader);
 }
 
 BOOL buttonStatus(Button button) {
