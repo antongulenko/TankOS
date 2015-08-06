@@ -26,7 +26,7 @@ $(eval $(call set_test_objects,misc/ButtonReader,\
 	$(KERNEL)/devices/port.o \
 	$(KERNEL)/devices/external_interrupts.o \
     $(BUILDDIR)/mocks/port.o \
-	$(MISC)/ButtonReader.o ))
+	$(KERNEL_BASE)/devices/buttonReader.o ))
 
 $(eval $(call set_test_objects,kernel/twi/driver/master,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \

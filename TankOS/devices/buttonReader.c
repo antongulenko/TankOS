@@ -1,5 +1,5 @@
 
-#include "ButtonReader.h"
+#include "buttonReader.h"
 #include <string.h>
 
 typedef struct {

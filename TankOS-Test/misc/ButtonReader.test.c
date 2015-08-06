@@ -5,7 +5,7 @@
 
 #include <unity.h>
 #include <tank_os_common.h>
-#include <misc/ButtonReader.h>
+#include <devices/buttonReader.h>
 #include <devices/button.h>
 #include <mocks/port.h>
 
