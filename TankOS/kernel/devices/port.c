@@ -44,15 +44,17 @@ Port destroyPort(Port port) {
     return Invalid(Port);
 }
 
+byte gpio_data = 0;
+
 Pin newPin(Port port, uint8_t pinNumber) {
     _Pin *pin = malloc(sizeof(_Pin));
     if (!pin) return Invalid(Pin);
     pin->port = PORT;
     pin->mask = _BV(pinNumber);
     pin->occupation = PinNoOccupation;
-    pin->config.tag = PinGIO;
+    pin->config.tag = PinGPIO;
     pin->config.next = NULL;
-    pin->config.configData = NULL; // Not required
+    pin->config.configData = &gpio_data; // Not relevant
     return As(Pin, pin);
 }
 
@@ -114,10 +116,13 @@ BOOL readPin(Pin pin) {
 
 BOOL registerPinConfig(Pin pin, PinConfigTag tag, void *configData) {
     PinConfigEntry *head = &PIN->config;
-    while (head->next != NULL) {
+    do {
         if (head->tag == tag) return FALSE;
-        head = head->next;
-    }
+        if (head->next != NULL)
+            head = head->next;
+        else
+            break;
+    } while (TRUE);
     PinConfigEntry *config = malloc(sizeof(PinConfigEntry));
     if (!config) return FALSE;
     head->next = config;

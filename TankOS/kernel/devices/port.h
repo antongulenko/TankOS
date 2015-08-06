@@ -34,7 +34,7 @@ BOOL readPin(Pin pin);
 
 typedef enum {
     PinNoOccupation = 0,
-    PinGIO = 1 // Available for every pin to be used as general IO pin.
+    PinGPIO = 1 // Available for every pin to be used as general IO pin.
 } PinConfigTag;
 
 BOOL registerPinConfig(Pin pin, PinConfigTag tag, void *configData); // return FALSE if configuration with that tag is already present or if malloc failed.
