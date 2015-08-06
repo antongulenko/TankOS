@@ -21,7 +21,10 @@
 DEFINE_HANDLE(AnalogInput)
 typedef void (*AnalogCallbackFunction)(uint8_t value);
 
-AnalogInput newAnalogInput(Pin inputPin, uint8_t pinNumber);
+#define PinAnalogInput 3
+BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber);
+
+AnalogInput newAnalogInput(Pin inputPin);
 AnalogInput destroyAnalogInput(AnalogInput input);
 
 // Start an analog conversion of the given input.

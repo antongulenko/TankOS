@@ -7,27 +7,24 @@
 
 #include "analog.h"
 
-typedef struct {
-	Pin pin;
-	uint8_t pinNumber; // 0..7, corresponding e.g. to PinA0..PinA7
-} _AnalogInput;
-
-#define INPUT Get(_AnalogInput, input)
+#define INPUT Cast(Pin, input)
 
 // Used in analog.kernel.c
 void (*analogCallbackFunction) (uint8_t result);
 
-AnalogInput newAnalogInput(Pin inputPin, uint8_t pinNumber) {
-    _AnalogInput *input = malloc(sizeof(_AnalogInput));
-    if (!input) return Invalid(AnalogInput);
-    input->pin = inputPin;
-    input->pinNumber = pinNumber;
-    return As(AnalogInput, input);
+BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber) {
+    #pragma GCC diagnostic ignored "-Wint-to-pointer-cast"
+    return registerPinConfig(pin, PinAnalogInput, (void*) (long) pinNumber);
+}
+
+AnalogInput newAnalogInput(Pin inputPin) {
+    if (!occupyPin(inputPin, PinAnalogInput))
+        return Invalid(AnalogInput);
+    return Cast(AnalogInput, inputPin);
 }
 
 AnalogInput destroyAnalogInput(AnalogInput input) {
-    if (IsValid(input))
-        free(INPUT);
+    // TODO - de-occupy pin.
     return Invalid(AnalogInput);
 }
 
@@ -37,13 +34,15 @@ inline static BOOL conversionRunning() {
 	return (ADCSRA & _BV(ADSC)) != 0;
 }
 
-static void startConversion(_AnalogInput *input) {
+static void startConversion(Pin input) {
+    #pragma GCC diagnostic ignored "-Wpointer-to-int-cast"
+    uint8_t pinNum = (uint8_t) pinConfigData(input, PinAnalogInput);
 	ATOMIC_BLOCK(ATOMIC_FORCEON) {
 		uint8_t admux = ADMUX;
 		// Set _only_ MUX4..0, the 5 LSB of ADMUX.
 		// Mask away the 3 MSB. Painful bit-fiddling.
-		admux |= ~0xE0 & input->pinNumber;
-		admux &= 0xE0 | ~input->pinNumber;
+		admux |= ~0xE0 & pinNum;
+		admux &= 0xE0 | ~pinNum;
 		ADMUX = admux;
 	}
 	ADCSRA |= _BV(ADSC) | _BV(ADEN); // Start the conversion

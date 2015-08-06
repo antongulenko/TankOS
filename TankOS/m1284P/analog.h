@@ -8,6 +8,6 @@
 
 #include <kernel/devices/analog.h>
 
-extern AnalogInput analog0, analog1, analog2, analog3, analog4, analog5, analog6, analog7;
+AnalogInput newAnalogInput_m1284P(uint8_t num); // num: 0..7
 
 #endif /* ANALOG_M1284P_H_ */

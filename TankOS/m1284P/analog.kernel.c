@@ -6,20 +6,20 @@
 #include <kernel/kernel_init.h>
 #include "analog.h"
 #include "port.h"
+#include <string.h>
 
-AnalogInput analog0, analog1, analog2, analog3, analog4, analog5, analog6, analog7;
+static Pin inputPins[8];
+
+AnalogInput newAnalogInput_m1284P(uint8_t num) {
+    if (num > 7) return Invalid(AnalogInput);
+    return newAnalogInput(inputPins[num]);
+}
 
 void init_analog_m1284P() {
-    #define INIT_ANALOG_INPUT_M1284P(number) \
-	    analog##number = newAnalogInput(pinA##number, number);
-
-	INIT_ANALOG_INPUT_M1284P(0)
-	INIT_ANALOG_INPUT_M1284P(1)
-	INIT_ANALOG_INPUT_M1284P(2)
-	INIT_ANALOG_INPUT_M1284P(3)
-	INIT_ANALOG_INPUT_M1284P(4)
-	INIT_ANALOG_INPUT_M1284P(5)
-	INIT_ANALOG_INPUT_M1284P(6)
-	INIT_ANALOG_INPUT_M1284P(7)
+    memcpy(inputPins, (Pin[]) { pinA0, pinA1, pinA2, pinA3, pinA4, pinA5, pinA6, pinA7 }, sizeof(inputPins));
+    for (uint8_t i = 0; i <= 7; i++) {
+        // TODO - error checking
+        registerAnalogInputPin(inputPins[i], i);
+    }
 }
 KERNEL_INIT(init_analog_m1284P)

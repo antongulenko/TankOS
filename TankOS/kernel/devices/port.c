@@ -44,6 +44,20 @@ Port destroyPort(Port port) {
     return Invalid(Port);
 }
 
+static void freePinConfigList(_Pin *pin) {
+    if (pin->config.next == NULL) return;
+    PinConfigEntry *head = pin->config.next;
+    pin->config.next = NULL;
+    while (head != NULL) {
+        PinConfigEntry *current = head;
+        head = head->next;
+
+        // The configData is not freed, because it was not allocated
+        // by this module and might not even be a valid pointer
+        free(current);
+    }
+}
+
 byte gpio_data = 0;
 
 Pin newPin(Port port, uint8_t pinNumber) {
@@ -59,8 +73,10 @@ Pin newPin(Port port, uint8_t pinNumber) {
 }
 
 Pin destroyPin(Pin pin) {
-    if (IsValid(pin))
+    if (IsValid(pin)) {
+        freePinConfigList(PIN);
         free(PIN);
+    }
     return Invalid(Pin);
 }
 
@@ -115,6 +131,8 @@ BOOL readPin(Pin pin) {
 // == Pin configuration
 
 BOOL registerPinConfig(Pin pin, PinConfigTag tag, void *configData) {
+    if (PIN->occupation != PinNoOccupation)
+        return FALSE;
     PinConfigEntry *head = &PIN->config;
     do {
         if (head->tag == tag) return FALSE;
@@ -132,9 +150,9 @@ BOOL registerPinConfig(Pin pin, PinConfigTag tag, void *configData) {
     return TRUE;
 }
 
-void *occupyPin(Pin pin, PinConfigTag tag) {
+BOOL occupyPin(Pin pin, PinConfigTag tag) {
     if (PIN->occupation != PinNoOccupation)
-        return NULL;
+        return FALSE;
     PinConfigEntry *head = &PIN->config;
     void *configData = NULL;
     do {
@@ -143,11 +161,25 @@ void *occupyPin(Pin pin, PinConfigTag tag) {
             break;
         }
     } while ((head = head->next) != NULL);
-    if (configData != NULL)
+    if (configData != NULL) {
+        // Once the pin is occupied, we free the config-list except for the relevant entry.
         PIN->occupation = tag;
-    return configData;
+        freePinConfigList(PIN);
+        PIN->config.next = NULL;
+        PIN->config.tag = tag;
+        PIN->config.configData = configData;
+        return TRUE;
+    }
+    return FALSE;
 }
 
 PinConfigTag pinOccupation(Pin pin) {
     return PIN->occupation;
+}
+
+void *pinConfigData(Pin pin, PinConfigTag tag) {
+    if (PIN->occupation != tag || PIN->config.tag != tag)
+        return NULL;
+    // After the occupation, the relevant data is stored conveniently in the pin struct.
+    return PIN->config.configData;
 }

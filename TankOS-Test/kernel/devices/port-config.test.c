@@ -30,18 +30,22 @@ void do_register(int run, PinConfigTag tag, void *data, BOOL expect_success) {
 }
 
 void run_test(PinConfigTag tag, void *expectedData) {
-    void *data = occupyPin(p, tag);
-    if (!expectedData) {
-        TEST_ASSERT_NOT_NULL_MESSAGE(data, "Could not occupy pin with GPIO");
-    } else {
-        TEST_ASSERT_EQUAL_PTR_MESSAGE(expectedData, data, "Could not occupy pin with GPIO, wrong config data returned");
+    BOOL res = occupyPin(p, tag);
+    TEST_ASSERT_TRUE_MESSAGE(res, "Could not occupy pin");
+    if (expectedData) {
+        void *data = pinConfigData(p, tag);
+        TEST_ASSERT_EQUAL_PTR_MESSAGE(expectedData, data, "Wrong config data returned");
     }
     PinConfigTag occ = pinOccupation(p);
     TEST_ASSERT_EQUAL_INT_MESSAGE(tag, occ, "Pin not occupied by right tag");
-    data = occupyPin(p, tag);
-    TEST_ASSERT_NULL_MESSAGE(data, "Pin was re-occupied");
+    res = occupyPin(p, tag);
+    TEST_ASSERT_FALSE_MESSAGE(res, "Pin was re-occupied");
     occ = pinOccupation(p);
     TEST_ASSERT_EQUAL_INT_MESSAGE(tag, occ, "Pin not occupied by right tag (second try)");
+    if (expectedData) {
+        void *data = pinConfigData(p, tag);
+        TEST_ASSERT_EQUAL_PTR_MESSAGE(expectedData, data, "Wrong config data returned (second try)");
+    }
 }
 
 void test_initially_no_occupation() {

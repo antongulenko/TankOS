@@ -38,7 +38,8 @@ typedef enum {
 } PinConfigTag;
 
 BOOL registerPinConfig(Pin pin, PinConfigTag tag, void *configData); // return FALSE if configuration with that tag is already present or if malloc failed.
-void *occupyPin(Pin pin, PinConfigTag tag); // return NULL if pin is already occupied or requested configuration is not available.
+BOOL occupyPin(Pin pin, PinConfigTag tag); // return FALSE if pin is already occupied or requested configuration is not available.
 PinConfigTag pinOccupation(Pin pin);
+void *pinConfigData(Pin pin, PinConfigTag tag); // return NULL if pin not occupied or is occupied by different configuration than the given tag.
 
 #endif
