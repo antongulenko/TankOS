@@ -27,10 +27,11 @@ void setPinZero(Pin pin);
 BOOL readPin(Pin pin);
 
 // == Pin configuration
-// Each pin can have a linked list of configuration data attached. Every entry
-// describes a possible usage of the pin, like analog input, pwm output, etc.
-// To prevent duplicate use of a pin, an occupation flag is set once a certain config data is extracted.
-// External modules can allocate and register config data and later read and evaluate it.
+// Each pin can be occupied by a module before using, to ensure mutually exclusive pin usage.
+// Possible usages are analog input, pwm output, buttons, leds or general purpose IO.
+// When occupied, a pin is tagged with an module specific value. The module can also store some configuration data which can be retrieved later.
+// Configuration data can be managed by registering a possible configuration on a pin. The pin can then be occupied by just providing the module
+// specific value, the configuration will be retrieved from the registry.
 
 typedef struct ConfigData {
     byte data[4];
