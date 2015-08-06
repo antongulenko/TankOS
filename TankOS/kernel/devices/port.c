@@ -61,9 +61,9 @@ Pin newPin(Port port, uint8_t pinNumber) {
     pin->mask = _BV(pinNumber);
     pin->config.tag = PinNoOccupation;
     pin->config.next = NULL;
-    pin->config.configData = (ConfigData) {0};
+    pin->config.configData = EmptyConfigData;
     Pin _pin = As(Pin, pin);
-    registerPinConfig(_pin, PinGPIO, (ConfigData) {0}); // TODO error logging if registration not possible.
+    registerPinConfig(_pin, PinGPIO, EmptyConfigData); // TODO error logging if registration not possible.
     return _pin;
 }
 
@@ -172,7 +172,7 @@ PinConfigTag pinOccupation(Pin pin) {
 
 ConfigData pinConfigData(Pin pin, PinConfigTag tag) {
     if (PIN->config.tag != tag)
-        return (ConfigData) {0};
+        return EmptyConfigData;
     // After the occupation, the relevant data is stored conveniently in the pin struct.
     return PIN->config.configData;
 }
@@ -181,6 +181,6 @@ BOOL deOccupyPin(Pin pin, PinConfigTag tag) {
     if (PIN->config.tag != tag)
         return FALSE;
     PIN->config.tag = PinNoOccupation;
-    PIN->config.configData = (ConfigData) {0};
+    PIN->config.configData = EmptyConfigData;
     return TRUE;
 }

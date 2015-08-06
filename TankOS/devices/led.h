@@ -18,8 +18,11 @@
 DEFINE_HANDLE(Led)
 DEFINE_HANDLE(LedGroup)
 
+#define PinLedOutput 5
+
 Led newLed(Pin pin);
 Led destroyLed(Led led);
+BOOL ledValid(Led led);
 LedGroup newLedGroup(Led *leds, uint8_t count);
 LedGroup destroyLedGroup(LedGroup led);
 

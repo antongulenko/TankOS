@@ -13,6 +13,7 @@ ButtonReader newButtonReader(
 		ButtonCallbackFunction button_pressed, ButtonCallbackFunction button_released);
 
 ButtonReader destroyButtonReader(ButtonReader reader);
+BOOL buttonReaderValid(ButtonReader reader);
 
 // Enter an eternal loop, reading the status of the given buttons
 // and invoking the weak function button_pressed() whenever a button

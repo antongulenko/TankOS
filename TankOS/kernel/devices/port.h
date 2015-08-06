@@ -39,6 +39,8 @@ typedef struct ConfigData {
     byte data[4];
 } ConfigData;
 
+#define EmptyConfigData ((ConfigData) {0})
+
 typedef enum {
     PinNoOccupation = 0,
     PinGPIO = 1 // Available for every pin to be used as general IO pin.

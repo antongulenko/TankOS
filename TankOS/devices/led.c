@@ -16,21 +16,28 @@ typedef struct {
 	uint8_t count;
 } _LedGroup;
 
-#define LED Get(_Led, led)
+#define PIN Cast(Pin, led)
 #define GROUP Get(_LedGroup, group)
 
 Led newLed(Pin pin) {
-    _Led *led = malloc(sizeof(_Led));
-    if (!led) return Invalid(Led);
-    led->pin = pin;
+    if (!occupyPinDirectly(pin, PinLedOutput, EmptyConfigData)) {
+        return Invalid(Led);
+    }
     setPinOutput(pin);
-    return As(Led, led);
+    return Cast(Led, pin);
 }
 
 Led destroyLed(Led led) {
-    if (IsValid(led))
-        free(LED);
+    if (ledValid(led))
+        deOccupyPin(PIN, PinLedOutput);
     return Invalid(Led);
+}
+
+BOOL ledValid(Led led) {
+    if (!IsValid(led)) return FALSE;
+    if (pinOccupation(PIN) != PinLedOutput)
+        return FALSE;
+    return TRUE;
 }
 
 LedGroup newLedGroup(Led *leds, uint8_t count) {
@@ -48,15 +55,18 @@ LedGroup destroyLedGroup(LedGroup group) {
 }
 
 void enableLed(Led led) {
-	writePin(LED->pin, TRUE);
+    if (!ledValid(led)) return;
+	writePin(PIN, TRUE);
 }
 
 void disableLed(Led led) {
-	writePin(LED->pin, FALSE);
+    if (!ledValid(led)) return;
+	writePin(PIN, FALSE);
 }
 
 void setLed(Led led, BOOL value) {
-	writePin(LED->pin, value);
+    if (!ledValid(led)) return;
+	writePin(PIN, value);
 }
 
 void setLeds(LedGroup group, uint16_t mask) {
@@ -103,6 +113,7 @@ void blinkAllLeds(LedGroup group, uint8_t times) {
 }
 
 void blinkLed(Led led, uint8_t times) {
+    if (!ledValid(led)) return;
 	for (uint8_t i = 0; i < times; i++) {
 		enableLed(led);
 		BLINK_DELAY();
@@ -112,6 +123,7 @@ void blinkLed(Led led, uint8_t times) {
 }
 
 void flashLed(Led led, const uint16_t millis) {
+    if (!ledValid(led)) return;
 	enableLed(led);
 	FLASH_DELAY_MS(millis);
 	disableLed(led);

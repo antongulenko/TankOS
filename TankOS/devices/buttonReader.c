@@ -34,7 +34,7 @@ ButtonReader newButtonReader(Button *buttonArray, uint8_t buttonCount,
 }
 
 ButtonReader destroyButtonReader(ButtonReader reader) {
-    if (IsValid(reader)) {
+    if (buttonReaderValid(reader)) {
         READER->running = FALSE;
         while (READER->inUse) ; // Wait until the loop exits.
         free(READER->hasBeenPressed);
@@ -43,11 +43,19 @@ ButtonReader destroyButtonReader(ButtonReader reader) {
     return Invalid(ButtonReader);
 }
 
+BOOL buttonReaderValid(ButtonReader reader) {
+    if (!IsValid(reader))
+        return FALSE;
+    return TRUE;
+}
+
 void stopButtonReader(ButtonReader reader) {
+    if (!buttonReaderValid(reader)) return;
 	READER->running = FALSE;
 }
 
 void startButtonReader(ButtonReader reader) {
+    if (!buttonReaderValid(reader)) return;
     _ButtonReader *r = READER;
 	memset(r->hasBeenPressed, 0, r->buttonCount * sizeof(BOOL));
 	r->running = TRUE;
