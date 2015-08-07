@@ -8,11 +8,19 @@ objects += \
     $(OWN)/tank_button.kernel.o
 
 ifeq ($(USE_TWI), true)
-    objects += $(KERNEL)/twi/driver/slave.kernel.o
-    objects += $(KERNEL)/twi/driver/slave_init.kernel.o
-    objects += $(KERNEL)/twi/driver/master.kernel.o
-    objects += $(KERNEL)/twi/rpc/server_handler_functions.kernel.o
-    objects += $(OWN)/tank_io_twi.kernel.o
+    objects += \
+        $(KERNEL)/twi/driver/slave.kernel.o \
+        $(KERNEL)/twi/driver/slave_init.kernel.o \
+        $(KERNEL)/twi/driver/master.kernel.o \
+        $(KERNEL)/twi/rpc/server_handler_functions.kernel.o \
+        $(KERNEL)/twi/services/hardware.kernel.o \
+        $(KERNEL)/twi/services/test.kernel.o \
+        $(OWN)/tank_io_twi.kernel.o
+
+    ifeq ($(USE_BUFFER_STDOUT), true)
+        objects += $(KERNEL)/twi/services/buffer_stdout.kernel.o
+    endif
+
     # TODO add this later
     # objects += $(OWN)/tank_io_server.kernel.o
 endif

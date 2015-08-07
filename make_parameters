@@ -35,6 +35,7 @@ default: run
 endif
 ifeq ($(CONFIG), tank)
 
+    #USE_BUFFER_STDOUT := trues
     USE_TWI := true
 
     PLATFORM := Avr
