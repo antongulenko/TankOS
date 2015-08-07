@@ -47,7 +47,7 @@ uint8_t hardware_reset_triggered = 0;
 
 uint8_t _interrupts_enabled = 1;
 
-void cei() {
+void cli() {
     _interrupts_enabled = 0;
 }
 

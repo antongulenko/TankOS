@@ -43,7 +43,7 @@ Timer newPwmTimer(volatile uint8_t *outputCompareRegister, TimerType type, Pin o
 }
 
 Timer destroyTimer(Timer timer) {
-    if (timerValid(timer)) {
+    if (IsValid(timer)) {
         if (TIMER->pwm)
             deOccupyPin(TIMER->outputComparePin, PinPwmOutput);
         free(TIMER);
@@ -59,6 +59,7 @@ BOOL timerValid(Timer timer) {
 }
 
 void setTimerValue(Timer timer, uint16_t value) {
+    if (!IsValid(timer)) return;
 	if (TIMER->type == TimerResolution8) {
         *TIMER->ocr = HIBYTE(value);
     } else {
@@ -82,6 +83,7 @@ void setTimerValue(Timer timer, uint16_t value) {
 }
 
 uint16_t getTimerValue(Timer timer) {
+    if (!IsValid(timer)) return 0;
 	uint16_t result;
 	if (TIMER->type == TimerResolution8) {
         // Use the 8-bit value as the high part of a word, filled with zeros.
@@ -105,9 +107,11 @@ uint16_t getTimerValue(Timer timer) {
 }
 
 Pin getTimerOutputPin(Timer timer) {
+    if (!IsValid(timer)) return Invalid(Pin);
     return TIMER->outputComparePin;
 }
 
 BOOL isPwmTimer(Timer timer) {
+    if (!IsValid(timer)) return FALSE;
     return TIMER->pwm;
 }

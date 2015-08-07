@@ -36,7 +36,7 @@ static Motor newMotorImpl(MotorType type, Timer forwardTimer, Timer backwardTime
     _Motor *motor = malloc(sizeof(_Motor));
     if (!motor) return Invalid(Motor);
     if (IsValid(forwardPin)) {
-        PinConfigTag tag1 = pinOccupation(forwardPin);
+        PinOccupation tag1 = pinOccupation(forwardPin);
         BOOL occupied1 = FALSE;
         if (tag1 != PinGPIO) {
             if (!occupyPin(forwardPin, PinGPIO)) {
@@ -47,7 +47,7 @@ static Motor newMotorImpl(MotorType type, Timer forwardTimer, Timer backwardTime
             setPinOutput(forwardPin);
         }
         if (IsValid(backwardPin)) {
-            PinConfigTag tag2 = pinOccupation(backwardPin);
+            PinOccupation tag2 = pinOccupation(backwardPin);
             if (tag2 != PinGPIO) {
                 if (!occupyPin(forwardPin, PinGPIO)) {
                     if (occupied1) deOccupyPin(forwardPin, PinGPIO);

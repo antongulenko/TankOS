@@ -10,6 +10,10 @@ $(eval $(call set_test_objects,kernel/devices/port-config,\
     $(BUILDDIR)/mocks/port.o \
 	$(KERNEL)/devices/port.o ))
 
+$(eval $(call set_test_objects,kernel/devices/timer,\
+    $(BUILDDIR)/mocks/port.o \
+	$(KERNEL)/devices/timer.o ))
+
 $(eval $(call set_test_objects,kernel/devices/external_interrupts,\
 	$(KERNEL)/devices/external_interrupts.o ))
 

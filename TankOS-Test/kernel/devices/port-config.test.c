@@ -17,20 +17,20 @@ void tearDown() {
     p = Invalid(Pin);
 }
 
-PinConfigTag myTag1 = 100;
-PinConfigTag myTag2 = 200;
+PinOccupation myTag1 = 100;
+PinOccupation myTag2 = 200;
 ConfigData configData1 = { 1, 2, 3, 4 };
 ConfigData configData2 = { 5, 6, 7, 8 };
 
-void do_register(int run, PinConfigTag tag, ConfigData data, BOOL expect_success) {
+void do_register(int run, PinOccupation tag, ConfigData data, BOOL expect_success) {
     BOOL res = registerPinConfig(p, tag, data);
     char buf[] = "Registration nr XXXXX did not work as expected";
     sprintf(buf, "Registration nr %i did not work as expected", run);
     TEST_ASSERT_EQUAL_MESSAGE(expect_success, res, buf);
 }
 
-void run_occupied_test(PinConfigTag tag, ConfigData expectedData) {
-    PinConfigTag occ = pinOccupation(p);
+void run_occupied_test(PinOccupation tag, ConfigData expectedData) {
+    PinOccupation occ = pinOccupation(p);
     TEST_ASSERT_EQUAL_INT_MESSAGE(tag, occ, "Pin not occupied by right tag");
     BOOL res = occupyPin(p, tag);
     TEST_ASSERT_FALSE_MESSAGE(res, "Pin was re-occupied");
@@ -42,7 +42,7 @@ void run_occupied_test(PinConfigTag tag, ConfigData expectedData) {
     }
 }
 
-void run_test(PinConfigTag tag, ConfigData expectedData) {
+void run_test(PinOccupation tag, ConfigData expectedData) {
     BOOL res = occupyPin(p, tag);
     TEST_ASSERT_TRUE_MESSAGE(res, "Could not occupy pin");
     if (expectedData.data[0] != 0) {
@@ -53,7 +53,7 @@ void run_test(PinConfigTag tag, ConfigData expectedData) {
 }
 
 void test_initially_no_occupation() {
-    PinConfigTag occ = pinOccupation(p);
+    PinOccupation occ = pinOccupation(p);
     TEST_ASSERT_EQUAL_INT_MESSAGE(PinNoOccupation, occ, "Pin already occupied");
 }
 
@@ -113,7 +113,7 @@ void test_deOccupy() {
     BOOL res = deOccupyPin(p, myTag1);
     TEST_ASSERT_TRUE_MESSAGE(res, "Could not de-occupy pin");
 
-    PinConfigTag occupation = pinOccupation(p);
+    PinOccupation occupation = pinOccupation(p);
     TEST_ASSERT_EQUAL_MESSAGE(PinNoOccupation, occupation, "Pin not properly de-occupied");
 
     res = occupyPinDirectly(p, myTag2, configData1);

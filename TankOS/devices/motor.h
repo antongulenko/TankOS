@@ -36,7 +36,7 @@ void setMotorValueBounds(Motor motor, uint16_t minValue, uint16_t maxValue);
 
 void stopMotor(Motor motor);
 
-// These function operate with full 16 bit for the speed-value.
+// These functions operate with full 16 bit for the speed-value.
 // If actually a 8-bit timer is used, the get/set functions behave like setTimerValue/getTimerValue in timer.h.
 uint16_t getSpeed(Motor motor);
 MotorDirection getDirection(Motor motor);

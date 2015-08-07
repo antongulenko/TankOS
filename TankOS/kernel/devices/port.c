@@ -14,7 +14,7 @@ typedef struct {
 } _Port;
 
 typedef struct PinConfigEntry {
-    PinConfigTag tag;
+    PinOccupation tag;
     ConfigData configData;
     struct PinConfigEntry *next;
 } PinConfigEntry;
@@ -127,7 +127,7 @@ BOOL readPin(Pin pin) {
 
 // == Pin configuration
 
-BOOL registerPinConfig(Pin pin, PinConfigTag tag, ConfigData configData) {
+BOOL registerPinConfig(Pin pin, PinOccupation tag, ConfigData configData) {
     if (PIN->config.tag != PinNoOccupation)
         return FALSE;
     PinConfigEntry *head = &PIN->config;
@@ -144,7 +144,7 @@ BOOL registerPinConfig(Pin pin, PinConfigTag tag, ConfigData configData) {
     return TRUE;
 }
 
-BOOL occupyPin(Pin pin, PinConfigTag tag) {
+BOOL occupyPin(Pin pin, PinOccupation tag) {
     if (PIN->config.tag != PinNoOccupation)
         return FALSE;
     PinConfigEntry *head = &PIN->config;
@@ -158,7 +158,7 @@ BOOL occupyPin(Pin pin, PinConfigTag tag) {
     return FALSE;
 }
 
-BOOL occupyPinDirectly(Pin pin, PinConfigTag tag, ConfigData configData) {
+BOOL occupyPinDirectly(Pin pin, PinOccupation tag, ConfigData configData) {
     if (PIN->config.tag != PinNoOccupation)
         return FALSE;
     PIN->config.tag = tag;
@@ -166,18 +166,18 @@ BOOL occupyPinDirectly(Pin pin, PinConfigTag tag, ConfigData configData) {
     return TRUE;
 }
 
-PinConfigTag pinOccupation(Pin pin) {
+PinOccupation pinOccupation(Pin pin) {
     return PIN->config.tag;
 }
 
-ConfigData pinConfigData(Pin pin, PinConfigTag tag) {
+ConfigData pinConfigData(Pin pin, PinOccupation tag) {
     if (PIN->config.tag != tag)
         return EmptyConfigData;
     // After the occupation, the relevant data is stored conveniently in the pin struct.
     return PIN->config.configData;
 }
 
-BOOL deOccupyPin(Pin pin, PinConfigTag tag) {
+BOOL deOccupyPin(Pin pin, PinOccupation tag) {
     if (PIN->config.tag != tag)
         return FALSE;
     PIN->config.tag = PinNoOccupation;

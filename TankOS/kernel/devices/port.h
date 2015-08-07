@@ -44,13 +44,13 @@ typedef struct ConfigData {
 typedef enum {
     PinNoOccupation = 0,
     PinGPIO = 1 // Available for every pin to be used as general IO pin.
-} PinConfigTag;
+} PinOccupation;
 
-BOOL registerPinConfig(Pin pin, PinConfigTag tag, ConfigData configData); // return FALSE if configuration with that tag is already present or if malloc failed.
-BOOL occupyPin(Pin pin, PinConfigTag tag); // return FALSE if pin is already occupied or requested configuration is not available.
-BOOL occupyPinDirectly(Pin pin, PinConfigTag tag, ConfigData configData); // Occupy without registering. return FALSE if pin already occupied.
-PinConfigTag pinOccupation(Pin pin);
-ConfigData pinConfigData(Pin pin, PinConfigTag tag); // return {0} if pin not occupied or is occupied by different configuration than the given tag.
-BOOL deOccupyPin(Pin pin, PinConfigTag tag); // return FALSE, if pin was not occupied by tag.
+BOOL registerPinConfig(Pin pin, PinOccupation tag, ConfigData configData); // return FALSE if configuration with that tag is already present or if malloc failed.
+BOOL occupyPin(Pin pin, PinOccupation tag); // return FALSE if pin is already occupied or requested configuration is not available.
+BOOL occupyPinDirectly(Pin pin, PinOccupation tag, ConfigData configData); // Occupy without registering. return FALSE if pin already occupied.
+PinOccupation pinOccupation(Pin pin);
+ConfigData pinConfigData(Pin pin, PinOccupation tag); // return {0} if pin not occupied or is occupied by different configuration than the given tag.
+BOOL deOccupyPin(Pin pin, PinOccupation tag); // return FALSE, if pin was not occupied by tag.
 
 #endif
