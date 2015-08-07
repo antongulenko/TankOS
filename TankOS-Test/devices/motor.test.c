@@ -26,20 +26,30 @@ void tearDown() {
         TEST_ASSERT_TRUE_MESSAGE(motorValid(motor), "valid motor pointer did not pass validity check");
     }
     motor = destroyMotor(motor);
+    TEST_ASSERT_EQUAL_MESSAGE(PinNoOccupation, pinOccupation(dir1), "dir1 still occupied after destroy");
+    TEST_ASSERT_EQUAL_MESSAGE(PinNoOccupation, pinOccupation(dir2), "dir2 still occupied after destroy");
+
     TEST_ASSERT_TRUE_MESSAGE(!IsValid(motor), "Motor still valid after destroy.");
     destroyTimer(timer1);
     destroyTimer(timer2);
     destroy_fake_port();
 }
 
+void check_dir_pin(Pin p) {
+    TEST_ASSERT_EQUAL_MESSAGE(PinMotorDirection, pinOccupation(p), "pin not occupied correctly");
+}
+
 void makeMotor() {
     motor = newMotor(MotorNormal, timer1, dir1);
     TEST_ASSERT_TRUE_MESSAGE(motorValid(motor), "normal motor not valid after creation");
+    check_dir_pin(dir1);
 }
 
 void makeMotor2dir() {
     motor = newMotor2dir(MotorNormal, timer1, dir1, dir2);
     TEST_ASSERT_TRUE_MESSAGE(motorValid(motor), "motor 2 dir not valid after creation");
+    check_dir_pin(dir1);
+    check_dir_pin(dir2);
 }
 
 void makeMotor2speed() {
@@ -56,6 +66,22 @@ void test_invalid_motor() {
     setDirSpeed(motor, -333); // no segfault
     TEST_ASSERT_EQUAL_MESSAGE(0, getDirSpeed(motor), "invalid motor should have dir speed 0");
     setMotorValueBounds(motor, 333, 444); // no segfault
+}
+
+void test_failed_motor_creation1() {
+    occupyPinDirectly(testPin1, 40, EmptyConfigData);
+    motor = newMotor(MotorNormal, timer1, dir1);
+    TEST_ASSERT_FALSE_MESSAGE(IsValid(motor), "motor should not be valid");
+    TEST_ASSERT_FALSE_MESSAGE(motorValid(motor), "motor should not pass validity check");
+    deOccupyPin(testPin1, 40);
+}
+
+void test_failed_motor_creation2() {
+    occupyPinDirectly(testPin2, 40, EmptyConfigData);
+    motor = newMotor2dir(MotorNormal, timer1, dir1, dir2);
+    TEST_ASSERT_FALSE_MESSAGE(IsValid(motor), "motor should not be valid");
+    TEST_ASSERT_FALSE_MESSAGE(motorValid(motor), "motor should not pass validity check");
+    deOccupyPin(testPin2, 40);
 }
 
 void test_stop_motor_normal() {

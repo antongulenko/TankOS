@@ -35,24 +35,16 @@ static Motor newMotorImpl(MotorType type, Timer forwardTimer, Timer backwardTime
     _Motor *motor = malloc(sizeof(_Motor));
     if (!motor) return Invalid(Motor);
     if (IsValid(forwardPin)) {
-        PinOccupation tag1 = pinOccupation(forwardPin);
-        BOOL occupied1 = FALSE;
-        if (tag1 != PinGPIO) {
-            if (!occupyPin(forwardPin, PinGPIO)) {
+        if (!occupyPinDirectly(forwardPin, PinMotorDirection, EmptyConfigData)) {
+            free(motor);
+            return Invalid(Motor);
+        }
+        setPinOutput(forwardPin);
+        if (IsValid(backwardPin)) {
+            if (!occupyPinDirectly(backwardPin, PinMotorDirection, EmptyConfigData)) {
+                deOccupyPin(forwardPin, PinMotorDirection);
                 free(motor);
                 return Invalid(Motor);
-            }
-            occupied1 = TRUE;
-            setPinOutput(forwardPin);
-        }
-        if (IsValid(backwardPin)) {
-            PinOccupation tag2 = pinOccupation(backwardPin);
-            if (tag2 != PinGPIO) {
-                if (!occupyPin(backwardPin, PinGPIO)) {
-                    if (occupied1) deOccupyPin(forwardPin, PinGPIO);
-                    free(motor);
-                    return Invalid(Motor);
-                }
             }
             setPinOutput(backwardPin);
         }
@@ -84,11 +76,11 @@ Motor newMotor2dir(MotorType type, Timer speedTimer, Pin forwardPin, Pin backwar
 Motor destroyMotor(Motor motor) {
     if (IsValid(motor)) {
         if (IsValid(MOTOR->forwardPin))
-            if (pinOccupation(MOTOR->forwardPin) == PinGPIO)
-                deOccupyPin(MOTOR->forwardPin, PinGPIO);
+            if (pinOccupation(MOTOR->forwardPin) == PinMotorDirection)
+                deOccupyPin(MOTOR->forwardPin, PinMotorDirection);
         if (IsValid(MOTOR->backwardPin))
-            if (pinOccupation(MOTOR->backwardPin) == PinGPIO)
-                deOccupyPin(MOTOR->backwardPin, PinGPIO);
+            if (pinOccupation(MOTOR->backwardPin) == PinMotorDirection)
+                deOccupyPin(MOTOR->backwardPin, PinMotorDirection);
         free(MOTOR);
     }
     return Invalid(Motor);
@@ -97,9 +89,9 @@ Motor destroyMotor(Motor motor) {
 BOOL motorValid(Motor motor) {
     if (!IsValid(motor)) return FALSE;
     if (IsValid(MOTOR->forwardPin))
-        if (pinOccupation(MOTOR->forwardPin) != PinGPIO) return FALSE;
+        if (pinOccupation(MOTOR->forwardPin) != PinMotorDirection) return FALSE;
     if (IsValid(MOTOR->backwardPin))
-        if (pinOccupation(MOTOR->backwardPin) != PinGPIO) return FALSE;
+        if (pinOccupation(MOTOR->backwardPin) != PinMotorDirection) return FALSE;
     if (!IsValid(MOTOR->forwardTimer)) return FALSE;
     if (!isPwmTimer(MOTOR->forwardTimer)) return FALSE;
     if (IsValid(MOTOR->backwardTimer))

@@ -25,6 +25,7 @@ typedef enum {
 } MotorDirection;
 
 DEFINE_HANDLE(Motor);
+#define PinMotorDirection 7
 
 Motor newMotor(MotorType type, Timer speedTimer, Pin directionPin);
 Motor newMotor2speed(MotorType type, Timer forwardTimer, Timer backwardTimer);
