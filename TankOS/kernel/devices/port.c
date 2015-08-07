@@ -108,8 +108,6 @@ void writePin(Pin pin, BOOL value) {
         setPinZero(pin);
 }
 
-extern uint8_t port;
-
 void setPinOne(Pin pin) {
 	*PIN->port->port |= PIN->mask;
 }
@@ -120,6 +118,13 @@ void setPinZero(Pin pin) {
 
 BOOL readPin(Pin pin) {
 	if (*PIN->port->pin & PIN->mask)
+		return TRUE;
+	else
+		return FALSE;
+}
+
+BOOL isPinOutputHigh(Pin pin) {
+    if (*PIN->port->port & PIN->mask)
 		return TRUE;
 	else
 		return FALSE;

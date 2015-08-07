@@ -30,9 +30,8 @@ typedef struct {
 #define MOTOR Get(_Motor, motor)
 
 static Motor newMotorImpl(MotorType type, Timer forwardTimer, Timer backwardTimer, Pin forwardPin, Pin backwardPin) {
-    if (!isPwmTimer(forwardTimer) || !isPwmTimer(backwardTimer))
-        return Invalid(Motor);
-
+    if (!isPwmTimer(forwardTimer)) return Invalid(Motor);
+    if (IsValid(backwardTimer) && !isPwmTimer(backwardTimer)) return Invalid(Motor);
     _Motor *motor = malloc(sizeof(_Motor));
     if (!motor) return Invalid(Motor);
     if (IsValid(forwardPin)) {
@@ -49,7 +48,7 @@ static Motor newMotorImpl(MotorType type, Timer forwardTimer, Timer backwardTime
         if (IsValid(backwardPin)) {
             PinOccupation tag2 = pinOccupation(backwardPin);
             if (tag2 != PinGPIO) {
-                if (!occupyPin(forwardPin, PinGPIO)) {
+                if (!occupyPin(backwardPin, PinGPIO)) {
                     if (occupied1) deOccupyPin(forwardPin, PinGPIO);
                     free(motor);
                     return Invalid(Motor);
@@ -71,7 +70,7 @@ static Motor newMotorImpl(MotorType type, Timer forwardTimer, Timer backwardTime
 }
 
 Motor newMotor(MotorType type, Timer speedTimer, Pin directionPin) {
-    return newMotorImpl(type, speedTimer, speedTimer, directionPin, Invalid(Pin));
+    return newMotorImpl(type, speedTimer, Invalid(Timer), directionPin, Invalid(Pin));
 }
 
 Motor newMotor2speed(MotorType type, Timer forwardTimer, Timer backwardTimer) {
@@ -79,16 +78,17 @@ Motor newMotor2speed(MotorType type, Timer forwardTimer, Timer backwardTimer) {
 }
 
 Motor newMotor2dir(MotorType type, Timer speedTimer, Pin forwardPin, Pin backwardPin) {
-    return newMotorImpl(type, speedTimer, speedTimer, forwardPin, backwardPin);
+    return newMotorImpl(type, speedTimer, Invalid(Timer), forwardPin, backwardPin);
 }
 
 Motor destroyMotor(Motor motor) {
-    if (!IsValid(motor)) return Invalid(Motor);
-    if (pinOccupation(MOTOR->forwardPin) == PinGPIO)
-        deOccupyPin(MOTOR->forwardPin, PinGPIO);
-    if (pinOccupation(MOTOR->backwardPin) == PinGPIO)
-        deOccupyPin(MOTOR->backwardPin, PinGPIO);
     if (IsValid(motor)) {
+        if (IsValid(MOTOR->forwardPin))
+            if (pinOccupation(MOTOR->forwardPin) == PinGPIO)
+                deOccupyPin(MOTOR->forwardPin, PinGPIO);
+        if (IsValid(MOTOR->backwardPin))
+            if (pinOccupation(MOTOR->backwardPin) == PinGPIO)
+                deOccupyPin(MOTOR->backwardPin, PinGPIO);
         free(MOTOR);
     }
     return Invalid(Motor);
@@ -96,10 +96,14 @@ Motor destroyMotor(Motor motor) {
 
 BOOL motorValid(Motor motor) {
     if (!IsValid(motor)) return FALSE;
-    if (pinOccupation(MOTOR->forwardPin) != PinGPIO) return FALSE;
-    if (pinOccupation(MOTOR->backwardPin) != PinGPIO) return FALSE;
+    if (IsValid(MOTOR->forwardPin))
+        if (pinOccupation(MOTOR->forwardPin) != PinGPIO) return FALSE;
+    if (IsValid(MOTOR->backwardPin))
+        if (pinOccupation(MOTOR->backwardPin) != PinGPIO) return FALSE;
+    if (!IsValid(MOTOR->forwardTimer)) return FALSE;
     if (!isPwmTimer(MOTOR->forwardTimer)) return FALSE;
-    if (!isPwmTimer(MOTOR->backwardTimer)) return FALSE;
+    if (IsValid(MOTOR->backwardTimer))
+        if (!isPwmTimer(MOTOR->backwardTimer)) return FALSE;
     return TRUE;
 }
 
@@ -126,22 +130,18 @@ static void setMotorValues(_Motor *motor, uint16_t speed, MotorDirection directi
 	if (motor->type & MotorInverseDirection) direction = !direction;
 
     // Now set the direction pins
-    if (IsValid(motor->forwardPin)) {
-        if (!IsValid(motor->backwardPin))
-            writePin(motor->forwardPin, direction);
-        else
-            writePin(motor->forwardPin, direction == MotorForward);
-    }
+    if (IsValid(motor->forwardPin))
+        writePin(motor->forwardPin, direction == MotorForward);
     if (IsValid(motor->backwardPin))
         writePin(motor->backwardPin, direction == MotorBackward);
 
     // Now set the timer value
-    if (Equal(motor->forwardTimer, motor->backwardTimer)) {
+    if (!IsValid(motor->backwardTimer)) {
         setTimerValue(motor->forwardTimer, speed);
     } else {
         uint16_t zero = (motor->type & MotorInverseSpeed) ? 0xFFFF : 0;
         setTimerValue(motor->forwardTimer, direction == MotorForward ? speed : zero);
-        setTimerValue(motor->forwardTimer, direction == MotorForward ? speed : zero);
+        setTimerValue(motor->backwardTimer, direction == MotorBackward ? speed : zero);
     }
 }
 
@@ -162,7 +162,7 @@ static uint16_t convertSpeed(_Motor *motor, uint16_t speed) {
 uint16_t getSpeed(Motor motor) {
     if (!IsValid(motor)) return 0;
 	uint16_t speed = 0;
-    if (Equal(MOTOR->forwardTimer, MOTOR->backwardTimer)) {
+    if (!IsValid(MOTOR->backwardTimer)) {
         speed = getTimerValue(MOTOR->forwardTimer);
     } else {
         MotorDirection dir = getDirection(motor);
@@ -189,9 +189,11 @@ MotorDirection getDirection(Motor motor) {
     if (!IsValid(motor)) return MotorStopped;
 	MotorDirection dir;
     if (IsValid(MOTOR->forwardPin)) {
-        BOOL forward = readPin(MOTOR->forwardPin);
+        uint16_t speed = getTimerValue(MOTOR->forwardTimer);
+        if (speed == 0) return MotorStopped;
+        BOOL forward = isPinOutputHigh(MOTOR->forwardPin);
         if (IsValid(MOTOR->backwardPin)) {
-            BOOL backward = readPin(MOTOR->forwardPin);
+            BOOL backward = isPinOutputHigh(MOTOR->backwardPin);
             if (forward == backward) return MotorStopped;
         }
         return forward ? MotorForward : MotorBackward;

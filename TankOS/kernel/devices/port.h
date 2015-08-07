@@ -15,18 +15,17 @@ Pin destroyPin(Pin pin);
 
 void setPortOutput(Port port);
 void setPortInput(Port port);
-
-void setPinOutput(Pin pin);
-void setPinInput(Pin pin);
-
 void writePort(Port port, uint8_t value);
 uint8_t readPort(Port port);
 
+void setPinOutput(Pin pin);
+void setPinInput(Pin pin);
 void writePin(Pin pin, BOOL value);
 void setPinOne(Pin pin);
 void setPinZero(Pin pin);
-
 BOOL readPin(Pin pin);
+
+BOOL isPinOutputHigh(Pin pin);
 
 // == Pin configuration
 // Each pin can be occupied by a module before using, to ensure mutually exclusive pin usage.
