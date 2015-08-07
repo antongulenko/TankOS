@@ -35,7 +35,7 @@ InitStatus getInitStatus();
 uint16_t getEepromResets();
 
 // This should be called after all kernel initialization is completed, e.g. as first statement in main()
-void initialization_completed();
+void boot_completed();
 
 // These are part of the initialization sequence.
 void init_reset_condition();

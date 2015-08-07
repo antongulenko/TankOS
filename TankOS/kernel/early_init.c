@@ -18,7 +18,7 @@ uint16_t software_reset_counter __attribute__ ((section (".noinit")));
 
 byte __initialization_complete_mask = 0;
 
-void initialization_completed() {
+void boot_completed() {
     __initialization_complete_mask = INIT_MASK_INITIALIZED;
 }
 

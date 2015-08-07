@@ -16,7 +16,8 @@ BASE_FLAGS := $(MCUFLAG) \
 	-DAVR \
 	-DF_CPU=20000000 \
 	-fshort-enums \
-	-Wall
+	-Wall \
+    -Wno-missing-braces
 
 # Compile & assemble, do not link yet
 CFLAGS := $(BASE_FLAGS) -c

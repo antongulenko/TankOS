@@ -19,7 +19,7 @@ static void initButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumb
 }
 
 Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber) {
-    ConfigData data = { flags, pinChangeInterruptNumber, 0, 0 };
+    ConfigData data = { (uint8_t) flags, pinChangeInterruptNumber, 0, 0 };
     if (!occupyPinDirectly(pin, PinButtonInput, data)) {
         return Invalid(Button);
     }

@@ -81,7 +81,7 @@ void test_init_status() {
     __initialization_complete_mask = 0;
     software_reset_counter = 0;
     increment_software_reset_counter();
-    initialization_completed();
+    boot_completed();
 
     InitStatus result;
     RpcClientResult status = query_init_status(test_device, &result);

@@ -53,11 +53,11 @@ static void late_init_kernel() {
 	before_timer(); // AFTER all other initialization and BEFORE starting the timers/scheduler
 
 	if (KERNEL_INIT_MAP & ENABLE_TIMER_A)
-		enableTimerInterrupt(millisecond_timer_A);
+		TIMSK3 = _BV(OCIE3A);
 	if (KERNEL_INIT_MAP & ENABLE_TIMER_B)
-		enableTimerInterrupt(millisecond_timer_B);
+		TIMSK3 = _BV(OCIE3B);
 
-	initialization_completed();
+	boot_completed();
     sei();
 }
 KERNEL_INIT(late_init_kernel)
