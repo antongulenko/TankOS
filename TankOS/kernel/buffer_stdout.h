@@ -15,7 +15,7 @@
 
 void init_buffer_stdout();
 
-typedef struct {
+typedef struct BufferStatus {
 	uint16_t capacity;
 	uint16_t used;
 	uint32_t dropped;

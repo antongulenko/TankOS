@@ -8,7 +8,7 @@
 #include "timer.h"
 #include "port.h"
 
-typedef struct {
+typedef struct _Timer {
 	TimerType type;
     BOOL pwm;
 	Pin outputComparePin;

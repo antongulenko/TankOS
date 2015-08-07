@@ -20,52 +20,52 @@ typedef enum {
 	LEDS_GREEN
 } TankIoLeds;
 
-typedef struct {
+typedef struct MaskedLeds {
 	TankIoLeds leds;
 	uint16_t mask;
 } MaskedLeds;
 
-typedef struct {
+typedef struct SingleLed {
 	TankIoLeds leds;
 	uint8_t index;
 } SingleLed;
 
-typedef struct {
+typedef struct SetLedParam {
 	SingleLed led;
 	BOOL value;
 } SetLedParam;
 
-typedef struct {
+typedef struct BlinkedLedParam {
 	SingleLed led;
 	uint8_t times;
 } BlinkLedParam;
 
-typedef struct {
+typedef struct BlinkLedsParam {
 	MaskedLeds leds;
 	uint8_t times;
 } BlinkLedsParam;
 
-typedef struct {
+typedef struct BlinkAllLedParam {
 	TankIoLeds leds;
 	uint8_t times;
 } BlinkAllLedsParam;
 
-typedef struct {
+typedef struct FlashLedParam {
 	SingleLed led;
 	uint16_t milliseconds;
 } FlashLedParam;
 
-typedef struct {
+typedef struct FlashLedsParam {
 	MaskedLeds leds;
 	uint16_t milliseconds;
 } FlashLedsParam;
 
-typedef struct {
+typedef struct FlashAllLedsParam {
 	TankIoLeds leds;
 	uint16_t milliseconds;
 } FlashAllLedsParam;
 
-typedef struct {
+typedef struct BlinkByteParam {
 	TankIoLeds display;
 	TankIoLeds notifier;
 	byte data;

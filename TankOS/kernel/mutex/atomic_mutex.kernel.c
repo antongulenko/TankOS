@@ -8,7 +8,7 @@
 
 #include "mutex.h"
 
-typedef struct {
+typedef struct AtomicMutex {
 	BOOL interruptsWereEnabled;
 } AtomicMutex;
 

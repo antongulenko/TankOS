@@ -7,7 +7,7 @@
 
 #include "motor.h"
 
-typedef struct {
+typedef struct _Motor {
     MotorType type;
 
     // These timers/pins can point to the same entity twice.

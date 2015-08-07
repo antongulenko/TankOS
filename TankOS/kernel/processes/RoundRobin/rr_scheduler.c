@@ -14,7 +14,7 @@ typedef struct struct_ThreadQueueElement {
 	struct struct_ThreadQueueElement *next;
 } ThreadQueueElement, *PThreadQueueElement;
 
-typedef struct {
+typedef struct ThreadQueue {
 	PThreadQueueElement first;
 	PThreadQueueElement current;
 	uint8_t count;

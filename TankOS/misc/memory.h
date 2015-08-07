@@ -26,7 +26,7 @@ uint16_t availableDynamicMemory();
 float usedDynamicMemoryF();
 float availableDynamicMemoryF();
 
-typedef struct {
+typedef struct MemoryInfo {
     uint16_t used_static;
     uint16_t total_dynamic;
     uint16_t used_dynamic;

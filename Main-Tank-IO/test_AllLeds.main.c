@@ -7,10 +7,10 @@ int i = 0;
 
 int main() {
 	while (1) {
-		if (i >= AllLeds->count) i = 0;
-		enableLed(AllLeds->leds[i]);
+		if (i >= allLeds->count) i = 0;
+		enableLed(allLeds->leds[i]);
 		delay_ms(200);
-		disableLed(AllLeds->leds[i]);
+		disableLed(allLeds->leds[i]);
 		delay_ms(100);
 		i++;
 	}

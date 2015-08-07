@@ -23,8 +23,7 @@ typedef enum {
     TimerResolution16, // 16 bit timer
 } TimerType;
 
-DEFINE_HANDLE(Timer)
-
+DEFINE_HANDLE(Timer);
 #define PinPwmOutput 6
 
 Timer newTimer(volatile uint8_t *outputCompareRegister, TimerType type);

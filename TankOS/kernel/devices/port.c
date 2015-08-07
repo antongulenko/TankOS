@@ -7,7 +7,7 @@
 
 #include "port.h"
 
-typedef struct {
+typedef struct _Port {
 	volatile uint8_t *port; // output-register
 	volatile uint8_t *pin; // input-register
 	volatile uint8_t *ddr; // data-direction-register
@@ -19,7 +19,7 @@ typedef struct PinConfigEntry {
     struct PinConfigEntry *next;
 } PinConfigEntry;
 
-typedef struct {
+typedef struct _Pin {
 	_Port *port;
 	uint8_t mask; // Single bit identifying the pin-bit in the port/pin/ddr registers
     PinConfigEntry config; // This embedded entry holds the currently occupying configuration.

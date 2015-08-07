@@ -2,7 +2,7 @@
 #include "buttonReader.h"
 #include <string.h>
 
-typedef struct {
+typedef struct _ButtonReader {
 	volatile BOOL running;
 	uint8_t buttonCount;
 	Button *buttonArray;

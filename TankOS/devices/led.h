@@ -15,9 +15,8 @@
 #define BLINK_DELAY_MS 200
 #endif
 
-DEFINE_HANDLE(Led)
-DEFINE_HANDLE(LedGroup)
-
+DEFINE_HANDLE(Led);
+DEFINE_HANDLE(LedGroup);
 #define PinLedOutput 5
 
 Led newLed(Pin pin);

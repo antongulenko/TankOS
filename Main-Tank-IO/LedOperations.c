@@ -14,9 +14,9 @@ void led_operation_tick() {
 		ROL(leds_left);
 		ROL(leds_middle);
 		ROL(leds_right);
-		setLeds(RightLeds, MAKE_WORD(leds_right, 0));
-		setLeds(MiddleLeds, MAKE_WORD(leds_middle, 0));
-		setLeds(LeftLeds, MAKE_WORD(leds_left, 0));
+		setLeds(rightLeds, MAKE_WORD(leds_right, 0));
+		setLeds(middleLeds, MAKE_WORD(leds_middle, 0));
+		setLeds(leftLeds, MAKE_WORD(leds_left, 0));
 	}
 }
 

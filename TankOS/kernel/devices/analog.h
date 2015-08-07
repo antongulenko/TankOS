@@ -18,10 +18,11 @@
 // Values are read on-demand, no free-running mode.
 // Both interrupt-driven and looping reads are supported.
 
-DEFINE_HANDLE(AnalogInput)
+DEFINE_HANDLE(AnalogInput);
+#define PinAnalogInput 3
+
 typedef void (*AnalogCallbackFunction)(uint8_t value);
 
-#define PinAnalogInput 3
 BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber);
 
 AnalogInput newAnalogInput(Pin inputPin);

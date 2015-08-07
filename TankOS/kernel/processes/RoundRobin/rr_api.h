@@ -11,7 +11,7 @@
 #include <kernel/processes/process.h>
 
 // In this API, Processes are called Threads.
-DEFINE_HANDLE(Thread)
+DEFINE_HANDLE(Thread);
 typedef void ThreadEntryPoint();
 
 // These are the supported priorities. The number and names are arbitrarily chosen.

@@ -9,9 +9,9 @@
 void run_leds() {
 	int i = 0;
 	while (1) {
-		flashLed(AllLeds->leds[i], 500);
+		flashLed(allLeds->leds[i], 500);
 		i++;
-		i %= AllLeds->count;
+		i %= allLeds->count;
 	}
 }
 
@@ -27,12 +27,12 @@ void leds_special() {
 
 void test_buttons() {
 	while (1) {
-		setLeds(AllLeds, AS_WORD(buttonStatusMask()));
+		setLeds(allLeds, AS_WORD(buttonStatusMask()));
 	}
 }
 
 void all_leds() {
-	enableLeds(AllLeds);
+	enableLeds(allLeds);
 }
 
 void test_communication_raw();

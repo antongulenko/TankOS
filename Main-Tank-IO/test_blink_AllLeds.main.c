@@ -8,10 +8,10 @@ int main() {
 	uint32_t nextBlink = 0;
 	while (1) {
 		while (nextBlink > get_milliseconds_running()) ;
-		enableLeds(AllLeds);
+		enableLeds(allLeds);
 		nextBlink = get_milliseconds_running() + 1000;
 		while (nextBlink > get_milliseconds_running()) ;
-		disableLeds(AllLeds);
+		disableLeds(allLeds);
 		nextBlink = get_milliseconds_running() + 1000;
 	}
 }

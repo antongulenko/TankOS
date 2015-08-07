@@ -12,6 +12,6 @@ int main() {
 		if (b2) mask |= _BV(2);
 		if (b3) mask |= _BV(3);
 		if (b4) mask |= _BV(4);
-		setLeds(AllLeds, mask);
+		setLeds(allLeds, mask);
 	}
 }

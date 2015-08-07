@@ -13,7 +13,7 @@
 
 // This struct contains additional data enabling a smoother control
 // over the motor speed.
-typedef struct {
+typedef struct SmoothMotor {
 	Motor motor; // Using pointer enables to also put Motor2DirPins here
 
 	// Current state

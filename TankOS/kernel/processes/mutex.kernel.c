@@ -7,7 +7,7 @@
 
 #include <kernel/mutex/mutex.h>
 
-typedef struct {
+typedef struct RealMutex {
 	// TODO
 } RealMutex, *PRealMutex;
 

@@ -36,12 +36,12 @@ typedef struct Job_t {
 	enum JobType jobType;
 } Job, *PJob;
 
-typedef struct {
+typedef struct PeriodicJob {
 	Job job;
 	uint32_t nextPeriod;
 } PeriodicJob, *PPeriodicJob;
 
-typedef struct {
+typedef struct AperiodicJob {
 	Job job;
 	BOOL wantsToRun;
 } AperiodicJob, *PAperiodicJob;

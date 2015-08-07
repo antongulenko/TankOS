@@ -14,7 +14,7 @@ extern uint8_t __main_process_additional_memory;
 
 // Process Control Block structure
 // This really just holds the context-data, no organization-data.
-typedef struct {
+typedef struct PCB {
 	void *stackPointer; // one-word stack-pointer
 	// The rest of the context will simply be pushed on the stack.
 	// The stack-pointer is therefore enough to restore the context.

@@ -3,8 +3,8 @@
 
 #include <tank_os_common.h>
 
-DEFINE_HANDLE(Port)
-DEFINE_HANDLE(Pin)
+DEFINE_HANDLE(Port);
+DEFINE_HANDLE(Pin);
 
 Port newPort(volatile uint8_t *port, volatile uint8_t *pin, volatile uint8_t *ddr);
 Port destroyPort(Port port);

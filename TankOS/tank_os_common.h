@@ -39,7 +39,7 @@ asm ("__RAMPZ__ = 0x3b");
 // macro to define anonymous pointer-types with compiler-checked type-safety.
 // This whole struct can be cast to a void-pointer.
 #define DEFINE_HANDLE(name)	\
-	typedef struct name##__ { void *pointer; } name;
+	typedef struct name { void *pointer; } name
 
 #define Invalid(Type) ((Type) { NULL })
 #define ConstantInvalid(Type) { NULL }

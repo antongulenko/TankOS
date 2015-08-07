@@ -26,7 +26,7 @@ ResetCondition getResetCondition();
 // Implemented in reset_condition.kernel.c
 uint8_t rawResetConditionByte();
 
-typedef struct {
+typedef struct InitStatus {
     BOOL initialized;
     uint16_t software_resets;
 } InitStatus;

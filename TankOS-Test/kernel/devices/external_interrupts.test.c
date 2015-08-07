@@ -1,4 +1,4 @@
- 
+
 #include <unity.h>
 #include <kernel/devices/external_interrupts.h>
 #include <tank_os_common.h>

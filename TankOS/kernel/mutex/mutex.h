@@ -9,7 +9,7 @@
 #include <tank_os_common.h>
 
 // Use handle and not defined struct here, to enable multiple implementations.
-DEFINE_HANDLE(Mutex)
+DEFINE_HANDLE(Mutex);
 
 Mutex mutex_create();
 

@@ -7,11 +7,11 @@
 
 #include "led.h"
 
-typedef struct {
+typedef struct _Led {
 	Pin pin;
 } _Led;
 
-typedef struct {
+typedef struct _LedGroup {
 	Led *leds;
 	uint8_t count;
 } _LedGroup;

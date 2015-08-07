@@ -18,7 +18,7 @@
 // created by one of the macros below.
 typedef RpcHandlerStatus TwiRpcHandlerFunction(TWIBuffer *buffer);
 
-typedef struct {
+typedef struct TwiFunction {
 	byte operation; // The hash-key
 	TwiRpcHandlerFunction *handlerFunction;
 	UT_hash_handle hh;

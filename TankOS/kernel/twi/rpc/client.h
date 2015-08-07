@@ -17,7 +17,7 @@ typedef enum {
     TWI_RPC_call_error_unknown
 } RpcClientStatus;
 
-typedef struct {
+typedef struct RpcClientResult {
     RpcClientStatus status;
     RpcHandlerStatus handler_status;
     RpcServerStatus server_status;

@@ -12,7 +12,7 @@
 uint16_t __nextProcessNumber = 1;
 
 // Additional memory appended to the Process-struct to enable the extended API.
-typedef struct {
+typedef struct PCBExt {
 	uint16_t processNumber;
 	uint16_t stackSize;
 

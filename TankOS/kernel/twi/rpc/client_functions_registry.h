@@ -6,7 +6,7 @@
 #define HASH_FUNCTION HASH_SAX
 #include <uthash/uthash.h>
 
-typedef struct {
+typedef struct _ClientFunctionRegistryEntry {
     char *name;
     RpcQueryFunction function;
     uint8_t argument_bytes;
