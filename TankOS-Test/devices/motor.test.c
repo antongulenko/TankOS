@@ -150,20 +150,98 @@ void test_getDirection_motor2speed() {
     TEST_ASSERT_EQUAL_MESSAGE(MotorStopped, getDirection(motor), "motor 2 speed read wrong direction (5)");
 }
 
-void test_getDirSpeed_motor() {
+void test_setSpeed_motor() {
     makeMotor();
-
-
+    setSpeed(motor, 0xabab, MotorForward);
+    TEST_ASSERT_EQUAL_MESSAGE(0xabab, ocr1, "normal motor set wrong speed (1)");
+    TEST_ASSERT_TRUE_MESSAGE(isPinOutputHigh(dir1), "motor set dir wrong (1)");
+    ocr1 = 0;
+    setSpeed(motor, 0xabab, MotorBackward);
+    TEST_ASSERT_EQUAL_MESSAGE(0xabab, ocr1, "normal motor set wrong speed (2)");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "motor set dir wrong (2)");
+    setSpeed(motor, 0, MotorBackward);
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "normal motor set wrong speed (3)");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "motor changed dir.. (3)");
+    setSpeed(motor, 0xddff, MotorStopped);
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "normal motor set wrong speed (3)");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "motor changed dir.. (3)");
 }
 
-void test_getDirSpeed_motor_2dir() {
+void test_setSpeed_motor2dir() {
     makeMotor2dir();
-
-
+    setSpeed(motor, 0xabab, MotorForward);
+    TEST_ASSERT_EQUAL_MESSAGE(0xabab, ocr1, "motor set wrong speed (1)");
+    TEST_ASSERT_TRUE_MESSAGE(isPinOutputHigh(dir1), "motor set dir1 wrong (1)");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir2), "motor set dir2 wrong (1)");
+    ocr1 = 0;
+    setSpeed(motor, 0xabab, MotorBackward);
+    TEST_ASSERT_EQUAL_MESSAGE(0xabab, ocr1, "motor set wrong speed (2)");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "motor set dir1 wrong (2)");
+    TEST_ASSERT_TRUE_MESSAGE(isPinOutputHigh(dir2), "motor set dir2 wrong (2)");
+    setPinOne(dir2);
+    setSpeed(motor, 0, MotorBackward);
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "motor set wrong speed (3)");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "motor set dir1 wrong (2)");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir2), "motor set dir2 wrong (3)");
+    setPinOne(dir1); setPinOne(dir2);
+    setSpeed(motor, 0xddff, MotorStopped);
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "motor set wrong speed (3)");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "motor set dir1 wrong (2)");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir2), "motor set dir2 wrong (3)");
 }
 
-void test_getDirSpeed_motor_2speed() {
+void test_setSpeed_motor2speed() {
     makeMotor2speed();
+    setSpeed(motor, 0xabab, MotorForward);
+    TEST_ASSERT_EQUAL_MESSAGE(0xabab, ocr1, "normal motor set wrong speed1 (1)");
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr2, "normal motor set wrong speed2 (1)");
+    ocr1 = ocr2 = 0;
+    setSpeed(motor, 0xabab, MotorBackward);
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "normal motor set wrong speed1 (2)");
+    TEST_ASSERT_EQUAL_MESSAGE(0xabab, ocr2, "normal motor set wrong speed2 (2)");
+    ocr1 = 0xddff;
+    setSpeed(motor, 0, MotorBackward);
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "normal motor set wrong speed1 (3)");
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "normal motor set wrong speed2 (3)");
+    setSpeed(motor, 0xddff, MotorStopped);
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "normal motor set wrong speed1 (3)");
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "normal motor set wrong speed2 (3)");
+}
 
+void test_setSpeedForward() {
+    makeMotor();
+    setSpeedForward(motor, 0xabab);
+    TEST_ASSERT_EQUAL_MESSAGE(0xabab, ocr1, "normal motor set wrong speed");
+    TEST_ASSERT_TRUE_MESSAGE(isPinOutputHigh(dir1), "motor set dir wrong");
+}
 
+void test_setSpeedBackward() {
+    makeMotor();
+    setSpeedBackward(motor, 0xabab);
+    TEST_ASSERT_EQUAL_MESSAGE(0xabab, ocr1, "normal motor set wrong speed");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "motor set dir wrong");
+}
+
+void test_dirSpeed_forward() {
+    makeMotor();
+    setDirSpeed(motor, 400);
+    TEST_ASSERT_EQUAL_MESSAGE(400 << 1, ocr1, "normal motor set wrong speed");
+    TEST_ASSERT_TRUE_MESSAGE(isPinOutputHigh(dir1), "motor set dir wrong");
+    TEST_ASSERT_EQUAL_MESSAGE(400, getDirSpeed(motor), "Wrong dirSpeed returned");
+}
+
+void test_dirSpeed_backward() {
+    makeMotor();
+    setDirSpeed(motor, -400);
+    TEST_ASSERT_EQUAL_MESSAGE(400 << 1, ocr1, "normal motor set wrong speed");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "motor set dir wrong");
+    TEST_ASSERT_EQUAL_MESSAGE(-400, getDirSpeed(motor), "Wrong dirSpeed returned");
+}
+
+void test_dirSpeed_stop() {
+    makeMotor();
+    setDirSpeed(motor, 0);
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "normal motor set wrong speed");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "motor set dir wrong");
+    TEST_ASSERT_EQUAL_MESSAGE(0, getDirSpeed(motor), "Wrong dirSpeed returned");
 }
