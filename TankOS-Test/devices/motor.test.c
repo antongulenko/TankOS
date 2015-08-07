@@ -29,3 +29,12 @@ void tearDown() {
     destroy_fake_port();
 }
 
+void test_invalid_motor() {
+    motor = Invalid(Motor);
+    TEST_ASSERT_FALSE_MESSAGE(motorValid(motor), "invalid motor passed validity check");
+    setSpeed(motor, 333, MotorForward); // no segfault
+    TEST_ASSERT_EQUAL_MESSAGE(0, getSpeed(motor), "invalid motor should have speed 0");
+    TEST_ASSERT_EQUAL_MESSAGE(MotorStopped, getDirection(motor), "invalid motor should be stopped");
+    setDirSpeed(motor, -333); // no segfault
+    TEST_ASSERT_EQUAL_MESSAGE(0, getDirSpeed(motor), "invalid motor should have dir speed 0");
+}

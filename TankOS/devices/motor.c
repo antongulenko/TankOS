@@ -83,6 +83,7 @@ Motor newMotor2dir(MotorType type, Timer speedTimer, Pin forwardPin, Pin backwar
 }
 
 Motor destroyMotor(Motor motor) {
+    if (!IsValid(motor)) return Invalid(Motor);
     if (pinOccupation(MOTOR->forwardPin) == PinGPIO)
         deOccupyPin(MOTOR->forwardPin, PinGPIO);
     if (pinOccupation(MOTOR->backwardPin) == PinGPIO)
@@ -103,6 +104,7 @@ BOOL motorValid(Motor motor) {
 }
 
 void setMotorValueBounds(Motor motor, uint16_t minValue, uint16_t maxValue) {
+    if (!IsValid(motor)) return;
     MOTOR->minValue = minValue;
     MOTOR->maxValue = maxValue;
 }
@@ -144,6 +146,7 @@ static void setMotorValues(_Motor *motor, uint16_t speed, MotorDirection directi
 }
 
 void stopMotor(Motor motor) {
+    if (!IsValid(motor)) return;
 	setMotorValues(MOTOR, 0, MotorStopped);
 }
 
@@ -157,6 +160,7 @@ static uint16_t convertSpeed(_Motor *motor, uint16_t speed) {
 }
 
 uint16_t getSpeed(Motor motor) {
+    if (!IsValid(motor)) return 0;
 	uint16_t speed = 0;
     if (Equal(MOTOR->forwardTimer, MOTOR->backwardTimer)) {
         speed = getTimerValue(MOTOR->forwardTimer);
@@ -182,6 +186,7 @@ static MotorDirection convertDirection(_Motor *motor, MotorDirection dir) {
 }
 
 MotorDirection getDirection(Motor motor) {
+    if (!IsValid(motor)) return MotorStopped;
 	MotorDirection dir;
     if (IsValid(MOTOR->forwardPin)) {
         BOOL forward = readPin(MOTOR->forwardPin);
@@ -203,6 +208,7 @@ MotorDirection getDirection(Motor motor) {
 }
 
 void setSpeed(Motor motor, uint16_t speed, MotorDirection direction) {
+    if (!IsValid(motor)) return;
 	if (direction == MotorStopped || speed == 0) {
 		direction = MotorStopped;
         speed = 0;
@@ -228,6 +234,7 @@ void setSpeedBackward(Motor motor, uint16_t speed) {
 }
 
 int16_t getDirSpeed(Motor motor) {
+    if (!IsValid(motor)) return 0;
 	MotorDirection dir = getDirection(motor);
 	if (dir == MotorStopped) return 0;
     uint16_t speed = getSpeed(motor);
@@ -250,6 +257,7 @@ static uint16_t motor_toUnsignedSpeed(int16_t speed) {
 }
 
 void setDirSpeed(Motor motor, int16_t speed) {
+    if (!IsValid(motor)) return;
 	if (speed == 0) {
 		stopMotor(motor);
 		return;
