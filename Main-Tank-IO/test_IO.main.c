@@ -89,18 +89,18 @@ void test_communication_raw_steer_motors() {
 
 		if (buttonStatus(button1)) {
 			p |= (1 << PORTC0);
-			enableLeds(LeftLeds);
+			enableLeds(leftLeds);
 		} else {
 			p &= ~(1 << PORTC0);
-			disableLeds(LeftLeds);
+			disableLeds(leftLeds);
 		}
 
 		if (buttonStatus(button2)) {
 			p |= (1 << PORTC1);
-			enableLeds(RightLeds);
+			enableLeds(rightLeds);
 		} else {
 			p &= ~(1 << PORTC1);
-			disableLeds(RightLeds);
+			disableLeds(rightLeds);
 		}
 
 		PORTC = p;

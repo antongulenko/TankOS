@@ -1,9 +1,0 @@
-
-#include <kernel.h>
-
-#include <misc/hardware_reset.h>
-
-int main() {
-	blink_reset_condition(allLeds);
-	HARDWARE_RESET();
-}
