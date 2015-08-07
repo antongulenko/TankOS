@@ -16,7 +16,10 @@
 #endif
 
 DEFINE_HANDLE(Led);
-DEFINE_HANDLE(LedGroup);
+typedef struct LedGroup {
+	Led *leds;
+	uint8_t count;
+} *LedGroup;
 #define PinLedOutput 5
 
 Led newLed(Pin pin);

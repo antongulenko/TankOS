@@ -11,13 +11,7 @@ typedef struct _Led {
 	Pin pin;
 } _Led;
 
-typedef struct _LedGroup {
-	Led *leds;
-	uint8_t count;
-} _LedGroup;
-
 #define PIN Cast(Pin, led)
-#define GROUP Get(_LedGroup, group)
 
 Led newLed(Pin pin) {
     if (!occupyPinDirectly(pin, PinLedOutput, EmptyConfigData)) {
@@ -41,17 +35,16 @@ BOOL ledValid(Led led) {
 }
 
 LedGroup newLedGroup(Led *leds, uint8_t count) {
-    _LedGroup *group = malloc(sizeof(_LedGroup));
-    if (!group) return Invalid(LedGroup);
+    LedGroup group = malloc(sizeof(struct LedGroup));
+    if (!group) return NULL;
     group->leds = leds;
     group->count = count;
     return As(LedGroup, group);
 }
 
 LedGroup destroyLedGroup(LedGroup group) {
-    if (IsValid(group))
-        free(GROUP);
-    return Invalid(LedGroup);
+    if (group) free(group);
+    return NULL;
 }
 
 void enableLed(Led led) {
@@ -71,21 +64,21 @@ void setLed(Led led, BOOL value) {
 
 void setLeds(LedGroup group, uint16_t mask) {
 	uint16_t iMask = 1;
-	for (int i = 0, n = GROUP->count; i < n; i++) {
-        setLed(GROUP->leds[i], 0 != (iMask & mask));
+	for (int i = 0, n = group->count; i < n; i++) {
+        setLed(group->leds[i], 0 != (iMask & mask));
 		iMask = iMask << 1;
 	}
 }
 
 void enableLeds(LedGroup group) {
-	for (int i = 0, max = GROUP->count; i < max; i++) {
-        enableLed(GROUP->leds[i]);
+	for (int i = 0, max = group->count; i < max; i++) {
+        enableLed(group->leds[i]);
 	}
 }
 
 void disableLeds(LedGroup group) {
-	for (int i = 0, max = GROUP->count; i < max; i++) {
-		disableLed(GROUP->leds[i]);
+	for (int i = 0, max = group->count; i < max; i++) {
+		disableLed(group->leds[i]);
 	}
 }
 
