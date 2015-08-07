@@ -55,6 +55,7 @@ void test_invalid_motor() {
     TEST_ASSERT_EQUAL_MESSAGE(MotorStopped, getDirection(motor), "invalid motor should be stopped");
     setDirSpeed(motor, -333); // no segfault
     TEST_ASSERT_EQUAL_MESSAGE(0, getDirSpeed(motor), "invalid motor should have dir speed 0");
+    setMotorValueBounds(motor, 333, 444); // no segfault
 }
 
 void test_stop_motor_normal() {
@@ -244,4 +245,96 @@ void test_dirSpeed_stop() {
     TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "normal motor set wrong speed");
     TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "motor set dir wrong");
     TEST_ASSERT_EQUAL_MESSAGE(0, getDirSpeed(motor), "Wrong dirSpeed returned");
+}
+
+void test_motor_InverseSpeed() {
+    motor = newMotor(MotorNormal | MotorInverseSpeed, timer1, dir1);
+    TEST_ASSERT_TRUE_MESSAGE(motorValid(motor), "inverse speed motor not valid after creation");
+
+    setSpeed(motor, 0xaabb, MotorForward);
+    TEST_ASSERT_EQUAL_MESSAGE(0xffff - 0xaabb, ocr1, "inverse speed motor set wrong speed");
+    TEST_ASSERT_TRUE_MESSAGE(isPinOutputHigh(dir1), "inverse speed motor set dir wrong");
+}
+
+void test_motor_InverseDir() {
+    motor = newMotor(MotorNormal | MotorInverseDirection, timer1, dir1);
+    TEST_ASSERT_TRUE_MESSAGE(motorValid(motor), "inverse dir motor not valid after creation");
+
+    setSpeed(motor, 0xaabb, MotorForward);
+    TEST_ASSERT_EQUAL_MESSAGE(0xaabb, ocr1, "inverse dir motor set wrong speed");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "inverse dir motor set dir wrong");
+}
+
+void test_motor_inverse_both() {
+    motor = newMotor(MotorNormal | MotorInverseDirection | MotorInverseSpeed, timer1, dir1);
+    TEST_ASSERT_TRUE_MESSAGE(motorValid(motor), "inverse dir/speed motor not valid after creation");
+
+    setSpeed(motor, 0xaabb, MotorForward);
+    TEST_ASSERT_EQUAL_MESSAGE(0xffff - 0xaabb, ocr1, "inverse dir/speed motor set wrong speed");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(dir1), "inverse dir/speed motor set dir wrong");
+}
+
+void test_motor_minMaxValue() {
+    makeMotor();
+    setMotorValueBounds(motor, 1000, 2000);
+    setSpeedForward(motor, 1500);
+    TEST_ASSERT_EQUAL_MESSAGE(1500, ocr1, "capped motor set wrong speed (1)");
+    setSpeedForward(motor, 500);
+    TEST_ASSERT_EQUAL_MESSAGE(1000, ocr1, "capped motor set wrong speed (2)");
+    setSpeedForward(motor, 2500);
+    TEST_ASSERT_EQUAL_MESSAGE(2000, ocr1, "capped motor set wrong speed (3)");
+    setMotorValueBounds(motor, 5000, 2000);
+    setSpeedForward(motor, 500);
+    TEST_ASSERT_EQUAL_MESSAGE(1000, ocr1, "motor bounds changed illegally");
+}
+
+void test_motor_ExactConversion() {
+    motor = newMotor(MotorNormal | MotorExactConversion, timer1, dir1);
+
+    setSpeedForward(motor, 0);
+    TEST_ASSERT_EQUAL_MESSAGE(0, ocr1, "exact motor set wrong speed (1)");
+    TEST_ASSERT_EQUAL_MESSAGE(0, getSpeed(motor), "exact motor read wrong speed (1)");
+
+    setSpeedForward(motor, 1);
+    TEST_ASSERT_EQUAL_MESSAGE(1, ocr1, "exact motor set wrong speed (2)");
+    TEST_ASSERT_EQUAL_MESSAGE(1, getSpeed(motor), "exact motor read wrong speed (2)");
+
+    setSpeedForward(motor, 0x7777);
+    TEST_ASSERT_EQUAL_MESSAGE(0x7777, ocr1, "exact motor set wrong speed (3)");
+    TEST_ASSERT_EQUAL_MESSAGE(0x7777, getSpeed(motor), "exact motor read wrong speed (3)");
+
+    setSpeedForward(motor, 0xfffe);
+    TEST_ASSERT_EQUAL_MESSAGE(0xfffe, ocr1, "exact motor set wrong speed (4)");
+    TEST_ASSERT_EQUAL_MESSAGE(0xfffe, getSpeed(motor), "exact motor read wrong speed (4)");
+
+    setSpeedForward(motor, 0xffff);
+    TEST_ASSERT_EQUAL_MESSAGE(0xffff, ocr1, "exact motor set wrong speed (5)");
+    TEST_ASSERT_EQUAL_MESSAGE(0xffff, getSpeed(motor), "exact motor read wrong speed (5)");
+}
+
+void test_motor_ExactConversion_minMaxValue() {
+    motor = newMotor(MotorNormal | MotorExactConversion, timer1, dir1);
+    setMotorValueBounds(motor, 1000, 2000);
+
+    setSpeedForward(motor, 0);
+    TEST_ASSERT_EQUAL_MESSAGE(1000, ocr1, "exact capped motor set wrong speed (1)");
+    TEST_ASSERT_EQUAL_MESSAGE(0, getSpeed(motor), "exact capped motor read wrong speed (1)");
+
+    setSpeedForward(motor, 1);
+    TEST_ASSERT_EQUAL_MESSAGE(1000, ocr1, "exact capped capped motor set wrong speed (2)");
+    TEST_ASSERT_EQUAL_MESSAGE(0, getSpeed(motor), "exact capped motor read wrong speed (2)");
+
+    // These values are a bit random due to the rounding involved in the "ExactConversion" routines.
+
+    setSpeedForward(motor, 0x7777);
+    TEST_ASSERT_EQUAL_MESSAGE(1466, ocr1, "exact capped motor set wrong speed (3)");
+    TEST_ASSERT_EQUAL_MESSAGE(30539, getSpeed(motor), "exact capped motor read wrong speed (3)");
+
+    setSpeedForward(motor, 0xfffe);
+    TEST_ASSERT_EQUAL_MESSAGE(1999, ocr1, "exact capped motor set wrong speed (4)");
+    TEST_ASSERT_EQUAL_MESSAGE(65469, getSpeed(motor), "exact capped motor read wrong speed (4)");
+
+    setSpeedForward(motor, 0xffff);
+    TEST_ASSERT_EQUAL_MESSAGE(2000, ocr1, "exact capped motor set wrong speed (5)");
+    TEST_ASSERT_EQUAL_MESSAGE(0xffff, getSpeed(motor), "exact capped motor read wrong speed (5)");
 }

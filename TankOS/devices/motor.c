@@ -109,6 +109,7 @@ BOOL motorValid(Motor motor) {
 
 void setMotorValueBounds(Motor motor, uint16_t minValue, uint16_t maxValue) {
     if (!IsValid(motor)) return;
+    if (maxValue < minValue) return;
     MOTOR->minValue = minValue;
     MOTOR->maxValue = maxValue;
 }
