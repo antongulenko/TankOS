@@ -115,7 +115,7 @@
     <Compile Include="scheduler.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_IO_protocol.h">
+    <Compile Include="tank_io_protocol.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="timer.h">

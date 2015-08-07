@@ -3,6 +3,7 @@
 
 #include <tank_os_common.h>
 #include <tank_io_address.h>
+#include "tank_button.h"
 
 // A random value, that is returned by TANK_IO_isInitialized to mean
 // "true". "Random" value to assert correct communication.
@@ -18,14 +19,6 @@ typedef enum {
 	LEDS_WHITE,
 	LEDS_GREEN
 } TankIoLeds;
-
-// Bitmask-bits for the result of TANK_IO_buttonStatus
-typedef enum {
-	BUTTON_1 = _BV(0),
-	BUTTON_2 = _BV(1),
-	BUTTON_3 = _BV(2),
-	BUTTON_4 = _BV(3),
-} TankButton;
 
 typedef struct {
 	TankIoLeds leds;

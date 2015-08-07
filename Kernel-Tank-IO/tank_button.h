@@ -9,11 +9,11 @@
 #define TANK_BUTTON_H_
 
 #include <devices/button.h>
-#include <tank_IO_protocol.h>
+#include <tank_io_protocol.h>
 
 extern Button button1, button2, button3, button4;
 
-enum {
+typedef enum {
     BUTTON_1 = _BV(0),
     BUTTON_2 = _BV(1),
     BUTTON_3 = _BV(2),

@@ -6,6 +6,7 @@
 #include "tank_led.h"
 #include <kernel/kernel_init.h>
 #include <m1284P/port.h>
+#include <string.h>
 
 Led whiteLed1, whiteLed2, whiteLed3, whiteLed4, whiteLed5;
 Led redLed1, redLed2, redLed3, redLed4, redLed5;
@@ -20,7 +21,7 @@ static Led redLedsArray[5];
 static Led greenLedsArray[3];
 static Led yellowLedsArray[2];
 static Led middleLedsArray[5];
-static Led allLedsArray[];
+static Led allLedsArray[15];
 
 static void init_tank_leds() {
     whiteLed1 = newLed(pinB0);

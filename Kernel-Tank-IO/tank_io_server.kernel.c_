@@ -11,7 +11,7 @@
 #include <kernel/kernel_init.h>
 #include <kernel/twi/rpc/server.h>
 
-#include <tank_IO_protocol.h>
+#include <tank_io_protocol.h>
 
 // ==
 // Input
