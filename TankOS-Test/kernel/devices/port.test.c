@@ -128,3 +128,8 @@ void test_readPin_0() {
 	TEST_ASSERT_EQUAL_INT(FALSE, val);
 	assertState(~testPin1_mask, 0, 0);
 }
+
+void test_isPinOutputHigh() {
+    port = testPin1_mask;
+    TEST_ASSERT_TRUE_MESSAGE(isPinOutputHigh(testPin1), "pin output not reported high");
+}

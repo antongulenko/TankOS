@@ -19,6 +19,14 @@ void setUp() {
     Led3 = newLed(testPin3);
     memcpy(ledGroup, (Led[]) { Led1, Led2, Led3 }, sizeof(ledGroup));
     Group = newLedGroup(ledGroup, 3);
+
+    TEST_ASSERT_NOT_NULL_MESSAGE(Group, "LedGroup not valid");
+    TEST_ASSERT_EQUAL_MESSAGE(PinLedOutput, pinOccupation(testPin1), "led 1 did not occupy pin");
+    TEST_ASSERT_EQUAL_MESSAGE(PinLedOutput, pinOccupation(testPin2), "led 2 did not occupy pin");
+    TEST_ASSERT_EQUAL_MESSAGE(PinLedOutput, pinOccupation(testPin3), "led 3 did not occupy pin");
+    TEST_ASSERT_TRUE_MESSAGE(ledValid(Led1), "Led 1 not valid after init");
+    TEST_ASSERT_TRUE_MESSAGE(ledValid(Led2), "Led 2 not valid after init");
+    TEST_ASSERT_TRUE_MESSAGE(ledValid(Led3), "Led 3 not valid after init");
 }
 
 void tearDown() {
@@ -26,6 +34,13 @@ void tearDown() {
     Led1 = destroyLed(Led1);
     Led2 = destroyLed(Led2);
     Led3 = destroyLed(Led3);
+    TEST_ASSERT_NULL_MESSAGE(Group, "Group still valid after destroy");
+    TEST_ASSERT_EQUAL_MESSAGE(PinNoOccupation, pinOccupation(testPin1), "led 1 did release pin");
+    TEST_ASSERT_EQUAL_MESSAGE(PinNoOccupation, pinOccupation(testPin2), "led 2 did release pin");
+    TEST_ASSERT_EQUAL_MESSAGE(PinNoOccupation, pinOccupation(testPin3), "led 3 did release pin");
+    TEST_ASSERT_FALSE_MESSAGE(ledValid(Led1), "Led 1 still valid after destroy");
+    TEST_ASSERT_FALSE_MESSAGE(ledValid(Led2), "Led 2 still valid after destroy");
+    TEST_ASSERT_FALSE_MESSAGE(ledValid(Led3), "Led 3 still valid after destroy");
     destroy_fake_port();
 }
 

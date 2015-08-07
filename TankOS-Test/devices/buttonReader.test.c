@@ -40,6 +40,7 @@ void setUp() {
 
     reader = newButtonReader(buttonArray, 2,
 			my_button_pressed, my_button_released);
+    TEST_ASSERT_TRUE_MESSAGE(buttonReaderValid(reader), "button reader not valid after init");
 }
 
 void tearDown() {
@@ -48,6 +49,7 @@ void tearDown() {
 	TEST_ASSERT_EQUAL_MESSAGE(expectedPresses, timesReleased[0], "Wrong # of releases");
 	TEST_ASSERT_EQUAL_MESSAGE(expectedPresses, timesReleased[1], "Wrong # of releases");
 	reader = destroyButtonReader(reader);
+    TEST_ASSERT_FALSE_MESSAGE(buttonReaderValid(reader), "button reader still valid after destroy");
     destroy_fake_port();
 }
 

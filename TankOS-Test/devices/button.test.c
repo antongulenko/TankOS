@@ -19,11 +19,15 @@ void setUp() {
 
 void tearDown() {
     Btn = destroyButton(Btn);
+    TEST_ASSERT_FALSE_MESSAGE(buttonValid(Btn), "Button still valid after destroy");
+    TEST_ASSERT_EQUAL_MESSAGE(PinNoOccupation, pinOccupation(testPin1), "pin not deoccupied by button");
     destroy_fake_port();
 }
 
 void init_test_button(uint8_t flags) {
     Btn = newButton(testPin1, flags, TEST_INTERRUPT);
+    TEST_ASSERT_TRUE_MESSAGE(buttonValid(Btn), "Button not valid after init");
+    TEST_ASSERT_EQUAL_MESSAGE(PinButtonInput, pinOccupation(testPin1), "pin not occupied by button");
 }
 
 void assertState(BOOL assumedState, BOOL assumedPullup) {
@@ -33,6 +37,14 @@ void assertState(BOOL assumedState, BOOL assumedPullup) {
 	TEST_ASSERT_EQUAL_INT_MESSAGE(assumedPullup, pullupEnabled, "Wrong pullup state");
 	BOOL isInput = (ddr & testPin1_mask) != 0;
 	TEST_ASSERT_EQUAL_INT_MESSAGE(FALSE, isInput, "Button was output");
+}
+
+void test_button_occupy_failed() {
+    occupyPinDirectly(testPin1, 50, EmptyConfigData);
+    Btn = newButton(testPin1, ButtonNormal, TEST_INTERRUPT);
+    TEST_ASSERT_FALSE_MESSAGE(IsValid(Btn), "button should not be valid");
+    TEST_ASSERT_FALSE_MESSAGE(buttonValid(Btn), "button should not pass validity check");
+    deOccupyPin(testPin1, 50);
 }
 
 void test_normal_disabled() {
