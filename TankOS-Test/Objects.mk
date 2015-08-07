@@ -36,6 +36,11 @@ $(eval $(call set_test_objects,devices/buttonReader,\
     $(BUILDDIR)/mocks/port.o \
 	$(KERNEL_BASE)/devices/buttonReader.o ))
 
+$(eval $(call set_test_objects,devices/motor,\
+	$(KERNEL)/devices/port.o \
+    $(BUILDDIR)/mocks/port.o \
+	$(KERNEL_BASE)/devices/motor.o ))
+
 $(eval $(call set_test_objects,kernel/twi/driver/master,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
