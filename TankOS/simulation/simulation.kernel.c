@@ -7,6 +7,11 @@
 uint8_t __registerData_mem[4096 * 4];
 uint8_t __registerData_io[4096 * 4];
 
+unsigned int DelayedMS;
+unsigned int DelayMSCalled;
+unsigned int DelayedUS;
+unsigned int DelayUSCalled;
+
 uint8_t *__register(uint16_t offset, uint8_t size, uint8_t *buffer, unsigned long int buffer_size) {
     if (offset + size - 1 > buffer_size) {
         printf("Register data offset %x is larger than register page size %lu.\n", offset, (long unsigned int) buffer_size);
@@ -15,19 +20,14 @@ uint8_t *__register(uint16_t offset, uint8_t size, uint8_t *buffer, unsigned lon
     return (uint8_t*) buffer + offset;
 }
 
-void delay_ms_hook(uint32_t ms) __attribute__((weak));
-void delay_ms_hook(uint32_t ms) {
-	// Nothing by default.
-}
-void delay_us_hook(uint32_t us) __attribute__((weak));
-void delay_us_hook(uint32_t us) {
-	// Nothing by default.
-}
-
 void init_native_simulation() {
     memset(__registerData_mem, 0, sizeof(__registerData_mem));
     memset(__registerData_io, 0, sizeof(__registerData_io));
-
+    DelayedMS = 0;
+    DelayMSCalled = 0;
+    DelayedUS = 0;
+    DelayUSCalled = 0;
+    
     hardware_reset_triggered = 0;
     _interrupts_enabled = 0;
 

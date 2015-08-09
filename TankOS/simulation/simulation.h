@@ -6,7 +6,6 @@
 
 extern uint8_t __registerData_mem[4096 * 4];
 extern uint8_t __registerData_io[4096 * 4];
-
 uint8_t *__register(uint16_t offset, uint8_t size, uint8_t *buffer, unsigned long int buffer_size);
 
 // Include memory definitions for Atmega 1284p, copied from the AVR library.
@@ -19,6 +18,11 @@ uint8_t *__register(uint16_t offset, uint8_t size, uint8_t *buffer, unsigned lon
 #include "iom1284p.h"
 #include "portpins.h"
 #include "common.h"
+
+extern unsigned int DelayedMS;
+extern unsigned int DelayMSCalled;
+extern unsigned int DelayedUS;
+extern unsigned int DelayUSCalled;
 
 // Resets all variables
 void init_native_simulation();
@@ -43,16 +47,14 @@ extern uint16_t MALLOC_START;
 #define RAMEND 0xffff
 
 // == delay
-// This allows adding some code to each delay_ms call.
-// Intended for testing, to keep track of delay_ms calls.
-void delay_ms_hook(uint32_t ms);
-void delay_us_hook(uint32_t us);
 
 static inline void delay_ms(uint32_t ms) {
-	delay_ms_hook(ms);
+	DelayedMS += ms;
+    DelayMSCalled++;
 }
 static inline void delay_us(uint32_t us) {
-	delay_us_hook(us);
+	DelayedUS += us;
+    DelayUSCalled++;
 }
 
 uint8_t _interrupts_enabled; // Can be used by tests

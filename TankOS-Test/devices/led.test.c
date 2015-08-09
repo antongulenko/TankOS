@@ -3,7 +3,6 @@
 #include <devices/led.h>
 #include <string.h>
 #include <mocks/port.h>
-#include <mocks/delay.h>
 #include <tank_os_common.h>
 
 Led Led1, Led2, Led3;
@@ -11,8 +10,8 @@ LedGroup Group;
 Led ledGroup[3];
 
 void setUp() {
+    init_native_simulation();
 	init_fake_port();
-	reset_test_delay();
 
     Led1 = newLed(testPin1);
     Led2 = newLed(testPin2);
@@ -59,6 +58,8 @@ void assertState(uint8_t exp_pin, uint8_t exp_port, uint8_t exp_ddr) {
 void assertDelayedMS(uint32_t delayedMs, uint16_t delayCalls) {
 	TEST_ASSERT_EQUAL_INT(delayedMs, DelayedMS);
 	TEST_ASSERT_EQUAL_INT(delayCalls, DelayMSCalled);
+    TEST_ASSERT_EQUAL(0, DelayedUS);
+    TEST_ASSERT_EQUAL(0, DelayUSCalled);
 	assertState(0, 0, ALL_LEDS);
 }
 
