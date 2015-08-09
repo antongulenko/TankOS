@@ -98,26 +98,41 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="devices\" />
     <Folder Include="kernel\" />
     <Folder Include="kernel\devices\" />
     <Folder Include="kernel\twi\" />
     <Folder Include="kernel\twi\driver\" />
     <Folder Include="kernel\twi\rpc\" />
     <Folder Include="kernel\twi\services\" />
-    <Folder Include="misc\" />
     <Folder Include="mocks\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="kernel\devices\button.test.c">
+    <Compile Include="devices\button.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\buttonGroup.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\led.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\motor.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\buffer_stdout.test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\external_interrupts.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\led.test.c">
+    <Compile Include="kernel\devices\port-config.test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\port.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\devices\timer.test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\driver\base_tests.c">
@@ -141,6 +156,9 @@
     <Compile Include="kernel\twi\rpc\client_functions.test.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\twi\rpc\client_functions_registry.test.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\twi\rpc\end_to_end.test.c">
       <SubType>compile</SubType>
     </Compile>
@@ -153,6 +171,9 @@
     <Compile Include="kernel\twi\rpc\strings.test.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\twi\services\buffer_stdout.test.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\twi\services\hardware.test.c">
       <SubType>compile</SubType>
     </Compile>
@@ -162,19 +183,10 @@
     <Compile Include="kernel\twi\services\test.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\ButtonReader.test.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="mocks\assertions.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\assertions.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="mocks\delay.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="mocks\delay.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\port.c">

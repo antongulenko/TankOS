@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -22,12 +22,12 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
-    <eraseonlaunchrule>1</eraseonlaunchrule>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data xmlns="">
         <options />
@@ -40,6 +40,17 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+      </ToolOptions>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Simulator</ToolName>
+    </com_atmel_avrdbg_tool_simulator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -100,21 +111,51 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="devices\" />
     <Folder Include="kernel\" />
     <Folder Include="kernel\devices\" />
+    <Folder Include="kernel\mutex\" />
     <Folder Include="kernel\processes\" />
     <Folder Include="kernel\processes\DMS\" />
     <Folder Include="kernel\processes\idle\" />
-    <Folder Include="kernel\processes\mutex\" />
     <Folder Include="kernel\processes\RoundRobin\" />
     <Folder Include="kernel\twi\" />
     <Folder Include="kernel\twi\driver\" />
     <Folder Include="kernel\twi\rpc\" />
     <Folder Include="kernel\twi\services\" />
+    <Folder Include="m1284P\" />
     <Folder Include="misc\" />
+    <Folder Include="simulation\" />
     <Folder Include="uthash\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="avr_hardware.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\button.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\button.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\led.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\led.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\motor.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\motor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\motor_smooth.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\motor_smooth.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\buffer_stdout.c">
       <SubType>compile</SubType>
     </Compile>
@@ -133,46 +174,10 @@
     <Compile Include="kernel\devices\analog.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\analog_m1284P.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\analog_m1284P.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\button.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\button.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel\devices\external_interrupts.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\external_interrupts.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\led.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\led.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\motor.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\motor.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\motor_smooth.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\motor_smooth.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\motor_smooth_pair.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\motor_smooth_pair.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\port.c">
@@ -181,22 +186,10 @@
     <Compile Include="kernel\devices\port.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\port_m1284P.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\port_m1284P.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel\devices\timer.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\timer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\timer_m1284P.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\timer_m1284P.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\early_init.c">
@@ -220,6 +213,15 @@
     <Compile Include="kernel\millisecond_clock.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\mutex\atomic_mutex.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\mutex\mock_mutex.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\mutex\mutex.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\processes\DMS\dms_api.h">
       <SubType>compile</SubType>
     </Compile>
@@ -235,16 +237,7 @@
     <Compile Include="kernel\processes\idle\idle_scheduler.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\mutex\atomic_mutex.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\processes\mutex\mock_mutex.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\processes\mutex\mutex.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\processes\mutex\mutex.kernel.c">
+    <Compile Include="kernel\processes\mutex.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\processes\process.h">
@@ -301,22 +294,22 @@
     <Compile Include="kernel\twi\driver\init.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\master.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel\twi\driver\master.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\driver\master.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\slave.c">
+    <Compile Include="kernel\twi\driver\master_init.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\driver\slave.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\driver\slave.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\driver\slave_init.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\rpc\client.c">
@@ -329,6 +322,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\rpc\client_functions.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\rpc\client_functions_registry.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\rpc\server.c">
@@ -355,6 +351,18 @@
     <Compile Include="kernel\twi\rpc\strings.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\twi\services\buffer_stdout.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\buffer_stdout.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\buffer_stdout.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\buffer_stdout_client.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\twi\services\hardware.c">
       <SubType>compile</SubType>
     </Compile>
@@ -362,6 +370,9 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\services\hardware.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\twi\services\hardware_client.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\services\test.c">
@@ -373,10 +384,25 @@
     <Compile Include="kernel\twi\services\test.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\ButtonReader.c">
+    <Compile Include="kernel\twi\services\test_client.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\ButtonReader.h">
+    <Compile Include="m1284P\analog.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="m1284P\analog.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="m1284P\port.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="m1284P\port.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="m1284P\timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="m1284P\timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="misc\hardware_reset.c">
@@ -397,10 +423,19 @@
     <Compile Include="misc\memory.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="native_simulation.h">
+    <Compile Include="simulation\common.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="native_simulation.kernel.c">
+    <Compile Include="simulation\iom1284p.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="simulation\portpins.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="simulation\simulation.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="simulation\simulation.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_os_common.h">
@@ -418,11 +453,6 @@
     <Compile Include="uthash\utstring.h">
       <SubType>compile</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="uthash\LICENSE">
-      <SubType>compile</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

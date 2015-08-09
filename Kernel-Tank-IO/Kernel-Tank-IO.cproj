@@ -109,13 +109,13 @@
     <Compile Include="tank_button.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_button_internal.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="tank_button_interrupts.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_io_address.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_io_protocol.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_io_twi.kernel.c">

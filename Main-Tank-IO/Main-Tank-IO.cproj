@@ -123,10 +123,5 @@
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="test_blink_reset_condition.main.c_">
-      <SubType>compile</SubType>
-    </None>
-  </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

@@ -100,6 +100,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="kernel_base.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="late_init.h">
       <SubType>compile</SubType>
     </Compile>
@@ -113,9 +116,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="scheduler.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="tank_io_protocol.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="timer.h">
