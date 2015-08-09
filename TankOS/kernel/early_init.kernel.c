@@ -14,5 +14,6 @@
 	init_reset_condition();
     wdt_disable();
     increment_software_reset_counter();
+    EECR |= _BV(EERIE); // Enable eeprom-ready interrupt EE_READY for early_init_eeprom.kernel.c
 }
 KERNEL_INIT(early_initialization)
