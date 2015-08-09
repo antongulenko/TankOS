@@ -14,10 +14,10 @@ ButtonGroup buttons;
 
 void init_tank_buttons() {
 	#define TANK_BUTTON (ButtonInverted | ButtonNeedsPullup)
-	button1 = newButton(pinA0, TANK_BUTTON, 0);
-	button2 = newButton(pinA1, TANK_BUTTON, 1);
-	button3 = newButton(pinA2, TANK_BUTTON, 2);
-	button4 = newButton(pinA3, TANK_BUTTON, 3);
+	button1 = newButton(pinA0, TANK_BUTTON);
+	button2 = newButton(pinA1, TANK_BUTTON);
+	button3 = newButton(pinA2, TANK_BUTTON);
+	button4 = newButton(pinA3, TANK_BUTTON);
     memcpy(buttonArray, (Button[]) { button1, button2, button3, button4 }, sizeof(buttonArray));
     buttons = newButtonGroup(buttonArray, 4);
 }

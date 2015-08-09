@@ -14,8 +14,7 @@
 typedef enum {
     ButtonNormal = 0,
     ButtonInverted = _BV(0),
-    ButtonNeedsPullup = _BV(1),
-    ButtonUsePinChangeInterrupt = _BV(2)
+    ButtonNeedsPullup = _BV(1)
 } ButtonType;
 
 // === Button
@@ -23,7 +22,7 @@ typedef enum {
 DEFINE_HANDLE(Button);
 #define PinButtonInput 4
 
-Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber);
+Button newButton(Pin pin, ButtonType flags);
 Button destroyButton(Button button);
 BOOL buttonValid(Button button);
 
@@ -35,6 +34,8 @@ BOOL wasReleased(Button button);
 typedef void (*ButtonCallbackFunction)(Button button);
 extern ButtonCallbackFunction buttonPressedCallback;
 extern ButtonCallbackFunction buttonReleasedCallback;
+
+void enableButtonChangeInterrupt(Button button);
 
 // === ButtonGroup
 

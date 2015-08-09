@@ -6,7 +6,6 @@
  */
 
 #include "button.h"
-#include <kernel/devices/external_interrupts.h>
 
 ButtonCallbackFunction buttonPressedCallback;
 ButtonCallbackFunction buttonReleasedCallback;
@@ -14,28 +13,28 @@ ButtonCallbackFunction buttonReleasedCallback;
 #define PIN Cast(Pin, button)
 
 #define DATA_FLAGS 0
-#define DATA_STATUS 1
-#define DATA_WAS_PRESSED 2
-#define DATA_WAS_RELEASED 3
+#define DATA_STATUS 2
 
-static void initButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber) {
+enum {
+	MASK_STATUS = _BV(0),
+	MASK_WAS_PRESSED = _BV(1),
+	MASK_WAS_RELEASED = _BV(2)
+};
+
+static void initButton(Pin pin, ButtonType flags) {
 	setPinInput(pin);
 	if (flags & ButtonNeedsPullup)
 	    setPinOne(pin); // Enable internal pull up resistor
-	if (flags & ButtonUsePinChangeInterrupt)
-		enablePinChangeInterrupt(pinChangeInterruptNumber);
 }
 
-Button newButton(Pin pin, ButtonType flags, uint8_t pinChangeInterruptNumber) {
+Button newButton(Pin pin, ButtonType flags) {
     ConfigData data;
     data.data[DATA_FLAGS] = (uint8_t) flags;
-    data.data[DATA_STATUS] = FALSE;
-    data.data[DATA_WAS_PRESSED] = FALSE;
-    data.data[DATA_WAS_RELEASED] = FALSE;
+    data.data[DATA_STATUS] = 0;
     if (!occupyPinDirectly(pin, PinButtonInput, data)) {
         return Invalid(Button);
     }
-    initButton(pin, flags, pinChangeInterruptNumber);
+    initButton(pin, flags);
     return Cast(Button, pin);
 }
 
@@ -65,25 +64,30 @@ void updateButtonStatus(Button button) {
     if (!IsValid(button)) return;
     ConfigData *data = pinConfigData(PIN, PinButtonInput);
     if (!data) return;
+	uint8_t status = data->data[DATA_STATUS];
     BOOL isPressed = buttonStatus(button);
-    BOOL wasPressed = data->data[DATA_STATUS];
+    BOOL wasPressed = status & MASK_STATUS;
     if (!wasPressed && isPressed) {
         if (buttonPressedCallback) buttonPressedCallback(button);
-        data->data[DATA_WAS_PRESSED] = TRUE;
+        status |= MASK_WAS_PRESSED;
     }
     if (wasPressed && !isPressed) {
         if (buttonReleasedCallback) buttonReleasedCallback(button);
-        data->data[DATA_WAS_RELEASED] = TRUE;
+        status |= MASK_WAS_RELEASED;
     }
-    data->data[DATA_STATUS] = isPressed;
+	if (isPressed)
+		status |= MASK_STATUS;
+	else
+		status &= ~MASK_STATUS;
+	data->data[DATA_STATUS] = status;
 }
 
 BOOL wasPressed(Button button) {
     if (!IsValid(button)) return FALSE;
     ConfigData *data = pinConfigData(PIN, PinButtonInput);
     if (!data) return FALSE;
-    BOOL result = data->data[DATA_WAS_PRESSED];
-    data->data[DATA_WAS_PRESSED] = FALSE;
+    BOOL result = data->data[DATA_STATUS] & MASK_WAS_PRESSED;
+    data->data[DATA_STATUS] &= ~MASK_WAS_PRESSED;
     return result;
 }
 
@@ -91,8 +95,8 @@ BOOL wasReleased(Button button) {
     if (!IsValid(button)) return FALSE;
     ConfigData *data = pinConfigData(PIN, PinButtonInput);
     if (!data) return FALSE;
-    BOOL result = data->data[DATA_WAS_RELEASED];
-    data->data[DATA_WAS_RELEASED] = FALSE;
+    BOOL result = data->data[DATA_STATUS] & MASK_WAS_RELEASED;
+    data->data[DATA_STATUS] &= ~MASK_WAS_RELEASED;
     return result;
 }
 

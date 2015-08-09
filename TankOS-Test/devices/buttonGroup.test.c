@@ -14,8 +14,8 @@ ButtonGroup group;
 
 void setUp() {
 	init_fake_port();
-    b1 = newButton(testPin1, ButtonNormal, 1);
-    b2 = newButton(testPin2, ButtonNormal, 2);
+    b1 = newButton(testPin1, ButtonNormal);
+    b2 = newButton(testPin2, ButtonNormal);
 	buttonArray[0] = b1;
 	buttonArray[1] = b2;
 

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -172,12 +172,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\analog.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\external_interrupts.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\external_interrupts.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\port.c">
