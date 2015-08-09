@@ -13,7 +13,7 @@ ifeq ($(CONFIG), simulator)
     USE_BUFFER_STDOUT := true
     USE_TWI := true
 
-    MAIN_Main-Simulator := test_empty
+    MAIN_Main-Simulator := Main-Tank-IO
 
     PROJ := Main-Simulator
     PLATFORM := Avr

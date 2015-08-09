@@ -3,7 +3,7 @@ project := $(get-basedir)
 dependencies := TankOS Tank-Shared Kernel-Simulator
 
 ifndef MAIN_$(project)
-MAIN_$(project) := test_empty
+MAIN_$(project) := Main-Tank-IO
 endif
 
 include Defaults.mk
