@@ -3,7 +3,6 @@ include Tank-Shared/DefaultObjectVariables.mk
 
 $(eval $(call set_test_objects,kernel/devices/port,\
     $(BUILDDIR)/mocks/port.o \
-    $(BUILDDIR)/mocks/delay.o \
 	$(KERNEL)/devices/port.o ))
 
 $(eval $(call set_test_objects,kernel/devices/port-config,\
@@ -19,20 +18,17 @@ $(eval $(call set_test_objects,kernel/devices/external_interrupts,\
 
 $(eval $(call set_test_objects,devices/led,\
     $(BUILDDIR)/mocks/port.o \
-    $(BUILDDIR)/mocks/delay.o \
 	$(KERNEL)/devices/port.o \
     $(KERNEL_BASE)/devices/led.o ))
 
 $(eval $(call set_test_objects,devices/button,\
     $(BUILDDIR)/mocks/port.o \
-    $(BUILDDIR)/mocks/delay.o \
 	$(KERNEL)/devices/port.o \
     $(KERNEL_BASE)/devices/button.o \
     $(KERNEL)/devices/external_interrupts.o ))
 
 $(eval $(call set_test_objects,devices/buttonGroup,\
     $(BUILDDIR)/mocks/port.o \
-    $(BUILDDIR)/mocks/delay.o \
 	$(KERNEL)/devices/port.o \
     $(KERNEL_BASE)/devices/button.o \
     $(KERNEL)/devices/external_interrupts.o ))
@@ -45,14 +41,12 @@ $(eval $(call set_test_objects,devices/motor,\
 $(eval $(call set_test_objects,kernel/twi/driver/master,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
-    $(BUILDDIR)/mocks/delay.o \
 	$(KERNEL)/twi/driver/master_init.kernel.o \
     $(KERNEL)/twi/driver/master.kernel.o ))
 
 $(eval $(call set_test_objects,kernel/twi/driver/slave,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
-    $(BUILDDIR)/mocks/delay.o \
     $(KERNEL)/twi/driver/master.kernel.o \
     $(KERNEL)/twi/driver/slave_init.kernel.o \
 	$(KERNEL)/twi/driver/slave.kernel.o))

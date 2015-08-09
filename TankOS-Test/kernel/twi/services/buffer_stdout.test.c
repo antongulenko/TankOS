@@ -47,10 +47,10 @@ void request_buffer(uint16_t buf_size, uint16_t expected_size, char* expected_te
     assert_correct_status(status);
 
     uint16_t size = *(uint16_t*) buf;
-    char *stdout = buf + sizeof(uint16_t);
+    char *__stdout = buf + sizeof(uint16_t);
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(expected_size, size, "Unexpected buffer size returned");
     if (size > 0)
-        TEST_ASSERT_EQUAL_UINT8_ARRAY_MESSAGE(expected_text, stdout, size, "Unexpected buffer content returned");
+        TEST_ASSERT_EQUAL_UINT8_ARRAY_MESSAGE(expected_text, __stdout, size, "Unexpected buffer content returned");
 }
 
 void test_flush_less() {
