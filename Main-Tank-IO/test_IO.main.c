@@ -27,7 +27,7 @@ void leds_special() {
 
 void test_buttons() {
 	while (1) {
-		setLeds(allLeds, AS_WORD(buttonStatusMask()));
+		setLeds(allLeds, AS_WORD(buttonStatusMask(buttons)));
 	}
 }
 

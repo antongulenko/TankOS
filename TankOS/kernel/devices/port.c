@@ -28,6 +28,8 @@ typedef struct _Pin {
 #define PORT Get(_Port, port)
 #define PIN Get(_Pin, pin)
 
+static ConfigData IllegalConfig = { 0 };
+
 Port newPort(volatile uint8_t *port_reg, volatile uint8_t *pin_reg, volatile uint8_t *ddr_reg) {
     _Port *port = malloc(sizeof(_Port));
     if (!port) return Invalid(Port);
@@ -175,11 +177,11 @@ PinOccupation pinOccupation(Pin pin) {
     return PIN->config.tag;
 }
 
-ConfigData pinConfigData(Pin pin, PinOccupation tag) {
+ConfigData *pinConfigData(Pin pin, PinOccupation tag) {
     if (PIN->config.tag != tag)
-        return EmptyConfigData;
+        return &IllegalConfig;
     // After the occupation, the relevant data is stored conveniently in the pin struct.
-    return PIN->config.configData;
+    return &PIN->config.configData;
 }
 
 BOOL deOccupyPin(Pin pin, PinOccupation tag) {

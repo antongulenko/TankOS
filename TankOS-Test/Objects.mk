@@ -30,11 +30,12 @@ $(eval $(call set_test_objects,devices/button,\
     $(KERNEL_BASE)/devices/button.o \
     $(KERNEL)/devices/external_interrupts.o ))
 
-$(eval $(call set_test_objects,devices/buttonReader,\
-	$(KERNEL)/devices/port.o \
-	$(KERNEL)/devices/external_interrupts.o \
+$(eval $(call set_test_objects,devices/buttonGroup,\
     $(BUILDDIR)/mocks/port.o \
-	$(KERNEL_BASE)/devices/buttonReader.o ))
+    $(BUILDDIR)/mocks/delay.o \
+	$(KERNEL)/devices/port.o \
+    $(KERNEL_BASE)/devices/button.o \
+    $(KERNEL)/devices/external_interrupts.o ))
 
 $(eval $(call set_test_objects,devices/motor,\
 	$(KERNEL)/devices/port.o \

@@ -18,13 +18,13 @@
 // ==
 
 void tankIO_server_buttonStatus(TWIBuffer *result) {
-	uint8_t buttons = buttonStatusMask();
+	uint8_t buttons = buttonStatusMask(buttons);
 	FILL_RESULT(result, buttons, uint8_t)
 }
 TWI_RPC_SERVER_FUNCTION_NOARGS	(tankIO_server_buttonStatus, TANK_IO_buttonStatus, uint8_t)
 
 void tankIO_server_pressedButtons(TWIBuffer *result) {
-	uint8_t buttons = pressedButtons();
+	uint8_t buttons = wasPressedMask(buttons);
 	FILL_RESULT(result, buttons, uint8_t)
 }
 TWI_RPC_SERVER_FUNCTION_NOARGS	(tankIO_server_pressedButtons, TANK_IO_pressedButtons, uint8_t)

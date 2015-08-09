@@ -6,6 +6,6 @@
 
 int main() {
 	while (1) {
-		updateButtonStatus();
+		updateButtonGroup(buttons);
 	}
 }

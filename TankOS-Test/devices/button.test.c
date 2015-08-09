@@ -108,3 +108,83 @@ void test_interrupt_enabled() {
 	assertState(TRUE, FALSE);
 	TEST_ASSERT_EQUAL(TRUE, isPinChangeInterruptEnabled(TEST_INTERRUPT));
 }
+
+void test_initial_status() {
+    init_test_button(ButtonNormal);
+    TEST_ASSERT_FALSE_MESSAGE(wasPressed(Btn), "Button should not be marked pressed initially");
+    TEST_ASSERT_FALSE_MESSAGE(wasReleased(Btn), "Button should not be marked released initially");
+}
+
+void test_update_nothing() {
+    init_test_button(ButtonNormal);
+    pin = 0;
+    updateButtonStatus(Btn);
+    TEST_ASSERT_FALSE(buttonStatus(Btn));
+    TEST_ASSERT_FALSE(wasPressed(Btn));
+    TEST_ASSERT_FALSE(wasReleased(Btn));
+    updateButtonStatus(Btn);
+    TEST_ASSERT_FALSE(wasPressed(Btn));
+    TEST_ASSERT_FALSE(wasReleased(Btn));
+}
+
+void test_update_press_release() {
+    init_test_button(ButtonNormal);
+    pin = testPin1_mask;
+    updateButtonStatus(Btn);
+    pin = 0;
+    TEST_ASSERT_FALSE(buttonStatus(Btn));
+    TEST_ASSERT_TRUE(wasPressed(Btn));
+    TEST_ASSERT_FALSE(wasPressed(Btn));
+    TEST_ASSERT_FALSE(wasReleased(Btn));
+
+    updateButtonStatus(Btn);
+    pin = 0xff;
+    TEST_ASSERT_FALSE(wasPressed(Btn));
+    TEST_ASSERT_TRUE(wasReleased(Btn));
+    TEST_ASSERT_FALSE(wasReleased(Btn));
+}
+
+void test_update_multiple_consecutive() {
+    init_test_button(ButtonNormal);
+    pin = testPin1_mask;
+    updateButtonStatus(Btn); updateButtonStatus(Btn);
+    pin = 0;
+    updateButtonStatus(Btn);
+    pin = testPin1_mask;
+    updateButtonStatus(Btn); updateButtonStatus(Btn);
+    pin = 0;
+    updateButtonStatus(Btn); updateButtonStatus(Btn);
+    pin = testPin1_mask;
+    updateButtonStatus(Btn);
+    pin = 0;
+    updateButtonStatus(Btn);
+    TEST_ASSERT_FALSE(buttonStatus(Btn));
+    TEST_ASSERT_TRUE(wasPressed(Btn));
+    TEST_ASSERT_TRUE(wasReleased(Btn));
+    TEST_ASSERT_FALSE(wasPressed(Btn));
+    TEST_ASSERT_FALSE(wasReleased(Btn));
+}
+
+static Button button_pressed_callback_called;
+static Button button_released_callback_called;
+void button_pressed_callback(Button b) { button_pressed_callback_called = b; }
+void button_released_callback(Button b) { button_released_callback_called = b; }
+
+void test_update_callbacks() {
+    init_test_button(ButtonNormal);
+    button_pressed_callback_called = Invalid(Button);
+    button_pressed_callback_called = Invalid(Button);
+    buttonPressedCallback = button_pressed_callback;
+    buttonReleasedCallback = button_released_callback;
+
+    pin = testPin1_mask;
+    updateButtonStatus(Btn);
+    TEST_ASSERT_TRUE(Equal(Btn, button_pressed_callback_called));
+    TEST_ASSERT_FALSE(IsValid(button_released_callback_called));
+    button_pressed_callback_called = Invalid(Button);
+
+    pin = 0;
+    updateButtonStatus(Btn);
+    TEST_ASSERT_FALSE(IsValid(button_pressed_callback_called));
+    TEST_ASSERT_TRUE(Equal(Btn, button_released_callback_called));
+}

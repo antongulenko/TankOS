@@ -44,8 +44,9 @@ inline static BOOL conversionRunning() {
 }
 
 static void startConversion(Pin input) {
-    ConfigData data = pinConfigData(input, PinAnalogInput);
-    uint8_t pinNum = data.data[0];
+    ConfigData *data = pinConfigData(input, PinAnalogInput);
+    if (data == NULL) return;
+    uint8_t pinNum = data->data[0];
 	ATOMIC_BLOCK(ATOMIC_FORCEON) {
 		uint8_t admux = ADMUX;
 		// Set _only_ MUX4..0, the 5 LSB of ADMUX.

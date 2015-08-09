@@ -37,8 +37,8 @@ void run_occupied_test(PinOccupation tag, ConfigData expectedData) {
     occ = pinOccupation(p);
     TEST_ASSERT_EQUAL_INT_MESSAGE(tag, occ, "Pin not occupied by right tag (second try)");
     if (expectedData.data[0] != 0) {
-        ConfigData data = pinConfigData(p, tag);
-        TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expectedData, &data, sizeof data, "Wrong config data returned (second try)");
+        ConfigData *data = pinConfigData(p, tag);
+        TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expectedData, data, sizeof expectedData, "Wrong config data returned (second try)");
     }
 }
 
@@ -46,8 +46,8 @@ void run_test(PinOccupation tag, ConfigData expectedData) {
     BOOL res = occupyPin(p, tag);
     TEST_ASSERT_TRUE_MESSAGE(res, "Could not occupy pin");
     if (expectedData.data[0] != 0) {
-        ConfigData data = pinConfigData(p, tag);
-        TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expectedData, &data, sizeof data, "Wrong config data returned");
+        ConfigData *data = pinConfigData(p, tag);
+        TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&expectedData, data, sizeof expectedData, "Wrong config data returned");
     }
     run_occupied_test(tag, expectedData);
 }
@@ -99,8 +99,8 @@ void test_gpio_with_custom_config() {
 void test_occupy_directly() {
     BOOL res = occupyPinDirectly(p, myTag1, configData1);
     TEST_ASSERT_TRUE_MESSAGE(res, "Could not occupy pin");
-    ConfigData data = pinConfigData(p, myTag1);
-    TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&configData1, &data, sizeof data, "Wrong config data returned");
+    ConfigData *data = pinConfigData(p, myTag1);
+    TEST_ASSERT_EQUAL_MEMORY_MESSAGE(&configData1, data, sizeof configData1, "Wrong config data returned");
 
     res = occupyPinDirectly(p, myTag1, configData1);
     TEST_ASSERT_FALSE_MESSAGE(res, "Should not be able to occupy pin again");
