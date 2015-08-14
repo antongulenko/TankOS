@@ -7,9 +7,7 @@ ifeq ($(USE_PROCESS), true)
 endif
 
 ifeq ($(USE_SCHEDULER), true)
-    ifeq ($(PLATFORM), Avr)
-        objects += $(KERNEL)/processes/avr/scheduler_interrupt.kernel.o
-    endif
+    objects += $(KERNEL)/processes/scheduler_interrupt.kernel.o
     objects += $(SHARED)/scheduler.kernel.o
 else
     objects += $(KERNEL)/simple_timer.kernel.o
