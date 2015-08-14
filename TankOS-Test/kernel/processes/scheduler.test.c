@@ -76,6 +76,12 @@ void test_schedule_3() {
     TEST_ASSERT_TRUE_MESSAGE(Equal(p1, currentProcess), "wrong currentProcess");
 }
 
+void test_invalid_schedule() {
+    returnInvalid = TRUE;
+    schedule_next();
+    TEST_ASSERT_TRUE_MESSAGE(Equal(mainProcess, currentProcess), "invalid process scheduled");
+}
+
 extern BOOL yielding_quantum;
 
 void test_interrupt_1() {
