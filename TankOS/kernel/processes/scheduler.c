@@ -22,7 +22,7 @@ void schedule_next() {
 		next = schedule(FALSE);
 	}
 	// This is actually an invalid condition, but no need for a hardware reset here.
-	if (IsValid(next)) return;
+	if (!IsValid(next)) return;
 	switchProcessBase(next); // Will not return here until this process is scheduled again.
 }
 
@@ -40,6 +40,7 @@ void scheduler_interrupt() {
 		// This is an invalid condition. The schedule() function is required to return a valid process.
 		// Use the idle-scheduler to have a default fallback-process so this does not happen.
 		HARDWARE_RESET();
+        return;
 	}
     switchProcessBase(nextProcess);
 }

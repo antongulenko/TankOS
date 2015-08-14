@@ -3,12 +3,10 @@
 #include <kernel/processes/process.h>
 #include <unity.h>
 
-#define DEFAULT_STACK 300
-
 void doDestroy(Process p);
 
 void setUp() {
-    __default_stack_size = DEFAULT_STACK;
+    __default_stack_size = 300;
     init_native_simulation();
     init_mock_process();
     init_processes();
