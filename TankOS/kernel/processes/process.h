@@ -46,7 +46,7 @@ void *getProcessExtra(Process process);
 void switchProcess(Process newProcess);
 
 // Return the number of bytes available on the stack for process.
-uint8_t getProcessStackSize(Process process);
+uint16_t getProcessStackSize(Process process);
 
 // Return, how many bytes are left on the allocated stack for the process.
 // The value is calculated from the last process-context-snapshot, so the
@@ -63,5 +63,7 @@ ProcessBase getProcessBase(Process process);
 // This function does nothing, if the process is the currently
 // running process, since it's stack is currently in use.
 Process destroyProcess(Process process);
+
+void init_processes();
 
 #endif /* PROCESS_API_H_ */

@@ -20,7 +20,7 @@ extern uint16_t __default_stack_size;
 
 // The processArgument is optional. See createProcess2. Work around the compiler (ignore it),
 // if you do define the parameter and it complains, that the signature does not match this one.
-typedef void ProcessEntryPoint(/* void *processArgument */);
+typedef void (*ProcessEntryPoint)(/* void *processArgument */);
 
 // Returns the currently active Process.
 ProcessBase getCurrentProcessBase();
