@@ -10,14 +10,18 @@
 
 typedef struct AtomicMutex {
 	BOOL interruptsWereEnabled;
-} AtomicMutex;
+} *AtomicMutex;
+
+#define MUTEX Get(AtomicMutex, mutex)
 
 Mutex mutex_create() {
-	return As(Mutex, malloc(sizeof(AtomicMutex)));
+    AtomicMutex mutex = malloc(sizeof(struct AtomicMutex))
+    if (!mutex) return Invalid(Mutex);
+	return As(Mutex, mutex);
 }
 
 void mutex_lock(Mutex mutex) {
-	((AtomicMutex *) mutex.pointer)->interruptsWereEnabled = SREG & _BV(7);
+	MUTEX->interruptsWereEnabled = SREG & _BV(7);
 	cli();
 }
 
@@ -27,6 +31,6 @@ BOOL mutex_trylock(Mutex mutex) {
 }
 
 void mutex_release(Mutex mutex) {
-	if (((AtomicMutex *) mutex.pointer)->interruptsWereEnabled)
+	if (MUTEX->interruptsWereEnabled)
 		sei();
 }
