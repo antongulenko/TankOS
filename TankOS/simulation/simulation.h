@@ -39,10 +39,10 @@ void init_native_simulation();
 
 // == Memory
 // TODO use correct values x86 platforms?
-extern uint16_t DYNAMIC_MEMORY_START;
-extern uint16_t ALLOCATED_HEAP_END;
-extern uint16_t MALLOC_END;
-extern uint16_t MALLOC_START;
+extern intptr_t DYNAMIC_MEMORY_START;
+extern intptr_t ALLOCATED_HEAP_END;
+extern intptr_t MALLOC_END;
+extern intptr_t MALLOC_START;
 #define RAMSTART 0x100
 #define RAMEND 0xffff
 

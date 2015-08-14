@@ -1,11 +1,9 @@
 /*
- * rr_scheduler.c
- *
  * Created: 28.04.2012 18:31:06
  *  Author: Anton
  */
 
-#include "rr_api.h"
+#include "api.h"
 
 #define NUM_PRIOS 7
 
@@ -54,12 +52,12 @@ Thread createThread3(ThreadEntryPoint entry, ThreadPriority prio, void *threadPa
 }
 
 Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter, uint16_t stackSize) {
-	Thread thread = Cast(Thread, createProcess3(entry, threadParameter, stackSize, 0));
+	Thread thread = Cast(Thread, createProcess3(entry, threadParameter, stackSize));
 	insertThreadIntoQueue(thread, prio);
 	return thread;
 }
 
-Process rr_schedule(BOOL invokedFromTimer) {
+ProcessBase rr_schedule(BOOL invokedFromTimer) {
 	PThreadQueueElement current;
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		// Lower the top-priority, if necessary. It must be increased at all relevant places!
@@ -69,13 +67,14 @@ Process rr_schedule(BOOL invokedFromTimer) {
 
 		// Nothing to schedule?
 		if (queue->count == 0)
-			return Invalid(Process);
+			return Invalid(ProcessBase);
 
 		current = queue->current;
 		current = current->next == NULL ? queue->first : current->next;
 		queue->current = current;
 	}
-	return Cast(Process, current->thread);
+    Process proc = Cast(Process, current->thread);
+	return getProcessBase(proc);
 }
 
 void rr_captureMainProcess(ThreadPriority prio) {

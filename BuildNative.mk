@@ -53,7 +53,7 @@ ARFLAGS := rcs
 lss_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.lss)
 
 ifneq ($(LIBRARY), true)
-    ifeq ($(origin LSS), true)
+    ifeq ($(LSS), true)
         $(project): lss_$(project)
     endif
 endif

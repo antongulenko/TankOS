@@ -49,7 +49,7 @@ static void late_init_kernel() {
 	// BOD - TODO configure?
 
 	// Final initialization-sequence.
-	// AFTER other modules modified __default_stack_size and __main_process_additional_memory
+	// AFTER other modules modified __default_stack_size
 	before_timer(); // AFTER all other initialization and BEFORE starting the timers/scheduler
 
 	if (KERNEL_INIT_MAP & ENABLE_TIMER_A)

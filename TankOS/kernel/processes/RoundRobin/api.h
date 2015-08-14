@@ -1,6 +1,4 @@
 /*
- * rr_api.h
- *
  * Created: 21.04.2012 19:05:05
  *  Author: Anton
  */

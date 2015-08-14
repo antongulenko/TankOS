@@ -3,16 +3,12 @@
  *  Author: Anton
  */
 
-// #define USE_DMS
-
 #ifndef DMS_API_H_
 #define DMS_API_H_
 
 #include <kernel/processes/process.h>
 
 typedef void JobEntryPoint(/* void *jobArgument */);
-
-// TODO allow defining additionalMemory for these jobs + getAdditionalDmsMemory(Process)
 
 // See createPeriodicJob3, jobArgument = NULL, userPriority = 0
 Process createPeriodicJob(JobEntryPoint entryPoint, uint32_t period);

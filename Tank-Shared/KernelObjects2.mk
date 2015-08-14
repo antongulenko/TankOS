@@ -1,15 +1,15 @@
 
-# process_base and process_ext can be used separately, without the scheduler.
-ifeq ($(USE_PROCESS_EXT), true)
-    objects += $(KERNEL)/processes/process_ext.kernel.o
-else
+# Processes can be used separately, without the scheduler.
 ifeq ($(USE_PROCESS), true)
-    objects += $(KERNEL)/processes/process_base.kernel.o
-endif
+    ifeq ($(PLATFORM), Avr)
+        objects += $(KERNEL)/processes/avr/process.kernel.o
+    endif
 endif
 
-ifeq ($(origin USE_SCHEDULER), true)
-    objects += $(KERNEL)/processes/scheduler.kernel.o
+ifeq ($(USE_SCHEDULER), true)
+    ifeq ($(PLATFORM), Avr)
+        objects += $(KERNEL)/processes/avr/scheduler_interrupt.kernel.o
+    endif
     objects += $(SHARED)/scheduler.kernel.o
 else
     objects += $(KERNEL)/simple_timer.kernel.o

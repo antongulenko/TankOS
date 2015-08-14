@@ -27,7 +27,7 @@ void init_native_simulation() {
     DelayMSCalled = 0;
     DelayedUS = 0;
     DelayUSCalled = 0;
-    
+
     hardware_reset_triggered = 0;
     _interrupts_enabled = 0;
 
@@ -38,10 +38,10 @@ void init_native_simulation() {
     MALLOC_START = DYNAMIC_MEMORY_START;
 }
 
-uint16_t DYNAMIC_MEMORY_START;
-uint16_t ALLOCATED_HEAP_END;
-uint16_t MALLOC_END;
-uint16_t MALLOC_START;
+intptr_t DYNAMIC_MEMORY_START;
+intptr_t ALLOCATED_HEAP_END;
+intptr_t MALLOC_END;
+intptr_t MALLOC_START;
 
 uint8_t hardware_reset_triggered = 0;
 

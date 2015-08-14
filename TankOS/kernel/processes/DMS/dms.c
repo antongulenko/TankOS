@@ -3,10 +3,10 @@
  *  Author: Anton
  */
 
-#include "dms_api.h"
+#include "api.h"
+#include "scheduler.h"
 #include <kernel/processes/scheduler.h>
-#include <kernel/processes/process_internal.h>
-#include <kernel/processes/process_ext.h>
+#include <kernel/processes/process.h>
 #include <kernel/millisecond_clock.h>
 
 enum JobType {
@@ -46,11 +46,9 @@ typedef struct AperiodicJob {
 	BOOL wantsToRun;
 } AperiodicJob, *PAperiodicJob;
 
-#define JobMem(proc) ((PJob)getProcessMemory(proc))
+#define JobMem(proc) ((PJob)getProcessExtra(proc))
 
 typedef void RealJobEntryPoint(void *jobArgument);
-
-Process dms_schedule(BOOL invokedFromTimer);
 
 void schedule_next_dms_job() {
 	// When a DMS job is finished, we try to use the rest of the current CPU-quantum.
@@ -58,9 +56,9 @@ void schedule_next_dms_job() {
 	// to a non-DMS-Process, the current DMS-job would 'become' that other Process and never
 	// return to the PeriodicJobWrapper/AperiodicJobWrapper function.
 	// So we try to schedule another DMS-job that needs to run right now.
-	Process next = dms_schedule(FALSE);
+	ProcessBase next = dms_schedule(FALSE);
 	if (IsValid(next))
-		switchProcess(next);
+		switchProcessBase(next);
 	else
 		yield_quantum();
 }
@@ -88,7 +86,7 @@ void AperiodicJobWrapper(Process process) {
 // The first element in the job list, the job with the highest priority.
 Process processListHead;
 
-Process dms_schedule(BOOL invokedFromTimer) {
+ProcessBase dms_schedule(BOOL invokedFromTimer) {
 	// invokedFromTimer parameter is ignored - if a Job calls schedule_next,
 	// we schedule again; if a higher-prio aperiodic job has woken up, it will be scheduled;
 	// else, the same job should scheduled again, because other periodic threads did not wake up yet.
@@ -99,19 +97,19 @@ Process dms_schedule(BOOL invokedFromTimer) {
 			switch(job->jobType) {
 				case (Periodic):
 					if (((PPeriodicJob) job)->nextPeriod <= milliseconds_running) {
-						return current;
+						return getProcessBase(current);
 					}
 					break;
 				case (Aperiodic):
 					if (((PAperiodicJob) job)->wantsToRun == TRUE) {
-						return current;
+						return getProcessBase(current);
 					}
 					break;
 			}
 			current = job->nextJob;
 		}
 	}
-	return Invalid(Process);
+	return Invalid(ProcessBase);
 }
 
 void insertJobIntoList(Process process, PJob job) {
@@ -157,7 +155,7 @@ Process createPeriodicJob2(JobEntryPoint entryPoint, uint32_t period, void *jobA
 }
 
 Process createPeriodicJob3(JobEntryPoint entryPoint, uint32_t period, void *jobArgument, uint8_t userPriority) {
-	Process process = createProcess3(&PeriodicJobWrapper, NULL, __default_stack_size, sizeof(PeriodicJob));
+	Process process = createProcess3(&PeriodicJobWrapper, NULL, __default_stack_size);
 	if (!IsValid(process))
 		return Invalid(Process);
 	PPeriodicJob job = (PPeriodicJob) JobMem(process);
@@ -177,7 +175,7 @@ Process createAperiodicJob2(JobEntryPoint entryPoint, uint32_t minimalPeriod, vo
 }
 
 Process createAperiodicJob3(JobEntryPoint entryPoint, uint32_t minimalPeriod, void *jobArgument, uint8_t userPriority) {
-	Process process = createProcess3(&AperiodicJobWrapper, NULL, __default_stack_size, sizeof(AperiodicJob));
+	Process process = createProcess3(&AperiodicJobWrapper, NULL, __default_stack_size);
 	if (!IsValid(process))
 		return Invalid(Process);
 	PAperiodicJob job = (PAperiodicJob) JobMem(process);
@@ -217,5 +215,5 @@ void freeJob(Process job) {
 			JobMem(before)->nextJob = JobMem(job)->nextJob;
 		}
 	}
-	freeProcess(job);
+	destroyProcess(job);
 }

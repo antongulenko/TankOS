@@ -12,10 +12,10 @@ typedef struct AtomicMutex {
 	BOOL interruptsWereEnabled;
 } *AtomicMutex;
 
-#define MUTEX Get(AtomicMutex, mutex)
+#define MUTEX Get(struct AtomicMutex, mutex)
 
 Mutex mutex_create() {
-    AtomicMutex mutex = malloc(sizeof(struct AtomicMutex))
+    AtomicMutex mutex = malloc(sizeof(struct AtomicMutex));
     if (!mutex) return Invalid(Mutex);
 	return As(Mutex, mutex);
 }

@@ -1,46 +1,18 @@
-/*
- * Created: 03.02.2012 16:47:05
- *  Author: Anton
- */
 
-#ifndef PROCESS_INTERNAL_H_
-#define PROCESS_INTERNAL_H_
-
-#include <tank_os_common.h>
-#include "process_base.h"
-
-extern uint16_t __default_stack_size;
-extern uint8_t __main_process_additional_memory;
-
-// Process Control Block structure
-// This really just holds the context-data, no organization-data.
-typedef struct PCB {
-	void *stackPointer; // one-word stack-pointer
-	// The rest of the context will simply be pushed on the stack.
-	// The stack-pointer is therefore enough to restore the context.
-} PCB, *PPCB;
-
-// The currently active process. Will be set to the first process before entering main(). Can be safely cast to PPCB.
-extern Process __current_process;
-
-// How the program counter (PC) is handled:
-// 1. context-switch after interrupt: before executing the ISR, the current PC is pushed onto
-//		the current stack. Now the context is changed (including the stack-pointer) -> the reti-
-//		instruction will pop the PC from the changed stack and return there.
-// 2. manual context-switch: the PC will also be the last thing pushed onto the stack by the
-//		caller-context of the switchProcess-function. Therefore, the rest of the context is pushed
-//		directly on top of the PC. After restoring the context, a simple ret-instruction has to
-//		be executed to pop the PC from the new stack.
-
-// Store current context in oldProcess, restore newProcess afterwards.
-// This only returns, if another process switches the context back to oldProcess.
-void switchContext(PPCB oldProcess, PPCB newProcess);
+#ifndef _CONTEXT_SWITCH_AVR_
+#define _CONTEXT_SWITCH_AVR_
 
 // This is the number of bytes pushed by the PushProcessContext() macro
 #define CONTEXT_STACK_SIZE 34
 
-// The number of bytes initially pushed on the stack of a newly created process.
-#define INITIAL_STACK_SIZE (CONTEXT_STACK_SIZE + 4)
+// How the program counter (PC) is handled:
+// 1. context-switch after interrupt: before executing the ISR, the current PC is pushed onto
+//		the current stack. Now the context is changed (including the stack-pointer)
+//		-> the reti-instruction will pop the PC from the changed stack and return there.
+// 2. manual context-switch: the PC will also be the last thing pushed onto the stack by the
+//		caller-context of the switchProcess-function. Therefore, the rest of the context is pushed
+//		directly on top of the PC. After restoring the context, a simple ret-instruction has to
+//		be executed to pop the PC from the new stack.
 
 // This macro pushes the current context onto the stack.
 // Interrupts are disabled at the beginning of this macro and NOT re-enabled!
@@ -153,11 +125,4 @@ asm volatile(														\
 	"pop r0						\n" /* Pop r0 */												\
 );
 
-// Function for functionless processes. Infinitely sets the processor in idle-mode.
-void ProcessGraveyard();
-
-// Initialization function, should be called once from a kernel-module, right before
-// interrupts are enabled.
-void init_process();
-
-#endif /* PROCESS_INTERNAL_H_ */
+#endif // _CONTEXT_SWITCH_AVR_

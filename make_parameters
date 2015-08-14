@@ -7,7 +7,6 @@
 ifeq ($(CONFIG), simulator)
 
     USE_PROCESS := false
-    USE_PROCESS_EXT := false
     USE_SCHEDULER := false
 
     USE_BUFFER_STDOUT := true

@@ -1,7 +1,15 @@
 
-ifneq ($(PLATFORM), AVR)
-# Following paths are only available for the AVR platform.
+# Some paths are not available on every platform
+# TODO write function or something to avoid the duplicated filter statements
 
-all_objects := $(filter-out $(BUILDDIR)/kernel/processes/%,$(all_objects))
+ifneq ($(PLATFORM), Avr)
+all_objects := $(filter-out $(BUILDDIR)/kernel/processes/avr/%,$(all_objects))
+objects := $(filter-out $(BUILDDIR)/kernel/processes/avr/%,$(objects))
+all_objects := $(filter-out $(BUILDDIR)/m1284P/%,$(all_objects))
+objects := $(filter-out $(BUILDDIR)/m1284P/%,$(objects))
+endif
 
+ifneq ($(PLATFORM), Native)
+all_objects := $(filter-out $(BUILDDIR)/simulation/%,$(all_objects))
+objects := $(filter-out $(BUILDDIR)/simulation/%,$(objects))
 endif

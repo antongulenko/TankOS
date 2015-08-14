@@ -17,7 +17,7 @@
 
 #include <kernel/processes/process.h>
 #include <kernel/processes/scheduler.h>
-#include <kernel/processes/DMS/dms_api.h>
-#include <kernel/processes/RoundRobin/rr_api.h>
+#include <kernel/processes/DMS/api.h>
+#include <kernel/processes/RoundRobin/api.h>
 
 #endif

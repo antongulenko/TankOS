@@ -5,6 +5,6 @@
 
 // This is the most relevant internal kernel-function of this module.
 // It is implemented in dms_scheduler.c
-Process dms_schedule(BOOL invokedFromTimer);
+ProcessBase dms_schedule(BOOL invokedFromTimer);
 
 #endif
