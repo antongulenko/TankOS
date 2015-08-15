@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -116,6 +116,7 @@
     <Folder Include="kernel\devices\" />
     <Folder Include="kernel\mutex\" />
     <Folder Include="kernel\processes\" />
+    <Folder Include="kernel\processes\avr\" />
     <Folder Include="kernel\processes\DMS\" />
     <Folder Include="kernel\processes\idle\" />
     <Folder Include="kernel\processes\RoundRobin\" />
@@ -216,22 +217,34 @@
     <Compile Include="kernel\mutex\mutex.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\DMS\dms_api.h">
+    <Compile Include="kernel\processes\avr\context_switch.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\DMS\dms_internal.h">
+    <Compile Include="kernel\processes\avr\process.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\DMS\dms_scheduler.c">
+    <Compile Include="kernel\processes\avr\process.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\idle\idle_internal.h">
+    <Compile Include="kernel\processes\DMS\api.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\idle\idle_scheduler.c">
+    <Compile Include="kernel\processes\DMS\dms.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\DMS\scheduler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\idle\idle.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\idle\scheduler.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\processes\mutex.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\process.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\processes\process.h">
@@ -240,25 +253,13 @@
     <Compile Include="kernel\processes\process_base.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\process_base.kernel.c">
+    <Compile Include="kernel\processes\RoundRobin\api.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\process_ext.h">
+    <Compile Include="kernel\processes\RoundRobin\rr.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\process_ext.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\processes\process_internal.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\processes\RoundRobin\rr_api.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\processes\RoundRobin\rr_internal.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\processes\RoundRobin\rr_scheduler.c">
+    <Compile Include="kernel\processes\RoundRobin\scheduler.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\processes\scheduler.c">
@@ -267,10 +268,7 @@
     <Compile Include="kernel\processes\scheduler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\scheduler.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\processes\scheduler_internal.h">
+    <Compile Include="kernel\processes\scheduler_interrupt.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\simple_timer.kernel.c">

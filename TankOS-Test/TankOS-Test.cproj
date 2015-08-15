@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -101,6 +101,7 @@
     <Folder Include="devices\" />
     <Folder Include="kernel\" />
     <Folder Include="kernel\devices\" />
+    <Folder Include="kernel\processes\" />
     <Folder Include="kernel\twi\" />
     <Folder Include="kernel\twi\driver\" />
     <Folder Include="kernel\twi\rpc\" />
@@ -130,6 +131,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\devices\timer.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\process.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="kernel\processes\scheduler.test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\driver\base_tests.c">
@@ -192,10 +199,19 @@
     <Compile Include="mocks\port.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="mocks\process.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\process.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="mocks\rpc_client.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\rpc_client.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\rpc_client_registry.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\rpc_server.c">
