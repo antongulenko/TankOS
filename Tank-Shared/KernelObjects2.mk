@@ -13,6 +13,4 @@ else
     objects += $(KERNEL)/simple_timer.kernel.o
 endif
 
-objects += \
-    $(SHARED)/late_init_default.kernel.o \
-    $(SHARED)/late_init.kernel.o
+objects += $(SHARED)/late_init.kernel.o

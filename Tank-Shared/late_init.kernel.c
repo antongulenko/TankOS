@@ -7,7 +7,6 @@
 #include <m1284P/timer.h>
 #include <kernel/early_init.h>
 #include "timer.h"
-#include "late_init.h"
 
 // This function can be implemented in user code to have some initialization-code
 // before the scheduler is started.
@@ -24,39 +23,39 @@ void before_timer() {
 	before_scheduler();
 }
 
-static void late_init_kernel() {
-	// Power saving settings
+static void configure_power_saving() {
+	// === Disable Analog Comparator
+    ACSR |= _BV(ACD);
 
-	// Analog Comparator
-	if (KERNEL_INIT_MAP & DISABLE_AC)
-		ACSR |= _BV(ACD);
-
-	// Timers
-	if (KERNEL_INIT_MAP & DISABLE_TIMER0)
-		PRR0 |= _BV(PRTIM0);
-	if (KERNEL_INIT_MAP & DISABLE_TIMER1)
-		PRR0 |= _BV(PRTIM1);
-	if (KERNEL_INIT_MAP & DISABLE_TIMER2)
-		PRR0 |= _BV(PRTIM2);
-	if (KERNEL_INIT_MAP & DISABLE_TIMER3)
-		PRR0 |= _BV(PRTIM3);
+	// === Disable Timers
+    // PRR0 |= _BV(PRTIM0);
+    // PRR0 |= _BV(PRTIM1);
+    // PRR0 |= _BV(PRTIM2);
+    // PRR0 |= _BV(PRTIM3);
 
 	// TODO add more power saving settings, check whether these are correct.
 
 	// WDT-configuration -- resets after 4s (alt.: 8S, 2S, 1S, 500MS, ...)
 	// wdt_enable(WDTO_4S);
 
-	// BOD - TODO configure?
+	// TODO configure BOD?
+}
 
-	// Final initialization-sequence.
-	// AFTER other modules modified __default_stack_size
-	before_timer(); // AFTER all other initialization and BEFORE starting the timers/scheduler
+static void enable_timer_interrupts() {
+    // TIMSK0 |= _BV(OCIE0A);
+    // TIMSK0 |= _BV(OCIE0B);
+    // TIMSK1 |= _BV(OCIE1A);
+    // TIMSK1 |= _BV(OCIE1B);
+    // TIMSK2 |= _BV(OCIE2A);
+    // TIMSK2 |= _BV(OCIE2B);
+    TIMSK3 |= _BV(OCIE3A);
+    TIMSK3 |= _BV(OCIE3B);
+}
 
-	if (KERNEL_INIT_MAP & ENABLE_TIMER_A)
-		TIMSK3 = _BV(OCIE3A);
-	if (KERNEL_INIT_MAP & ENABLE_TIMER_B)
-		TIMSK3 = _BV(OCIE3B);
-
+static void late_init_kernel() {
+    configure_power_saving();
+	before_timer();
+    enable_timer_interrupts();
 	boot_completed();
     sei();
 }
