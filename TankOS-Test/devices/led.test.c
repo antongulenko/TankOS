@@ -78,6 +78,14 @@ void test_enableTwo() {
 	assertState(0, testPin1_mask | testPin2_mask, ALL_LEDS);
 }
 
+void test_isEnabled() {
+	TEST_ASSERT_FALSE(isLedEnabled(Led1));
+	enableLed(Led1);
+	TEST_ASSERT_TRUE(isLedEnabled(Led1));
+	disableLed(Led1);
+	TEST_ASSERT_FALSE(isLedEnabled(Led1));
+}
+
 void test_disableOne() {
 	disableLed(Led1);
 	assertState(0, 0, ALL_LEDS);

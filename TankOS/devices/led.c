@@ -62,6 +62,10 @@ void setLed(Led led, BOOL value) {
 	writePin(PIN, value);
 }
 
+BOOL isLedEnabled(Led led) {
+	return isPinOutputHigh(PIN);
+}
+
 void setLeds(LedGroup group, uint16_t mask) {
 	uint16_t iMask = 1;
 	for (int i = 0, n = group->count; i < n; i++) {

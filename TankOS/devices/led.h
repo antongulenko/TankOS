@@ -31,6 +31,7 @@ LedGroup destroyLedGroup(LedGroup led);
 void enableLed(Led led);
 void disableLed(Led led);
 void setLed(Led led, BOOL value);
+BOOL isLedEnabled(Led led);
 
 // Sets the first 16 (or less, if there are less than 16) leds in
 // the led-group according to the given bitmask.
