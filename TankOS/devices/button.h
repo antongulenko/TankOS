@@ -35,8 +35,6 @@ typedef void (*ButtonCallbackFunction)(Button button);
 extern ButtonCallbackFunction buttonPressedCallback;
 extern ButtonCallbackFunction buttonReleasedCallback;
 
-void enableButtonChangeInterrupt(Button button);
-
 // === ButtonGroup
 
 typedef struct ButtonGroup {
