@@ -49,7 +49,7 @@ static void enable_timer_interrupts() {
     // TIMSK2 |= _BV(OCIE2A);
     // TIMSK2 |= _BV(OCIE2B);
     TIMSK3 |= _BV(OCIE3A);
-    TIMSK3 |= _BV(OCIE3B);
+    //TIMSK3 |= _BV(OCIE3B);
 }
 
 static void late_init_kernel() {

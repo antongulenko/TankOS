@@ -34,9 +34,10 @@ default: run
 endif
 ifeq ($(CONFIG), tank)
 
-    #USE_BUFFER_STDOUT := trues
-    USE_TWI := true
+    #USE_BUFFER_STDOUT := true
+    #USE_TWI := true
 
+    STUDIO := true
     PLATFORM := Avr
     LSS := true
     SPEED := true

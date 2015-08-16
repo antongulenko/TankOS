@@ -14,7 +14,7 @@ MCUFLAG := -mmcu=$(MCU)
 BASE_FLAGS := $(MCUFLAG) \
 	-std=gnu99 \
 	-DAVR \
-	-DF_CPU=20000000 \
+	-DF_CPU=8000000 \
 	-fshort-enums \
 	-Wall \
     -Wno-missing-braces
