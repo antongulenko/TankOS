@@ -57,6 +57,7 @@ static void late_init_kernel() {
 	before_timer();
     enable_timer_interrupts();
 	boot_completed();
+    klog("B\n"); // Booted
     sei();
 }
 KERNEL_INIT(late_init_kernel)

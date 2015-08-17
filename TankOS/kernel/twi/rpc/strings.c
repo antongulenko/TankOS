@@ -76,6 +76,8 @@ char *RpcClientStatus_string(RpcClientStatus status) {
             return "RPC call success (oneway)";
         case TWI_RPC_call_error_send_buffer_too_small:
             return "RPC call error: send buffer too small";
+        case TWI_RPC_call_error_allocation_failed:
+            return "RPC call error: allocation failed";
         case TWI_RPC_call_error_driver:
             return "RPC call driver error";
         case TWI_RPC_call_error_server:

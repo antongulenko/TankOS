@@ -5,6 +5,7 @@
 
 #include <tank_os_common.h>
 #include <misc/idle.h>
+#include <misc/klib.h>
 #include <kernel/processes/process_base.h>
 #include "context_switch.h"
 
@@ -24,8 +25,8 @@ typedef struct PCB {
 ProcessBase __current_process = ConstantInvalid(ProcessBase);
 
 static ProcessBase initializeProcessInternal(void *stackPointer) {
-	PCB process = malloc(sizeof(struct PCB));
-	if (!process) { return Invalid(ProcessBase); }
+	PCB process = kalloc(sizeof(struct PCB));
+	if (!process) return Invalid(ProcessBase);
 	process->stackPointer = stackPointer;
     process->extra = NULL;
 	return As(ProcessBase, process);
@@ -61,7 +62,7 @@ ProcessBase createProcessBase(ProcessEntryPoint entryPoint, void *parameter, uin
 	// The stack-pointer of the new process is the end of the allocated block,
 	// because the stack grows in opposite direction as the allocation.
 	// 2 and sizeof(struct PCB) are subtracted because there is an initial context pushed there.
-	uint8_t *stackTop = (uint8_t*) calloc(stackSize, sizeof(uint8_t));
+	uint8_t *stackTop = (uint8_t*) kcalloc(stackSize, sizeof(uint8_t));
 	if (!stackTop) { return Invalid(ProcessBase); }
 	uint8_t *stackBottom = stackTop + stackSize - 1;
 	// "Push" the address of the ProcessGraveyard and the actual entryPoint

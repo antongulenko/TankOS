@@ -4,6 +4,7 @@
  */
 
 #include "process.h"
+#include <misc/klib.h>
 
 uint16_t __default_stack_size = 512;
 uint16_t __nextProcessNumber = 0;
@@ -21,7 +22,7 @@ typedef struct _Process {
 #define PROCESS Get(struct _Process, process)
 
 static _Process internalCreateProcess(ProcessBase base, void *processArgument, uint16_t stackSize, void *stackTop) {
-    _Process process = malloc(sizeof(struct _Process));
+    _Process process = kalloc(sizeof(struct _Process));
     if (!process) return NULL;
 	process->processNumber = __nextProcessNumber++;
 	process->stackSize = stackSize;
@@ -66,7 +67,10 @@ Process destroyProcess(Process process) {
 
 Process getCurrentProcess() {
     ProcessBase base = getCurrentProcessBase();
-    if (!IsValid(base)) return Invalid(Process);
+    if (!IsValid(base)) {
+        klog("icp\n"); // Invalid current process
+        return Invalid(Process);
+    }
     return As(Process, getProcessBaseExtra(base));
 }
 

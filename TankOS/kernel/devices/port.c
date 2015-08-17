@@ -6,6 +6,7 @@
  */
 
 #include "port.h"
+#include <misc/klib.h>
 
 typedef struct _Port {
 	volatile uint8_t *port; // output-register
@@ -31,7 +32,7 @@ typedef struct _Pin {
 static ConfigData IllegalConfig = { 0 };
 
 Port newPort(volatile uint8_t *port_reg, volatile uint8_t *pin_reg, volatile uint8_t *ddr_reg) {
-    _Port *port = malloc(sizeof(_Port));
+    _Port *port = kalloc(sizeof(_Port));
     if (!port) return Invalid(Port);
     port->port = port_reg;
     port->pin = pin_reg;
@@ -57,7 +58,7 @@ static void freePinConfigList(_Pin *pin) {
 }
 
 Pin newPin(Port port, uint8_t pinNumber) {
-    _Pin *pin = malloc(sizeof(_Pin));
+    _Pin *pin = kalloc(sizeof(_Pin));
     if (!pin) return Invalid(Pin);
     pin->port = PORT;
     pin->mask = _BV(pinNumber);
@@ -135,14 +136,19 @@ BOOL isPinOutputHigh(Pin pin) {
 // == Pin configuration
 
 BOOL registerPinConfig(Pin pin, PinOccupation tag, ConfigData configData) {
-    if (PIN->config.tag != PinNoOccupation)
+    if (PIN->config.tag != PinNoOccupation) {
+        klog("rPC:%i<%i\n", tag, PIN->config.tag); // registerPinConfig failed
         return FALSE;
+    }
     PinConfigEntry *head = &PIN->config;
     while (head->next != NULL) {
         head = head->next;
-        if (head->tag == tag) return FALSE;
+        if (head->tag == tag) {
+            klog("rPCd:%i\n"); // registerPinConfig double registration
+            return FALSE;
+        }
     }
-    PinConfigEntry *config = malloc(sizeof(PinConfigEntry));
+    PinConfigEntry *config = kalloc(sizeof(PinConfigEntry));
     if (!config) return FALSE;
     head->next = config;
     config->next = NULL;
@@ -152,8 +158,10 @@ BOOL registerPinConfig(Pin pin, PinOccupation tag, ConfigData configData) {
 }
 
 BOOL occupyPin(Pin pin, PinOccupation tag) {
-    if (PIN->config.tag != PinNoOccupation)
+    if (PIN->config.tag != PinNoOccupation) {
+        klog("oP:%i<%i\n", tag, PIN->config.tag); // occupyPin failed
         return FALSE;
+    }
     PinConfigEntry *head = &PIN->config;
     do {
         if (head->tag == tag) {
@@ -162,12 +170,15 @@ BOOL occupyPin(Pin pin, PinOccupation tag) {
             return TRUE;
         }
     } while ((head = head->next) != NULL);
+    klog("oPf:%i\n", tag); // occupyPin: registration not found
     return FALSE;
 }
 
 BOOL occupyPinDirectly(Pin pin, PinOccupation tag, ConfigData configData) {
-    if (PIN->config.tag != PinNoOccupation)
+    if (PIN->config.tag != PinNoOccupation) {
+        klog("oPD:%i<%i\n", tag, PIN->config.tag); // occupyPinDirectly failed
         return FALSE;
+    }
     PIN->config.tag = tag;
     PIN->config.configData = configData;
     return TRUE;
@@ -178,15 +189,19 @@ PinOccupation pinOccupation(Pin pin) {
 }
 
 ConfigData *pinConfigData(Pin pin, PinOccupation tag) {
-    if (PIN->config.tag != tag)
+    if (PIN->config.tag != tag) {
+        klog("pCD%i!%i\n", tag, PIN->config.tag); // pinConfigData failed
         return &IllegalConfig;
+    }
     // After the occupation, the relevant data is stored conveniently in the pin struct.
     return &PIN->config.configData;
 }
 
 BOOL deOccupyPin(Pin pin, PinOccupation tag) {
-    if (PIN->config.tag != tag)
+    if (PIN->config.tag != tag) {
+        klog("dOP:%i!%i\n", tag, PIN->config.tag); // deOccupyPin failed
         return FALSE;
+    }
     PIN->config.tag = PinNoOccupation;
     PIN->config.configData = EmptyConfigData;
     return TRUE;

@@ -7,6 +7,7 @@
 
 #include "timer.h"
 #include "port.h"
+#include <misc/klib.h>
 
 typedef struct _Timer {
 	TimerType type;
@@ -18,7 +19,7 @@ typedef struct _Timer {
 #define TIMER Get(_Timer, timer)
 
 Timer newTimer(volatile uint8_t *outputCompareRegister, TimerType type) {
-    _Timer *timer = malloc(sizeof(_Timer));
+    _Timer *timer = kalloc(sizeof(_Timer));
     if (!timer) return Invalid(Timer);
     timer->type = type;
     timer->pwm = FALSE;
@@ -28,7 +29,7 @@ Timer newTimer(volatile uint8_t *outputCompareRegister, TimerType type) {
 }
 
 Timer newPwmTimer(volatile uint8_t *outputCompareRegister, TimerType type, Pin outputComparePin) {
-    _Timer *timer = malloc(sizeof(_Timer));
+    _Timer *timer = kalloc(sizeof(_Timer));
     if (!timer) return Invalid(Timer);
     if (!occupyPinDirectly(outputComparePin, PinPwmOutput, EmptyConfigData)) {
         free(timer);

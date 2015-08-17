@@ -1,4 +1,5 @@
 
+#include <misc/klib.h>
 #include "client_functions.h"
 #include "client_functions_registry.h"
 
@@ -27,7 +28,8 @@ RpcClientResult twi_rpc_client_async(TWIDevice device, byte operationByte, byte 
 }
 
 void registerClientFunction(char *funcName, RpcQueryFunction function, uint8_t argument_bytes, uint8_t result_bytes, BOOL variable_arguments, BOOL variable_results, byte operation) {
-    ClientFunctionRegistryEntry entry = calloc(1, sizeof(_ClientFunctionRegistryEntry));
+    ClientFunctionRegistryEntry entry = kcalloc(1, sizeof(_ClientFunctionRegistryEntry));
+    if (!entry) return;
     entry->name = funcName;
     entry->function = function;
     entry->argument_bytes = argument_bytes;

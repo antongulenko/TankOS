@@ -6,6 +6,7 @@
  */
 
 #include "motor.h"
+#include <misc/klib.h>
 
 typedef struct _Motor {
     MotorType type;
@@ -30,9 +31,15 @@ typedef struct _Motor {
 #define MOTOR Get(_Motor, motor)
 
 static Motor newMotorImpl(MotorType type, Timer forwardTimer, Timer backwardTimer, Pin forwardPin, Pin backwardPin) {
-    if (!isPwmTimer(forwardTimer)) return Invalid(Motor);
-    if (IsValid(backwardTimer) && !isPwmTimer(backwardTimer)) return Invalid(Motor);
-    _Motor *motor = malloc(sizeof(_Motor));
+    if (!isPwmTimer(forwardTimer)) {
+        klog("mnp\n"); // Motor needs PWM
+        return Invalid(Motor);
+    }
+    if (IsValid(backwardTimer) && !isPwmTimer(backwardTimer)) {
+        klog("mnp\n"); // Motor needs PWM
+        return Invalid(Motor);
+    }
+    _Motor *motor = kalloc(sizeof(_Motor));
     if (!motor) return Invalid(Motor);
     if (IsValid(forwardPin)) {
         if (!occupyPinDirectly(forwardPin, PinMotorDirection, EmptyConfigData)) {

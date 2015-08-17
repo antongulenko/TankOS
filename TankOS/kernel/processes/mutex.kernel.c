@@ -6,13 +6,14 @@
 // TODO put down some Mutex implementation :)
 
 #include <kernel/mutex/mutex.h>
+#include <misc/klib.h>
 
 typedef struct RealMutex {
 	// TODO
 } RealMutex, *PRealMutex;
 
 Mutex mutex_create() {
-	return As(Mutex, malloc(sizeof(RealMutex)));
+	return As(Mutex, kalloc(sizeof(RealMutex)));
 }
 
 void mutex_lock(Mutex mutex) {

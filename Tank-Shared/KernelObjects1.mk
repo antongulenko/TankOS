@@ -10,7 +10,8 @@ objects += \
     $(KERNEL)/mutex/atomic_mutex.kernel.o \
     $(KERNEL)/sleep_after_main.kernel.o \
     $(KERNEL)/devices/analog.kernel.o \
-    $(KERNEL_BASE)/m1284P/analog.kernel.o
+    $(KERNEL_BASE)/m1284P/analog.kernel.o \
+    $(KERNEL_BASE)/misc/klib.kernel.o
 
 ifeq ($(USE_BUFFER_STDOUT), true)
     objects += $(KERNEL)/buffer_stdout.kernel.o

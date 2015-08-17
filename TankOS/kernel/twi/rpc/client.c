@@ -2,11 +2,13 @@
 #include "client.h"
 #include <string.h>
 #include <stdlib.h>
+#include <misc/klib.h>
 
 static TWIBuffer sendBuffer = { 0, 0 };
 static uint16_t sendBufferSize;
 
 static RpcClientResult small_buffer_error = { TWI_RPC_call_error_send_buffer_too_small, TWI_RPC_handler_unknown, TWI_RPC_invalid };
+static RpcClientResult allocation_error = { TWI_RPC_call_error_allocation_failed, TWI_RPC_handler_unknown, TWI_RPC_invalid };
 
 void twi_rpc_client_init(TWIBuffer parameterBuffer) {
 	sendBuffer = parameterBuffer;
@@ -78,6 +80,10 @@ RpcClientResult twi_rpc(TWIDevice device, byte operation, TWIBuffer parameters, 
     // Receive into a buffer allocated on the stack
     size_t size = resultBuffer.size + 3;
     byte *responseData = alloca(size);
+    if (!responseData) {
+        klog("caf\n"); // Client alloca failed
+        return allocation_error;
+    }
     memset(responseData, 0, size);
     TWIBuffer responseBuffer = { responseData, size };
     twiSendReceive(device, sendBuffer, responseBuffer);

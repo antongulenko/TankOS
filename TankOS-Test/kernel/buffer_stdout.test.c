@@ -1,5 +1,6 @@
 
 #include <kernel/buffer_stdout.h>
+#include <simulation/simulation.h>
 #include <unity.h>
 #include <string.h>
 
@@ -11,6 +12,7 @@ int dropped = 0;
 
 void setUp() {
     printed = flushed = dropped = 0;
+    init_native_simulation();
     init_buffer_stdout();
     memset(flush_buf, 0, sizeof(flush_buf));
     for (int i = 0; i < 1000; i++) {
@@ -86,4 +88,14 @@ void test() {
     flush(STDOUT_BUFFER_SIZE - 10);
 
     TEST_ASSERT_EQUAL_UINT8_ARRAY_MESSAGE(buf, flush_buf, flushed, "flushed stdout buffer does not match");
+}
+
+void test_flush_to_eeprom() {
+    char *s = "HALLO CHAR";
+    size_t len = strlen(s);
+    for (int i = 0; i < len; i++) {
+        buffer_stdout_putchar(s[i], &buffer_stdout_stream);
+    }
+    buffer_stdout_flush_to_eeprom((void*) 10, len);
+    TEST_ASSERT_EQUAL_STRING_LEN(s, ((char*)eeprom_data) + 10, len);
 }

@@ -11,6 +11,7 @@ typedef enum {
 
     TWI_RPC_call_error, // Not used, marker value for >= comparisons
     TWI_RPC_call_error_send_buffer_too_small,
+    TWI_RPC_call_error_allocation_failed,
     TWI_RPC_call_error_driver,
     TWI_RPC_call_error_server, // Indicates to check server_status
     TWI_RPC_call_error_wrong_operation_byte, // Failed sanity check!

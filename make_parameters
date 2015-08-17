@@ -34,8 +34,9 @@ default: run
 endif
 ifeq ($(CONFIG), tank)
 
-    #USE_BUFFER_STDOUT := true
-    #USE_TWI := true
+    KERNEL_LOG := true
+    USE_BUFFER_STDOUT := true
+    USE_TWI := true
 
     STUDIO := true
     PLATFORM := Avr

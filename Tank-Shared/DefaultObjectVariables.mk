@@ -9,6 +9,8 @@ MISC := $(KERNEL_BASE)/misc
 define set_test_objects
     objects_$(project)_testrunners/$1.testrunner := \
         Unity/$(BUILD_DIRNAME)/unity.o \
+        $(MISC)/klib.kernel.o \
+        $(BUILDDIR)/mocks/printf.o \
         $(BUILDDIR)/$1.test.o \
         $2
     ifeq ($(PLATFORM), Native)

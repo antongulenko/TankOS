@@ -7,6 +7,7 @@
 // mutual exclusion.
 
 #include "mutex.h"
+#include <misc/klib.h>
 
 typedef struct AtomicMutex {
 	BOOL interruptsWereEnabled;
@@ -15,7 +16,7 @@ typedef struct AtomicMutex {
 #define MUTEX Get(struct AtomicMutex, mutex)
 
 Mutex mutex_create() {
-    AtomicMutex mutex = malloc(sizeof(struct AtomicMutex));
+    AtomicMutex mutex = kalloc(sizeof(struct AtomicMutex));
     if (!mutex) return Invalid(Mutex);
 	return As(Mutex, mutex);
 }

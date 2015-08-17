@@ -4,6 +4,7 @@
  */
 
 #include "api.h"
+#include <misc/klib.h>
 
 #define NUM_PRIOS 7
 
@@ -24,7 +25,8 @@ ThreadQueue queues[NUM_PRIOS];
 void insertThreadIntoQueue(Thread thread, ThreadPriority prio) {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		PThreadQueue queue = &queues[prio];
-		PThreadQueueElement elem = (PThreadQueueElement) calloc(1, sizeof(ThreadQueueElement));
+		PThreadQueueElement elem = (PThreadQueueElement) kcalloc(1, sizeof(ThreadQueueElement));
+        if (!elem) return;
 		elem->thread = thread;
 		elem->next = queue->first;
 		queue->first = elem;

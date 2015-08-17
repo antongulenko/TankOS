@@ -6,6 +6,7 @@
  */
 
 #include "led.h"
+#include <misc/klib.h>
 
 typedef struct _Led {
 	Pin pin;
@@ -35,7 +36,7 @@ BOOL ledValid(Led led) {
 }
 
 LedGroup newLedGroup(Led *leds, uint8_t count) {
-    LedGroup group = malloc(sizeof(struct LedGroup));
+    LedGroup group = kalloc(sizeof(struct LedGroup));
     if (!group) return NULL;
     group->leds = leds;
     group->count = count;

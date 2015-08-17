@@ -6,6 +6,7 @@
  */
 
 #include "button.h"
+#include <misc/klib.h>
 
 ButtonCallbackFunction buttonPressedCallback;
 ButtonCallbackFunction buttonReleasedCallback;
@@ -101,7 +102,7 @@ BOOL wasReleased(Button button) {
 }
 
 ButtonGroup newButtonGroup(Button *buttonArray, uint8_t buttonCount) {
-	ButtonGroup group = malloc(sizeof(struct ButtonGroup));
+	ButtonGroup group = kalloc(sizeof(struct ButtonGroup));
     if (!group) return NULL;
 	group->buttons = buttonArray;
 	group->count = buttonCount;

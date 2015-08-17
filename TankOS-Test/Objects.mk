@@ -1,6 +1,10 @@
 
 include Tank-Shared/DefaultObjectVariables.mk
 
+$(eval $(call set_test_objects,misc/klib,\
+    $(BUILDDIR)/mocks/port.o \
+    ))
+
 $(eval $(call set_test_objects,kernel/processes/process,\
     $(BUILDDIR)/mocks/process.o \
 	$(KERNEL)/processes/process.o ))

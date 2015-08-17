@@ -11,7 +11,10 @@
 static Pin inputPins[8];
 
 AnalogInput newAnalogInput_m1284P(uint8_t num) {
-    if (num > 7) return Invalid(AnalogInput);
+    if (num > 7) {
+        klog("ima\n"); // Illegal m1284P analog input
+        return Invalid(AnalogInput);
+    }
     return newAnalogInput(inputPins[num]);
 }
 

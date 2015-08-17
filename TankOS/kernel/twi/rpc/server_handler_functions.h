@@ -39,6 +39,8 @@ extern PTwiFunction twiRpcFunctions;
 	KERNEL_INIT(funcName##_register_function)
 
 // TODO set buffer size to 0 before passing to handler
+// Warning: handler must handle NULL-pointer in case alloca() failed.
+// TODO handle failed alloca() here, return appropriate status.
 // Signature: RpcHandlerStatus funcName(ArgStruct *args, uint16_t argSize, TWIBuffer *resultBuffer)
 #define TWI_RPC_SERVER_FUNCTION(funcName, operationByte, ArgStruct)	                \
 	RpcHandlerStatus funcName##_handler(TWIBuffer *buffer) {						\

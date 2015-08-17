@@ -10,7 +10,10 @@
 static TimerType types[] = { TimerResolution8, TimerResolution16, TimerResolution8, TimerResolution16 };
 
 Timer newTimer_m1284P(uint8_t num, TimerPart part, BOOL pwm) {
-    if (num > 3) return Invalid(Timer);
+    if (num > 3) {
+        klog("imt"); // Illegal m1284P timer
+        return Invalid(Timer);
+    }
 
     volatile uint8_t *ocr_registers[] = {
         &OCR0A, &OCR0B,

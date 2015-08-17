@@ -7,6 +7,7 @@
 
 #include "buffer_stdout.h"
 #include <kernel/mutex/mutex.h>
+#include <misc/klib.h>
 #include <string.h>
 
 static Mutex flush_mutex;
@@ -58,4 +59,17 @@ uint16_t buffer_stdout_flush(char *target_buffer, uint16_t size) {
 	dropped_chars = 0;
 	mutex_release(flush_mutex);
 	return size;
+}
+
+uint16_t buffer_stdout_flush_to_eeprom(char *eeprom_address, uint16_t size) {
+    char *buf = (char*) alloca(size);
+    if (!buf) {
+        klog("baf\n"); // buffer alloca failed
+        return 0;
+    }
+    uint16_t flushed = buffer_stdout_flush(buf, size);
+
+    for (uint16_t i = 0; i < flushed; i++) {
+        eeprom_update_char(eeprom_address + i, buf[i]);
+    }
 }
