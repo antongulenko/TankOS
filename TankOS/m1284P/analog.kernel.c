@@ -4,6 +4,7 @@
  */
 
 #include <kernel/kernel_init.h>
+#include <misc/klib.h>
 #include "analog.h"
 #include "port.h"
 #include <string.h>

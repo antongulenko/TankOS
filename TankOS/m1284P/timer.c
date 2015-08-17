@@ -4,6 +4,7 @@
  */
 
 #include <kernel/kernel_init.h>
+#include <misc/klib.h>
 #include "timer.h"
 
 // 9 or 10 bit resolution ignored.

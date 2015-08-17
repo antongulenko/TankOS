@@ -122,8 +122,8 @@ extern unsigned char eeprom_data[4096];
 #define EEMEM
 uint16_t eeprom_read_word(uint16_t *addr);
 void eeprom_update_word(uint16_t *addr, uint16_t value);
-uint16_t eeprom_read_char(char *addr);
-void eeprom_update_char(char *addr, char value);
+uint16_t eeprom_read_byte(uint8_t *addr);
+void eeprom_update_byte(uint8_t *addr, uint8_t value);
 
 // == function attributes
 #define INTERRUPT_HANDLER(name) void interrupt_##name()

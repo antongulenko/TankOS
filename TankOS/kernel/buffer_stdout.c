@@ -70,6 +70,8 @@ uint16_t buffer_stdout_flush_to_eeprom(char *eeprom_address, uint16_t size) {
     uint16_t flushed = buffer_stdout_flush(buf, size);
 
     for (uint16_t i = 0; i < flushed; i++) {
-        eeprom_update_char(eeprom_address + i, buf[i]);
+        eeprom_update_byte((uint8_t*) eeprom_address + i, (uint8_t) buf[i]);
     }
+
+    return flushed;
 }

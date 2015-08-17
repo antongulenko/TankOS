@@ -76,12 +76,12 @@ void eeprom_update_word(uint16_t *addr, uint16_t value) {
     ((uint16_t*) eeprom_data)[(int) addr % sizeof(eeprom_data)] = value;
 }
 
-uint16_t eeprom_read_char(char *addr) {
+uint16_t eeprom_read_byte(uint8_t *addr) {
     #pragma GCC diagnostic ignored "-Wpointer-to-int-cast"
-    return ((char*) eeprom_data)[(int) addr % sizeof(eeprom_data)];
+    return ((uint8_t*) eeprom_data)[(int) addr % sizeof(eeprom_data)];
 }
 
-void eeprom_update_char(char *addr, char value) {
+void eeprom_update_byte(uint8_t *addr, uint8_t value) {
     #pragma GCC diagnostic ignored "-Wpointer-to-int-cast"
-    ((char*) eeprom_data)[(int) addr % sizeof(eeprom_data)] = value;
+    ((uint8_t*) eeprom_data)[(int) addr % sizeof(eeprom_data)] = value;
 }

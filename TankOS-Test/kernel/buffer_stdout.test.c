@@ -96,6 +96,7 @@ void test_flush_to_eeprom() {
     for (int i = 0; i < len; i++) {
         buffer_stdout_putchar(s[i], &buffer_stdout_stream);
     }
-    buffer_stdout_flush_to_eeprom((void*) 10, len);
+    uint16_t res = buffer_stdout_flush_to_eeprom((void*) 10, len);
     TEST_ASSERT_EQUAL_STRING_LEN(s, ((char*)eeprom_data) + 10, len);
+    TEST_ASSERT_EQUAL_MESSAGE(10, res, "flushed wrong number of chars");
 }
