@@ -4,7 +4,7 @@
 #include <unity.h>
 #include <string.h>
 
-char buf[5 * 1000]; // 1000 times "Hello"
+char buf[5 * 2000]; // 1000 times "Hello"
 int printed = 0;
 char flush_buf[sizeof(buf)];
 int flushed = 0;
@@ -15,7 +15,7 @@ void setUp() {
     init_native_simulation();
     init_buffer_stdout();
     memset(flush_buf, 0, sizeof(flush_buf));
-    for (int i = 0; i < 1000; i++) {
+    for (int i = 0; i < 2000; i++) {
         memcpy(buf + 5*i, "Hello", 5);
     }
 }
@@ -74,9 +74,10 @@ void test() {
 
     print(STDOUT_BUFFER_SIZE / 2);
     print(STDOUT_BUFFER_SIZE / 2);
-    flush(STDOUT_BUFFER_SIZE / 3);
-    flush(STDOUT_BUFFER_SIZE / 3);
-    flush(STDOUT_BUFFER_SIZE / 3);
+    flush(STDOUT_BUFFER_SIZE / 4);
+    flush(STDOUT_BUFFER_SIZE / 4);
+    flush(STDOUT_BUFFER_SIZE / 4);
+    flush(STDOUT_BUFFER_SIZE / 4);
 
     print(3);print(3);print(3);print(3);
     print(STDOUT_BUFFER_SIZE);
