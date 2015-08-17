@@ -10,7 +10,7 @@
 #include <stdio.h>
 
 #ifndef STDOUT_BUFFER_SIZE
-#define STDOUT_BUFFER_SIZE 1024
+#define STDOUT_BUFFER_SIZE 2048
 #endif
 
 void init_buffer_stdout();
