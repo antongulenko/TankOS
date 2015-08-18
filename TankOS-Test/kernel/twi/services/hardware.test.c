@@ -63,8 +63,8 @@ void test_memory_info() {
     assert_correct_status(status);
 
     uint16_t total = RAMEND - DYNAMIC_MEMORY_START;
-    uint16_t used = ALLOCATED_HEAP_END - DYNAMIC_MEMORY_START + 2;
-    uint16_t available = RAMEND - ALLOCATED_HEAP_END - 2;
+    uint16_t used = ALLOCATED_HEAP_END - DYNAMIC_MEMORY_START + 2 + (RAMEND - MALLOC_END);
+    uint16_t available = MALLOC_END - ALLOCATED_HEAP_END - 2;
 
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(total, info.total_dynamic, "Wrong total dynamic memory reported");
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(DYNAMIC_MEMORY_START - RAMSTART, info.used_static, "Wrong used static memory reported");
