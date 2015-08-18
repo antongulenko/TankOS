@@ -9,6 +9,7 @@ ifeq ($(CONFIG), simulator)
     USE_PROCESS := false
     USE_SCHEDULER := false
 
+    KERNEL_LOG := true
     USE_BUFFER_STDOUT := true
     USE_TWI := true
 

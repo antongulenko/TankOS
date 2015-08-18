@@ -41,15 +41,6 @@ void runLeds() {
 	}
 }
 
-typedef struct MemoryInfo {
-    uint16_t used_static;
-    uint16_t total_dynamic;
-    uint16_t used_dynamic;
-    uint16_t available_dynamic;
-    float used_dynamic_f;
-    float available_dynamic_f;
-} MemoryInfo;
-
 int main() {
 	runLeds();
     MemoryInfo i = memoryInfo();

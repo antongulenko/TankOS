@@ -409,6 +409,12 @@
     <Compile Include="misc\idle.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="misc\klib.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="misc\klib.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="misc\memory.c">
       <SubType>compile</SubType>
     </Compile>
