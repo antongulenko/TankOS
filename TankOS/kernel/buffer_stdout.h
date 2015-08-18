@@ -32,6 +32,6 @@ int buffer_stdout_putchar(char c, FILE *f);
 
 // Flush part of the stream to temporary buffer and copy the buffer to the given eeprom address.
 // Consecutive invokations with the same eeprom_address will overwrite previous calls.
-uint16_t buffer_stdout_flush_to_eeprom(char *eeprom_address, uint16_t);
+uint16_t buffer_stdout_flush_to_eeprom(char *eeprom_address, uint16_t max_bytes);
 
 #endif /* BUFFER_STDOUT_H_ */
