@@ -106,6 +106,7 @@
     <Folder Include="kernel\twi\driver\" />
     <Folder Include="kernel\twi\rpc\" />
     <Folder Include="kernel\twi\services\" />
+    <Folder Include="misc\" />
     <Folder Include="mocks\" />
   </ItemGroup>
   <ItemGroup>
@@ -187,6 +188,9 @@
     <Compile Include="kernel\twi\services\test.test.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="misc\klib.test.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="mocks\assertions.c">
       <SubType>compile</SubType>
     </Compile>
@@ -197,6 +201,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\port.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\printf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\printf.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\process.c">
