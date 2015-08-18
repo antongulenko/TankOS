@@ -3,6 +3,10 @@
 // In that case, all the functionality of the IO-processor is handled via interrupts.
 
 #include <kernel.h>
+#include <misc/memory.h>
+#include <misc/klib.h>
+#include <kernel/buffer_stdout.h>
+#include <stdio.h>
 
 void runLeds();
 
@@ -42,13 +46,13 @@ void runLeds() {
 }
 
 int main() {
+	MemoryInfo i = memoryInfo();
+    printf("Static: %i. Dynamic: %i of %i, available: %i.\n",
+				i.used_static, i.used_dynamic, i.total_dynamic, i.available_dynamic);
+    //eeprom_busy_wait();
+	//buffer_stdout_flush_to_eeprom((char*) 2, 512);
 	runLeds();
-    MemoryInfo i = memoryInfo();
-    printf("Used static: %i, dynamic: %i. Total dynamic: %i, available dynamic: %i. Used dynamic f: %f, Available dynamic f: %f\n",
-           i.used_static, i.used_dynamic, i.total_dynamic, i.available_dynamic, i.used_dynamic_f, i.available_dynamic_f);
-    buffer_stdout_flush_to_eeprom((char*) 2, 512);
-    runLeds();
-
+	
 	buttonPressedCallback = &buttonPressed;
 	buttonReleasedCallback = &buttonReleased;
 	while (1) {

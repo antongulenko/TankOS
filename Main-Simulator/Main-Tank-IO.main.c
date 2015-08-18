@@ -17,14 +17,13 @@ void runLeds() {
 }
 
 int main(void) {
-	uint16_t aaa = unusedDynamicMemory();
 	uint16_t before = usedDynamicMemory();
 	kalloc(128);
 	uint16_t after = usedDynamicMemory();
 	MemoryInfo i = memoryInfo();
-	printf("Static: %i. Dynamic: %i of %i, available: %i. %i -> %i. Unused %i -> %i\n",
+	printf("Static: %i. Dynamic: %i of %i, available: %i. %i -> %i.\n",
 		i.used_static, i.used_dynamic, i.total_dynamic, i.available_dynamic,
-		before, after, aaa, unusedDynamicMemory());
+		before, after);
 	buffer_stdout_flush_to_eeprom((char*) 2, 512);
 	runLeds();
 }
