@@ -41,8 +41,23 @@ void runLeds() {
 	}
 }
 
+typedef struct MemoryInfo {
+    uint16_t used_static;
+    uint16_t total_dynamic;
+    uint16_t used_dynamic;
+    uint16_t available_dynamic;
+    float used_dynamic_f;
+    float available_dynamic_f;
+} MemoryInfo;
+
 int main() {
 	runLeds();
+    MemoryInfo i = memoryInfo();
+    printf("Used static: %i, dynamic: %i. Total dynamic: %i, available dynamic: %i. Used dynamic f: %f, Available dynamic f: %f\n",
+           i.used_static, i.used_dynamic, i.total_dynamic, i.available_dynamic, i.used_dynamic_f, i.available_dynamic_f);
+    buffer_stdout_flush_to_eeprom((char*) 2, 512);
+    runLeds();
+
 	buttonPressedCallback = &buttonPressed;
 	buttonReleasedCallback = &buttonReleased;
 	while (1) {
