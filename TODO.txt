@@ -1,20 +1,14 @@
 
 == Sanity tests
 
-- AVR with simple LED blinking routine. Try to measure _delay_ms precision.
-- Flash full Tank-IO kernel, test startup routine with blinking.
-- Add complete button/LED circuit, test.
 - Add TWI curcuit with Beaglebone.
+- Test features: TWI, analog input, pwm
+- Finish and test: smooth motors, processes
 
-== Refactorings
+- Test precision: pwm min/max values, millisecond-timer, delay_XX()
 
-- Add interrupt-handling concept for Processes/Scheduler
+== Refactorings/TODOs
 
-== TODO
-
-- find out, why Release build does not work properly. At least the _delay_ms function produces wrong results. Must be something about the optimizations.
-
-- PWM (8-bit timer) mit maximalem wert eingestellt (256) liefert nur 4,6V !!!
-	-> entweder fixen oder dann einen elektronischen workaround
-
-- alle Buttons resetten (?) Reset-Leitung auf den Kippschalter legen.
+- RPC-service for pin-occupations
+- Interrupt-handling concept for Processes/Scheduler
+- Mutex implementation

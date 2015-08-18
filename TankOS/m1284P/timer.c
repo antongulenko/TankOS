@@ -35,7 +35,7 @@ Timer newTimer_m1284P(uint8_t num, TimerPart part, BOOL pwm) {
 	        pinD7,   // Pin 21
 	        pinD6,   // Pin 20
 	        pinB6,   // Pin 7
-        pinB7 }; // Pin 8
+            pinB7 }; // Pin 8
         Pin pin = outputPins[index];
         return newPwmTimer(ocr, type, pin);
     } else {
