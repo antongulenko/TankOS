@@ -59,8 +59,6 @@ ifeq ($(CONFIG), $(filter $(CONFIG), tank io master))
         $(error Please define PROJ= on the command line)
     endif
 
-else
-$(error NO)
 endif
 ifeq ($(CONFIG), twitool)
 
