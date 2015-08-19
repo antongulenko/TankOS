@@ -66,7 +66,7 @@ Pin newPin(Port port, uint8_t pinNumber) {
     pin->config.next = NULL;
     pin->config.configData = EmptyConfigData;
     Pin _pin = As(Pin, pin);
-    registerPinConfig(_pin, PinGPIO, EmptyConfigData); // TODO error logging if registration not possible.
+    registerPinConfig(_pin, PinGPIO, EmptyConfigData);
     return _pin;
 }
 
