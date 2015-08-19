@@ -4,20 +4,14 @@
 #include <stdint.h>
 #define _BV(a) (1 << a)
 
-extern uint8_t __registerData_mem[4096 * 4];
-extern uint8_t __registerData_io[4096 * 4];
-uint8_t *__register(uint16_t offset, uint8_t size, uint8_t *buffer, unsigned long int buffer_size);
-
-// Include memory definitions for Atmega 1284p, copied from the AVR library.
-// Registers are simulated through a dedicated memory buffer.
-// This mostly mirrors the avr/io.h header.
-#define _SFR_MEM8(addr) (*__register(addr, 1, __registerData_mem, sizeof(__registerData_mem)))
-#define _SFR_MEM16(addr) (*(uint16_t*)__register(addr, 2, __registerData_mem, sizeof(__registerData_mem)))
-#define _SFR_IO8(addr) (*__register(addr, 1, __registerData_io, sizeof(__registerData_io)))
-#define _SFR_IO16(addr) (*(uint16_t*)__register(addr, 2, __registerData_io, sizeof(__registerData_io)))
+// Include defines for bit-positions in registers.
 #include "iom1284p.h"
 #include "portpins.h"
 #include "common.h"
+
+// Explicitely define emulated registers to avoid usage of too many platform-specific registers.
+typedef uint8_t REGISTER;
+extern REGISTER MCUSR, TWDR, TWCR, hidden_TWSR, ADCSRA, ADCH, ADCL, ADMUX;
 
 extern unsigned int DelayedMS;
 extern unsigned int DelayMSCalled;
@@ -116,7 +110,7 @@ enum {
 };
 
 #define TW_STATUS_MASK  (_BV(TWS7)|_BV(TWS6)|_BV(TWS5)|_BV(TWS4)|_BV(TWS3))
-#define TW_STATUS		(TWSR & TW_STATUS_MASK)
+#define TW_STATUS		(hidden_TWSR & TW_STATUS_MASK)
 
 // == eeprom
 #define eeprom_busy_wait()

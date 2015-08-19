@@ -90,12 +90,10 @@ uint16_t getTimerValue(Timer timer) {
 		result = MAKE_WORD(*TIMER->ocr, 0x0);
     } else {
 		// See comment above about 16-bit registers.
-		uint8_t sreg = SREG;
-		cli();
-		// Reading OCR-register does not require any particular ordering of reading the bytes.
-		result = *((uint16_t*) TIMER->ocr);
-		SREG = sreg; // re-enable interrupts
-
+		ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+		    // Reading OCR-register does not require any particular ordering of reading the bytes.
+		    result = *((uint16_t*) TIMER->ocr);
+        }
 		// Shift the value back. Non-significant bits are lost.
 		if (TIMER->type == TimerResolution9) {
 			result = result << (16 - 9);

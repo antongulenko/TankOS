@@ -66,6 +66,7 @@ less than 256 bytes of possible RAM locations (128 Bytes of SRAM
 and no option for external RAM), thus SPH is officially "reserved"
 for them.
 */
+/*
 #if __AVR_ARCH__ >= 100
 #  ifndef SPL
 #    define SPL _SFR_MEM8(0x3D)
@@ -91,11 +92,13 @@ for them.
 #    ifndef SPH
 #      define SPH _SFR_IO8(0x3E)
 #    endif
-#  endif /* XRAMEND < 0x100 && !defined(__COMPILING_AVR_LIBC__) */
-#endif /* __AVR_ARCH__ != 1 */
+*/
+// #  endif /* XRAMEND < 0x100 && !defined(__COMPILING_AVR_LIBC__) */
+// #endif /* __AVR_ARCH__ != 1 */
 
 
 /* Status Register */
+/*
 #ifndef SREG
 #  if __AVR_ARCH__ >= 100
 #    define SREG _SFR_MEM8(0x3F)
@@ -103,7 +106,7 @@ for them.
 #    define SREG _SFR_IO8(0x3F)
 #  endif
 #endif
-
+*/
 
 /* SREG bit definitions */
 #ifndef SREG_C
@@ -189,6 +192,7 @@ keep the EEPROM-related definitions here.
 
 
 /* RAM Page Z Select Register	*/
+/*
 #ifndef RAMPZ
 #  if     defined(__AVR_HAVE_RAMPZ__) && __AVR_HAVE_RAMPZ__
 #    if     __AVR_ARCH__ >= 100
@@ -198,7 +202,7 @@ keep the EEPROM-related definitions here.
 #    endif
 #  endif
 #endif
-
+*/
 #endif /* __COMPILING_AVR_LIBC__ */
 
 

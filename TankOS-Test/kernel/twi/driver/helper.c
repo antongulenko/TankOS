@@ -40,7 +40,7 @@ BOOL twiHasTerminated;
 
 void twi_tests_setUp() {
 	// Reset all TWI registers
-	TWCR = TWDR = TWBR = TWSR = TWAR = TWAMR = 0;
+	TWCR = TWDR = 0;
 	numExpectedOps = handledExpectedOps = 0;
 	expectedError = TWI_No_Error;
 	twiHasTerminated = FALSE;

@@ -20,7 +20,7 @@ extern char *__brkval;
 #define delay_ms(ms) _delay_ms(ms)
 #define delay_us(us) _delay_us(us)
 
-#define interrupts_enabled() (SREG & _BV(7))
+#define interrupts_enabled() (SREG & _BV(SREG_I))
 
 #define INTERRUPT_HANDLER(name) ISR(name)
 #define INTERRUPT_FUNCTION __attribute__ ((interrupt))
