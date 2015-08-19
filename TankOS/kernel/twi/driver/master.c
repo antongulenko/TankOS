@@ -3,7 +3,7 @@
  *      Author: Anton
  */
 
-#include "driver.h"
+#include "master.h"
 #include "internal.h"
 
 const TWIDevice TWIBroadcast = { 0 };
@@ -15,13 +15,21 @@ static struct TWIOperation {
 
 static TWIDevice targetDevice;
 
-void twi_init() {
+BOOL twi_init(Pin dataPin, Pin clockPin) {
+    if (!occupyPinDirectly(dataPin, PinTwiIO, EmptyConfigData))
+        return FALSE;
+    if (!occupyPinDirectly(clockPin, PinTwiIO, EmptyConfigData)) {
+        deOccupyPin(dataPin, PinTwiIO);
+        return FALSE;
+    }
+
 	TWDR = 0xFF;
 	twi_defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE);
 	TWCR = _BV(TWIE) | _BV(TWEN);
 	twi_error = TWI_No_Error;
 	twi_running = FALSE;
 	twi_buffer = EmptyBuffer;
+    return TRUE;
 }
 
 BOOL start_master_operation() {
@@ -82,6 +90,7 @@ static void initiate_twi() {
 }
 
 void twiSend(TWIDevice _targetDevice, TWIBuffer data) {
+    if (!TWI_INITIALIZED) return;
 	targetDevice = _targetDevice;
 	receiveOperation.valid = FALSE;
 	sendOperation.valid = TRUE;
@@ -90,6 +99,7 @@ void twiSend(TWIDevice _targetDevice, TWIBuffer data) {
 }
 
 void twiReceive(TWIDevice _targetDevice, TWIBuffer receiveBuffer) {
+    if (!TWI_INITIALIZED) return;
 	targetDevice = _targetDevice;
 	sendOperation.valid = FALSE;
 	receiveOperation.valid = TRUE;
@@ -98,6 +108,7 @@ void twiReceive(TWIDevice _targetDevice, TWIBuffer receiveBuffer) {
 }
 
 void twiSendReceive(TWIDevice _targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer) {
+    if (!TWI_INITIALIZED) return;
 	targetDevice = _targetDevice;
 	sendOperation.valid = TRUE;
 	sendOperation.buffer = sendData;

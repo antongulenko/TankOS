@@ -2,11 +2,14 @@
 #include <unity.h>
 #include <kernel/twi/driver/master.h>
 #include <kernel/twi/driver/helper.h>
+#include <mocks/port.h>
 
 void setUp() {
+    init_fake_port();
 	twi_tests_setUp();
 	defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE);
-	twi_init();
+	BOOL res = twi_init(testPin1, testPin2);
+    TEST_ASSERT_TRUE_MESSAGE(res, "failed to initialize twi master.");
 }
 
 void tearDown() {
@@ -19,6 +22,10 @@ TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
 void test_initialization() {
 	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE), TWCR);
 	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
+    BOOL res = twi_init(testPin1, testPin2);
+    TEST_ASSERT_FALSE_MESSAGE(res, "Second initialization of twi master should not be possible");
+    TEST_ASSERT_EQUAL(PinTwiIO, pinOccupation(testPin1));
+    TEST_ASSERT_EQUAL(PinTwiIO, pinOccupation(testPin2));
 }
 
 // These tests are implemented in base_tests.c

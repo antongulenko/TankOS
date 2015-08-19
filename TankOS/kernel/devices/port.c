@@ -136,6 +136,7 @@ BOOL isPinOutputHigh(Pin pin) {
 // == Pin configuration
 
 BOOL registerPinConfig(Pin pin, PinOccupation tag, ConfigData configData) {
+    if (!IsValid(pin)) return FALSE;
     if (PIN->config.tag != PinNoOccupation) {
         klog("rPC:%i<%i\n", tag, PIN->config.tag); // registerPinConfig failed
         return FALSE;
@@ -158,6 +159,7 @@ BOOL registerPinConfig(Pin pin, PinOccupation tag, ConfigData configData) {
 }
 
 BOOL occupyPin(Pin pin, PinOccupation tag) {
+    if (!IsValid(pin)) return FALSE;
     if (PIN->config.tag != PinNoOccupation) {
         klog("oP:%i<%i\n", tag, PIN->config.tag); // occupyPin failed
         return FALSE;
@@ -175,6 +177,7 @@ BOOL occupyPin(Pin pin, PinOccupation tag) {
 }
 
 BOOL occupyPinDirectly(Pin pin, PinOccupation tag, ConfigData configData) {
+    if (!IsValid(pin)) return FALSE;
     if (PIN->config.tag != PinNoOccupation) {
         klog("oPD:%i<%i\n", tag, PIN->config.tag); // occupyPinDirectly failed
         return FALSE;
@@ -185,10 +188,12 @@ BOOL occupyPinDirectly(Pin pin, PinOccupation tag, ConfigData configData) {
 }
 
 PinOccupation pinOccupation(Pin pin) {
+    if (!IsValid(pin)) return PinNoOccupation;
     return PIN->config.tag;
 }
 
 ConfigData *pinConfigData(Pin pin, PinOccupation tag) {
+    if (!IsValid(pin)) return NULL;
     if (PIN->config.tag != tag) {
         klog("pCD%i!%i\n", tag, PIN->config.tag); // pinConfigData failed
         return &IllegalConfig;
@@ -198,6 +203,7 @@ ConfigData *pinConfigData(Pin pin, PinOccupation tag) {
 }
 
 BOOL deOccupyPin(Pin pin, PinOccupation tag) {
+    if (!IsValid(pin)) return FALSE;
     if (PIN->config.tag != tag) {
         klog("dOP:%i!%i\n", tag, PIN->config.tag); // deOccupyPin failed
         return FALSE;

@@ -1,11 +1,9 @@
 
 #include <kernel/kernel_init.h>
-#include <kernel/twi/driver/driver.h>
 
-void init_simulator_slave_address() {
-    TWAR = 123;
+void init_rpc_server(uint8_t addr); // Tank-Shared/twi.kernel.c
+
+void init_tank_io_twi() {
+    init_rpc_server(123);
 }
-KERNEL_INIT(init_simulator_slave_address)
-
-void init_rpc_server_buffer(); // Tank-Shared/twi.kernel.c
-KERNEL_INIT(init_rpc_server_buffer)
+KERNEL_INIT(init_tank_io_twi)

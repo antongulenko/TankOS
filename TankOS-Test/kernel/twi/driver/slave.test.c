@@ -6,6 +6,7 @@
 #include <unity.h>
 #include <kernel/twi/driver/slave.h>
 #include <kernel/twi/driver/helper.h>
+#include <mocks/port.h>
 
 int masterRequestCalls;
 int masterTransmissionStartingCalls;
@@ -33,8 +34,10 @@ void twi_masterTransmissionEnded(TWIBuffer buffer) {
 
 void setUp() {
 	twi_tests_setUp();
+    init_fake_port();
 	defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE) | _BV(TWEA);
-	twi_init_slave();
+	BOOL res = twi_init_slave(testPin1, testPin2);
+    TEST_ASSERT_TRUE_MESSAGE(res, "failed to initialize twi slave.");
 	twi_init_slave_callbacks(
 		twi_handleMasterRequest,
 		twi_masterTransmissionStarting,
@@ -52,6 +55,7 @@ void tearDown() {
 			"Wrong number of master transmissions started!");
 	TEST_ASSERT_EQUAL_INT_MESSAGE(expectedMasterTransmissionEndedCalls, masterTransmissionEndedCalls,
 			"Wrong number of master transmissions ended!");
+    destroy_fake_port();
 }
 
 TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
@@ -61,6 +65,13 @@ TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
 void test_initialization() {
 	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE) | _BV(TWEA), TWCR);
 	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
+}
+
+void test_slave_twi_init_pins() {
+    BOOL res = twi_init_slave(testPin1, testPin2);
+    TEST_ASSERT_FALSE_MESSAGE(res, "Second initialization of twi slave should not be possible");
+    TEST_ASSERT_EQUAL(PinTwiIO, pinOccupation(testPin1));
+    TEST_ASSERT_EQUAL(PinTwiIO, pinOccupation(testPin2));
 }
 
 // These tests are implemented in base_tests.c

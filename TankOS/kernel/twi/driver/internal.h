@@ -14,6 +14,8 @@ extern byte twi_defaultControlFlags;
 
 BOOL start_master_operation();
 
+#define TWI_INITIALIZED (twi_defaultControlFlags != 0)
+
 // These static inline functions are shared between
 // twi_driver and twi_driver_slave for the sake of performance.
 // They handle TWI state machine.

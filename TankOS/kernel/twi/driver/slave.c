@@ -4,14 +4,15 @@
 
 // TODO -- Implement configuration of GC calls (TWGCE bit, LSB in TWAR)
 
-void twi_init_slave() {
-	twi_init();
+BOOL twi_init_slave(Pin dataPin, Pin clockPin) {
+	if (!twi_init(dataPin, clockPin)) return FALSE;
 
 	// Enable acknowledging of Master-requests (Slave-mode).
 	// We are ALWAYS setting the TWEA flag. This is only valid because of the strategy
 	// described in the long comments in the switch below.
 	TWCR |= _BV(TWEA);
 	twi_defaultControlFlags |= _BV(TWEA);
+    return TRUE;
 }
 
 // The callback functions called by this module.
@@ -24,6 +25,7 @@ void twi_init_slave_callbacks(
 		TWIBuffer (*new_twi_masterTransmissionStarting)(),
 		void (*new_twi_masterTransmissionEnded)(TWIBuffer twi_buffer))
 {
+    if (!TWI_INITIALIZED) return;
 	twi_handleMasterRequest = new_twi_handleMasterRequest;
 	twi_masterTransmissionStarting = new_twi_masterTransmissionStarting;
 	twi_masterTransmissionEnded = new_twi_masterTransmissionEnded;

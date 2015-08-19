@@ -65,6 +65,16 @@ typedef struct TwiHandlerStatus {
 	byte controlRegister;
 } TwiHandlerStatus;
 
+// Wait for the current TWI operation to finish.
+// With concurrency, and with two operations quickly following each other,
+// the end of the current operation might be skipped.
+// Optionally, define non-zero msWaitEachIteration to add a delay between two
+// completion checks.
+void twiWaitForCompletion();
+
 typedef uint16_t TwiStatus;
+
+// Usage-tag for occupyPinDirectly
+#define PinTwiIO 8
 
 #endif

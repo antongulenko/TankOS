@@ -27,6 +27,6 @@ void twi_init_slave_callbacks(
 
 // This function will handle the TWI interrupt for a device in slave mode.
 TwiHandlerStatus twi_handle_slave(TwiStatus status);
-void twi_init_slave();
+BOOL twi_init_slave(Pin dataPin, Pin clockPin);
 
 #endif /* twi_driver_SLAVE_H_ */

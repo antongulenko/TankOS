@@ -127,3 +127,12 @@ void test_deOccupy_wrong() {
     BOOL res = deOccupyPin(p, myTag2);
     TEST_ASSERT_FALSE_MESSAGE(res, "Should not be able to de-occupy pin");
 }
+
+void test_invalid_pin() {
+    TEST_ASSERT_FALSE(registerPinConfig(Invalid(Pin), 11, EmptyConfigData));
+    TEST_ASSERT_FALSE(occupyPin(Invalid(Pin), 11));
+    TEST_ASSERT_FALSE(occupyPinDirectly(Invalid(Pin), 11, EmptyConfigData));
+    TEST_ASSERT_EQUAL(PinNoOccupation, pinOccupation(Invalid(Pin)));
+    TEST_ASSERT_NULL(pinConfigData(Invalid(Pin), 11));
+    TEST_ASSERT_FALSE(deOccupyPin(Invalid(Pin), 11));
+}
