@@ -128,5 +128,6 @@ void eeprom_update_byte(uint8_t *addr, uint8_t value);
 // == function attributes
 #define INTERRUPT_HANDLER(name) void interrupt_##name()
 #define INTERRUPT_FUNCTION
+#define WEAK_FUNCTION __attribute__((weak))
 
 #endif // NATIVE_SIMULATION_H_

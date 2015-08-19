@@ -11,7 +11,7 @@
 
 // This function can be implemented in user code to have some initialization-code
 // before the scheduler is started.
-void before_scheduler() __attribute__((weak));
+void before_scheduler() WEAK_FUNCTION;
 void before_scheduler() {
 }
 
@@ -19,7 +19,7 @@ void before_scheduler() {
 // the timers start running.
 // When this function is implemented, before_timer() should be called right before
 // returning.
-void before_timer() __attribute__((weak));
+void before_timer() WEAK_FUNCTION;
 void before_timer() {
 	before_scheduler();
 }

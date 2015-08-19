@@ -22,3 +22,4 @@ extern char *__brkval;
 
 #define INTERRUPT_HANDLER(name) ISR(name)
 #define INTERRUPT_FUNCTION __attribute__ ((interrupt))
+#define WEAK_FUNCTION __attribute__((weak))

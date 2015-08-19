@@ -22,7 +22,7 @@ void *kcalloc(size_t elems, size_t bytes) {
     return res;
 }
 
-int klog(const char *__fmt, ...) __attribute__((weak));
+int klog(const char *__fmt, ...) WEAK_FUNCTION;
 int klog(const char *__fmt, ...) {
     // No-op by default, can be linked to klog_printf.
     return 0;
