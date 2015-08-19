@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -277,13 +277,16 @@
     <Compile Include="kernel\sleep_after_main.kernel.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="kernel\twi\driver\driver.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\twi\driver\driver.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\driver\internal.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\init.h">
+    <Compile Include="kernel\twi\driver\isr.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\driver\master.h">
