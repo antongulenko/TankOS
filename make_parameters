@@ -33,7 +33,17 @@ ifeq ($(CONFIG), tests)
 default: run
 
 endif
-ifeq ($(CONFIG), tank)
+ifeq ($(CONFIG), io)
+
+    PROJ := Main-Tank-IO
+
+endif
+ifeq ($(CONFIG), master)
+
+    PROJ := Main-Tank-MASTER
+
+endif
+ifeq ($(CONFIG), $(filter $(CONFIG), tank io master))
 
     KERNEL_LOG := true
     USE_BUFFER_STDOUT := true
@@ -49,6 +59,8 @@ ifeq ($(CONFIG), tank)
         $(error Please define PROJ= on the command line)
     endif
 
+else
+$(error NO)
 endif
 ifeq ($(CONFIG), twitool)
 
