@@ -7,13 +7,12 @@
 #include "kernel_init.h"
 #include "early_init.h"
 
- void early_initialization() {
+void early_initialization() {
 	// Read and reset the MCU-status-register.
 	// This kernel-file should be included in the very beginning, as MCUSR should
 	// be reset in the very beginning.
 	init_reset_condition();
     wdt_disable();
     increment_software_reset_counter();
-    EECR |= _BV(EERIE); // Enable eeprom-ready interrupt EE_READY for early_init_eeprom.kernel.c
 }
 KERNEL_INIT(early_initialization)

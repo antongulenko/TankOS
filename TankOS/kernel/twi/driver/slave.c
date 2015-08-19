@@ -4,7 +4,7 @@
 
 // TODO -- Implement configuration of GC calls (TWGCE bit, LSB in TWAR)
 
- void twi_init_slave() {
+void twi_init_slave() {
 	TWAR = TwiSlaveAddress;
 	twi_init();
 

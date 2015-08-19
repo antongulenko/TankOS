@@ -118,6 +118,7 @@ enum {
 #define TW_STATUS		(TWSR & TW_STATUS_MASK)
 
 // == eeprom
+#define eeprom_busy_wait()
 extern unsigned char eeprom_data[4096];
 #define EEMEM
 uint16_t eeprom_read_word(uint16_t *addr);

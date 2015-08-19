@@ -2,9 +2,14 @@
 #include "early_init.h"
 #include <kernel/kernel_init.h>
 
-INTERRUPT_HANDLER(EE_READY_vect) {
+void kernel_init_eeprom() {
+    eeprom_busy_wait();
     increment_eeprom_reset_counter();
 }
+KERNEL_INIT(kernel_init_eeprom)
 
-// Instead of a KERNEL_INIT routine, we wait for the eeprom-ready interrupt.
-// KERNEL_INIT(increment_eeprom_reset_counter)
+// === Asynchronous alternative:
+// EECR |= _BV(EERIE); // Enable eeprom-ready interrupt EE_READY
+// INTERRUPT_HANDLER(EE_READY_vect) {
+//     increment_eeprom_reset_counter();
+// }
