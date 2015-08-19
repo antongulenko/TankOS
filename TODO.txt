@@ -11,4 +11,5 @@
 
 - RPC-service for pin-occupations
 - Interrupt-handling concept for Processes/Scheduler
-- Mutex implementation
+- Implement Mutex
+- Handle all interrupts with default (weak) routine
