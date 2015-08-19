@@ -2,12 +2,15 @@
 #include <tank_os_common.h>
 #include <kernel/twi/rpc/server.h>
 #include <kernel/twi/rpc/client.h>
+#include <kernel/kernel_init.h>
 
-// These variables will be linked for twi_
-// The TWI bit rate: Maximal TWI frequency (400 KHz).
-// 100 = Medium frequency, 250 = Minimal frequency
-const byte TwiBitRateValue = 17;
-const byte TwiPrescalerMask = 0;
+void init_twi_frequency() {
+    // The TWI bit rate: Maximal TWI frequency (400 KHz).
+    // 100 = Medium frequency, 250 = Minimal frequency
+    TWBR = 17; // 0..255
+	TWSR = 0; // _BV(TWPS1) | _BV(TWPS0)
+}
+KERNEL_INIT(init_twi_frequency)
 
 static byte twi_io_buffer[256];
 

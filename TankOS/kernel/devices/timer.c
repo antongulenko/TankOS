@@ -67,19 +67,18 @@ void setTimerValue(Timer timer, uint16_t value) {
 		// Setting a 16-bit register requires disabling interrupts for a short period.
 		// The assembler-code will involve writing the high part to the TEMP register
 		// before writing the low part directly into the low register, which also copies the TEMP register.
-		uint8_t sreg = SREG;
 		// Use as many significant bits as possible.
 		if (TIMER->type == TimerResolution9) {
 			value = value >> (16 - 9);
 		} else if (TIMER->type == TimerResolution10) {
 			value = value >> (16 - 10);
 		}
-		cli();
-		// 16-bit register access -- high byte first. m1284P-manual page 113.
-		// Compiler will turn these two sub-accesses around, so code them separately.
-		*(TIMER->ocr + 1) = HIBYTE(value);
-		*TIMER->ocr = LOBYTE(value);
-		SREG = sreg; // re-enable interrupts
+        ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+            // 16-bit register access -- high byte first. m1284P-manual page 113.
+            // Compiler will turn these two sub-accesses around, so code them separately.
+            *(TIMER->ocr + 1) = HIBYTE(value);
+            *TIMER->ocr = LOBYTE(value);
+        }
 	}
 }
 

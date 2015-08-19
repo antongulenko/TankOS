@@ -5,7 +5,8 @@ OWN := Kernel-Tank-IO/$(BUILD_DIRNAME)
 
 objects += \
     $(OWN)/tank_led.kernel.o \
-    $(OWN)/tank_button.kernel.o
+    $(OWN)/tank_button.kernel.o \
+    $(OWN)/tank_button_interrupts.kernel.o
 
 ifeq ($(USE_TWI), true)
     objects += \

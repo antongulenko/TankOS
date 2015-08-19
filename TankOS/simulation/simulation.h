@@ -60,6 +60,7 @@ static inline void delay_us(uint32_t us) {
 uint8_t _interrupts_enabled; // Can be used by tests
 void sei(); // Enable external interrupts
 void cli(); // Disable external interrupts
+#define interrupts_enabled() _interrupts_enabled
 
 // == Atomic
 // TODO -- this should be testable somehow.

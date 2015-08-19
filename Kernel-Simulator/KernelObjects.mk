@@ -1,6 +1,14 @@
 
 OWN := Kernel-Simulator/$(BUILD_DIRNAME)
+tank_io := Kernel-Tank-IO/$(BUILD_DIRNAME)
+
 include Tank-Shared/KernelObjects1.mk
+
+# Simulate Tank IO
+objects += \
+    $(tank_io)/tank_led.kernel.o \
+    $(tank_io)/tank_button.kernel.o \
+    $(tank_io)/tank_button_interrupts.kernel.o
 
 ifeq ($(USE_TWI), true)
     objects += \

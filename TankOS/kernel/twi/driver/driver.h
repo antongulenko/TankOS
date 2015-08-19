@@ -7,12 +7,6 @@
 // even when the Slave switches to not-addressed-mode (stops sending/receiving actively).
 #define TwiIllegalByte 0xff
 
-// TWI configurations.
-// Must be linked from another module!
-extern const byte TwiSlaveAddress;
-extern const byte TwiBitRateValue; // Controls communication-frequency. See manual. -> 0..255!
-extern const byte TwiPrescalerMask; // Controls communication-frequency. See manual. -> Includes bits: _BV(TWPS1) | _BV(TWPS0)
-
 // Only the seven MSB are valid address bits. The LSB will be replaced.
 typedef struct TWIDevice {
 	byte address;

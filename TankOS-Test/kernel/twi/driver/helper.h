@@ -9,8 +9,6 @@
 #include <tank_os_common.h>
 #include <kernel/twi/driver/driver.h>
 
-extern const byte TwiSlaveAddress;
-
 // These bits are always expected to be set in the TWI controlRegister
 extern byte defaultControlFlags;
 

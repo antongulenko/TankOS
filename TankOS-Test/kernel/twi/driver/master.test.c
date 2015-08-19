@@ -17,9 +17,6 @@ TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
 }
 
 void test_initialization() {
-	TEST_ASSERT_EQUAL_HEX(0, TWAR);
-	TEST_ASSERT_EQUAL_HEX(TwiBitRateValue, TWBR);
-	TEST_ASSERT_EQUAL_HEX(TwiPrescalerMask, TWSR);
 	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE), TWCR);
 	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
 }

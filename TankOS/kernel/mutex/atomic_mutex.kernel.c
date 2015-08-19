@@ -7,6 +7,7 @@
 // mutual exclusion.
 
 #include "mutex.h"
+#include <tank_os_common.h>
 #include <misc/klib.h>
 
 typedef struct AtomicMutex {
@@ -22,7 +23,7 @@ Mutex mutex_create() {
 }
 
 void mutex_lock(Mutex mutex) {
-	MUTEX->interruptsWereEnabled = SREG & _BV(7);
+	MUTEX->interruptsWereEnabled = interrupts_enabled();
 	cli();
 }
 

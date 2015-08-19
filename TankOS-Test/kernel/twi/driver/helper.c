@@ -13,10 +13,6 @@ TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status);
 
 byte defaultControlFlags;
 
-const byte TwiSlaveAddress = 0xa9;
-const byte TwiBitRateValue = 0xdd;
-const byte TwiPrescalerMask = 0xcc;
-
 #define TEST_ADDRESS 0xaa
 TWIDevice testDevice = { TEST_ADDRESS & ~1 };
 const byte receiveAddress = TEST_ADDRESS | 1;
