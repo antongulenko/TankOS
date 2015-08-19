@@ -37,7 +37,7 @@ ifeq ($(CONFIG), tank)
 
     KERNEL_LOG := true
     USE_BUFFER_STDOUT := true
-    #USE_TWI := true
+    USE_TWI := true
 
     STUDIO := true
     PLATFORM := Avr

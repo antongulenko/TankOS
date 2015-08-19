@@ -49,15 +49,15 @@ $(eval $(call set_test_objects,devices/motor,\
 $(eval $(call set_test_objects,kernel/twi/driver/master,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
-	$(KERNEL)/twi/driver/master_init.kernel.o \
-    $(KERNEL)/twi/driver/master.kernel.o ))
+	$(KERNEL)/twi/driver/master.kernel.o \
+    $(KERNEL)/twi/driver/master.o ))
 
 $(eval $(call set_test_objects,kernel/twi/driver/slave,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \
-    $(KERNEL)/twi/driver/master.kernel.o \
-    $(KERNEL)/twi/driver/slave_init.kernel.o \
-	$(KERNEL)/twi/driver/slave.kernel.o))
+    $(KERNEL)/twi/driver/master.o \
+    $(KERNEL)/twi/driver/slave.kernel.o \
+	$(KERNEL)/twi/driver/slave.o))
 
 $(eval $(call set_test_objects,kernel/twi/rpc/client,\
 	$(BUILDDIR)/mocks/twi_driver_master.o \

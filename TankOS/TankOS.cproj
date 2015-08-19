@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -292,7 +292,7 @@
     <Compile Include="kernel\twi\driver\master.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\master_init.kernel.c">
+    <Compile Include="kernel\twi\driver\master.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\driver\slave.h">
@@ -301,7 +301,7 @@
     <Compile Include="kernel\twi\driver\slave.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\slave_init.kernel.c">
+    <Compile Include="kernel\twi\driver\slave.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\twi\rpc\client.c">

@@ -10,8 +10,6 @@ objects += \
 ifeq ($(USE_TWI), true)
     objects += \
         $(KERNEL)/twi/driver/slave.kernel.o \
-        $(KERNEL)/twi/driver/slave_init.kernel.o \
-        $(KERNEL)/twi/driver/master.kernel.o \
         $(KERNEL)/twi/rpc/server_handler_functions.kernel.o \
         $(KERNEL)/twi/services/hardware.kernel.o \
         $(KERNEL)/twi/services/test.kernel.o \
