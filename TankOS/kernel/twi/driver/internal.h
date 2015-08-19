@@ -10,6 +10,7 @@
 
 extern int handledBytes;
 extern TWIBuffer twi_buffer;
+extern byte twi_defaultControlFlags;
 
 BOOL start_master_operation();
 
@@ -26,8 +27,6 @@ static inline TwiHandlerStatus HandlerStatus_FINISHED(byte controlRegister) {
 	twi_buffer = EmptyBuffer;
 	return (TwiHandlerStatus) { TRUE, controlRegister };
 }
-
-extern byte twi_defaultControlFlags;
 
 static inline TwiHandlerStatus twi_continue() {
 	return HandlerStatus_CONTINUE(twi_defaultControlFlags);

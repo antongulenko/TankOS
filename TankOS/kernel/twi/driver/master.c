@@ -14,13 +14,6 @@ static struct TWIOperation {
 } sendOperation, receiveOperation;
 
 static TWIDevice targetDevice;
-TWIBuffer twi_buffer;
-int handledBytes;
-
-volatile BOOL twi_running;
-TwiError twi_error;
-
-byte twi_defaultControlFlags;
 
 void twi_init() {
 	TWDR = 0xFF;
@@ -111,16 +104,6 @@ void twiSendReceive(TWIDevice _targetDevice, TWIBuffer sendData, TWIBuffer recei
 	receiveOperation.valid = TRUE;
 	receiveOperation.buffer = receiveBuffer;
 	initiate_twi();
-}
-
-void twiWaitForCompletion() {
-	while (1) {
-		uint8_t still_running;
-		ATOMIC_BLOCK(ATOMIC_FORCEON) {
-			still_running = twi_running;
-		}
-		if (!still_running) return;
-	}
 }
 
 TwiHandlerStatus twi_handle(TwiStatus status) {
