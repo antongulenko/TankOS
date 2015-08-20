@@ -5,25 +5,23 @@
 
 #include <kernel/kernel_init.h>
 #include <m1284P/timer.h>
-#include <devices/motor.h>
-#include <devices/motor_smooth_pair.h>
 #include "tank_motor.h"
 
-DEFINE_MOTOR_2Speed_IMPL(LeftMotorBase)
-DEFINE_MOTOR_2Speed_IMPL(RightMotorBase)
-DEFINE_SMOOTH_MOTOR_IMPL(LeftMotor)
-DEFINE_SMOOTH_MOTOR_IMPL(RightMotor)
+Motor leftBaseMotor, rightBaseMotor;
+SmoothMotor leftMotor, rightMotor;
 
 static void init_tank_motors() {
-	SmoothMotor1 = LeftMotor;
-	SmoothMotor2 = RightMotor;
-
 	// No exact conversion, because we have the full voltage range!
-	#define TANK_MOTOR_FLAGS MotorNormal
+	#define TANK_MOTOR MotorNormal
 
-	INIT_MOTOR_2Speed(LeftMotorBase, TANK_MOTOR_FLAGS, Timer0A, Timer0B)
-	INIT_MOTOR_2Speed(RightMotorBase, TANK_MOTOR_FLAGS, Timer2A, Timer2B)
-	INIT_SMOOTH_MOTOR(LeftMotor, LeftMotorBase, MOTOR_ADJUSTMENT_STEP)
-	INIT_SMOOTH_MOTOR(RightMotor, RightMotorBase, MOTOR_ADJUSTMENT_STEP)
+    Timer timer0A = newTimer_m1284P(0, TIMER_A, TRUE);
+    Timer timer0B = newTimer_m1284P(0, TIMER_B, TRUE);
+    Timer timer2A = newTimer_m1284P(2, TIMER_A, TRUE);
+    Timer timer2B = newTimer_m1284P(2, TIMER_B, TRUE);
+
+    leftBaseMotor = newMotor2speed(TANK_MOTOR, timer0A, timer0B);
+    leftBaseMotor = newMotor2speed(TANK_MOTOR, timer2A, timer2B);
+    leftMotor = newSmoothMotor(leftBaseMotor);
+    rightMotor = newSmoothMotor(rightBaseMotor);
 }
 KERNEL_INIT(init_tank_motors)

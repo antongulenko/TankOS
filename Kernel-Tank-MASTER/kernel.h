@@ -1,11 +1,7 @@
-#ifndef KERNEL_H_
-#define KERNEL_H_
+#ifndef KERNEL_TANK_MASTER_H_
+#define KERNEL_TANK_MASTER_H_
 
 #include <kernel_base.h>
 #include "tank_motor.h"
-#include <motor_smooth.h>
-
-#include <twi_bgx1.h>
-#include <twi_tank_IO.h>
 
 #endif

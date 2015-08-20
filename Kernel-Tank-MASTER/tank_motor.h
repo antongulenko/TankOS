@@ -11,9 +11,7 @@
 #include <devices/motor.h>
 #include <devices/motor_smooth.h>
 
-DEFINE_MOTOR(LeftMotorBase)
-DEFINE_MOTOR(RightMotorBase)
-DEFINE_SMOOTH_MOTOR(LeftMotor)
-DEFINE_SMOOTH_MOTOR(RightMotor)
+extern Motor leftBaseMotor, rightBaseMotor;
+extern SmoothMotor leftMotor, rightMotor;
 
 #endif /* TANK_MOTOR_H_ */

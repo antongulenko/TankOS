@@ -176,7 +176,6 @@ void handle_motor_tick(SmoothMotor motor) {
 		}
 
 		// After the calculations, update the actual value.
-        printf("Speed %i -> %i (Direction %i -> %i)\n", MOTOR->currentSpeed, currentSpeed, MOTOR->currentDirection, currentDir);
 		MOTOR->currentSpeed = currentSpeed;
         MOTOR->currentDirection = currentDir;
 		setSpeed(MOTOR->motor, currentSpeed, currentDir);
