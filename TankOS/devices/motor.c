@@ -248,7 +248,8 @@ int16_t getDirSpeed(Motor motor) {
 	return val;
 }
 
-static uint16_t motor_toUnsignedSpeed(int16_t speed) {
+// This is also used in motor_smooth.c
+uint16_t motor_toUnsignedSpeed(int16_t speed) {
 	// Project the signed speed-value into the unsigned value range
 	uint16_t absv = abs(speed);
 	// This if-clause is just to avoid making the value smaller.

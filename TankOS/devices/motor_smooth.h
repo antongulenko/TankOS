@@ -1,6 +1,4 @@
 /*
- * motor_smooth.h
- *
  * Created: 22.04.2012 17:29:22
  *  Author: Anton
  */
@@ -11,50 +9,24 @@
 #include "motor.h"
 #include <kernel/mutex/mutex.h>
 
-// This struct contains additional data enabling a smoother control
-// over the motor speed.
-typedef struct SmoothMotor {
-	Motor motor; // Using pointer enables to also put Motor2DirPins here
+DEFINE_HANDLE(SmoothMotor);
 
-	// Current state
-	uint16_t currentSpeed;
-	MotorDirection currentDirection;
+SmoothMotor newSmoothMotor(Motor motor);
+SmoothMotor destroySmoothMotor(SmoothMotor motor);
+BOOL smoothMotorValid(SmoothMotor motor);
 
-	// Target state
-	uint16_t targetSpeed;
-	MotorDirection targetDirection;
+// Configured how much one invocation of motor_smooth_tick change can the speed.
+void setAdjustmentStep(uint16_t step);
 
-	// Control data
-	BOOL tickRunning;
-	uint16_t adjustmentStep;
-	Mutex mutex;
-} SmoothMotor, *PSmoothMotor;
+void regulateStopMotor(SmoothMotor motor);
 
-// See the according functions in motor.h for explanations.
+void regulateSpeed(SmoothMotor motor, uint16_t speed, MotorDirection direction);
+void regulateSpeedForward(SmoothMotor motor, uint16_t speed);
+void regulateSpeedBackward(SmoothMotor motor, uint16_t speed);
 
-void regulateStopMotor(PSmoothMotor motor);
+void regulateDirSpeed(SmoothMotor motor, int16_t speed);
 
-void regulateSpeed(PSmoothMotor motor, uint16_t speed, MotorDirection direction);
-void regulateSpeedForward(PSmoothMotor motor, uint16_t speed);
-void regulateSpeedBackward(PSmoothMotor motor, uint16_t speed);
-
-void regulateDirSpeed(PSmoothMotor motor, int16_t speed);
-
-// Some external module must invoke this function on a regular basis. Whether or not this ticking
-// is active, is steered through two function that must be implemented by the same external
-// module (see motor_smooth.c)
-void motor_smooth_tick(PSmoothMotor motor);
-
-void initSmoothMotor(PSmoothMotor motor);
-
-#define DEFINE_SMOOTH_MOTOR(motorName) extern const PSmoothMotor motorName;
-
-#define INIT_SMOOTH_MOTOR(motorName, realMotor, adjustmentStep)	\
-	motorName##_ = (SmoothMotor) { realMotor, 0, MotorForward, 0, MotorForward, FALSE, adjustmentStep, ConstantInvalid(Mutex) };		\
-	initSmoothMotor(motorName);
-
-#define DEFINE_SMOOTH_MOTOR_IMPL(motorName)				\
-	SmoothMotor motorName##_;						\
-	const PSmoothMotor motorName = &motorName##_;
+// Some external module should invoke this function on a regular basis.
+void motor_smooth_tick();
 
 #endif /* MOTOR_SMOOTH_H_ */

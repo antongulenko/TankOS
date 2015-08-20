@@ -9,8 +9,16 @@
 
 #include "mutex.h"
 
+struct {
+    byte ignored;
+} theMockMutex;
+
 Mutex mutex_create() {
-	return Invalid(Mutex);
+	return As(Mutex, &theMockMutex);
+}
+
+Mutex mutex_destroy(Mutex mutex) {
+    return Invalid(Mutex);
 }
 
 void mutex_lock(Mutex mutex) {

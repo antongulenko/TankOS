@@ -22,6 +22,13 @@ Mutex mutex_create() {
 	return As(Mutex, mutex);
 }
 
+Mutex mutex_destroy(Mutex mutex) {
+    if (IsValid(mutex)) {
+        free(MUTEX);
+    }
+    return Invalid(Mutex);
+}
+
 void mutex_lock(Mutex mutex) {
 	MUTEX->interruptsWereEnabled = interrupts_enabled();
 	cli();

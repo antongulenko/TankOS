@@ -16,6 +16,11 @@ Mutex mutex_create() {
 	return As(Mutex, kalloc(sizeof(RealMutex)));
 }
 
+Mutex mutex_destroy(Mutex mutex) {
+    // TODO
+    return Invalid(Mutex);
+}
+
 void mutex_lock(Mutex mutex) {
 	// TODO
 }

@@ -46,6 +46,13 @@ $(eval $(call set_test_objects,devices/motor,\
     $(BUILDDIR)/mocks/port.o \
 	$(KERNEL_BASE)/devices/motor.o ))
 
+$(eval $(call set_test_objects,devices/motor_smooth,\
+	$(KERNEL)/devices/port.o \
+    $(BUILDDIR)/mocks/port.o \
+	$(KERNEL_BASE)/devices/motor.o \
+    $(KERNEL_BASE)/devices/motor_smooth.o \
+    $(KERNEL)/mutex/mock_mutex.kernel.o ))
+
 $(eval $(call set_test_objects,kernel/twi/driver/master,\
 	$(BUILDDIR)/kernel/twi/driver/base_tests.o \
 	$(BUILDDIR)/kernel/twi/driver/helper.o \

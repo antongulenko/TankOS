@@ -12,6 +12,7 @@
 DEFINE_HANDLE(Mutex);
 
 Mutex mutex_create();
+Mutex mutex_destroy(Mutex mutex);
 
 void mutex_lock(Mutex mutex);
 BOOL mutex_trylock(Mutex mutex);
