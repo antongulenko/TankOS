@@ -15,13 +15,11 @@ ifeq ($(USE_TWI), true)
         $(KERNEL)/twi/services/hardware.kernel.o \
         $(KERNEL)/twi/services/test.kernel.o \
         $(OWN)/tank_io_twi.kernel.o
+        # TODO -- add service for IO operations
 
     ifeq ($(USE_BUFFER_STDOUT), true)
         objects += $(KERNEL)/twi/services/buffer_stdout.kernel.o
     endif
-
-    # TODO add this later
-    # objects += $(OWN)/tank_io_server.kernel.o
 endif
 
 include Tank-Shared/KernelObjects2.mk

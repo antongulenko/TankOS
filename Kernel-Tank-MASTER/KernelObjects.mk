@@ -3,21 +3,20 @@ include Tank-Shared/KernelObjects1.mk
 
 OWN := Kernel-Tank-MASTER/$(BUILD_DIRNAME)
 
-objects += \
-    $(KERNEL)/devices/motor_smooth_pair.kernel.o \
-    $(OWN)/tank_motor.kernel.o
-
-ifeq ($(USE_SMOOTH_MOTOR_INTERRUPT), true)
-    objects += $(SHARED)/motor_smooth_interrupt.kernel.o
-else
-    objects += $(SHARED)/motor_smooth_loop.kernel.o
-endif
+objects += $(OWN)/tank_motor.kernel.o
 
 ifeq ($(USE_TWI), true)
     objects += \
-        $(KERNEL)/TWI/twi_driver.kernel.o \
-        $(KERNEL)/TWI/twi_rpc.kernel.o \
-        $(OWN)/twi_tank_IO.kernel.o
+        $(KERNEL)/twi/driver/slave.kernel.o \
+        $(KERNEL)/twi/rpc/server_handler_functions.kernel.o \
+        $(KERNEL)/twi/services/hardware.kernel.o \
+        $(KERNEL)/twi/services/test.kernel.o \
+        $(OWN)/tank_motors_twi.kernel.o
+        # TODO -- add service for Motors operations
+
+    ifeq ($(USE_BUFFER_STDOUT), true)
+        objects += $(KERNEL)/twi/services/buffer_stdout.kernel.o
+    endif
 endif
 
 include Tank-Shared/KernelObjects2.mk

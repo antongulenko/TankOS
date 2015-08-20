@@ -3,12 +3,10 @@ project := $(get-basedir)
 dependencies := TankOS Tank-Shared Kernel-Tank-MASTER
 
 ifndef MAIN_$(project)
-MAIN_$(project) := test_motors_forward
+MAIN_$(project) := Main_empty
 endif
 
 include Defaults.mk
 include Tank-Shared/DefaultTankSymbols.mk
-
-ld_symbols += __vector_33=__vector_SMOOTH_MOTOR_TIMER_INTERRUPT
-
+include Kernel-Tank-MASTER/KernelSymbols.mk
 include Main.mk

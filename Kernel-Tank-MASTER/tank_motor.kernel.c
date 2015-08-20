@@ -10,7 +10,13 @@
 Motor leftBaseMotor, rightBaseMotor;
 SmoothMotor leftMotor, rightMotor;
 
+static void init_tank_timers() {
+
+}
+
 static void init_tank_motors() {
+    init_tank_timers();
+
 	// No exact conversion, because we have the full voltage range!
 	#define TANK_MOTOR MotorNormal
 
@@ -23,5 +29,10 @@ static void init_tank_motors() {
     leftBaseMotor = newMotor2speed(TANK_MOTOR, timer2A, timer2B);
     leftMotor = newSmoothMotor(leftBaseMotor);
     rightMotor = newSmoothMotor(rightBaseMotor);
+
+    // == Motor adjustment step ==
+    // Resolution is 16 bit (65535), one adjustment each millisecond
+    // -> acceleration from min to max in 500 ms.
+    setAdjustmentStep(130);
 }
 KERNEL_INIT(init_tank_motors)

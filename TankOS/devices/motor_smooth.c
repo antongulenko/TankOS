@@ -188,3 +188,9 @@ void motor_smooth_tick() {
         handle_motor_tick(element->motor);
     }
 }
+
+// Can be linked to a real ISR.
+void __vector_SMOOTH_MOTOR_TIMER_INTERRUPT() INTERRUPT_FUNCTION;
+void __vector_SMOOTH_MOTOR_TIMER_INTERRUPT() {
+    motor_smooth_tick();
+}
