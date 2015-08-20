@@ -96,7 +96,7 @@ void call_meta(TWIDevice device, ClientFunctionRegistryEntry entry, byte *parame
 
 void init_libraries(int bus_nr) {
     bus_number = bus_nr;
-    twi_init();
+    twi_init_linux();
     twi_rpc_client_init((TWIBuffer) { rpc_buffer, sizeof(rpc_buffer) });
     check_error();
 }

@@ -69,9 +69,8 @@ void twiWaitForCompletion() {
     // No-op. TODO no multi threading.
 }
 
-void twi_init() {
+void twi_init_linux() {
     snprintf(filename, sizeof(filename) - 1, "%s%d", i2c_file_prefix, bus_number);
     file = open(filename, O_RDWR);
     if (file < 0) error("Failed to open");
 }
-
