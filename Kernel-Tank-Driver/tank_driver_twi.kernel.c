@@ -1,6 +1,6 @@
 
 #include <kernel/kernel_init.h>
-#include "tank_motors_address.h"
+#include "tank_driver_address.h"
 
 void init_rpc_server(uint8_t addr); // Tank-Shared/twi.kernel.c
 

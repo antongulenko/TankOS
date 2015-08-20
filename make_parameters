@@ -40,7 +40,7 @@ ifeq ($(CONFIG), io)
 endif
 ifeq ($(CONFIG), master)
 
-    PROJ := Main-Tank-MASTER
+    PROJ := Main-Tank-Driver
 
 endif
 ifeq ($(CONFIG), $(filter $(CONFIG), tank io master))

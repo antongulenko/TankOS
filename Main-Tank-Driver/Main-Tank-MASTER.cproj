@@ -4,19 +4,17 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.2</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
-    <ProjectGuid>{001374ba-4d89-4bdc-a303-8d9e95ef541a}</ProjectGuid>
+    <ProjectGuid>{f3458651-8114-411e-a5f4-0c17856c1054}</ProjectGuid>
     <avrdevice>ATmega1284P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
-    <OutputType>StaticLibrary</OutputType>
+    <OutputType>Executable</OutputType>
     <Language>C</Language>
-    <OutputFileName>lib$(MSBuildProjectName)</OutputFileName>
-    <OutputFileExtension>.a</OutputFileExtension>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AvrGccProjectExtensions>
-    </AvrGccProjectExtensions>
-    <AssemblyName>Kernel-Tank-MASTER</AssemblyName>
-    <Name>Kernel-Tank-MASTER</Name>
-    <RootNamespace>Kernel-Tank-MASTER</RootNamespace>
+    <AssemblyName>Main-Tank-Driver</AssemblyName>
+    <Name>Main-Tank-Driver</Name>
+    <RootNamespace>Main-Tank-Driver</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -100,19 +98,82 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="kernel.h">
+    <Compile Include="Main_programmable_drive_around.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_motor.h">
+    <Compile Include="test_analog.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_motor.kernel.c">
+    <Compile Include="test_analog_fakeMotor.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="twi_tank_IO.h">
+    <Compile Include="test_analog_interrupts.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="twi_tank_IO.kernel.c">
+    <Compile Include="test_analog_interrupts_fakeMotor.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_motors_buttons.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_motors_buttons_simple.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_motors_buttons_steps.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_raw.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_raw_motors_buttons.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_twi_buttons.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_io_twi_status.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_backward.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_change_backward.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_change_forward.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_change_steps.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_forward.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_random.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_random_left.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_regulate.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_regulate_backward.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_regulate_backward_left.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_regulate_left.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_motors_regulate_oneAtATime.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="util.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="util.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

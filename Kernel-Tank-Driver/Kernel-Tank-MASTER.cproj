@@ -4,17 +4,19 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.2</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
-    <ProjectGuid>{f3458651-8114-411e-a5f4-0c17856c1054}</ProjectGuid>
+    <ProjectGuid>{001374ba-4d89-4bdc-a303-8d9e95ef541a}</ProjectGuid>
     <avrdevice>ATmega1284P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
-    <OutputType>Executable</OutputType>
+    <OutputType>StaticLibrary</OutputType>
     <Language>C</Language>
-    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
-    <OutputFileExtension>.elf</OutputFileExtension>
+    <OutputFileName>lib$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.a</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>Main-Tank-MASTER</AssemblyName>
-    <Name>Main-Tank-MASTER</Name>
-    <RootNamespace>Main-Tank-MASTER</RootNamespace>
+    <AvrGccProjectExtensions>
+    </AvrGccProjectExtensions>
+    <AssemblyName>Kernel-Tank-Driver</AssemblyName>
+    <Name>Kernel-Tank-Driver</Name>
+    <RootNamespace>Kernel-Tank-Driver</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -98,82 +100,19 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Main_programmable_drive_around.main.c">
+    <Compile Include="kernel.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_analog.main.c">
+    <Compile Include="tank_motor.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_analog_fakeMotor.main.c">
+    <Compile Include="tank_motor.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_analog_interrupts.main.c">
+    <Compile Include="twi_tank_IO.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_analog_interrupts_fakeMotor.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_motors_buttons.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_motors_buttons_simple.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_motors_buttons_steps.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_raw.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_raw_motors_buttons.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_twi_buttons.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_twi_status.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_backward.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_change_backward.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_change_forward.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_change_steps.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_forward.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_random.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_random_left.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_regulate.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_regulate_backward.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_regulate_backward_left.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_regulate_left.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_regulate_oneAtATime.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="util.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="util.h">
+    <Compile Include="twi_tank_IO.kernel.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
