@@ -30,7 +30,6 @@ tests :=
 
 ifeq ($(LIBRARY), true)
     # Library outputs
-    unused_suffix := kernel
     outputs := $(project)
     primary_output := $(project)
 else
@@ -53,12 +52,6 @@ else
         outputs := $(subst .c,,$(main_sources))
     endif
 
-    ifeq ($(test_project),true)
-        unused_suffix := testrunner
-    else
-        unused_suffix := main
-    endif
-
     # Test-files are handled specially. They end with .test.c
     tests := $(shell $(FIND) $(project) -name \*.test.c)
     tests := $(subst $(project)/,,$(tests))
@@ -66,7 +59,7 @@ else
 endif
 
 # Only non-kernel and non-main objects are linked/archived automatically.
-# Kernel- or Main- objects must be selected separately when linking, using the project-specific Objects.mk script.
-default_sources := $(shell $(FIND) $(project) -name \*.c -and -not -name \*.$(unused_suffix).c)
+# kernel.* or main.* objects must be selected separately when linking, using the project-specific Objects.mk script.
+default_sources := $(shell $(FIND) $(project) -name \*.c -and -not -name \*.kernel.c -and -not -name \*.main.c -and -not -name \*.testrunner.c)
 default_sources := $(subst $(project)/,,$(default_sources))
 objects := $(default_sources:.c=.o)

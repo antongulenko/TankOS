@@ -4,7 +4,7 @@
 
 void init_rpc_server(uint8_t addr); // Tank-Shared/twi.kernel.c
 
-void init_tank_motors_twi() {
-    init_rpc_server(TANK_MOTORS_ADDRESS);
+void init_tank_driver_twi() {
+    init_rpc_server(TANK_DRIVER_ADDRESS);
 }
-KERNEL_INIT(init_tank_motors_twi)
+KERNEL_INIT(init_tank_driver_twi)

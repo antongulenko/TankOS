@@ -70,7 +70,7 @@ ifeq ($(AUTO_DISCOVER), true)
     ProjectMakefiles := $(shell $(FIND) . -maxdepth 2 -name Project.mk)
     AllProjects := $(foreach p, $(ProjectMakefiles), $(shell basename $(shell dirname $p)))
 else
-    AllProjects := Unity TankOS TankOS-Test Tank-Shared Kernel-Tank-Driver Kernel-Tank-IO Kernel-Simulator Main-Tank-Driver Main-Tank-IO Main-Simulator Test-Scheduler TwiTool
+    AllProjects := Unity TankOS TankOS-Test Tank-Shared Tank-Driver Tank-IO Simulator Test-Scheduler TwiTool
     ProjectMakefiles := $(foreach p, $(AllProjects), $p/Project.mk)
 endif
 
@@ -142,6 +142,6 @@ endif
 # Objects.mk:
 # Projects can define objects (possibly from other projects), that should be included when linking or archiving.
 # Following reasons:
-#  - Kernel-projects should define the kernel-objects they require from other libraries. By default, objects named *.kernel.o are excluded.
-#  - Main-projects can define additional objects to be linked, that should override symbols defined in libraries
+#  - Kernel projects should define the kernel-objects they require from other libraries. By default, objects named *.kernel.o are excluded.
+#  - Main projects can define additional objects to be linked, that should override symbols defined in libraries
 # Take care to APPEND to the 'objects'-variable, as it already contains other objects!

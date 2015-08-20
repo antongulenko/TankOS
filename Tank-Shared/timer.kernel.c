@@ -20,9 +20,8 @@ static void init_tank_timer() {
                          // No input-capture, noise-canceller
             | _BV(CS31); // clock-select: prescale 8
     TCCR3C = 0; // No forced output-compare
-	
+
 	#define MILLISECOND_TIMER_VALUE ((uint16_t) (F_CPU / 1000 / 8))
-	
 	setTimerValue(millisecond_timer_A, MILLISECOND_TIMER_VALUE);
 	setTimerValue(millisecond_timer_B, MILLISECOND_TIMER_VALUE);
 }

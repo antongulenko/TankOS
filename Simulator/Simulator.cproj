@@ -1,33 +1,31 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.2</ProjectVersion>
     <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
-    <ProjectGuid>{6913f0d9-5715-46c8-a090-a913f0a1095e}</ProjectGuid>
+    <ProjectGuid>{ad2b2136-51b8-4ce0-b777-2eafd1fffbdf}</ProjectGuid>
     <avrdevice>ATmega1284P</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
-    <OutputType>StaticLibrary</OutputType>
+    <OutputType>Executable</OutputType>
     <Language>C</Language>
-    <OutputFileName>lib$(MSBuildProjectName)</OutputFileName>
-    <OutputFileExtension>.a</OutputFileExtension>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AvrGccProjectExtensions>
-    </AvrGccProjectExtensions>
-    <AssemblyName>Kernel-Tank-IO</AssemblyName>
-    <Name>Kernel-Tank-IO</Name>
-    <RootNamespace>Kernel-Tank-IO</RootNamespace>
+    <AssemblyName>Simulator</AssemblyName>
+    <Name>Simulator</Name>
+    <RootNamespace>Simulator</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
-    <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <preserveEEPROM>false</preserveEEPROM>
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
-    <eraseonlaunchrule>1</eraseonlaunchrule>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data xmlns="">
         <options />
@@ -40,6 +38,21 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolOptions>
+        <InterfaceProperties>
+        </InterfaceProperties>
+        <InterfaceName>
+        </InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolNumber>
+      </ToolNumber>
+      <ToolName>Simulator</ToolName>
+    </com_atmel_avrdbg_tool_simulator>
+    <StimuliFile>C:\Users\anton\Desktop\stimuli.stim</StimuliFile>
+    <avrtoolinterface />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -76,7 +89,7 @@
         <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
         <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
         <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
-        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.srec>False</avrgcc.common.outputfiles.srec>
         <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
         <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
         <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
@@ -100,38 +113,45 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="kernel.h">
+    <Compile Include="Main_Tank-IO.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_button.h">
+    <Compile Include="test_DMS_idle_many.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_button.kernel.c">
+    <Compile Include="test_DMS_idle_two.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_button_interrupts.kernel.c">
+    <Compile Include="test_DMS_many.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_io_address.h">
+    <Compile Include="test_DMS_one.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_io_protocol.h">
+    <Compile Include="test_DMS_rr_many.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_io_twi.kernel.c">
+    <Compile Include="test_empty.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_led.h">
+    <Compile Include="test_memory.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="tank_led.kernel.c">
+    <Compile Include="test_rr_many.main.c">
       <SubType>compile</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="tank_io_server.kernel.c_">
+    <Compile Include="test_rr_two.main.c">
       <SubType>compile</SubType>
-    </None>
+    </Compile>
+    <Compile Include="test_switchProcess.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_switchProcess_many.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="test_switchProcess_many_random.main.c">
+      <SubType>compile</SubType>
+    </Compile>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

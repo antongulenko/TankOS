@@ -4,8 +4,8 @@
 #include <misc/memory.h>
 #include <kernel/buffer_stdout.h>
 #include <stdio.h>
-#include "../Kernel-Tank-IO/tank_button.h"
-#include "../Kernel-Tank-IO/tank_led.h"
+#include "../Tank-IO/tank_button.h"
+#include "../Tank-IO/tank_led.h"
 
 void runLeds() {
 	for (int i = 0; i < allLeds->count; i++) {

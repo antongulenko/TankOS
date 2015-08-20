@@ -1,9 +1,9 @@
 LIBRARY := false
 project := $(get-basedir)
-dependencies := TankOS Tank-Shared Kernel-Tank-IO
+dependencies := TankOS Tank-Shared
 
 ifndef MAIN_$(project)
-MAIN_$(project) := Main_empty
+MAIN_$(project) := Main_Tank-IO
 endif
 
 include Defaults.mk

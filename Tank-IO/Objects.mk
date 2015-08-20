@@ -1,12 +1,10 @@
 
 include Tank-Shared/KernelObjects1.mk
 
-OWN := Kernel-Tank-IO/$(BUILD_DIRNAME)
-
 objects += \
-    $(OWN)/tank_led.kernel.o \
-    $(OWN)/tank_button.kernel.o \
-    $(OWN)/tank_button_interrupts.kernel.o
+    $(BUILDDIR)/tank_led.kernel.o \
+    $(BUILDDIR)/tank_button.kernel.o \
+    $(BUILDDIR)/tank_button_interrupts.kernel.o
 
 ifeq ($(USE_TWI), true)
     objects += \
@@ -14,7 +12,7 @@ ifeq ($(USE_TWI), true)
         $(KERNEL)/twi/rpc/server_handler_functions.kernel.o \
         $(KERNEL)/twi/services/hardware.kernel.o \
         $(KERNEL)/twi/services/test.kernel.o \
-        $(OWN)/tank_io_twi.kernel.o
+        $(BUILDDIR)/tank_io_twi.kernel.o
         # TODO -- add service for IO operations
 
     ifeq ($(USE_BUFFER_STDOUT), true)

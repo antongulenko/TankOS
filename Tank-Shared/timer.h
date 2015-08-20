@@ -3,8 +3,7 @@
 
 // The timers provided here are set up by timer.kernel.c and should not be written.
 // They are general purpose timers for software.
-// The interrupt-ISRs (and what timers are used for this) are defined over preprocessor
-// symbols passed from command line.
+// ISRs can be linked to __vector_32 and __vector_33.
 
 extern Timer millisecond_timer_A;
 extern Timer millisecond_timer_B;

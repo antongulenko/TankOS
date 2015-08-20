@@ -1,6 +1,6 @@
 LIBRARY := false
 project := $(get-basedir)
-dependencies := TankOS Tank-Shared Kernel-Simulator Unity
+dependencies := TankOS Tank-Shared Unity
 
 ifndef MAIN_$(project)
 MAIN_$(project) := TestRunner
