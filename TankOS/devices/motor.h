@@ -9,7 +9,7 @@
 #define MOTOR_H_
 
 #include <tank_os_common.h>
-#include <kernel/devices/timer.h>
+#include <devices/timer.h>
 
 typedef enum {
     MotorNormal = 0,

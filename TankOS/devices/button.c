@@ -6,7 +6,7 @@
  */
 
 #include "button.h"
-#include <misc/klib.h>
+#include <kernel/klib.h>
 
 ButtonCallbackFunction buttonPressedCallback;
 ButtonCallbackFunction buttonReleasedCallback;

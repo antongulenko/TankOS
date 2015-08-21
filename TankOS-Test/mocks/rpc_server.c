@@ -1,6 +1,6 @@
 
 #include "rpc_server.h"
-#include <kernel/twi/rpc/server_handler.h>
+#include <twi/rpc/server_handler.h>
 
 const TestResStruct defaultResult = { 34, 66.76, "He" };
 TestArgStruct receivedArgs;

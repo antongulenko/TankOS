@@ -6,8 +6,8 @@
  */
 
 #include "buffer_stdout.h"
-#include <kernel/mutex/mutex.h>
-#include <misc/klib.h>
+#include <mutex/mutex.h>
+#include <kernel/klib.h>
 #include <string.h>
 
 static Mutex flush_mutex;

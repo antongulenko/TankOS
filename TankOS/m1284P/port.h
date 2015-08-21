@@ -6,7 +6,7 @@
 #ifndef PORT_M1284P_H_
 #define PORT_M1284P_H_
 
-#include <kernel/devices/port.h>
+#include <devices/port.h>
 
 extern Port portA, portB, portC, portD;
 extern Pin pinA0, pinA1, pinA2, pinA3, pinA4, pinA5, pinA6, pinA7;

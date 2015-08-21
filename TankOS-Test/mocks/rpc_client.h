@@ -6,10 +6,10 @@
 #ifndef TESTRPCCLIENT_H_
 #define TESTRPCCLIENT_H_
 
-#include <kernel/twi/driver/driver.h>
+#include <twi/driver/driver.h>
 #include "twi_driver_master.h"
 
-#include <kernel/twi/rpc/client_functions.h>
+#include <twi/rpc/client_functions.h>
 
 typedef struct TestArgStruct {
 	int arg1;

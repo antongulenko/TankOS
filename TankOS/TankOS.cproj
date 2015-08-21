@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -113,19 +113,18 @@
   <ItemGroup>
     <Folder Include="devices\" />
     <Folder Include="kernel\" />
-    <Folder Include="kernel\devices\" />
-    <Folder Include="kernel\mutex\" />
-    <Folder Include="kernel\processes\" />
-    <Folder Include="kernel\processes\avr\" />
-    <Folder Include="kernel\processes\DMS\" />
-    <Folder Include="kernel\processes\idle\" />
-    <Folder Include="kernel\processes\RoundRobin\" />
-    <Folder Include="kernel\twi\" />
-    <Folder Include="kernel\twi\driver\" />
-    <Folder Include="kernel\twi\rpc\" />
-    <Folder Include="kernel\twi\services\" />
+    <Folder Include="mutex\" />
+    <Folder Include="process\" />
+    <Folder Include="process\avr\" />
+    <Folder Include="process\DMS\" />
+    <Folder Include="process\idle\" />
+    <Folder Include="process\RoundRobin\" />
+    <Folder Include="twi\" />
+    <Folder Include="twi\driver\" />
+    <Folder Include="twi\rpc\" />
+    <Folder Include="twi\services\" />
     <Folder Include="m1284P\" />
-    <Folder Include="misc\" />
+    <Folder Include="kernel\" />
     <Folder Include="simulation\" />
     <Folder Include="uthash\" />
   </ItemGroup>
@@ -166,25 +165,25 @@
     <Compile Include="kernel\buffer_stdout.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\analog.c">
+    <Compile Include="devices\analog.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\analog.h">
+    <Compile Include="devices\analog.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\analog.kernel.c">
+    <Compile Include="devices\analog.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\port.c">
+    <Compile Include="devices\port.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\port.h">
+    <Compile Include="devices\port.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\timer.c">
+    <Compile Include="devices\timer.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\devices\timer.h">
+    <Compile Include="devices\timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\early_init.c">
@@ -208,67 +207,67 @@
     <Compile Include="kernel\millisecond_clock.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\mutex\atomic_mutex.kernel.c">
+    <Compile Include="mutex\atomic_mutex.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\mutex\mock_mutex.kernel.c">
+    <Compile Include="mutex\mock_mutex.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\mutex\mutex.h">
+    <Compile Include="mutex\mutex.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\avr\context_switch.h">
+    <Compile Include="process\avr\context_switch.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\avr\process.c">
+    <Compile Include="process\avr\process.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\avr\process.kernel.c">
+    <Compile Include="process\avr\process.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\DMS\api.h">
+    <Compile Include="process\DMS\api.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\DMS\dms.c">
+    <Compile Include="process\DMS\dms.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\DMS\scheduler.h">
+    <Compile Include="process\DMS\scheduler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\idle\idle.c">
+    <Compile Include="process\idle\idle.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\idle\scheduler.h">
+    <Compile Include="process\idle\scheduler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\mutex.kernel.c">
+    <Compile Include="process\mutex.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\process.c">
+    <Compile Include="process\process.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\process.h">
+    <Compile Include="process\process.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\process_base.h">
+    <Compile Include="process\process_base.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\RoundRobin\api.h">
+    <Compile Include="process\RoundRobin\api.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\RoundRobin\rr.c">
+    <Compile Include="process\RoundRobin\rr.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\RoundRobin\scheduler.h">
+    <Compile Include="process\RoundRobin\scheduler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\scheduler.c">
+    <Compile Include="process\scheduler.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\scheduler.h">
+    <Compile Include="process\scheduler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\scheduler_interrupt.kernel.c">
+    <Compile Include="process\scheduler_interrupt.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\simple_timer.kernel.c">
@@ -277,109 +276,109 @@
     <Compile Include="kernel\sleep_after_main.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\driver.c">
+    <Compile Include="twi\driver\driver.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\driver.h">
+    <Compile Include="twi\driver\driver.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\internal.h">
+    <Compile Include="twi\driver\internal.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\isr.h">
+    <Compile Include="twi\driver\isr.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\master.h">
+    <Compile Include="twi\driver\master.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\master.kernel.c">
+    <Compile Include="twi\driver\master.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\master.c">
+    <Compile Include="twi\driver\master.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\slave.h">
+    <Compile Include="twi\driver\slave.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\slave.kernel.c">
+    <Compile Include="twi\driver\slave.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\slave.c">
+    <Compile Include="twi\driver\slave.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\client.c">
+    <Compile Include="twi\rpc\client.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\client.h">
+    <Compile Include="twi\rpc\client.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\client_functions.c">
+    <Compile Include="twi\rpc\client_functions.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\client_functions.h">
+    <Compile Include="twi\rpc\client_functions.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\client_functions_registry.h">
+    <Compile Include="twi\rpc\client_functions_registry.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\server.c">
+    <Compile Include="twi\rpc\server.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\server.h">
+    <Compile Include="twi\rpc\server.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\server_handler.h">
+    <Compile Include="twi\rpc\server_handler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\server_handler_functions.h">
+    <Compile Include="twi\rpc\server_handler_functions.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\server_handler_functions.kernel.c">
+    <Compile Include="twi\rpc\server_handler_functions.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\server_status.h">
+    <Compile Include="twi\rpc\server_status.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\strings.c">
+    <Compile Include="twi\rpc\strings.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\strings.h">
+    <Compile Include="twi\rpc\strings.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\buffer_stdout.c">
+    <Compile Include="twi\services\buffer_stdout.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\buffer_stdout.h">
+    <Compile Include="twi\services\buffer_stdout.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\buffer_stdout.kernel.c">
+    <Compile Include="twi\services\buffer_stdout.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\buffer_stdout_client.kernel.c">
+    <Compile Include="twi\services\buffer_stdout_client.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\hardware.c">
+    <Compile Include="twi\services\hardware.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\hardware.h">
+    <Compile Include="twi\services\hardware.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\hardware.kernel.c">
+    <Compile Include="twi\services\hardware.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\hardware_client.kernel.c">
+    <Compile Include="twi\services\hardware_client.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\test.c">
+    <Compile Include="twi\services\test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\test.h">
+    <Compile Include="twi\services\test.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\test.kernel.c">
+    <Compile Include="twi\services\test.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\test_client.kernel.c">
+    <Compile Include="twi\services\test_client.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="m1284P\analog.h">
@@ -400,28 +399,28 @@
     <Compile Include="m1284P\timer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\hardware_reset.c">
+    <Compile Include="kernel\hardware_reset.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\hardware_reset.h">
+    <Compile Include="kernel\hardware_reset.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\idle.c">
+    <Compile Include="kernel\idle.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\idle.h">
+    <Compile Include="kernel\idle.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\klib.h">
+    <Compile Include="kernel\klib.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\klib.kernel.c">
+    <Compile Include="kernel\klib.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\memory.c">
+    <Compile Include="kernel\memory.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\memory.h">
+    <Compile Include="kernel\memory.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="simulation\common.h">

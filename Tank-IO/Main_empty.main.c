@@ -1,8 +1,8 @@
 
 #include "kernel.h"
 #include "LedOperations.h"
-#include <misc/memory.h>
-#include <misc/klib.h>
+#include <kernel/memory.h>
+#include <kernel/klib.h>
 #include <kernel/buffer_stdout.h>
 #include <stdio.h>
 

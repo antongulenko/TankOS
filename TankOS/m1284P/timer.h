@@ -6,7 +6,7 @@
 #ifndef TIMER_M1284P_H_
 #define TIMER_M1284P_H_
 
-#include <kernel/devices/timer.h>
+#include <devices/timer.h>
 #include "port.h"
 
 typedef enum {

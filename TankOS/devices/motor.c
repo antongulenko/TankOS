@@ -6,7 +6,7 @@
  */
 
 #include "motor.h"
-#include <misc/klib.h>
+#include <kernel/klib.h>
 
 typedef struct _Motor {
     MotorType type;

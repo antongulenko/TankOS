@@ -7,7 +7,7 @@
 #define MOTOR_SMOOTH_H_
 
 #include "motor.h"
-#include <kernel/mutex/mutex.h>
+#include <mutex/mutex.h>
 
 DEFINE_HANDLE(SmoothMotor);
 

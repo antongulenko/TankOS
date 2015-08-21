@@ -1,6 +1,6 @@
 
 #include "tests.h"
-#include <misc/memory.h>
+#include <kernel/memory.h>
 
 uint16_t availableMemory_before = 0;
 

@@ -2,7 +2,7 @@
 #ifndef TESTRPCSERVER_H_
 #define TESTRPCSERVER_H_
 
-#include <kernel/twi/rpc/server_handler_functions.h>
+#include <twi/rpc/server_handler_functions.h>
 #include "rpc_client.h"
 
 const extern TestResStruct defaultResult;

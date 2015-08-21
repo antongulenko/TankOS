@@ -101,12 +101,12 @@
     <Folder Include="devices\" />
     <Folder Include="kernel\" />
     <Folder Include="kernel\devices\" />
-    <Folder Include="kernel\processes\" />
-    <Folder Include="kernel\twi\" />
-    <Folder Include="kernel\twi\driver\" />
-    <Folder Include="kernel\twi\rpc\" />
-    <Folder Include="kernel\twi\services\" />
-    <Folder Include="misc\" />
+    <Folder Include="process\" />
+    <Folder Include="twi\" />
+    <Folder Include="twi\driver\" />
+    <Folder Include="twi\rpc\" />
+    <Folder Include="twi\services\" />
+    <Folder Include="kernel\" />
     <Folder Include="mocks\" />
   </ItemGroup>
   <ItemGroup>
@@ -134,61 +134,61 @@
     <Compile Include="kernel\devices\timer.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\process.test.c">
+    <Compile Include="process\process.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\processes\scheduler.test.c">
+    <Compile Include="process\scheduler.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\base_tests.c">
+    <Compile Include="twi\driver\base_tests.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\helper.c">
+    <Compile Include="twi\driver\helper.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\helper.h">
+    <Compile Include="twi\driver\helper.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\master.test.c">
+    <Compile Include="twi\driver\master.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\driver\slave.test.c">
+    <Compile Include="twi\driver\slave.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\client.test.c">
+    <Compile Include="twi\rpc\client.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\client_functions.test.c">
+    <Compile Include="twi\rpc\client_functions.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\client_functions_registry.test.c">
+    <Compile Include="twi\rpc\client_functions_registry.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\end_to_end.test.c">
+    <Compile Include="twi\rpc\end_to_end.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\server.test.c">
+    <Compile Include="twi\rpc\server.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\server_handler_functions.test.c">
+    <Compile Include="twi\rpc\server_handler_functions.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\rpc\strings.test.c">
+    <Compile Include="twi\rpc\strings.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\buffer_stdout.test.c">
+    <Compile Include="twi\services\buffer_stdout.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\hardware.test.c">
+    <Compile Include="twi\services\hardware.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\test.c">
+    <Compile Include="twi\services\test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\twi\services\test.test.c">
+    <Compile Include="twi\services\test.test.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="misc\klib.test.c">
+    <Compile Include="kernel\klib.test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\assertions.c">

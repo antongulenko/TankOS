@@ -4,8 +4,8 @@
 #include <errno.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <kernel/twi/rpc/client_functions_registry.h>
-#include <kernel/twi/rpc/strings.h>
+#include <twi/rpc/client_functions_registry.h>
+#include <twi/rpc/strings.h>
 
 #define DEFAULT_BUS_NUM 0
 byte rpc_buffer[1024*4];

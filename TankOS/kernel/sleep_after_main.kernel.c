@@ -1,5 +1,5 @@
 
-#include <misc/idle.h>
+#include <kernel/idle.h>
 
 // This makes the initial main()-process idle when finishing (like all other processes).
 void MainProcessEnd() __attribute__((section (".fini1")));

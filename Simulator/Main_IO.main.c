@@ -1,7 +1,7 @@
 
 #include <devices/button.h>
-#include <misc/klib.h>
-#include <misc/memory.h>
+#include <kernel/klib.h>
+#include <kernel/memory.h>
 #include <kernel/buffer_stdout.h>
 #include <stdio.h>
 #include "../Tank-IO/tank_button.h"

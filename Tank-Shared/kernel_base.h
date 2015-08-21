@@ -10,14 +10,14 @@
 
 #include <kernel/millisecond_clock.h>
 #include <kernel/early_init.h>
-#include <kernel/mutex/mutex.h>
+#include <mutex/mutex.h>
 #include <m1284P/analog.h>
 #include <m1284P/timer.h>
 #include <tank_os_common.h>
 
-#include <kernel/processes/process.h>
-#include <kernel/processes/scheduler.h>
-#include <kernel/processes/DMS/api.h>
-#include <kernel/processes/RoundRobin/api.h>
+#include <process/process.h>
+#include <process/scheduler.h>
+#include <process/DMS/api.h>
+#include <process/RoundRobin/api.h>
 
 #endif

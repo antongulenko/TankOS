@@ -6,7 +6,7 @@
  */
 
 #include "led.h"
-#include <misc/klib.h>
+#include <kernel/klib.h>
 
 typedef struct _Led {
 	Pin pin;

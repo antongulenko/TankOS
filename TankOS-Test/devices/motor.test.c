@@ -2,7 +2,7 @@
 #include <unity.h>
 #include <mocks/port.h>
 #include <devices/motor.h>
-#include <kernel/devices/timer.h>
+#include <devices/timer.h>
 
 uint16_t ocr1, ocr2;
 Timer timer1, timer2;

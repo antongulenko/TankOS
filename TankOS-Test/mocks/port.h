@@ -2,7 +2,7 @@
 #define FAKE_PORT_H_
 
 #include <tank_os_common.h>
-#include <kernel/devices/port.h>
+#include <devices/port.h>
 
 extern volatile uint8_t port, pin, ddr;
 

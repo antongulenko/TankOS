@@ -1,6 +1,6 @@
 
 #include "assertions.h"
-#include <kernel/twi/rpc/strings.h>
+#include <twi/rpc/strings.h>
 #include <string.h>
 #include <stdio.h>
 #include <unity.h>

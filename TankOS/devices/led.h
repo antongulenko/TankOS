@@ -8,7 +8,7 @@
 #ifndef LED_H_
 #define LED_H_
 
-#include <kernel/devices/port.h>
+#include <devices/port.h>
 #include <tank_os_common.h>
 
 #ifndef BLINK_DELAY_MS

@@ -6,7 +6,7 @@
 #ifndef ANALOG_M1284P_H_
 #define ANALOG_M1284P_H_
 
-#include <kernel/devices/analog.h>
+#include <devices/analog.h>
 
 AnalogInput newAnalogInput_m1284P(uint8_t num); // num: 0..7
 

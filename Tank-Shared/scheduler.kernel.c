@@ -2,11 +2,11 @@
 // This module includes the full scheduling/process functionality.
 // The millisecond-timer tick is bound to the scheduler-ISR.
 
-#include <kernel/processes/scheduler.h>
-#include <kernel/processes/process.h>
-#include <kernel/processes/DMS/scheduler.h>
-#include <kernel/processes/RoundRobin/scheduler.h>
-#include <kernel/processes/idle/scheduler.h>
+#include <process/scheduler.h>
+#include <process/process.h>
+#include <process/DMS/scheduler.h>
+#include <process/RoundRobin/scheduler.h>
+#include <process/idle/scheduler.h>
 
 // This is declared as weak in init.kernel.c
 // This does not necessarily have to be implemented anywhere, but we implement

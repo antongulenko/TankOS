@@ -9,7 +9,7 @@
 #define BUTTON_H_
 
 #include <tank_os_common.h>
-#include <kernel/devices/port.h>
+#include <devices/port.h>
 
 typedef enum {
     ButtonNormal = 0,

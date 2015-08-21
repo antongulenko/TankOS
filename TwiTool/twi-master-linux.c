@@ -1,6 +1,6 @@
 
-// This is a Linux-native implementation of kernel/twi/driver/_master.c
-// This module implements kernel/twi/driver/master.h
+// This is a Linux-native implementation of twi/driver/_master.c
+// This module implements twi/driver/master.h
 
 #include "twi-master-linux.h"
 #include <linux/i2c-dev.h>

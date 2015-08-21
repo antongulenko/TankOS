@@ -1,9 +1,9 @@
 
 #include <tank_os_common.h>
-#include <kernel/twi/rpc/server.h>
-#include <kernel/twi/rpc/client.h>
-#include <kernel/twi/driver/slave.h>
-#include <kernel/twi/driver/master.h>
+#include <twi/rpc/server.h>
+#include <twi/rpc/client.h>
+#include <twi/driver/slave.h>
+#include <twi/driver/master.h>
 #include <kernel/kernel_init.h>
 #include <m1284P/port.h>
 
