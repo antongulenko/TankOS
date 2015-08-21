@@ -23,7 +23,8 @@ ProcessBase schedule(BOOL fromTimer) {
 // Will be executed right before starting timers and enabling interrupts.
 // The process-modules have to be initialized as late as possible.
 void before_timer() {
-	rr_captureMainProcess(PrioNormal);
-	init_idle_scheduler();
+    init_idle_scheduler();
+	init_round_robin_scheduler(PrioNormal);
+    rr_captureMainThread(PrioNormal);
 	before_scheduler();
 }

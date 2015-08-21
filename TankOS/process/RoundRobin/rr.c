@@ -17,17 +17,25 @@ typedef struct ThreadQueue {
 	PThreadQueueElement first;
 	PThreadQueueElement current;
 	uint8_t count;
+    ThreadPriority priority;
 } ThreadQueue, *PThreadQueue;
 
 ThreadPriority highestPrio = PrioLowest;
 ThreadQueue queues[NUM_PRIOS];
 
+static PThreadQueue getThreadQueue(Thread thread) {
+    if (!IsValid(thread)) return NULL;
+    void *extra = getProcessExtra(Cast(Process, thread));
+    return (PThreadQueue) extra;
+}
+
 void insertThreadIntoQueue(Thread thread, ThreadPriority prio) {
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		PThreadQueue queue = &queues[prio];
-		PThreadQueueElement elem = (PThreadQueueElement) kcalloc(1, sizeof(ThreadQueueElement));
-        if (!elem) return;
-		elem->thread = thread;
+    if (!IsValid(thread)) return;
+	PThreadQueue queue = &queues[prio];
+    PThreadQueueElement elem = (PThreadQueueElement) kcalloc(1, sizeof(ThreadQueueElement));
+    if (!elem) return;
+    elem->thread = thread;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		elem->next = queue->first;
 		queue->first = elem;
 		if (queue->count == 0)
@@ -35,6 +43,27 @@ void insertThreadIntoQueue(Thread thread, ThreadPriority prio) {
 		queue->count++;
 		if (prio > highestPrio) highestPrio = prio;
 	}
+    setProcessExtra(Cast(Process, thread), (void*) queue);
+}
+
+void removeThreadFromQueue(Thread thread) {
+    PThreadQueue queue = getThreadQueue(thread);
+    PThreadQueueElement prev = NULL;
+    PThreadQueueElement elem = queue->first;
+    while (elem != NULL) {
+        if (Equal(elem->thread, thread)) {
+            if (prev)
+                prev->next = elem->next;
+            else
+                queue->first = elem->next;
+            if (Equal(queue->current->thread, thread))
+                queue->current = queue->first;
+            queue->count--;
+            return;
+        }
+        prev = elem;
+        elem = elem->next;
+    }
 }
 
 Thread createThread(ThreadEntryPoint entry) {
@@ -59,6 +88,16 @@ Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadPa
 	return thread;
 }
 
+Thread destroyThread(Thread thread) {
+    if (!IsValid(thread))
+        return Invalid(Thread);
+    if (Equal(thread, getCurrentThread()))
+        return thread;
+    removeThreadFromQueue(thread);
+    destroyProcess(Cast(Process, thread));
+    return Invalid(Thread);
+}
+
 ProcessBase rr_schedule(BOOL invokedFromTimer) {
 	PThreadQueueElement current;
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
@@ -79,10 +118,31 @@ ProcessBase rr_schedule(BOOL invokedFromTimer) {
 	return getProcessBase(proc);
 }
 
-void rr_captureMainProcess(ThreadPriority prio) {
-	insertThreadIntoQueue(Cast(Thread, getCurrentProcess()), prio);
+void init_round_robin_scheduler() {
+    for (int i = 0; i < NUM_PRIOS; i++) {
+        queues[i].priority = i;
+        queues[i].first = queues[i].current = NULL;
+        queues[i].count = 0;
+    }
+    highestPrio = PrioLowest;
+}
+
+void rr_captureMainThread(ThreadPriority mainThreadPriority) {
+    Process mainProcess = getCurrentProcess();
+    if (IsValid(mainProcess))
+        insertThreadIntoQueue(Cast(Thread, mainProcess), mainThreadPriority);
+    else
+        klog("imT\n"); // Illegal main Thread
 }
 
 Thread getCurrentThread() {
 	return Cast(Thread, getCurrentProcess());
+}
+
+ThreadPriority getThreadPriority(Thread thread) {
+    PThreadQueue queue = getThreadQueue(thread);
+    if (queue)
+        return queue->priority;
+    else
+        return PrioLowest;
 }

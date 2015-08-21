@@ -181,3 +181,13 @@ $(eval $(call set_test_objects,twi/services/buffer_stdout,\
     $(BUILD_TankOS)/twi/rpc/client.o \
     $(BUILD_TankOS)/twi/rpc/client_functions.o \
     $(BUILD_TankOS)/twi/rpc/server_handler_functions.kernel.o ))
+
+$(eval $(call set_test_objects,process/idle,\
+    $(BUILD_TESTS)/mocks/scheduler.o \
+    $(BUILD_TESTS)/mocks/process.o \
+    $(BUILD_TankOS)/process/idle/idle.o ))
+
+$(eval $(call set_test_objects,process/RoundRobin,\
+    $(BUILD_TESTS)/mocks/scheduler.o \
+    $(BUILD_TESTS)/mocks/process.o \
+    $(BUILD_TankOS)/process/RoundRobin/rr.o ))

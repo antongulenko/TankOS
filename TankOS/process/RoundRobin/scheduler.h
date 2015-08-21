@@ -7,7 +7,10 @@
 ProcessBase rr_schedule(BOOL invokedFromTimer);
 
 // Initialization function, that must be called before the scheduler is started (but after most other initialization).
-// Takes the current process (at that time the main process) 'imports' it as a thread with the given prioity.
-void rr_captureMainProcess(ThreadPriority prio);
+void init_round_robin_scheduler();
+
+// Separate init function for taking the current process (at that time the main process) and
+// 'importing' it as a thread with the given priority.
+void rr_captureMainThread(ThreadPriority mainThreadPriority);
 
 #endif

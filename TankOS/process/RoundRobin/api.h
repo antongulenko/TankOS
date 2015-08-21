@@ -31,6 +31,10 @@ Thread createThread2(ThreadEntryPoint entry, ThreadPriority prio);
 Thread createThread3(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter);
 Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter, uint16_t stackSize);
 
+// Will transitively destroy the underlying process. Cannot be used on the currently active thread.
+Thread destroyThread(Thread thread);
+
 Thread getCurrentThread();
+ThreadPriority getThreadPriority(Thread thread);
 
 #endif /* RR_API_H_ */

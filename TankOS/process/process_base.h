@@ -7,8 +7,8 @@
 #define PROCESS_BASE_API_H_
 
 // The API in this header is implemented in:
-// - process/avr/
-// - native_simulation/
+// - TankOS/process/avr/
+// - TankOS-Test/mocks/
 
 #include <tank_os_common.h>
 
@@ -31,7 +31,7 @@ ProcessBase getCurrentProcessBase();
 // The getProcessMemory() function returns a pointer to this additional memory block.
 ProcessBase createProcessBase(ProcessEntryPoint entryPoint, void *processArgument, uint16_t stackSize);
 
-// his does not free the stack of the process!
+// This does not free the stack of the process!
 ProcessBase destroyProcessBase(ProcessBase process);
 
 // Switch context to newProcess.
