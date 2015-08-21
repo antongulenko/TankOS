@@ -64,6 +64,7 @@ ProcessBase getProcessBase(Process process);
 // running process, since it's stack is currently in use.
 Process destroyProcess(Process process);
 
+// This should be called as late as possible, but before starting any scheduler.
 void init_processes();
 
 #endif /* PROCESS_API_H_ */

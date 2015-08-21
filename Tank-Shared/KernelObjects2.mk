@@ -4,6 +4,7 @@ ifeq ($(USE_PROCESS), true)
     ifeq ($(PLATFORM), Avr)
         objects += $(BUILD_TankOS)/process/avr/process.kernel.o
     endif
+    objects += $(BUILD_TankOS)/process/process.kernel.o
 endif
 
 ifeq ($(USE_SCHEDULER), true)

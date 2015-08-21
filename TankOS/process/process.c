@@ -109,7 +109,6 @@ ProcessBase getProcessBase(Process process) {
     return PROCESS->base;
 }
 
-// This should be called as late as possible, but before starting any scheduler.
 void init_processes() {
     __nextProcessNumber = 0;
     ProcessBase base = getCurrentProcessBase();
