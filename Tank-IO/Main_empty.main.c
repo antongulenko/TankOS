@@ -1,11 +1,10 @@
 
 #include "kernel.h"
+#include "LedOperations.h"
 #include <misc/memory.h>
 #include <misc/klib.h>
 #include <kernel/buffer_stdout.h>
 #include <stdio.h>
-
-void runLeds();
 
 void setMyLeds(unsigned nr, BOOL enable) {
 	for (int j = 0; j < allLeds->count; j++) {
@@ -33,28 +32,19 @@ void buttonReleased(Button b) {
 	setMyLeds(getNr(b), FALSE);
 }
 
-void runLeds() {
-	for (int i = 0; i < allLeds->count; i++) {
-		flashLed(allLeds->leds[i], 4);
-	}
-	for (int i = allLeds->count - 2; i >= 0; i--) {
-		flashLed(allLeds->leds[i], 4);
-	}
-}
-
 int main() {
 	MemoryInfo i = memoryInfo();
     printf("Static: %i. Dynamic: %i of %i, available: %i.\n",
 				i.used_static, i.used_dynamic, i.total_dynamic, i.available_dynamic);
     //eeprom_busy_wait();
 	//buffer_stdout_flush_to_eeprom((char*) 2, 512);
-	runLeds();
+	leds_run();
 
 	buttonPressedCallback = &buttonPressed;
 	buttonReleasedCallback = &buttonReleased;
 	while (1) {
 		if (buttonStatus(button1) && buttonStatus(button2) && buttonStatus(button3) && buttonStatus(button4))
-			runLeds();
+			leds_run();
 	}
 }
 
