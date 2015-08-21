@@ -23,7 +23,7 @@
 # When editing, make whitespace visible and leave all indentation in their original state!
 
 # Possibility to define global parameters here
-include make_parameters
+include Configurations.mk
 
 VERBOSE ?= false
 DEBUG ?= false
