@@ -1,4 +1,3 @@
-
 #include <kernel_base.h>
 
 // Test description: let program run for some time, then pause it and check, that both counters differ by 1 or 0.
@@ -7,7 +6,7 @@ volatile unsigned long mainCounter = 0;
 volatile unsigned long newCounter = 0;
 
 Process mainProcess;
-Thread newProcess;
+Thread otherProcess;
 
 void newProcessEntry() {
 	while (1) {
@@ -17,7 +16,7 @@ void newProcessEntry() {
 
 void before_scheduler() {
 	mainProcess = getCurrentProcess();
-	newProcess = createThread(&newProcessEntry);
+	otherProcess = newThread(PrioNormal, createProcess(&newProcessEntry));
 }
 
 int main(void) {

@@ -22,7 +22,7 @@ void tearDown() {
 }
 
 static MockProcess mockProcess(Thread thread) {
-    Process p = Cast(Process, thread);
+    Process p = getThreadProcess(thread);
     ProcessBase b = getProcessBase(p);
     return getMockProcess(b);
 }
@@ -32,42 +32,16 @@ void run_rr_schedule_test() {
     run_scheduler_test(rr_schedule, TRUE);
 }
 
+Thread makeThread(ThreadPriority prio) {
+    Thread t = newThread(prio, createProcess(ThreadEntry));
+    TEST_ASSERT_TRUE_MESSAGE(IsValid(t), "Thread is not valid");
+    TEST_ASSERT_EQUAL_MESSAGE(prio, getThreadPriority(t), "Thread has wrong priority");
+    return t;
+}
+
 void test_rr_main_process() {
     Thread t = getCurrentThread();
     TEST_ASSERT_EQUAL_MESSAGE(PrioNormal, getThreadPriority(t), "Main thread has wrong priority");
-}
-
-void test_createThread() {
-    Thread t = createThread(ThreadEntry);
-    TEST_ASSERT_EQUAL_MESSAGE(PrioNormal, getThreadPriority(t), "createThread made wrong priority");
-    MockProcess m = mockProcess(t);
-    TEST_ASSERT_EQUAL_MESSAGE(ThreadEntry, m->entryPoint, "createThread made wrong entry point");
-    TEST_ASSERT_NULL_MESSAGE(m->processArgument, "createThread made wrong thread argument");
-}
-
-void test_createThread2() {
-    Thread t = createThread2(ThreadEntry, PrioHigh);
-    TEST_ASSERT_EQUAL_MESSAGE(PrioHigh, getThreadPriority(t), "createThread2 made wrong priority");
-    MockProcess m = mockProcess(t);
-    TEST_ASSERT_EQUAL_MESSAGE(ThreadEntry, m->entryPoint, "createThread2 made wrong entry point");
-    TEST_ASSERT_NULL_MESSAGE(m->processArgument, "createThread2 made wrong thread argument");
-}
-
-void test_createThread3() {
-    Thread t = createThread3(ThreadEntry, PrioLow, (void*) 123);
-    TEST_ASSERT_EQUAL_MESSAGE(PrioLow, getThreadPriority(t), "createThread3 made wrong priority");
-    MockProcess m = mockProcess(t);
-    TEST_ASSERT_EQUAL_MESSAGE(ThreadEntry, m->entryPoint, "createThread3 made wrong entry point");
-    TEST_ASSERT_EQUAL_MESSAGE(123, m->processArgument, "createThread3 made wrong thread argument");
-}
-
-void test_createThread4() {
-    Thread t = createThread4(ThreadEntry, PrioHighest, (void*) 123, 1000);
-    TEST_ASSERT_EQUAL_MESSAGE(PrioHighest, getThreadPriority(t), "createThread4 made wrong priority");
-    MockProcess m = mockProcess(t);
-    TEST_ASSERT_EQUAL_MESSAGE(ThreadEntry, m->entryPoint, "createThread4 made wrong entry point");
-    TEST_ASSERT_EQUAL_MESSAGE(123, m->processArgument, "createThread4 made wrong thread argument");
-    TEST_ASSERT_EQUAL_MESSAGE(1000, m->stackSize, "createThread4 made wrong stackSize");
 }
 
 void test_rr_schedule_single() {
@@ -79,8 +53,8 @@ void test_rr_schedule_single() {
 }
 
 void test_rr_schedule_higher_prio() {
-    Thread higherThread = createThread2(ThreadEntry, PrioAboveNormal);
-    ProcessBase higher = getProcessBase(Cast(Process, higherThread));
+    Thread higherThread = makeThread(PrioAboveNormal);
+    ProcessBase higher = getProcessBase(getThreadProcess(higherThread));
     expect_schedule(higher);
     expect_schedule(higher);
     expect_schedule(higher);
@@ -88,12 +62,12 @@ void test_rr_schedule_higher_prio() {
 }
 
 void test_rr_schedule_higher_prio2() {
-    createThread2(ThreadEntry, PrioAboveNormal);
-    createThread2(ThreadEntry, PrioBelowNormal);
-    createThread2(ThreadEntry, PrioHigh);
-    createThread2(ThreadEntry, PrioLowest);
-    Thread higherThread = createThread2(ThreadEntry, PrioHighest);
-    ProcessBase higher = getProcessBase(Cast(Process, higherThread));
+    makeThread(PrioAboveNormal);
+    makeThread(PrioBelowNormal);
+    makeThread(PrioHigh);
+    makeThread(PrioLowest);
+    Thread higherThread = makeThread(PrioHighest);
+    ProcessBase higher = getProcessBase(getThreadProcess(higherThread));
     expect_schedule(higher);
     expect_schedule(higher);
     expect_schedule(higher);
@@ -101,7 +75,7 @@ void test_rr_schedule_higher_prio2() {
 }
 
 void test_rr_schedule_lower_prio() {
-    createThread2(ThreadEntry, PrioBelowNormal);
+    makeThread(PrioBelowNormal);
     ProcessBase current = getCurrentProcessBase();
     expect_schedule(current);
     expect_schedule(current);
@@ -111,10 +85,10 @@ void test_rr_schedule_lower_prio() {
 
 void test_rr_schedule_three_equal() {
     ProcessBase p1 = getCurrentProcessBase();
-    Thread t2 = createThread(ThreadEntry);
-    Thread t3 = createThread(ThreadEntry);
-    ProcessBase p2 = getProcessBase(Cast(Process, t2));
-    ProcessBase p3 = getProcessBase(Cast(Process, t3));
+    Thread t2 = makeThread(PrioNormal);
+    Thread t3 = makeThread(PrioNormal);
+    ProcessBase p2 = getProcessBase(getThreadProcess(t2));
+    ProcessBase p3 = getProcessBase(getThreadProcess(t3));
     ProcessBase sched[] = { p3, p2, p1, p3, p2, p1, p3, p2, p1, p3, p2, p1 };
     memcpy(expected_schedule, sched, sizeof(sched));
     expected_schedule_length = 12;
@@ -124,16 +98,16 @@ void test_rr_schedule_three_equal() {
 void test_rr_add_after_schedule() {
     // First run with two threads
     ProcessBase p1 = getCurrentProcessBase();
-    Thread t2 = createThread(ThreadEntry);
-    ProcessBase p2 = getProcessBase(Cast(Process, t2));
+    Thread t2 = makeThread(PrioNormal);
+    ProcessBase p2 = getProcessBase(getThreadProcess(t2));
     ProcessBase sched[] = { p2, p1, p2, p1 };
     memcpy(expected_schedule, sched, sizeof(sched));
     expected_schedule_length = 4;
     run_rr_schedule_test();
 
     // Then add one additional thread
-    Thread t3 = createThread(ThreadEntry);
-    ProcessBase p3 = getProcessBase(Cast(Process, t3));
+    Thread t3 = makeThread(PrioNormal);
+    ProcessBase p3 = getProcessBase(getThreadProcess(t3));
     ProcessBase sched2[] = { p3, p2, p1, p3, p2, p1, p3, p2, p1 };
     memcpy(expected_schedule, sched2, sizeof(sched2));
     expected_schedule_length = 9;
@@ -148,7 +122,7 @@ void test_destroy_thread_current() {
 }
 
 void test_destroy_thread() {
-    Thread t = createThread(ThreadEntry);
+    Thread t = makeThread(PrioNormal);
     MockProcess mock = mockProcess(t);
     t = destroyThread(t);
     TEST_ASSERT_FALSE_MESSAGE(IsValid(t), "thread still valid after destroy");
@@ -160,7 +134,7 @@ void test_destroy_thread() {
 }
 
 void test_destroy_higher_thread() {
-    Thread t = createThread2(ThreadEntry, PrioHigh);
+    Thread t = makeThread(PrioHigh);
     MockProcess mock = mockProcess(t);
     t = destroyThread(t);
     TEST_ASSERT_FALSE_MESSAGE(IsValid(t), "thread still valid after destroy");
@@ -172,7 +146,7 @@ void test_destroy_higher_thread() {
 }
 
 void test_destroy_lower_thread() {
-    Thread t = createThread2(ThreadEntry, PrioLow);
+    Thread t = makeThread(PrioLow);
     MockProcess mock = mockProcess(t);
     t = destroyThread(t);
     TEST_ASSERT_FALSE_MESSAGE(IsValid(t), "thread still valid after destroy");

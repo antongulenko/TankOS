@@ -28,12 +28,12 @@ void MyPeriodicJob(volatile unsigned long *testMyCounter) {
 void before_scheduler() {
 	threads[0] = getCurrentThread();
 	for (int i = 1; i < NUM_THREADS; i++) {
-		threads[i] = createThread3(threadEntry, PrioNormal, (void*) (threadCounters + i));
+		threads[i] = newThread(PrioNormal, createProcess2(threadEntry, (void*) (threadCounters + i)));
 	}
 	for (int i = 0; i < NUM_JOBS; i++) {
 		jobs[i] = createPeriodicJob2(MyPeriodicJob, 10, (void*) (jobCounters + i));
 	}
-	
+
 	float usedMem = usedDynamicMemoryF();
 }
 

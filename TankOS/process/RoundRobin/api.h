@@ -10,7 +10,6 @@
 
 // In this API, Processes are called Threads.
 DEFINE_HANDLE(Thread);
-typedef void ThreadEntryPoint();
 
 // These are the supported priorities. The number and names are arbitrarily chosen.
 typedef enum {
@@ -26,15 +25,18 @@ typedef enum {
 // TODO - extend API to suspend and terminate threads.
 // TODO - extend API with locks, mutexes etc. Could be another layer operating on an abstract scheduler-API!
 
-Thread createThread(ThreadEntryPoint entry); // uses PrioNormal
-Thread createThread2(ThreadEntryPoint entry, ThreadPriority prio);
-Thread createThread3(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter);
-Thread createThread4(ThreadEntryPoint entry, ThreadPriority prio, void *threadParameter, uint16_t stackSize);
+// The process parameter must not be used by any other module.
+// It is possible to create a thread from a process that has already been running.
+Thread newThread(ThreadPriority priority, Process process);
 
 // Will transitively destroy the underlying process. Cannot be used on the currently active thread.
 Thread destroyThread(Thread thread);
+Process getThreadProcess(Thread thread);
 
 Thread getCurrentThread();
 ThreadPriority getThreadPriority(Thread thread);
+
+BOOL suspendThread(Thread thread);
+BOOL resumeThread(Thread thread);
 
 #endif /* RR_API_H_ */
