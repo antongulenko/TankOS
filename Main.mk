@@ -27,20 +27,8 @@ COLOR_COPY := faint yellow
 COLOR_GENERATE := faint yellow
 COLOR_TESTS_OK := green
 
-BUILD_DIRNAME := build-$(PLATFORM)
-ifeq ($(DEBUG), true)
-    BUILD_DIRNAME := $(BUILD_DIRNAME)-debug
-endif
-ifeq ($(NOOPT), true)
-    BUILD_DIRNAME := $(BUILD_DIRNAME)-noopt
-    # In case both NOOPT and SPEED have been defined
-    SPEED := false
-else
-    ifeq ($(SPEED), true)
-        BUILD_DIRNAME := $(BUILD_DIRNAME)-speed
-    endif
-endif
 BUILDDIR := $(project)/$(BUILD_DIRNAME)
+BUILD_$(project) := $(BUILDDIR)
 
 # The $(fake)_* variables and the $(fake) prerequisites are a workaround/hack for a limitation of make.
 # It is not possible to expand variables inside recipe-commands immediately. They are always expanded when the recipe is actually executed.

@@ -8,9 +8,9 @@ endif
 
 ifeq ($(USE_SCHEDULER), true)
     objects += $(KERNEL)/processes/scheduler_interrupt.kernel.o
-    objects += $(SHARED)/scheduler.kernel.o
+    objects += $(BUILD_Tank-Shared)/scheduler.kernel.o
 else
     objects += $(KERNEL)/simple_timer.kernel.o
 endif
 
-objects += $(SHARED)/late_init.kernel.o
+objects += $(BUILD_Tank-Shared)/late_init.kernel.o

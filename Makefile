@@ -22,27 +22,27 @@
 # A warning about whitespace: this Makefile (and all included *.mk files) mix tabs and spaces as indentation in order to fullfill GNU make requirements.
 # When editing, make whitespace visible and leave all indentation in their original state!
 
-VERBOSE := false
-DEBUG := false
-SPEED := false
-NOOPT := false
-STUDIO := false
-AUTO_DISCOVER := false
-DONT_LINK_ALL := false
-IGNORE_COLORS := false
+# Possibility to define global parameters here
+include make_parameters
 
-MAIN :=
-PROJ :=
-MAKECMDGOALS :=
+VERBOSE ?= false
+DEBUG ?= false
+SPEED ?= false
+NOOPT ?= false
+STUDIO ?= false
+AUTO_DISCOVER ?= false
+DONT_LINK_ALL ?= false
+IGNORE_COLORS ?= false
+
+MAIN ?=
+PROJ ?=
+MAKECMDGOALS ?=
 
 ATMEL_STUDIO_FOLDER := Debug
 TEST_PROJECT_SUFFIX := -Test
 TEST_RUNNERS_DIR := testrunners
 FAKE_TARGETS_DIR := .make-fake-targets
 GCC_DEP_DIR := .make-dependencies
-
-# Possibility to define global parameters here
-include make_parameters
 
 ifneq ($(VERBOSE), true)
     .SILENT:
@@ -126,6 +126,20 @@ $(if $(wildcard Build$(PLATFORM).mk),,$(error Illegal platform $(PLATFORM). Avai
 # Function to query the current makefile. Example: current-makefile = $(call which-makefile)
 which-makefile = $(CURDIR)/$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
 get-basedir = $(shell basename $(shell dirname $(call which-makefile)))
+
+BUILD_DIRNAME := build-$(PLATFORM)
+ifeq ($(DEBUG), true)
+    BUILD_DIRNAME := $(BUILD_DIRNAME)-debug
+endif
+ifeq ($(NOOPT), true)
+    BUILD_DIRNAME := $(BUILD_DIRNAME)-noopt
+    # In case both NOOPT and SPEED have been defined
+    SPEED := false
+else
+    ifeq ($(SPEED), true)
+        BUILD_DIRNAME := $(BUILD_DIRNAME)-speed
+    endif
+endif
 
 ifneq ($(MAKECMDGOALS), projects)
     ifneq ($(MAKECMDGOALS), platforms)

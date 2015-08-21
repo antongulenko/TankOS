@@ -1,7 +1,7 @@
 
 include Tank-Shared/KernelObjects1.mk
 
-objects += $(BUILDDIR)/tank_motor.kernel.o
+objects += $(BUILD_Tank-Driver)/tank_motor.kernel.o
 
 ifeq ($(USE_TWI), true)
     objects += \
@@ -9,7 +9,7 @@ ifeq ($(USE_TWI), true)
         $(KERNEL)/twi/rpc/server_handler_functions.kernel.o \
         $(KERNEL)/twi/services/hardware.kernel.o \
         $(KERNEL)/twi/services/test.kernel.o \
-        $(BUILDDIR)/tank_driver_twi.kernel.o
+        $(BUILD_Tank-Driver)/tank_driver_twi.kernel.o
         # TODO -- add service for Motors operations
 
     ifeq ($(USE_BUFFER_STDOUT), true)

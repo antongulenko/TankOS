@@ -7,7 +7,5 @@ MAIN_$(project) := twi-tool
 endif
 
 include Defaults.mk
-
 $(project)_exclusive_platform := Native
-
 include Main.mk

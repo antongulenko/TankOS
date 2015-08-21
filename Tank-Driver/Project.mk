@@ -8,7 +8,5 @@ endif
 
 include Defaults.mk
 include Tank-Shared/DefaultTankSymbols.mk
-
 ld_symbols += __vector_33=__vector_SMOOTH_MOTOR_TIMER_INTERRUPT
-
 include Main.mk

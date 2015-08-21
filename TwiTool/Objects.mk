@@ -1,9 +1,7 @@
-include Tank-Shared/DefaultObjectVariables.mk
-
 objects += \
     $(KERNEL)/mutex/mock_mutex.kernel.o \
-    $(KERNEL_BASE)/misc/klib.kernel.o \
-    $(KERNEL_BASE)/simulation/simulation.kernel.o \
+    $(BUILD_TankOS)/misc/klib.kernel.o \
+    $(BUILD_TankOS)/simulation/simulation.kernel.o \
     $(KERNEL)/twi/services/test.o \
     $(KERNEL)/twi/services/test_client.kernel.o \
     $(KERNEL)/twi/services/hardware.o \

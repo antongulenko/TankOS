@@ -1,19 +1,22 @@
 
-#CONFIG := tank
-#CONFIG := simulator
-#CONFIG := tests
-#CONFIG := twitool
+ifdef CONFIG
+ifeq ($(CONFIG), scheduler)
 
-ifeq ($(CONFIG), simulator)
+    USE_PROCESS := true
+    USE_SCHEDULER := true
+    PROJ := Test-Scheduler
 
-    USE_PROCESS := false
-    USE_SCHEDULER := false
+endif
+ifeq ($(CONFIG), $(filter $(CONFIG), simulator scheduler))
+
+    USE_PROCESS ?= false
+    USE_SCHEDULER ?= false
 
     KERNEL_LOG := true
     USE_BUFFER_STDOUT := true
     USE_TWI := true
 
-    PROJ := Simulator
+    PROJ ?= Simulator
     PLATFORM := Avr
     STUDIO := true
     DONT_LINK_ALL := true
@@ -64,4 +67,5 @@ ifeq ($(CONFIG), twitool)
     PROJ := TwiTool
     SPEED := true
 
+endif
 endif
