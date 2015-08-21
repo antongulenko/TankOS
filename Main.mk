@@ -101,6 +101,7 @@ else
     primary_output := $(primary_output).$(TARGET_SUFFIX)
 endif
 
+globalstudiotarget := $(studiotarget)
 studiotarget := $(project)/$(ATMEL_STUDIO_FOLDER)/$(studiotarget)
 projectoutputs := $(foreach o, $(projectoutputs), $(BUILDDIR)/$o)
 $(project)_projectoutputs := $(projectoutputs)
@@ -110,6 +111,11 @@ $(fake)_project := $(project)
 
 $(project): $(projectoutputs) $(all_objects)
 
+$(globalstudiotarget): $(studiotarget)
+	@echo "Copying $$($(COLOR) $(COLOR_COPY))$<$$($(COLOR) off) -> $$($(COLOR) $(COLOR_COPY))$@$$($(COLOR) off)"
+	mkdir -p $(@D)
+	cp $< $@
+
 $(studiotarget): $(BUILDDIR)/$(primary_output)
 	@echo "Copying $$($(COLOR) $(COLOR_COPY))$<$$($(COLOR) off) -> $$($(COLOR) $(COLOR_COPY))$@$$($(COLOR) off)"
 	mkdir -p $(@D)
@@ -117,7 +123,7 @@ $(studiotarget): $(BUILDDIR)/$(primary_output)
 
 ifeq ($(STUDIO), true)
 ifneq ($(test_project), true)
-$(project): $(studiotarget)
+$(project): $(globalstudiotarget)
 endif
 endif
 

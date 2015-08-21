@@ -10,6 +10,8 @@ GNUmakefile
 */build-*/
 Debug/
 Release/
+lib*.a
+*.elf
 
 # === Unity tests
 testrunners/
