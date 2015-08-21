@@ -1,8 +1,5 @@
 
-// This main() is useful when using pin-change interrupts to update the button status.
-// In that case, all the functionality of the IO-processor is handled via interrupts.
-
-#include <kernel.h>
+#include "kernel.h"
 #include <misc/memory.h>
 #include <misc/klib.h>
 #include <kernel/buffer_stdout.h>
@@ -52,7 +49,7 @@ int main() {
     //eeprom_busy_wait();
 	//buffer_stdout_flush_to_eeprom((char*) 2, 512);
 	runLeds();
-	
+
 	buttonPressedCallback = &buttonPressed;
 	buttonReleasedCallback = &buttonReleased;
 	while (1) {
