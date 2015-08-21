@@ -34,7 +34,6 @@ AUTO_DISCOVER ?= false
 DONT_LINK_ALL ?= false
 IGNORE_COLORS ?= false
 
-MAIN ?=
 PROJ ?=
 MAKECMDGOALS ?=
 
