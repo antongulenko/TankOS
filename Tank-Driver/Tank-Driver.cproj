@@ -109,6 +109,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Main_empty.main.c">
       <SubType>compile</SubType>
     </Compile>

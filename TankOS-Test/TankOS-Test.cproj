@@ -100,7 +100,6 @@
   <ItemGroup>
     <Folder Include="devices\" />
     <Folder Include="kernel\" />
-    <Folder Include="kernel\devices\" />
     <Folder Include="process\" />
     <Folder Include="twi\" />
     <Folder Include="twi\driver\" />
@@ -125,16 +124,16 @@
     <Compile Include="devices\motor_smooth.test.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="devices\port-config.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\port.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\timer.test.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\buffer_stdout.test.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\port-config.test.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\port.test.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\devices\timer.test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="process\process.test.c">

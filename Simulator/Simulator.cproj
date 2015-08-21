@@ -111,50 +111,58 @@
         <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
       </AvrGcc>
     </ToolchainSettings>
+    <UsesExternalMakeFile>True</UsesExternalMakeFile>
+    <BuildTarget>USE_TWI=false USE_SCHEDULER=true IGNORE_COLORS=true USE_PROCESS=true CONFIG=simulator MAIN_Simulator=scheduler-tests/test_rr_two</BuildTarget>
+    <CleanTarget>clean</CleanTarget>
+    <ExternalMakeFilePath>C:\Users\anton\Documents\GitHub\TankOS\Makefile</ExternalMakeFilePath>
+    <OutputDirectory>C:\Users\anton\Documents\GitHub\TankOS</OutputDirectory>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Main_Tank-IO.main.c">
+    <Compile Include="Main_empty.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Main_IO.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Main_test_memory.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="scheduler-tests\test_DMS_idle_many.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="scheduler-tests\test_DMS_idle_two.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="scheduler-tests\test_DMS_many.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="scheduler-tests\test_DMS_one.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="scheduler-tests\test_DMS_rr_many.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="scheduler-tests\test_rr_many.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="scheduler-tests\test_rr_two.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="scheduler-tests\test_switchProcess.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="scheduler-tests\test_switchProcess_many.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="scheduler-tests\test_switchProcess_many_random.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="simulator_twi.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_DMS_idle_many.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_DMS_idle_two.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_DMS_many.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_DMS_one.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_DMS_rr_many.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_empty.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_memory.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_rr_many.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_rr_two.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_switchProcess.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_switchProcess_many.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_switchProcess_many_random.main.c">
-      <SubType>compile</SubType>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="scheduler-tests\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

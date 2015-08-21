@@ -110,13 +110,13 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="kernel.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="LedOperations.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="LedOperations.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Main_busyLoop.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Main_empty.main.c">
@@ -141,18 +141,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_led.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_AllLeds.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_blink_AllLeds.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_IO.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_leds_and_buttons.main.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
