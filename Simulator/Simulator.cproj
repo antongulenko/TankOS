@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -114,6 +114,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main_Tank-IO.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="simulator_twi.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="test_DMS_idle_many.main.c">

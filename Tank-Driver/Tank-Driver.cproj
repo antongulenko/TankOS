@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -20,12 +20,12 @@
     <OverrideVtor>false</OverrideVtor>
     <CacheFlash>true</CacheFlash>
     <ProgFlashFromRam>true</ProgFlashFromRam>
-    <RamSnippetAddress />
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
     <UncachedRange />
     <preserveEEPROM>true</preserveEEPROM>
-    <OverrideVtorValue />
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
     <BootSegment>2</BootSegment>
-    <eraseonlaunchrule>1</eraseonlaunchrule>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfFrameworkConfig>
       <framework-data xmlns="">
         <options />
@@ -38,6 +38,17 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <com_atmel_avrdbg_tool_simulator>
+      <ToolOptions xmlns="">
+        <InterfaceProperties>
+        </InterfaceProperties>
+      </ToolOptions>
+      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolNumber xmlns="">
+      </ToolNumber>
+      <ToolName xmlns="">Simulator</ToolName>
+    </com_atmel_avrdbg_tool_simulator>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -98,82 +109,19 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Main_programmable_drive_around.main.c">
+    <Compile Include="Main_empty.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_analog.main.c">
+    <Compile Include="tank_driver_address.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_analog_fakeMotor.main.c">
+    <Compile Include="tank_driver_twi.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_analog_interrupts.main.c">
+    <Compile Include="tank_motor.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="test_analog_interrupts_fakeMotor.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_motors_buttons.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_motors_buttons_simple.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_motors_buttons_steps.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_raw.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_raw_motors_buttons.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_twi_buttons.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_io_twi_status.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_backward.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_change_backward.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_change_forward.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_change_steps.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_forward.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_random.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_random_left.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_regulate.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_regulate_backward.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_regulate_backward_left.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_regulate_left.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="test_motors_regulate_oneAtATime.main.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="util.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="util.h">
+    <Compile Include="tank_motor.kernel.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>

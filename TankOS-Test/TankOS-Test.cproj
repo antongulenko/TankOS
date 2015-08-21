@@ -122,6 +122,9 @@
     <Compile Include="devices\motor.test.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="devices\motor_smooth.test.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel\buffer_stdout.test.c">
       <SubType>compile</SubType>
     </Compile>
