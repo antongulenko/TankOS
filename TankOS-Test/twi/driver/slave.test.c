@@ -64,7 +64,7 @@ TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
 
 void test_initialization() {
 	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE) | _BV(TWEA), TWCR);
-	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
+	TEST_ASSERT_EQUAL_HEX(0x00, TWDR);
 }
 
 void test_slave_twi_init_pins() {

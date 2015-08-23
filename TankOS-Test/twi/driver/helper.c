@@ -91,7 +91,7 @@ void assertReceivedByte(byte expectedByte) {
 
 void startTwiTest(byte initialControlRegister) {
 	TEST_ASSERT_EQUAL_HEX_MESSAGE(initialControlRegister, TWCR, "Wrong initial control register");
-	TEST_ASSERT_EQUAL_HEX_MESSAGE(0xFF, TWDR, "Data register changed too early");
+	TEST_ASSERT_EQUAL_HEX_MESSAGE(0x00, TWDR, "Data register changed too early");
 	TEST_ASSERT_EQUAL_HEX_MESSAGE(TWI_No_Error, twi_error, "twi_error set before test began!");
 
 	while (handledExpectedOps < numExpectedOps) {
