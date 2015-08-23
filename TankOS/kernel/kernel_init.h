@@ -20,11 +20,19 @@
 	void functionName##_kernel_init() __attribute__((naked, section(".init8")));	\
 	void functionName##_kernel_init() { functionName(); }
 
+#define EARLY_KERNEL_INIT(functionName)												\
+	void __attribute__ ((noinline)) functionName();                                 \
+	void functionName##_kernel_init() __attribute__((naked, section(".init3")));	\
+	void functionName##_kernel_init() { functionName(); }
+
 #else
 
 // On non-AVR systems, .init8 might not be available, the constructor attribute is a
 // more general way to express the same thing.
-#define KERNEL_INIT(functionName)										                \
+#define KERNEL_INIT(functionName)										            \
+	__attribute__ ((constructor)) void functionName##_kernel_init() { functionName(); }
+
+#define EARLY_KERNEL_INIT(functionName)												\
 	__attribute__ ((constructor)) void functionName##_kernel_init() { functionName(); }
 
 #endif // AVR

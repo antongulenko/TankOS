@@ -22,7 +22,7 @@ void boot_completed() {
     __initialization_complete_mask = INIT_MASK_INITIALIZED;
 }
 
-uint8_t current_reset_status = 0;
+uint8_t current_reset_status __attribute__ ((section (".noinit")));
 
 ResetCondition getResetCondition() {
 	uint16_t mask = 0;
