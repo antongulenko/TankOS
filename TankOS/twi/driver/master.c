@@ -23,7 +23,6 @@ BOOL twi_init(Pin dataPin, Pin clockPin) {
         return FALSE;
     }
 
-	TWDR = 0xFF;
 	twi_defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE);
 	TWCR = _BV(TWIE) | _BV(TWEN);
 	twi_error = TWI_No_Error;
