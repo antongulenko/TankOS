@@ -15,15 +15,6 @@ BOOL twi_init_slave(Pin dataPin, Pin clockPin) {
     return TRUE;
 }
 
-static inline TwiHandlerStatus twi_send_last(byte data) {
-	TWDR = data;
-	return HandlerStatus_CONTINUE(twi_defaultControlFlags & ~_BV(TWEA));
-}
-
-static inline TwiHandlerStatus twi_return_nack() {
-	return HandlerStatus_CONTINUE(twi_defaultControlFlags & ~_BV(TWEA));
-}
-
 // The callback functions called by this module.
 static TWIBuffer (*twi_handleMasterRequest)();
 static TWIBuffer (*twi_masterTransmissionStarting)();
@@ -56,21 +47,32 @@ TwiHandlerStatus twi_handle_slave(TwiStatus status) {
 			/* no break */
 		case TW_ST_DATA_ACK:
 			if (handledBytes < twi_buffer.size) {
-				byte data = twi_buffer.data[handledBytes++];
-				if (handledBytes == twi_buffer.size) {
-					// We are sending the last byte. NO ACK should be received afterwards.
-					return twi_send_last(data);
-				} else {
-					// Still sending at least two bytes.
-					return twi_send(data);
-				}
+				// Either there is at least one more byte to send, or we are now sending
+				// the last byte. In the second case, we actually should NOT set the TWEA
+				// bit, because we expect the Master to return a NACK after this byte.
+				// But: This way we could not definitely say whether the TWI slave operation
+				// is finished after this, because we might enter TW_ST_LAST_DATA state,
+				// if the Master wants more data and returns ACK. To avoid this, we continue
+				// expecting ACKs, until the Master sends a NACK and we enter the TW_ST_DATA_NACK
+				// state. This state is supposed to be a kind of error-state, but we use it
+				// as regular last state so we definitely know when the TWI operation is over.
+				return twi_send(twi_buffer.data[handledBytes++]);
 			} else {
-				// TODO this should not be possible due to hardware.
+				// Following the strategy described in above comment, we have to give the
+				// Master some data until it gives us the NACK we are waiting for (in case
+				// we don't have enough data in our send-buffer). If we would have terminated
+				// the TWI operation already, the Master would receive all ones, because the
+				// TWI lines are pulled up. We imitate this by explicitely sending all ones.
 				twi_error = TWI_Slave_NotEnoughDataTransmitted;
-				return twi_send_last(TwiIllegalByte);
+				return twi_send(TwiIllegalByte);
 			}
-		case TW_ST_DATA_NACK:
 		case TW_ST_LAST_DATA:
+			// Because of the strategy described above, this state should NEVER be entered,
+			// because we tell the TWI hardware to always expect an ACK from the Master.
+			// We still handle this, just in case.
+			twi_error = TWI_Slave_NotEnoughDataTransmitted;
+			return twi_end();
+		case TW_ST_DATA_NACK:
 			if (handledBytes < twi_buffer.size) {
 				twi_error = TWI_Slave_TooMuchDataTransmitted;
 			}
@@ -87,17 +89,18 @@ TwiHandlerStatus twi_handle_slave(TwiStatus status) {
 		case TW_SR_GCALL_DATA_ACK:
 			if (handledBytes < twi_buffer.size) {
 				twi_read_byte();
-				if (handledBytes == twi_buffer.size - 1) {
-					return twi_return_nack();
-				} else {
-					return twi_continue();
-				}
 			} else {
 				twi_error = TWI_Slave_TooMuchDataReceived;
-				return twi_return_nack();
 			}
+			// Following the same strategy as in Slave Transmitter mode, we always
+			// acknowledge received data, even if we already stopped copying it into
+			// the receive buffer because it is full. We wait for the Master to give
+			// us a STOP condition and send us to the TW_SR_STOP state.
+			return twi_continue();
 		case TW_SR_DATA_NACK:
 		case TW_SR_GCALL_DATA_NACK:
+			// Following the strategy described above, this state should never be entered,
+			// because we never return a NACK to the Master. We still handle this, to be sure.
 			if (handledBytes < twi_buffer.size) {
 				twi_read_byte();
 			}
