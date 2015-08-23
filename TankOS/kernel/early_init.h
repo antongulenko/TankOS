@@ -27,7 +27,7 @@ ResetCondition getResetCondition();
 uint8_t rawResetConditionByte();
 
 typedef struct InitStatus {
-    BOOL initialized;
+    uint16_t initialized;
     uint16_t software_resets;
 } InitStatus;
 
