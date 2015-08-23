@@ -60,7 +60,7 @@ void cli(); // Disable external interrupts
 // TODO -- this should be testable somehow.
 #define ATOMIC_BLOCK(ARG)
 #define ATOMIC_RESTORESTATE
-#define ATOMIC_FORCEON
+//#define ATOMIC_FORCEON
 
 // == Sleep
 #define sleep_enable()

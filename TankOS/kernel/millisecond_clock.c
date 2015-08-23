@@ -10,7 +10,7 @@ uint32_t volatile milliseconds_running = 0;
 
 uint32_t get_milliseconds_running() {
 	uint32_t result;
-	ATOMIC_BLOCK(ATOMIC_FORCEON) {
+	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		result = milliseconds_running;
 	}
 	return result;
