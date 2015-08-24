@@ -41,7 +41,7 @@ void printFunction(ClientFunctionRegistryEntry entry) {
     else
         snprintf(buf2, sizeof(buf2) - 1, "%i", entry->result_bytes);
 
-    printf("%02x/%s(%s)->(%s)", entry->operation, entry->name, buf1, buf2);
+    printf("%03u/%s(%s)->(%s)", entry->operation, entry->name, buf1, buf2);
 }
 
 void printFunctions() {
@@ -55,7 +55,7 @@ void printFunctions() {
 }
 
 static void help() {
-    printf("Usage: -d <device name (hex)> -f <function name> [-b <bus number = %i>] [-p <parameter hex byte>]*\n", DEFAULT_BUS_NUM);
+    printf("Usage: -d <device name (hex)> -f <function name> [-b <bus number = %i>] [-p <parameter hex byte>]* [-v <variable result size>]\n", DEFAULT_BUS_NUM);
     printFunctions();
     exit(1);
 }
@@ -112,8 +112,8 @@ int main(int argc, char **argv) {
     int bus_nr = -1;
     int c;
     BOOL var_res_given = FALSE;
-    int var_res_size;
-    while ( (c = getopt(argc, argv, "d:f:b:p:")) != -1) {
+    int var_res_size = 0;
+    while ( (c = getopt(argc, argv, "d:f:b:p:v:")) != -1) {
         switch (c) {
         case 'd':
             if (device_addr != -1) help();
@@ -144,6 +144,7 @@ int main(int argc, char **argv) {
                 exit(1);
             }
             var_res_given = TRUE;
+            break;
         default:
             help();
         }
