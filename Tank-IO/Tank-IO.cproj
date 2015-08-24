@@ -134,6 +134,18 @@
     <Compile Include="tank_io_address.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="tank_io_service.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_io_service.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_io_service.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_io_service_client.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="tank_io_twi.kernel.c">
       <SubType>compile</SubType>
     </Compile>
