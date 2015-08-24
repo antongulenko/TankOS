@@ -122,10 +122,10 @@ void test_format_results_milliseconds() {
     TEST_ASSERT_NOT_NULL(f);
     TEST_ASSERT_NOT_NULL(f->format_results);
 
-    uint32_t res = 6443355;
+    uint32_t res = 6443055;
 
     f->format_results(mock_printf, &res, sizeof(res));
-    TEST_ASSERT_EQUAL_STRING("Running: 1:47:23.355", mock_printf_buffer);
+    TEST_ASSERT_EQUAL_STRING("Running: 1:47:23.055", mock_printf_buffer);
 }
 
 void test_format_results_memory_info() {
