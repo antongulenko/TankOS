@@ -31,6 +31,13 @@ void registerClientFunction(char *funcName, RpcQueryFunction function, uint8_t a
                             BOOL variable_arguments, BOOL variable_results, byte operation, ClientResultFormatter result_formatter) {
     ClientFunctionRegistryEntry entry = kcalloc(1, sizeof(struct ClientFunctionRegistryEntry));
     if (!entry) return;
+    ClientFunctionRegistryEntry check = NULL;
+    HASH_FIND_STR(clientFunctionRegisty, funcName, check);
+    if (check) {
+        klog("dcf:%i\n", operation); // Double client function name
+        free(entry);
+        return;
+    }
     entry->name = funcName;
     entry->function = function;
     entry->argument_bytes = argument_bytes;
