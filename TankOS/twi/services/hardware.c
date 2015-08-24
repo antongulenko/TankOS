@@ -23,7 +23,7 @@ int query_milliseconds_format(int (*print)(const char *fmt, ...), void *results,
             h = res / 60;
         }
     }
-    return print("Running: %u:%u:%u.%03u", h, m, s, millis);
+    return print("Running: %02u:%02u:%02u.%03u", h, m, s, millis);
 }
 
 int query_memory_info_format(int (*print)(const char *fmt, ...), void *results, uint16_t results_length) {
