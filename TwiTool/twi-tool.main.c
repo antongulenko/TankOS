@@ -7,14 +7,14 @@
 #include <twi/rpc/client_functions_registry.h>
 #include <twi/rpc/strings.h>
 
-#define DEFAULT_BUS_NUM 0
+#define DEFAULT_BUS_NUM 2
 byte rpc_buffer[1024*4];
 
 void check_error() {
     if (twi_error != TWI_No_Error) {
-        printf("twi_error: %i\n", twi_error);
-        if (twi_error_description != NULL)
-            printf("Additional description: %s\n", twi_error_description);
+        printf("twi_error %i: ", twi_error);
+        if (twi_error_description != NULL) printf("%s", twi_error_description);
+        printf("\n");
         exit(1);
     }
 }
@@ -55,43 +55,46 @@ void printFunctions() {
 }
 
 static void help() {
-    printf("Usage: -d <device name (hex)> -f <function name> [-b <bus number = %i>]\n", DEFAULT_BUS_NUM);
+    printf("Usage: -d <device name (hex)> -f <function name> [-b <bus number = %i>] [-p <parameter hex byte>]*\n", DEFAULT_BUS_NUM);
     printFunctions();
     exit(1);
 }
 
-BOOL is_simple_function(ClientFunctionRegistryEntry entry) {
-    return
-        entry->argument_bytes == 0 && entry->variable_arguments == FALSE &&
-        entry->result_bytes == 0 && entry->variable_results == FALSE;
+void printReceived(TWIBuffer result_buf) {
+    printf("Received data: ");
+    for (int i = 0; i < result_buf.size; i++) {
+        printf("%02x ", result_buf.data[i]);
+    }
+    printf("\n");
 }
 
-void call_api(TWIDevice device, ClientFunctionRegistryEntry entry) {
-    RpcQueryFunction func = entry->function;
-    printf("Directly using API function at %p\n", func);
-
-    RpcClientResult res = func(device);
-    char *res_str = RpcClientResult_string(res);
-    check_error();
-    printf("%s\n", res_str);
-}
-
-void call_meta(TWIDevice device, ClientFunctionRegistryEntry entry, byte *parameters, int param_size, int result_size) {
-    printf("Sending %i bytes and receiving %i bytes\n", param_size, result_size);
-
+void call(TWIDevice device, ClientFunctionRegistryEntry entry, byte *parameters, int param_size, int result_size) {
     byte *results = alloca(result_size);
+    if (!results) {
+        printf("alloca %i failed\n", result_size);
+        exit(1);
+    }
     TWIBuffer result_buf = { results, result_size };
     TWIBuffer param_buf = { parameters, param_size };
 
-    // TODO also use result-less calls twi_rpc_void / twi_rpc_async ?
-    twi_rpc(device, entry->operation, param_buf, result_buf);
+    RpcClientResult res = twi_rpc(device, entry->operation, param_buf, result_buf);
     check_error();
-
-    printf("Received data: ");
-    for (int i = 0; i < result_size; i++) {
-        printf("%02x ", results[i]);
+    if (res.status != TWI_RPC_call_success) {
+        char *res_str = RpcClientResult_string(res);
+        printf("Result status: %s\n", res_str);
+        printReceived(result_buf);
+    } else {
+        if (entry->result_bytes > 0 || entry->variable_results) {
+            if (entry->format_results != NULL) {
+                entry->format_results(printf, result_buf.data, result_buf.size);
+            } else {
+                printf("No format_results function registered!");
+                printReceived(result_buf);
+            }
+        } else {
+            printf("Call successfull\n");
+        }
     }
-    printf("\n");
 }
 
 void init_libraries(int bus_nr) {
@@ -108,6 +111,8 @@ int main(int argc, char **argv) {
     char *funcName = NULL;
     int bus_nr = -1;
     int c;
+    BOOL var_res_given = FALSE;
+    int var_res_size;
     while ( (c = getopt(argc, argv, "d:f:b:p:")) != -1) {
         switch (c) {
         case 'd':
@@ -131,6 +136,14 @@ int main(int argc, char **argv) {
             param_buf[params] = p;
             params++;
             break;
+        case 'v':
+            if (var_res_given) help();
+            var_res_size = parse_int(optarg, 10, "variable result size");
+            if (var_res_size <= 0) {
+                printf("-v parameter must be positive");
+                exit(1);
+            }
+            var_res_given = TRUE;
         default:
             help();
         }
@@ -150,22 +163,26 @@ int main(int argc, char **argv) {
     printFunction(entry);
     printf(" on device 0x%02x on bus %i\n", device_addr, bus_nr);
 
-    if (is_simple_function(entry) && params == 0) {
-        init_libraries(bus_nr);
-        call_api(device, entry);
+    // == Handle required result size
+    if (!entry->variable_arguments && entry->argument_bytes != params) {
+        printf("%s needs %i argument bytes, but %i were given.\n", entry->name, entry->argument_bytes, params);
+        exit(1);
+    }
+    int result_size;
+    if (entry->variable_results) {
+        if (!var_res_given) {
+            printf("Function has variable results, use -v.\n");
+            exit(1);
+        }
+        result_size = var_res_size;
     } else {
-        if (!entry->variable_arguments && entry->argument_bytes != params) {
-            printf("%s needs %i argument bytes, but %i were given.\n", entry->name, entry->argument_bytes, params);
-            exit(1);
-        }
-        if (entry->variable_results) {
-            printf("Variable result sizes not implemented\n");
-            exit(1);
-        }
-
-        init_libraries(bus_nr);
-        call_meta(device, entry, param_buf, params, entry->result_bytes);
+        if (var_res_given)
+            printf("Warning: function does not have variable results. Ignoring -v parameter.\n");
+        result_size = entry->result_bytes;
     }
 
+    // == Initialize and execute the call
+    init_libraries(bus_nr);
+    call(device, entry, param_buf, params, result_size);
     return 0;
 }
