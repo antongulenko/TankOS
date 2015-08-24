@@ -144,6 +144,7 @@ $(eval $(call set_test_objects,twi/services/hardware,\
     $(BUILD_TankOS)/kernel/millisecond_clock.o \
     $(BUILD_TankOS)/twi/services/hardware.o \
     $(BUILD_TankOS)/twi/services/hardware.kernel.o \
+    $(BUILD_TankOS)/twi/services/hardware_client.kernel.o \
     $(BUILD_TankOS)/twi/rpc/strings.o \
     $(BUILD_TankOS)/twi/rpc/server.o \
     $(BUILD_TankOS)/twi/rpc/client.o \
@@ -157,6 +158,7 @@ $(eval $(call set_test_objects,twi/services/test,\
     $(BUILD_TESTS)/twi/services/test.o \
     $(BUILD_TankOS)/twi/services/test.o \
     $(BUILD_TankOS)/twi/services/test.kernel.o \
+    $(BUILD_TankOS)/twi/services/test_client.kernel.o \
     $(BUILD_TankOS)/twi/rpc/strings.o \
     $(BUILD_TankOS)/twi/rpc/server.o \
     $(BUILD_TankOS)/twi/rpc/client.o \
@@ -174,6 +176,7 @@ $(eval $(call set_test_objects,twi/services/buffer_stdout,\
     $(BUILD_TESTS)/twi/services/test.o \
     $(BUILD_TankOS)/twi/services/buffer_stdout.o \
     $(BUILD_TankOS)/twi/services/buffer_stdout.kernel.o \
+    $(BUILD_TankOS)/twi/services/buffer_stdout_client.kernel.o \
     $(BUILD_TankOS)/kernel/buffer_stdout.o \
     $(BUILD_TankOS)/mutex/mock_mutex.kernel.o \
     $(BUILD_TankOS)/twi/rpc/strings.o \

@@ -19,6 +19,8 @@ typedef enum {
 
 typedef uint16_t ResetCondition;
 
+char *resetConditionString(ResetCondition condition);
+
 // Return a bitmask describing the current reset status.
 ResetCondition getResetCondition();
 

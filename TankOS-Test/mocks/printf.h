@@ -8,4 +8,6 @@ extern unsigned int mock_printf_written;
 
 void init_mock_printf();
 
+int mock_printf(const char *__fmt, ...);
+
 #endif // __MOCK_PRINTF__
