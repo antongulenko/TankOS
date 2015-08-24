@@ -3,12 +3,14 @@
 #include <stdio.h>
 #include <errno.h>
 #include <unistd.h>
+#include <stdarg.h>
 #include <stdlib.h>
 #include <twi/rpc/client_functions_registry.h>
 #include <twi/rpc/strings.h>
 
 #define DEFAULT_BUS_NUM 2
 byte rpc_buffer[1024*4];
+BOOL debug_mode = FALSE;
 
 void check_error() {
     if (twi_error != TWI_No_Error) {
@@ -55,7 +57,8 @@ void printFunctions() {
 }
 
 static void help() {
-    printf("Usage: -d <device name (hex)> -f <function name> [-b <bus number = %i>] [-p <parameter hex byte>]* [-v <variable result size>]\n", DEFAULT_BUS_NUM);
+    printf("Usage: -d <device name (hex)> -f <function name> [-D(ebug)] [-b <bus number = %i>] ", DEFAULT_BUS_NUM);
+    printf("[-p <parameter hex byte>]* [-v <variable result size>]\n");
     printFunctions();
     exit(1);
 }
@@ -66,6 +69,15 @@ void printReceived(TWIBuffer result_buf) {
         printf("%02x ", result_buf.data[i]);
     }
     printf("\n");
+}
+
+int result_printf(const char *fmt, ...) {
+    va_list args;
+    va_start(args, fmt);
+    int res = vprintf(fmt, args);
+    res += printf("\n");
+    va_end(args);
+    return res;
 }
 
 void call(TWIDevice device, ClientFunctionRegistryEntry entry, byte *parameters, int param_size, int result_size) {
@@ -86,7 +98,7 @@ void call(TWIDevice device, ClientFunctionRegistryEntry entry, byte *parameters,
     } else {
         if (entry->result_bytes > 0 || entry->variable_results) {
             if (entry->format_results != NULL) {
-                entry->format_results(printf, result_buf.data, result_buf.size);
+                entry->format_results(result_printf, result_buf.data, result_buf.size);
             } else {
                 printf("No format_results function registered!");
                 printReceived(result_buf);
@@ -113,8 +125,12 @@ int main(int argc, char **argv) {
     int c;
     BOOL var_res_given = FALSE;
     int var_res_size = 0;
-    while ( (c = getopt(argc, argv, "d:f:b:p:v:")) != -1) {
+    while ( (c = getopt(argc, argv, "d:f:b:p:v:D")) != -1) {
         switch (c) {
+        case 'D':
+            print_buffer_contents = TRUE;
+            debug_mode = TRUE;
+            break;
         case 'd':
             if (device_addr != -1) help();
             device_addr = parse_int(optarg, 16, "hex device address");
@@ -160,9 +176,11 @@ int main(int argc, char **argv) {
         printFunctions();
         exit(1);
     }
-    printf("Calling ");
-    printFunction(entry);
-    printf(" on device 0x%02x on bus %i\n", device_addr, bus_nr);
+    if (debug_mode) {
+        printf("Calling ");
+        printFunction(entry);
+        printf(" on device 0x%02x on bus %i\n", device_addr, bus_nr);
+    }
 
     // == Handle required result size
     if (!entry->variable_arguments && entry->argument_bytes != params) {

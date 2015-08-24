@@ -30,7 +30,7 @@ typedef struct ButtonStatusResult {
 } ButtonStatusResult;
 
 typedef struct SetLedsParameters {
-    TankLedGroup group;
+    uint16_t group; // Should be TankLedGroup
     uint16_t mask;
 } SetLedsParameters;
 

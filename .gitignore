@@ -4,6 +4,7 @@
 /simulator.sh
 /make-all.sh
 /fix-eep.sh
+/io-*.sh
 
 # === Build and temporary make files
 GNUmakefile

@@ -31,5 +31,5 @@ int query_init_status_format(int (*print)(const char *fmt, ...), void *results, 
 int query_eeprom_resets_format(int (*print)(const char *fmt, ...), void *results, uint16_t results_length) {
     if (results_length != sizeof(uint16_t)) return 0;
     uint16_t *res = (uint16_t*) results;
-    return print("Hardware resets: %i", *res);
+    return print("Resets: %i", *res);
 }

@@ -16,6 +16,7 @@
 
 const char *i2c_file_prefix = "/dev/i2c-";
 
+BOOL print_buffer_contents = FALSE;
 unsigned short bus_number;
 
 static int file;
@@ -45,6 +46,7 @@ static BOOL prepare(TWIDevice targetDevice) {
 }
 
 static void printBuffer(char *comment, TWIBuffer buffer) {
+    if (!print_buffer_contents) return;
     printf("Buffer (%s): ", comment);
     for (int i = 0; i < buffer.size; i++) {
         printf("%02x ", buffer.data[i]);

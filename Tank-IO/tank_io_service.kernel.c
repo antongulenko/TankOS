@@ -17,10 +17,11 @@ static RpcHandlerStatus tank_io_set_leds_handler(SetLedsParameters *args, uint16
         return TWI_RPC_handler_illegal_parameters;
     }
     SetLedsParameters *params = (SetLedsParameters*) args;
+    TankLedGroup group = (TankLedGroup) params->group;
     if (params->group > ALL_LEDS) {
         return TWI_RPC_handler_illegal_parameters;
     }
-    LedGroup group = TANK_LED_GROUPS[params->group];
+    LedGroup group = TANK_LED_GROUPS[group];
     setLeds(group, params->mask);
     return TWI_RPC_handler_ok;
 }
