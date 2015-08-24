@@ -119,7 +119,10 @@
     <Compile Include="LedOperations.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Main_empty.main.c">
+    <Compile Include="Main.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Main_test.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_button.h">
