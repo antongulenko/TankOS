@@ -13,5 +13,8 @@ int flush_stdout_buffer_format(int (*print)(const char *fmt, ...), void *results
     if (size > results_length - sizeof(uint16_t))
         size = results_length - sizeof(uint16_t);
     char *str = results + sizeof(uint16_t);
-    return print("%.*s", size, str);
+    if (size == 0)
+        return print("No new stdout");
+    else
+        return print("Stdout: %.*s", size, str);
 }

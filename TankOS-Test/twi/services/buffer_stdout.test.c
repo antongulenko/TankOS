@@ -96,5 +96,5 @@ void test_format_results_flush() {
     flush_stdout_buffer(test_device, 4, res, sizeof(res));
 
     f->format_results(mock_printf, &res, sizeof(res));
-    TEST_ASSERT_EQUAL_STRING("cde", mock_printf_buffer);
+    TEST_ASSERT_EQUAL_STRING("Stdout: cde", mock_printf_buffer);
 }
