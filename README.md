@@ -26,6 +26,6 @@ For colored build output put [this script](https://ansi-color.googlecode.com/fil
 ### Platforms
 Compiled and used on the following platforms:
 - Ubuntu: GNU make 4.0, GNU find 4.4.2, gcc 4.9.2, avr-gcc 4.8.1
-- Windows & Cygwin: GNU make 4.1, GNU find 4.5.12, gcc 4.9.3, avr-gcc avr-gcc 4.8.0
+- Windows & Cygwin: GNU make 4.1, GNU find 4.5.12, gcc 4.9.3, avr-gcc 4.8.0
 - BeagleBone Black (Angstrom Linux): GNU make 3.81, GNU find 4.4.2, gcc 4.6.3
 - ATmega 1284P
