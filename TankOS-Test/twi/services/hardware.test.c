@@ -167,5 +167,5 @@ void test_format_results_eeprom_resets() {
     uint16_t res = 44;
 
     f->format_results(mock_printf, &res, sizeof(res));
-    TEST_ASSERT_EQUAL_STRING("Hardware resets: 44", mock_printf_buffer);
+    TEST_ASSERT_EQUAL_STRING("Resets: 44", mock_printf_buffer);
 }

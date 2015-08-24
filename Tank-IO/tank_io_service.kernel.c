@@ -21,8 +21,8 @@ static RpcHandlerStatus tank_io_set_leds_handler(SetLedsParameters *args, uint16
     if (params->group > ALL_LEDS) {
         return TWI_RPC_handler_illegal_parameters;
     }
-    LedGroup group = TANK_LED_GROUPS[group];
-    setLeds(group, params->mask);
+    LedGroup ledgroup = TANK_LED_GROUPS[group];
+    setLeds(ledgroup, params->mask);
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_io_set_leds_handler, TANK_IO_SET_LEDS, SetLedsParameters)
