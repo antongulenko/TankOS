@@ -11,8 +11,19 @@ int query_reset_condition_format(int (*print)(const char *fmt, ...), void *resul
 
 int query_milliseconds_format(int (*print)(const char *fmt, ...), void *results, uint16_t results_length) {
     if (results_length != sizeof(uint32_t)) return 0;
-    uint32_t *res = (uint32_t*) results;
-    return print("Milliseconds running: %u", *res);
+    uint32_t res = *(uint32_t*) results;
+    uint32_t h = 0, m = 0, s = 0, millis = 0;
+    millis = res % 1000;
+    if (res > 1000) {
+        res /= 1000;
+        s = res % 60;
+        if (res > 60) {
+            res /= 60;
+            m = res % 60;
+            h = res / 60;
+        }
+    }
+    return print("Running: %u:%u:%u.%u", h, m, s, millis);
 }
 
 int query_memory_info_format(int (*print)(const char *fmt, ...), void *results, uint16_t results_length) {
