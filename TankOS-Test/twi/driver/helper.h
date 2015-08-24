@@ -41,6 +41,7 @@ void twi_tests_setUp();
 void expectTwiWriteOp(TwiStatus status, byte controlRegister, byte dataRegister);
 void expectTwiReadOp(TwiStatus status, byte controlRegister, byte dataRegister);
 void expectTwiControlOp(TwiStatus status, byte controlRegister);
+void expectTwiNoackOp(TwiStatus status, byte controlRegister, byte data, BOOL isWrite);
 
 // This can be used at the end of a receiver-test to assert received data.
 // Will assert the received data, and also that no more data than that was received.

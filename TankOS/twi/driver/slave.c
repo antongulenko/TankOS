@@ -87,7 +87,7 @@ TwiHandlerStatus twi_handle_slave(TwiStatus status) {
 		case TW_SR_GCALL_DATA_ACK:
 			if (handledBytes < twi_buffer.size) {
 				twi_read_byte();
-				if (handledBytes == twi_buffer.size - 1) {
+				if (handledBytes >= twi_buffer.size - 1) {
 					return twi_return_nack();
 				} else {
 					return twi_continue();

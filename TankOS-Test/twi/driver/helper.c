@@ -66,6 +66,11 @@ void expectTwiReadOp(TwiStatus status, byte controlRegister, byte dataRegister) 
 	expectTwiOp(status, controlRegister, dataRegister, FALSE);
 }
 
+void expectTwiNoackOp(TwiStatus status, byte controlRegister, byte data, BOOL isWrite) {
+    expectTwiOp(status, controlRegister, data, isWrite);
+    expectedOps[numExpectedOps - 1].controlRegister &= ~_BV(TWEA);
+}
+
 void expectTwiControlOp(TwiStatus status, byte controlRegister) {
 	// This means that no operation on the data register is expected
 	// Map this to read-operation, since it checks that the data register is not altered.
@@ -95,24 +100,31 @@ void startTwiTest(byte initialControlRegister) {
 	TEST_ASSERT_EQUAL_HEX_MESSAGE(TWI_No_Error, twi_error, "twi_error set before test began!");
 
 	while (handledExpectedOps < numExpectedOps) {
+        char buf[100] = {0};
 		ExpectedTwiOp operation = expectedOps[handledExpectedOps++];
 		if (!operation.isWrite) {
 			TWDR = operation.dataRegister;
 		}
 		TwiHandlerStatus result = twi_test_handle_interrupt(operation.status);
-		TEST_ASSERT_EQUAL_HEX_MESSAGE(operation.controlRegister,
-					result.controlRegister, "Unexpected Control Register");
-		TEST_ASSERT_EQUAL_HEX_MESSAGE(operation.dataRegister, TWDR,
-			operation.isWrite
-				? "Unexpected Data Register written"
-				: "Data Register written during Receive operation");
+        snprintf(buf, 99, "Unexpected Control Register (twi operation nr %i)", handledExpectedOps);
+		TEST_ASSERT_EQUAL_HEX_MESSAGE(operation.controlRegister, result.controlRegister, buf);
+        if (operation.isWrite) {
+            snprintf(buf, 99, "Unexpected Data Register written (twi operation nr %i)", handledExpectedOps);
+            TEST_ASSERT_EQUAL_HEX_MESSAGE(operation.dataRegister, TWDR, buf);
+        } else {
+            snprintf(buf, 99, "Data Register written during Receive operation (twi operation nr %i)", handledExpectedOps);
+            TEST_ASSERT_EQUAL_HEX_MESSAGE(operation.dataRegister, TWDR, buf);
+        }
 
 		if (result.handlerFinished) {
-			TEST_ASSERT_EQUAL_HEX_MESSAGE(expectedError, twi_error, "Unexpected error-state");
-			TEST_ASSERT_EQUAL_MESSAGE(numExpectedOps, handledExpectedOps, "TWI terminated too early!");
+            snprintf(buf, 99, "Unexpected error-state (twi operation nr %i)", handledExpectedOps);
+			TEST_ASSERT_EQUAL_HEX_MESSAGE(expectedError, twi_error, buf);
+            snprintf(buf, 99, "TWI terminated too early! (twi operation nr %i)", handledExpectedOps);
+			TEST_ASSERT_EQUAL_MESSAGE(numExpectedOps, handledExpectedOps, buf);
 			twiHasTerminated = TRUE;
 		} else {
-			TEST_ASSERT_MESSAGE(twi_running, "twi_running flag was reset!");
+            snprintf(buf, 99, "twi_running flag was reset! (twi operation nr %i)", handledExpectedOps);
+			TEST_ASSERT_MESSAGE(twi_running, buf);
 			// twi_error can already be set here, before all interrupts have been handled.
 		}
 	}
