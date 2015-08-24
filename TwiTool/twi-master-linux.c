@@ -10,6 +10,9 @@
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <time.h>
+
+#define MILLIS_TIMEOUT 20
 
 const char *i2c_file_prefix = "/dev/i2c-";
 
@@ -41,8 +44,16 @@ static BOOL prepare(TWIDevice targetDevice) {
     return TRUE;
 }
 
-void twiSend(TWIDevice targetDevice, TWIBuffer data) {
-    if (!prepare(targetDevice)) return;
+static void printBuffer(char *comment, TWIBuffer buffer) {
+    printf("Buffer (%s): ", comment);
+    for (int i = 0; i < buffer.size; i++) {
+        printf("%02x ", buffer.data[i]);
+    }
+    printf("\n");
+}
+
+static void doSend(TWIDevice targetDevice, TWIBuffer data) {
+    printBuffer("sending", data);
     int res = write(file, data.data, data.size);
     if (res != data.size) {
         snprintf(helper_buf, sizeof(helper_buf) - 1, "%i bytes have been written instead of %i", res, data.size);
@@ -50,19 +61,39 @@ void twiSend(TWIDevice targetDevice, TWIBuffer data) {
     }
 }
 
-void twiReceive(TWIDevice targetDevice, TWIBuffer data) {
-    if (!prepare(targetDevice)) return;
+static void doReceive(TWIDevice targetDevice, TWIBuffer data) {
     int res = read(file, data.data, data.size);
     if (res != data.size) {
         snprintf(helper_buf, sizeof(helper_buf) - 1, "%i bytes have been read instead of %i", res, data.size);
         error(helper_buf);
+    } else {
+        printBuffer("received", data);
     }
+}
+
+void twiSend(TWIDevice targetDevice, TWIBuffer data) {
+    if (!prepare(targetDevice)) return;
+    doSend(targetDevice, data);
+}
+
+void twiReceive(TWIDevice targetDevice, TWIBuffer data) {
+    if (!prepare(targetDevice)) return;
+    doReceive(targetDevice, data);
+}
+
+static void _pause() {
+    struct timespec t;
+    t.tv_sec = 0;
+    t.tv_nsec = MILLIS_TIMEOUT * 1000 * 1000;
+    nanosleep(&t, NULL);
 }
 
 void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer) {
     if (!prepare(targetDevice)) return;
-    twiSend(targetDevice, sendData);
-    twiReceive(targetDevice, receiveBuffer);
+    doSend(targetDevice, sendData);
+    if (twi_error != TWI_No_Error) return;
+    _pause();
+    doReceive(targetDevice, receiveBuffer);
 }
 
 void twiWaitForCompletion() {
