@@ -19,6 +19,8 @@ typedef enum {
 
 typedef uint16_t ResetCondition;
 
+char *resetConditionString(ResetCondition condition);
+
 // Return a bitmask describing the current reset status.
 ResetCondition getResetCondition();
 
@@ -27,7 +29,7 @@ ResetCondition getResetCondition();
 uint8_t rawResetConditionByte();
 
 typedef struct InitStatus {
-    BOOL initialized;
+    uint16_t initialized;
     uint16_t software_resets;
 } InitStatus;
 

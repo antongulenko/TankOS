@@ -6,6 +6,9 @@
 #include <kernel/buffer_stdout.h>
 #include <stdio.h>
 
+uint8_t twi_data_length;
+BOOL twi_data[256];
+
 void setMyLeds(unsigned nr, BOOL enable) {
 	for (int j = 0; j < allLeds->count; j++) {
 		if (j % buttons->count != nr) continue;
@@ -30,18 +33,23 @@ void buttonPressed(Button b) {
 
 void buttonReleased(Button b) {
 	setMyLeds(getNr(b), FALSE);
+	if (Equal(b, button4)) {
+		buffer_stdout_flush_to_eeprom((char*) 64, 2048);
+		blinkAllLeds(allLeds, 2);
+	}
 }
 
 int main() {
-	MemoryInfo i = memoryInfo();
-    printf("Static: %i. Dynamic: %i of %i, available: %i.\n",
-				i.used_static, i.used_dynamic, i.total_dynamic, i.available_dynamic);
-    //eeprom_busy_wait();
-	//buffer_stdout_flush_to_eeprom((char*) 2, 512);
+	//MemoryInfo i = memoryInfo();
+    //printf("Static: %i. Dynamic: %i of %i, available: %i.\n",
+	//			i.used_static, i.used_dynamic, i.total_dynamic, i.available_dynamic);
+	printf("A: %02x, D: %02x, C: %02x", TWAR, TWDR, TWCR);
+	buffer_stdout_flush_to_eeprom((char*) 2, 64);
+	printf("XXX");
 	leds_run();
-
 	buttonPressedCallback = &buttonPressed;
 	buttonReleasedCallback = &buttonReleased;
+	
 	while (1) {
 		if (buttonStatus(button1) && buttonStatus(button2) && buttonStatus(button3) && buttonStatus(button4))
 			leds_run();

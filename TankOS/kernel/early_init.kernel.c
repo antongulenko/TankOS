@@ -15,4 +15,4 @@ void early_initialization() {
     wdt_disable();
     increment_software_reset_counter();
 }
-KERNEL_INIT(early_initialization)
+EARLY_KERNEL_INIT(early_initialization)

@@ -12,8 +12,8 @@ ifeq ($(USE_TWI), true)
         $(BUILD_TankOS)/twi/rpc/server_handler_functions.kernel.o \
         $(BUILD_TankOS)/twi/services/hardware.kernel.o \
         $(BUILD_TankOS)/twi/services/test.kernel.o \
-        $(BUILD_Tank-IO)/tank_io_twi.kernel.o
-        # TODO -- add service for IO operations
+        $(BUILD_Tank-IO)/tank_io_twi.kernel.o \
+        $(BUILD_Tank-IO)/tank_io_service.kernel.o
 
     ifeq ($(USE_BUFFER_STDOUT), true)
         objects += $(BUILD_TankOS)/twi/services/buffer_stdout.kernel.o

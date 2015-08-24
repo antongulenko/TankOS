@@ -1,23 +1,21 @@
 
-== Hardware tests
-
-- Add TWI curcuit with Beaglebone.
-- Test features: TWI, analog input, motors, smooth motors
-- Finish and test: processes, scheduler
-
+- Test features: analog input, motors, smooth motors
 - Test precision: pwm min/max values, millisecond-timer, delay_XX()
 
 == Refactorings/TODOs
 
-- RPC-services for Tank-IO and Tank-Driver
-
 - RPC-service for pin-occupations
-- Interrupt-handling concept for Processes/Scheduler
-- Implement Mutex
+- RPC-services for Tank-Driver
+
 - Handle all interrupts with default (weak) routine
-- Finish Test-Scheduler, add tests for all modules not testable on Native
 - Clean up simulation/ and mocks/
 
-== To test
+- Finish and test: processes, scheduler (also on AVR)
+- Interrupt-handling concept for Processes/Scheduler
+- Implement Mutex
+
+== Tests TODO
 
 - All Schedulers: idle, round robin, dms
+- Remaining TWI AVR-driver states
+- Finish Test-Scheduler, add tests for all modules not testable on Native

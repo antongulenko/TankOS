@@ -4,6 +4,8 @@
 #include <twi/rpc/server.h>
 #include <twi/rpc/client.h>
 #include <mocks/rpc_client.h>
+#include <mocks/printf.h>
+#include <twi/rpc/client_functions_registry.h>
 
 #include <unity.h>
 #include <mocks/assertions.h>
@@ -99,4 +101,71 @@ void test_eeprom_resets() {
     RpcClientResult status = query_eeprom_resets(test_device, &resets);
     assert_correct_status(status);
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(current + 2, resets, "Wrong hardware resets");
+}
+
+
+void test_format_results_reset_condition() {
+    init_mock_printf();
+    ClientFunctionRegistryEntry f = lookupClientFunction("query_reset_condition");
+    TEST_ASSERT_NOT_NULL(f);
+    TEST_ASSERT_NOT_NULL(f->format_results);
+
+    ResetCondition res = BrownOutReset;
+
+    f->format_results(mock_printf, &res, sizeof(res));
+    TEST_ASSERT_EQUAL_STRING("Reset condition: Brown Out Reset (0x20)", mock_printf_buffer);
+}
+
+void test_format_results_milliseconds() {
+    init_mock_printf();
+    ClientFunctionRegistryEntry f = lookupClientFunction("query_milliseconds");
+    TEST_ASSERT_NOT_NULL(f);
+    TEST_ASSERT_NOT_NULL(f->format_results);
+
+    uint32_t res = 443355;
+
+    f->format_results(mock_printf, &res, sizeof(res));
+    TEST_ASSERT_EQUAL_STRING("Milliseconds running: 443355", mock_printf_buffer);
+}
+
+void test_format_results_memory_info() {
+    init_mock_printf();
+    ClientFunctionRegistryEntry f = lookupClientFunction("query_memory_info");
+    TEST_ASSERT_NOT_NULL(f);
+    TEST_ASSERT_NOT_NULL(f->format_results);
+
+    MemoryInfo res;
+    res.total_dynamic = 1000;
+    res.used_static = 100;
+    res.used_dynamic = 222;
+    res.available_dynamic = 1000 - 222;
+
+    f->format_results(mock_printf, &res, sizeof(res));
+    TEST_ASSERT_EQUAL_STRING("Memory used: 222 of 1000 (Available 778, Static used 100)", mock_printf_buffer);
+}
+
+void test_format_results_init_status() {
+    init_mock_printf();
+    ClientFunctionRegistryEntry f = lookupClientFunction("query_init_status");
+    TEST_ASSERT_NOT_NULL(f);
+    TEST_ASSERT_NOT_NULL(f->format_results);
+
+    InitStatus res;
+    res.initialized = TRUE;
+    res.software_resets = 22;
+
+    f->format_results(mock_printf, &res, sizeof(res));
+    TEST_ASSERT_EQUAL_STRING("Initialized: true, Software resets: 22", mock_printf_buffer);
+}
+
+void test_format_results_eeprom_resets() {
+    init_mock_printf();
+    ClientFunctionRegistryEntry f = lookupClientFunction("query_eeprom_resets");
+    TEST_ASSERT_NOT_NULL(f);
+    TEST_ASSERT_NOT_NULL(f->format_results);
+
+    uint16_t res = 44;
+
+    f->format_results(mock_printf, &res, sizeof(res));
+    TEST_ASSERT_EQUAL_STRING("Hardware resets: 44", mock_printf_buffer);
 }

@@ -2,6 +2,8 @@
 # === Local configuration files and scripts
 /mk
 /simulator.sh
+/make-all.sh
+/fix-eep.sh
 
 # === Build and temporary make files
 GNUmakefile

@@ -64,7 +64,7 @@ TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
 
 void test_initialization() {
 	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE) | _BV(TWEA), TWCR);
-	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
+	TEST_ASSERT_EQUAL_HEX(0x00, TWDR);
 }
 
 void test_slave_twi_init_pins() {
@@ -103,25 +103,30 @@ void test_transmitReceive_ErrorPhase1();
 void test_transmitReceive_ErrorPhase2();
 void test_transmitReceive_LostSecondArbitration();
 
+void expectTwiSlaveNoackRead(TwiStatus status, byte data) {
+    expectTwiNoackOp(status, 0, data, FALSE);
+}
+
+void expectTwiSlaveNoackWrite(TwiStatus status, byte data) {
+    expectTwiNoackOp(status, 0, data, TRUE);
+}
+
 void expectTwiSlaveWriteOp(TwiStatus status, byte data) {
-	// The control register is expected to always be the same.
 	expectTwiWriteOp(status, 0, data);
 }
 
 void expectTwiSlaveReadOp(TwiStatus status, byte data) {
-	// The control register is expected to always be the same.
 	expectTwiReadOp(status, 0, data);
 }
 
 void expectTwiSlaveControlOp(TwiStatus status) {
-	// The control register is expected to always be the same.
 	expectTwiControlOp(status, 0);
 }
 
 void test_slave_transmit_successfull_1 () {
 	expectedMasterRequestCalls = 1;
 	sendBuffer.size = 1;
-	expectTwiSlaveWriteOp(TW_ST_SLA_ACK, sendData[0]);
+	expectTwiSlaveNoackWrite(TW_ST_SLA_ACK, sendData[0]);
 	expectTwiSlaveControlOp(TW_ST_DATA_NACK);
 	startTwiSlaveTest();
 }
@@ -133,7 +138,7 @@ void test_slave_transmit_successfull_n () {
 	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, sendData[2]);
 	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, sendData[3]);
 	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, sendData[4]);
-	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, sendData[5]);
+	expectTwiSlaveNoackWrite(TW_ST_DATA_ACK, sendData[5]);
 	expectTwiSlaveControlOp(TW_ST_DATA_NACK);
 	startTwiSlaveTest();
 }
@@ -142,7 +147,7 @@ void test_slave_transmit_not_enough_0_masterExpects1 () {
 	expectedMasterRequestCalls = 1;
 	sendBuffer.size = 0;
 	expectedError = TWI_Slave_NotEnoughDataTransmitted;
-	expectTwiSlaveWriteOp(TW_ST_SLA_ACK, TwiIllegalByte);
+	expectTwiSlaveNoackWrite(TW_ST_SLA_ACK, TwiIllegalByte);
 	expectTwiSlaveControlOp(TW_ST_DATA_NACK);
 	startTwiSlaveTest();
 }
@@ -151,9 +156,9 @@ void test_slave_transmit_not_enough_0_masterExpectsMoreThan1 () {
 	expectedMasterRequestCalls = 1;
 	sendBuffer.size = 0;
 	expectedError = TWI_Slave_NotEnoughDataTransmitted;
-	expectTwiSlaveWriteOp(TW_ST_SLA_ACK, TwiIllegalByte);
-	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, TwiIllegalByte);
-	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, TwiIllegalByte);
+	expectTwiSlaveNoackWrite(TW_ST_SLA_ACK, TwiIllegalByte);
+	expectTwiSlaveNoackWrite(TW_ST_DATA_ACK, TwiIllegalByte);
+	expectTwiSlaveNoackWrite(TW_ST_DATA_ACK, TwiIllegalByte);
 	expectTwiSlaveControlOp(TW_ST_DATA_NACK);
 	startTwiSlaveTest();
 }
@@ -162,9 +167,9 @@ void test_slave_transmit_not_enough_1 () {
 	expectedMasterRequestCalls = 1;
 	sendBuffer.size = 1;
 	expectedError = TWI_Slave_NotEnoughDataTransmitted;
-	expectTwiSlaveWriteOp(TW_ST_SLA_ACK, sendData[0]);
-	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, TwiIllegalByte);
-	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, TwiIllegalByte);
+	expectTwiSlaveNoackWrite(TW_ST_SLA_ACK, sendData[0]);
+	expectTwiSlaveNoackWrite(TW_ST_DATA_ACK, TwiIllegalByte);
+	expectTwiSlaveNoackWrite(TW_ST_DATA_ACK, TwiIllegalByte);
 	expectTwiSlaveControlOp(TW_ST_DATA_NACK);
 	startTwiSlaveTest();
 }
@@ -175,9 +180,9 @@ void test_slave_transmit_not_enough_n () {
 	expectedError = TWI_Slave_NotEnoughDataTransmitted;
 	expectTwiSlaveWriteOp(TW_ST_SLA_ACK,  sendData[0]);
 	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, sendData[1]);
-	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, sendData[2]);
-	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, TwiIllegalByte);
-	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, TwiIllegalByte);
+	expectTwiSlaveNoackWrite(TW_ST_DATA_ACK, sendData[2]);
+	expectTwiSlaveNoackWrite(TW_ST_DATA_ACK, TwiIllegalByte);
+	expectTwiSlaveNoackWrite(TW_ST_DATA_ACK, TwiIllegalByte);
 	expectTwiSlaveControlOp(TW_ST_DATA_NACK);
 	startTwiSlaveTest();
 }
@@ -197,7 +202,7 @@ void test_slave_transmit_afterArbitrationLost () {
 	sendBuffer.size = 3;
 	expectTwiSlaveWriteOp(TW_ST_ARB_LOST_SLA_ACK, sendData[0]);
 	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, sendData[1]);
-	expectTwiSlaveWriteOp(TW_ST_DATA_ACK, sendData[2]);
+	expectTwiSlaveNoackWrite(TW_ST_DATA_ACK, sendData[2]);
 	expectTwiSlaveControlOp(TW_ST_DATA_NACK);
 	startTwiSlaveTest();
 }
@@ -207,7 +212,7 @@ void test_slave_receive_successull_1() {
 	expectedMasterTransmissionEndedCalls = 1;
 	receiveBuffer.size = 1;
 	expectTwiSlaveControlOp(TW_SR_SLA_ACK);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedByte);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedByte);
 	expectTwiSlaveControlOp(TW_SR_STOP);
 	startTwiSlaveTest();
 	assertReceivedByte(expectedByte);
@@ -219,14 +224,13 @@ void test_slave_receive_successull_n() {
 	receiveBuffer.size = 3;
 	expectTwiSlaveControlOp(TW_SR_SLA_ACK);
 	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[0]);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[1]);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[2]);
-	expectTwiSlaveControlOp(TW_SR_STOP);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[1]);
+	expectTwiSlaveReadOp(TW_SR_DATA_NACK, expectedReceiveData[2]);
 	startTwiSlaveTest();
 	assertReceivedData(expectedReceiveData, 3);
 }
 
-void test_slave_receive_NotEnough() {
+void test_slave_receive_NotEnough_1() {
 	expectedMasterTransmissionStartingCalls = 1;
 	expectedMasterTransmissionEndedCalls = 1;
 	receiveBuffer.size = 4;
@@ -239,14 +243,27 @@ void test_slave_receive_NotEnough() {
 	assertReceivedData(expectedReceiveData, 2);
 }
 
+void test_slave_receive_NotEnough_2() {
+	expectedMasterTransmissionStartingCalls = 1;
+	expectedMasterTransmissionEndedCalls = 1;
+	receiveBuffer.size = 3;
+	expectedError = TWI_Slave_NotEnoughDataReceived;
+	expectTwiSlaveControlOp(TW_SR_SLA_ACK);
+	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[0]);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[1]);
+	expectTwiSlaveControlOp(TW_SR_STOP);
+	startTwiSlaveTest();
+	assertReceivedData(expectedReceiveData, 2);
+}
+
 void test_slave_receive_TooMuch_0() {
 	expectedMasterTransmissionStartingCalls = 1;
 	expectedMasterTransmissionEndedCalls = 1;
 	receiveBuffer.size = 0;
 	expectedError = TWI_Slave_TooMuchDataReceived;
 	expectTwiSlaveControlOp(TW_SR_SLA_ACK);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[0]);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[1]);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[0]);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[1]);
 	expectTwiSlaveControlOp(TW_SR_STOP);
 	startTwiSlaveTest();
 	assertReceivedNoData();
@@ -258,9 +275,9 @@ void test_slave_receive_TooMuch_1() {
 	receiveBuffer.size = 1;
 	expectedError = TWI_Slave_TooMuchDataReceived;
 	expectTwiSlaveControlOp(TW_SR_SLA_ACK);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedByte);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[0]);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[1]);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedByte);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[0]);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[1]);
 	expectTwiSlaveControlOp(TW_SR_STOP);
 	startTwiSlaveTest();
 	assertReceivedByte(expectedByte);
@@ -273,10 +290,10 @@ void test_slave_receive_TooMuch_n() {
 	expectedError = TWI_Slave_TooMuchDataReceived;
 	expectTwiSlaveControlOp(TW_SR_SLA_ACK);
 	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[0]);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[1]);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[2]);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[3]);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[4]);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[1]);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[2]);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[3]);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[4]);
 	expectTwiSlaveControlOp(TW_SR_STOP);
 	startTwiSlaveTest();
 	assertReceivedData(expectedReceiveData, 3);
@@ -288,9 +305,8 @@ void test_slave_receive_GeneralCall_successfull() {
 	receiveBuffer.size = 3;
 	expectTwiSlaveControlOp(TW_SR_GCALL_ACK);
 	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_ACK, expectedReceiveData[0]);
-	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_ACK, expectedReceiveData[1]);
-	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_ACK, expectedReceiveData[2]);
-	expectTwiSlaveControlOp(TW_SR_STOP);
+	expectTwiSlaveNoackRead(TW_SR_GCALL_DATA_ACK, expectedReceiveData[1]);
+	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_NACK, expectedReceiveData[2]);
 	startTwiSlaveTest();
 	assertReceivedData(expectedReceiveData, 3);
 }
@@ -301,12 +317,24 @@ void test_slave_receive_GeneralCall_TooMuch() {
 	receiveBuffer.size = 2;
 	expectedError = TWI_Slave_TooMuchDataReceived;
 	expectTwiSlaveControlOp(TW_SR_GCALL_ACK);
-	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_ACK, expectedReceiveData[0]);
-	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_ACK, expectedReceiveData[1]);
-	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_ACK, expectedReceiveData[2]);
-	expectTwiSlaveControlOp(TW_SR_STOP);
+	expectTwiSlaveNoackRead(TW_SR_GCALL_DATA_ACK, expectedReceiveData[0]);
+	expectTwiSlaveNoackRead(TW_SR_GCALL_DATA_ACK, expectedReceiveData[1]);
+    expectTwiSlaveNoackRead(TW_SR_GCALL_DATA_ACK, expectedReceiveData[1]);
+	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_NACK, expectedReceiveData[2]);
 	startTwiSlaveTest();
 	assertReceivedData(expectedReceiveData, 2);
+}
+
+void test_slave_receive_GeneralCall_NotEnough() {
+	expectedMasterTransmissionStartingCalls = 1;
+	expectedMasterTransmissionEndedCalls = 1;
+	receiveBuffer.size = 3;
+	expectedError = TWI_Slave_NotEnoughDataReceived;
+	expectTwiSlaveControlOp(TW_SR_GCALL_ACK);
+	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_ACK, expectedReceiveData[0]);
+    expectTwiSlaveControlOp(TW_SR_STOP);
+	startTwiSlaveTest();
+	assertReceivedData(expectedReceiveData, 1);
 }
 
 void test_slave_receive_afterArbitrationLost() {
@@ -314,9 +342,8 @@ void test_slave_receive_afterArbitrationLost() {
 	expectedMasterTransmissionEndedCalls = 1;
 	receiveBuffer.size = 2;
 	expectTwiSlaveControlOp(TW_SR_ARB_LOST_SLA_ACK);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[0]);
-	expectTwiSlaveReadOp(TW_SR_DATA_ACK, expectedReceiveData[1]);
-	expectTwiSlaveControlOp(TW_SR_STOP);
+	expectTwiSlaveNoackRead(TW_SR_DATA_ACK, expectedReceiveData[0]);
+	expectTwiSlaveReadOp(TW_SR_DATA_NACK, expectedReceiveData[1]);
 	startTwiSlaveTest();
 	assertReceivedData(expectedReceiveData, 2);
 }
@@ -326,9 +353,8 @@ void test_slave_receive_afterArbitrationLost_GeneralCall() {
 	expectedMasterTransmissionEndedCalls = 1;
 	receiveBuffer.size = 2;
 	expectTwiSlaveControlOp(TW_SR_ARB_LOST_GCALL_ACK);
-	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_ACK, expectedReceiveData[0]);
-	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_ACK, expectedReceiveData[1]);
-	expectTwiSlaveControlOp(TW_SR_STOP);
+	expectTwiSlaveNoackRead(TW_SR_GCALL_DATA_ACK, expectedReceiveData[0]);
+	expectTwiSlaveReadOp(TW_SR_GCALL_DATA_NACK, expectedReceiveData[1]);
 	startTwiSlaveTest();
 	assertReceivedData(expectedReceiveData, 2);
 }

@@ -22,7 +22,7 @@ void boot_completed() {
     __initialization_complete_mask = INIT_MASK_INITIALIZED;
 }
 
-uint8_t current_reset_status = 0;
+uint8_t current_reset_status __attribute__ ((section (".noinit")));
 
 ResetCondition getResetCondition() {
 	uint16_t mask = 0;
@@ -41,6 +41,18 @@ ResetCondition getResetCondition() {
 	}
 	if (!mask) mask = OtherReset;
 	return mask;
+}
+
+char *resetConditionString(ResetCondition condition) {
+    if (condition & PowerOnReset) {
+        return "Power On Reset";
+    } else if (condition & WatchDogReset) {
+        return "Watchdog Reset";
+    } else if (condition & BrownOutReset) {
+        return "Brown Out Reset";
+    } else {
+        return "Other";
+    }
 }
 
 void increment_software_reset_counter() {

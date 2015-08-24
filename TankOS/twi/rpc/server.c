@@ -24,8 +24,14 @@ RpcServerOperation rpc_server_operation = TWI_RPC_waiting;
 RpcServerStatus rpc_server_status = TWI_RPC_no_error;
 
 static void twi_driver_error(RpcServerStatus status) {
-    // This can only happen if something is wrong with the I2C bus.
-    rpc_server_status = twi_error == TWI_No_Error ? status : TWI_RPC_error_driver;
+	switch (twi_error) {
+		case TWI_Slave_NotEnoughDataReceived:
+		case TWI_No_Error:
+			rpc_server_status = status;
+			break;
+		default:
+			rpc_server_status = TWI_RPC_error_driver + twi_error;
+	}
 }
 
 static void reset_results() {
@@ -112,9 +118,7 @@ static TWIBuffer twi_handleMasterRequest() {
 
     if (rpc_server_status >= TWI_RPC_error) {
         result = errorBuffer;
-        byte status = rpc_server_status == TWI_RPC_error_driver
-                ? TWI_RPC_error_driver + twi_error : rpc_server_status;
-        errorBufferData[0] = status;
+        errorBufferData[0] = rpc_server_status;
         errorBufferData[1] = lastHandlerStatus;
         errorBufferData[2] = lastHandledOperation;
     }

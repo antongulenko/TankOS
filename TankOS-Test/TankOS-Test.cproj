@@ -136,7 +136,19 @@
     <Compile Include="kernel\buffer_stdout.test.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="mocks\scheduler.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\scheduler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="process\idle.test.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="process\process.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="process\RoundRobin.test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="process\scheduler.test.c">

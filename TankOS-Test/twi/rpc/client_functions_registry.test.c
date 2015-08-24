@@ -3,6 +3,7 @@
 #include <twi/rpc/client_functions_registry.h>
 #include <unity.h>
 #include <mocks/rpc_client.h>
+#include <mocks/printf.h>
 
 void setUp() {
 }
@@ -23,3 +24,32 @@ void test_client_func_registry() {
     f = lookupClientFunction("blahblah");
     TEST_ASSERT_NULL_MESSAGE(f, "Wrong function was found.");
 }
+
+void test_client_registry_format() {
+    init_mock_printf();
+    TestResStruct s = (TestResStruct) { 22, 2.2, { 'a', 'b', 'c' } };
+
+    ClientFunctionRegistryEntry f = lookupClientFunction("rpcVar");
+    TEST_ASSERT_NOT_NULL(f->format_results);
+    f->format_results(mock_printf, &s, sizeof(s));
+    TEST_ASSERT_EQUAL_STRING("rpcVar: 22 2.2 abc", mock_printf_buffer);
+    init_mock_printf();
+
+    f = lookupClientFunction("rpcNormal");
+    TEST_ASSERT_NOT_NULL(f->format_results);
+    f->format_results(mock_printf, &s, sizeof(s));
+    TEST_ASSERT_EQUAL_STRING("rpcNormal: 22 2.2 abc", mock_printf_buffer);
+    init_mock_printf();
+
+    f = lookupClientFunction("rpcNoargs");
+    TEST_ASSERT_NOT_NULL(f->format_results);
+    f->format_results(mock_printf, &s, sizeof(s));
+    TEST_ASSERT_EQUAL_STRING("rpcNoargs: 22 2.2 abc", mock_printf_buffer);
+    init_mock_printf();
+
+    f = lookupClientFunction("rpcVoid");
+    TEST_ASSERT_NULL_MESSAGE(f->format_results, "rpcVoid should not have formatter function");
+    f = lookupClientFunction("rpcNotify");
+    TEST_ASSERT_NULL_MESSAGE(f->format_results, "rpcNotify should not have formatter function");
+}
+

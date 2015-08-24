@@ -24,6 +24,8 @@ typedef enum {
 	TRUE = 1
 } BOOL;
 
+#define BOOL_STR(b) (b ? "true" : "false")
+
 typedef uint8_t byte;
 
 asm ("__RAMPZ__ = 0x3b");

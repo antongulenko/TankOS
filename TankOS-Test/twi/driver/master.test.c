@@ -21,7 +21,7 @@ TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status) {
 
 void test_initialization() {
 	TEST_ASSERT_EQUAL_HEX(_BV(TWEN) | _BV(TWIE), TWCR);
-	TEST_ASSERT_EQUAL_HEX(0xFF, TWDR);
+	TEST_ASSERT_EQUAL_HEX(0x00, TWDR);
     BOOL res = twi_init(testPin1, testPin2);
     TEST_ASSERT_FALSE_MESSAGE(res, "Second initialization of twi master should not be possible");
     TEST_ASSERT_EQUAL(PinTwiIO, pinOccupation(testPin1));

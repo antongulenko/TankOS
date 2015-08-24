@@ -27,9 +27,17 @@ RpcClientResult twi_rpc_client_async(TWIDevice device, byte operationByte, byte 
     return res;
 }
 
-void registerClientFunction(char *funcName, RpcQueryFunction function, uint8_t argument_bytes, uint8_t result_bytes, BOOL variable_arguments, BOOL variable_results, byte operation) {
-    ClientFunctionRegistryEntry entry = kcalloc(1, sizeof(_ClientFunctionRegistryEntry));
+void registerClientFunction(char *funcName, RpcQueryFunction function, uint8_t argument_bytes, uint8_t result_bytes,
+                            BOOL variable_arguments, BOOL variable_results, byte operation, ClientResultFormatter result_formatter) {
+    ClientFunctionRegistryEntry entry = kcalloc(1, sizeof(struct ClientFunctionRegistryEntry));
     if (!entry) return;
+    ClientFunctionRegistryEntry check = NULL;
+    HASH_FIND_STR(clientFunctionRegisty, funcName, check);
+    if (check) {
+        klog("dcf:%i\n", operation); // Double client function name
+        free(entry);
+        return;
+    }
     entry->name = funcName;
     entry->function = function;
     entry->argument_bytes = argument_bytes;
@@ -37,6 +45,7 @@ void registerClientFunction(char *funcName, RpcQueryFunction function, uint8_t a
     entry->variable_arguments = variable_arguments;
     entry->variable_results = variable_results;
     entry->operation = operation;
+    entry->format_results = result_formatter;
     HASH_ADD_STR(clientFunctionRegisty, name, entry);
 }
 

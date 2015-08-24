@@ -5,6 +5,8 @@
 #include <twi/rpc/client.h>
 #include <twi/rpc/strings.h>
 #include <mocks/rpc_client.h>
+#include <mocks/printf.h>
+#include <twi/rpc/client_functions_registry.h>
 
 #include <unity.h>
 #include <mocks/assertions.h>
@@ -49,4 +51,18 @@ TWI_RPC_FUNCTION_VOID(wrong_test_write_value, TEST_WRITE_VALUE_OPERATION, int16_
 void test_wrong_data_sent() {
     RpcClientResult status = wrong_test_write_value(test_device, 22);
     assert_status((RpcClientResult) { TWI_RPC_call_error_server, TWI_RPC_handler_illegal_parameters, TWI_RPC_error_handler }, status);
+}
+
+void test_format_results() {
+    init_mock_printf();
+    ClientFunctionRegistryEntry f = lookupClientFunction("test_read_value");
+    TEST_ASSERT_NOT_NULL(f);
+    TEST_ASSERT_NOT_NULL(f->format_results);
+
+    int32_t res;
+    test_write_value(test_device, 4500);
+    test_read_value(test_device, &res);
+
+    f->format_results(mock_printf, &res, sizeof(res));
+    TEST_ASSERT_EQUAL_STRING("Test value: 4500", mock_printf_buffer);
 }

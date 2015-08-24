@@ -1,2 +1,2 @@
 
-#define TANK_IO_ADDRESS (11 << 2)
+#define TANK_IO_ADDRESS 0x2c

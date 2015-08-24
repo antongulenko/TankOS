@@ -5,6 +5,8 @@
 #include <twi/rpc/server.h>
 #include <twi/rpc/client.h>
 #include <mocks/rpc_client.h>
+#include <mocks/printf.h>
+#include <twi/rpc/client_functions_registry.h>
 
 #include <unity.h>
 #include <mocks/assertions.h>
@@ -69,4 +71,30 @@ void test_less_then_more() {
     request_buffer(1, 1, "cde");
     request_buffer(30, 2, "de");
     request_buffer(5, 0, "");
+}
+
+void test_format_results_status() {
+    init_mock_printf();
+    ClientFunctionRegistryEntry f = lookupClientFunction("query_stdout_buffer_status");
+    TEST_ASSERT_NOT_NULL(f);
+    TEST_ASSERT_NOT_NULL(f->format_results);
+
+    BufferStatus res;
+    query_stdout_buffer_status(test_device, &res);
+
+    f->format_results(mock_printf, &res, sizeof(res));
+    TEST_ASSERT_EQUAL_STRING("Stdout status: used 3 of 2048, 0 dropped", mock_printf_buffer);
+}
+
+void test_format_results_flush() {
+    init_mock_printf();
+    ClientFunctionRegistryEntry f = lookupClientFunction("flush_stdout_buffer");
+    TEST_ASSERT_NOT_NULL(f);
+    TEST_ASSERT_NOT_NULL(f->format_results);
+
+    char res[sizeof(uint16_t) + 10];
+    flush_stdout_buffer(test_device, 4, res, sizeof(res));
+
+    f->format_results(mock_printf, &res, sizeof(res));
+    TEST_ASSERT_EQUAL_STRING("cde", mock_printf_buffer);
 }
