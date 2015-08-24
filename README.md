@@ -13,7 +13,7 @@ Tank-Simulator is intended for debugging in the Atmel Studio Simulator.
 
 The build system also uses the ```find``` command.
 
-For colored build output put [this script](https://ansi-color.googlecode.com/files/ansi-color-0.6.tar.gz) on your path or add ```IGNORE_COLORS := true``` to the ```make_parameters``` file.
+For colored build output put [this script](https://ansi-color.googlecode.com/files/ansi-color-0.6.tar.gz) on your path or add ```IGNORE_COLORS := true``` to the ```Configurations.mk``` file.
 
 ~~Other Ubuntu packages: ```sudo apt-get install gdb-avr avrp avrprog avr-libc usbprog usbprog-gui simulavr```~~
 
