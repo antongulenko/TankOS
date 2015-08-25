@@ -38,7 +38,7 @@ static void init_tank_driver_motors() {
     timer2B = newTimer_m1284P(2, TIMER_B, TRUE);
 
     leftBaseMotor = newMotor2speed(TANK_MOTOR, timer0A, timer0B);
-    leftBaseMotor = newMotor2speed(TANK_MOTOR, timer2A, timer2B);
+    rightBaseMotor = newMotor2speed(TANK_MOTOR, timer2A, timer2B);
     leftMotor = newSmoothMotor(leftBaseMotor);
     rightMotor = newSmoothMotor(rightBaseMotor);
 

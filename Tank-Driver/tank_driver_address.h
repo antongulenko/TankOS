@@ -1,2 +1,2 @@
 
-#define TANK_DRIVER_ADDRESS (12 << 2)
+#define TANK_DRIVER_ADDRESS 0x2e
