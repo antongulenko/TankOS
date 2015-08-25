@@ -9,8 +9,8 @@ ifeq ($(USE_TWI), true)
         $(BUILD_TankOS)/twi/rpc/server_handler_functions.kernel.o \
         $(BUILD_TankOS)/twi/services/hardware.kernel.o \
         $(BUILD_TankOS)/twi/services/example.kernel.o \
-        $(BUILD_Tank-Driver)/tank_driver_twi.kernel.o
-        # TODO -- add service for Motors operations
+        $(BUILD_Tank-Driver)/tank_driver_twi.kernel.o \
+        $(BUILD_Tank-Driver)/tank_driver_service.kernel.o
 
     ifeq ($(USE_BUFFER_STDOUT), true)
         objects += $(BUILD_TankOS)/twi/services/buffer_stdout.kernel.o

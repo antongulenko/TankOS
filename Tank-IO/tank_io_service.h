@@ -19,9 +19,9 @@ typedef enum {
 } TankLedGroup;
 
 typedef enum {
-    TANK_IO_BUTTON_STATUS = 30,
-    TANK_IO_SET_LEDS = 33,
-} PROTOCOL_TANK_IO_SERVICE;
+    TANK_IO_BUTTON_STATUS = 20,
+    TANK_IO_SET_LEDS
+} PROTOCOL_TANK_IO_SERVICE; // Start at 20
 
 typedef struct ButtonStatusResult {
     uint8_t statusMask;
@@ -30,7 +30,7 @@ typedef struct ButtonStatusResult {
 } ButtonStatusResult;
 
 typedef struct SetLedsParameters {
-    uint16_t group; // Should be TankLedGroup
+    uint16_t group; // enum TankLedGroup
     uint16_t mask;
 } SetLedsParameters;
 

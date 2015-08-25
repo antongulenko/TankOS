@@ -35,7 +35,7 @@ enum {
 	OP_RPC_NOARGS_VAR,
 	OP_RPC_NOTIFY,
 	OP_RPC_NOTIFY_ASYNC
-} PROTOCOL_TEST_RPC_SERVICE;
+} PROTOCOL_TEST_RPC_SERVICE; // Start at 55 (only for tests)
 
 // Define one function of each type for the test rpc client
 
