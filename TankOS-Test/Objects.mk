@@ -151,14 +151,14 @@ $(eval $(call set_test_objects,twi/services/hardware,\
     $(BUILD_TankOS)/twi/rpc/client_functions.o \
     $(BUILD_TankOS)/twi/rpc/server_handler_functions.kernel.o ))
 
-$(eval $(call set_test_objects,twi/services/test,\
+$(eval $(call set_test_objects,twi/services/example,\
     $(BUILD_TESTS)/mocks/assertions.o \
     $(BUILD_TESTS)/mocks/twi_driver_slave.o \
     $(BUILD_TESTS)/mocks/twi_end_to_end.o \
-    $(BUILD_TESTS)/twi/services/test.o \
-    $(BUILD_TankOS)/twi/services/test.o \
-    $(BUILD_TankOS)/twi/services/test.kernel.o \
-    $(BUILD_TankOS)/twi/services/test_client.kernel.o \
+    $(BUILD_TESTS)/twi/services/helper.o \
+    $(BUILD_TankOS)/twi/services/example.o \
+    $(BUILD_TankOS)/twi/services/example.kernel.o \
+    $(BUILD_TankOS)/twi/services/example_client.kernel.o \
     $(BUILD_TankOS)/twi/rpc/strings.o \
     $(BUILD_TankOS)/twi/rpc/server.o \
     $(BUILD_TankOS)/twi/rpc/client.o \
@@ -173,7 +173,7 @@ $(eval $(call set_test_objects,twi/services/buffer_stdout,\
     $(BUILD_TESTS)/mocks/assertions.o \
     $(BUILD_TESTS)/mocks/twi_driver_slave.o \
     $(BUILD_TESTS)/mocks/twi_end_to_end.o \
-    $(BUILD_TESTS)/twi/services/test.o \
+    $(BUILD_TESTS)/twi/services/helper.o \
     $(BUILD_TankOS)/twi/services/buffer_stdout.o \
     $(BUILD_TankOS)/twi/services/buffer_stdout.kernel.o \
     $(BUILD_TankOS)/twi/services/buffer_stdout_client.kernel.o \

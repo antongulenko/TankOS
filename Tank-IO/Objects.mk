@@ -11,7 +11,7 @@ ifeq ($(USE_TWI), true)
         $(BUILD_TankOS)/twi/driver/slave.kernel.o \
         $(BUILD_TankOS)/twi/rpc/server_handler_functions.kernel.o \
         $(BUILD_TankOS)/twi/services/hardware.kernel.o \
-        $(BUILD_TankOS)/twi/services/test.kernel.o \
+        $(BUILD_TankOS)/twi/services/example.kernel.o \
         $(BUILD_Tank-IO)/tank_io_twi.kernel.o \
         $(BUILD_Tank-IO)/tank_io_service.kernel.o
 

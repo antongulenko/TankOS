@@ -1,5 +1,5 @@
 
-#include "test.h"
+#include "example.h"
 #include <twi/rpc/server_handler_functions.h>
 
 static int32_t test_value;

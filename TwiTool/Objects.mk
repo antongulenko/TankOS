@@ -2,8 +2,8 @@ objects += \
     $(BUILD_TankOS)/mutex/mock_mutex.kernel.o \
     $(BUILD_TankOS)/kernel/klib.kernel.o \
     $(BUILD_TankOS)/simulation/simulation.kernel.o \
-    $(BUILD_TankOS)/twi/services/test.o \
-    $(BUILD_TankOS)/twi/services/test_client.kernel.o \
+    $(BUILD_TankOS)/twi/services/example.o \
+    $(BUILD_TankOS)/twi/services/example_client.kernel.o \
     $(BUILD_TankOS)/twi/services/hardware.o \
     $(BUILD_TankOS)/twi/services/hardware_client.kernel.o \
     $(BUILD_TankOS)/twi/services/buffer_stdout.o \

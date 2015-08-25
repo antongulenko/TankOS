@@ -1,5 +1,5 @@
 
-#include <twi/services/test.h>
+#include <twi/services/example.h>
 
 #include <twi/rpc/server.h>
 #include <twi/rpc/client.h>

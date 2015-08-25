@@ -3,12 +3,12 @@
 
 #include <twi/rpc/client_functions.h>
 
-enum {
+typedef enum {
     TEST_WRITE_VALUE_OPERATION = 10,
     TEST_READ_VALUE_OPERATION,
     TEST_INC_VALUE_OPERATION,
     TEST_RESET_VALUE_OPERATION
-};
+} PROTOCOL_TEST_SERVICE;
 
 TWI_RPC_FUNCTION_VOID(test_write_value, TEST_WRITE_VALUE_OPERATION, int32_t)
 TWI_RPC_FUNCTION_NOARGS(test_read_value, TEST_READ_VALUE_OPERATION, int32_t)
