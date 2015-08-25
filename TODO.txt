@@ -1,10 +1,12 @@
 
 - Test features: analog input, motors, smooth motors
-- Test precision: pwm min/max values, millisecond-timer, delay_XX()
+- Test precision: pwm min/max values, delay_XX()
+
+- io-time.sh script: compute milliseconds passed native and on device. Provide formula for device's real Frequency.
+- Move io-* script library into TwiTool
 
 == Refactorings/TODOs
 
-- RPC-service for pin-occupations
 - RPC-services for Tank-Driver
 
 - Handle all interrupts with default (weak) routine
@@ -13,6 +15,8 @@
 - Finish and test: processes, scheduler (also on AVR)
 - Interrupt-handling concept for Processes/Scheduler
 - Implement Mutex
+
+- RPC-service for pin-occupations
 
 == Tests TODO
 
