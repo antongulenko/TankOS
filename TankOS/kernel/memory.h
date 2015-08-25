@@ -22,17 +22,11 @@ uint16_t usedDynamicMemory();
 // end of the heap. 'Holes' in the heap are not checked.
 uint16_t availableDynamicMemory();
 
-// These two functions give a fraction between 0 and 1.
-float usedDynamicMemoryF();
-float availableDynamicMemoryF();
-
 typedef struct MemoryInfo {
     uint16_t used_static;
     uint16_t total_dynamic;
     uint16_t used_dynamic;
     uint16_t available_dynamic;
-    float used_dynamic_f;
-    float available_dynamic_f;
 } MemoryInfo;
 
 MemoryInfo memoryInfo();

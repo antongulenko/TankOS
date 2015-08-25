@@ -72,8 +72,6 @@ void test_memory_info() {
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(DYNAMIC_MEMORY_START - RAMSTART, info.used_static, "Wrong used static memory reported");
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(used, info.used_dynamic, "Wrong used dynamic memory reported");
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(available, info.available_dynamic, "Wrong available dynamic memory reported");
-    TEST_ASSERT_EQUAL_FLOAT_MESSAGE((float) used / (float) total, info.used_dynamic_f, "Wrong used dynamic memory (float) reported");
-    TEST_ASSERT_EQUAL_FLOAT_MESSAGE((float) available / (float) total, info.available_dynamic_f, "Wrong available dynamic (float) memory reported");
 }
 
 extern byte __initialization_complete_mask;

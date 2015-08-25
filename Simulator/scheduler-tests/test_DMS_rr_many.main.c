@@ -33,8 +33,6 @@ void before_scheduler() {
 	for (int i = 0; i < NUM_JOBS; i++) {
 		jobs[i] = createPeriodicJob2(MyPeriodicJob, 10, (void*) (jobCounters + i));
 	}
-
-	float usedMem = usedDynamicMemoryF();
 }
 
 int main() {

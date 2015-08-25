@@ -7,8 +7,6 @@
 
 == Refactorings/TODOs
 
-- RPC-services for Tank-Driver
-
 - Handle all interrupts with default (weak) routine
 - Clean up simulation/ and mocks/
 

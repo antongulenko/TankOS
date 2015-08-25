@@ -10,7 +10,7 @@ static uint16_t _usedDynamicMemory() {
 		mainProcessStack = RAMEND - (uint16_t) MALLOC_END;
 	uint16_t unusedMemory = MALLOC_START - DYNAMIC_MEMORY_START; // Count memory ignored by malloc as "used".
 	uint16_t usedHeap = (uint16_t) ALLOCATED_HEAP_END - (uint16_t) MALLOC_START;
-	
+
 	// 2 additional bytes seem to always be used by malloc.
 	return mainProcessStack + unusedMemory + usedHeap + 2;
 }
@@ -29,21 +29,11 @@ uint16_t availableDynamicMemory() {
 	return total - used;
 }
 
-float usedDynamicMemoryF() {
-	return usedDynamicMemory() / (float) TotalDynamicMemory;
-}
-
-float availableDynamicMemoryF() {
-	return availableDynamicMemory() / (float) TotalDynamicMemory;
-}
-
 MemoryInfo memoryInfo() {
     MemoryInfo info;
     info.used_static = UsedStaticMemory;
     info.total_dynamic = TotalDynamicMemory;
     info.used_dynamic = usedDynamicMemory();
     info.available_dynamic = availableDynamicMemory();
-    info.used_dynamic_f = usedDynamicMemoryF();
-    info.available_dynamic_f = availableDynamicMemoryF();
     return info;
 }
