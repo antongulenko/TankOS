@@ -19,4 +19,4 @@
 
 - All Schedulers: idle, round robin, dms
 - Remaining TWI AVR-driver states
-- Finish Test-Scheduler, add tests for all modules not testable on Native
+- Finish Simulator-Test, add tests for all modules not testable on Native

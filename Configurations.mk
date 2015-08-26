@@ -1,13 +1,13 @@
 
 ifdef CONFIG
-ifeq ($(CONFIG), scheduler)
+ifeq ($(CONFIG), simulator-test)
 
     USE_PROCESS := true
     USE_SCHEDULER := true
-    PROJ := Test-Scheduler
+    PROJ := Simulator-Test
 
 endif
-ifeq ($(CONFIG), $(filter $(CONFIG), simulator scheduler))
+ifeq ($(CONFIG), $(filter $(CONFIG), simulator simulator-test))
 
     USE_PROCESS ?= false
     USE_SCHEDULER ?= false
