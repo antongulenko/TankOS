@@ -78,7 +78,6 @@ dependency_files := $(addprefix $(DEPENDENCY_DIR)/$(project)/, $(sources))
 
 # Include additional objects required by this project. These objects can be located in other project-folders!
 # The Objects.mk script should append file-names to the 'objects' variable. This is optional.
--include $(foreach d, $(dependencies), $d/KernelObjects.mk)
 -include $(project)/Objects.mk
 
 # Handle Unity tests. testrunners are generated.
