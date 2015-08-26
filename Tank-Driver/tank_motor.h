@@ -11,7 +11,7 @@
 #include <devices/motor.h>
 #include <devices/motor_smooth.h>
 
-extern Timer timer0A, timer0B, timer2A, timer2B;
+extern Timer timer0A, timer0B;
 
 extern Motor leftBaseMotor, rightBaseMotor;
 extern SmoothMotor leftMotor, rightMotor;
