@@ -28,6 +28,10 @@ COLOR_GENERATE := faint yellow
 COLOR_TESTS_OK := green
 
 BUILDDIR := $(project)/$(BUILD_DIRNAME)
+
+# Include the platform-dependent Makefile. It will set all variables required for the rest of this Makefile.
+include Build$(PLATFORM).mk
+
 BUILD_$(project) := $(BUILDDIR)
 
 # The $(fake)_* variables and the $(fake) prerequisites are a workaround/hack for a limitation of make.
@@ -58,13 +62,6 @@ DEFINE_FLAGS := $(foreach s, $(symbols), -D$s)
 
 # Prepend include-directories with the -I switch
 INCLUDE_FLAGS := $(foreach d, $(includes), -I$d)
-
-# Include the platform-dependent Makefile. It will set all variables required for the rest of this Makefile.
-include Build$(PLATFORM).mk
-
-ifndef DEPENDENCY_DIR
-DEPENDENCY_DIR := $(GCC_DEP_DIR)/$(BUILD_DIRNAME)
-endif
 
 all_objects := $(addprefix $(BUILDDIR)/, $(all_objects))
 objects := $(addprefix $(BUILDDIR)/, $(objects))
@@ -203,12 +200,8 @@ clean_target_$(project): $(fake)
 	rm -f $($<_projectoutputs)
 relink_$(project): clean_target_$(project) $(project)
 
-$(fake)_ALL_BUILD_DIRS := $(foreach p, $(ALL_PLATFORMS), \
-	$(project)/build-$p $(project)/build-$p-noopt $(project)/build-$p-speed \
-	$(project)/build-$p-debug $(project)/build-$p-debug-noopt $(project)/build-$p-debug-speed)
-
 clean_$(project): $(fake)
-	rm -rf $($<_ALL_BUILD_DIRS)
+	$(FIND) $($<_project) '(' -type d -a $(foreach p, $(ALL_PLATFORMS), -name 'build-$(p)*' -o) -false ')' -exec rm -r {} +
 
 # Execute all outputs of the project. Will fail, if they are not actually executable in the native shell.
 run_$(project): $(fake) $(project)

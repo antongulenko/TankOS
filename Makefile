@@ -105,8 +105,8 @@ clean_all: clean
 	rm -rf $(FAKE_TARGETS_DIR)
 	rm -rf $(GCC_DEP_DIR)
 	rm -f GNUmakefile # Created by configure script
-	find -name $(TEST_RUNNERS_DIR) -type d -exec rm -r {} +
-	find -name $(ATMEL_STUDIO_FOLDER) -type d -exec rm -r {} +
+	$(FIND) -name $(TEST_RUNNERS_DIR) -type d -exec rm -r {} +
+	$(FIND) -name $(ATMEL_STUDIO_FOLDER) -type d -exec rm -r {} +
 
 projects:
 	@echo Available projects: $(AllProjects)
@@ -139,6 +139,8 @@ else
         BUILD_DIRNAME := $(BUILD_DIRNAME)-speed
     endif
 endif
+
+DEPENDENCY_DIR := $(GCC_DEP_DIR)/$(BUILD_DIRNAME)
 
 ifneq ($(MAKECMDGOALS), projects)
     ifneq ($(MAKECMDGOALS), platforms)
