@@ -1,6 +1,6 @@
 
 #include "LedOperations.h"
-#define TIMEOUT 4
+#define TIMEOUT 33
 
 void leds_run() {
 	for (int i = 0; i < allLeds->count; i++) {
