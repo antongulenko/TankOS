@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -113,7 +113,6 @@
   <ItemGroup>
     <Folder Include="devices\" />
     <Folder Include="kernel\" />
-    <Folder Include="mutex\" />
     <Folder Include="process\" />
     <Folder Include="process\avr\" />
     <Folder Include="process\DMS\" />
@@ -123,7 +122,6 @@
     <Folder Include="twi\driver\" />
     <Folder Include="twi\rpc\" />
     <Folder Include="twi\services\" />
-    <Folder Include="m1284P\" />
     <Folder Include="kernel\" />
     <Folder Include="simulation\" />
     <Folder Include="uthash\" />
@@ -156,24 +154,6 @@
     <Compile Include="devices\motor_smooth.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\buffer_stdout.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\buffer_stdout.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\buffer_stdout.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="devices\analog.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="devices\analog.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="devices\analog.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="devices\port.c">
       <SubType>compile</SubType>
     </Compile>
@@ -186,34 +166,10 @@
     <Compile Include="devices\timer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="kernel\early_init.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\early_init.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\early_init.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\early_init_eeprom.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\kernel_init.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel\millisecond_clock.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\millisecond_clock.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="mutex\atomic_mutex.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="mutex\mock_mutex.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="mutex\mutex.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="process\avr\context_switch.h">
@@ -240,9 +196,6 @@
     <Compile Include="process\idle\scheduler.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="process\mutex.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="process\process.c">
       <SubType>compile</SubType>
     </Compile>
@@ -250,9 +203,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="process\process.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="process\process_base.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="process\RoundRobin\api.h">
@@ -274,9 +224,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\simple_timer.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\sleep_after_main.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="twi\driver\driver.c">
@@ -384,46 +331,10 @@
     <Compile Include="twi\services\example_client.kernel.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="m1284P\analog.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="m1284P\analog.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="m1284P\port.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="m1284P\port.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="m1284P\timer.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="m1284P\timer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\hardware_reset.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\hardware_reset.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\idle.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\idle.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="kernel\klib.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="kernel\klib.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\memory.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel\memory.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="simulation\common.h">

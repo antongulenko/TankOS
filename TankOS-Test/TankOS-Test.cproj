@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
@@ -136,10 +136,28 @@
     <Compile Include="kernel\buffer_stdout.test.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="mocks\delay.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\delay.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\memory.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\memory.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="mocks\scheduler.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\scheduler.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\simulation.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\simulation.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="process\idle.test.c">
