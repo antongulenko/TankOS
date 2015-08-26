@@ -11,13 +11,25 @@ OBJ-SIZE := avr-size
 MCU := atmega1284p
 MCUFLAG := -mmcu=$(MCU)
 
+ifndef AVR_FREQ
+$(warning Using default AVR frequency of 8MHZ)
+AVR_FREQ :=8000000
+endif
+
 BASE_FLAGS := $(MCUFLAG) \
 	-std=gnu99 \
 	-DAVR \
-	-DF_CPU=8000000 \
+	-DF_CPU=$(AVR_FREQ) \
 	-fshort-enums \
 	-Wall \
     -Wno-missing-braces
+
+ifndef __BUILDDIR_MODIFIED__
+# Frequency also impacts the binary outputs.
+BUILDDIR := $(BUILDDIR)-$(AVR_FREQ)
+BUILD_DIRNAME := $(BUILD_DIRNAME)-$(AVR_FREQ)
+__BUILDDIR_MODIFIED__ := true
+endif
 
 # Compile & assemble, do not link yet
 CFLAGS := $(BASE_FLAGS) -c
