@@ -16,8 +16,6 @@ static uint16_t start, len;
 static char ring[STDOUT_BUFFER_SIZE];
 static uint16_t dropped_chars;
 
-// TODO -- also implement a getchar. For this, change the last
-// parameter above to _FDEV_SETUP_RW, and add a getchar function instead of NULL
 FILE buffer_stdout_stream = FDEV_SETUP_STREAM(buffer_stdout_putchar, NULL, _FDEV_SETUP_WRITE);
 
 int buffer_stdout_putchar(char c, FILE *f) {

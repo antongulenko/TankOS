@@ -1,6 +1,5 @@
 
-# Some paths are not available on every platform
-# TODO write function or something to avoid the duplicated filter statements
+# Select the platform/* based on the PLATFORM variable
 
 ifneq ($(PLATFORM), Avr)
 all_objects := $(filter-out $(BUILD_TankOS)/platform/Avr/%,$(all_objects))

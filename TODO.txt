@@ -8,13 +8,12 @@
 == Refactorings/TODOs
 
 - Handle all interrupts with default (weak) routine
-- Clean up simulation/ and mocks/
-
 - Finish and test: processes, scheduler (also on AVR)
 - Interrupt-handling concept for Processes/Scheduler
 - Implement Mutex
-
 - RPC-service for pin-occupations
+
+- Extend round robin: suspend processes
 
 == Tests TODO
 
