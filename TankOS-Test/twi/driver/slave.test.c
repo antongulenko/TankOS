@@ -4,7 +4,7 @@
  */
 
 #include <unity.h>
-#include <twi/driver/slave.h>
+#include <platform/twi/slave.h>
 #include <twi/driver/helper.h>
 #include <mocks/port.h>
 

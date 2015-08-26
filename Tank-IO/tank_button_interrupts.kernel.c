@@ -1,5 +1,5 @@
 
-#include <kernel/kernel_init.h>
+#include <platform/kernel_init.h>
 #include <tank_os_common.h>
 #include "tank_button.h"
 

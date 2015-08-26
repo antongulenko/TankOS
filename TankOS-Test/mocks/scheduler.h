@@ -1,7 +1,7 @@
 #ifndef _SCHEDULER_MOCKS_TEST_
 #define _SCHEDULER_MOCKS_TEST_
 
-#include <process/process_base.h>
+#include <platform/process.h>
 
 void init_test_scheduler();
 

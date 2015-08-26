@@ -8,7 +8,7 @@
 //               that register the functions and function-names with client_functions_registry.h
 
 #include "client.h"
-#include <kernel/kernel_init.h>
+#include <platform/kernel_init.h>
 
 typedef RpcClientResult (*RpcQueryFunction)(TWIDevice);
 typedef int (*ClientResultFormatter)(int (*print)(const char *fmt, ...), void *results, uint16_t results_length);

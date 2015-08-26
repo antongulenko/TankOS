@@ -6,7 +6,7 @@
 #ifndef TESTRPCCLIENT_H_
 #define TESTRPCCLIENT_H_
 
-#include <twi/driver/driver.h>
+#include <platform/twi/driver.h>
 #include "twi_driver_master.h"
 
 #include <twi/rpc/client_functions.h>

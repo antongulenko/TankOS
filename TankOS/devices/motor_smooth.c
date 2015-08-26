@@ -8,7 +8,7 @@
 #include "motor_smooth.h"
 #include <uthash/utlist.h>
 #include <kernel/klib.h>
-#include <mutex/mutex.h>
+#include <process/mutex.h>
 
 static volatile uint16_t __adjustment_step = 1;
 

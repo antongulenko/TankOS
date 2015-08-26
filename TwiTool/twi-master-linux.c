@@ -10,7 +10,6 @@
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <time.h>
 
 #define MILLIS_TIMEOUT 20
 
@@ -83,18 +82,11 @@ void twiReceive(TWIDevice targetDevice, TWIBuffer data) {
     doReceive(targetDevice, data);
 }
 
-static void _pause() {
-    struct timespec t;
-    t.tv_sec = 0;
-    t.tv_nsec = MILLIS_TIMEOUT * 1000 * 1000;
-    nanosleep(&t, NULL);
-}
-
 void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer) {
     if (!prepare(targetDevice)) return;
     doSend(targetDevice, sendData);
     if (twi_error != TWI_No_Error) return;
-    _pause();
+    delay_ms(MILLIS_TIMEOUT);
     doReceive(targetDevice, receiveBuffer);
 }
 

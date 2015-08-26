@@ -2,10 +2,10 @@
 #include <tank_os_common.h>
 #include <twi/rpc/server.h>
 #include <twi/rpc/client.h>
-#include <twi/driver/slave.h>
-#include <twi/driver/master.h>
-#include <kernel/kernel_init.h>
-#include <m1284P/port.h>
+#include <platform/twi/slave.h>
+#include <platform/twi/master.h>
+#include <platform/kernel_init.h>
+#include <platform/Avr/m1284P/port.h>
 
 static byte twi_io_buffer[256];
 

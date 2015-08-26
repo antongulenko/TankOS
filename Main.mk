@@ -62,12 +62,6 @@ INCLUDE_FLAGS := $(foreach d, $(includes), -I$d)
 # Include the platform-dependent Makefile. It will set all variables required for the rest of this Makefile.
 include Build$(PLATFORM).mk
 
-CFLAGS += $(DEFINE_FLAGS) $(INCLUDE_FLAGS)
-DEPENDENCY_FLAGS += $(DEFINE_FLAGS) $(INCLUDE_FLAGS)
-
-$(fake)_cflags := $(CFLAGS)
-$(fake)_depflags := $(DEPENDENCY_FLAGS)
-
 ifndef DEPENDENCY_DIR
 DEPENDENCY_DIR := $(GCC_DEP_DIR)/$(BUILD_DIRNAME)
 endif
@@ -79,6 +73,12 @@ dependency_files := $(addprefix $(DEPENDENCY_DIR)/$(project)/, $(sources))
 # Include additional objects required by this project. These objects can be located in other project-folders!
 # The Objects.mk script should append file-names to the 'objects' variable. This is optional.
 -include $(project)/Objects.mk
+
+CFLAGS += $(DEFINE_FLAGS) $(INCLUDE_FLAGS)
+DEPENDENCY_FLAGS += $(DEFINE_FLAGS) $(INCLUDE_FLAGS)
+
+$(fake)_cflags := $(CFLAGS)
+$(fake)_depflags := $(DEPENDENCY_FLAGS)
 
 # Handle Unity tests. testrunners are generated.
 ifdef tests

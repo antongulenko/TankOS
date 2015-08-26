@@ -4,8 +4,8 @@
  */
 
 #include "tank_led.h"
-#include <kernel/kernel_init.h>
-#include <m1284P/port.h>
+#include <platform/kernel_init.h>
+#include <platform/Avr/m1284P/port.h>
 #include <string.h>
 
 Led whiteLed1, whiteLed2, whiteLed3, whiteLed4, whiteLed5;

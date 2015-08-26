@@ -3,7 +3,7 @@
 #include <process/scheduler.h>
 #include <unity.h>
 #include <kernel/millisecond_clock.h>
-#include <simulation/simulation.h>
+#include <mocks/simulation.h>
 
 BOOL returnInvalid = FALSE;
 int expected = 0;

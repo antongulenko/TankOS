@@ -1,9 +1,9 @@
 
 #include "kernel.h"
 #include "LedOperations.h"
-#include <kernel/memory.h>
+#include <platform/Avr/memory.h>
 #include <kernel/klib.h>
-#include <kernel/buffer_stdout.h>
+#include <platform/Avr/buffer_stdout.h>
 #include <stdio.h>
 
 uint8_t twi_data_length;

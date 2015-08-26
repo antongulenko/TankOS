@@ -3,7 +3,7 @@
 
 # Reset variables between projects
 ld_symbols :=
-symbols :=
+symbols := PLATFORM_$(PLATFORM)
 
 # Most projects can only be built for the Avr platform.
 $(project)_exclusive_platform := Avr

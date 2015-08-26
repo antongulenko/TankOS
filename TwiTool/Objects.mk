@@ -1,7 +1,6 @@
 objects += \
-    $(BUILD_TankOS)/mutex/mock_mutex.kernel.o \
+    $(BUILD_TankOS)/process/mock_mutex.kernel.o \
     $(BUILD_TankOS)/kernel/klib.kernel.o \
-    $(BUILD_TankOS)/simulation/simulation.kernel.o \
     $(BUILD_TankOS)/twi/services/example.o \
     $(BUILD_TankOS)/twi/services/example_client.kernel.o \
     $(BUILD_TankOS)/twi/services/hardware.o \

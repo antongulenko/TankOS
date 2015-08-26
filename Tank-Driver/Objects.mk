@@ -5,7 +5,7 @@ objects += $(BUILD_Tank-Driver)/tank_motor.kernel.o
 
 ifeq ($(USE_TWI), true)
     objects += \
-        $(BUILD_TankOS)/twi/driver/slave.kernel.o \
+        $(BUILD_TankOS)/platform/Avr/twi/slave.kernel.o \
         $(BUILD_TankOS)/twi/rpc/server_handler_functions.kernel.o \
         $(BUILD_TankOS)/twi/services/hardware.kernel.o \
         $(BUILD_TankOS)/twi/services/example.kernel.o \

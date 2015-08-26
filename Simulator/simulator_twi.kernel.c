@@ -1,5 +1,6 @@
 
-#include <kernel/kernel_init.h>
+#include <tank_os_common.h>
+#include <platform/kernel_init.h>
 
 void init_rpc_server(uint8_t addr); // Tank-Shared/twi.kernel.c
 

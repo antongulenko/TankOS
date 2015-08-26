@@ -1,11 +1,11 @@
 
-#include <twi/driver/driver.h>
+#include <platform/twi/driver.h>
 #include "server_handler.h"
 #include "server.h"
 #include <string.h>
 
 // The interface in this header is implemented by this module (included only as reference).
-#include <twi/driver/slave.h>
+#include <platform/twi/slave.h>
 
 // Stores the parameters of an rpc call.
 TWIBuffer receiveBuffer;

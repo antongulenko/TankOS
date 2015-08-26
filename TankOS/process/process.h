@@ -7,7 +7,7 @@
 #define PROCESS_API_H_
 
 #include <tank_os_common.h>
-#include "process_base.h"
+#include <platform/process.h>
 
 DEFINE_HANDLE(Process);
 

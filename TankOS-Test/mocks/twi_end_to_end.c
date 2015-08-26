@@ -1,6 +1,6 @@
 
 #include "twi_driver_slave.h"
-#include <twi/driver/master.h>
+#include <platform/twi/master.h>
 #include <string.h>
 
 // This module implements the TWI master by transferring data directly to the locally linked

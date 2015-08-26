@@ -3,10 +3,10 @@
  *  Author: Anton
  */
 
-#include <kernel/kernel_init.h>
+#include <platform/kernel_init.h>
 #include <kernel/klib.h>
-#include <m1284P/timer.h>
-#include <kernel/early_init.h>
+#include <platform/Avr/m1284P/timer.h>
+#include <platform/Avr/early_init.h>
 #include "timer.h"
 
 // This function can be implemented in user code to have some initialization-code

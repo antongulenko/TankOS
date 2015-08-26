@@ -1,6 +1,6 @@
 
 #include <unity.h>
-#include <twi/driver/master.h>
+#include <platform/twi/master.h>
 #include <twi/driver/helper.h>
 #include <mocks/port.h>
 

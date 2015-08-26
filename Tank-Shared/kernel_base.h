@@ -9,10 +9,10 @@
 #define KERNEL_BASE_SHARED_H_
 
 #include <kernel/millisecond_clock.h>
-#include <kernel/early_init.h>
-#include <mutex/mutex.h>
-#include <m1284P/analog.h>
-#include <m1284P/timer.h>
+#include <platform/Avr/early_init.h>
+#include <process/mutex.h>
+#include <platform/Avr/m1284P/analog.h>
+#include <platform/Avr/m1284P/timer.h>
 #include <tank_os_common.h>
 
 #include <process/process.h>

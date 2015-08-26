@@ -6,7 +6,7 @@
 #ifndef F_AKE_TWI_DRIVER_MASTER_H_
 #define F_AKE_TWI_DRIVER_MASTER_H_
 
-#include <twi/driver/master.h>
+#include <platform/twi/master.h>
 
 void fake_twi_driver_master_setUp();
 

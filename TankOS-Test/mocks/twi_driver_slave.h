@@ -6,7 +6,7 @@
 #ifndef F_AKE_TWI_DRIVER_SLAVE_H_
 #define F_AKE_TWI_DRIVER_SLAVE_H_
 
-#include <twi/driver/slave.h>
+#include <platform/twi/slave.h>
 
 extern TWIBuffer (*twi_handleMasterRequest)();
 extern TWIBuffer (*twi_masterTransmissionStarting)();

@@ -6,7 +6,7 @@
 #ifndef TWI_RPC_SERVER_HANDLER_H_
 #define TWI_RPC_SERVER_HANDLER_H_
 
-#include <twi/driver/driver.h>
+#include <platform/twi/driver.h>
 
 typedef enum {
     TWI_RPC_handler_ok = 0,

@@ -3,8 +3,8 @@
  *  Author: Anton
  */
 
-#include <kernel/kernel_init.h>
-#include <m1284P/timer.h>
+#include <platform/kernel_init.h>
+#include <platform/Avr/m1284P/timer.h>
 #include "tank_motor.h"
 
 Timer timer0A, timer0B, timer2A, timer2B;

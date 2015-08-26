@@ -5,7 +5,7 @@
 
 #include <mocks/twi_driver_master.h>
 #include <twi/rpc/client.h>
-#include <twi/driver/driver.h>
+#include <platform/twi/driver.h>
 #include <string.h>
 #include <unity.h>
 

@@ -5,6 +5,8 @@
 #include <twi/rpc/client.h>
 #include <mocks/rpc_client.h>
 #include <mocks/printf.h>
+#include <mocks/memory.h>
+#include <mocks/simulation.h>
 #include <twi/rpc/client_functions_registry.h>
 
 #include <unity.h>
@@ -55,17 +57,16 @@ void test_hardware_reset() {
 
 void test_memory_info() {
     init_reset_condition();
-    DYNAMIC_MEMORY_START = 0x200;
-    ALLOCATED_HEAP_END = 0x500;
-    MALLOC_END = RAMEND - 0x100;
-    MALLOC_START = DYNAMIC_MEMORY_START + 0x100;
+    ALLOCATED_HEAP_END = (void*) 0x500;
+    MALLOC_END = (void*) (RAMEND - 0x100);
+    MALLOC_START = (void*) (DYNAMIC_MEMORY_START + 0x100);
 
     MemoryInfo info;
     RpcClientResult status = query_memory_info(test_device, &info);
     assert_correct_status(status);
 
-    uint16_t total = RAMEND - DYNAMIC_MEMORY_START;
-    uint16_t used = ALLOCATED_HEAP_END - DYNAMIC_MEMORY_START + 2 + (RAMEND - MALLOC_END);
+    uint16_t total = (char*) RAMEND - DYNAMIC_MEMORY_START;
+    uint16_t used = ALLOCATED_HEAP_END - DYNAMIC_MEMORY_START + 2 + ((char*) RAMEND - MALLOC_END);
     uint16_t available = MALLOC_END - ALLOCATED_HEAP_END - 2;
 
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(total, info.total_dynamic, "Wrong total dynamic memory reported");

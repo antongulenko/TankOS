@@ -4,7 +4,7 @@
 // handler functions. This saves memory compared to a complete 256-entry table.
 
 #include "server_handler.h"
-#include <kernel/kernel_init.h>
+#include <platform/kernel_init.h>
 
 #define HASH_FUNCTION HASH_SAX // Use other function to operate with short keys.
 #include <uthash/uthash.h>

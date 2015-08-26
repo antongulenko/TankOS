@@ -3,9 +3,9 @@
 
 #include <twi/rpc/client_functions.h>
 
-#include <kernel/early_init.h>
+#include <platform/Avr/early_init.h>
 #include <kernel/millisecond_clock.h>
-#include <kernel/memory.h>
+#include <platform/Avr/memory.h>
 
 typedef enum {
     QUERY_RESET_STATUS_OPERATION = 1,

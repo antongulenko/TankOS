@@ -1,7 +1,7 @@
 #ifndef TWI_RPC_H_
 #define TWI_RPC_H_
 
-#include <twi/driver/master.h>
+#include <platform/twi/master.h>
 #include "server_handler.h"
 #include "server_status.h"
 

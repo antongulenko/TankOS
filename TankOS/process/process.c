@@ -113,6 +113,5 @@ void init_processes() {
     __nextProcessNumber = 0;
     ProcessBase base = getCurrentProcessBase();
     if (!IsValid(base)) return;
-    // TODO MALLOC_END is platform specific
-    internalCreateProcess(base, NULL, __default_stack_size, (void*) MALLOC_END);
+    internalCreateProcess(base, NULL, __default_stack_size, initial_process_stack_top());
 }

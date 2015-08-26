@@ -1,7 +1,7 @@
 #ifndef _MOCK_PROCESS_H_
 #define _MOCK_PROCESS_H_
 
-#include <process/process_base.h>
+#include <platform/process.h>
 
 typedef struct MockProcess {
     uint16_t stackSize;

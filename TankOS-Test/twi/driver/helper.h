@@ -7,7 +7,7 @@
 #define twi_driver_test_HELPER_H_
 
 #include <tank_os_common.h>
-#include <twi/driver/driver.h>
+#include <platform/twi/driver.h>
 
 // These bits are always expected to be set in the TWI controlRegister
 extern byte defaultControlFlags;

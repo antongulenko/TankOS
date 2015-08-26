@@ -1,8 +1,8 @@
 
 #include <devices/button.h>
 #include <kernel/klib.h>
-#include <kernel/memory.h>
-#include <kernel/buffer_stdout.h>
+#include <platform/Avr/memory.h>
+#include <platform/Avr/buffer_stdout.h>
 #include <stdio.h>
 #include "../Tank-IO/tank_button.h"
 #include "../Tank-IO/tank_led.h"

@@ -4,9 +4,9 @@
 // The timer 3 is used for this, the frequency is 1ms.
 // Weak functions can be implemented to couple code to the timer-ISRs.
 
-#include <kernel/kernel_init.h>
+#include <platform/kernel_init.h>
 #include <kernel/millisecond_clock.h>
-#include <m1284P/timer.h>
+#include <platform/Avr/m1284P/timer.h>
 
 Timer millisecond_timer_A;
 Timer millisecond_timer_B;

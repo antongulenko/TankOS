@@ -1,5 +1,5 @@
 
-#include <twi/driver/master.h>
+#include <platform/twi/master.h>
 #include <twi/rpc/server.h>
 #include <twi/rpc/client.h>
 #include <mocks/twi_driver_slave.h>

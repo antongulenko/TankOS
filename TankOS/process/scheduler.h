@@ -6,7 +6,7 @@
 #ifndef SCHEDULER_H_
 #define SCHEDULER_H_
 
-#include "process_base.h"
+#include <platform/process.h>
 
 // This can be invoked to switch to the next process chosen by the scheduler.
 void schedule_next();

@@ -1,7 +1,7 @@
 
 #include "hardware.h"
 #include <twi/rpc/server_handler_functions.h>
-#include <kernel/hardware_reset.h>
+#include <platform/Avr/hardware_reset.h>
 
 static RpcHandlerStatus query_reset_status_handler(TWIBuffer *resultBuffer) {
     FILL_RESULT(resultBuffer, ResetCondition, getResetCondition());

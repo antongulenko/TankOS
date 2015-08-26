@@ -4,6 +4,7 @@
 #include <string.h>
 #include <mocks/port.h>
 #include <tank_os_common.h>
+#include <mocks/delay.h>
 
 Led Led1, Led2, Led3;
 LedGroup Group;
@@ -12,6 +13,7 @@ Led ledGroup[3];
 void setUp() {
     init_native_simulation();
 	init_fake_port();
+    init_mock_delay();
 
     Led1 = newLed(testPin1);
     Led2 = newLed(testPin2);

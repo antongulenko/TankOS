@@ -1,6 +1,6 @@
 
-#include <kernel/buffer_stdout.h>
-#include <simulation/simulation.h>
+#include <platform/Avr/buffer_stdout.h>
+#include <mocks/simulation.h>
 #include <unity.h>
 #include <string.h>
 

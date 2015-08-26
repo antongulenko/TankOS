@@ -3,13 +3,11 @@
 # TODO write function or something to avoid the duplicated filter statements
 
 ifneq ($(PLATFORM), Avr)
-all_objects := $(filter-out $(BUILD_TankOS)/process/avr/%,$(all_objects))
-objects := $(filter-out $(BUILD_TankOS)/process/avr/%,$(objects))
-all_objects := $(filter-out $(BUILD_TankOS)/m1284P/%,$(all_objects))
-objects := $(filter-out $(BUILD_TankOS)/m1284P/%,$(objects))
+all_objects := $(filter-out $(BUILD_TankOS)/platform/Avr/%,$(all_objects))
+objects := $(filter-out $(BUILD_TankOS)/platform/Avr/%,$(objects))
 endif
 
 ifneq ($(PLATFORM), Native)
-all_objects := $(filter-out $(BUILD_TankOS)/simulation/%,$(all_objects))
-objects := $(filter-out $(BUILD_TankOS)/simulation/%,$(objects))
+all_objects := $(filter-out $(BUILD_TankOS)/platform/Native/%,$(all_objects))
+objects := $(filter-out $(BUILD_TankOS)/platform/Native/%,$(objects))
 endif
