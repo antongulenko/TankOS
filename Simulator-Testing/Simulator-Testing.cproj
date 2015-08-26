@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.elf</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>Simulator-Test</AssemblyName>
-    <Name>Simulator-Test</Name>
-    <RootNamespace>Simulator-Test</RootNamespace>
+    <AssemblyName>Simulator-Testing</AssemblyName>
+    <Name>Simulator-Testing</Name>
+    <RootNamespace>Simulator-Testing</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>

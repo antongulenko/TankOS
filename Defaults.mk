@@ -43,7 +43,7 @@ else
         endif
         primary_output := $(MAIN_$(project)).main
     else
-        primary_output := NOT-POSSBILE-FOR-TEST-PROJECTS
+        primary_output := DONT-DEFINE-STUDIO-FOR-TEST-PROJECTS.NOT-POSSIBLE
     endif
 
     ifeq ($(DONT_LINK_ALL), true)

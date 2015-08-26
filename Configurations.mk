@@ -4,13 +4,13 @@ ifeq ($(CONFIG), simulator-test)
 
     USE_PROCESS := true
     USE_SCHEDULER := true
-    PROJ := Simulator-Test
+    PROJ := Simulator-Testing
 
 endif
 ifeq ($(CONFIG), $(filter $(CONFIG), simulator simulator-test))
 
-    USE_PROCESS ?= false
-    USE_SCHEDULER ?= false
+    # USE_PROCESS := true
+    # USE_SCHEDULER := true
 
     KERNEL_LOG := true
     USE_BUFFER_STDOUT := true
@@ -54,7 +54,6 @@ ifeq ($(CONFIG), $(filter $(CONFIG), tank io driver))
     PLATFORM := Avr
     LSS := true
     SPEED := true
-    # DONT_LINK_ALL := true
 
     ifndef PROJ
         $(error Please define PROJ= on the command line)
