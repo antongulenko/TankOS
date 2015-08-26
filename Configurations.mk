@@ -1,5 +1,5 @@
 
-AVR_FREQ :=800000
+AVR_FREQ := 800000
 
 ifdef CONFIG
 ifeq ($(CONFIG), simulator-test)

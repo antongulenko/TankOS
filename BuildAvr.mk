@@ -13,7 +13,7 @@ MCUFLAG := -mmcu=$(MCU)
 
 ifndef AVR_FREQ
 $(warning Using default AVR frequency of 8MHZ)
-AVR_FREQ :=8000000
+AVR_FREQ := 8000000
 endif
 
 BASE_FLAGS := $(MCUFLAG) \
