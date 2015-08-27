@@ -1,0 +1,49 @@
+#!/bin/bash
+set -e
+home=`dirname $(readlink -e $0)`
+call="$home/call"
+
+function help() {
+    test -n "$@" && echo $@
+    echo "Parameters: [-l <left-motor-speed>] [-r right-motor-speed]"
+    echo "Numbers: -100 - +100"
+    exit 1
+}
+
+left=0
+right=0
+
+while getopts "l:r:" opt; do case $opt in
+    l) left="$OPTARG" ;;
+    r) right="$OPTARG" ;;
+    \?) help "Invalid option -$OPTARG" ;;
+    :) help "Option -$OPTARG requires an argument" ;;
+esac done
+
+test $left -ge -100 -a $left -le 100 || help "Invalid -l parameter"
+test $right -ge -100 -a $right -le 100 || help "Invalid -r parameter"
+
+# Determine the motor directions
+if [ $left -gt 0 ]; then leftdir=01
+elif [ $left -lt 0 ]; then leftdir=00; left=$((-left))
+else leftdir=02
+fi
+if [ $right -gt 0 ]; then rightdir=01
+elif [ $right -lt 0 ]; then rightdir=00; right=$((-right))
+else rightdir=02
+fi
+
+# Convert from -100..100 to the expanded hex-value
+left=$((left*65535/100))
+right=$((right*65535/100))
+left=`printf '%04x' $left`
+right=`printf '%04x' $right`
+
+# Split the 16-bit hex-values into two separate bytes
+left_high=${left:0:2}
+left_low=${left: -2}
+right_high=${right:0:2}
+right_low=${right: -2}
+
+$call tank_driver_set_motor driver -p 00 -p 00 -p $leftdir -p 00 -p $left_low -p $left_high
+$call tank_driver_set_motor driver -p 01 -p 00 -p $rightdir -p 00 -p $right_low -p $right_high

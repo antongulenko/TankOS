@@ -1,0 +1,10 @@
+#!/bin/bash
+set -e
+home=`dirname $(readlink -e $0)`
+call="$home/call"
+
+test $# == 1 || { echo "Need 1 parameter: <device>"; exit 1; }
+device=$1
+
+# This will always fail
+$call do_hardware_reset $device || true
