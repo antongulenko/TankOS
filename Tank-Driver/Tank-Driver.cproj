@@ -38,17 +38,30 @@
         </dependencies>
       </framework-data>
     </AsfFrameworkConfig>
-    <avrtool>com.atmel.avrdbg.tool.simulator</avrtool>
+    <avrtool>com.atmel.avrdbg.tool.avrdragon</avrtool>
     <com_atmel_avrdbg_tool_simulator>
-      <ToolOptions xmlns="">
+      <ToolOptions>
         <InterfaceProperties>
         </InterfaceProperties>
+        <InterfaceName>
+        </InterfaceName>
       </ToolOptions>
-      <ToolType xmlns="">com.atmel.avrdbg.tool.simulator</ToolType>
-      <ToolNumber xmlns="">
+      <ToolType>com.atmel.avrdbg.tool.simulator</ToolType>
+      <ToolNumber>
       </ToolNumber>
-      <ToolName xmlns="">Simulator</ToolName>
+      <ToolName>Simulator</ToolName>
     </com_atmel_avrdbg_tool_simulator>
+    <avrtoolinterface>HVPP</avrtoolinterface>
+    <com_atmel_avrdbg_tool_avrdragon>
+      <ToolOptions>
+        <InterfaceProperties>
+        </InterfaceProperties>
+        <InterfaceName>HVPP</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.avrdragon</ToolType>
+      <ToolNumber>00A200029455</ToolNumber>
+      <ToolName>AVR Dragon</ToolName>
+    </com_atmel_avrdbg_tool_avrdragon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -116,6 +129,18 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_driver_address.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_driver_service.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_driver_service.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_driver_service.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="tank_driver_service_client.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_driver_twi.kernel.c">

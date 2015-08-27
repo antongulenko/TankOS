@@ -1,6 +1,4 @@
 
-AVR_FREQ := 800000
-
 ifdef CONFIG
 ifeq ($(CONFIG), simulator-test)
 
@@ -38,11 +36,15 @@ default: run
 endif
 ifeq ($(CONFIG), io)
 
+    # IO chip 1
+    AVR_FREQ := 7848929
+    # AVR_FREQ := 8000000
     PROJ := Tank-IO
 
 endif
 ifeq ($(CONFIG), driver)
 
+    AVR_FREQ := 8000000
     PROJ := Tank-Driver
 
 endif
