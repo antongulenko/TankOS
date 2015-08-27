@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+home=`dirname $(readlink -e $0)`
+call="$home/call"
+
+test $# == 1 || { echo "Need 1 parameter: <device>"; exit 1; }
+device=$1
+
+$call query_init_status $device
+$call query_eeprom_resets $device
+$call query_milliseconds $device
+$call query_reset_condition $device
+$call query_memory_info $device
+$call query_stdout_buffer_status $device
+$call flush_stdout_buffer $device -p 40 -p 00 -v 66 # Flush 64 bytes of stdout

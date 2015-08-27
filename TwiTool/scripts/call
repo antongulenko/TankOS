@@ -1,0 +1,21 @@
+#!/bin/bash
+
+TWI_TOOL="../build-Native-speed/twi-tool.main.out"
+TWI_BUS=2
+
+declare -A TWI_DEVICES
+TWI_DEVICES=(
+    [io]=2c
+    [driver]=2e
+)
+
+test -x "$TWI_TOOL" || { echo "TwiTool not found: $TWI_TOOL"; exit 1; }
+test $# -ge 2 || { echo "twi_call: need at least 2 parameters: <twi-function-name> <twi-device: one of (${!TWI_DEVICES[@]})>"; exit 1; }
+func="$1"
+device="$2"
+shift 2
+
+device_address=${TWI_DEVICES[$device]}
+test -n "$device_address" || { echo "Address of device $device not registered."; exit 1; }
+
+"$TWI_TOOL" -b $TWI_BUS -d $device_address -f $func $@

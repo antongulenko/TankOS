@@ -11,7 +11,7 @@
 #include <errno.h>
 #include <fcntl.h>
 
-#define MILLIS_TIMEOUT 20
+#define TWI_ACTION_TIMEOUT_MILLIS 5
 
 const char *i2c_file_prefix = "/dev/i2c-";
 
@@ -28,7 +28,7 @@ char *twi_error_description;
 
 static void error(char *desc) {
     char *errstr = strerror(errno);
-    snprintf(error_str, sizeof(error_str) - 1, "%s [File %s] Error: %s\n", desc, filename, errstr);
+    snprintf(error_str, sizeof(error_str) - 1, "%s [File %s] Error: %s", desc, filename, errstr);
     twi_error = TWI_Bus_Error;
     twi_error_description = error_str;
 }
@@ -46,11 +46,11 @@ static BOOL prepare(TWIDevice targetDevice) {
 
 static void printBuffer(char *comment, TWIBuffer buffer) {
     if (!print_buffer_contents) return;
-    printf("Buffer (%s): ", comment);
+    fprintf(stderr, "Buffer (%s): ", comment);
     for (int i = 0; i < buffer.size; i++) {
-        printf("%02x ", buffer.data[i]);
+        fprintf(stderr, "%02x ", buffer.data[i]);
     }
-    printf("\n");
+    fprintf(stderr, "\n");
 }
 
 static void doSend(TWIDevice targetDevice, TWIBuffer data) {
@@ -59,6 +59,8 @@ static void doSend(TWIDevice targetDevice, TWIBuffer data) {
     if (res != data.size) {
         snprintf(helper_buf, sizeof(helper_buf) - 1, "%i bytes have been written instead of %i", res, data.size);
         error(helper_buf);
+    } else {
+        delay_ms(TWI_ACTION_TIMEOUT_MILLIS);
     }
 }
 
@@ -69,6 +71,7 @@ static void doReceive(TWIDevice targetDevice, TWIBuffer data) {
         error(helper_buf);
     } else {
         printBuffer("received", data);
+        delay_ms(TWI_ACTION_TIMEOUT_MILLIS);
     }
 }
 
@@ -86,7 +89,6 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
     if (!prepare(targetDevice)) return;
     doSend(targetDevice, sendData);
     if (twi_error != TWI_No_Error) return;
-    delay_ms(MILLIS_TIMEOUT);
     doReceive(targetDevice, receiveBuffer);
 }
 
