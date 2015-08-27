@@ -28,7 +28,7 @@ char *twi_error_description;
 
 static void error(char *desc) {
     char *errstr = strerror(errno);
-    snprintf(error_str, sizeof(error_str) - 1, "%s [File %s] Error: %s\n", desc, filename, errstr);
+    snprintf(error_str, sizeof(error_str) - 1, "%s [File %s] Error: %s", desc, filename, errstr);
     twi_error = TWI_Bus_Error;
     twi_error_description = error_str;
 }
