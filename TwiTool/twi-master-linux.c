@@ -11,7 +11,7 @@
 #include <errno.h>
 #include <fcntl.h>
 
-#define MILLIS_TIMEOUT 20
+#define TWI_ACTION_TIMEOUT_MILLIS 5
 
 const char *i2c_file_prefix = "/dev/i2c-";
 
@@ -59,6 +59,8 @@ static void doSend(TWIDevice targetDevice, TWIBuffer data) {
     if (res != data.size) {
         snprintf(helper_buf, sizeof(helper_buf) - 1, "%i bytes have been written instead of %i", res, data.size);
         error(helper_buf);
+    } else {
+        delay_ms(TWI_ACTION_TIMEOUT_MILLIS);
     }
 }
 
@@ -69,6 +71,7 @@ static void doReceive(TWIDevice targetDevice, TWIBuffer data) {
         error(helper_buf);
     } else {
         printBuffer("received", data);
+        delay_ms(TWI_ACTION_TIMEOUT_MILLIS);
     }
 }
 
@@ -86,7 +89,6 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
     if (!prepare(targetDevice)) return;
     doSend(targetDevice, sendData);
     if (twi_error != TWI_No_Error) return;
-    delay_ms(MILLIS_TIMEOUT);
     doReceive(targetDevice, receiveBuffer);
 }
 
