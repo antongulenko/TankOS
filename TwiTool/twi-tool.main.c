@@ -14,9 +14,9 @@ BOOL debug_mode = FALSE;
 
 void check_error() {
     if (twi_error != TWI_No_Error) {
-        printf("twi_error %i: ", twi_error);
-        if (twi_error_description != NULL) printf("%s", twi_error_description);
-        printf("\n");
+        fprintf(stderr, "twi_error %i: ", twi_error);
+        if (twi_error_description != NULL) fprintf(stderr, "%s", twi_error_description);
+        fprintf(stderr, "\n");
         exit(1);
     }
 }
@@ -25,7 +25,7 @@ int parse_int(const char *value, int base, const char* description) {
     char *garbage = NULL;
     int result = (int) strtol(value, &garbage, base);
     if ((result == 0 && (errno == EINVAL || errno == ERANGE)) || (garbage != NULL && strlen(garbage) > 0)) {
-        printf("Failed to parse %s: %s (Garbage in string is %s)\n", description, value, garbage);
+        fprintf(stderr, "Failed to parse %s: %s (Garbage in string is %s)\n", description, value, garbage);
         exit(1);
     }
     return result;
@@ -43,48 +43,39 @@ void printFunction(ClientFunctionRegistryEntry entry) {
     else
         snprintf(buf2, sizeof(buf2) - 1, "%i", entry->result_bytes);
 
-    printf("%03u/%s(%s)->(%s)", entry->operation, entry->name, buf1, buf2);
+    fprintf(stderr, "%03u/%s(%s)->(%s)", entry->operation, entry->name, buf1, buf2);
 }
 
 void printFunctions() {
-    printf("Available functions:\n");
+    fprintf(stderr, "Available functions:\n");
     ClientFunctionRegistryEntry iter;
     for (iter = clientFunctionRegisty; iter != NULL; iter = iter->hh.next) {
-        printf("* ");
+        fprintf(stderr, "* ");
         printFunction(iter);
-        printf("\n");
+        fprintf(stderr, "\n");
     }
 }
 
 static void help() {
-    printf("Usage: -d <device name (hex)> -f <function name> [-D(ebug)] [-b <bus number = %i>] ", DEFAULT_BUS_NUM);
-    printf("[-p <parameter hex byte>]* [-v <variable result size>]\n");
+    fprintf(stderr, "Usage: -d <device name (hex)> -f <function name> [-D(ebug)] [-b <bus number = %i>] ", DEFAULT_BUS_NUM);
+    fprintf(stderr, "[-p <parameter hex byte>]* [-v <variable result size>]\n");
     printFunctions();
     exit(1);
 }
 
 void printReceived(TWIBuffer result_buf) {
-    printf("Received data: ");
+    fprintf(stderr, "Received data: ");
     for (int i = 0; i < result_buf.size; i++) {
-        printf("%02x ", result_buf.data[i]);
+        fprintf(stderr, "%02x ", result_buf.data[i]);
     }
-    printf("\n");
+    fprintf(stderr, "\n");
 }
 
-int result_printf(const char *fmt, ...) {
-    va_list args;
-    va_start(args, fmt);
-    int res = vprintf(fmt, args);
-    res += printf("\n");
-    va_end(args);
-    return res;
-}
-
-void call(TWIDevice device, ClientFunctionRegistryEntry entry, byte *parameters, int param_size, int result_size) {
+int call(TWIDevice device, ClientFunctionRegistryEntry entry, byte *parameters, int param_size, int result_size) {
     byte *results = alloca(result_size);
     if (!results) {
-        printf("alloca %i failed\n", result_size);
-        exit(1);
+        fprintf(stderr, "alloca %i failed\n", result_size);
+        return 1;
     }
     TWIBuffer result_buf = { results, result_size };
     TWIBuffer param_buf = { parameters, param_size };
@@ -93,18 +84,23 @@ void call(TWIDevice device, ClientFunctionRegistryEntry entry, byte *parameters,
     check_error();
     if (res.status != TWI_RPC_call_success) {
         char *res_str = RpcClientResult_string(res);
-        printf("Result status: %s\n", res_str);
+        fprintf(stderr, "Result status: %s\n", res_str);
         printReceived(result_buf);
+        return 1;
     } else {
         if (entry->result_bytes > 0 || entry->variable_results) {
             if (entry->format_results != NULL) {
-                entry->format_results(result_printf, result_buf.data, result_buf.size);
+                entry->format_results(printf, result_buf.data, result_buf.size);
+                printf("\n");
+                return 0;
             } else {
-                printf("No format_results function registered!");
+                fprintf(stderr, "No format_results function registered!");
                 printReceived(result_buf);
+                return 1;
             }
         } else {
-            printf("Call successfull\n");
+            fprintf(stderr, "Call successfull\n");
+            return 0;
         }
     }
 }
@@ -145,7 +141,7 @@ int main(int argc, char **argv) {
             break;
         case 'p':
             if (params >= sizeof(param_buf)) {
-                printf("Too many parameter bytes!\n");
+                fprintf(stderr, "Too many parameter bytes!\n");
                 exit(1);
             }
             int p = parse_int(optarg, 16, "parameter hex byte");
@@ -156,7 +152,7 @@ int main(int argc, char **argv) {
             if (var_res_given) help();
             var_res_size = parse_int(optarg, 10, "variable result size");
             if (var_res_size <= 0) {
-                printf("-v parameter must be positive");
+                fprintf(stderr, "-v parameter must be positive");
                 exit(1);
             }
             var_res_given = TRUE;
@@ -172,36 +168,35 @@ int main(int argc, char **argv) {
     // == Lookup registered function entry
     ClientFunctionRegistryEntry entry = lookupClientFunction(funcName);
     if (entry == NULL) {
-        printf("Function not registered: %s\n", funcName);
+        fprintf(stderr, "Function not registered: %s\n", funcName);
         printFunctions();
         exit(1);
     }
     if (debug_mode) {
-        printf("Calling ");
+        fprintf(stderr, "Calling ");
         printFunction(entry);
-        printf(" on device 0x%02x on bus %i\n", device_addr, bus_nr);
+        fprintf(stderr, " on device 0x%02x on bus %i\n", device_addr, bus_nr);
     }
 
     // == Handle required result size
     if (!entry->variable_arguments && entry->argument_bytes != params) {
-        printf("%s needs %i argument bytes, but %i were given.\n", entry->name, entry->argument_bytes, params);
+        fprintf(stderr, "%s needs %i argument bytes, but %i were given.\n", entry->name, entry->argument_bytes, params);
         exit(1);
     }
     int result_size;
     if (entry->variable_results) {
         if (!var_res_given) {
-            printf("Function has variable results, use -v.\n");
+            fprintf(stderr, "Function has variable results, use -v.\n");
             exit(1);
         }
         result_size = var_res_size;
     } else {
         if (var_res_given)
-            printf("Warning: function does not have variable results. Ignoring -v parameter.\n");
+            fprintf(stderr, "Warning: function does not have variable results. Ignoring -v parameter.\n");
         result_size = entry->result_bytes;
     }
 
     // == Initialize and execute the call
     init_libraries(bus_nr);
-    call(device, entry, param_buf, params, result_size);
-    return 0;
+    return call(device, entry, param_buf, params, result_size);
 }

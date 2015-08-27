@@ -46,11 +46,11 @@ static BOOL prepare(TWIDevice targetDevice) {
 
 static void printBuffer(char *comment, TWIBuffer buffer) {
     if (!print_buffer_contents) return;
-    printf("Buffer (%s): ", comment);
+    fprintf(stderr, "Buffer (%s): ", comment);
     for (int i = 0; i < buffer.size; i++) {
-        printf("%02x ", buffer.data[i]);
+        fprintf(stderr, "%02x ", buffer.data[i]);
     }
-    printf("\n");
+    fprintf(stderr, "\n");
 }
 
 static void doSend(TWIDevice targetDevice, TWIBuffer data) {
