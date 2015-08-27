@@ -11,7 +11,7 @@
 #include <errno.h>
 #include <fcntl.h>
 
-#define TWI_ACTION_TIMEOUT_MILLIS 5
+#define TWI_ACTION_TIMEOUT_MILLIS 1
 
 const char *i2c_file_prefix = "/dev/i2c-";
 
