@@ -1,6 +1,5 @@
 
 - Test features: analog input, motors, smooth motors
-- Test precision: pwm min/max values, delay_XX()
 
 - io-time.sh script: compute milliseconds passed native and on device. Provide formula for device's real Frequency.
 - Move io-* script library into TwiTool

@@ -41,19 +41,16 @@ inline static BOOL conversionRunning() {
 	return (ADCSRA & _BV(ADSC)) != 0;
 }
 
-static void startConversion(Pin input) {
+BOOL void startConversion(Pin input) {
     ConfigData *data = pinConfigData(input, PinAnalogInput);
-    if (data == NULL) return;
+    if (data == NULL) return FALSE;
     uint8_t pinNum = data->data[0];
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		uint8_t admux = ADMUX;
-		// Set _only_ MUX4..0, the 5 LSB of ADMUX.
-		// Mask away the 3 MSB. Painful bit-fiddling.
-		admux |= ~0xE0 & pinNum;
-		admux &= 0xE0 | ~pinNum;
-		ADMUX = admux;
+		// Set only MUX4..0, the 5 LSB of ADMUX.
+        ADMUX = (ADMUX & 0xE0) | pinNum;
 	}
 	ADCSRA |= _BV(ADSC) | _BV(ADEN); // Start the conversion
+    return TRUE;
 }
 
 BOOL analogRead(AnalogInput input, AnalogCallbackFunction callback) {
@@ -63,8 +60,7 @@ BOOL analogRead(AnalogInput input, AnalogCallbackFunction callback) {
 	}
 	analogCallbackFunction = callback;
 	ADCSRA |= _BV(ADIE);
-	startConversion(PIN);
-	return TRUE;
+	return startConversion(PIN);
 }
 
 BOOL analogReadLoop(AnalogInput input, uint8_t *result) {
@@ -74,7 +70,8 @@ BOOL analogReadLoop(AnalogInput input, uint8_t *result) {
 	}
 	// Disable interrupts, because we poll the result in a busy-loop
 	ADCSRA &= ~_BV(ADIE);
-	startConversion(PIN);
+	if (!startConversion(PIN))
+        return FALSE;
 	while (conversionRunning()) ;
 	// We only use 8-bit resolution, left-aligned. It's enough to
 	// read the high-register of the result.
