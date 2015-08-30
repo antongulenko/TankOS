@@ -39,20 +39,52 @@ void buttonReleased(Button b) {
 	}
 }
 
+extern volatile int16_t test_value;
+volatile BOOL start_new_conversion = TRUE;
+AnalogInput anaInput;
+
+void conversionFinished(uint8_t val) {
+	disableLed(whiteLed1);
+	enableLed(whiteLed2);
+	test_value = (int16_t) val;
+	start_new_conversion = TRUE;
+}
+
+void onButtonStartConversion(Button b) {
+	if (Equal(b, button1))
+		analogRead(anaInput, conversionFinished);
+}
+
+void conversionLoop();
+
 int main() {
-	//MemoryInfo i = memoryInfo();
-    //printf("Static: %i. Dynamic: %i of %i, available: %i.\n",
-	//			i.used_static, i.used_dynamic, i.total_dynamic, i.available_dynamic);
-	printf("A: %02x, D: %02x, C: %02x", TWAR, TWDR, TWCR);
+	leds_run();
+	anaInput = newAnalogInput_m1284P(7);
+	//buttonReleasedCallback = &onButtonStartConversion;
+	conversionLoop();
+}
+
+void conversionLoop() {
+	while (1) {
+		if (start_new_conversion) {
+			start_new_conversion = FALSE;
+			enableLed(whiteLed1);
+			disableLed(whiteLed2);
+			analogRead(anaInput, conversionFinished);
+			delay_ms(200);
+		}
+	}
+}
+
+void ioTest() {
 	buffer_stdout_flush_to_eeprom((char*) 2, 64);
-	printf("XXX");
 	leds_run();
 	buttonPressedCallback = &buttonPressed;
 	buttonReleasedCallback = &buttonReleased;
-	
+		
 	while (1) {
 		if (buttonStatus(button1) && buttonStatus(button2) && buttonStatus(button3) && buttonStatus(button4))
-			leds_run();
+		leds_run();
 	}
 }
 

@@ -3,7 +3,7 @@
 #include <kernel/klib.h>
 #include <twi/rpc/server_handler_functions.h>
 
-static volatile int16_t test_value;
+volatile int16_t test_value;
 
 static RpcHandlerStatus test_write_value_handler(int16_t *args, uint16_t size) {
     if (size != sizeof(int16_t)) {
