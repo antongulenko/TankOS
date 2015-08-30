@@ -44,7 +44,9 @@ ifeq ($(CONFIG), io)
 endif
 ifeq ($(CONFIG), driver)
 
-    AVR_FREQ := 8000000
+    # Master chip 2
+    AVR_FREQ := 8073357
+    # AVR_FREQ := 8000000
     PROJ := Tank-Driver
 
 endif
