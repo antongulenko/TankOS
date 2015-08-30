@@ -473,9 +473,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="platform\Avr\avr_hardware.h~">
-      <SubType>compile</SubType>
-    </None>
     <None Include="platform\Native\avr_libc\simulation.h~">
       <SubType>compile</SubType>
     </None>
