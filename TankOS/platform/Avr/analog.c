@@ -41,7 +41,7 @@ inline static BOOL conversionRunning() {
 	return (ADCSRA & _BV(ADSC)) != 0;
 }
 
-BOOL void startConversion(Pin input) {
+BOOL startConversion(Pin input) {
     ConfigData *data = pinConfigData(input, PinAnalogInput);
     if (data == NULL) return FALSE;
     uint8_t pinNum = data->data[0];

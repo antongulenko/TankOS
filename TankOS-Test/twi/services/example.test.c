@@ -26,7 +26,7 @@ void tearDown() {
 }
 
 void test_test_service() {
-    int32_t value;
+    int16_t value;
 
     assert_correct_status(test_reset_value(test_device));
     assert_correct_status(test_read_value(test_device, &value));
@@ -46,7 +46,7 @@ void test_test_service() {
     TEST_ASSERT_EQUAL_INT32_MESSAGE(0, value, "Wrong test value 5");
 }
 
-TWI_RPC_FUNCTION_VOID(wrong_test_write_value, TEST_WRITE_VALUE_OPERATION, int16_t)
+TWI_RPC_FUNCTION_VOID(wrong_test_write_value, TEST_WRITE_VALUE_OPERATION, int32_t)
 
 void test_wrong_data_sent() {
     RpcClientResult status = wrong_test_write_value(test_device, 22);
@@ -54,15 +54,15 @@ void test_wrong_data_sent() {
 }
 
 void test_format_results() {
-    init_mock_printf();
     ClientFunctionRegistryEntry f = lookupClientFunction("test_read_value");
     TEST_ASSERT_NOT_NULL(f);
     TEST_ASSERT_NOT_NULL(f->format_results);
 
-    int32_t res;
+    int16_t res;
     test_write_value(test_device, 4500);
     test_read_value(test_device, &res);
 
+    init_mock_printf();
     f->format_results(mock_printf, &res, sizeof(res));
     TEST_ASSERT_EQUAL_STRING("Test value: 4500", mock_printf_buffer);
 }
