@@ -13,6 +13,9 @@ extern AnalogCallbackFunction analogCallbackFunction;
 INTERRUPT_HANDLER(ADC_vect) {
 	// We only use 8-bit resolution, left-aligned. It's enough to
 	// read the high-register of the result.
-	if (analogCallbackFunction)
-		analogCallbackFunction(ADCH);
+    if (analogCallbackFunction) {
+        AnalogCallbackFunction func = analogCallbackFunction;
+        analogCallbackFunction = NULL;
+		func(ADCH);
+    }
 }

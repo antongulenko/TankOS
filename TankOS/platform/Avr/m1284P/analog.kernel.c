@@ -41,7 +41,6 @@ void init_analog_m1284P() {
 
     memcpy(inputPins, (Pin[]) { pinA0, pinA1, pinA2, pinA3, pinA4, pinA5, pinA6, pinA7 }, sizeof(inputPins));
     for (uint8_t i = 0; i <= 7; i++) {
-        // TODO - error checking
         registerAnalogInputPin(inputPins[i], i);
     }
 }

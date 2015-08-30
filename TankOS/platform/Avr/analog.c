@@ -68,6 +68,7 @@ BOOL analogReadLoop(AnalogInput input, uint8_t *result) {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		if (conversionRunning()) return FALSE;
 	}
+    analogCallbackFunction = NULL;
 	// Disable interrupts, because we poll the result in a busy-loop
 	ADCSRA &= ~_BV(ADIE);
 	if (!startConversion(PIN))
