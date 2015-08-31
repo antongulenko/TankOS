@@ -1,8 +1,5 @@
 
-- Test features: analog input, motors, smooth motors
-
-- io-time.sh script: compute milliseconds passed native and on device. Provide formula for device's real Frequency.
-- Move io-* script library into TwiTool
+- Test precision of analog input
 
 == Refactorings/TODOs
 
