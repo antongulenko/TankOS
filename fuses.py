@@ -64,12 +64,12 @@ class Value:
             raise Exception("Default value '%s' not in values: %s" % (default_value, list(self.values.keys())))
 
     @staticmethod
-    def bool_value(name, bit_num):
+    def bool_value(name, bit_num, default=False):
         return Value(name, [bit_num],
             [
                 ("off", [0]),
                 ("on", [1])
-            ], "off" )
+            ], "on" if default else "off" )
 
     def set_value(self, value):
         if value not in self.values:
@@ -135,7 +135,7 @@ def m1284P_bytes(clock_type):
     hfuse = Byte("hfuse")
     hfuse.register_value(Value.bool_value("OCDEN", 7))
     hfuse.register_value(Value.bool_value("JTAGEN", 6))
-    hfuse.register_value(Value.bool_value("SPIEN", 5))
+    hfuse.register_value(Value.bool_value("SPIEN", 5, default=True))
     hfuse.register_value(Value.bool_value("WDTON", 4))
     hfuse.register_value(Value.bool_value("EESAVE", 3))
     hfuse.register_value(Value("BOOTSZ", [2, 1],
