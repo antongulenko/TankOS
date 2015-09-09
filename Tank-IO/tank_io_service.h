@@ -7,13 +7,13 @@
 
 // inline array, indexed by below TankLedGroup enum values
 #define TANK_LED_GROUPS ((LedGroup[]) { \
-    whiteLeds, greenLeds, yellowLeds, redLeds, \
+    whiteLeds, greenLeds, redLeds, \
     middleLeds, leftLeds, rightLeds, \
     allLeds \
 })
 
 typedef enum {
-    WHITE_LEDS, GREEN_LEDS, YELLOW_LEDS, RED_LEDS,
+    WHITE_LEDS, GREEN_LEDS, RED_LEDS,
     MIDDLE_LEDS, LEFT_LEDS, RIGHT_LEDS,
     ALL_LEDS
 } TankLedGroup;

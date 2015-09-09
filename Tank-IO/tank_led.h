@@ -8,10 +8,10 @@
 
 #include <devices/led.h>
 
-extern Led whiteLed1, whiteLed2, whiteLed3, whiteLed4, whiteLed5; // Nr 2 is actually red
+extern Led whiteLed1, whiteLed2, whiteLed3, whiteLed4, whiteLed5;
 extern Led redLed1, redLed2, redLed3, redLed4, redLed5;
-extern Led greenLed1, greenLed2, greenLed3, yellowLed1, yellowLed2;
+extern Led greenLed1, greenLed2, greenLed3, greenLed4, greenLed5;
 
-extern LedGroup redLeds, yellowLeds, whiteLeds, greenLeds, leftLeds, middleLeds, rightLeds, allLeds;
+extern LedGroup redLeds, whiteLeds, greenLeds, leftLeds, middleLeds, rightLeds, allLeds;
 
 #endif /* TANK_LED_H_ */
