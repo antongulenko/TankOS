@@ -7,7 +7,7 @@
 #include <platform/Avr/m1284P/timer.h>
 #include "tank_motor.h"
 
-Timer timer0A, timer0B, timer2A, timer2B;
+Timer timer0A, timer0B;
 Motor leftBaseMotor, rightBaseMotor;
 SmoothMotor leftMotor, rightMotor;
 
@@ -21,9 +21,16 @@ static void init_tank_motor_timers() {
     TCCR0B = _BV(CS01); // Prescaler: 8
 }
 
+// Motor left = Motor 1
+// Motor right = Motor 2
+
 static void init_tank_driver_motors() {
     init_tank_motor_timers();
     enable_smooth_motor_interrupt();
+
+    // Analog inputs:
+    // left =
+    // right =
 
     timer0A = newTimer_m1284P(0, TIMER_A, TRUE);
     timer0B = newTimer_m1284P(0, TIMER_B, TRUE);
@@ -31,7 +38,7 @@ static void init_tank_driver_motors() {
     // No exact conversion, because we have the full voltage range!
 	#define TANK_MOTOR MotorNormal
 
-    leftBaseMotor = newMotor2dir(TANK_MOTOR, timer0A, pinB0, pinA0);
+    leftBaseMotor = newMotor2dir(TANK_MOTOR, timer0A, pinA0, pinB0);
     rightBaseMotor = newMotor2dir(TANK_MOTOR, timer0B, pinD6, pinD7);
     leftMotor = newSmoothMotor(leftBaseMotor);
     rightMotor = newSmoothMotor(rightBaseMotor);
