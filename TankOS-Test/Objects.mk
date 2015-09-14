@@ -54,6 +54,12 @@ $(eval $(call set_test_objects,devices/led,\
 	$(BUILD_TankOS)/devices/port.o \
     $(BUILD_TankOS)/devices/led.o ))
 
+$(eval $(call set_test_objects,devices/led_control,\
+    $(BUILD_TESTS)/mocks/port.o \
+	$(BUILD_TankOS)/devices/port.o \
+    $(BUILD_TankOS)/devices/led.o \
+    $(BUILD_TankOS)/devices/led_control.o))
+
 $(eval $(call set_test_objects,devices/button,\
     $(BUILD_TESTS)/mocks/port.o \
 	$(BUILD_TankOS)/devices/port.o \
