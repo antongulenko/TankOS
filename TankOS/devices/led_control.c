@@ -31,6 +31,7 @@ static uint16_t default_durations[] = {
     BLINKING_FAST_TICKS,
     FLASH_TICKS,
     LONG_FLASH_TICKS,
+    GROUP_RUN_TICKS,
     GROUP_RUN_TICKS
 };
 
@@ -148,7 +149,7 @@ void controlLeds(ControlledLeds leds, LedState state) {
 
 void controlLedsDuration(ControlledLeds leds, LedState state, uint16_t effect_duration) {
     if (!IsValid(leds)) return;
-    if (state > LedsGroupRun) return;
+    if (state >= LedsInvalid) return;
     LEDS->state = state;
     LEDS->max_effect_counter = effect_duration;
     LEDS->effect_counter = 0;
@@ -194,6 +195,7 @@ static void apply_led_effect(_ControlledLeds leds) {
                 leds->state = LedsDisabled;
             }
             break;
+        case LedsGroupRunning:
         case LedsGroupRun:
             set_all_leds(leds, FALSE);
             uint8_t active = leds->effect_state;
@@ -206,9 +208,16 @@ static void apply_led_effect(_ControlledLeds leds) {
 
             if (counter_finished) {
                 if (leds->effect_state >= max_effect_state) {
-                    leds->state = LedsDisabled;
+                    if (leds->state == LedsGroupRun) {
+                        leds->state = LedsDisabled;
+                    } else {
+                        leds->effect_state = 0;
+                    }
                 }
             }
+            break;
+        case LedsInvalid:
+            // Nothing
             break;
     }
     if (counter_finished) {

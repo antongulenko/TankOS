@@ -146,6 +146,25 @@ void test_group_run() {
     assertChangeAll(GROUP_RUN_TICKS, FALSE);
 }
 
+void test_group_running() {
+    controlLeds(multiple, LedsGroupRunning);
+    TEST_ASSERT_EQUAL_MESSAGE(LedsGroupRunning, getControlledLedsState(multiple), "Unexpected ControlledLeds state");
+    assertChange(GROUP_RUN_TICKS, TRUE, FALSE, FALSE);
+    assertChange(GROUP_RUN_TICKS, FALSE, TRUE, FALSE);
+    assertChange(GROUP_RUN_TICKS, FALSE, FALSE, TRUE);
+    TEST_ASSERT_EQUAL_MESSAGE(LedsGroupRunning, getControlledLedsState(multiple), "Unexpected ControlledLeds state");
+    assertChange(GROUP_RUN_TICKS, FALSE, TRUE, FALSE);
+    assertChange(GROUP_RUN_TICKS, TRUE, FALSE, FALSE);
+    TEST_ASSERT_EQUAL_MESSAGE(LedsGroupRunning, getControlledLedsState(multiple), "Unexpected ControlledLeds state");
+
+    assertChange(GROUP_RUN_TICKS, FALSE, TRUE, FALSE);
+    assertChange(GROUP_RUN_TICKS, FALSE, FALSE, TRUE);
+    TEST_ASSERT_EQUAL_MESSAGE(LedsGroupRunning, getControlledLedsState(multiple), "Unexpected ControlledLeds state");
+    assertChange(GROUP_RUN_TICKS, FALSE, TRUE, FALSE);
+    assertChange(GROUP_RUN_TICKS, TRUE, FALSE, FALSE);
+    TEST_ASSERT_EQUAL_MESSAGE(LedsGroupRunning, getControlledLedsState(multiple), "Unexpected ControlledLeds state");
+}
+
 void test_change_1() {
     controlLeds(multiple, LedsBlinking);
     runticks(BLINKING_TICKS * 3);

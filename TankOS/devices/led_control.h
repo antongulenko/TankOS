@@ -20,7 +20,10 @@ typedef enum {
     LedsLongFlash,
 
     // For Led groups
-    LedsGroupRun
+    LedsGroupRun,
+    LedsGroupRunning,
+
+    LedsInvalid
 } LedState;
 
 // If one Led is part of multiple ControlledLeds, the LedState
