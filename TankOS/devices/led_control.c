@@ -13,6 +13,9 @@ typedef struct _ControlledLeds {
     LedState state;
     LedList *leds;
 	uint8_t count;
+    uint16_t max_effect_counter;
+    uint16_t effect_counter;
+    uint8_t effect_state;
     struct _ControlledLeds *next;
 } *_ControlledLeds;
 
@@ -20,6 +23,16 @@ typedef struct _ControlledLeds {
 
 _ControlledLeds controlled_leds;
 LedList underlying_leds;
+
+static uint16_t default_durations[] = {
+    0xFF,
+    0xFF,
+    BLINKING_TICKS,
+    BLINKING_FAST_TICKS,
+    FLASH_TICKS,
+    LONG_FLASH_TICKS,
+    GROUP_RUN_TICKS
+};
 
 static void reduceRefcount(LedList element) {
     if (element->references > 0)
@@ -79,13 +92,13 @@ ControlledLeds newControlledLedGroup(LedGroup group) {
         free(leds);
         return Invalid(ControlledLeds);
     }
-    leds->state = LedsDisabled;
     leds->leds = underlying;
     leds->count = group->count;
     leds->next = NULL;
-
+    ControlledLeds result = As(ControlledLeds, leds);
+    controlLeds(result, LedsDisabled);
     LL_APPEND(controlled_leds, leds);
-    return As(ControlledLeds, leds);
+    return result;
 }
 
 static void cleanUnderlyingLeds(ControlledLeds leds) {
@@ -128,8 +141,18 @@ BOOL controlledLedsValid(ControlledLeds leds) {
 }
 
 void controlLeds(ControlledLeds leds, LedState state) {
+    if (state > sizeof(default_durations)) return;
+    uint16_t default_duration = default_durations[state];
+    controlLedsDuration(leds, state, default_duration);
+}
+
+void controlLedsDuration(ControlledLeds leds, LedState state, uint16_t effect_duration) {
     if (!IsValid(leds)) return;
+    if (state > LedsGroupRun) return;
     LEDS->state = state;
+    LEDS->max_effect_counter = effect_duration;
+    LEDS->effect_counter = 0;
+    LEDS->effect_state = 0;
 }
 
 LedState getControlledLedsState(ControlledLeds leds) {
@@ -137,8 +160,63 @@ LedState getControlledLedsState(ControlledLeds leds) {
     return LEDS->state;
 }
 
-void apply_led_effect(_ControlledLeds leds) {
-    // TODO
+static void set_all_leds(_ControlledLeds leds, BOOL enabled) {
+    for (int i = 0; i < leds->count; i++) {
+        leds->leds[i]->enabled = enabled;
+    }
+}
+
+static void apply_led_effect(_ControlledLeds leds) {
+    BOOL counter_finished = leds->effect_counter >= leds->max_effect_counter - 1;
+
+    switch (leds->state) {
+        case LedsDisabled:
+            // Nothing, don't override other effects.
+            break;
+        case LedsEnabled:
+            set_all_leds(leds, TRUE);
+            break;
+        case LedsBlinking:
+            set_all_leds(leds, leds->effect_state % 2 == 0);
+            break;
+        case LedsBlinkingFast:
+            set_all_leds(leds, leds->effect_state % 2 == 0);
+            break;
+        case LedsFlash:
+            set_all_leds(leds, TRUE);
+            if (counter_finished) {
+                leds->state = LedsDisabled;
+            }
+            break;
+        case LedsLongFlash:
+            set_all_leds(leds, TRUE);
+            if (counter_finished) {
+                leds->state = LedsDisabled;
+            }
+            break;
+        case LedsGroupRun:
+            set_all_leds(leds, FALSE);
+            uint8_t active = leds->effect_state;
+            uint8_t max_effect_state = 2*leds->count - 2;
+            if (active >= leds->count) {
+                // Running downwards
+                active = max_effect_state - active;
+            }
+            leds->leds[active]->enabled = TRUE;
+
+            if (counter_finished) {
+                if (leds->effect_state >= max_effect_state) {
+                    leds->state = LedsDisabled;
+                }
+            }
+            break;
+    }
+    if (counter_finished) {
+        leds->effect_counter = 0;
+        leds->effect_state++;
+    } else {
+        leds->effect_counter++;
+    }
 }
 
 void led_control_tick() {
