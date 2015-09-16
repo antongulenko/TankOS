@@ -26,8 +26,10 @@ ControlledLeds destroyControlledLeds(ControlledLeds leds);
 BOOL controlledLedsValid(ControlledLeds leds);
 
 void controlLeds(ControlledLeds leds, LedState state);
-LedState getControlledLedState(ControlledLeds leds);
+LedState getControlledLedsState(ControlledLeds leds);
 
+// Should be invoked every millisecond
+// e.g. by binding __vector_LED_CONTROL_INTERRUPT to a timer-interrupt
 void led_control_tick();
 
 #endif // _LED_CONTROL_
