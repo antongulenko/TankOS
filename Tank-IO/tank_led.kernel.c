@@ -8,6 +8,11 @@
 #include <platform/Avr/m1284P/port.h>
 #include <string.h>
 
+static void tank_io_init_timer() {
+    TIMSK3 |= _BV(OCIE3B); // Enable timer interrupt
+}
+KERNEL_INIT(tank_io_init_timer)
+
 Led greenLed1, greenLed2, greenLed3, greenLed4, greenLed5;
 Led redLed1, redLed2, redLed3, redLed4, redLed5;
 Led yellowLed1, yellowLed2, yellowLed3, yellowLed4, yellowLed5;
