@@ -20,7 +20,7 @@ static RpcHandlerStatus tank_io_set_leds_handler(SetLedsParameters *params, uint
     if (params->group > ALL_LEDS) {
         return TWI_RPC_handler_illegal_parameters;
     }
-    if (params->status >= LedesInvalid) {
+    if (params->status >= LedsInvalid) {
         return TWI_RPC_handler_illegal_parameters;
     }
     ControlledLeds leds = TANK_LED_GROUPS[group];
