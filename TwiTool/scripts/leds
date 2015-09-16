@@ -1,0 +1,46 @@
+#!/bin/bash
+set -e
+home=`dirname $(readlink -e $0)`
+call="$home/call"
+
+declare -A leds
+leds=(
+    [yellow1]=0 [yellow2]=1 [yellow3]=2 [yellow4]=3 [yellow5]=4
+    [red1]=5 [red2]=6 [red3]=7 [red4]=8 [red5]=9
+    [green1]=10 [green2]=11 [green3]=12 [green4]=13 [green5]=14
+    [yellow]=15 [green]=16 [red]=17
+    [middle]=18 [left]=19 [right]=20
+    [all]=21
+)
+declare -A modes
+modes=(
+    [on]=0 [off]=1
+    [blink]=2 [blink_fast]=3
+    [flash]=4 [flash_long]=5
+    [run]=6
+)
+
+function help() {
+    echo "Parameters: <leds> <mode>"
+    echo "leds = ${!leds[@]}"
+    echo "mode = ${!modes[@]}"
+    exit 1
+}
+
+test $# = 2 || help
+leds=${leds[$1]}
+mode=${modes[$2]}
+test -n "$leds" || { echo "Unknown leds: $1"; help; }
+test -n "$mode" || { echo "Unknown mode: $2"; help; }
+
+# Convert parameters to hex-value
+leds=`printf '%04x' $leds`
+mode=`printf '%04x' $mode`
+
+# Split the 16-bit hex-values into two separate bytes
+leds_high=${leds:0:2}
+leds_low=${leds: -2}
+mode_high=${mode:0:2}
+mode_low=${mode: -2}
+
+echo $call tank_io_set_leds io -p $leds_low -p $leds_high -p $mode_low -p $mode_high

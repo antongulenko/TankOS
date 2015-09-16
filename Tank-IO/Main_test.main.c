@@ -44,8 +44,8 @@ volatile BOOL start_new_conversion = TRUE;
 AnalogInput anaInput;
 
 void conversionFinished(uint8_t val) {
-	disableLed(whiteLed1);
-	enableLed(whiteLed2);
+	disableLed(yellowLed1);
+	enableLed(yellowLed2);
 	test_value = (int16_t) val;
 	start_new_conversion = TRUE;
 }
@@ -68,8 +68,8 @@ void conversionLoop() {
 	while (1) {
 		if (start_new_conversion) {
 			start_new_conversion = FALSE;
-			enableLed(whiteLed1);
-			disableLed(whiteLed2);
+			enableLed(yellowLed1);
+			disableLed(yellowLed2);
 			analogRead(anaInput, conversionFinished);
 			delay_ms(200);
 		}
@@ -81,7 +81,7 @@ void ioTest() {
 	leds_run();
 	buttonPressedCallback = &buttonPressed;
 	buttonReleasedCallback = &buttonReleased;
-		
+
 	while (1) {
 		if (buttonStatus(button1) && buttonStatus(button2) && buttonStatus(button3) && buttonStatus(button4))
 		leds_run();
