@@ -78,5 +78,7 @@ endif
 endif
 
 # Suppress warning about default frequency
-AVR_FREQ := 8000000
+ifndef AVR_FREQ
+    AVR_FREQ := 8000000
+endif
 
