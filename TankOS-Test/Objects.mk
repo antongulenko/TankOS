@@ -82,6 +82,11 @@ $(eval $(call set_test_objects,devices/motor_smooth,\
     $(BUILD_TankOS)/devices/motor_smooth.o \
     $(BUILD_TankOS)/process/mock_mutex.kernel.o ))
 
+$(eval $(call set_test_objects,devices/motor_step,\
+	$(BUILD_TankOS)/devices/port.o \
+    $(BUILD_TESTS)/mocks/port.o \
+	$(BUILD_TankOS)/devices/motor_step.o ))
+
 $(eval $(call set_test_objects,twi/driver/master,\
 	$(BUILD_TESTS)/twi/driver/base_tests.o \
 	$(BUILD_TESTS)/twi/driver/helper.o \

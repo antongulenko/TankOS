@@ -76,3 +76,7 @@ ifeq ($(CONFIG), twitool)
 
 endif
 endif
+
+# Suppress warning about default frequency
+AVR_FREQ := 8000000
+

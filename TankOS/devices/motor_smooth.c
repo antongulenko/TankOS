@@ -8,13 +8,11 @@
 #include "motor_smooth.h"
 #include <uthash/utlist.h>
 #include <kernel/klib.h>
-#include <process/mutex.h>
 
 static volatile uint16_t __adjustment_step = 1;
 
 typedef struct _SmoothMotor {
 	Motor motor;
-    Mutex mutex;
 
 	// Current state
 	uint16_t currentSpeed;
@@ -51,19 +49,12 @@ SmoothMotor newSmoothMotor(Motor _motor) {
         free(motor);
         return Invalid(SmoothMotor);
     }
-    Mutex mutex = mutex_create();
-    if (!IsValid(mutex)) {
-        free(motor);
-        free(listElement);
-        return Invalid(SmoothMotor);
-    }
 
     motor->motor = _motor;
     motor->currentSpeed = getSpeed(_motor);
     motor->currentDirection = getDirection(_motor);
     motor->targetSpeed = motor->currentSpeed;
     motor->targetDirection = motor->currentDirection;
-    motor->mutex = mutex;
     SmoothMotor smooth = As(SmoothMotor, motor);
     listElement->motor = smooth;
     listElement->next = NULL;
@@ -76,7 +67,6 @@ SmoothMotor destroySmoothMotor(SmoothMotor motor) {
         MotorList element = find_list_element(motor);
         if (element)
             LL_DELETE(motors, element);
-        mutex_destroy(MOTOR->mutex);
         free(MOTOR);
     }
     return Invalid(SmoothMotor);
@@ -85,7 +75,6 @@ SmoothMotor destroySmoothMotor(SmoothMotor motor) {
 BOOL smoothMotorValid(SmoothMotor motor) {
     if (!IsValid(motor)) return FALSE;
     if (!motorValid(MOTOR->motor)) return FALSE;
-    if (!IsValid(MOTOR->mutex)) return FALSE;
     if (!find_list_element(motor)) return FALSE;
     return TRUE;
 }
@@ -105,10 +94,8 @@ void regulateStopMotor(SmoothMotor motor) {
 
 void regulateSpeed(SmoothMotor motor, uint16_t speed, MotorDirection direction) {
     if (!IsValid(motor)) return;
-	mutex_lock(MOTOR->mutex);
 	MOTOR->targetSpeed = speed;
 	MOTOR->targetDirection = direction;
-	mutex_release(MOTOR->mutex);
 }
 
 void regulateSpeedForward(SmoothMotor motor, uint16_t speed) {
@@ -134,10 +121,8 @@ void handle_motor_tick(SmoothMotor motor) {
     if (!IsValid(motor)) return;
 
     // Load all values into registers.
-    mutex_lock(MOTOR->mutex);
     MotorDirection targetDir = MOTOR->targetDirection;
     uint16_t targetSpeed = MOTOR->targetSpeed;
-    mutex_release(MOTOR->mutex);
 
     MotorDirection currentDir = MOTOR->currentDirection;
     uint16_t currentSpeed = MOTOR->currentSpeed;
