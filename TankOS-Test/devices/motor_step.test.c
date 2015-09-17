@@ -194,3 +194,15 @@ void test_step_inverse_both() {
     stepMotorStop(motor);
     checkPins(FALSE, TRUE);
 }
+
+void test_change_frequency_step() {
+    createMotor();
+    stepMotorSetFrequency(motor, 50);
+    stepMotorRotate(motor, StepMotorForward);
+    dosteps(3);
+    TEST_ASSERT_EQUAL_MESSAGE(2, stepMotorPosition(motor), "motor wrong position");
+    dosteps(4);
+    TEST_ASSERT_EQUAL_MESSAGE(4, stepMotorPosition(motor), "motor wrong position");
+    dosteps(150);
+    TEST_ASSERT_EQUAL_MESSAGE(79, stepMotorPosition(motor), "motor wrong position");
+}

@@ -164,11 +164,20 @@ deg_t stepMotorAngle(StepMotor motor) {
 
 static void handle_motor_tick(_StepMotor motor) {
     MotorTask task = motor->task;
+    pos_t ticks;
     switch (task) {
         case STOP:
             return;
         case STEP:
         case ROTATE:
+            ticks = motor->wait_ticks;
+            if (ticks > 1) {
+                motor->wait_ticks = ticks - 1;
+                return;
+            } else {
+                motor->wait_ticks = motor->ticks_between_steps;
+            }
+
             // Generate a pulse
             setPinOne(motor->step);
             pos_t pos = motor->position;
