@@ -202,6 +202,9 @@ void motor_step_tick() {
     LL_FOREACH(_step_motors, i) {
         handle_motor_tick(i);
     }
+
+    //delay_us(1);
+
     // TODO is this pulse too short? Delay here?
     i = NULL;
     LL_FOREACH(_step_motors, i) {

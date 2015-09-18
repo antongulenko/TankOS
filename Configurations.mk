@@ -52,11 +52,12 @@ ifeq ($(CONFIG), driver)
 endif
 ifeq ($(CONFIG), arm)
 
-    AVR_FREQ := 20000000
+    #AVR_FREQ := 20000000
+    AVR_FREQ := 7930251
     PROJ := Tank-Arm
 
 endif
-ifeq ($(CONFIG), $(filter $(CONFIG), tank io driver))
+ifeq ($(CONFIG), $(filter $(CONFIG), tank io driver arm))
 
     KERNEL_LOG := true
     USE_BUFFER_STDOUT := true
