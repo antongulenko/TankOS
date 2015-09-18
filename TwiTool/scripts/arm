@@ -1,0 +1,28 @@
+#!/bin/bash
+set -e
+home=`dirname $(readlink -e $0)`
+call="$home/call"
+
+declare -A arm_dirs
+arm_dirs=(
+    [forward]=0 [backward]=1 [stop]=2
+)
+
+function help() {
+    echo "Parameters: <arm_dir>"
+    echo "arm_dir = ${!arm_dirs[@]}"
+    exit 1
+}
+
+test $# = 1 || help
+arm_dir=${arm_dirs[$1]}
+test -n "$arm_dir" || { echo "Unknown arm_dir: $1"; help; }
+
+# Convert parameters to hex-value
+arm_dir=`printf '%04x' $arm_dir`
+
+# Split the 16-bit hex-values into two separate bytes
+arm_dir_high=${arm_dir:0:2}
+arm_dir_low=${arm_dir: -2}
+
+$call tank_arm_motor arm -p $arm_dir_low -p $arm_dir_high

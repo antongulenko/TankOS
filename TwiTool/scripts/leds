@@ -43,4 +43,4 @@ leds_low=${leds: -2}
 mode_high=${mode:0:2}
 mode_low=${mode: -2}
 
-echo $call tank_io_set_leds io -p $leds_low -p $leds_high -p $mode_low -p $mode_high
+$call tank_io_set_leds io -p $leds_low -p $leds_high -p $mode_low -p $mode_high
