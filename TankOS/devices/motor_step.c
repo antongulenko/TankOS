@@ -19,7 +19,7 @@ typedef struct _StepMotor {
     StepMotorFlags flags;
 
     // State
-    StepMotorDirection direction;
+    MotorDirection direction;
     pos_t position;
     pos_t wait_ticks; // Reset to ticks_between_steps when reaches zero
     MotorTask task;
@@ -32,7 +32,7 @@ typedef struct _StepMotor {
 uint16_t motor_step_ticks_per_second;
 _StepMotor _step_motors;
 
-static void setMotorDir(_StepMotor motor, StepMotorDirection dir) {
+static void setMotorDir(_StepMotor motor, MotorDirection dir) {
     motor->direction = dir;
     BOOL dirOne = (BOOL) dir;
     if (motor->flags & StepMotorInverseDir)
@@ -77,7 +77,7 @@ StepMotor newStepMotor(Pin step, Pin dir, Pin enable, pos_t stepsPerTurn, StepMo
     LL_APPEND(_step_motors, motor);
     StepMotor stepMotor = As(StepMotor, motor);
     stepMotorSetFrequency(stepMotor, motor_step_ticks_per_second); // Default: maximum frequency
-    setMotorDir(motor, StepMotorForward);
+    setMotorDir(motor, MotorForward);
     stepMotorStop(stepMotor);
     return stepMotor;
 }
@@ -119,28 +119,40 @@ uint16_t stepMotorGetFrequency(StepMotor motor) {
     return motor_step_ticks_per_second / MOTOR->ticks_between_steps;
 }
 
-void stepMotorStep(StepMotor motor, pos_t numSteps, StepMotorDirection dir) {
+void stepMotorStep(StepMotor motor, pos_t numSteps, MotorDirection dir) {
     if (!IsValid(motor)) return;
+    if (dir == MotorStopped) {
+        stepMotorStop(motor);
+        return;
+    }
     MOTOR->task = STEP;
     MOTOR->leftover_steps = numSteps;
     setMotorDir(MOTOR, dir);
     setMotorPower(MOTOR, TRUE);
 }
 
-void stepMotorTurn(StepMotor motor, deg_t degrees, StepMotorDirection dir) {
+void stepMotorTurn(StepMotor motor, deg_t degrees, MotorDirection dir) {
     if (!IsValid(motor)) return;
+    if (dir == MotorStopped) {
+        stepMotorStop(motor);
+        return;
+    }
     pos_t steps = degrees * MOTOR->full_turn / 360;
     stepMotorStep(motor, steps, dir);
 }
 
-void stepMotorRotate(StepMotor motor, StepMotorDirection dir) {
+void stepMotorRotate(StepMotor motor, MotorDirection dir) {
     if (!IsValid(motor)) return;
+    if (dir == MotorStopped) {
+        stepMotorStop(motor);
+        return;
+    }
     MOTOR->task = ROTATE;
     setMotorDir(MOTOR, dir);
     setMotorPower(MOTOR, TRUE);
 }
 
-static void stopMotor(_StepMotor motor) {
+static void doStopMotor(_StepMotor motor) {
     motor->task = STOP;
     motor->leftover_steps = 0;
     setMotorPower(motor, FALSE);
@@ -148,7 +160,7 @@ static void stopMotor(_StepMotor motor) {
 
 void stepMotorStop(StepMotor motor) {
     if (!IsValid(motor)) return;
-    stopMotor(MOTOR);
+    doStopMotor(MOTOR);
 }
 
 pos_t stepMotorPosition(StepMotor motor) {
@@ -181,7 +193,7 @@ static void handle_motor_tick(_StepMotor motor) {
             // Generate a pulse
             setPinOne(motor->step);
             pos_t pos = motor->position;
-            if (motor->direction == StepMotorForward)
+            if (motor->direction == MotorForward)
                 motor->position = (pos + 1) % motor->full_turn;
             else if (pos == 0)
                 motor->position = motor->full_turn;
@@ -189,7 +201,7 @@ static void handle_motor_tick(_StepMotor motor) {
                 motor->position = pos - 1;
             if (task == STEP) {
                 if (motor->leftover_steps <= 1) {
-                    stopMotor(motor);
+                    doStopMotor(motor);
                 } else {
                     motor->leftover_steps--;
                 }

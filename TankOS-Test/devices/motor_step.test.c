@@ -97,7 +97,7 @@ void checkPins(BOOL dirUp, BOOL enableUp) {
 
 void test_step() {
     createMotor();
-    stepMotorStep(motor, 10, StepMotorForward);
+    stepMotorStep(motor, 10, MotorForward);
     checkPins(TRUE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
     dosteps(1);
@@ -112,7 +112,7 @@ void test_step() {
 
 void test_turn() {
     createMotor();
-    stepMotorTurn(motor, 15, StepMotorForward); // 15 degrees = 8 steps
+    stepMotorTurn(motor, 15, MotorForward); // 15 degrees = 8 steps
     checkPins(TRUE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
     dosteps(3);
@@ -123,7 +123,7 @@ void test_turn() {
 
 void test_rotate() {
     createMotor();
-    stepMotorRotate(motor, StepMotorForward);
+    stepMotorRotate(motor, MotorForward);
     checkPins(TRUE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
     dosteps(3);
@@ -143,7 +143,7 @@ void test_stop() {
 
 void test_rotate_stop() {
     createMotor();
-    stepMotorRotate(motor, StepMotorForward);
+    stepMotorRotate(motor, MotorForward);
     dosteps(30);
     stepMotorStop(motor);
     checkPins(TRUE, FALSE);
@@ -154,7 +154,7 @@ void test_rotate_stop() {
 
 void test_rotate_overflow() {
     createMotor();
-    stepMotorRotate(motor, StepMotorForward);
+    stepMotorRotate(motor, MotorForward);
     dosteps(300);
     checkPins(TRUE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(100, stepMotorPosition(motor), "motor wrong position");
@@ -162,10 +162,10 @@ void test_rotate_overflow() {
 
 void test_rotate_back() {
     createMotor();
-    stepMotorRotate(motor, StepMotorForward);
+    stepMotorRotate(motor, MotorForward);
     checkPins(TRUE, TRUE);
     dosteps(30);
-    stepMotorRotate(motor, StepMotorBackward);
+    stepMotorRotate(motor, MotorBackward);
     checkPins(FALSE, TRUE);
     dosteps(100);
     TEST_ASSERT_EQUAL_MESSAGE(131, stepMotorPosition(motor), "motor wrong position");
@@ -173,7 +173,7 @@ void test_rotate_back() {
 
 void test_step_inverse_dir() {
     createMotor2(StepMotorInverseDir, TRUE);
-    stepMotorRotate(motor, StepMotorForward);
+    stepMotorRotate(motor, MotorForward);
     checkPins(FALSE, TRUE);
     dosteps(30);
     TEST_ASSERT_EQUAL_MESSAGE(30, stepMotorPosition(motor), "motor wrong position");
@@ -181,7 +181,7 @@ void test_step_inverse_dir() {
 
 void test_step_inverse_enable() {
     createMotor2(StepMotorInverseEnable, TRUE);
-    stepMotorRotate(motor, StepMotorForward);
+    stepMotorRotate(motor, MotorForward);
     checkPins(TRUE, FALSE);
     stepMotorStop(motor);
     checkPins(TRUE, TRUE);
@@ -189,7 +189,7 @@ void test_step_inverse_enable() {
 
 void test_step_inverse_both() {
     createMotor2(StepMotorInverseEnable | StepMotorInverseDir, TRUE);
-    stepMotorRotate(motor, StepMotorForward);
+    stepMotorRotate(motor, MotorForward);
     checkPins(FALSE, FALSE);
     stepMotorStop(motor);
     checkPins(FALSE, TRUE);
@@ -198,7 +198,7 @@ void test_step_inverse_both() {
 void test_change_frequency_step() {
     createMotor();
     stepMotorSetFrequency(motor, 50);
-    stepMotorRotate(motor, StepMotorForward);
+    stepMotorRotate(motor, MotorForward);
     dosteps(3);
     TEST_ASSERT_EQUAL_MESSAGE(2, stepMotorPosition(motor), "motor wrong position");
     dosteps(4);

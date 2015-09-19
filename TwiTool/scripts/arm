@@ -5,7 +5,7 @@ call="$home/call"
 
 declare -A arm_dirs
 arm_dirs=(
-    [forward]=0 [backward]=1 [stop]=2
+    [backward]=0 [forward]=1 [stop]=2
 )
 
 function help() {

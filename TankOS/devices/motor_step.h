@@ -3,14 +3,10 @@
 
 #include <tank_os_common.h>
 #include "port.h"
+#include "motor.h"
 
 DEFINE_HANDLE(StepMotor);
 #define PinStepMotor 9
-
-typedef enum {
-    StepMotorBackward = 0,
-    StepMotorForward = 1,
-} StepMotorDirection;
 
 typedef enum {
     StepMotorNormal = 0,
@@ -29,9 +25,9 @@ BOOL stepMotorValid(StepMotor motor);
 BOOL stepMotorSetFrequency(StepMotor motor, uint16_t stepsPerSecond); // Return FALSE if frequency is too high
 uint16_t stepMotorGetFrequency(StepMotor motor);
 
-void stepMotorStep(StepMotor motor, pos_t numSteps, StepMotorDirection dir);
-void stepMotorTurn(StepMotor motor, deg_t degrees, StepMotorDirection dir);
-void stepMotorRotate(StepMotor motor, StepMotorDirection dir);
+void stepMotorStep(StepMotor motor, pos_t numSteps, MotorDirection dir);
+void stepMotorTurn(StepMotor motor, deg_t degrees, MotorDirection dir);
+void stepMotorRotate(StepMotor motor, MotorDirection dir);
 void stepMotorStop(StepMotor motor);
 
 pos_t stepMotorPosition(StepMotor motor);
