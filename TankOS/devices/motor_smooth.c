@@ -12,7 +12,8 @@
 static volatile uint16_t __adjustment_step = 1;
 
 typedef struct _SmoothMotor {
-	Motor motor;
+	UnderlyingMotor motor;
+    SetUnderlyingSpeed speedSetter;
     struct _SmoothMotor *next;
 
 	// Current state
@@ -28,19 +29,29 @@ static _SmoothMotor motors;
 
 #define MOTOR Get(struct _SmoothMotor, motor)
 
-SmoothMotor newSmoothMotor(Motor _motor) {
-    if (!motorValid(_motor)) return Invalid(SmoothMotor);
+SmoothMotor newSmoothMotor(UnderlyingMotor _motor, SetUnderlyingSpeed speedSetter) {
+    if (!IsValid(_motor)) return Invalid(SmoothMotor);
     _SmoothMotor motor = kalloc(sizeof(struct _SmoothMotor));
     if (!motor) return Invalid(SmoothMotor);
 
     motor->motor = _motor;
-    motor->currentSpeed = getSpeed(_motor);
-    motor->currentDirection = getDirection(_motor);
+    motor->currentSpeed = 0;
+    motor->currentDirection = MotorStopped;
     motor->targetSpeed = motor->currentSpeed;
     motor->targetDirection = motor->currentDirection;
+    motor->speedSetter = speedSetter;
     motor->next = NULL;
     LL_APPEND(motors, motor);
     return As(SmoothMotor, motor);
+}
+
+static void normalMotorSetSpeed(UnderlyingMotor motor, uint16_t speed, MotorDirection direction) {
+    setSpeed(Cast(Motor, motor), speed, direction);
+}
+
+SmoothMotor newNormalSmoothMotor(Motor motor) {
+    if (!motorValid(motor)) return Invalid(SmoothMotor);
+    return newSmoothMotor(Cast(UnderlyingMotor, motor), normalMotorSetSpeed);
 }
 
 SmoothMotor destroySmoothMotor(SmoothMotor motor) {
@@ -53,7 +64,8 @@ SmoothMotor destroySmoothMotor(SmoothMotor motor) {
 
 BOOL smoothMotorValid(SmoothMotor motor) {
     if (!IsValid(motor)) return FALSE;
-    if (!motorValid(MOTOR->motor)) return FALSE;
+    if (!IsValid(MOTOR->motor)) return FALSE;
+    if (MOTOR->speedSetter == NULL) return FALSE;
     return TRUE;
 }
 
@@ -139,7 +151,7 @@ void handle_motor_tick(_SmoothMotor motor) {
 		// After the calculations, update the actual value.
 		motor->currentSpeed = currentSpeed;
         motor->currentDirection = currentDir;
-		setSpeed(motor->motor, currentSpeed, currentDir);
+		motor->speedSetter(motor->motor, currentSpeed, currentDir);
 	}
 }
 

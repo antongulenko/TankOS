@@ -9,8 +9,11 @@
 #include "motor.h"
 
 DEFINE_HANDLE(SmoothMotor);
+DEFINE_HANDLE(UnderlyingMotor);
+typedef void (*SetUnderlyingSpeed)(UnderlyingMotor motor, uint16_t speed, MotorDirection direction);
 
-SmoothMotor newSmoothMotor(Motor motor);
+SmoothMotor newSmoothMotor(UnderlyingMotor motor, SetUnderlyingSpeed speedSetter);
+SmoothMotor newNormalSmoothMotor(Motor motor);
 SmoothMotor destroySmoothMotor(SmoothMotor motor);
 BOOL smoothMotorValid(SmoothMotor motor);
 

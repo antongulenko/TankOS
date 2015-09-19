@@ -38,7 +38,7 @@ void tearDown() {
 }
 
 SmoothMotor create(Motor motor) {
-    SmoothMotor smooth = newSmoothMotor(motor);
+    SmoothMotor smooth = newNormalSmoothMotor(motor);
     TEST_ASSERT_TRUE_MESSAGE(smoothMotorValid(smooth), "Smooth motor not valid after create");
     return smooth;
 }
@@ -53,7 +53,7 @@ void testInit() {
 }
 
 void testInvalidInit() {
-    SmoothMotor smooth = newSmoothMotor(Invalid(Motor));
+    SmoothMotor smooth = newNormalSmoothMotor(Invalid(Motor));
     TEST_ASSERT_FALSE_MESSAGE(IsValid(smooth), "Valid SmoothMotor created from invalid Motor");
 }
 

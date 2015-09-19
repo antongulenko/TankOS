@@ -40,8 +40,8 @@ static void init_tank_driver_motors() {
 
     leftBaseMotor = newMotor2dir(TANK_MOTOR, timer0A, pinA0, pinB0);
     rightBaseMotor = newMotor2dir(TANK_MOTOR, timer0B, pinD6, pinD7);
-    leftMotor = newSmoothMotor(leftBaseMotor);
-    rightMotor = newSmoothMotor(rightBaseMotor);
+    leftMotor = newNormalSmoothMotor(leftBaseMotor);
+    rightMotor = newNormalSmoothMotor(rightBaseMotor);
 
     // == Motor adjustment step ==
     // Resolution is 16 bit (65535), one adjustment each millisecond
