@@ -13,6 +13,7 @@ static volatile uint16_t __adjustment_step = 1;
 
 typedef struct _SmoothMotor {
 	Motor motor;
+    struct _SmoothMotor *next;
 
 	// Current state
 	uint16_t currentSpeed;
@@ -23,20 +24,7 @@ typedef struct _SmoothMotor {
 	MotorDirection targetDirection;
 } *_SmoothMotor;
 
-typedef struct MotorList {
-    SmoothMotor motor;
-    struct MotorList *next;
-} *MotorList;
-
-static MotorList motors;
-
-static MotorList find_list_element(SmoothMotor motor) {
-    MotorList element = NULL;
-    LL_FOREACH(motors, element) {
-        if (Equal(element->motor, motor)) break;
-    }
-    return element;
-}
+static _SmoothMotor motors;
 
 #define MOTOR Get(struct _SmoothMotor, motor)
 
@@ -44,29 +32,20 @@ SmoothMotor newSmoothMotor(Motor _motor) {
     if (!motorValid(_motor)) return Invalid(SmoothMotor);
     _SmoothMotor motor = kalloc(sizeof(struct _SmoothMotor));
     if (!motor) return Invalid(SmoothMotor);
-    MotorList listElement = kalloc(sizeof(struct MotorList));
-    if (!listElement) {
-        free(motor);
-        return Invalid(SmoothMotor);
-    }
 
     motor->motor = _motor;
     motor->currentSpeed = getSpeed(_motor);
     motor->currentDirection = getDirection(_motor);
     motor->targetSpeed = motor->currentSpeed;
     motor->targetDirection = motor->currentDirection;
-    SmoothMotor smooth = As(SmoothMotor, motor);
-    listElement->motor = smooth;
-    listElement->next = NULL;
-    LL_APPEND(motors, listElement);
-    return smooth;
+    motor->next = NULL;
+    LL_APPEND(motors, motor);
+    return As(SmoothMotor, motor);
 }
 
 SmoothMotor destroySmoothMotor(SmoothMotor motor) {
     if (IsValid(motor)) {
-        MotorList element = find_list_element(motor);
-        if (element)
-            LL_DELETE(motors, element);
+        LL_DELETE(motors, MOTOR);
         free(MOTOR);
     }
     return Invalid(SmoothMotor);
@@ -75,7 +54,6 @@ SmoothMotor destroySmoothMotor(SmoothMotor motor) {
 BOOL smoothMotorValid(SmoothMotor motor) {
     if (!IsValid(motor)) return FALSE;
     if (!motorValid(MOTOR->motor)) return FALSE;
-    if (!find_list_element(motor)) return FALSE;
     return TRUE;
 }
 
@@ -117,15 +95,13 @@ void regulateDirSpeed(SmoothMotor motor, int16_t speed) {
 	}
 }
 
-void handle_motor_tick(SmoothMotor motor) {
-    if (!IsValid(motor)) return;
-
+void handle_motor_tick(_SmoothMotor motor) {
     // Load all values into registers.
-    MotorDirection targetDir = MOTOR->targetDirection;
-    uint16_t targetSpeed = MOTOR->targetSpeed;
+    MotorDirection targetDir = motor->targetDirection;
+    uint16_t targetSpeed = motor->targetSpeed;
 
-    MotorDirection currentDir = MOTOR->currentDirection;
-    uint16_t currentSpeed = MOTOR->currentSpeed;
+    MotorDirection currentDir = motor->currentDirection;
+    uint16_t currentSpeed = motor->currentSpeed;
     uint16_t adjustment;
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
         adjustment = __adjustment_step;
@@ -161,16 +137,16 @@ void handle_motor_tick(SmoothMotor motor) {
 		}
 
 		// After the calculations, update the actual value.
-		MOTOR->currentSpeed = currentSpeed;
-        MOTOR->currentDirection = currentDir;
-		setSpeed(MOTOR->motor, currentSpeed, currentDir);
+		motor->currentSpeed = currentSpeed;
+        motor->currentDirection = currentDir;
+		setSpeed(motor->motor, currentSpeed, currentDir);
 	}
 }
 
 void motor_smooth_tick() {
-	MotorList element = NULL;
-    LL_FOREACH(motors, element) {
-        handle_motor_tick(element->motor);
+	_SmoothMotor motor = NULL;
+    LL_FOREACH(motors, motor) {
+        handle_motor_tick(motor);
     }
 }
 
