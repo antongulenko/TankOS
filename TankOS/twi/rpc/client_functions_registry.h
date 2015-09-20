@@ -6,7 +6,7 @@
 #define HASH_FUNCTION HASH_SAX
 #include <uthash/uthash.h>
 
-typedef int (*ClientResultFormatter)(int (*print)(const char *fmt, ...), void *results, uint16_t results_length);
+typedef int (*ClientResultFormatter)(ClientResultPrinter print, void *results, uint16_t results_length);
 
 typedef struct ClientFunctionRegistryEntry {
     char *name;

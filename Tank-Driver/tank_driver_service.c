@@ -1,7 +1,7 @@
 #define RPC_CLIENT_IMPLEMENTATION
 #include "tank_driver_service.h"
 
-int tank_driver_get_motor_speed_format(int (*print)(const char *fmt, ...), void *results, uint16_t results_length) {
+int tank_driver_get_motor_speed_format(ClientResultPrinter print, void *results, uint16_t results_length) {
     if (results_length != sizeof(MotorStatus)) return 0;
     MotorStatus *status = (MotorStatus*) results;
     int res = print("Motor ");
