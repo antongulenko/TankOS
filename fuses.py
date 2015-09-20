@@ -217,7 +217,8 @@ def main(argv):
             raise Exception("allowed parameters: <key>=<value>")
         settings[s[0]] = s[1]
 
-    bytes = m1284P_bytes(settings["clock_type"] if "clock_type" in settings else "other")
+    clock_type = settings["clock_type"] if "clock_type" in settings else "other"
+    bytes = m1284P_bytes(clock_type)
     if "clock_type" in settings: del settings["clock_type"]
     for b in bytes.values(): print("%s" % b)
     print('')
@@ -231,6 +232,7 @@ def main(argv):
             raise Exception("Unkown value name: %s" % k)
         values[k].set_value(v)
 
+    print(Value('clock_type', None, [('other', None), ('external', None), ('external_low_frequency', None)], clock_type))
     for value in values.values(): print(value)
 
     print('')
