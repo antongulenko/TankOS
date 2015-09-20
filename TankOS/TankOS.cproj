@@ -144,6 +144,12 @@
     <Compile Include="devices\led.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="devices\led_control.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\led_control.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="devices\motor.c">
       <SubType>compile</SubType>
     </Compile>
@@ -154,6 +160,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="devices\motor_smooth.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\motor_step.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\motor_step.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="devices\port.c">
@@ -471,11 +483,6 @@
     <Compile Include="uthash\utstring.h">
       <SubType>compile</SubType>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="platform\Native\avr_libc\simulation.h~">
-      <SubType>compile</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
