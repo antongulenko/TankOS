@@ -35,7 +35,8 @@ int query_memory_info_format(ClientResultPrinter print, void *results, uint16_t 
 int query_init_status_format(ClientResultPrinter print, void *results, uint16_t results_length) {
     if (results_length != sizeof(InitStatus)) return 0;
     InitStatus *res = (InitStatus*) results;
-    return print("Initialized: %s, Software resets: %i", BOOL_STR(res->initialized), res->software_resets);
+    return print("Initialized: %s, Software resets: %i, Unclean reses: %i",
+                 BOOL_STR(res->initialized), res->software_resets, res->unclean_resets);
 }
 
 int query_eeprom_resets_format(ClientResultPrinter print, void *results, uint16_t results_length) {

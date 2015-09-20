@@ -20,6 +20,7 @@ uint8_t rawResetConditionByte();
 typedef struct InitStatus {
     uint16_t initialized; // enum BOOL
     uint16_t software_resets;
+    uint16_t unclean_resets;
 } InitStatus;
 
 InitStatus getInitStatus();

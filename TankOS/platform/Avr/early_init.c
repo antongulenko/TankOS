@@ -13,6 +13,9 @@ uint16_t EEMEM eeprom_reset_counter;
 // the memory section will be cleared to zero, but software resets (jumping to address 0) will keep this intact.
 uint16_t software_reset_counter __attribute__ ((section (".noinit")));
 
+uint8_t current_reset_status __attribute__ ((section (".noinit")));
+uint16_t unclean_resets __attribute__ ((section (".noinit")));
+
 // To confirm completed initialization, this will be writton to __initialization_complete_mask when main is entered.
 #define INIT_MASK_INITIALIZED 0x5a
 
@@ -21,9 +24,6 @@ byte __initialization_complete_mask = 0;
 void boot_completed() {
     __initialization_complete_mask = INIT_MASK_INITIALIZED;
 }
-
-uint8_t current_reset_status __attribute__ ((section (".noinit")));
-BOOL unclean_reset __attribute__ ((section (".noinit")));
 
 ResetCondition getResetCondition() {
 	uint16_t mask = 0;
@@ -43,7 +43,7 @@ ResetCondition getResetCondition() {
     if (status & _BV(EXTRF)) {
 		mask |= ExternalReset;
 	}
-    if (unclean_reset) {
+    if (unclean_resets > 0) {
         mask |= UncleanReset;
     }
 	if (!mask) mask = OtherReset;
@@ -68,9 +68,9 @@ void init_reset_condition() {
     uint8_t mcu_mirror = MCUSR;
 	MCUSR = 0;
     if (mcu_mirror == 0) {
-        unclean_reset = TRUE;
+        unclean_resets++;
     } else {
-        unclean_reset = FALSE;
+        unclean_resets = 0;
         current_reset_status = mcu_mirror;
     }
 }
@@ -83,5 +83,6 @@ InitStatus getInitStatus() {
     InitStatus status;
     status.initialized = __initialization_complete_mask == INIT_MASK_INITIALIZED;
     status.software_resets = software_reset_counter;
+    status.unclean_resets = unclean_resets;
     return status;
 }
