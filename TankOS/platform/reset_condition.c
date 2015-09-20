@@ -8,6 +8,10 @@ char *resetConditionString(ResetCondition condition) {
         return "Watchdog Reset";
     } else if (condition & BrownOutReset) {
         return "Brown Out Reset";
+    } else if (condition & JtagReset) {
+        return "JTAG Reset";
+    } else if (condition & ExternalReset) {
+        return "External Reset";
     } else {
         return "Other";
     }

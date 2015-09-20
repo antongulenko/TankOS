@@ -39,6 +39,14 @@ ResetCondition getResetCondition() {
 		// Brown-Out-Reset-Flag
 		mask |= BrownOutReset;
 	}
+    if (status & _BV(JTRF)) {
+		// JTAG-Reset-Flag
+		mask |= JtagReset;
+	}
+    if (status & _BV(EXTRF)) {
+		// External Reset-Flag
+		mask |= ExternalReset;
+	}
 	if (!mask) mask = OtherReset;
 	return mask;
 }
