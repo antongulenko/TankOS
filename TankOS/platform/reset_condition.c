@@ -10,14 +10,14 @@ static int pos;
 static int addprint(char *str) {
     if (printed)
         pos += snprintf(buf+pos, sizeof(buf)-pos, ", ");
-    pos += snprintf(buf+pos, sizeof(buf)-pos, str);
+    pos += snprintf(buf+pos, sizeof(buf)-pos, "%s", str);
     printed = TRUE;
     return pos;
 }
 
 char *resetConditionString(ResetCondition condition) {
     printed = FALSE;
-    pos = snprintf(buf, sizeof(buf), "0x%02x: ", condition);
+    pos = snprintf(buf, sizeof(buf), "0x%.2x: ", condition);
     if (condition & PowerOnReset) {
         addprint("Power On Reset");
     }

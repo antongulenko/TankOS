@@ -5,8 +5,7 @@
 int query_reset_condition_format(int (*print)(const char *fmt, ...), void *results, uint16_t results_length) {
     if (results_length != sizeof(ResetCondition)) return 0;
     ResetCondition *res = (ResetCondition*) results;
-    uint16_t x = *res; // enums use 2 bytes on x86 platform... Try to be platform-independent.
-    return print("Reset condition: %s (0x%.2x)", resetConditionString(*res), (uint8_t) (x | (x >> 8)));
+    return print("Reset condition: %s", resetConditionString(*res));
 }
 
 int query_milliseconds_format(int (*print)(const char *fmt, ...), void *results, uint16_t results_length) {
