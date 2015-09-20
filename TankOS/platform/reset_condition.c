@@ -33,7 +33,7 @@ char *resetConditionString(ResetCondition condition) {
     if (condition & ExternalReset) {
         addprint("External Reset");
     }
-    if (condition & ExternalReset) {
+    if (condition & UncleanReset) {
         addprint("Unclean Reset");
     }
     if (!printed) {
