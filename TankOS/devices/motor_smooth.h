@@ -21,6 +21,7 @@ BOOL smoothMotorValid(SmoothMotor motor);
 void setAdjustmentStep(uint16_t step);
 
 void regulateStopMotor(SmoothMotor motor);
+void forceStopMotor(SmoothMotor motor);
 
 void regulateSpeed(SmoothMotor motor, uint16_t speed, MotorDirection direction);
 void regulateSpeedForward(SmoothMotor motor, uint16_t speed);

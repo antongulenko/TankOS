@@ -82,6 +82,15 @@ void regulateStopMotor(SmoothMotor motor) {
 	regulateSpeed(motor, 0, MotorStopped);
 }
 
+void forceStopMotor(SmoothMotor motor) {
+    if (!IsValid(motor)) return;
+    MOTOR->targetSpeed = 0;
+	MOTOR->currentSpeed = 0;
+    MOTOR->targetDirection = MotorStopped;
+    MOTOR->currentDirection = MotorStopped;
+    MOTOR->speedSetter(MOTOR->motor, 0, MotorStopped);
+}
+
 void regulateSpeed(SmoothMotor motor, uint16_t speed, MotorDirection direction) {
     if (!IsValid(motor)) return;
 	MOTOR->targetSpeed = speed;
