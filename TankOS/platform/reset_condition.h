@@ -9,7 +9,8 @@ typedef enum {
     BrownOutReset = _BV(13),
     ExternalReset = _BV(12),
     JtagReset = _BV(11),
-    OtherReset = _BV(10)
+    UncleanReset = _BV(10),
+    OtherReset = _BV(9)
 } ResetConditionBit;
 
 typedef uint16_t ResetCondition;

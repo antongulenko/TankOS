@@ -23,30 +23,29 @@ void boot_completed() {
 }
 
 uint8_t current_reset_status __attribute__ ((section (".noinit")));
+BOOL unclean_reset __attribute__ ((section (".noinit")));
 
 ResetCondition getResetCondition() {
 	uint16_t mask = 0;
 	uint8_t status = current_reset_status;
 	if (status & _BV(PORF)) {
-		// Power-On-Reset-Flag
 		mask |= PowerOnReset;
 	}
 	if (status & _BV(WDRF)) {
-		// Watch-Dog-Reset-Flag
 		mask |= WatchDogReset;
 	}
 	if (status & _BV(BORF)) {
-		// Brown-Out-Reset-Flag
 		mask |= BrownOutReset;
 	}
     if (status & _BV(JTRF)) {
-		// JTAG-Reset-Flag
 		mask |= JtagReset;
 	}
     if (status & _BV(EXTRF)) {
-		// External Reset-Flag
 		mask |= ExternalReset;
 	}
+    if (unclean_reset) {
+        mask |= UncleanReset;
+    }
 	if (!mask) mask = OtherReset;
 	return mask;
 }
@@ -66,8 +65,14 @@ uint16_t getEepromResets() {
 }
 
 void init_reset_condition() {
-    current_reset_status = MCUSR;
+    uint8_t mcu_mirror = MCUSR;
 	MCUSR = 0;
+    if (mcu_mirror == 0) {
+        unclean_reset = TRUE;
+    } else {
+        unclean_reset = FALSE;
+        current_reset_status = mcu_mirror;
+    }
 }
 
 uint8_t rawResetConditionByte() {
