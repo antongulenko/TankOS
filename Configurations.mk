@@ -52,8 +52,8 @@ ifeq ($(CONFIG), driver)
 endif
 ifeq ($(CONFIG), arm)
 
-    #AVR_FREQ := 20000000
-    AVR_FREQ := 7930251
+    AVR_FREQ := 20000000
+    #AVR_FREQ := 7930251
     PROJ := Tank-Arm
 
 endif
