@@ -46,3 +46,20 @@ static RpcHandlerStatus tank_arm_disable_handler() {
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_NOTIFY(tank_arm_disable_handler, TANK_ARM_DISABLE)
+
+static RpcHandlerStatus tank_arm_set_max_handler(freq_t *params, uint16_t size, TWIBuffer *resultBuffer) {
+    if (size != sizeof(freq_t)) {
+        return TWI_RPC_handler_illegal_parameters;
+    }
+    BOOL res = stepMotorSetMaxFrequency(tank_arm_step_motor, *params);
+    FILL_RESULT(resultBuffer, uint16_t, (uint16_t) res)
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION(tank_arm_set_max_handler, TANK_ARM_SET_MAX, freq_t)
+
+static RpcHandlerStatus tank_arm_get_max_handler(TWIBuffer *resultBuffer) {
+    freq_t res = stepMotorGetMaxFrequency(tank_arm_step_motor);
+    FILL_RESULT(resultBuffer, freq_t, res)
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION_NOARGS(tank_arm_get_max_handler, TANK_ARM_GET_MAX)
