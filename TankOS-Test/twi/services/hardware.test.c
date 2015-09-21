@@ -112,7 +112,7 @@ void test_format_results_reset_condition() {
     ResetCondition res = BrownOutReset;
 
     f->format_results(mock_printf, &res, sizeof(res));
-    TEST_ASSERT_EQUAL_STRING("Reset condition: Brown Out Reset (0x20)", mock_printf_buffer);
+    TEST_ASSERT_EQUAL_STRING("Reset condition: 0x2000: Brown Out Reset", mock_printf_buffer);
 }
 
 void test_format_results_milliseconds() {
@@ -152,9 +152,10 @@ void test_format_results_init_status() {
     InitStatus res;
     res.initialized = TRUE;
     res.software_resets = 22;
+    res.unclean_resets = 3;
 
     f->format_results(mock_printf, &res, sizeof(res));
-    TEST_ASSERT_EQUAL_STRING("Initialized: true, Software resets: 22", mock_printf_buffer);
+    TEST_ASSERT_EQUAL_STRING("Initialized: true, Software resets: 22, Unclean resets: 3", mock_printf_buffer);
 }
 
 void test_format_results_eeprom_resets() {

@@ -134,7 +134,7 @@ void handle_motor_tick(_SmoothMotor motor) {
 			if (currentSpeed < adjustment) {
 				// Reached almost zero. Now we either finished stopping,
 				// or can continue in the other direction.
-				currentSpeed = targetDir == MotorStopped ? 0 : 1;
+				currentSpeed = targetDir == MotorStopped ? 0 : adjustment;
 				currentDir = targetDir;
 			} else {
 				currentSpeed -= adjustment;

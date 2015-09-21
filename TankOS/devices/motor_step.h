@@ -15,8 +15,11 @@ typedef enum {
 } StepMotorFlags;
 
 typedef int32_t pos_t; // Position in steps
+typedef uint32_t steps_t;
+typedef uint16_t ticks_t;
+typedef uint16_t freq_t;
 
-StepMotor newStepMotor(Pin step, Pin dir, Pin enable, pos_t stepsPerTurn, StepMotorFlags flags);
+StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, StepMotorFlags flags);
 StepMotor destroyStepMotor(StepMotor motor);
 BOOL stepMotorValid(StepMotor motor);
 
@@ -26,17 +29,18 @@ void disableStepMotor(StepMotor motor);
 BOOL stepMotorEnabled(StepMotor motor);
 
 // Sets the maximum frequency for movements
-BOOL stepMotorSetMaxFrequency(StepMotor motor, uint16_t stepsPerSecond); // Return FALSE if frequency is too high
-uint16_t stepMotorGetMaxFrequency(StepMotor motor);
+BOOL stepMotorSetMaxFrequency(StepMotor motor, freq_t stepsPerSecond); // Return FALSE if frequency is too high
+freq_t stepMotorGetMaxFrequency(StepMotor motor);
 
 void stepMotorStep(StepMotor motor, pos_t numSteps);
 void stepMotorRotate(StepMotor motor, MotorDirection dir);
 void stepMotorStop(StepMotor motor);
+void stepMotorForceStop(StepMotor motor);
 
 pos_t stepMotorPosition(StepMotor motor);
 
-// Only set once before creating first motor!
-extern uint16_t motor_step_ticks_per_second;
+// Call once before creating first motor.
+void setupStepMotors(ticks_t ticks_per_second, ticks_t ticks_for_highspeed);
 void motor_step_tick();
 
 #endif // __MOTOR_STEP__
