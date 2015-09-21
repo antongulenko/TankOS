@@ -9,20 +9,49 @@ arm_dirs=(
 )
 
 function help() {
-    echo "Parameters: <arm_dir>"
-    echo "arm_dir = ${!arm_dirs[@]}"
+    echo "Commands: rotate <arm_dir> | step <steps> | stop | position | enable | disable"
+    echo "arm_dir: ${!arm_dirs[@]}"
+    echo "steps: positive/negative integer"
     exit 1
 }
 
-test $# = 1 || help
-arm_dir=${arm_dirs[$1]}
-test -n "$arm_dir" || { echo "Unknown arm_dir: $1"; help; }
+if [ $# = 1 -o $# = 2 ]; then
+    command=$1
+    command_name=tank_arm_$command
+    if [ $# = 1 ]; then
+        case $command in
+            stop | position | enable | disable) ;;
+            *) help ;;
+        esac
+    elif [ $# = 2 ]; then
+        param=$2
+        if [ $command == step ]; then
+            test $param -lt $((2**31)) -a $param -gt -$((2**31)) || { echo "<steps> out of bounds -2^31..2^31"; help; }
+            steps=`printf '%08x' $param`
 
-# Convert parameters to hex-value
-arm_dir=`printf '%04x' $arm_dir`
+            # Split the 32-bit hex-value into four separate bytes
+            param3=${steps: -8:2}
+            param2=${steps: -6:2}
+            param1=${steps: -4:2}
+            param0=${steps: -2:2}
 
-# Split the 16-bit hex-values into two separate bytes
-arm_dir_high=${arm_dir:0:2}
-arm_dir_low=${arm_dir: -2}
+            params="-p $param0 -p $param1 -p $param2 -p $param3"
+        elif [ $command == rotate ]; then
+            arm_dir=${arm_dirs[$param]}
+            test -n "$arm_dir" || { echo "Unknown arm_dir: $1"; help; }
+            dirstr=`printf '%04x' $arm_dir`
 
-$call tank_arm_motor arm -p $arm_dir_low -p $arm_dir_high
+            # Split the 16-bit hex-value into two separate bytes
+            dir_high=${dirstr:0:2}
+            dir_low=${dirstr: -2}
+
+            params="-p $dir_low -p $dir_high"
+        else
+            help
+        fi
+    fi
+else
+    help
+fi
+
+echo $call $command_name arm $params
