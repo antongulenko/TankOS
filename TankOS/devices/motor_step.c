@@ -18,7 +18,7 @@ typedef struct _StepMotor {
     steps_t steps_from_max_to_min; // Maximum number of steps it can take to slow down to minimum speed
 
     // State controlled by SmoothMotor (smoothMotorSpeedSetter)
-    float ticks_per_step; // Given by the frequency
+    float ticks_per_step; // Represents the current speed/frequency
     MotorDirection dir;
 
     // Operational state

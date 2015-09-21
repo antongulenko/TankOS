@@ -2,15 +2,22 @@
 #define _TANK_ARM_SERVICE_TWI_
 
 #include <twi/rpc/client_functions.h>
+#include "tank_arm_motor.h"
 
 typedef enum {
-    TANK_ARM_MOTOR = 40
+    TANK_ARM_ROTATE = 40,
+    TANK_ARM_STEP = 41,
+    TANK_ARM_STOP = 42,
+    TANK_ARM_POSITION = 43,
+    TANK_ARM_ENABLE = 44,
+    TANK_ARM_DISABLE = 45
 } PROTOCOL_TANK_ARM_SERVICE; // Start at 40
 
-typedef struct ArmMotorParameters {
-    uint16_t dir; // enum MotorDirection
-} ArmMotorParameters;
-
-TWI_RPC_FUNCTION_VOID(tank_arm_motor, TANK_ARM_MOTOR, ArmMotorParameters)
+TWI_RPC_FUNCTION_VOID(tank_arm_rotate, TANK_ARM_ROTATE, uint16_t) // enum MotorDirection
+TWI_RPC_FUNCTION_VOID(tank_arm_step, TANK_ARM_STEP, pos_t)
+TWI_RPC_FUNCTION_NOTIFY(tank_arm_stop, TANK_ARM_STOP)
+TWI_RPC_FUNCTION_NOARGS(tank_arm_position, TANK_ARM_POSITION, pos_t)
+TWI_RPC_FUNCTION_NOTIFY(tank_arm_enable, TANK_ARM_ENABLE)
+TWI_RPC_FUNCTION_NOTIFY(tank_arm_disable, TANK_ARM_DISABLE)
 
 #endif // _TANK_ARM_SERVICE_TWI_
