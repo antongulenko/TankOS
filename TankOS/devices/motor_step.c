@@ -43,7 +43,6 @@ void setupStepMotors(ticks_t _ticks_per_second, ticks_t ticks_for_highspeed) {
     if (_ticks_per_second == 0) _ticks_per_second = 1;
     global_max_frequency = _ticks_per_second;
     global_min_frequency = _ticks_per_second / SPEED_LEVELS;
-    setAdjustmentStep(global_min_frequency);
     ticks_per_smooth_tick = ticks_for_highspeed / (SPEED_LEVELS - 1);
     ticks_until_next_smooth_tick = 0;
 }
@@ -119,6 +118,7 @@ StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, Step
     motor->position = 0;
 
     LL_APPEND(_step_motors, motor);
+    smoothMotorSetStep(motor->smoothMotor, global_min_frequency);
     StepMotor stepMotor = As(StepMotor, motor);
     stepMotorSetMaxFrequency(stepMotor, global_max_frequency); // Default: maximum possible frequency
     stepMotorForceStop(stepMotor);

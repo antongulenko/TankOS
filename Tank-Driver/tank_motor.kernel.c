@@ -46,6 +46,6 @@ static void init_tank_driver_motors() {
     // == Motor adjustment step ==
     // Resolution is 16 bit (65535), one adjustment each millisecond
     // -> acceleration from min to max in 500 ms.
-    setAdjustmentStep(65535 / 500);
+    smoothMotorSetStep(65535 / 500);
 }
 KERNEL_INIT(init_tank_driver_motors)

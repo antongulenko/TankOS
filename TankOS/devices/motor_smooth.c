@@ -10,11 +10,13 @@
 #include <kernel/klib.h>
 
 static volatile uint16_t __adjustment_step = 1;
+uint16_t smooth_motor_default_step = 1;
 
 typedef struct _SmoothMotor {
 	UnderlyingMotor motor;
     SetUnderlyingSpeed speedSetter;
     struct _SmoothMotor *next;
+    uint16_t adjustment_step;
 
 	// Current state
 	uint16_t currentSpeed;
@@ -41,6 +43,7 @@ SmoothMotor newSmoothMotor(UnderlyingMotor _motor, SetUnderlyingSpeed speedSette
     motor->targetDirection = motor->currentDirection;
     motor->speedSetter = speedSetter;
     motor->next = NULL;
+    motor->adjustment_step = smooth_motor_default_step;
     LL_APPEND(motors, motor);
     return As(SmoothMotor, motor);
 }
@@ -69,10 +72,8 @@ BOOL smoothMotorValid(SmoothMotor motor) {
     return TRUE;
 }
 
-void setAdjustmentStep(uint16_t step) {
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        __adjustment_step = step;
-    }
+void smoothMotorSetStep(SmoothMotor motor, uint16_t step) {
+    MOTOR->adjustment_step = step;
 }
 
 uint16_t motor_toUnsignedSpeed(int16_t speed); // motor.c
@@ -123,10 +124,7 @@ void handle_motor_tick(_SmoothMotor motor) {
 
     MotorDirection currentDir = motor->currentDirection;
     uint16_t currentSpeed = motor->currentSpeed;
-    uint16_t adjustment;
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        adjustment = __adjustment_step;
-    }
+    uint16_t adjustment = motor->adjustment_step;
 
 	if (currentSpeed != targetSpeed || currentDir != targetDir) {
 		if (currentDir != MotorStopped && currentDir != targetDir) {
