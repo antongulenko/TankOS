@@ -17,7 +17,7 @@ typedef enum {
 typedef int32_t pos_t; // Position in steps
 typedef uint32_t steps_t;
 typedef uint16_t ticks_t;
-typedef uint16_t freq_t;
+typedef uint16_t freq_t; // This is similar to speed_t from motor.h
 
 StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, StepMotorFlags flags);
 StepMotor destroyStepMotor(StepMotor motor);

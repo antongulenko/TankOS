@@ -10,7 +10,7 @@
 
 DEFINE_HANDLE(SmoothMotor);
 DEFINE_HANDLE(UnderlyingMotor);
-typedef void (*SetUnderlyingSpeed)(UnderlyingMotor motor, uint16_t speed, MotorDirection direction);
+typedef void (*SetUnderlyingSpeed)(UnderlyingMotor motor, speed_t speed, MotorDirection direction);
 
 SmoothMotor newSmoothMotor(UnderlyingMotor motor, SetUnderlyingSpeed speedSetter);
 SmoothMotor newNormalSmoothMotor(Motor motor);
@@ -23,11 +23,11 @@ void smoothMotorSetStep(SmoothMotor motor, uint16_t step);
 void regulateStopMotor(SmoothMotor motor);
 void forceStopMotor(SmoothMotor motor);
 
-void regulateSpeed(SmoothMotor motor, uint16_t speed, MotorDirection direction);
-void regulateSpeedForward(SmoothMotor motor, uint16_t speed);
-void regulateSpeedBackward(SmoothMotor motor, uint16_t speed);
+void regulateSpeed(SmoothMotor motor, speed_t speed, MotorDirection direction);
+void regulateSpeedForward(SmoothMotor motor, speed_t speed);
+void regulateSpeedBackward(SmoothMotor motor, speed_t speed);
 
-void regulateDirSpeed(SmoothMotor motor, int16_t speed);
+void regulateDirSpeed(SmoothMotor motor, uspeed_t speed);
 
 // Default for smoothMotorSetStep when creating new motors.
 uint16_t smooth_motor_default_step;

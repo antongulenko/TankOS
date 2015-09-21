@@ -24,8 +24,8 @@ typedef struct _Motor {
 	// These 2 values bind possible timer-compare-values into an interval.
 	// They are applied, AFTER MotorInverseSpeed was applied, so they
 	// reflect the real min/max voltage level.
-	uint16_t minValue;
-	uint16_t maxValue;
+	speed_t minValue;
+	speed_t maxValue;
 } _Motor;
 
 #define MOTOR Get(_Motor, motor)
@@ -106,19 +106,19 @@ BOOL motorValid(Motor motor) {
     return TRUE;
 }
 
-void setMotorValueBounds(Motor motor, uint16_t minValue, uint16_t maxValue) {
+void setMotorValueBounds(Motor motor, speed_t minValue, speed_t maxValue) {
     if (!IsValid(motor)) return;
     if (maxValue < minValue) return;
     MOTOR->minValue = minValue;
     MOTOR->maxValue = maxValue;
 }
 
-static void setMotorValues(_Motor *motor, uint16_t speed, MotorDirection direction) {
+static void setMotorValues(_Motor *motor, speed_t speed, MotorDirection direction) {
 	if (motor->type & MotorInverseSpeed) speed = 0xFFFF - speed;
 	if (motor->type & MotorExactConversion) {
 		double fraction = (double) speed / 0xFFFF;
 		double val = (motor->maxValue - motor->minValue) * fraction;
-		speed = motor->minValue + (uint16_t) val;
+		speed = motor->minValue + (speed_t) val;
 	} else {
 		if (speed < motor->minValue) {
 			speed = motor->minValue;
@@ -139,7 +139,7 @@ static void setMotorValues(_Motor *motor, uint16_t speed, MotorDirection directi
     if (!IsValid(motor->backwardTimer)) {
         setTimerValue(motor->forwardTimer, speed);
     } else {
-        uint16_t zero = (motor->type & MotorInverseSpeed) ? 0xFFFF : 0;
+        speed_t zero = (motor->type & MotorInverseSpeed) ? 0xFFFF : 0;
         setTimerValue(motor->forwardTimer, direction == MotorForward ? speed : zero);
         setTimerValue(motor->backwardTimer, direction == MotorBackward ? speed : zero);
     }
@@ -150,18 +150,18 @@ void stopMotor(Motor motor) {
 	setMotorValues(MOTOR, 0, MotorStopped);
 }
 
-static uint16_t convertSpeed(_Motor *motor, uint16_t speed) {
+static speed_t convertSpeed(_Motor *motor, speed_t speed) {
 	if (motor->type & MotorExactConversion) {
 		double fraction = (double) (speed - motor->minValue) / (motor->maxValue - motor->minValue);
-		speed = (uint16_t) (0xFFFF * fraction);
+		speed = (speed_t) (0xFFFF * fraction);
 	}
 	if (motor->type & MotorInverseSpeed) speed = 0xFFFF - speed;
 	return speed;
 }
 
-uint16_t getSpeed(Motor motor) {
+speed_t getSpeed(Motor motor) {
     if (!IsValid(motor)) return 0;
-	uint16_t speed = 0;
+	speed_t speed = 0;
     if (!IsValid(MOTOR->backwardTimer)) {
         speed = getTimerValue(MOTOR->forwardTimer);
     } else {
@@ -189,7 +189,7 @@ MotorDirection getDirection(Motor motor) {
     if (!IsValid(motor)) return MotorStopped;
 	MotorDirection dir;
     if (IsValid(MOTOR->forwardPin)) {
-        uint16_t speed = getTimerValue(MOTOR->forwardTimer);
+        speed_t speed = getTimerValue(MOTOR->forwardTimer);
         if (speed == 0) return MotorStopped;
         BOOL forward = isPinOutputHigh(MOTOR->forwardPin);
         if (IsValid(MOTOR->backwardPin)) {
@@ -198,8 +198,8 @@ MotorDirection getDirection(Motor motor) {
         }
         return forward ? MotorForward : MotorBackward;
     } else {
-        uint16_t speed1 = getTimerValue(MOTOR->forwardTimer);
-        uint16_t speed2 = getTimerValue(MOTOR->backwardTimer);
+        speed_t speed1 = getTimerValue(MOTOR->forwardTimer);
+        speed_t speed2 = getTimerValue(MOTOR->backwardTimer);
      	if (speed1 > 0 && speed2 == 0)
             return MotorForward;
         if (speed2 > 0 && speed1 == 0)
@@ -209,7 +209,7 @@ MotorDirection getDirection(Motor motor) {
     return convertDirection(MOTOR, dir);
 }
 
-void setSpeed(Motor motor, uint16_t speed, MotorDirection direction) {
+void setSpeed(Motor motor, speed_t speed, MotorDirection direction) {
     if (!IsValid(motor)) return;
 	if (direction == MotorStopped || speed == 0) {
 		direction = MotorStopped;
@@ -227,31 +227,31 @@ void setSpeed(Motor motor, uint16_t speed, MotorDirection direction) {
 	}
 }
 
-void setSpeedForward(Motor motor, uint16_t speed) {
+void setSpeedForward(Motor motor, speed_t speed) {
 	setSpeed(motor, speed, MotorForward);
 }
 
-void setSpeedBackward(Motor motor, uint16_t speed) {
+void setSpeedBackward(Motor motor, speed_t speed) {
 	setSpeed(motor, speed, MotorBackward);
 }
 
-int16_t getDirSpeed(Motor motor) {
+uspeed_t getDirSpeed(Motor motor) {
     if (!IsValid(motor)) return 0;
 	MotorDirection dir = getDirection(motor);
 	if (dir == MotorStopped) return 0;
-    uint16_t speed = getSpeed(motor);
+    speed_t speed = getSpeed(motor);
 
 	// This is symmetric to the shift in motor_toUnsignedSpeed.
-	int16_t val = abs((int16_t) (speed >> 1));
+	uspeed_t val = abs((uspeed_t) (speed >> 1));
 	if (dir == MotorBackward)
 		val *= -1; // Should be optimized away by compiler.
 	return val;
 }
 
 // This is also used in motor_smooth.c
-uint16_t motor_toUnsignedSpeed(int16_t speed) {
+speed_t motor_toUnsignedSpeed(uspeed_t speed) {
 	// Project the signed speed-value into the unsigned value range
-	uint16_t absv = abs(speed);
+	speed_t absv = abs(speed);
 	// This if-clause is just to avoid making the value smaller.
 	// Should actually _always_ be true, since we convert a signed number.
 	// This is symetric to the shift in getDirSpeed.
@@ -259,7 +259,7 @@ uint16_t motor_toUnsignedSpeed(int16_t speed) {
 	return absv;
 }
 
-void setDirSpeed(Motor motor, int16_t speed) {
+void setDirSpeed(Motor motor, uspeed_t speed) {
     if (!IsValid(motor)) return;
 	if (speed == 0) {
 		stopMotor(motor);

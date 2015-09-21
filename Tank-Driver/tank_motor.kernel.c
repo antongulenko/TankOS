@@ -5,11 +5,14 @@
 
 #include <platform/kernel_init.h>
 #include <platform/Avr/m1284P/timer.h>
+#include <platform/Avr/m1284P/analog.h>
 #include "tank_motor.h"
 
 Timer timer0A, timer0B;
 Motor leftBaseMotor, rightBaseMotor;
 SmoothMotor leftMotor, rightMotor;
+
+AnalogInput leftMotorCurrent, rightMotorCurrent;
 
 static void enable_smooth_motor_interrupt() {
     TIMSK3 |= _BV(OCIE3B);
@@ -29,8 +32,8 @@ static void init_tank_driver_motors() {
     enable_smooth_motor_interrupt();
 
     // Analog inputs:
-    // left =
-    // right =
+    leftMotorCurrent = newAnalogInput_m1284P(2); // Pin A2
+    rightMotorCurrent = newAnalogInput_m1284P(1); // Pin A1
 
     timer0A = newTimer_m1284P(0, TIMER_A, TRUE);
     timer0B = newTimer_m1284P(0, TIMER_B, TRUE);
@@ -46,6 +49,8 @@ static void init_tank_driver_motors() {
     // == Motor adjustment step ==
     // Resolution is 16 bit (65535), one adjustment each millisecond
     // -> acceleration from min to max in 500 ms.
-    smoothMotorSetStep(65535 / 500);
+    #define MOTOR_STEP (65535 / 500)
+    smoothMotorSetStep(leftMotor, MOTOR_STEP);
+    smoothMotorSetStep(rightMotor, MOTOR_STEP);
 }
 KERNEL_INIT(init_tank_driver_motors)

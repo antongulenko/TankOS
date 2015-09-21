@@ -273,9 +273,7 @@ static void handle_motor_tick(_StepMotor motor) {
     }
 
     // Generate a pulse
-    // TODO pulse too short?
     setPinOne(motor->step);
-    // delay_us(1);
     setPinZero(motor->step);
 
     if (motor->dir == MotorForward)

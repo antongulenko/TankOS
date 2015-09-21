@@ -19,11 +19,11 @@ typedef struct _SmoothMotor {
     uint16_t adjustment_step;
 
 	// Current state
-	uint16_t currentSpeed;
+	speed_t currentSpeed;
 	MotorDirection currentDirection;
 
 	// Target state
-	uint16_t targetSpeed;
+	speed_t targetSpeed;
 	MotorDirection targetDirection;
 } *_SmoothMotor;
 
@@ -48,7 +48,7 @@ SmoothMotor newSmoothMotor(UnderlyingMotor _motor, SetUnderlyingSpeed speedSette
     return As(SmoothMotor, motor);
 }
 
-static void normalMotorSetSpeed(UnderlyingMotor motor, uint16_t speed, MotorDirection direction) {
+static void normalMotorSetSpeed(UnderlyingMotor motor, speed_t speed, MotorDirection direction) {
     setSpeed(Cast(Motor, motor), speed, direction);
 }
 
@@ -72,11 +72,11 @@ BOOL smoothMotorValid(SmoothMotor motor) {
     return TRUE;
 }
 
-void smoothMotorSetStep(SmoothMotor motor, uint16_t step) {
+void smoothMotorSetStep(SmoothMotor motor, speed_t step) {
     MOTOR->adjustment_step = step;
 }
 
-uint16_t motor_toUnsignedSpeed(int16_t speed); // motor.c
+speed_t motor_toUnsignedSpeed(uspeed_t speed); // motor.c
 
 void regulateStopMotor(SmoothMotor motor) {
     if (!IsValid(motor)) return;
@@ -92,23 +92,23 @@ void forceStopMotor(SmoothMotor motor) {
     MOTOR->speedSetter(MOTOR->motor, 0, MotorStopped);
 }
 
-void regulateSpeed(SmoothMotor motor, uint16_t speed, MotorDirection direction) {
+void regulateSpeed(SmoothMotor motor, speed_t speed, MotorDirection direction) {
     if (!IsValid(motor)) return;
 	MOTOR->targetSpeed = speed;
 	MOTOR->targetDirection = direction;
 }
 
-void regulateSpeedForward(SmoothMotor motor, uint16_t speed) {
+void regulateSpeedForward(SmoothMotor motor, speed_t speed) {
     if (!IsValid(motor)) return;
 	regulateSpeed(motor, speed, MotorForward);
 }
 
-void regulateSpeedBackward(SmoothMotor motor, uint16_t speed) {
+void regulateSpeedBackward(SmoothMotor motor, speed_t speed) {
     if (!IsValid(motor)) return;
 	regulateSpeed(motor, speed, MotorBackward);
 }
 
-void regulateDirSpeed(SmoothMotor motor, int16_t speed) {
+void regulateDirSpeed(SmoothMotor motor, uspeed_t speed) {
     if (!IsValid(motor)) return;
 	if (speed == 0) {
 		regulateStopMotor(motor);
@@ -120,11 +120,11 @@ void regulateDirSpeed(SmoothMotor motor, int16_t speed) {
 void handle_motor_tick(_SmoothMotor motor) {
     // Load all values into registers.
     MotorDirection targetDir = motor->targetDirection;
-    uint16_t targetSpeed = motor->targetSpeed;
+    speed_t targetSpeed = motor->targetSpeed;
 
     MotorDirection currentDir = motor->currentDirection;
-    uint16_t currentSpeed = motor->currentSpeed;
-    uint16_t adjustment = motor->adjustment_step;
+    speed_t currentSpeed = motor->currentSpeed;
+    speed_t adjustment = motor->adjustment_step;
 
 	if (currentSpeed != targetSpeed || currentDir != targetDir) {
 		if (currentDir != MotorStopped && currentDir != targetDir) {

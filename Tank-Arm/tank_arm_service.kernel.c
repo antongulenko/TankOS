@@ -17,9 +17,6 @@ static RpcHandlerStatus tank_arm_step_handler(pos_t *params, uint16_t size) {
     if (size != sizeof(pos_t)) {
         return TWI_RPC_handler_illegal_parameters;
     }
-
-    printf("Stepping %i\n", *params);
-
     stepMotorStep(tank_arm_step_motor, *params);
     return TWI_RPC_handler_ok;
 }
