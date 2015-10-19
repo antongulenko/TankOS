@@ -73,7 +73,7 @@ static RpcHandlerStatus tank_arm_set_timer_handler(uint16_t *params, uint16_t si
     uint16_t val = *params;
 
     setTimerValue(millisecond_timer_B, (uint16_t) (F_CPU / val / 8));
-    setupStepMotors(val, 500);
+    //setupStepMotors(val, 500);
 
     return TWI_RPC_handler_ok;
 }
