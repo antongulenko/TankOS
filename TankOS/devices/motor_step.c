@@ -35,6 +35,9 @@ typedef struct _StepMotor {
 
 #define MOTOR Get(struct _StepMotor, motor)
 
+// Comment out to generate pulses without extra delay
+#define MICROSECOND_STEP_LENGTH 20
+
 static freq_t global_max_frequency = 1000;
 static const freq_t global_min_frequency = 100; // Should maybe be configurable
 static float global_max_ticks_per_step = 10;
@@ -236,7 +239,9 @@ static BOOL do_motor_step(_StepMotor motor) {
 
     // Generate a pulse
     setPinOne(motor->step);
-    delay_us(20);
+#ifdef MICROSECOND_STEP_LENGTH
+    delay_us(MICROSECOND_STEP_LENGTH);
+#endif
     setPinZero(motor->step);
 
     if (motor->dir == MotorForward)
