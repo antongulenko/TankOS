@@ -1,8 +1,6 @@
 #include "tank_arm_service.h"
 #include <twi/rpc/server_handler_functions.h>
 
-#include <timer.h>
-
 static RpcHandlerStatus tank_arm_rotate_handler(uint16_t *params, uint16_t size) {
     if (size != sizeof(uint16_t)) {
         return TWI_RPC_handler_illegal_parameters;
@@ -71,10 +69,7 @@ static RpcHandlerStatus tank_arm_set_timer_handler(uint16_t *params, uint16_t si
         return TWI_RPC_handler_illegal_parameters;
     }
     uint16_t val = *params;
-
-    setTimerValue(millisecond_timer_B, (uint16_t) (F_CPU / val / 8));
-    //setupStepMotors(val, 500);
-
+    setupTankArmMotor(val);
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_set_timer_handler, TANK_ARM_SET_TIMER, uint16_t)

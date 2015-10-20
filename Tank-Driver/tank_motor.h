@@ -11,6 +11,7 @@
 #include <devices/motor.h>
 #include <devices/motor_smooth.h>
 #include <platform/Avr/analog.h>
+#include <timer.h>
 
 extern Timer timer0A, timer0B;
 

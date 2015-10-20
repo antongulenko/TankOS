@@ -14,10 +14,6 @@ SmoothMotor leftMotor, rightMotor;
 
 AnalogInput leftMotorCurrent, rightMotorCurrent;
 
-static void enable_smooth_motor_interrupt() {
-    TIMSK3 |= _BV(OCIE3B);
-}
-
 static void init_tank_motor_timers() {
     TCCR0A = _BV(WGM00); // Phase-correct PWM to 0xFF
     TCCR0A |= _BV(COM0A1) | _BV(COM0B1) ; // Clear while up-counting, set while down-counting
@@ -29,7 +25,7 @@ static void init_tank_motor_timers() {
 
 static void init_tank_driver_motors() {
     init_tank_motor_timers();
-    enable_smooth_motor_interrupt();
+    enableTimerInterrupt_B(); // Smooth motor interrupt
 
     // Analog inputs:
     leftMotorCurrent = newAnalogInput_m1284P(2); // Pin A2

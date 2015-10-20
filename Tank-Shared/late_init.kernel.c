@@ -42,21 +42,10 @@ static void configure_power_saving() {
 	// TODO configure BOD?
 }
 
-static void enable_timer_interrupts() {
-    // TIMSK0 |= _BV(OCIE0A);
-    // TIMSK0 |= _BV(OCIE0B);
-    // TIMSK1 |= _BV(OCIE1A);
-    // TIMSK1 |= _BV(OCIE1B);
-    // TIMSK2 |= _BV(OCIE2A);
-    // TIMSK2 |= _BV(OCIE2B);
-    TIMSK3 |= _BV(OCIE3A);
-    //TIMSK3 |= _BV(OCIE3B);
-}
-
 static void late_init_kernel() {
     configure_power_saving();
 	before_timer();
-    enable_timer_interrupts();
+    enableTimerInterrupt_A(); // Millisecond-timer / Scheduler-timer
 	boot_completed();
     klog("B\n"); // Booted
     sei();

@@ -3,8 +3,7 @@
 #include <devices/motor_step.h>
 #include <devices/motor_smooth.h>
 
-#define TICKS 1000
-
+ticks_t TICKS = 1000;
 Pin dir, step, enable;
 StepMotor motor;
 
@@ -13,7 +12,7 @@ void setUp() {
     dir = testPin1;
     step = testPin2;
     enable = testPin3;
-    setupStepMotors(TICKS, TICKS/2);
+    setupStepMotors(TICKS, 10);
 }
 
 static void createMotor2(StepMotorFlags flags, BOOL enablePin) {
@@ -100,7 +99,7 @@ void test_step() {
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor already moved");
 
     dosteps(1);
-    checkPins(TRUE, TRUE); // motor_smooth_tick was called
+    checkPins(TRUE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(1, stepMotorPosition(motor), "motor wrong position");
     dosteps(10);
     TEST_ASSERT_EQUAL_MESSAGE(2, stepMotorPosition(motor), "motor wrong position");
@@ -169,7 +168,7 @@ void test_rotate() {
     checkPins(TRUE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(1, stepMotorPosition(motor), "motor wrong position");
     dosteps(1500);
-    TEST_ASSERT_EQUAL_MESSAGE(1253, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(1457, stepMotorPosition(motor), "motor wrong position");
 }
 
 void test_rotate_backward() {
@@ -182,7 +181,7 @@ void test_rotate_backward() {
     checkPins(FALSE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(-1, stepMotorPosition(motor), "motor wrong position");
     dosteps(1500);
-    TEST_ASSERT_EQUAL_MESSAGE(-1253, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(-1457, stepMotorPosition(motor), "motor wrong position");
 }
 
 void test_stopped_after_init() {
@@ -205,12 +204,12 @@ void test_stop() {
 void test_rotate_stop() {
     createMotor();
     stepMotorRotate(motor, MotorForward);
-    dosteps(30);
+    dosteps(100);
+    TEST_ASSERT_EQUAL_MESSAGE(100-44, stepMotorPosition(motor), "motor wrong position");
     stepMotorStop(motor);
     checkPins(TRUE, TRUE);
-    TEST_ASSERT_EQUAL_MESSAGE(4, stepMotorPosition(motor), "motor wrong position");
-    dosteps(150);
-    TEST_ASSERT_EQUAL_MESSAGE(4, stepMotorPosition(motor), "motor wrong position");
+    dosteps(1000);
+    TEST_ASSERT_EQUAL_MESSAGE(100-44+10, stepMotorPosition(motor), "motor wrong position");
 }
 
 void test_rotate_change() {
@@ -221,12 +220,12 @@ void test_rotate_change() {
     checkPins(TRUE, TRUE);
 
     stepMotorRotate(motor, MotorBackward);
-    dosteps(550); // Results from (1000/2) [passed into setupStepMotors] / (10 [SPEED_LEVELS]-1) * 10
+    dosteps(45);
     checkPins(TRUE, TRUE);
     dosteps(1); // Down to speed 0
     checkPins(FALSE, TRUE);
 
-    dosteps(1249); // Speed up in reverse direction
+    dosteps(1020); // Speed up in reverse direction
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
     dosteps(1000);
     TEST_ASSERT_EQUAL_MESSAGE(-1000, stepMotorPosition(motor), "motor wrong position");
@@ -292,11 +291,11 @@ void test_change_frequency() {
     dosteps(10);
     TEST_ASSERT_EQUAL_MESSAGE(2, stepMotorPosition(motor), "motor wrong position");
     dosteps(30);
-    TEST_ASSERT_EQUAL_MESSAGE(5, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(6, stepMotorPosition(motor), "motor wrong position");
     dosteps(1000);
-    TEST_ASSERT_EQUAL_MESSAGE(465, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(503, stepMotorPosition(motor), "motor wrong position");
     dosteps(6);
-    TEST_ASSERT_EQUAL_MESSAGE(465 + 3, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(503 + 3, stepMotorPosition(motor), "motor wrong position");
 }
 
 void test_force_stop() {
@@ -308,4 +307,30 @@ void test_force_stop() {
     checkPins(TRUE, TRUE);
     dosteps(500);
     TEST_ASSERT_EQUAL_MESSAGE(pos, stepMotorPosition(motor), "motor should not move anymore");
+}
+
+void test_change_timer_frequency() {
+    TICKS = 2000;
+    setupStepMotors(TICKS, 10);
+    createMotor();
+    stepMotorRotate(motor, MotorForward);
+    dosteps(1);
+    TEST_ASSERT_EQUAL_MESSAGE(1, stepMotorPosition(motor), "motor wrong position");
+    dosteps(20);
+    TEST_ASSERT_EQUAL_MESSAGE(2, stepMotorPosition(motor), "motor wrong position");
+    dosteps(30);
+    TEST_ASSERT_EQUAL_MESSAGE(3, stepMotorPosition(motor), "motor wrong position");
+    dosteps(1000);
+    TEST_ASSERT_EQUAL_MESSAGE(952, stepMotorPosition(motor), "motor wrong position");
+}
+
+void test_change_timer_frequency_slow_motor_frequency() {
+    TICKS = 2000;
+    setupStepMotors(TICKS, 10);
+    createMotor();
+    stepMotorSetMaxFrequency(motor, 500);
+    // Numbers from test_change_frequency()
+    stepMotorRotate(motor, MotorForward);
+    dosteps(1047 * 2); // Takes twice as long due to the increased timer frequency
+    TEST_ASSERT_EQUAL_MESSAGE(506, stepMotorPosition(motor), "motor wrong position");
 }

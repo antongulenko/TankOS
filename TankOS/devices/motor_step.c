@@ -35,18 +35,11 @@ typedef struct _StepMotor {
 
 #define MOTOR Get(struct _StepMotor, motor)
 
-float StepAcceleration = 1.0; // Value added to/removed from ticks_per_step after every step.
-
-static freq_t global_max_frequency;
-static const freq_t global_min_frequency = 100;
-static float global_max_ticks_per_step;
+static freq_t global_max_frequency = 1000;
+static const freq_t global_min_frequency = 100; // Should maybe be configurable
+static float global_max_ticks_per_step = 10;
+static float step_acceleration = 1.0; // Value added to/removed from ticks_per_step after every step.
 _StepMotor _step_motors;
-
-void setupStepMotors(ticks_t _ticks_per_second) {
-    if (_ticks_per_second == 0) _ticks_per_second = 1;
-    global_max_frequency = (freq_t) _ticks_per_second;
-    global_max_ticks_per_step = frequency_to_ticks(global_min_frequency);
-}
 
 static inline BOOL valid_frequency(freq_t freq) {
     return freq > 0 && global_max_frequency > 0 && freq <= global_max_frequency;
@@ -54,6 +47,13 @@ static inline BOOL valid_frequency(freq_t freq) {
 
 static inline float frequency_to_ticks(freq_t freq) {
     return (float) global_max_frequency / (float) freq;
+}
+
+void setupStepMotors(ticks_t _ticks_per_second, ticks_t ticks_for_speedup) {
+    if (_ticks_per_second == 0) _ticks_per_second = 1;
+    global_max_frequency = (freq_t) _ticks_per_second;
+    global_max_ticks_per_step = frequency_to_ticks(global_min_frequency);
+    step_acceleration = global_max_ticks_per_step / (float) ticks_for_speedup;
 }
 
 StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, StepMotorFlags flags) {
@@ -154,7 +154,7 @@ BOOL stepMotorSetMaxFrequency(StepMotor motor, freq_t stepsPerSecond) {
     }
 
     // Calculate number of steps to slow down from max to min speed
-    MOTOR->steps_for_slowdown = (global_max_ticks_per_step - 1.0) / StepAcceleration;
+    MOTOR->steps_for_slowdown = (global_max_ticks_per_step - 1.0) / step_acceleration;
     return res;
 }
 
@@ -163,18 +163,18 @@ freq_t stepMotorGetMaxFrequency(StepMotor motor) {
     return MOTOR->max_frequency;
 }
 
-static inline void regulateStepMotor(_StepMotor motor, MotorDirection dir) {
+static inline void initiateMovement(_StepMotor motor, MotorDirection dir) {
+    enableStepMotor(As(StepMotor, motor));
     if (dir == MotorStopped)
         motor->target_ticks_per_step = global_max_ticks_per_step;
     else
         motor->target_ticks_per_step = motor->min_ticks_per_step;
     motor->target_dir = dir;
-}
-
-static inline void initiateMovement(StepMotor motor, MotorDirection dir) {
-    enableStepMotor(motor);
-    MOTOR->wait_ticks = 0;
-    regulateStepMotor(MOTOR, dir);
+    if (motor->dir == MotorStopped) {
+        // If starting up, immediately start stepping
+        motor->wait_ticks = 0;
+        motor->dir = dir;
+    }
 }
 
 void stepMotorStep(StepMotor motor, pos_t numSteps) {
@@ -183,10 +183,10 @@ void stepMotorStep(StepMotor motor, pos_t numSteps) {
         stepMotorStop(motor);
         return;
     } else if (numSteps < 0) {
-        initiateMovement(motor, MotorBackwards);
+        initiateMovement(MOTOR, MotorBackward);
         MOTOR->leftover_steps = -numSteps;
     } else {
-        initiateMovement(motor, MotorForward);
+        initiateMovement(MOTOR, MotorForward);
         MOTOR->leftover_steps = numSteps;
     }
     MOTOR->counting_steps = TRUE;
@@ -194,13 +194,13 @@ void stepMotorStep(StepMotor motor, pos_t numSteps) {
 
 void stepMotorRotate(StepMotor motor, MotorDirection dir) {
     if (!IsValid(motor)) return;
-    initiateMovement(motor, dir);
+    initiateMovement(MOTOR, dir);
     MOTOR->counting_steps = FALSE;
 }
 
 void stepMotorStop(StepMotor motor) {
     if (!IsValid(motor)) return;
-    initiateMovement(motor, MotorStopped);
+    initiateMovement(MOTOR, MotorStopped);
     MOTOR->counting_steps = FALSE;
 }
 
@@ -208,6 +208,9 @@ void stepMotorForceStop(StepMotor motor) {
     if (!IsValid(motor)) return;
     enableStepMotor(motor);
     MOTOR->dir = MotorStopped;
+    MOTOR->target_dir = MotorStopped;
+    MOTOR->ticks_per_step = global_max_ticks_per_step;
+    MOTOR->target_ticks_per_step = global_max_ticks_per_step;
     MOTOR->counting_steps = FALSE;
 }
 
@@ -216,16 +219,18 @@ pos_t stepMotorPosition(StepMotor motor) {
     return MOTOR->position;
 }
 
-static BOOL handle_motor_step(_StepMotor motor) {
-    // See if a step should be generated
+static BOOL do_motor_tick(_StepMotor motor) {
     float ticks = motor->wait_ticks;
     if (ticks > 1) {
         motor->wait_ticks = ticks - 1.0f;
         return FALSE;
     } else {
         motor->wait_ticks = ticks - 1.0f + motor->ticks_per_step;
+        return TRUE;
     }
+}
 
+static BOOL do_motor_step(_StepMotor motor) {
     if (motor->dir == MotorStopped)
         return FALSE;
 
@@ -242,48 +247,66 @@ static BOOL handle_motor_step(_StepMotor motor) {
 }
 
 static void handle_motor_tick(_StepMotor motor) {
-    BOOL stepped = handle_motor_step(motor);
+    if (do_motor_tick(motor)) {
+        BOOL stepped = do_motor_step(motor);
 
-    if (stepped && motor->counting_steps) {
-        if (motor->leftover_steps <= 1) {
-            stepMotorForceStop(As(StepMotor, motor));
-            return;
-        } else if (motor->leftover_steps <= motor->steps_for_slowdown) {
-            motor->target_ticks_per_step = global_max_ticks_per_step;
-            motor->target_dir = dir;
+        if (stepped && motor->counting_steps) {
+            if (motor->leftover_steps <= 1) {
+                stepMotorForceStop(As(StepMotor, motor));
+                return;
+            } else if (motor->leftover_steps <= motor->steps_for_slowdown) {
+                // TODO ticks between 1 and global_min_frequency always happen on minimal speed
+                motor->target_ticks_per_step = global_max_ticks_per_step; // Minimal speed
+            }
+            motor->leftover_steps--;
         }
-        motor->leftover_steps -= 1
+
+        // Originally copied from motor_smooth.c
+        MotorDirection target_dir = motor->target_dir;
+        float target_tps = motor->target_ticks_per_step;
+        MotorDirection current_dir = motor->dir;
+        speed_t current_tps = motor->ticks_per_step;
+        float adjustment = step_acceleration;
+
+        if (current_tps != target_tps || current_dir != target_dir) {
+            if (current_dir != MotorStopped && current_dir != target_dir) {
+                // Slowing down until we can change the direction.
+                if (current_tps + adjustment > global_max_ticks_per_step) {
+                    current_tps = global_max_ticks_per_step;
+                    current_dir = target_dir;
+                } else {
+                    current_tps += adjustment;
+                }
+            } else {
+                current_dir = target_dir;
+                // Going in the correct direction already.
+                if (current_tps > target_tps) { // Slowing down
+                    if (current_tps - target_tps < adjustment) {
+                        current_tps = target_tps;
+                    } else {
+                        current_tps -= adjustment;
+                    }
+                } else { // Speeding up
+                    if (target_tps - current_tps < adjustment) {
+                        current_tps = target_tps;
+                    } else {
+                        current_tps += adjustment;
+                    }
+                }
+            }
+            // After the calculations, update the actual values.
+            motor->ticks_per_step = current_tps;
+            motor->dir = current_dir;
+
+            // Apply direction
+            if (motor->dir != MotorStopped) {
+                BOOL dirPinSet = motor->dir == MotorForward;
+                if (motor->flags & StepMotorInverseDir)
+                    dirPinSet = !dirPinSet;
+                writePin(motor->dirPin, dirPinSet);
+            }
+        }
     }
-
-
-// TODO running steps between 0 and ticks_for_slowdown will always happen on minimal frequency
-    if (leftover_steps > motor->ticks_for_slowdown) {
-        speed = motor->max_frequency;
-    } else {
-        speed = global_min_frequency;
-    }
-
-
-        _StepMotor step = MOTOR;
-    if (dir == MotorStopped || speed == 0) {
-        step->dir = MotorStopped;
-        return;
-    }
-    step->dir = dir;
-
-    // Apply direction
-    BOOL dirPinSet = dir == MotorForward;
-    if (step->flags & StepMotorInverseDir)
-        dirPinSet = !dirPinSet;
-    writePin(step->dirPin, dirPinSet);
-
-    // Apply speed
-    if (valid_frequency(speed))
-        step->ticks_per_step = frequency_to_ticks(speed);
-    else
-        step->ticks_per_step = MOTOR->min_ticks_per_step;
-    if (step->wait_ticks > step->ticks_per_step)
-        step->wait_ticks = step->ticks_per_step;
 }
 
 void motor_step_tick() {
