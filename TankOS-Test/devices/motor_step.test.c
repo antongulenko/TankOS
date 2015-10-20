@@ -318,10 +318,12 @@ void test_change_timer_frequency() {
     TEST_ASSERT_EQUAL_MESSAGE(1, stepMotorPosition(motor), "motor wrong position");
     dosteps(20);
     TEST_ASSERT_EQUAL_MESSAGE(2, stepMotorPosition(motor), "motor wrong position");
-    dosteps(30);
-    TEST_ASSERT_EQUAL_MESSAGE(3, stepMotorPosition(motor), "motor wrong position");
+    dosteps(60);
+    TEST_ASSERT_EQUAL_MESSAGE(6, stepMotorPosition(motor), "motor wrong position");
     dosteps(1000);
-    TEST_ASSERT_EQUAL_MESSAGE(952, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(982, stepMotorPosition(motor), "motor wrong position");
+    dosteps(6);
+    TEST_ASSERT_EQUAL_MESSAGE(982 + 6, stepMotorPosition(motor), "motor wrong position");
 }
 
 void test_change_timer_frequency_slow_motor_frequency() {
@@ -333,4 +335,6 @@ void test_change_timer_frequency_slow_motor_frequency() {
     stepMotorRotate(motor, MotorForward);
     dosteps(1047 * 2); // Takes twice as long due to the increased timer frequency
     TEST_ASSERT_EQUAL_MESSAGE(506, stepMotorPosition(motor), "motor wrong position");
+    dosteps(12);
+    TEST_ASSERT_EQUAL_MESSAGE(506 + 3, stepMotorPosition(motor), "motor wrong position");
 }
