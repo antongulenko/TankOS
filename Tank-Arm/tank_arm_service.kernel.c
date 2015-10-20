@@ -73,3 +73,12 @@ static RpcHandlerStatus tank_arm_set_timer_handler(uint16_t *params, uint16_t si
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_set_timer_handler, TANK_ARM_SET_TIMER, uint16_t)
+
+extern uint32_t step_timer; // step_motor.c
+
+static RpcHandlerStatus tank_arm_get_ticks_handler(TWIBuffer *resultBuffer) {
+    uint32_t res = step_timer;
+    FILL_RESULT(resultBuffer, uint32_t, res)
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION_NOARGS(tank_arm_get_ticks_handler, TANK_ARM_GET_TICKS)

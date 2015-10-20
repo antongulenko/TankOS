@@ -11,7 +11,7 @@ void setupTankArmMotor(uint16_t max_frequency) {
 }
 
 static void init_arm_motor() {
-    setupTankArmMotor(1000);
+    setupTankArmMotor(2000);
     tank_arm_step_motor = newStepMotor(pinB0, pinB1, pinB2, 200, StepMotorInverseEnable);
     enableTimerInterrupt_B(); // Step motor interrupt
 }

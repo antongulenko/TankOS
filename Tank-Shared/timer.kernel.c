@@ -24,6 +24,6 @@ static void init_tank_timer() {
 
 	// Both timers fire once per millisecond by default.
 	setTimerFrequency(millisecond_timer_A, 1000);
-	setTimerFrequency(millisecond_timer_B, 1000);
+	setTimerFrequency(millisecond_timer_B, 2000);
 }
 KERNEL_INIT(init_tank_timer)
