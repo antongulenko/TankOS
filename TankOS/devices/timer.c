@@ -6,6 +6,7 @@
 #include "timer.h"
 #include "port.h"
 #include <kernel/klib.h>
+#include <tank_os_common.h>
 
 typedef struct _Timer {
 	TimerType type;

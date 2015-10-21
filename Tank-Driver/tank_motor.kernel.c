@@ -25,7 +25,7 @@ static void init_tank_motor_timers() {
 
 static void init_tank_driver_motors() {
     init_tank_motor_timers();
-    enableTimerInterrupt_B(); // Smooth motor interrupt
+    enableMillisecondTimerInterrupt_B(); // Smooth motor interrupt
 
     // Analog inputs:
     leftMotorCurrent = newAnalogInput_m1284P(2); // Pin A2
