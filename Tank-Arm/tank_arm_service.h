@@ -13,8 +13,7 @@ typedef enum {
     TANK_ARM_DISABLE = 45,
     TANK_ARM_SET_MAX = 46,
     TANK_ARM_GET_MAX = 47,
-    TANK_ARM_SET_TIMER = 48,
-    TANK_ARM_GET_TICKS = 49
+    TANK_ARM_SET_TIMER = 48
 } PROTOCOL_TANK_ARM_SERVICE; // Start at 40
 
 TWI_RPC_FUNCTION_VOID(tank_arm_rotate, TANK_ARM_ROTATE, uint16_t) // enum MotorDirection
@@ -26,6 +25,5 @@ TWI_RPC_FUNCTION_NOTIFY(tank_arm_disable, TANK_ARM_DISABLE)
 TWI_RPC_FUNCTION(tank_arm_set_max, TANK_ARM_SET_MAX, freq_t, uint16_t) // enum BOOL
 TWI_RPC_FUNCTION_NOARGS(tank_arm_get_max, TANK_ARM_GET_MAX, freq_t)
 TWI_RPC_FUNCTION_VOID(tank_arm_set_timer, TANK_ARM_SET_TIMER, uint16_t)
-TWI_RPC_FUNCTION_NOARGS(tank_arm_get_ticks, TANK_ARM_GET_TICKS, uint32_t)
 
 #endif // _TANK_ARM_SERVICE_TWI_

@@ -21,9 +21,3 @@ int tank_arm_set_max_format(ClientResultPrinter print, void *results, uint16_t r
     else
         return print("Frequency was too high!");
 }
-
-int tank_arm_get_ticks_format(ClientResultPrinter print, void *results, uint16_t results_length) {
-    if (results_length != sizeof(uint32_t)) return 0;
-    uint32_t ticks = * (uint32_t*) results;
-    return print("Step motor ticks: %i", ticks);
-}

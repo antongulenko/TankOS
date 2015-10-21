@@ -314,10 +314,7 @@ static void handle_motor_tick(_StepMotor motor) {
     }
 }
 
-uint32_t step_timer = 0;
-
 void motor_step_tick() {
-    step_timer++;
     _StepMotor i = NULL;
     LL_FOREACH(_step_motors, i) {
         handle_motor_tick(i);
