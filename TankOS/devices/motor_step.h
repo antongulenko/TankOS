@@ -3,14 +3,10 @@
 
 #include <tank_os_common.h>
 #include "port.h"
+#include "motor.h"
 
 DEFINE_HANDLE(StepMotor);
 #define PinStepMotor 9
-
-typedef enum {
-    StepMotorBackward = 0,
-    StepMotorForward = 1,
-} StepMotorDirection;
 
 typedef enum {
     StepMotorNormal = 0,
@@ -18,27 +14,33 @@ typedef enum {
     StepMotorInverseEnable = _BV(1)
 } StepMotorFlags;
 
-typedef uint16_t pos_t; // Position in steps
-typedef uint16_t deg_t; // Degrees
+typedef int32_t pos_t; // Position in steps
+typedef uint32_t steps_t;
+typedef uint16_t ticks_t;
+typedef uint16_t freq_t; // This is similar to speed_t from motor.h
 
-// enable Pin is optional
-StepMotor newStepMotor(Pin step, Pin dir, Pin enable, pos_t stepsPerTurn, StepMotorFlags flags);
+StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, StepMotorFlags flags);
 StepMotor destroyStepMotor(StepMotor motor);
 BOOL stepMotorValid(StepMotor motor);
 
-BOOL stepMotorSetFrequency(StepMotor motor, uint16_t stepsPerSecond); // Return FALSE if frequency is too high
-uint16_t stepMotorGetFrequency(StepMotor motor);
+// If enable-Pin given in newStepMotor
+void enableStepMotor(StepMotor motor);
+void disableStepMotor(StepMotor motor);
+BOOL stepMotorEnabled(StepMotor motor);
 
-void stepMotorStep(StepMotor motor, pos_t numSteps, StepMotorDirection dir);
-void stepMotorTurn(StepMotor motor, deg_t degrees, StepMotorDirection dir);
-void stepMotorRotate(StepMotor motor, StepMotorDirection dir);
+// Sets the maximum frequency for movements
+BOOL stepMotorSetMaxFrequency(StepMotor motor, freq_t stepsPerSecond); // Return FALSE if frequency is too high
+freq_t stepMotorGetMaxFrequency(StepMotor motor);
+
+void stepMotorStep(StepMotor motor, pos_t numSteps);
+void stepMotorRotate(StepMotor motor, MotorDirection dir);
 void stepMotorStop(StepMotor motor);
+void stepMotorForceStop(StepMotor motor);
 
 pos_t stepMotorPosition(StepMotor motor);
-deg_t stepMotorAngle(StepMotor motor);
 
-// Only set once before creating first motor!
-extern uint16_t motor_step_ticks_per_second;
+// Call once before creating first motor.
+void setupStepMotors(ticks_t ticks_per_second, ticks_t ticks_for_speedup);
 void motor_step_tick();
 
 #endif // __MOTOR_STEP__

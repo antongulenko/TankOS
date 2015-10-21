@@ -7,7 +7,10 @@ typedef enum {
     PowerOnReset = _BV(15),
     WatchDogReset = _BV(14),
     BrownOutReset = _BV(13),
-    OtherReset = _BV(12)
+    ExternalReset = _BV(12),
+    JtagReset = _BV(11),
+    UncleanReset = _BV(10),
+    OtherReset = _BV(9)
 } ResetConditionBit;
 
 typedef uint16_t ResetCondition;

@@ -7,6 +7,7 @@
 #include <platform/kernel_init.h>
 #include <kernel/millisecond_clock.h>
 #include <platform/Avr/m1284P/timer.h>
+#include "timer.h"
 
 Timer millisecond_timer_A;
 Timer millisecond_timer_B;
@@ -21,8 +22,8 @@ static void init_tank_timer() {
             | _BV(CS31); // clock-select: prescale 8
     TCCR3C = 0; // No forced output-compare
 
-	#define MILLISECOND_TIMER_VALUE ((uint16_t) (F_CPU / 1000 / 8))
-	setTimerValue(millisecond_timer_A, MILLISECOND_TIMER_VALUE);
-	setTimerValue(millisecond_timer_B, MILLISECOND_TIMER_VALUE);
+	// Both timers fire once per millisecond by default.
+	setTimerFrequency(millisecond_timer_A, 1000);
+	setTimerFrequency(millisecond_timer_B, 2000);
 }
 KERNEL_INIT(init_tank_timer)

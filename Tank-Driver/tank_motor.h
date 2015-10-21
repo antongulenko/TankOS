@@ -10,11 +10,15 @@
 
 #include <devices/motor.h>
 #include <devices/motor_smooth.h>
+#include <platform/Avr/analog.h>
+#include <timer.h>
 
 extern Timer timer0A, timer0B;
 
 extern Motor leftBaseMotor, rightBaseMotor;
 extern SmoothMotor leftMotor, rightMotor;
+
+extern AnalogInput leftMotorCurrent, rightMotorCurrent;
 
 // Indexed by TankMotorNum enum values
 #define TANK_MOTORS ((SmoothMotor[]) { leftMotor, rightMotor })

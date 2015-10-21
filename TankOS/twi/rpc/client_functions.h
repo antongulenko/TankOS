@@ -11,7 +11,8 @@
 #include <platform/kernel_init.h>
 
 typedef RpcClientResult (*RpcQueryFunction)(TWIDevice);
-typedef int (*ClientResultFormatter)(int (*print)(const char *fmt, ...), void *results, uint16_t results_length);
+typedef int (*ClientResultPrinter)(const char *fmt, ...);
+typedef int (*ClientResultFormatter)(ClientResultPrinter print, void *results, uint16_t results_length);
 
 void registerClientFunction(char *funcName, RpcQueryFunction function, uint8_t argument_bytes, uint8_t result_bytes,
                             BOOL variable_arguments, BOOL variable_results, byte operation, ClientResultFormatter result_formatter); // client_functions.c
@@ -21,7 +22,7 @@ RpcClientResult twi_rpc_client_void(TWIDevice device, byte operationByte, byte *
 RpcClientResult twi_rpc_client_async(TWIDevice device, byte operationByte, byte *parameters, uint16_t argSize);
 
 #define CLIENT_RESULT_FORMAT(funcName) \
-    int funcName##_format(int (*print)(const char *fmt, ...), void *results, uint16_t results_length);
+    int funcName##_format(ClientResultPrinter print, void *results, uint16_t results_length);
 
 #ifndef RPC_CLIENT_IMPLEMENTATION
 

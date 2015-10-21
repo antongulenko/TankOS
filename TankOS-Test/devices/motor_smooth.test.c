@@ -12,7 +12,7 @@ SmoothMotor smooth1, smooth2;
 void setUp() {
     ocr1 = ocr2 = 0;
     init_fake_port();
-    setAdjustmentStep(1);
+    smooth_motor_default_step = 1;
     timer1 = newPwmTimer(((uint8_t*) &ocr1), TimerResolution16, testPin1);
     timer2 = newPwmTimer(((uint8_t*) &ocr2), TimerResolution16, testPin2);
     motor1 = newMotor(MotorNormal, timer1, testPin3);
@@ -38,7 +38,7 @@ void tearDown() {
 }
 
 SmoothMotor create(Motor motor) {
-    SmoothMotor smooth = newSmoothMotor(motor);
+    SmoothMotor smooth = newNormalSmoothMotor(motor);
     TEST_ASSERT_TRUE_MESSAGE(smoothMotorValid(smooth), "Smooth motor not valid after create");
     return smooth;
 }
@@ -53,7 +53,7 @@ void testInit() {
 }
 
 void testInvalidInit() {
-    SmoothMotor smooth = newSmoothMotor(Invalid(Motor));
+    SmoothMotor smooth = newNormalSmoothMotor(Invalid(Motor));
     TEST_ASSERT_FALSE_MESSAGE(IsValid(smooth), "Valid SmoothMotor created from invalid Motor");
 }
 
@@ -67,7 +67,7 @@ void test_invalid_functions() {
 
 void test_regulateSpeedForward() {
     smooth1 = create(motor1);
-    setAdjustmentStep(0xffff); // Reach target speed/dir with one tick
+    smoothMotorSetStep(smooth1, 0xffff); // Reach target speed/dir with one tick
     regulateSpeedForward(smooth1, 333);
     motor_smooth_tick();
     TEST_ASSERT_EQUAL_MESSAGE(333, getSpeed(motor1), "Did not reach correct speed");
@@ -76,7 +76,7 @@ void test_regulateSpeedForward() {
 
 void test_regulateSpeedBackward() {
     smooth1 = create(motor1);
-    setAdjustmentStep(0xffff);
+    smoothMotorSetStep(smooth1, 0xffff);
     regulateSpeedBackward(smooth1, 333);
     motor_smooth_tick();
     TEST_ASSERT_EQUAL_MESSAGE(333, getSpeed(motor1), "Did not reach correct speed");
@@ -85,7 +85,7 @@ void test_regulateSpeedBackward() {
 
 void test_regulateSpeed() {
     smooth1 = create(motor1);
-    setAdjustmentStep(0xffff);
+    smoothMotorSetStep(smooth1, 0xffff);
     regulateSpeed(smooth1, 333, MotorForward);
     motor_smooth_tick();
     TEST_ASSERT_EQUAL_MESSAGE(333, getSpeed(motor1), "Did not reach correct speed");
@@ -94,7 +94,7 @@ void test_regulateSpeed() {
 
 void test_regulateDirSpeed() {
     smooth1 = create(motor1);
-    setAdjustmentStep(0xffff);
+    smoothMotorSetStep(smooth1, 0xffff);
     regulateDirSpeed(smooth1, -333);
     motor_smooth_tick();
     TEST_ASSERT_EQUAL_MESSAGE(666, getSpeed(motor1), "Did not reach correct speed");
@@ -103,7 +103,8 @@ void test_regulateDirSpeed() {
 
 void test_two_motors() {
     createAll();
-    setAdjustmentStep(0xffff);
+    smoothMotorSetStep(smooth1, 0xffff);
+    smoothMotorSetStep(smooth2, 0xffff);
     regulateSpeedForward(smooth1, 333);
     regulateSpeedBackward(smooth2, 444);
     motor_smooth_tick();
@@ -115,7 +116,8 @@ void test_two_motors() {
 
 void test_delete_motor() {
     createAll();
-    setAdjustmentStep(0xffff);
+    smoothMotorSetStep(smooth1, 0xffff);
+    smoothMotorSetStep(smooth2, 0xffff);
     regulateSpeedForward(smooth1, 333);
     regulateSpeedBackward(smooth2, 444);
     smooth1 = destroySmoothMotor(smooth1);
@@ -128,7 +130,8 @@ void test_delete_motor() {
 
 void test_multiple_ticks() {
     createAll();
-    setAdjustmentStep(300);
+    smoothMotorSetStep(smooth1, 300);
+    smoothMotorSetStep(smooth2, 300);
     regulateSpeedForward(smooth1, 500);
     regulateSpeedBackward(smooth2, 1000);
     motor_smooth_tick();
@@ -160,7 +163,8 @@ void test_multiple_ticks() {
 
 void test_change_direction() {
     createAll();
-    setAdjustmentStep(300);
+    smoothMotorSetStep(smooth1, 300);
+    smoothMotorSetStep(smooth2, 300);
     regulateSpeedForward(smooth1, 3000);
     regulateSpeedBackward(smooth2, 1000);
     for (int i = 0; i < 10; i++)

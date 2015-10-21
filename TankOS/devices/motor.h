@@ -11,6 +11,9 @@
 #include <tank_os_common.h>
 #include <devices/timer.h>
 
+typedef uint16_t speed_t;
+typedef int16_t uspeed_t;
+
 typedef enum {
     MotorNormal = 0,
     MotorInverseSpeed = _BV(1),
@@ -33,17 +36,17 @@ Motor newMotor2dir(MotorType type, Timer speedTimer, Pin forwardPin, Pin backwar
 Motor destroyMotor(Motor motor);
 BOOL motorValid(Motor motor);
 
-void setMotorValueBounds(Motor motor, uint16_t minValue, uint16_t maxValue);
+void setMotorValueBounds(Motor motor, speed_t minValue, speed_t maxValue);
 
 void stopMotor(Motor motor);
 
 // These functions operate with full 16 bit for the speed-value.
 // The timer module is responsible for converting these values in case of 8-bit timers.
-uint16_t getSpeed(Motor motor);
+speed_t getSpeed(Motor motor);
 MotorDirection getDirection(Motor motor);
-void setSpeed(Motor motor, uint16_t speed, MotorDirection direction);
-void setSpeedForward(Motor motor, uint16_t speed);
-void setSpeedBackward(Motor motor, uint16_t speed);
+void setSpeed(Motor motor, speed_t speed, MotorDirection direction);
+void setSpeedForward(Motor motor, speed_t speed);
+void setSpeedBackward(Motor motor, speed_t speed);
 
 // These functions operate with a signed value for the speed-value (negative means backwards).
 // Therefore, only ~15 bit are available for the speed-value.
@@ -51,7 +54,7 @@ void setSpeedBackward(Motor motor, uint16_t speed);
 // When getting, the absolute value will be shifted right once and multiplied with -1 if driving backwards
 //				(also ignoring the least significant bit).
 // This happens before the possible 8/16 bit conversion.
-int16_t getDirSpeed(Motor motor);
-void setDirSpeed(Motor motor, int16_t speed);
+uspeed_t getDirSpeed(Motor motor);
+void setDirSpeed(Motor motor, uspeed_t speed);
 
 #endif /* MOTOR_H_ */

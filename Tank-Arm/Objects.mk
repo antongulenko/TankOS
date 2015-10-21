@@ -1,6 +1,8 @@
 
 include Tank-Shared/KernelObjects1.mk
 
+objects += $(BUILD_Tank-Arm)/tank_arm_motor.kernel.o
+
 ifeq ($(USE_TWI), true)
     objects += \
         $(BUILD_TankOS)/platform/Avr/twi/slave.kernel.o \

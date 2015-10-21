@@ -5,15 +5,14 @@
 
 #include <platform/kernel_init.h>
 #include <platform/Avr/m1284P/timer.h>
+#include <platform/Avr/m1284P/analog.h>
 #include "tank_motor.h"
 
 Timer timer0A, timer0B;
 Motor leftBaseMotor, rightBaseMotor;
 SmoothMotor leftMotor, rightMotor;
 
-static void enable_smooth_motor_interrupt() {
-    TIMSK3 |= _BV(OCIE3B);
-}
+AnalogInput leftMotorCurrent, rightMotorCurrent;
 
 static void init_tank_motor_timers() {
     TCCR0A = _BV(WGM00); // Phase-correct PWM to 0xFF
@@ -26,11 +25,11 @@ static void init_tank_motor_timers() {
 
 static void init_tank_driver_motors() {
     init_tank_motor_timers();
-    enable_smooth_motor_interrupt();
+    enableTimerInterrupt_B(); // Smooth motor interrupt
 
     // Analog inputs:
-    // left =
-    // right =
+    leftMotorCurrent = newAnalogInput_m1284P(2); // Pin A2
+    rightMotorCurrent = newAnalogInput_m1284P(1); // Pin A1
 
     timer0A = newTimer_m1284P(0, TIMER_A, TRUE);
     timer0B = newTimer_m1284P(0, TIMER_B, TRUE);
@@ -40,12 +39,14 @@ static void init_tank_driver_motors() {
 
     leftBaseMotor = newMotor2dir(TANK_MOTOR, timer0A, pinA0, pinB0);
     rightBaseMotor = newMotor2dir(TANK_MOTOR, timer0B, pinD6, pinD7);
-    leftMotor = newSmoothMotor(leftBaseMotor);
-    rightMotor = newSmoothMotor(rightBaseMotor);
+    leftMotor = newNormalSmoothMotor(leftBaseMotor);
+    rightMotor = newNormalSmoothMotor(rightBaseMotor);
 
     // == Motor adjustment step ==
     // Resolution is 16 bit (65535), one adjustment each millisecond
     // -> acceleration from min to max in 500 ms.
-    setAdjustmentStep(65535 / 500);
+    #define MOTOR_STEP (65535 / 500)
+    smoothMotorSetStep(leftMotor, MOTOR_STEP);
+    smoothMotorSetStep(rightMotor, MOTOR_STEP);
 }
 KERNEL_INIT(init_tank_driver_motors)
