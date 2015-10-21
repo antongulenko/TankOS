@@ -45,7 +45,7 @@ static void configure_power_saving() {
 static void late_init_kernel() {
     configure_power_saving();
 	before_timer();
-    enableTimerInterrupt_A(); // Millisecond-timer / Scheduler-timer
+    enableMillisecondTimerInterrupt_A(); // Millisecond-timer / Scheduler-timer
 	boot_completed();
     klog("B\n"); // Booted
     sei();
