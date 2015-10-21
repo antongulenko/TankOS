@@ -84,6 +84,6 @@ endif
 
 # Suppress warning about default frequency
 ifndef AVR_FREQ
-    AVR_FREQ := 8000000
+    AVR_FREQ := 20000000
 endif
 
