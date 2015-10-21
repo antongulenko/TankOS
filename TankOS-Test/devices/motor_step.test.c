@@ -53,7 +53,7 @@ void test_init() {
 }
 
 void test_init_no_enable() {
-    createMotor(StepMotorNormal, FALSE);
+    createMotor2(StepMotorNormal, FALSE);
 }
 
 void test_occupied_pin() {
@@ -337,4 +337,20 @@ void test_change_timer_frequency_slow_motor_frequency() {
     TEST_ASSERT_EQUAL_MESSAGE(506, stepMotorPosition(motor), "motor wrong position");
     dosteps(12);
     TEST_ASSERT_EQUAL_MESSAGE(506 + 3, stepMotorPosition(motor), "motor wrong position");
+    TICKS = 1000;
+}
+
+void test_change_timer_fix_max_speed() {
+    createMotor2(StepMotorNormal, FALSE);
+    StepMotor motor2 = newStepMotor(testPin3, testPin4, Invalid(Pin), 200, StepMotorNormal);
+    TEST_ASSERT_TRUE_MESSAGE(IsValid(motor2), "Motor 2 not valid");
+
+    stepMotorSetMaxFrequency(motor2, 400);
+    TEST_ASSERT_EQUAL_MESSAGE(400, stepMotorGetMaxFrequency(motor2), "Step motor 2 does not have correct frequency");
+
+    setupStepMotors(5000, 10);
+    TEST_ASSERT_EQUAL_MESSAGE(5000, stepMotorGetMaxFrequency(motor), "Step motor does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(5000*400/1000, stepMotorGetMaxFrequency(motor2), "Step motor 2 does not have correct frequency");
+
+    destroyStepMotor(motor2);
 }

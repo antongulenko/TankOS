@@ -53,10 +53,19 @@ static inline float frequency_to_ticks(freq_t freq) {
 }
 
 void setupStepMotors(ticks_t _ticks_per_second, ticks_t ticks_for_speedup) {
+    freq_t previous_global = global_max_frequency;
     if (_ticks_per_second == 0) _ticks_per_second = 1;
     global_max_frequency = (freq_t) _ticks_per_second;
     global_max_ticks_per_step = frequency_to_ticks(global_min_frequency);
     step_acceleration = global_max_ticks_per_step / (float) ticks_for_speedup;
+
+    // Fix the maximum speed for existing step motors
+    float speed_change = (float) global_max_frequency / (float) previous_global;
+    _StepMotor i = NULL;
+    LL_FOREACH(_step_motors, i) {
+        freq_t new_freq = (float) i->max_frequency * speed_change;
+        stepMotorSetMaxFrequency(As(StepMotor, i), new_freq);
+    }
 }
 
 StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, StepMotorFlags flags) {
@@ -73,7 +82,8 @@ StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, Step
     }
     setPinOutput(step);
     setPinOutput(dir);
-    setPinOutput(enable);
+    if (IsValid(enable))
+        setPinOutput(enable);
 
     motor->next = NULL;
     motor->step = step;
