@@ -30,8 +30,8 @@ void setTimerPairFrequency(Timer timerA, Timer timerB, uint16_t herz) {
 	// The timer A value dictates the frequency for both timer A and B.
     // Set a higher frequency for timer B so that interrupts are not fired the same time.
     // Prescaler for the timers in this module is 8 (timer.kernel.c)
-	setTimerFrequency(generic_timer_A, 8, herz);
-	setTimerFrequency(generic_timer_A, 8, herz * 2);
+	setTimerFrequency(timerA, 8, herz);
+	setTimerFrequency(timerB, 8, herz * 2);
 }
 
 void setGenericTimerFrequency(uint16_t herz) {
