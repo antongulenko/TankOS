@@ -73,3 +73,16 @@ static RpcHandlerStatus tank_arm_set_timer_handler(uint16_t *params, uint16_t si
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_set_timer_handler, TANK_ARM_SET_TIMER, uint16_t)
+
+static RpcHandlerStatus tank_arm_set_delay_handler(uint16_t *params, uint16_t size) {
+    if (size != sizeof(uint16_t)) {
+        return TWI_RPC_handler_illegal_parameters;
+    }
+    StepMotorStepDelay val = (StepMotorStepDelay) *params;
+    if (val > StepDelay100us) {
+        return TWI_RPC_handler_illegal_parameters;
+    }
+    stepDelay = val;
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_set_delay_handler, TANK_ARM_SET_DELAY, uint16_t)

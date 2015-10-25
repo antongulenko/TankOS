@@ -8,11 +8,17 @@ arm_dirs=(
     [backward]=0 [forward]=1 [stop]=2
 )
 
+declare -A delays
+delays=(
+    [0]=0 [1]=1 [10]=2 [50]=3 [100]=4
+)
+
 function help() {
-    echo "Commands: rotate <arm_dir> | step <steps> | stop | position | enable | disable | set_max <freq> | get_max | set_timer <timer>"
+    echo "Commands: rotate <arm_dir> | step <steps> | stop | position | enable | disable | set_max <freq> | get_max | set_timer <timer> | set_delay <delay>"
     echo "arm_dir: ${!arm_dirs[@]}"
     echo "steps: positive/negative integer"
     echo "freq, timer: positive 16 bit integer"
+    echo "delay: 0, 1, 10, 50, 100"
     exit 1
 }
 
@@ -57,7 +63,7 @@ if [ $# = 1 -o $# = 2 ]; then
             params="-p $param0 -p $param1 -p $param2 -p $param3"
         elif [ $command == rotate ]; then
             arm_dir=${arm_dirs[$param]}
-            test -n "$arm_dir" || { echo "Unknown arm_dir: $1"; help; }
+            test -n "$arm_dir" || { echo "Unknown arm_dir: $param"; help; }
             dirstr=`printf '%04x' $arm_dir`
 
             # Split the 16-bit hex-value into two separate bytes
@@ -65,6 +71,16 @@ if [ $# = 1 -o $# = 2 ]; then
             dir_low=${dirstr: -2}
 
             params="-p $dir_low -p $dir_high"
+        elif [ $command == set_delay ]; then
+            delay=${delays[$param]}
+            test -n "$delay" || { echo "Unknown delay: $param"; help; }
+            delaystr=`printf '%04x' $delay`
+
+            # Split the 16-bit hex-value into two separate bytes
+            delay_high=${delaystr:0:2}
+            delay_low=${delaystr: -2}
+
+            params="-p $delay_low -p $delay_high"
         else
             help
         fi
