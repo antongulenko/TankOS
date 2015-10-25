@@ -2,6 +2,7 @@
 #include <mocks/port.h>
 #include <devices/motor_step.h>
 #include <devices/motor_smooth.h>
+#include <mocks/delay.h>
 
 ticks_t TICKS = 1000;
 Pin dir, step, enable;
@@ -353,4 +354,17 @@ void test_change_timer_fix_max_speed() {
     TEST_ASSERT_EQUAL_MESSAGE(5000*400/1000, stepMotorGetMaxFrequency(motor2), "Step motor 2 does not have correct frequency");
 
     destroyStepMotor(motor2);
+}
+void test_inverse_long_step() {
+    // This tests both StepMotorInverseStep and stepDelay
+    createMotor2(StepMotorInverseStep, FALSE);
+    stepDelay = StepDelay50us;
+    stepMotorStep(motor, 10);
+    init_mock_delay();
+    dosteps(20);
+    TEST_ASSERT_TRUE_MESSAGE(isPinOutputHigh(step), "step pin should be high");
+    dosteps(500);
+    TEST_ASSERT_EQUAL_MESSAGE(10, DelayUSCalled, "Microsecond delay called wrong number of times");
+    TEST_ASSERT_EQUAL_MESSAGE(10 * 50, DelayedUS, "Wrong accumulated microsecond delay");
+    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(step), "step pin should be low again");
 }

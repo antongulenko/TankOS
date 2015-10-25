@@ -11,7 +11,8 @@ DEFINE_HANDLE(StepMotor);
 typedef enum {
     StepMotorNormal = 0,
     StepMotorInverseDir = _BV(0),
-    StepMotorInverseEnable = _BV(1)
+    StepMotorInverseEnable = _BV(1),
+    StepMotorInverseStep = _BV(2)
 } StepMotorFlags;
 
 typedef int32_t pos_t; // Position in steps
@@ -42,5 +43,15 @@ pos_t stepMotorPosition(StepMotor motor);
 // Call once before creating first motor.
 void setupStepMotors(ticks_t ticks_per_second, ticks_t ticks_for_speedup);
 void motor_step_tick();
+
+typedef enum {
+	StepDelayNone,
+	StepDelay1us,
+	StepDelay10us,
+	StepDelay50us,
+	StepDelay100us
+} StepMotorStepDelay;
+
+extern StepMotorStepDelay stepDelay;
 
 #endif // __MOTOR_STEP__

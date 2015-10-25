@@ -84,6 +84,7 @@ $(eval $(call set_test_objects,devices/motor_smooth,\
 $(eval $(call set_test_objects,devices/motor_step,\
 	$(BUILD_TankOS)/devices/port.o \
     $(BUILD_TESTS)/mocks/port.o \
+    $(BUILD_TESTS)/mocks/delay.o \
     $(BUILD_TankOS)/devices/motor_smooth.o \
 	$(BUILD_TankOS)/devices/motor_step.o ))
 

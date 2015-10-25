@@ -35,14 +35,12 @@ typedef struct _StepMotor {
 
 #define MOTOR Get(struct _StepMotor, motor)
 
-// Comment out to generate pulses without extra delay
-#define MICROSECOND_STEP_LENGTH 20
-
 static freq_t global_max_frequency = 1000;
 static const freq_t global_min_frequency = 100; // Should maybe be configurable
 static float global_max_ticks_per_step = 10;
 static float step_acceleration = 1.0; // Value added to/removed from ticks_per_step after every step.
 _StepMotor _step_motors;
+StepMotorStepDelay stepDelay = StepDelay10us;
 
 static inline BOOL valid_frequency(freq_t freq) {
     return freq > 0 && global_max_frequency > 0 && freq <= global_max_frequency;
@@ -243,37 +241,58 @@ static BOOL do_motor_tick(_StepMotor motor) {
     }
 }
 
-static BOOL do_motor_step(_StepMotor motor) {
-    if (motor->dir == MotorStopped)
-        return FALSE;
+static void do_motor_step(_StepMotor motor) {
+    BOOL pinBefore = TRUE;
+    BOOL pinAfter = FALSE;
+    if (motor->flags && StepMotorInverseStep) {
+        pinBefore = !pinBefore;
+        pinAfter = !pinAfter;
+    }
 
     // Generate a pulse
-    setPinOne(motor->step);
-#ifdef MICROSECOND_STEP_LENGTH
-    delay_us(MICROSECOND_STEP_LENGTH);
-#endif
-    setPinZero(motor->step);
+    writePin(motor->step, pinBefore);
+    switch (stepDelay) {
+        case StepDelay1us:
+            delay_us(1);
+            break;
+        case StepDelay10us:
+            delay_us(10);
+            break;
+        case StepDelay50us:
+            delay_us(50);
+            break;
+        case StepDelay100us:
+            delay_us(100);
+            break;
+        case StepDelayNone:
+        default:
+            break;
+    }
+    writePin(motor->step, pinAfter);
 
     if (motor->dir == MotorForward)
         motor->position++;
     else
         motor->position--;
-    return TRUE;
 }
 
 static void handle_motor_tick(_StepMotor motor) {
     if (do_motor_tick(motor)) {
-        BOOL stepped = do_motor_step(motor);
-
-        if (stepped && motor->counting_steps) {
-            if (motor->leftover_steps <= 1) {
-                stepMotorForceStop(As(StepMotor, motor));
-                return;
-            } else if (motor->leftover_steps <= motor->steps_for_slowdown) {
-                // TODO ticks between 1 and global_min_frequency always happen on minimal speed
-                motor->target_ticks_per_step = global_max_ticks_per_step; // Minimal speed
+        if (motor->dir == MotorStopped) {
+            // In case of StepMotorInverseStep
+            setPinZero(motor->step);
+        } else {
+            do_motor_step(motor);
+            if (motor->counting_steps) {
+                if (motor->leftover_steps <= 1) {
+                    stepMotorForceStop(As(StepMotor, motor));
+                    return;
+                } else if (motor->leftover_steps <= motor->steps_for_slowdown) {
+                    // TODO ticks between 1 and global_min_frequency always happen on minimal speed
+                    motor->target_ticks_per_step = global_max_ticks_per_step; // Minimal speed
+                }
+                motor->leftover_steps--;
             }
-            motor->leftover_steps--;
         }
 
         // Originally copied from motor_smooth.c
