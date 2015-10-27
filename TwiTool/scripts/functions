@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function echoerr() {
+    >&2 echo $@
+}
+
 TWI_TOOL="../build-Native-speed/twi-tool.main.out"
 TWI_BUS=2
 
@@ -11,14 +15,14 @@ TWI_DEVICES=(
 )
 
 function twi_call() {
-    test -x "$TWI_TOOL" || { echo "TwiTool not found: $TWI_TOOL"; exit 1; }
-    test $# -ge 2 || { echo "twi_call: need at least 2 parameters: <twi-function-name> <twi-device: one of (${!TWI_DEVICES[@]})>"; exit 1; }
+    test -x "$TWI_TOOL" || { echoerr "TwiTool not found: $TWI_TOOL"; return 1; }
+    test $# -ge 2 || { echoerr "twi_call: need at least 2 parameters: <twi-function-name> <twi-device: one of (${!TWI_DEVICES[@]})>"; return 1; }
     func="$1"
     device="$2"
     shift 2
 
     device_address=${TWI_DEVICES[$device]}
-    test -n "$device_address" || { echo "Address of device $device not registered."; exit 1; }
+    test -n "$device_address" || { echoerr "Address of device $device not registered."; return 1; }
 
     echo "$TWI_TOOL" -b $TWI_BUS -d $device_address -f $func $@
 }
@@ -26,7 +30,7 @@ function twi_call() {
 function param_u16bit() {
     param=$1
     param_name="Parameter"
-    test "$param" -lt $((2**16)) -a "$param" -ge 0 || { >&2 echo "$param_name out of bounds 0..2^16"; help; }
+    test "$param" -lt $((2**16)) -a "$param" -ge 0 || { echoerr "$param_name out of bounds 0..2^16"; return 1; }
     val=`printf '%04x' $param`
 
     # Split the 16-bit hex-value into two separate bytes
@@ -43,7 +47,7 @@ function param_enum() {
 function param_s32bit() {
     param="$1"
     param_name="Parameter"
-    test "$param" -lt $((2**31)) -a "$param" -gt -$((2**31)) || { >&2 echo "$param_name out of bounds -2^31..2^31"; help; }
+    test "$param" -lt $((2**31)) -a "$param" -gt -$((2**31)) || { echoerr "$param_name out of bounds -2^31..2^31"; return 1; }
     val=`printf '%08x' $param`
 
     # Split the 32-bit hex-value into four separate bytes
