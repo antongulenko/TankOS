@@ -19,9 +19,11 @@ BOOL smoothMotorValid(SmoothMotor motor);
 
 // Configure how much one invocation of motor_smooth_tick can change the speed.
 void smoothMotorSetStep(SmoothMotor motor, uint16_t step);
+void smoothMotorSetMinSpeed(SmoothMotor motor, uint16_t min_speed);
 
 void regulateStopMotor(SmoothMotor motor);
 void forceStopMotor(SmoothMotor motor);
+void forceMotorSpeed(SmoothMotor motor, speed_t speed, MotorDirection direction);
 
 void regulateSpeed(SmoothMotor motor, speed_t speed, MotorDirection direction);
 void regulateSpeedForward(SmoothMotor motor, speed_t speed);
@@ -34,5 +36,8 @@ uint16_t smooth_motor_default_step;
 
 // Some external module should invoke this function on a regular basis.
 void motor_smooth_tick();
+
+// For ticking SmoothMotor instances separately
+void smoothMotorTick(SmoothMotor motor);
 
 #endif /* MOTOR_SMOOTH_H_ */

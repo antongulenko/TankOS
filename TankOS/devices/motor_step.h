@@ -41,7 +41,7 @@ void stepMotorForceStop(StepMotor motor);
 pos_t stepMotorPosition(StepMotor motor);
 
 // Call once before creating first motor.
-void setupStepMotors(ticks_t ticks_per_second, ticks_t ticks_for_speedup);
+void setupStepMotors(ticks_t ticks_per_second);
 void motor_step_tick();
 
 typedef enum {

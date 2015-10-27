@@ -67,7 +67,7 @@ void test_invalid_functions() {
 
 void test_regulateSpeedForward() {
     smooth1 = create(motor1);
-    smoothMotorSetStep(smooth1, 0xffff); // Reach target speed/dir with one tick
+    smoothMotorSetStep(smooth1, 333); // Reach target speed/dir with one tick
     regulateSpeedForward(smooth1, 333);
     motor_smooth_tick();
     TEST_ASSERT_EQUAL_MESSAGE(333, getSpeed(motor1), "Did not reach correct speed");
@@ -76,7 +76,7 @@ void test_regulateSpeedForward() {
 
 void test_regulateSpeedBackward() {
     smooth1 = create(motor1);
-    smoothMotorSetStep(smooth1, 0xffff);
+    smoothMotorSetStep(smooth1, 333);
     regulateSpeedBackward(smooth1, 333);
     motor_smooth_tick();
     TEST_ASSERT_EQUAL_MESSAGE(333, getSpeed(motor1), "Did not reach correct speed");
@@ -85,7 +85,7 @@ void test_regulateSpeedBackward() {
 
 void test_regulateSpeed() {
     smooth1 = create(motor1);
-    smoothMotorSetStep(smooth1, 0xffff);
+    smoothMotorSetStep(smooth1, 333);
     regulateSpeed(smooth1, 333, MotorForward);
     motor_smooth_tick();
     TEST_ASSERT_EQUAL_MESSAGE(333, getSpeed(motor1), "Did not reach correct speed");
@@ -94,7 +94,7 @@ void test_regulateSpeed() {
 
 void test_regulateDirSpeed() {
     smooth1 = create(motor1);
-    smoothMotorSetStep(smooth1, 0xffff);
+    smoothMotorSetStep(smooth1, 333);
     regulateDirSpeed(smooth1, -333);
     motor_smooth_tick();
     TEST_ASSERT_EQUAL_MESSAGE(666, getSpeed(motor1), "Did not reach correct speed");
@@ -103,8 +103,8 @@ void test_regulateDirSpeed() {
 
 void test_two_motors() {
     createAll();
-    smoothMotorSetStep(smooth1, 0xffff);
-    smoothMotorSetStep(smooth2, 0xffff);
+    smoothMotorSetStep(smooth1, 333);
+    smoothMotorSetStep(smooth2, 333);
     regulateSpeedForward(smooth1, 333);
     regulateSpeedBackward(smooth2, 444);
     motor_smooth_tick();
@@ -116,16 +116,38 @@ void test_two_motors() {
 
 void test_delete_motor() {
     createAll();
-    smoothMotorSetStep(smooth1, 0xffff);
-    smoothMotorSetStep(smooth2, 0xffff);
+    smoothMotorSetStep(smooth1, 10);
+    smoothMotorSetStep(smooth2, 10);
     regulateSpeedForward(smooth1, 333);
-    regulateSpeedBackward(smooth2, 444);
+    regulateSpeedBackward(smooth2, 333);
     smooth1 = destroySmoothMotor(smooth1);
     motor_smooth_tick();
-    TEST_ASSERT_EQUAL_MESSAGE(0, getSpeed(motor1), "Did not reach correct speed");
-    TEST_ASSERT_EQUAL_MESSAGE(444, getSpeed(motor2), "Did not reach correct speed");
-    TEST_ASSERT_EQUAL_MESSAGE(MotorStopped, getDirection(motor1), "Did not reach correct direction");
+    TEST_ASSERT_EQUAL_MESSAGE(10, getSpeed(motor1), "Did not reach correct speed");
+    TEST_ASSERT_EQUAL_MESSAGE(20, getSpeed(motor2), "Did not reach correct speed");
+    TEST_ASSERT_EQUAL_MESSAGE(MotorForward, getDirection(motor1), "Did not reach correct direction");
     TEST_ASSERT_EQUAL_MESSAGE(MotorBackward, getDirection(motor2), "Did not reach correct direction");
+}
+
+void test_delete_running_motor() {
+    createAll();
+    smoothMotorSetStep(smooth1, 10);
+    smoothMotorSetStep(smooth2, 10);
+    regulateSpeedForward(smooth1, 333);
+    regulateSpeedBackward(smooth2, 333);
+    motor_smooth_tick();
+    motor_smooth_tick();
+    regulateStopMotor(smooth1);
+    regulateStopMotor(smooth2);
+
+    smooth1 = destroySmoothMotor(smooth1);
+    motor_smooth_tick();
+    motor_smooth_tick();
+    motor_smooth_tick();
+
+    TEST_ASSERT_EQUAL_MESSAGE(30, getSpeed(motor1), "Did not reach correct speed");
+    TEST_ASSERT_EQUAL_MESSAGE(0, getSpeed(motor2), "Did not reach correct speed");
+    TEST_ASSERT_EQUAL_MESSAGE(MotorForward, getDirection(motor1), "Did not reach correct direction");
+    TEST_ASSERT_EQUAL_MESSAGE(MotorStopped, getDirection(motor2), "Did not reach correct direction");
 }
 
 void test_multiple_ticks() {
@@ -134,7 +156,6 @@ void test_multiple_ticks() {
     smoothMotorSetStep(smooth2, 300);
     regulateSpeedForward(smooth1, 500);
     regulateSpeedBackward(smooth2, 1000);
-    motor_smooth_tick();
     TEST_ASSERT_EQUAL_MESSAGE(300, getSpeed(motor1), "Did not reach correct speed");
     TEST_ASSERT_EQUAL_MESSAGE(300, getSpeed(motor2), "Did not reach correct speed");
     TEST_ASSERT_EQUAL_MESSAGE(MotorForward, getDirection(motor1), "Did not reach correct direction");

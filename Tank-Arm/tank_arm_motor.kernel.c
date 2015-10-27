@@ -7,17 +7,17 @@ StepMotor tank_arm_step_motor;
 
 void setupTankArmMotor(uint16_t max_frequency) {
 	setGenericTimerFrequency(max_frequency);
-    setupStepMotors(max_frequency, 10);
+    setupStepMotors(max_frequency);
 }
 
 static void init_arm_motor() {
-    setupTankArmMotor(2000);
+    setupTankArmMotor(6000);
     StepMotorFlags flags = StepMotorInverseEnable;
 
-    flags |= StepMotorInverseStep;
+    // flags |= StepMotorInverseStep;
     stepDelay = StepDelay10us;
 
-    tank_arm_step_motor = newStepMotor(pinB0, pinB1, pinB2, 200, flags);
+    tank_arm_step_motor = newStepMotor(pinB0, pinB1, pinB2, 400, flags);
     enableGenericTimerInterrupt_A(); // Step motor interrupt
 }
 KERNEL_INIT(init_arm_motor)

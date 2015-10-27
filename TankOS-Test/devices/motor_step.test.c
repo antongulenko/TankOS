@@ -8,12 +8,18 @@ ticks_t TICKS = 1000;
 Pin dir, step, enable;
 StepMotor motor;
 
+#define STEPS_AFTER_1 1
+#define STEPS_AFTER_6 2
+#define STEPS_AFTER_26 6
+#define STEPS_AFTER_1500 675
+#define STEPS_FOR_MAX 2300
+
 void setUp() {
     init_fake_port();
     dir = testPin1;
     step = testPin2;
     enable = testPin3;
-    setupStepMotors(TICKS, 10);
+    setupStepMotors(TICKS);
 }
 
 static void createMotor2(StepMotorFlags flags, BOOL enablePin) {
@@ -24,7 +30,7 @@ static void createMotor2(StepMotorFlags flags, BOOL enablePin) {
 
     pos_t pos = stepMotorPosition(motor);
     TEST_ASSERT_EQUAL_MESSAGE(0, pos, "StepMotor not at position 0 after create");
-    TEST_ASSERT_EQUAL_MESSAGE(TICKS, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(TICKS / 200 * 600, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
 
     TEST_ASSERT_EQUAL_MESSAGE(PinStepMotor, pinOccupation(step), "Did not occupy step pin");
     TEST_ASSERT_EQUAL_MESSAGE(PinStepMotor, pinOccupation(step), "Did not occupy dir pin");
@@ -69,17 +75,18 @@ void test_occupied_pin() {
 
 void test_set_frequency() {
     createMotor();
-    BOOL res = stepMotorSetMaxSpeed(motor, TICKS);
+    speed_t max = TICKS / 200 * 600;
+    BOOL res = stepMotorSetMaxSpeed(motor, max);
     TEST_ASSERT_TRUE_MESSAGE(res, "frequency not set correctly");
-    TEST_ASSERT_EQUAL_MESSAGE(TICKS, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(max, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
 
-    res = stepMotorSetMaxSpeed(motor, TICKS / 3);
+    res = stepMotorSetMaxSpeed(motor, max / 3);
     TEST_ASSERT_TRUE_MESSAGE(res, "frequency not set correctly");
-    TEST_ASSERT_EQUAL_MESSAGE(TICKS / 3, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(max / 3, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
 
-    res = stepMotorSetMaxSpeed(motor, TICKS + 50);
+    res = stepMotorSetMaxSpeed(motor, max + 50);
     TEST_ASSERT_FALSE_MESSAGE(res, "frequency should not be set correctly");
-    TEST_ASSERT_EQUAL_MESSAGE(TICKS, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(max, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
 }
 
 void dosteps(int num) {
@@ -88,47 +95,58 @@ void dosteps(int num) {
     }
 }
 
-void checkPins(BOOL dirUp, BOOL enableUp) {
-    TEST_ASSERT_EQUAL_MESSAGE(dirUp, isPinOutputHigh(dir), "wrong direction pin set");
-    TEST_ASSERT_EQUAL_MESSAGE(enableUp, isPinOutputHigh(enable), "wrong enable pin set");
+void checkPins(int LINE, BOOL dirUp, BOOL enableUp) {
+    UNITY_TEST_ASSERT_EQUAL_INT((dirUp), (isPinOutputHigh(dir)), LINE, "wrong dir pin");
+    UNITY_TEST_ASSERT_EQUAL_INT((enableUp), (isPinOutputHigh(enable)), LINE, "wrong enable pin");
+    //TEST_ASSERT_EQUAL_MESSAGE(dirUp, isPinOutputHigh(dir), "wrong direction pin set");
+    //TEST_ASSERT_EQUAL_MESSAGE(enableUp, isPinOutputHigh(enable), "wrong enable pin set");
+}
+
+void checkMaxSpeed(StepMotor motor) {
+    pos_t pos = stepMotorPosition(motor);
+    dosteps(10);
+    pos_t diff = stepMotorPosition(motor) - pos;
+    if (diff < 0) {
+        TEST_ASSERT_EQUAL_MESSAGE(-10, diff, "motor did not reach max speed");
+    } else {
+        TEST_ASSERT_EQUAL_MESSAGE(10, diff, "motor did not reach max speed");
+    }
 }
 
 void test_step() {
     createMotor();
-    stepMotorStep(motor, 3000);
-    checkPins(FALSE, TRUE);
+    stepMotorStep(motor, 5000);
+    checkPins(__LINE__, FALSE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor already moved");
 
     dosteps(1);
-    checkPins(TRUE, TRUE);
-    TEST_ASSERT_EQUAL_MESSAGE(1, stepMotorPosition(motor), "motor wrong position");
-    dosteps(10);
-    TEST_ASSERT_EQUAL_MESSAGE(2, stepMotorPosition(motor), "motor wrong position");
+    checkPins(__LINE__, TRUE, TRUE);
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_1, stepMotorPosition(motor), "motor wrong position");
+    dosteps(5);
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_6, stepMotorPosition(motor), "motor wrong position");
     dosteps(20);
-    TEST_ASSERT_EQUAL_MESSAGE(4, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_26, stepMotorPosition(motor), "motor wrong position");
 
-    dosteps(1000); // Max speed now
-    pos_t pos = stepMotorPosition(motor);
-    dosteps(3);
-    TEST_ASSERT_EQUAL_MESSAGE(pos + 3, stepMotorPosition(motor), "motor did not reach max speed");
+    dosteps(STEPS_FOR_MAX);
+    checkMaxSpeed(motor);
 
     dosteps(5000);
-    TEST_ASSERT_EQUAL_MESSAGE(3000, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(5000, stepMotorPosition(motor), "motor wrong position");
     dosteps(1000);
-    TEST_ASSERT_EQUAL_MESSAGE(3000, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(5000, stepMotorPosition(motor), "motor wrong position");
 }
 
 void test_step_slow() {
     createMotor();
     stepMotorStep(motor, 10);
-    checkPins(FALSE, TRUE);
+    checkPins(__LINE__, FALSE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor already moved");
 
     dosteps(1);
-    checkPins(TRUE, TRUE);
-    TEST_ASSERT_EQUAL_MESSAGE(1, stepMotorPosition(motor), "motor wrong position");
-    dosteps(30);
-    TEST_ASSERT_EQUAL_MESSAGE(4, stepMotorPosition(motor), "motor wrong position");
+    checkPins(__LINE__, TRUE, TRUE);
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_1, stepMotorPosition(motor), "motor wrong position");
+    dosteps(25);
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_26, stepMotorPosition(motor), "motor wrong position");
 
     dosteps(1000);
     TEST_ASSERT_EQUAL_MESSAGE(10, stepMotorPosition(motor), "motor wrong position");
@@ -136,58 +154,60 @@ void test_step_slow() {
 
 void test_step_backward() {
     createMotor();
-    stepMotorStep(motor, -3000);
-    checkPins(FALSE, TRUE);
+    stepMotorStep(motor, -5000);
+    checkPins(__LINE__, FALSE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor already moved");
 
     dosteps(1);
-    checkPins(FALSE, TRUE); // motor_smooth_tick was called
+    checkPins(__LINE__, FALSE, TRUE); // motor_smooth_tick was called
     TEST_ASSERT_EQUAL_MESSAGE(-1, stepMotorPosition(motor), "motor wrong position");
-    dosteps(10);
+    dosteps(5);
     TEST_ASSERT_EQUAL_MESSAGE(-2, stepMotorPosition(motor), "motor wrong position");
     dosteps(20);
-    TEST_ASSERT_EQUAL_MESSAGE(-4, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(-6, stepMotorPosition(motor), "motor wrong position");
 
-    dosteps(1000); // Max speed now
-    pos_t pos = stepMotorPosition(motor);
-    dosteps(3);
-    TEST_ASSERT_EQUAL_MESSAGE(pos - 3, stepMotorPosition(motor), "motor did not reach max speed");
+    dosteps(2200); // Max speed now
+    checkMaxSpeed(motor);
 
     dosteps(5000);
-    TEST_ASSERT_EQUAL_MESSAGE(-3000, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(-5000, stepMotorPosition(motor), "motor wrong position");
     dosteps(1000);
-    TEST_ASSERT_EQUAL_MESSAGE(-3000, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(-5000, stepMotorPosition(motor), "motor wrong position");
 }
 
 void test_rotate() {
     createMotor();
     stepMotorRotate(motor, MotorForward);
-    checkPins(FALSE, TRUE);
+    checkPins(__LINE__, FALSE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
 
     dosteps(1);
-    checkPins(TRUE, TRUE);
-    TEST_ASSERT_EQUAL_MESSAGE(1, stepMotorPosition(motor), "motor wrong position");
-    dosteps(1500);
-    TEST_ASSERT_EQUAL_MESSAGE(1457, stepMotorPosition(motor), "motor wrong position");
+    checkPins(__LINE__, TRUE, TRUE);
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_1, stepMotorPosition(motor), "motor wrong position");
+    dosteps(1499);
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_1500, stepMotorPosition(motor), "motor wrong position");
+    dosteps(STEPS_FOR_MAX - 1500);
+    checkMaxSpeed(motor);
 }
 
 void test_rotate_backward() {
     createMotor();
     stepMotorRotate(motor, MotorBackward);
-    checkPins(FALSE, TRUE);
+    checkPins(__LINE__, FALSE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
 
     dosteps(1);
-    checkPins(FALSE, TRUE);
-    TEST_ASSERT_EQUAL_MESSAGE(-1, stepMotorPosition(motor), "motor wrong position");
-    dosteps(1500);
-    TEST_ASSERT_EQUAL_MESSAGE(-1457, stepMotorPosition(motor), "motor wrong position");
+    checkPins(__LINE__, FALSE, TRUE);
+    TEST_ASSERT_EQUAL_MESSAGE(-STEPS_AFTER_1, stepMotorPosition(motor), "motor wrong position");
+    dosteps(1499);
+    TEST_ASSERT_EQUAL_MESSAGE(-STEPS_AFTER_1500, stepMotorPosition(motor), "motor wrong position");
+    dosteps(STEPS_FOR_MAX - 1500);
+    checkMaxSpeed(motor);
 }
 
 void test_stopped_after_init() {
     createMotor();
-    checkPins(FALSE, TRUE);
+    checkPins(__LINE__, FALSE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
     dosteps(30);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
@@ -196,7 +216,7 @@ void test_stopped_after_init() {
 void test_stop() {
     createMotor();
     stepMotorStop(motor);
-    checkPins(FALSE, TRUE);
+    checkPins(__LINE__, FALSE, TRUE);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
     dosteps(30);
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
@@ -206,59 +226,59 @@ void test_rotate_stop() {
     createMotor();
     stepMotorRotate(motor, MotorForward);
     dosteps(100);
-    TEST_ASSERT_EQUAL_MESSAGE(100-44, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(22, stepMotorPosition(motor), "motor wrong position");
     stepMotorStop(motor);
-    checkPins(TRUE, TRUE);
+    checkPins(__LINE__, TRUE, TRUE);
     dosteps(1000);
-    TEST_ASSERT_EQUAL_MESSAGE(100-44+10, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(44, stepMotorPosition(motor), "motor wrong position");
 }
 
 void test_rotate_change() {
     createMotor();
     stepMotorRotate(motor, MotorForward);
-    checkPins(FALSE, TRUE);
+    checkPins(__LINE__, FALSE, TRUE);
     dosteps(1000);
-    checkPins(TRUE, TRUE);
+    checkPins(__LINE__, TRUE, TRUE);
 
     stepMotorRotate(motor, MotorBackward);
-    dosteps(45);
-    checkPins(TRUE, TRUE);
+    dosteps(1001);
+    checkPins(__LINE__, TRUE, TRUE);
     dosteps(1); // Down to speed 0
-    checkPins(FALSE, TRUE);
+    checkPins(__LINE__, FALSE, TRUE);
 
-    dosteps(1020); // Speed up in reverse direction
+    dosteps(1583); // Speed up in reverse direction
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
-    dosteps(1000);
-    TEST_ASSERT_EQUAL_MESSAGE(-1000, stepMotorPosition(motor), "motor wrong position");
+    dosteps(2000);
+    TEST_ASSERT_EQUAL_MESSAGE(-1889, stepMotorPosition(motor), "motor wrong position");
 }
 
 void test_step_inverse_dir() {
     createMotor2(StepMotorInverseDir, TRUE);
     stepMotorRotate(motor, MotorForward);
-    checkPins(FALSE, TRUE);
-    dosteps(30);
-    checkPins(FALSE, TRUE);
-    TEST_ASSERT_EQUAL_MESSAGE(4, stepMotorPosition(motor), "motor wrong position");
+    checkPins(__LINE__, FALSE, TRUE);
+    dosteps(27);
+    checkPins(__LINE__, FALSE, TRUE);
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_26, stepMotorPosition(motor), "motor wrong position");
 }
 
 void test_disable() {
     createMotor();
     disableStepMotor(motor);
     TEST_ASSERT_EQUAL_MESSAGE(FALSE, stepMotorEnabled(motor), "motor not disabled");
-    checkPins(FALSE, FALSE);
+    checkPins(__LINE__, FALSE, FALSE);
     enableStepMotor(motor);
     TEST_ASSERT_EQUAL_MESSAGE(TRUE, stepMotorEnabled(motor), "motor disabled");
-    checkPins(FALSE, TRUE);
+    checkPins(__LINE__, FALSE, TRUE);
 }
 
 void test_disable_while_step() {
     createMotor();
     stepMotorRotate(motor, MotorForward);
-    dosteps(30);
+    dosteps(27);
     pos_t pos = stepMotorPosition(motor);
     disableStepMotor(motor);
     TEST_ASSERT_EQUAL_MESSAGE(FALSE, stepMotorEnabled(motor), "motor not disabled");
-    checkPins(TRUE, FALSE);
+    checkPins(__LINE__, TRUE, FALSE);
     dosteps(500);
     TEST_ASSERT_EQUAL_MESSAGE(pos, stepMotorPosition(motor), "motor should not move anymore");
 }
@@ -267,36 +287,36 @@ void test_disable_then_step() {
     createMotor();
     disableStepMotor(motor);
     stepMotorRotate(motor, MotorForward);
-    dosteps(30);
-    TEST_ASSERT_EQUAL_MESSAGE(4, stepMotorPosition(motor), "motor should not be disabled anymore");
+    dosteps(27);
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_26, stepMotorPosition(motor), "motor should not be disabled anymore");
 }
 
 void test_inverse_enable() {
     createMotor2(StepMotorInverseEnable, TRUE);
     stepMotorRotate(motor, MotorForward);
-    checkPins(FALSE, FALSE);
+    checkPins(__LINE__, FALSE, FALSE);
     disableStepMotor(motor);
     TEST_ASSERT_EQUAL_MESSAGE(FALSE, stepMotorEnabled(motor), "motor not disabled");
-    checkPins(FALSE, TRUE);
+    checkPins(__LINE__, FALSE, TRUE);
     enableStepMotor(motor);
     TEST_ASSERT_EQUAL_MESSAGE(TRUE, stepMotorEnabled(motor), "motor disabled");
-    checkPins(FALSE, FALSE);
+    checkPins(__LINE__, FALSE, FALSE);
 }
 
-void test_change_frequency() {
+void test_change_max_speed() {
     createMotor();
     stepMotorSetMaxSpeed(motor, 500);
     stepMotorRotate(motor, MotorForward);
     dosteps(1);
-    TEST_ASSERT_EQUAL_MESSAGE(1, stepMotorPosition(motor), "motor wrong position");
-    dosteps(10);
-    TEST_ASSERT_EQUAL_MESSAGE(2, stepMotorPosition(motor), "motor wrong position");
-    dosteps(30);
-    TEST_ASSERT_EQUAL_MESSAGE(6, stepMotorPosition(motor), "motor wrong position");
-    dosteps(1000);
-    TEST_ASSERT_EQUAL_MESSAGE(503, stepMotorPosition(motor), "motor wrong position");
-    dosteps(6);
-    TEST_ASSERT_EQUAL_MESSAGE(503 + 3, stepMotorPosition(motor), "motor wrong position");
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_1, stepMotorPosition(motor), "motor wrong position");
+    dosteps(5);
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_6, stepMotorPosition(motor), "motor wrong position");
+    dosteps(20);
+    TEST_ASSERT_EQUAL_MESSAGE(STEPS_AFTER_26, stepMotorPosition(motor), "motor wrong position");
+    dosteps(STEPS_FOR_MAX);
+    pos_t pos = stepMotorPosition(motor);
+    dosteps(100);
+    TEST_ASSERT_EQUAL_MESSAGE(20, stepMotorPosition(motor) - pos, "motor did not reach max speed");
 }
 
 void test_force_stop() {
@@ -305,56 +325,48 @@ void test_force_stop() {
     dosteps(30);
     pos_t pos = stepMotorPosition(motor);
     stepMotorForceStop(motor);
-    checkPins(TRUE, TRUE);
+    checkPins(__LINE__, TRUE, TRUE);
     dosteps(500);
     TEST_ASSERT_EQUAL_MESSAGE(pos, stepMotorPosition(motor), "motor should not move anymore");
 }
 
 void test_change_timer_frequency() {
     TICKS = 2000;
-    setupStepMotors(TICKS, 10);
+    setupStepMotors(TICKS);
     createMotor();
     stepMotorRotate(motor, MotorForward);
     dosteps(1);
     TEST_ASSERT_EQUAL_MESSAGE(1, stepMotorPosition(motor), "motor wrong position");
-    dosteps(20);
+    dosteps(10);
     TEST_ASSERT_EQUAL_MESSAGE(2, stepMotorPosition(motor), "motor wrong position");
-    dosteps(60);
-    TEST_ASSERT_EQUAL_MESSAGE(6, stepMotorPosition(motor), "motor wrong position");
-    dosteps(1000);
-    TEST_ASSERT_EQUAL_MESSAGE(982, stepMotorPosition(motor), "motor wrong position");
-    dosteps(6);
-    TEST_ASSERT_EQUAL_MESSAGE(982 + 6, stepMotorPosition(motor), "motor wrong position");
+    dosteps(20);
+    TEST_ASSERT_EQUAL_MESSAGE(4, stepMotorPosition(motor), "motor wrong position");
+    dosteps(1500);
+    TEST_ASSERT_EQUAL_MESSAGE(348, stepMotorPosition(motor), "motor wrong position");
+    
+    dosteps(5000);
+    checkMaxSpeed(motor);
+    TICKS = 1000;
 }
 
 void test_change_timer_frequency_slow_motor_frequency() {
     TICKS = 2000;
-    setupStepMotors(TICKS, 10);
+    setupStepMotors(TICKS);
     createMotor();
     stepMotorSetMaxSpeed(motor, 500);
     // Numbers from test_change_frequency()
     stepMotorRotate(motor, MotorForward);
-    dosteps(1047 * 2); // Takes twice as long due to the increased timer frequency
-    TEST_ASSERT_EQUAL_MESSAGE(506, stepMotorPosition(motor), "motor wrong position");
-    dosteps(12);
-    TEST_ASSERT_EQUAL_MESSAGE(506 + 3, stepMotorPosition(motor), "motor wrong position");
+    dosteps(1531 * 2); // Takes twice as long due to the increased timer frequency
+    TEST_ASSERT_EQUAL_MESSAGE(307, stepMotorPosition(motor), "motor wrong position");
+    
+    dosteps(5000);
+    pos_t pos = stepMotorPosition(motor);
+    dosteps(100);
+    pos_t diff = stepMotorPosition(motor) - pos;
+    TEST_ASSERT_EQUAL_MESSAGE(10, diff, "motor did not reach max speed");
     TICKS = 1000;
 }
 
-void test_change_timer_fix_max_speed() {
-    createMotor2(StepMotorNormal, FALSE);
-    StepMotor motor2 = newStepMotor(testPin3, testPin4, Invalid(Pin), 200, StepMotorNormal);
-    TEST_ASSERT_TRUE_MESSAGE(IsValid(motor2), "Motor 2 not valid");
-
-    stepMotorSetMaxSpeed(motor2, 400);
-    TEST_ASSERT_EQUAL_MESSAGE(400, stepMotorGetMaxSpeed(motor2), "Step motor 2 does not have correct frequency");
-
-    setupStepMotors(5000, 10);
-    TEST_ASSERT_EQUAL_MESSAGE(5000, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
-    TEST_ASSERT_EQUAL_MESSAGE(5000*400/1000, stepMotorGetMaxSpeed(motor2), "Step motor 2 does not have correct frequency");
-
-    destroyStepMotor(motor2);
-}
 void test_inverse_long_step() {
     // This tests both StepMotorInverseStep and stepDelay
     createMotor2(StepMotorInverseStep, FALSE);

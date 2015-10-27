@@ -9,7 +9,6 @@
 #include <uthash/utlist.h>
 #include <kernel/klib.h>
 
-static volatile uint16_t __adjustment_step = 1;
 uint16_t smooth_motor_default_step = 1;
 
 typedef struct _SmoothMotor {
@@ -17,6 +16,8 @@ typedef struct _SmoothMotor {
     SetUnderlyingSpeed speedSetter;
     struct _SmoothMotor *next;
     uint16_t adjustment_step;
+
+    speed_t min_speed;
 
 	// Current state
 	speed_t currentSpeed;
@@ -44,6 +45,7 @@ SmoothMotor newSmoothMotor(UnderlyingMotor _motor, SetUnderlyingSpeed speedSette
     motor->speedSetter = speedSetter;
     motor->next = NULL;
     motor->adjustment_step = smooth_motor_default_step;
+    motor->min_speed = smooth_motor_default_step;
     LL_APPEND(motors, motor);
     return As(SmoothMotor, motor);
 }
@@ -74,6 +76,15 @@ BOOL smoothMotorValid(SmoothMotor motor) {
 
 void smoothMotorSetStep(SmoothMotor motor, speed_t step) {
     MOTOR->adjustment_step = step;
+    if (MOTOR->min_speed < step) {
+        MOTOR->min_speed = step;
+    }
+}
+
+void smoothMotorSetMinSpeed(SmoothMotor motor, speed_t min_speed) {
+    if (min_speed >= MOTOR->adjustment_step) {
+        MOTOR->min_speed = min_speed;
+    }
 }
 
 speed_t motor_toUnsignedSpeed(uspeed_t speed); // motor.c
@@ -84,18 +95,29 @@ void regulateStopMotor(SmoothMotor motor) {
 }
 
 void forceStopMotor(SmoothMotor motor) {
+    forceMotorSpeed(motor, 0, MotorStopped);
+}
+
+void forceMotorSpeed(SmoothMotor motor, speed_t speed, MotorDirection dir) {
     if (!IsValid(motor)) return;
-    MOTOR->targetSpeed = 0;
-	MOTOR->currentSpeed = 0;
-    MOTOR->targetDirection = MotorStopped;
-    MOTOR->currentDirection = MotorStopped;
-    MOTOR->speedSetter(MOTOR->motor, 0, MotorStopped);
+    MOTOR->targetSpeed = speed;
+    MOTOR->currentSpeed = speed;
+    MOTOR->targetDirection = dir;
+    MOTOR->currentDirection = dir;
+    MOTOR->speedSetter(MOTOR->motor, speed, dir);
 }
 
 void regulateSpeed(SmoothMotor motor, speed_t speed, MotorDirection direction) {
     if (!IsValid(motor)) return;
-	MOTOR->targetSpeed = speed;
+    if (speed < MOTOR->min_speed) speed = MOTOR->min_speed;
+    MOTOR->targetSpeed = speed;
 	MOTOR->targetDirection = direction;
+    if (MOTOR->currentDirection == MotorStopped) {
+        // When starting up, immediately set the direction and min speed
+        MOTOR->currentSpeed = MOTOR->min_speed;
+        MOTOR->currentDirection = direction;
+        MOTOR->speedSetter(MOTOR->motor, MOTOR->min_speed, direction);
+    }
 }
 
 void regulateSpeedForward(SmoothMotor motor, speed_t speed) {
@@ -125,14 +147,15 @@ void handle_motor_tick(_SmoothMotor motor) {
     MotorDirection currentDir = motor->currentDirection;
     speed_t currentSpeed = motor->currentSpeed;
     speed_t adjustment = motor->adjustment_step;
+    speed_t minSpeed = motor->min_speed;
 
 	if (currentSpeed != targetSpeed || currentDir != targetDir) {
 		if (currentDir != MotorStopped && currentDir != targetDir) {
 			// Slowing down until we can change the direction.
-			if (currentSpeed < adjustment) {
-				// Reached almost zero. Now we either finished stopping,
+			if (currentSpeed <= minSpeed) {
+				// Reached min speed. Now we either finished stopping,
 				// or can continue in the other direction.
-				currentSpeed = targetDir == MotorStopped ? 0 : adjustment;
+				currentSpeed = targetDir == MotorStopped ? 0 : minSpeed;
 				currentDir = targetDir;
 			} else {
 				currentSpeed -= adjustment;
@@ -160,6 +183,10 @@ void handle_motor_tick(_SmoothMotor motor) {
         motor->currentDirection = currentDir;
 		motor->speedSetter(motor->motor, currentSpeed, currentDir);
 	}
+}
+
+void smoothMotorTick(SmoothMotor motor) {
+    handle_motor_tick(MOTOR);
 }
 
 void motor_smooth_tick() {
