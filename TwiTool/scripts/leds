@@ -21,16 +21,16 @@ modes=(
 )
 
 function help() {
-    echo "Parameters: <leds> <mode>"
-    echo "leds = ${!leds[@]}"
-    echo "mode = ${!modes[@]}"
+    echoerr "Parameters: <leds> <mode>"
+    echoerr "leds = ${!leds[@]}"
+    echoerr "mode = ${!modes[@]}"
     exit 1
 }
 
 test $# = 2 || help
 led=${leds[$1]}
-test -n "$led" || { echo "Unknown leds: $1"; help; }
+test -n "$led" || { echoerr "Unknown leds: $1"; help; }
 mode=${modes[$2]}
-test -n "$mode" || { echo "Unknown mode: $2"; help; }
+test -n "$mode" || { echoerr "Unknown mode: $2"; help; }
 
 twi_call tank_io_set_leds io $(param_enum $led) $(param_enum $mode)

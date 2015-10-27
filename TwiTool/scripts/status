@@ -3,7 +3,7 @@ set -e
 home=`dirname $(readlink -e $0)`
 source "$home/functions"
 
-test $# == 1 || { echo "Need 1 parameter: <device>"; exit 1; }
+test $# == 1 || { echoerr "Need 1 parameter: <device>"; exit 1; }
 device=$1
 
 twi_call query_init_status $device

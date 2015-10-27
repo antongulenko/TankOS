@@ -11,9 +11,9 @@ MOT_LEFT=0
 MOT_RIGHT=1
 
 function help() {
-    test -n "$@" && echo $@
-    echo "Parameters: [-l <left-motor-speed>] [-r right-motor-speed]"
-    echo "Numbers: -100 - +100"
+    test -n "$@" && echoerr $@
+    echoerr "Parameters: [-l <left-motor-speed>] [-r right-motor-speed]"
+    echoerr "Numbers: -100 - +100"
     exit 1
 }
 
