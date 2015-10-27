@@ -12,7 +12,7 @@ typedef struct _StepMotor {
     // Config
     steps_t full_turn;
     StepMotorFlags flags;
-    freq_t max_frequency;
+    speed_t max_frequency;
     float min_ticks_per_step; // Based on max_frequency
     steps_t steps_for_slowdown; // Maximum number of steps it can take to slow down from max speed to stop
 
@@ -35,25 +35,25 @@ typedef struct _StepMotor {
 
 #define MOTOR Get(struct _StepMotor, motor)
 
-static freq_t global_max_frequency = 1000;
-static const freq_t global_min_frequency = 100; // Should maybe be configurable
-static float global_max_ticks_per_step = 10;
-static float step_acceleration = 1.0; // Value added to/removed from ticks_per_step after every step.
+static const speed_t global_min_frequency = 100; // Should maybe be configurable
+static speed_t global_max_frequency;
+static float global_max_ticks_per_step;
+static float step_acceleration; // Value added to/removed from ticks_per_step after every step.
 _StepMotor _step_motors;
 StepMotorStepDelay stepDelay = StepDelay10us;
 
-static inline BOOL valid_frequency(freq_t freq) {
+static inline BOOL valid_frequency(speed_t freq) {
     return freq > 0 && global_max_frequency > 0 && freq <= global_max_frequency;
 }
 
-static inline float frequency_to_ticks(freq_t freq) {
+static inline float frequency_to_ticks(speed_t freq) {
     return (float) global_max_frequency / (float) freq;
 }
 
 void setupStepMotors(ticks_t _ticks_per_second, ticks_t ticks_for_speedup) {
-    freq_t previous_global = global_max_frequency;
+    speed_t previous_global = global_max_frequency;
     if (_ticks_per_second == 0) _ticks_per_second = 1;
-    global_max_frequency = (freq_t) _ticks_per_second;
+    global_max_frequency = (speed_t) _ticks_per_second;
     global_max_ticks_per_step = frequency_to_ticks(global_min_frequency);
     step_acceleration = global_max_ticks_per_step / (float) ticks_for_speedup;
 
@@ -61,12 +61,13 @@ void setupStepMotors(ticks_t _ticks_per_second, ticks_t ticks_for_speedup) {
     float speed_change = (float) global_max_frequency / (float) previous_global;
     _StepMotor i = NULL;
     LL_FOREACH(_step_motors, i) {
-        freq_t new_freq = (float) i->max_frequency * speed_change;
-        stepMotorSetMaxFrequency(As(StepMotor, i), new_freq);
+        speed_t new_freq = (float) i->max_frequency * speed_change;
+        stepMotorSetMaxSpeed(As(StepMotor, i), new_freq);
     }
 }
 
 StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, StepMotorFlags flags) {
+    if (global_max_frequency == 0) return Invalid(StepMotor);
     if (stepsPerTurn == 0) return Invalid(StepMotor);
     _StepMotor motor;
     if (!occupyPinDirectly(step, PinStepMotor, EmptyConfigData) ||
@@ -96,7 +97,7 @@ StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, Step
 
     LL_APPEND(_step_motors, motor);
     StepMotor stepMotor = As(StepMotor, motor);
-    stepMotorSetMaxFrequency(stepMotor, global_max_frequency); // Default: maximum possible frequency
+    stepMotorSetMaxSpeed(stepMotor, global_max_frequency); // Default: maximum possible frequency
     stepMotorForceStop(stepMotor);
     return stepMotor;
 }
@@ -151,7 +152,7 @@ BOOL stepMotorEnabled(StepMotor motor) {
     }
 }
 
-BOOL stepMotorSetMaxFrequency(StepMotor motor, freq_t stepsPerSecond) {
+BOOL stepMotorSetMaxSpeed(StepMotor motor, speed_t stepsPerSecond) {
     if (!IsValid(motor)) return FALSE;
     BOOL res;
     if (valid_frequency(stepsPerSecond)) {
@@ -169,7 +170,7 @@ BOOL stepMotorSetMaxFrequency(StepMotor motor, freq_t stepsPerSecond) {
     return res;
 }
 
-freq_t stepMotorGetMaxFrequency(StepMotor motor) {
+speed_t stepMotorGetMaxSpeed(StepMotor motor) {
     if (!IsValid(motor)) return 0;
     return MOTOR->max_frequency;
 }

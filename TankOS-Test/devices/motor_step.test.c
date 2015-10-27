@@ -24,7 +24,7 @@ static void createMotor2(StepMotorFlags flags, BOOL enablePin) {
 
     pos_t pos = stepMotorPosition(motor);
     TEST_ASSERT_EQUAL_MESSAGE(0, pos, "StepMotor not at position 0 after create");
-    TEST_ASSERT_EQUAL_MESSAGE(TICKS, stepMotorGetMaxFrequency(motor), "Step motor does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(TICKS, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
 
     TEST_ASSERT_EQUAL_MESSAGE(PinStepMotor, pinOccupation(step), "Did not occupy step pin");
     TEST_ASSERT_EQUAL_MESSAGE(PinStepMotor, pinOccupation(step), "Did not occupy dir pin");
@@ -69,17 +69,17 @@ void test_occupied_pin() {
 
 void test_set_frequency() {
     createMotor();
-    BOOL res = stepMotorSetMaxFrequency(motor, TICKS);
+    BOOL res = stepMotorSetMaxSpeed(motor, TICKS);
     TEST_ASSERT_TRUE_MESSAGE(res, "frequency not set correctly");
-    TEST_ASSERT_EQUAL_MESSAGE(TICKS, stepMotorGetMaxFrequency(motor), "Step motor does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(TICKS, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
 
-    res = stepMotorSetMaxFrequency(motor, TICKS / 3);
+    res = stepMotorSetMaxSpeed(motor, TICKS / 3);
     TEST_ASSERT_TRUE_MESSAGE(res, "frequency not set correctly");
-    TEST_ASSERT_EQUAL_MESSAGE(TICKS / 3, stepMotorGetMaxFrequency(motor), "Step motor does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(TICKS / 3, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
 
-    res = stepMotorSetMaxFrequency(motor, TICKS + 50);
+    res = stepMotorSetMaxSpeed(motor, TICKS + 50);
     TEST_ASSERT_FALSE_MESSAGE(res, "frequency should not be set correctly");
-    TEST_ASSERT_EQUAL_MESSAGE(TICKS, stepMotorGetMaxFrequency(motor), "Step motor does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(TICKS, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
 }
 
 void dosteps(int num) {
@@ -285,7 +285,7 @@ void test_inverse_enable() {
 
 void test_change_frequency() {
     createMotor();
-    stepMotorSetMaxFrequency(motor, 500);
+    stepMotorSetMaxSpeed(motor, 500);
     stepMotorRotate(motor, MotorForward);
     dosteps(1);
     TEST_ASSERT_EQUAL_MESSAGE(1, stepMotorPosition(motor), "motor wrong position");
@@ -331,7 +331,7 @@ void test_change_timer_frequency_slow_motor_frequency() {
     TICKS = 2000;
     setupStepMotors(TICKS, 10);
     createMotor();
-    stepMotorSetMaxFrequency(motor, 500);
+    stepMotorSetMaxSpeed(motor, 500);
     // Numbers from test_change_frequency()
     stepMotorRotate(motor, MotorForward);
     dosteps(1047 * 2); // Takes twice as long due to the increased timer frequency
@@ -346,12 +346,12 @@ void test_change_timer_fix_max_speed() {
     StepMotor motor2 = newStepMotor(testPin3, testPin4, Invalid(Pin), 200, StepMotorNormal);
     TEST_ASSERT_TRUE_MESSAGE(IsValid(motor2), "Motor 2 not valid");
 
-    stepMotorSetMaxFrequency(motor2, 400);
-    TEST_ASSERT_EQUAL_MESSAGE(400, stepMotorGetMaxFrequency(motor2), "Step motor 2 does not have correct frequency");
+    stepMotorSetMaxSpeed(motor2, 400);
+    TEST_ASSERT_EQUAL_MESSAGE(400, stepMotorGetMaxSpeed(motor2), "Step motor 2 does not have correct frequency");
 
     setupStepMotors(5000, 10);
-    TEST_ASSERT_EQUAL_MESSAGE(5000, stepMotorGetMaxFrequency(motor), "Step motor does not have correct frequency");
-    TEST_ASSERT_EQUAL_MESSAGE(5000*400/1000, stepMotorGetMaxFrequency(motor2), "Step motor 2 does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(5000, stepMotorGetMaxSpeed(motor), "Step motor does not have correct frequency");
+    TEST_ASSERT_EQUAL_MESSAGE(5000*400/1000, stepMotorGetMaxSpeed(motor2), "Step motor 2 does not have correct frequency");
 
     destroyStepMotor(motor2);
 }

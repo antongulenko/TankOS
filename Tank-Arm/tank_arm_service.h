@@ -23,8 +23,8 @@ TWI_RPC_FUNCTION_NOTIFY(tank_arm_stop, TANK_ARM_STOP)
 TWI_RPC_FUNCTION_NOARGS(tank_arm_position, TANK_ARM_POSITION, pos_t)
 TWI_RPC_FUNCTION_NOTIFY(tank_arm_enable, TANK_ARM_ENABLE)
 TWI_RPC_FUNCTION_NOTIFY(tank_arm_disable, TANK_ARM_DISABLE)
-TWI_RPC_FUNCTION(tank_arm_set_max, TANK_ARM_SET_MAX, freq_t, uint16_t) // enum BOOL
-TWI_RPC_FUNCTION_NOARGS(tank_arm_get_max, TANK_ARM_GET_MAX, freq_t)
+TWI_RPC_FUNCTION(tank_arm_set_max, TANK_ARM_SET_MAX, speed_t, uint16_t) // enum BOOL
+TWI_RPC_FUNCTION_NOARGS(tank_arm_get_max, TANK_ARM_GET_MAX, speed_t)
 TWI_RPC_FUNCTION_VOID(tank_arm_set_timer, TANK_ARM_SET_TIMER, uint16_t)
 TWI_RPC_FUNCTION_VOID(tank_arm_set_delay, TANK_ARM_SET_DELAY, uint16_t) // enum StepMotorStepDelay
 

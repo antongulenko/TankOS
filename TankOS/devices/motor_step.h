@@ -18,7 +18,6 @@ typedef enum {
 typedef int32_t pos_t; // Position in steps
 typedef uint32_t steps_t;
 typedef uint16_t ticks_t;
-typedef uint16_t freq_t; // This is similar to speed_t from motor.h
 
 StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, StepMotorFlags flags);
 StepMotor destroyStepMotor(StepMotor motor);
@@ -30,8 +29,9 @@ void disableStepMotor(StepMotor motor);
 BOOL stepMotorEnabled(StepMotor motor);
 
 // Sets the maximum frequency for movements
-BOOL stepMotorSetMaxFrequency(StepMotor motor, freq_t stepsPerSecond); // Return FALSE if frequency is too high
-freq_t stepMotorGetMaxFrequency(StepMotor motor);
+// Speed is given in turns per 100 minutes
+BOOL stepMotorSetMaxSpeed(StepMotor motor, speed_t speed); // Return FALSE if speed is too high
+speed_t stepMotorGetMaxSpeed(StepMotor motor);
 
 void stepMotorStep(StepMotor motor, pos_t numSteps);
 void stepMotorRotate(StepMotor motor, MotorDirection dir);

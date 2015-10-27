@@ -8,8 +8,8 @@ int tank_arm_position_format(ClientResultPrinter print, void *results, uint16_t 
 }
 
 int tank_arm_get_max_format(ClientResultPrinter print, void *results, uint16_t results_length) {
-    if (results_length != sizeof(freq_t)) return 0;
-    freq_t freq = * (freq_t*) results;
+    if (results_length != sizeof(speed_t)) return 0;
+    speed_t freq = * (speed_t*) results;
     return print("Max motor frequency: %i", freq);
 }
 

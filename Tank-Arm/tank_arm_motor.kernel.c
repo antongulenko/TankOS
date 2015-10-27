@@ -12,7 +12,12 @@ void setupTankArmMotor(uint16_t max_frequency) {
 
 static void init_arm_motor() {
     setupTankArmMotor(2000);
-    tank_arm_step_motor = newStepMotor(pinB0, pinB1, pinB2, 200, StepMotorInverseEnable);
+    StepMotorFlags flags = StepMotorInverseEnable;
+
+    flags |= StepMotorInverseStep;
+    stepDelay = StepDelay10us;
+
+    tank_arm_step_motor = newStepMotor(pinB0, pinB1, pinB2, 200, flags);
     enableGenericTimerInterrupt_A(); // Step motor interrupt
 }
 KERNEL_INIT(init_arm_motor)
