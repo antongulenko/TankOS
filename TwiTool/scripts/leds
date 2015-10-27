@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 home=`dirname $(readlink -e $0)`
-call="$home/call"
+source "$home/functions"
 
 declare -A leds
 leds=(
@@ -28,19 +28,9 @@ function help() {
 }
 
 test $# = 2 || help
-leds=${leds[$1]}
+led=${leds[$1]}
+test -n "$led" || { echo "Unknown leds: $1"; help; }
 mode=${modes[$2]}
-test -n "$leds" || { echo "Unknown leds: $1"; help; }
 test -n "$mode" || { echo "Unknown mode: $2"; help; }
 
-# Convert parameters to hex-value
-leds=`printf '%04x' $leds`
-mode=`printf '%04x' $mode`
-
-# Split the 16-bit hex-values into two separate bytes
-leds_high=${leds:0:2}
-leds_low=${leds: -2}
-mode_high=${mode:0:2}
-mode_low=${mode: -2}
-
-$call tank_io_set_leds io -p $leds_low -p $leds_high -p $mode_low -p $mode_high
+twi_call tank_io_set_leds io $(param_enum $led) $(param_enum $mode)

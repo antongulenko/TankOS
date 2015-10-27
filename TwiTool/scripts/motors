@@ -1,7 +1,14 @@
 #!/bin/bash
 set -e
 home=`dirname $(readlink -e $0)`
-call="$home/call"
+source "$home/functions"
+
+BACKWARD=0
+FORWARD=1
+STOPPED=2
+
+MOT_LEFT=0
+MOT_RIGHT=1
 
 function help() {
     test -n "$@" && echo $@
@@ -24,26 +31,18 @@ test $left -ge -100 -a $left -le 100 || help "Invalid -l parameter"
 test $right -ge -100 -a $right -le 100 || help "Invalid -r parameter"
 
 # Determine the motor directions
-if [ $left -gt 0 ]; then leftdir=01
-elif [ $left -lt 0 ]; then leftdir=00; left=$((-left))
-else leftdir=02
+if [ $left -gt 0 ]; then leftdir=$FORWARD
+elif [ $left -lt 0 ]; then leftdir=$BACKWARD; left=$((-left))
+else leftdir=$STOPPED
 fi
-if [ $right -gt 0 ]; then rightdir=01
-elif [ $right -lt 0 ]; then rightdir=00; right=$((-right))
-else rightdir=02
+if [ $right -gt 0 ]; then rightdir=$FORWARD
+elif [ $right -lt 0 ]; then rightdir=$BACKWARD; right=$((-right))
+else rightdir=$STOPPED
 fi
 
 # Convert from -100..100 to the expanded hex-value
 left=$((left*65535/100))
 right=$((right*65535/100))
-left=`printf '%04x' $left`
-right=`printf '%04x' $right`
 
-# Split the 16-bit hex-values into two separate bytes
-left_high=${left:0:2}
-left_low=${left: -2}
-right_high=${right:0:2}
-right_low=${right: -2}
-
-$call tank_driver_set_motor driver -p 00 -p 00 -p $leftdir -p 00 -p $left_low -p $left_high
-$call tank_driver_set_motor driver -p 01 -p 00 -p $rightdir -p 00 -p $right_low -p $right_high
+twi_call tank_driver_set_motor driver $(param_enum $MOT_LEFT) $(param_enum $leftdir) $(param_u16bit $left)
+twi_call tank_driver_set_motor driver $(param_enum $MOT_RIGHT) $(param_enum $rightdir) $(param_u16bit $right)

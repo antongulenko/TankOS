@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 home=`dirname $(readlink -e $0)`
-call="$home/call"
+source "$home/functions"
 
 test $# == 2 || { echo "Need 2 parameters: <device> and <assumed frequency> "; exit 1; }
 device=$1
 ASSUMED_FREQ="$2"
 
 function get_values() {
-    device_time=`$call query_milliseconds $device`
+    device_time=`twi_call query_milliseconds $device`
     test $? == 0 || { echo "Command failed."; exit 1; }
     current_time=`date +%T.%3N`
     device_time=${device_time:9} # Strip "Running: " prefix
