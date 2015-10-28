@@ -1,10 +1,11 @@
 #!/bin/bash
+home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function echoerr() {
     >&2 echo $@
 }
 
-TWI_TOOL="../build-Native-speed/twi-tool.main.out"
+TWI_TOOL=$(readlink -f "$home/../build-Native-speed/twi-tool.main.out")
 TWI_BUS=2
 
 declare -A TWI_DEVICES
@@ -24,7 +25,7 @@ function twi_call() {
     device_address=${TWI_DEVICES[$device]}
     test -n "$device_address" || { echoerr "Address of device $device not registered."; return 1; }
 
-    "$TWI_TOOL" -b $TWI_BUS -d $device_address -f $func $@
+    echo "$TWI_TOOL" -b $TWI_BUS -d $device_address -f $func $@
 }
 
 function param_u16bit() {
@@ -57,4 +58,32 @@ function param_s32bit() {
     param0=${val: -2:2}
 
     echo "-p $param0 -p $param1 -p $param2 -p $param3"
+}
+
+BACKWARD=0
+FORWARD=1
+STOPPED=2
+
+MOT_LEFT=0
+MOT_RIGHT=1
+
+function set_motors() {
+    left=$1
+    right=$2
+    test -n "$left" || left=0
+    test -n "$right" || right=0
+
+    # Determine the motor directions
+    if [ $left -gt 0 ]; then leftdir=$FORWARD
+    elif [ $left -lt 0 ]; then leftdir=$BACKWARD; left=$((-left))
+    else leftdir=$STOPPED
+    fi
+    if [ $right -gt 0 ]; then rightdir=$FORWARD
+    elif [ $right -lt 0 ]; then rightdir=$BACKWARD; right=$((-right))
+    else rightdir=$STOPPED
+    fi
+
+    twi_call tank_driver_set_motor driver $(param_enum $MOT_LEFT) $(param_enum $leftdir) $(param_u16bit $left) &
+    twi_call tank_driver_set_motor driver $(param_enum $MOT_RIGHT) $(param_enum $rightdir) $(param_u16bit $right) &
+    wait
 }

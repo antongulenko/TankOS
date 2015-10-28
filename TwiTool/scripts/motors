@@ -3,17 +3,10 @@ set -e
 home=`dirname $(readlink -e $0)`
 source "$home/functions"
 
-BACKWARD=0
-FORWARD=1
-STOPPED=2
-
-MOT_LEFT=0
-MOT_RIGHT=1
-
 function help() {
     test -n "$@" && echoerr $@
     echoerr "Parameters: [-l <left-motor-speed>] [-r right-motor-speed]"
-    echoerr "Numbers: -100 - +100"
+    echoerr "motor-speed: -100..100"
     exit 1
 }
 
@@ -30,19 +23,8 @@ esac done
 test $left -ge -100 -a $left -le 100 || help "Invalid -l parameter"
 test $right -ge -100 -a $right -le 100 || help "Invalid -r parameter"
 
-# Determine the motor directions
-if [ $left -gt 0 ]; then leftdir=$FORWARD
-elif [ $left -lt 0 ]; then leftdir=$BACKWARD; left=$((-left))
-else leftdir=$STOPPED
-fi
-if [ $right -gt 0 ]; then rightdir=$FORWARD
-elif [ $right -lt 0 ]; then rightdir=$BACKWARD; right=$((-right))
-else rightdir=$STOPPED
-fi
-
 # Convert from -100..100 to the expanded hex-value
 left=$((left*65535/100))
 right=$((right*65535/100))
 
-twi_call tank_driver_set_motor driver $(param_enum $MOT_LEFT) $(param_enum $leftdir) $(param_u16bit $left)
-twi_call tank_driver_set_motor driver $(param_enum $MOT_RIGHT) $(param_enum $rightdir) $(param_u16bit $right)
+set_motors "$left" "$right"
