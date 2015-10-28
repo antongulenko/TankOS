@@ -22,5 +22,6 @@ while true; do
 		left=$newleft
 		right=$newright
 		echo "$left $right"
+		>&2 echo "$left $right"
 	fi
 done

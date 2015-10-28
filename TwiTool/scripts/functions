@@ -83,7 +83,6 @@ function set_motors() {
     else rightdir=$STOPPED
     fi
 
-    twi_call tank_driver_set_motor driver $(param_enum $MOT_LEFT) $(param_enum $leftdir) $(param_u16bit $left) &
-    twi_call tank_driver_set_motor driver $(param_enum $MOT_RIGHT) $(param_enum $rightdir) $(param_u16bit $right) &
-    wait
+    twi_call tank_driver_set_motor driver $(param_enum $MOT_LEFT) $(param_enum $leftdir) $(param_u16bit $left)
+    twi_call tank_driver_set_motor driver $(param_enum $MOT_RIGHT) $(param_enum $rightdir) $(param_u16bit $right)
 }
