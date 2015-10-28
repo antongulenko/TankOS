@@ -11,8 +11,6 @@
 #include <linux/joystick.h>
 
 #define NAME_LENGTH 128
-#define AXIS_LEFT 1
-#define AXIS_RIGHT 4
 
 void handle(int left, int right) {
 	long lleft = (long) left;
@@ -31,10 +29,18 @@ int main (int argc, char **argv)
 	int version = 0x000800;
 	char name[NAME_LENGTH] = "Unknown";
 
-	if (argc != 2) {
-		fprintf(stderr, "Usage: read-xbox <js-file>\n");
+	if (argc != 4) {
+		fprintf(stderr, "Usage: read-xbox <js-file> <left-axis> <right-axis>\n");
 		exit(1);
 	}
+	int AXIS_LEFT = atoi(argv[2]);
+	int AXIS_RIGHT = atoi(argv[3]);
+	if (AXIS_LEFT == AXIS_RIGHT || AXIS_LEFT < 0 || AXIS_RIGHT < 0) {
+		fprintf(stderr, "Illegal axis values (must be different and >=0). Got %i and %i\n", AXIS_LEFT, AXIS_RIGHT);
+		exit(1);
+	}	
+	fprintf(stderr, "Using axis %i (left) and %i (right)\n", AXIS_LEFT, AXIS_RIGHT);
+
 	if ((fd = open(argv[1], O_RDONLY)) < 0) {
 		perror("read-xbox");
 		exit(1);

@@ -4,4 +4,5 @@ read_xbox=$(readlink -f "$home/../build-Native-speed/read-xbox.main.out")
 buffered_exec=$(readlink -f "$home/../build-Native-speed/buffered-execute.main.out")
 motors=$(readlink -f "$home/set_motors")
 
-"$read_xbox" /dev/input/js0 | "$home/clean_motor_input" | "$buffered_exec" "$motors"
+AXIS_BBB="1 3"
+"$read_xbox" /dev/input/js0 $AXIS_BBB | "$home/clean_motor_input" | "$buffered_exec" "$motors"
