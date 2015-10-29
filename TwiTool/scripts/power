@@ -1,37 +1,11 @@
 #!/bin/bash
+home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-function help() {
-     echo "Need 1 parameter: on|off"
-     exit 1
-}
+POWER_PIN=60
 
-PIN_NR=60
-PIN=/sys/class/gpio/gpio$PIN_NR
-PIN_DIR="$PIN/direction"
-PIN_VAL="$PIN/value"
-EXPORT=/sys/class/gpio/export
-
-function config_gpio() {
-    test -d "$PIN" && return
-    echo $PIN_NR > "$EXPORT"
-    test -d "$PIN" || { echo "Failed to export GPIO pin $PIN_NR on $PIN"; exit 1; }
-}
-
-function power_on() {
-    echo "high" > "$PIN_DIR"
-    echo "1" > "$PIN_VAL"
-}
-
-function power_off() {
-    echo "low" > "$PIN_DIR"
-    echo "0" > "$PIN_VAL"
-}
-
-test $# = 1 || help
-power="$1"
-case $power in
-    on) config_gpio; power_on ;;
-    off) config_gpio; power_off ;;
-    *) help ;;
+case $1 in
+    on) "$home/pin" $POWER_PIN hi ;;
+    off) "$home/pin" $POWER_PIN lo ;;
+    *) echo "Need 1 parameter: on|off"; exit 1 ;;
 esac
 

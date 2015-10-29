@@ -2,11 +2,13 @@
 home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source "$home/functions"
 leds="$home/leds"
+power="$home/power"
 
 function log() {
     >&2 echo " ===== `date +'%F %T'` - $@"
 }
 
+TOTAL_AVRS=3
 BBB_LED=green1
 
 declare -A devices
@@ -16,6 +18,7 @@ devices=(
 )
 
 log "Booting"
+"$power" off
 
 function check() {
     log "Checking $1..."
@@ -24,21 +27,31 @@ function check() {
 
 function tank_shutdown() {
     log "Shutting down"
+    "$power" off
 }
 
 trap 'tank_shutdown' EXIT
 
 while true; do
     log "Checking AVRs..."
+    booted=0
     for device in "${!devices[@]}"; do
         led=${devices[$device]}
         if check $device; then
             "$leds" $led on
+            booted=$((booted+1))
         else
             "$leds" $led blink_fast
         fi
     done
-    "$leds" $BBB_LED flash
-#     sleep 3
+    "$leds" $BBB_LED flash && booted=$((booted+1))
+    if [ $booted = $TOTAL_AVRS ]; then
+        log "All $booted AVRs booted, enabling motors"
+        "$power" on
+    else
+        log "$booted out of $TOTAL_AVRS AVRs booted, disabling motors"
+        "$power" off
+    fi
+    sleep 3
 done
 
