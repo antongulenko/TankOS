@@ -1,3 +1,38 @@
 #!/bin/bash
+home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+source "$home/functions"
+leds="$home/leds"
 
-echo "Control script"
+function log() {
+    >&2 echo " ===== `date +'%F %T'` - $@"
+}
+
+BBB_LED=green1
+
+declare -A devices
+devices=(
+    [driver]=green2
+    [arm]=green3
+)
+
+log "Booting"
+
+function check() {
+    log "Checking $1..."
+    twi_call query_init_status $1
+}
+
+while true; do
+    log "Checking AVRs..."
+    for device in "${!devices[@]}"; do
+        led=${devices[$device]}
+        if check $device; then
+            "$leds" $led on
+        else
+            "$leds" $led blink_fast
+        fi
+    done
+    "$leds" $BBB_LED flash
+    sleep 3
+done
+
