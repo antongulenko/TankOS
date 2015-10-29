@@ -22,6 +22,12 @@ function check() {
     twi_call query_init_status $1
 }
 
+function tank_shutdown() {
+    log "Shutting down"
+}
+
+trap 'tank_shutdown' EXIT
+
 while true; do
     log "Checking AVRs..."
     for device in "${!devices[@]}"; do
@@ -33,6 +39,6 @@ while true; do
         fi
     done
     "$leds" $BBB_LED flash
-    sleep 3
+#     sleep 3
 done
 
