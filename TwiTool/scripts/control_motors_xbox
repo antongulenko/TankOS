@@ -1,7 +1,8 @@
 #!/bin/bash
 home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 read_xbox=$(readlink -f "$home/../build-Native-speed/read-xbox.main.out")
-buffered_exec=$(readlink -f "$home/../build-Native-speed/buffered-execute.main.out")
-motors=$(readlink -f "$home/set_motors")
+control_motors=$(readlink -f "$home/../build-Native-speed/buffered-execute.main.out")
+set_motors=$(readlink -f "$home/set_motors")
+js_input="/dev/input/js0"
 
-"$read_xbox" /dev/input/js0 | "$home/clean_motor_input" | "$buffered_exec" "$motors"
+"$read_xbox" "$js_input" | "$control_motors" "$set_motors"
