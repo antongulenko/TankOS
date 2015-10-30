@@ -1,8 +1,0 @@
-#!/bin/bash
-set -e
-home=`dirname $(readlink -e $0)`
-source "$home/functions"
-
-test $# = 2 || { echo "Need 2 parameters: <left> <right>, signed 16-bit numbers"; exit 1; }
-
-set_motors $1 $2

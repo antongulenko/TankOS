@@ -67,23 +67,29 @@ STOPPED=2
 MOT_LEFT=0
 MOT_RIGHT=1
 
-function set_motors() {
-    left=$1
-    right=$2
-    test -n "$left" || left=0
-    test -n "$right" || right=0
+function set_motor_help() {
+    echoerr "Need 2 parameters: [-l|-r] <signed 16-bit number>"
+}
+
+function set_motor() {
+    set -e
+    test $# = 2 || { set_motor_help; return 1; }
+
+    local MOTOR=
+    case "$1" in
+        -l) MOTOR=$MOT_LEFT;;
+        -r) MOTOR=$MOT_RIGHT;;
+        *) set_motor_help; return 1 ;;
+    esac
+
+    local MOTOR_VAL=$2
+    local MOTOR_DIR=
 
     # Determine the motor directions
-    if [ $left -gt 0 ]; then leftdir=$FORWARD
-    elif [ $left -lt 0 ]; then leftdir=$BACKWARD; left=$((-left))
-    else leftdir=$STOPPED
-    fi
-    if [ $right -gt 0 ]; then rightdir=$FORWARD
-    elif [ $right -lt 0 ]; then rightdir=$BACKWARD; right=$((-right))
-    else rightdir=$STOPPED
+    if [ $MOTOR_VAL -gt 0 ]; then MOTOR_DIR=$FORWARD
+    elif [ $MOTOR_VAL -lt 0 ]; then MOTOR_DIR=$BACKWARD; MOTOR_VAL=$((-MOTOR_VAL))
+    else MOTOR_DIR=$STOPPED
     fi
 
-    twi_call tank_driver_set_motor driver $(param_enum $MOT_LEFT) $(param_enum $leftdir) $(param_u16bit $left) &
-    twi_call tank_driver_set_motor driver $(param_enum $MOT_RIGHT) $(param_enum $rightdir) $(param_u16bit $right) &
-    wait
+    twi_call tank_driver_set_motor driver $(param_enum $MOTOR) $(param_enum $MOTOR_DIR) $(param_u16bit $MOTOR_VAL)
 }
