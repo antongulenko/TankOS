@@ -5,5 +5,4 @@ control_motors=$(readlink -f "$home/../build-Native-speed/buffered-execute.main.
 set_motors=$(readlink -f "$home/set_motor")
 js_input="/dev/input/js0"
 
-#"$read_xbox" "$js_input" | 
-"$control_motors" "$set_motors"
+"$read_xbox" "$js_input" | "$control_motors" "$set_motors"
