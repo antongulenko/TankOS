@@ -23,30 +23,50 @@ void handle(int left, int right) {
 	fflush(stdout);
 }
 
+void help() {
+    fprintf(stderr, "Usage: read-xbox [-f] <js-file>\n");
+    exit(1);
+}
+
 int main (int argc, char **argv)
 {
+    int force = 0;
+    char *filename;
 	int fd;
 	unsigned char axes = 2;
 	unsigned char buttons = 2;
 	int version = 0x000800;
 	char name[NAME_LENGTH] = "Unknown";
 
-	if (argc != 2) {
-		fprintf(stderr, "Usage: read-xbox <js-file>\n");
-		exit(1);
-	}
-	if ((fd = open(argv[1], O_RDONLY)) < 0) {
+    if (argc == 2) {
+        filename = argv[1];
+	} else if (argc == 3) {
+        if (!strcmp("-f", argv[1])) {
+            force = 1;
+        } else {
+            help();
+        }
+        filename = argv[2];
+	} else {
+        help();
+    }
+	if ((fd = open(filename, O_RDONLY)) < 0) {
 		perror("read-xbox");
 		exit(1);
 	}
 
-	ioctl(fd, JSIOCGVERSION, &version);
-	ioctl(fd, JSIOCGAXES, &axes);
-	ioctl(fd, JSIOCGBUTTONS, &buttons);
-	ioctl(fd, JSIOCGNAME(NAME_LENGTH), name);
+    if (!force) {
+        ioctl(fd, JSIOCGVERSION, &version);
+        ioctl(fd, JSIOCGAXES, &axes);
+        ioctl(fd, JSIOCGBUTTONS, &buttons);
+        ioctl(fd, JSIOCGNAME(NAME_LENGTH), name);
 
-	fprintf(stderr, "Joystick (%s) has %d axes and %d buttons. Driver version is %d.%d.%d.\n",
-		name, axes, buttons, version >> 16, (version >> 8) & 0xff, version & 0xff);
+        fprintf(stderr, "Joystick (%s) has %d axes and %d buttons. Driver version is %d.%d.%d.\n",
+            name, axes, buttons, version >> 16, (version >> 8) & 0xff, version & 0xff);
+    } else {
+        fprintf(stderr, "Skipping ioctl and using new joystick interface...\n");
+        version = 0x020000;
+    }
 
 	if (version < 0x010000) {
 		fprintf(stderr, "Using old joystick interface\n");
