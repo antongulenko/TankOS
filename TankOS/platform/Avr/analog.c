@@ -4,11 +4,19 @@
  */
 
 #include "analog.h"
+#include <kernel/klib.h>
+#include <uthash/utlist.h>
 
-#define PIN Cast(Pin, input)
+typedef struct _Input {
+	Pin pin;
+	uint16_t value;
+	struct _Input *next;
+} *_Input;
 
-// Used in analog.kernel.c
-void (*analogCallbackFunction) (uint8_t result);
+_Input inputs = NULL;
+_Input currentConversion = NULL;
+
+#define INPUT Get(struct _Input, input)
 
 BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber) {
     ConfigData data = { pinNumber, 0, 0, 0 };
@@ -16,68 +24,81 @@ BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber) {
 }
 
 AnalogInput newAnalogInput(Pin inputPin) {
-    if (!occupyPin(inputPin, PinAnalogInput))
+	_Input input = kalloc(sizeof(struct _Input));
+	if (!input) return Invalid(AnalogInput);
+    if (!occupyPin(inputPin, PinAnalogInput)) {
+    	free(input);
         return Invalid(AnalogInput);
-    return Cast(AnalogInput, inputPin);
+    }
+    LL_APPEND(inputs, input);
+    input->pin = inputPin;
+    input->value = 0;
+    return As(AnalogInput, input);
 }
 
 AnalogInput destroyAnalogInput(AnalogInput input) {
-    if (analogInputValid(input))
-        deOccupyPin(PIN, PinAnalogInput);
+	if (IsValid(input)) {
+	    if (analogInputValid(input)) {
+	        deOccupyPin(INPUT->pin, PinAnalogInput);
+	    }
+	    LL_DELETE(inputs, INPUT);
+	    free(INPUT);
+	}
     return Invalid(AnalogInput);
 }
 
 BOOL analogInputValid(AnalogInput input) {
     if (!IsValid(input))
         return FALSE;
-    if (pinOccupation(PIN) != PinAnalogInput)
+    if (pinOccupation(INPUT->pin) != PinAnalogInput)
         return FALSE;
     return TRUE;
 }
 
-inline static BOOL conversionRunning() {
-	// The ADSC (ADC Start Conversion) bit in the ADC Control/Status
-	// Register A is set as long as an ADC conversion is running.
-	return (ADCSRA & _BV(ADSC)) != 0;
-}
-
-BOOL startConversion(Pin input) {
-    ConfigData *data = pinConfigData(input, PinAnalogInput);
-    if (data == NULL) return FALSE;
+static void startNextConversion() {
+	if (currentConversion == NULL) {
+		// Conversion cycle is finished.
+		return;
+	}
+	Pin inputPin = currentConversion->pin;
+    ConfigData *data = pinConfigData(inputPin, PinAnalogInput);
+    if (data == NULL) return;
     uint8_t pinNum = data->data[0];
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		// Set only MUX4..0, the 5 LSB of ADMUX.
         ADMUX = (ADMUX & 0xE0) | pinNum;
 	}
-	ADCSRA |= _BV(ADSC) | _BV(ADEN); // Start the conversion
-    return TRUE;
+	ADCSRA |= _BV(ADEN) | _BV(ADSC) | _BV(ADIE); // Start the conversion with interrupt enabled
 }
 
-BOOL analogRead(AnalogInput input, AnalogCallbackFunction callback) {
-    if (!analogInputValid(input)) return FALSE;
-	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		if (conversionRunning()) return FALSE;
+// Must be called from the ADC interrupt handler, after reading the ADCH/ADCL registers.
+void analogInputInterruptValue(uint16_t new_value) {
+	if (currentConversion != NULL) {
+		currentConversion->value = new_value;
+		currentConversion = currentConversion->next;
+		startNextConversion();
 	}
-	analogCallbackFunction = callback;
-	ADCSRA |= _BV(ADIE);
-	return startConversion(PIN);
 }
 
-BOOL analogReadLoop(AnalogInput input, uint8_t *result) {
-    if (!analogInputValid(input)) return FALSE;
+uint16_t analogInputValue(AnalogInput input) {
+	return INPUT->value;
+}
+
+void analogInputReadValues() {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		if (conversionRunning()) return FALSE;
+		if (currentConversion == NULL) {
+			// No conversion cycle running, we can start a new one
+			currentConversion = inputs;
+			startNextConversion();
+		}
 	}
-    analogCallbackFunction = NULL;
-	// Disable interrupts, because we poll the result in a busy-loop
-	ADCSRA &= ~_BV(ADIE);
-	if (!startConversion(PIN))
-        return FALSE;
-	while (conversionRunning()) ;
-	// We only use 8-bit resolution, left-aligned. It's enough to
-	// read the high-register of the result.
-	*result = ADCH;
-	// Clear interrupt flag to make sure the interrupt does not fire later
-	ADCSRA &= ~_BV(ADIF);
-	return TRUE;
+}
+
+BOOL analogInputCycleRunning() {
+	return currentConversion != NULL;
+}
+
+void __vector_ANALOG_INPUT_TIMER_INTERRUPT() INTERRUPT_FUNCTION;
+void __vector_ANALOG_INPUT_TIMER_INTERRUPT() {
+	analogInputReadValues();
 }

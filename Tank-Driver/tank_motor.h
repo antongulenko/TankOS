@@ -19,6 +19,7 @@ extern Motor leftBaseMotor, rightBaseMotor;
 extern SmoothMotor leftMotor, rightMotor;
 
 extern AnalogInput leftMotorCurrent, rightMotorCurrent;
+extern AnalogInput batteryVoltage; // Not really related to motors
 
 // Indexed by TankMotorNum enum values
 #define TANK_MOTORS ((SmoothMotor[]) { leftMotor, rightMotor })

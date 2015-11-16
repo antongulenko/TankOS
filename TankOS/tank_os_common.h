@@ -37,7 +37,6 @@ typedef uint8_t byte;
 #define LOBYTE(x)        (uint8_t)((uint16_t)x)
 #define HIBYTE(x)        (uint8_t)(((uint16_t)x)>>8)
 #define MAKE_WORD(hi,lo) (((hi) * 0x100) + lo)
-#define AS_WORD(b) MAKE_WORD(b, 0)
 
 // This can be used to ignore unused variables in test-modules
 // #pragma GCC diagnostic ignored "-Wunused-variable"

@@ -11,33 +11,30 @@
 
 // Interface for single-ended analog input pins.
 // No differential analog input supported.
-// The original 10-bit resolution is trimmed to 8 bit for simplicity.
-// This also allows for a greater clock-frequency of the ADC.
-// Values are read on-demand, no free-running mode.
-// Both interrupt-driven and looping reads are supported.
+// 10-bit results are given as 16-bit values.
+// After creating all inputs, analogInputReadValues() can be called to cycle through all inputs 
+// and read all values. Values are 
+// analogInputReadValues() can be bound to an appropriate timer routine. Invokations will be
+// ignored if a previous conversion-cycle is not yet completed.
 
 DEFINE_HANDLE(AnalogInput);
 #define PinAnalogInput 3
-
-typedef void (*AnalogCallbackFunction)(uint8_t value);
-
-BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber);
 
 AnalogInput newAnalogInput(Pin inputPin);
 AnalogInput destroyAnalogInput(AnalogInput input);
 BOOL analogInputValid(AnalogInput input);
 
-// Start an analog conversion of the given input.
-// Return immediately. When the conversion is finished, the callback-
-// function will be invoked with the result.
-// Return TRUE, if the conversion could be started.
-// Return FALSE, if another conversion is currently running.
-BOOL analogRead(AnalogInput input, AnalogCallbackFunction callback);
+// Retrieve the current value of the input.
+uint16_t analogInputValue(AnalogInput input);
 
-// Start an analog conversion of the given input.
-// Enter a busy loop, polling for completion of the conversion.
-// Return TRUE, if the conversion could be started.
-// Return FALSE, if another conversion is currently running.
-BOOL analogReadLoop(AnalogInput input, uint8_t *result);
+// Cycle through all inputs and update the values.
+// Use __vector_ANALOG_INPUT_TIMER_INTERRUPT to bind to a timer interrupt.
+void analogInputReadValues();
+
+// Return true, if a conversion cycle triggered by analogInputReadValues() is currently running.
+BOOL analogInputCycleRunning();
+
+// For mcu-specific analog-input routines.
+BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber);
 
 #endif /* ANALOG_H_ */
