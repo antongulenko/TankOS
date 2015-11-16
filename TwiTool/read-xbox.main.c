@@ -11,8 +11,6 @@
 #include <linux/joystick.h>
 
 #define NAME_LENGTH 128
-#define AXIS_LEFT 1
-#define AXIS_RIGHT 4
 
 void handle(int left, int right) {
 	long lleft = (long) left;
@@ -24,7 +22,7 @@ void handle(int left, int right) {
 }
 
 void help() {
-    fprintf(stderr, "Usage: read-xbox [-f] <js-file>\n");
+    fprintf(stderr, "Usage: read-xbox [-f] <js-file> <left-axis> <right-axis>\n");
     exit(1);
 }
 
@@ -37,19 +35,31 @@ int main (int argc, char **argv)
 	unsigned char buttons = 2;
 	int version = 0x000800;
 	char name[NAME_LENGTH] = "Unknown";
+	int AXIS_LEFT;
+	int AXIS_RIGHT;
 
-    if (argc == 2) {
+    if (argc == 4) {
         filename = argv[1];
-	} else if (argc == 3) {
+        AXIS_LEFT = atoi(argv[2]);
+		AXIS_RIGHT = atoi(argv[3]);
+	} else if (argc == 5) {
         if (!strcmp("-f", argv[1])) {
             force = 1;
         } else {
             help();
         }
         filename = argv[2];
+        AXIS_LEFT = atoi(argv[3]);
+		AXIS_RIGHT = atoi(argv[4]);
 	} else {
         help();
     }
+	if (AXIS_LEFT == AXIS_RIGHT || AXIS_LEFT < 0 || AXIS_RIGHT < 0) {
+		fprintf(stderr, "Illegal axis values (must be different and >=0). Got %i and %i\n", AXIS_LEFT, AXIS_RIGHT);
+		exit(1);
+	}
+	fprintf(stderr, "Using axis %i (left) and %i (right)\n", AXIS_LEFT, AXIS_RIGHT);
+
 	if ((fd = open(filename, O_RDONLY)) < 0) {
 		perror("read-xbox");
 		exit(1);
@@ -73,7 +83,7 @@ int main (int argc, char **argv)
 		struct JS_DATA_TYPE js;
 		while (1) {
 			if (read(fd, &js, JS_RETURN) != JS_RETURN) {
-				perror("\nread-xbox: error reading");
+				perror("read-xbox: error reading");
 				exit(1);
 			}
 
@@ -94,8 +104,8 @@ int main (int argc, char **argv)
 
 		while (1) {
 			if (read(fd, &js, sizeof(struct js_event)) != sizeof(struct js_event)) {
-				perror("\nread-xbox: error reading");
-				exit (1);
+				perror("read-xbox: error reading");
+				exit(1);
 			}
 
 			switch(js.type & ~JS_EVENT_INIT) {

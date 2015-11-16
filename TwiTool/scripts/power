@@ -1,0 +1,11 @@
+#!/bin/bash
+home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+POWER_PIN=60
+
+case $1 in
+    on) "$home/pin" $POWER_PIN hi ;;
+    off) "$home/pin" $POWER_PIN lo ;;
+    *) echo "Need 1 parameter: on|off"; exit 1 ;;
+esac
+

@@ -5,4 +5,19 @@ control_motors=$(readlink -f "$home/../build-Native-speed/buffered-execute.main.
 set_motors=$(readlink -f "$home/set_motor")
 js_input="/dev/input/js0"
 
-"$read_xbox" "$js_input" | "$control_motors" "$set_motors"
+AXIS_BBB="1 3"
+
+function log() {
+    >&2 echo " ===== `date +'%F %T'` - $@"
+}
+
+function run_xbox_reader() {
+    while true; do
+        log "Attempting to read xbox input..."
+        "$read_xbox" /dev/input/js0 $AXIS_BBB
+        log "Read failed. Sleeping..."
+        sleep 5
+    done
+}
+
+run_xbox_reader | "$home/clean_motor_input" | "$buffered_exec" "$motors"
