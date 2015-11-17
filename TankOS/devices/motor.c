@@ -174,6 +174,8 @@ speed_t getSpeed(Motor motor) {
             case MotorBackward:
                 speed = getTimerValue(MOTOR->backwardTimer);
                 break;
+            default:
+                break;
         }
     }
 	return convertSpeed(MOTOR, speed);

@@ -24,9 +24,11 @@ extern AnalogInput batteryVoltage; // Not really related to motors
 // Indexed by TankMotorNum enum values
 #define TANK_MOTORS ((SmoothMotor[]) { leftMotor, rightMotor })
 #define TANK_BASE_MOTORS ((Motor[]) { leftBaseMotor, rightBaseMotor })
+#define TANK_MOTOR_VOLTAGES ((AnalogInput[]) { leftMotorCurrent, rightMotorCurrent })
 
 typedef enum {
-    MOTOR_LEFT, MOTOR_RIGHT
+    MOTOR_LEFT, MOTOR_RIGHT,
+    MOTOR_INVALID
 } TankMotorNum;
 
 #endif /* TANK_MOTOR_H_ */

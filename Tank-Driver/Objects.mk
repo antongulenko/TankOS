@@ -1,6 +1,7 @@
 
 include Tank-Shared/KernelObjects1.mk
 
+objects += $(BUILD_TankOS)/platform/Avr/m1284P/analog.kernel.o
 objects += $(BUILD_Tank-Driver)/tank_motor.kernel.o
 
 ifeq ($(USE_TWI), true)

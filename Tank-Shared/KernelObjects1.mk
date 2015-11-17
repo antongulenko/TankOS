@@ -12,7 +12,6 @@ objects += \
     $(BUILD_Tank-Shared)/timer.kernel.o \
     $(BUILD_TankOS)/platform/Avr/atomic_mutex.kernel.o \
     $(BUILD_TankOS)/platform/Avr/sleep_after_main.kernel.o \
-    $(BUILD_TankOS)/platform/Avr/m1284P/analog.kernel.o \
     $(BUILD_TankOS)/kernel/klib.kernel.o
 
 ifeq ($(USE_TWI), true)
