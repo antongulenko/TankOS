@@ -8,7 +8,7 @@
 #include <uthash/utlist.h>
 
 typedef struct _Input {
-	Pin pin;
+	void *descriptor;
 	uint16_t value;
 	struct _Input *next;
 } *_Input;
@@ -18,29 +18,20 @@ _Input currentConversion = NULL;
 
 #define INPUT Get(struct _Input, input)
 
-BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber) {
-    ConfigData data = { pinNumber, 0, 0, 0 };
-    return registerPinConfig(pin, PinAnalogInput, data);
-}
-
-AnalogInput newAnalogInput(Pin inputPin) {
+AnalogInput newAnalogInput(void *descriptor) {
+	if (!descriptor) return Invalid(AnalogInput);
 	_Input input = kalloc(sizeof(struct _Input));
 	if (!input) return Invalid(AnalogInput);
-    if (!occupyPin(inputPin, PinAnalogInput)) {
-    	free(input);
-        return Invalid(AnalogInput);
-    }
-    LL_APPEND(inputs, input);
-    input->pin = inputPin;
+    input->next = NULL;
+    input->descriptor = descriptor;
     input->value = 0;
+    LL_APPEND(inputs, input);
     return As(AnalogInput, input);
 }
 
 AnalogInput destroyAnalogInput(AnalogInput input) {
 	if (IsValid(input)) {
-	    if (analogInputValid(input)) {
-	        deOccupyPin(INPUT->pin, PinAnalogInput);
-	    }
+		analogInput_impl_destroy(INPUT->descriptor);
 	    LL_DELETE(inputs, INPUT);
 	    free(INPUT);
 	}
@@ -48,11 +39,7 @@ AnalogInput destroyAnalogInput(AnalogInput input) {
 }
 
 BOOL analogInputValid(AnalogInput input) {
-    if (!IsValid(input))
-        return FALSE;
-    if (pinOccupation(INPUT->pin) != PinAnalogInput)
-        return FALSE;
-    return TRUE;
+	return IsValid(input);
 }
 
 static void startNextConversion() {
@@ -60,19 +47,10 @@ static void startNextConversion() {
 		// Conversion cycle is finished.
 		return;
 	}
-	Pin inputPin = currentConversion->pin;
-    ConfigData *data = pinConfigData(inputPin, PinAnalogInput);
-    if (data == NULL) return;
-    uint8_t pinNum = data->data[0];
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-		// Set only MUX4..0, the 5 LSB of ADMUX.
-        ADMUX = (ADMUX & 0xE0) | pinNum;
-	}
-	ADCSRA |= _BV(ADEN) | _BV(ADSC) | _BV(ADIE); // Start the conversion with interrupt enabled
+	analogInput_impl_startConversion(currentConversion->descriptor);
 }
 
-// Must be called from the ADC interrupt handler, after reading the ADCH/ADCL registers.
-void analogInputInterruptValue(uint16_t new_value) {
+void analogInputConversionFinished(uint16_t new_value) {
 	if (currentConversion != NULL) {
 		currentConversion->value = new_value;
 		currentConversion = currentConversion->next;
@@ -81,6 +59,7 @@ void analogInputInterruptValue(uint16_t new_value) {
 }
 
 uint16_t analogInputValue(AnalogInput input) {
+	if (!IsValid(input)) return 0;
 	return INPUT->value;
 }
 
@@ -100,5 +79,5 @@ BOOL analogInputCycleRunning() {
 
 void __vector_ANALOG_INPUT_TIMER_INTERRUPT() INTERRUPT_FUNCTION;
 void __vector_ANALOG_INPUT_TIMER_INTERRUPT() {
-	analogInputReadValues();
+    analogInputReadValues();
 }

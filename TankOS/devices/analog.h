@@ -6,7 +6,6 @@
 #ifndef ANALOG_H_
 #define ANALOG_H_
 
-#include <devices/port.h>
 #include <tank_os_common.h>
 
 // Interface for single-ended analog input pins.
@@ -18,9 +17,8 @@
 // ignored if a previous conversion-cycle is not yet completed.
 
 DEFINE_HANDLE(AnalogInput);
-#define PinAnalogInput 3
 
-AnalogInput newAnalogInput(Pin inputPin);
+AnalogInput newAnalogInput(void *descriptor);
 AnalogInput destroyAnalogInput(AnalogInput input);
 BOOL analogInputValid(AnalogInput input);
 
@@ -34,7 +32,11 @@ void analogInputReadValues();
 // Return true, if a conversion cycle triggered by analogInputReadValues() is currently running.
 BOOL analogInputCycleRunning();
 
-// For mcu-specific analog-input routines.
-BOOL registerAnalogInputPin(Pin pin, uint8_t pinNumber);
+// Must be called after a conversion is finished (from the ADC interrupt handler).
+void analogInputConversionFinished(uint16_t new_value);
+
+// ==== This interface is used in analog.c and must be implemented in another module.
+void analogInput_impl_startConversion(void *descriptor);
+void analogInput_impl_destroy(void *descriptor);
 
 #endif /* ANALOG_H_ */

@@ -60,6 +60,9 @@ $(eval $(call set_test_objects,devices/led_control,\
     $(BUILD_TankOS)/devices/led.o \
     $(BUILD_TankOS)/devices/led_control.o))
 
+$(eval $(call set_test_objects,devices/analog,\
+	$(BUILD_TankOS)/devices/analog.o ))
+
 $(eval $(call set_test_objects,devices/button,\
     $(BUILD_TESTS)/mocks/port.o \
 	$(BUILD_TankOS)/devices/port.o \
