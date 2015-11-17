@@ -14,7 +14,7 @@ function log() {
 function run_xbox_reader() {
     while true; do
         log "Attempting to read xbox input..."
-        "$read_xbox" /dev/input/js0 $AXIS_BBB
+        "$read_xbox" "$js_input" $AXIS_BBB
         log "Read failed. Sleeping..."
         sleep 5
     done
