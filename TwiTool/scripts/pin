@@ -1,23 +1,23 @@
 #!/bin/bash
 
 function help() {
-     echo "Need 2 parameters: <pin-nr> <hi|lo|in>"
-     exit 1
+    >&2 echo "Need 2 parameters: <pin-nr> <hi|lo|in>"
+    exit 1
 }
 test $# = 2 || help
 
 PIN_NR="$1"
 MODE="$2"
 
-PIN=/sys/class/gpio/gpio$PIN_NR
+PIN="/sys/class/gpio/gpio$PIN_NR"
 PIN_DIR="$PIN/direction"
 PIN_VAL="$PIN/value"
-EXPORT=/sys/class/gpio/export
+EXPORT="/sys/class/gpio/export"
 
 function config_gpio() {
     test -d "$PIN" && return
     echo $PIN_NR > "$EXPORT"
-    test -d "$PIN" || { echo "Failed to export GPIO pin $PIN_NR on $PIN"; exit 1; }
+    test -d "$PIN" || { >&2 echo "Failed to export GPIO pin $PIN_NR on $PIN"; exit 1; }
 }
 
 function power_on() {
@@ -41,4 +41,3 @@ case "$MODE" in
     in) config_gpio; power_read ;;
     *) help ;;
 esac
-
