@@ -2,9 +2,9 @@
 #define __PLATFORM_COMMON__
 
 #if defined(PLATFORM_Avr)
-#    include "Avr/common.h"
+#    include "platform_Avr/common.h"
 #elif defined(PLATFORM_Native)
-#    include "Native/common.h"
+#    include "platform_Native/common.h"
 #else
 #    error No valid PLATFORM_* symbol defined
 #endif

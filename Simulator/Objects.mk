@@ -9,7 +9,7 @@ objects += \
 
 ifeq ($(USE_TWI), true)
     objects += \
-        $(BUILD_TankOS)/platform/Avr/twi/slave.kernel.o \
+        $(BUILD_TankOS)/platform/platform_Avr/twi/slave.kernel.o \
         $(BUILD_TankOS)/twi/rpc/server_handler_functions.kernel.o \
         $(BUILD_TankOS)/twi/services/hardware.kernel.o \
         $(BUILD_TankOS)/twi/services/example.kernel.o \

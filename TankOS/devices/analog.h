@@ -37,6 +37,7 @@ void analogInputConversionFinished(uint16_t new_value);
 
 // ==== This interface is used in analog.c and must be implemented in another module.
 void analogInput_impl_startConversion(void *descriptor);
+void analogInput_impl_stopConversions();
 void analogInput_impl_destroy(void *descriptor);
 
 #endif /* ANALOG_H_ */

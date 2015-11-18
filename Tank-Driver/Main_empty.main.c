@@ -1,6 +1,6 @@
 
 #include "kernel.h"
-#include <platform/Avr/buffer_stdout.h>
+#include <platform/platform_Avr/buffer_stdout.h>
 
 int main() {
 }

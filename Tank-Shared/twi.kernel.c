@@ -5,7 +5,7 @@
 #include <platform/twi/slave.h>
 #include <platform/twi/master.h>
 #include <platform/kernel_init.h>
-#include <platform/Avr/m1284P/port.h>
+#include <platform/platform_Avr/avr_atmega1284p/port.h>
 
 static byte twi_io_buffer[256];
 
@@ -13,7 +13,7 @@ static byte twi_io_buffer[256];
 #define PIN_DATA  pinC1
 #define PIN_CLOCK pinC0
 
-static inline void init_twi_frequency() {
+void init_twi_frequency() {
 	// The TWI bit rate: Maximal TWI frequency (400 KHz).
 	// 100 = Medium frequency, 250 = Minimal frequency
 	TWBR = 17; // 0..255

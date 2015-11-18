@@ -5,7 +5,7 @@
 
 #include "tank_led.h"
 #include <platform/kernel_init.h>
-#include <platform/Avr/m1284P/port.h>
+#include <platform/platform_Avr/avr_atmega1284p/port.h>
 #include <string.h>
 
 static void tank_io_init_timer() {

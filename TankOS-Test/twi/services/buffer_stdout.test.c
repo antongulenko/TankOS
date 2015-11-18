@@ -1,6 +1,6 @@
 
 #include <twi/services/buffer_stdout.h>
-#include <platform/Avr/buffer_stdout.h>
+#include <platform/platform_Avr/buffer_stdout.h>
 
 #include <twi/rpc/server.h>
 #include <twi/rpc/client.h>

@@ -50,6 +50,11 @@ void analogInput_impl_startConversion(void *descriptor) {
     ADCSRA |= _BV(ADEN) | _BV(ADSC) | _BV(ADIE); // Start the conversion with interrupt enabled
 }
 
+void analogInput_impl_stopConversions() {
+    // Disable the ADC altogether to keep the idle mode from triggering automatic conversions.
+    ADCSRA &= ~_BV(ADEN);
+}
+
 static void configure_analog_registers() {
   	// Initialize the ADC settings. See description in analog.h.
 	ADMUX = _BV(REFS0); // REFS1..0 = 0b01 -> AVCC as reference voltage.

@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+home=`dirname $(readlink -e $0)`
+source "$home/functions"
+
+echo -n "Left motor: "
+twi_call tank_driver_get_battery_voltage driver $(param_enum $MOT_LEFT)
+echo -n "Right motor: "
+twi_call tank_driver_get_battery_voltage driver $(param_enum $MOT_RIGHT)

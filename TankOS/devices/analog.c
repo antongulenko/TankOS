@@ -13,8 +13,8 @@ typedef struct _Input {
 	struct _Input *next;
 } *_Input;
 
-_Input inputs = NULL;
-_Input currentConversion = NULL;
+static _Input inputs = NULL;
+static _Input currentConversion = NULL;
 
 #define INPUT Get(struct _Input, input)
 
@@ -42,19 +42,20 @@ BOOL analogInputValid(AnalogInput input) {
 	return IsValid(input);
 }
 
-static void startNextConversion() {
-	if (currentConversion == NULL) {
+static void startNextConversion(_Input nextInput) {
+	currentConversion = nextInput;
+	if (nextInput == NULL) {
 		// Conversion cycle is finished.
+		analogInput_impl_stopConversions();
 		return;
 	}
-	analogInput_impl_startConversion(currentConversion->descriptor);
+	analogInput_impl_startConversion(nextInput->descriptor);
 }
 
 void analogInputConversionFinished(uint16_t new_value) {
 	if (currentConversion != NULL) {
 		currentConversion->value = new_value;
-		currentConversion = currentConversion->next;
-		startNextConversion();
+		startNextConversion(currentConversion->next);
 	}
 }
 
@@ -67,8 +68,7 @@ void analogInputReadValues() {
 	ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
 		if (currentConversion == NULL) {
 			// No conversion cycle running, we can start a new one
-			currentConversion = inputs;
-			startNextConversion();
+			startNextConversion(inputs);
 		}
 	}
 }

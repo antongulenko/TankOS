@@ -69,7 +69,7 @@ ifeq ($(AUTO_DISCOVER), true)
     ProjectMakefiles := $(shell $(FIND) . -maxdepth 2 -name Project.mk)
     AllProjects := $(foreach p, $(ProjectMakefiles), $(shell basename $(shell dirname $p)))
 else
-    AllProjects := Unity TankOS TankOS-Test Tank-Shared Tank-Driver Tank-IO Tank-Arm Simulator Simulator-Testing TwiTool
+    AllProjects := Unity TankOS TankOS-Test Tank-Shared Tank-Driver Tank-IO Tank-Arm Simulator Simulator-Testing TwiTool # USB-to-TWI
     ProjectMakefiles := $(foreach p, $(AllProjects), $p/Project.mk)
 endif
 

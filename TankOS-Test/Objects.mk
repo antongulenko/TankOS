@@ -1,7 +1,7 @@
 
 # Hack to inject test-specific header into TankOS modules
 ifeq ($(PLATFORM), Native)
-    # Important: simulation.h/.c must only handle things required by modules in platform/Avr/
+    # Important: simulation.h/.c must only handle things required by modules in platform/platform_Avr/
     # Otherwise this will lead to conflicts when compiling non-Test projects for the Native platform.
     $(FAKE_TARGETS_DIR)/TankOS_cflags += -include TankOS-Test/mocks/simulation.h
 endif
@@ -33,7 +33,7 @@ $(eval $(call set_test_objects,process/process,\
 $(eval $(call set_test_objects,process/scheduler,\
     $(BUILD_TESTS)/mocks/process.o \
 	$(BUILD_TankOS)/process/process.o \
-    $(BUILD_TankOS)/platform/Avr/idle.o \
+    $(BUILD_TankOS)/platform/platform_Avr/idle.o \
     $(BUILD_TankOS)/process/scheduler.o ))
 
 $(eval $(call set_test_objects,devices/port,\
@@ -94,18 +94,18 @@ $(eval $(call set_test_objects,devices/motor_step,\
 $(eval $(call set_test_objects,twi/driver/master,\
 	$(BUILD_TESTS)/twi/driver/base_tests.o \
 	$(BUILD_TESTS)/twi/driver/helper.o \
-	$(BUILD_TankOS)/platform/Avr/twi/master.kernel.o \
-    $(BUILD_TankOS)/platform/Avr/twi/master.o \
-    $(BUILD_TankOS)/platform/Avr/twi/driver.o \
+	$(BUILD_TankOS)/platform/platform_Avr/twi/master.kernel.o \
+    $(BUILD_TankOS)/platform/platform_Avr/twi/master.o \
+    $(BUILD_TankOS)/platform/platform_Avr/twi/driver.o \
     $(BUILD_TESTS)/mocks/port.o ))
 
 $(eval $(call set_test_objects,twi/driver/slave,\
 	$(BUILD_TESTS)/twi/driver/base_tests.o \
 	$(BUILD_TESTS)/twi/driver/helper.o \
-    $(BUILD_TankOS)/platform/Avr/twi/driver.o \
-    $(BUILD_TankOS)/platform/Avr/twi/slave.kernel.o \
-	$(BUILD_TankOS)/platform/Avr/twi/slave.o \
-    $(BUILD_TankOS)/platform/Avr/twi/master.o \
+    $(BUILD_TankOS)/platform/platform_Avr/twi/driver.o \
+    $(BUILD_TankOS)/platform/platform_Avr/twi/slave.kernel.o \
+	$(BUILD_TankOS)/platform/platform_Avr/twi/slave.o \
+    $(BUILD_TankOS)/platform/platform_Avr/twi/master.o \
     $(BUILD_TESTS)/mocks/port.o ))
 
 $(eval $(call set_test_objects,twi/rpc/client,\
@@ -162,9 +162,9 @@ $(eval $(call set_test_objects,twi/services/hardware,\
     $(BUILD_TESTS)/mocks/memory.o \
     $(BUILD_TESTS)/mocks/twi_driver_slave.o \
     $(BUILD_TESTS)/mocks/twi_end_to_end.o \
-    $(BUILD_TankOS)/platform/Avr/early_init.kernel.o \
-    $(BUILD_TankOS)/platform/Avr/early_init.o \
-    $(BUILD_TankOS)/platform/Avr/memory.o \
+    $(BUILD_TankOS)/platform/platform_Avr/early_init.kernel.o \
+    $(BUILD_TankOS)/platform/platform_Avr/early_init.o \
+    $(BUILD_TankOS)/platform/platform_Avr/memory.o \
     $(BUILD_TankOS)/kernel/millisecond_clock.o \
     $(BUILD_TankOS)/twi/services/hardware.o \
     $(BUILD_TankOS)/twi/services/hardware.kernel.o \
@@ -190,7 +190,7 @@ $(eval $(call set_test_objects,twi/services/example,\
     $(BUILD_TankOS)/twi/rpc/server_handler_functions.kernel.o ))
 
 $(eval $(call set_test_objects,kernel/buffer_stdout,\
-    $(BUILD_TankOS)/platform/Avr/buffer_stdout.o \
+    $(BUILD_TankOS)/platform/platform_Avr/buffer_stdout.o \
     $(BUILD_TankOS)/process/mock_mutex.kernel.o ))
 
 $(eval $(call set_test_objects,twi/services/buffer_stdout,\
@@ -201,7 +201,7 @@ $(eval $(call set_test_objects,twi/services/buffer_stdout,\
     $(BUILD_TankOS)/twi/services/buffer_stdout.o \
     $(BUILD_TankOS)/twi/services/buffer_stdout.kernel.o \
     $(BUILD_TankOS)/twi/services/buffer_stdout_client.kernel.o \
-    $(BUILD_TankOS)/platform/Avr/buffer_stdout.o \
+    $(BUILD_TankOS)/platform/platform_Avr/buffer_stdout.o \
     $(BUILD_TankOS)/process/mock_mutex.kernel.o \
     $(BUILD_TankOS)/twi/rpc/strings.o \
     $(BUILD_TankOS)/twi/rpc/server.o \

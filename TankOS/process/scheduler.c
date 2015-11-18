@@ -4,8 +4,8 @@
  */
 
 #include <tank_os_common.h>
-#include <platform/Avr/idle.h>
-#include <platform/Avr/hardware_reset.h>
+#include <platform/platform_Avr/idle.h>
+#include <platform/platform_Avr/hardware_reset.h>
 #include <kernel/millisecond_clock.h>
 #include "scheduler.h"
 

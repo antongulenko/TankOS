@@ -4,8 +4,8 @@
  */
 
 #include <platform/kernel_init.h>
-#include <platform/Avr/m1284P/timer.h>
-#include <platform/Avr/m1284P/analog.h>
+#include <platform/platform_Avr/avr_atmega1284p/timer.h>
+#include <platform/platform_Avr/avr_atmega1284p/analog.h>
 #include "tank_motor.h"
 
 Timer timer0A, timer0B;

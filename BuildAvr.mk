@@ -8,13 +8,15 @@ OBJ-COPY := avr-objcopy
 OBJ-DUMP := avr-objdump
 OBJ-SIZE := avr-size
 
-MCU := atmega1284p
-MCUFLAG := -mmcu=$(MCU)
-
-ifndef AVR_FREQ
-$(warning Using default AVR frequency of 8MHZ)
-AVR_FREQ := 8000000
+ifndef AVR_MCU
+	$(error AVR_MCU must be defined)
 endif
+ifndef AVR_FREQ
+	$(error AVR_FREQ must be defined)
+endif
+
+MCU := $(AVR_MCU)
+MCUFLAG := -mmcu=$(MCU)
 
 BASE_FLAGS := $(MCUFLAG) \
 	-std=gnu99 \
@@ -25,9 +27,9 @@ BASE_FLAGS := $(MCUFLAG) \
     -Wno-missing-braces
 
 ifndef __BUILDDIR_MODIFIED__
-# Frequency also impacts the binary outputs.
-BUILDDIR := $(BUILDDIR)-$(AVR_FREQ)
-BUILD_DIRNAME := $(BUILD_DIRNAME)-$(AVR_FREQ)
+# Frequency and MCU also impact the binary outputs.
+BUILDDIR := $(BUILDDIR)-$(AVR_FREQ)-$(MCU)
+BUILD_DIRNAME := $(BUILD_DIRNAME)-$(AVR_FREQ)-$(MCU)
 __BUILDDIR_MODIFIED__ := true
 endif
 

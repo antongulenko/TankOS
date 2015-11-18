@@ -8,6 +8,8 @@ int analog1started, analog2started;
 BOOL analog1destroyed, analog2destroyed;
 uint16_t analog1value, analog2value;
 BOOL expect_conversion_start;
+int expected_finished_conversions;
+int finished_conversions;
 
 void setUp() {
     analog1started = analog2started = 0;
@@ -15,9 +17,11 @@ void setUp() {
     analog1value = 200;
     analog2value = 400;
     expect_conversion_start = TRUE;
+    expected_finished_conversions = finished_conversions = 0;
 }
 
 void triggerConversions() {
+    expected_finished_conversions++;
     TEST_ASSERT_FALSE(analogInputCycleRunning());
     analogInputReadValues();
     TEST_ASSERT_FALSE(analogInputCycleRunning());
@@ -37,6 +41,9 @@ void tearDown() {
         TEST_ASSERT_FALSE_MESSAGE(IsValid(analog2), "AnalogInput still valid after destroy");
         TEST_ASSERT_TRUE_MESSAGE(analog2destroyed, "AnalogInput descriptor was not destroyed");
     }
+
+    TEST_ASSERT_EQUAL(expected_finished_conversions, finished_conversions);
+
     // Make sure no conversions are started anymore
     triggerConversions();
     triggerConversions();
@@ -56,6 +63,10 @@ void analogInput_impl_startConversion(void *descriptor) {
     } else {
         TEST_FAIL_MESSAGE("Illegal descriptor pointer");
     }
+}
+
+void analogInput_impl_stopConversions() {
+    finished_conversions++;
 }
 
 void analogInput_impl_destroy(void *descriptor) {

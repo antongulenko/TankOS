@@ -1,5 +1,17 @@
 
 ifdef CONFIG
+ifeq ($(CONFIG), usb)
+
+	AVR_FREQ := 16000000
+	AVR_MCU := attiny84
+	AVR_SYMBOL := __AVR_ATtiny84__
+
+	PROJ := USB-to-TWI
+    PLATFORM := Avr
+    LSS := true
+    SPEED := true
+
+endif
 ifeq ($(CONFIG), simulator-test)
 
     USE_PROCESS := true
@@ -82,8 +94,13 @@ ifeq ($(CONFIG), twitool)
 endif
 endif
 
-# Suppress warning about default frequency
+# Default values
 ifndef AVR_FREQ
     AVR_FREQ := 20000000
 endif
-
+ifndef AVR_MCU
+	AVR_MCU := atmega1284p
+endif
+ifndef AVR_SYMBOL
+	AVR_SYMBOL := __AVR_ATmega1284P__
+endif

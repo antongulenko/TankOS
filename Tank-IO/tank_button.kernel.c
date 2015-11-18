@@ -4,7 +4,7 @@
  */
 
 #include <platform/kernel_init.h>
-#include <platform/Avr/m1284P/port.h>
+#include <platform/platform_Avr/avr_atmega1284p/port.h>
 #include <string.h>
 #include "tank_button.h"
 

@@ -1,9 +1,13 @@
 
 # This is separate from the Main.mk file to keep the Main.mk more flexible.
 
+ifndef AVR_SYMBOL
+$(error AVR_SYMBOL must be defined)
+endif
+
 # Reset variables between projects
 ld_symbols :=
-symbols := PLATFORM_$(PLATFORM)
+symbols := PLATFORM_$(PLATFORM) $(AVR_SYMBOL)
 
 # Most projects can only be built for the Avr platform.
 $(project)_exclusive_platform := Avr

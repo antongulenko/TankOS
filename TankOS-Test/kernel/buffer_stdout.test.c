@@ -1,5 +1,5 @@
 
-#include <platform/Avr/buffer_stdout.h>
+#include <platform/platform_Avr/buffer_stdout.h>
 #include <mocks/simulation.h>
 #include <unity.h>
 #include <string.h>

@@ -6,7 +6,7 @@
 
 #include <platform/kernel_init.h>
 #include <kernel/millisecond_clock.h>
-#include <platform/Avr/m1284P/timer.h>
+#include <platform/platform_Avr/avr_atmega1284p/timer.h>
 #include "timer.h"
 
 static Timer millisecond_timer_A;
