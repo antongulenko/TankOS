@@ -7,31 +7,16 @@ void setTimerFrequency(Timer timer, uint16_t prescaler, uint16_t herz) {
     setTimerValue(timer, (uint16_t) value);
 }
 
-void enableMillisecondTimerInterrupt_A() {
-	TIMSK3 |= _BV(OCIE3A);
-}
-
-void enableMillisecondTimerInterrupt_B() {
-	TIMSK3 |= _BV(OCIE3B);
-}
-
-void enableGenericTimerInterrupt_A() {
-	TIMSK1 |= _BV(OCIE1A);
-}
-
-void enableGenericTimerInterrupt_B() {
-	TIMSK1 |= _BV(OCIE1B);
-}
-
+Timer millisecond_timer_A;
+Timer millisecond_timer_B;
 Timer generic_timer_A;
 Timer generic_timer_B;
 
 void setTimerPairFrequency(Timer timerA, Timer timerB, uint16_t herz) {
 	// The timer A value dictates the frequency for both timer A and B.
     // Set a higher frequency for timer B so that interrupts are not fired the same time.
-    // Prescaler for the timers in this module is 8 (timer.kernel.c)
-	setTimerFrequency(timerA, 8, herz);
-	setTimerFrequency(timerB, 8, herz * 2);
+	setTimerFrequency(timerA, TIMER_PRESCALER, herz);
+	setTimerFrequency(timerB, TIMER_PRESCALER, herz * 2);
 }
 
 void setGenericTimerFrequency(uint16_t herz) {

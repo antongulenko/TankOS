@@ -1,17 +1,19 @@
 
+/*
 #include <tank_os_common.h>
 #include <twi/rpc/server.h>
 #include <twi/rpc/client.h>
 #include <platform/twi/slave.h>
 #include <platform/twi/master.h>
 #include <platform/kernel_init.h>
-#include <platform/platform_Avr/avr_atmega1284p/port.h>
+#include <platform/platform_Avr/avr_attiny84/port.h>
 
-static byte twi_io_buffer[256];
+static byte twi_io_buffer[128];
 
-// One of the following should be KERNEL_INITed in another kernel module
-#define PIN_DATA  pinC1
-#define PIN_CLOCK pinC0
+#define PIN_DATA  pinA6
+#define PIN_CLOCK pinA4
+
+// The following functions should be KERNEL_INITed in another kernel module as appropriate.
 
 void init_twi_frequency() {
 	// The TWI bit rate: Maximal TWI frequency (400 KHz).
@@ -32,3 +34,4 @@ void init_rpc_client() {
     twi_init(PIN_DATA, PIN_CLOCK);
     twi_rpc_client_init((TWIBuffer) { twi_io_buffer, sizeof(twi_io_buffer) });
 }
+*/

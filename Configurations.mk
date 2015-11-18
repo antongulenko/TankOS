@@ -2,11 +2,11 @@
 ifdef CONFIG
 ifeq ($(CONFIG), usb)
 
-	AVR_FREQ := 16000000
-	AVR_MCU := attiny84
-	AVR_SYMBOL := __AVR_ATtiny84__
+    AVR_FREQ := 16000000
+    AVR_MCU := attiny84
+    AVR_SYMBOL := __AVR_ATtiny84__
 
-	PROJ := USB-to-TWI
+    PROJ := USB-to-TWI
     PLATFORM := Avr
     LSS := true
     SPEED := true
@@ -99,8 +99,8 @@ ifndef AVR_FREQ
     AVR_FREQ := 20000000
 endif
 ifndef AVR_MCU
-	AVR_MCU := atmega1284p
+    AVR_MCU := atmega1284p
 endif
 ifndef AVR_SYMBOL
-	AVR_SYMBOL := __AVR_ATmega1284P__
+    AVR_SYMBOL := __AVR_ATmega1284P__
 endif

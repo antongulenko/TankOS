@@ -9,10 +9,9 @@
 #include <platform/platform_Avr/avr_atmega1284p/timer.h>
 #include "timer.h"
 
-static Timer millisecond_timer_A;
-static Timer millisecond_timer_B;
-
 // timer.c
+extern Timer millisecond_timer_A;
+extern Timer millisecond_timer_B;
 extern Timer generic_timer_A;
 extern Timer generic_timer_B;
 extern void setTimerPairFrequency(Timer timerA, Timer timerB, uint16_t herz);
@@ -50,3 +49,19 @@ static void init_tank_timer() {
     init_generic_timers();
 }
 KERNEL_INIT(init_tank_timer)
+
+void enableMillisecondTimerInterrupt_A() {
+    TIMSK3 |= _BV(OCIE3A);
+}
+
+void enableMillisecondTimerInterrupt_B() {
+    TIMSK3 |= _BV(OCIE3B);
+}
+
+void enableGenericTimerInterrupt_A() {
+    TIMSK1 |= _BV(OCIE1A);
+}
+
+void enableGenericTimerInterrupt_B() {
+    TIMSK1 |= _BV(OCIE1B);
+}
