@@ -151,6 +151,11 @@ $(BUILDDIR)/%.o: $(fake) $(project)/%.c
 	mkdir -p $(@D)
 	$(CC) $($<_cflags) -o $@ $(word 2, $^)
 
+$(BUILDDIR)/%.So: $(fake) $(project)/%.S
+	@echo "$$($(COLOR) $(COLOR_COMPILE))$(word 2, $^)$$($(COLOR) off)"
+	mkdir -p $(@D)
+	$(CC) $($<_cflags) -o $@ $(word 2, $^)
+
 dependency_targets := $(foreach d, $(dependencies), $($d_projectoutputs))
 
 $(fake)_ARFLAGS := $(ARFLAGS)

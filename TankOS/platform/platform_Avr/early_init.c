@@ -25,31 +25,6 @@ void boot_completed() {
     __initialization_complete_mask = INIT_MASK_INITIALIZED;
 }
 
-ResetCondition getResetCondition() {
-	uint16_t mask = 0;
-	uint8_t status = current_reset_status;
-	if (status & _BV(PORF)) {
-		mask |= PowerOnReset;
-	}
-	if (status & _BV(WDRF)) {
-		mask |= WatchDogReset;
-	}
-	if (status & _BV(BORF)) {
-		mask |= BrownOutReset;
-	}
-    if (status & _BV(JTRF)) {
-		mask |= JtagReset;
-	}
-    if (status & _BV(EXTRF)) {
-		mask |= ExternalReset;
-	}
-    if (unclean_resets > 0) {
-        mask |= UncleanReset;
-    }
-	if (!mask) mask = OtherReset;
-	return mask;
-}
-
 void increment_software_reset_counter() {
     software_reset_counter++;
 }

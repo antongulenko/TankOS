@@ -94,18 +94,18 @@ $(eval $(call set_test_objects,devices/motor_step,\
 $(eval $(call set_test_objects,twi/driver/master,\
 	$(BUILD_TESTS)/twi/driver/base_tests.o \
 	$(BUILD_TESTS)/twi/driver/helper.o \
-	$(BUILD_TankOS)/platform/platform_Avr/twi/master.kernel.o \
-    $(BUILD_TankOS)/platform/platform_Avr/twi/master.o \
-    $(BUILD_TankOS)/platform/platform_Avr/twi/driver.o \
+	$(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/twi/master.kernel.o \
+    $(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/twi/master.o \
+    $(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/twi/driver.o \
     $(BUILD_TESTS)/mocks/port.o ))
 
 $(eval $(call set_test_objects,twi/driver/slave,\
 	$(BUILD_TESTS)/twi/driver/base_tests.o \
 	$(BUILD_TESTS)/twi/driver/helper.o \
-    $(BUILD_TankOS)/platform/platform_Avr/twi/driver.o \
-    $(BUILD_TankOS)/platform/platform_Avr/twi/slave.kernel.o \
-	$(BUILD_TankOS)/platform/platform_Avr/twi/slave.o \
-    $(BUILD_TankOS)/platform/platform_Avr/twi/master.o \
+    $(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/twi/driver.o \
+    $(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/twi/slave.kernel.o \
+	$(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/twi/slave.o \
+    $(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/twi/master.o \
     $(BUILD_TESTS)/mocks/port.o ))
 
 $(eval $(call set_test_objects,twi/rpc/client,\
@@ -164,6 +164,7 @@ $(eval $(call set_test_objects,twi/services/hardware,\
     $(BUILD_TESTS)/mocks/twi_end_to_end.o \
     $(BUILD_TankOS)/platform/platform_Avr/early_init.kernel.o \
     $(BUILD_TankOS)/platform/platform_Avr/early_init.o \
+    $(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/reset_condition.o \
     $(BUILD_TankOS)/platform/platform_Avr/memory.o \
     $(BUILD_TankOS)/kernel/millisecond_clock.o \
     $(BUILD_TankOS)/twi/services/hardware.o \

@@ -1,3 +1,4 @@
+
 objects += \
     $(BUILD_TankOS)/process/mock_mutex.kernel.o \
     $(BUILD_TankOS)/kernel/klib.kernel.o \

@@ -9,8 +9,6 @@
 #include <platform/platform_Avr/avr_atmega1284p/timer.h>
 #include "timer.h"
 
-// Generic timers not implemented.
-
 // timer.c
 extern Timer generic_timer_A;
 extern Timer generic_timer_B;
@@ -39,7 +37,6 @@ static void init_generic_timers() {
     TCCR0A = 0; // No compare-match-output, Clear timer on compare match (max = OCCR1A)
     TCCR0B = _BV(WGM11) ||
          _BV(CS11); // clock-select: prescale 8
-    TCCR0C = 0; // No forced output-compare
 
     setTimerPairFrequency(generic_timer_A, generic_timer_B, MILLISECOND_FREQUENCY);
 }

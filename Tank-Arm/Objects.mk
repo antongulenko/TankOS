@@ -5,7 +5,7 @@ objects += $(BUILD_Tank-Arm)/tank_arm_motor.kernel.o
 
 ifeq ($(USE_TWI), true)
     objects += \
-        $(BUILD_TankOS)/platform/platform_Avr/twi/slave.kernel.o \
+        $(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/twi/slave.kernel.o \
         $(BUILD_TankOS)/twi/rpc/server_handler_functions.kernel.o \
         $(BUILD_TankOS)/twi/services/hardware.kernel.o \
         $(BUILD_TankOS)/twi/services/example.kernel.o \
