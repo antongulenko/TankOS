@@ -4,6 +4,9 @@
 #include <unity.h>
 #include <string.h>
 
+#define BUFFER_SIZE 2048
+char buf_ring[BUFFER_SIZE];
+
 char buf[5 * 2000]; // 1000 times "Hello"
 int printed = 0;
 char flush_buf[sizeof(buf)];
@@ -13,7 +16,7 @@ int dropped = 0;
 void setUp() {
     printed = flushed = dropped = 0;
     init_native_simulation();
-    init_buffer_stdout();
+    init_buffer_stdout(buf_ring, BUFFER_SIZE, FALSE);
     memset(flush_buf, 0, sizeof(flush_buf));
     for (int i = 0; i < 2000; i++) {
         memcpy(buf + 5*i, "Hello", 5);
@@ -25,7 +28,7 @@ void tearDown() {
 
 void check_status() {
     BufferStatus st = buffer_stdout_status();
-    TEST_ASSERT_EQUAL_UINT16_MESSAGE(STDOUT_BUFFER_SIZE, st.capacity, "Unexpected buffer capacity");
+    TEST_ASSERT_EQUAL_UINT16_MESSAGE(BUFFER_SIZE, st.capacity, "Unexpected buffer capacity");
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(printed - flushed - dropped, st.used, "Unexpected used buffer space");
     TEST_ASSERT_EQUAL_UINT32_MESSAGE(dropped, st.dropped, "Unexpected dropped characters");
 }
@@ -35,8 +38,8 @@ void print(int len) {
         buffer_stdout_putchar(buf[printed], &buffer_stdout_stream);
         printed++;
     }
-    if (printed > STDOUT_BUFFER_SIZE + flushed) {
-        dropped += printed - flushed - STDOUT_BUFFER_SIZE;
+    if (printed > BUFFER_SIZE + flushed) {
+        dropped += printed - flushed - BUFFER_SIZE;
     }
     check_status();
 }
@@ -61,32 +64,32 @@ void test1() {
     check_status();
 
     print(50);
-    print(STDOUT_BUFFER_SIZE - 170);
+    print(BUFFER_SIZE - 170);
     print(150);
 
     TEST_ASSERT_EQUAL_HEX8_ARRAY_MESSAGE(buf, flush_buf, flushed, "flushed stdout buffer does not match");
 }
 
 void test() {
-    print(STDOUT_BUFFER_SIZE);
-    flush(STDOUT_BUFFER_SIZE / 2);
-    flush(STDOUT_BUFFER_SIZE / 2);
+    print(BUFFER_SIZE);
+    flush(BUFFER_SIZE / 2);
+    flush(BUFFER_SIZE / 2);
 
-    print(STDOUT_BUFFER_SIZE / 2);
-    print(STDOUT_BUFFER_SIZE / 2);
-    flush(STDOUT_BUFFER_SIZE / 4);
-    flush(STDOUT_BUFFER_SIZE / 4);
-    flush(STDOUT_BUFFER_SIZE / 4);
-    flush(STDOUT_BUFFER_SIZE / 4);
+    print(BUFFER_SIZE / 2);
+    print(BUFFER_SIZE / 2);
+    flush(BUFFER_SIZE / 4);
+    flush(BUFFER_SIZE / 4);
+    flush(BUFFER_SIZE / 4);
+    flush(BUFFER_SIZE / 4);
 
     print(3);print(3);print(3);print(3);
-    print(STDOUT_BUFFER_SIZE);
-    flush(STDOUT_BUFFER_SIZE);
+    print(BUFFER_SIZE);
+    flush(BUFFER_SIZE);
 
-    print(STDOUT_BUFFER_SIZE);
-    print(STDOUT_BUFFER_SIZE);
+    print(BUFFER_SIZE);
+    print(BUFFER_SIZE);
     flush(10);
-    flush(STDOUT_BUFFER_SIZE - 10);
+    flush(BUFFER_SIZE - 10);
 
     TEST_ASSERT_EQUAL_UINT8_ARRAY_MESSAGE(buf, flush_buf, flushed, "flushed stdout buffer does not match");
 }

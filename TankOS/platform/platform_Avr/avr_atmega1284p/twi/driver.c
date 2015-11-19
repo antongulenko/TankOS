@@ -1,9 +1,6 @@
 
 #include <platform/twi/driver.h>
 
-volatile BOOL twi_running;
-TwiError twi_error;
-
 // Internal
 byte twi_defaultControlFlags = 0;
 TWIBuffer twi_buffer;

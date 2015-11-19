@@ -4,7 +4,7 @@ objects += \
     $(BUILD_TankOS)/platform/platform_Avr/early_init_eeprom.kernel.o
 
 ifeq ($(USE_BUFFER_STDOUT), true)
-    objects += $(BUILD_TankOS)/platform/platform_Avr/buffer_stdout.kernel.o
+    objects += $(BUILD_Tank-Shared)/avr_$(AVR_MCU)/buffer_stdout.kernel.o
 endif
 
 objects += \

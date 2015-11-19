@@ -9,33 +9,40 @@
 #include <process/mutex.h>
 #include <kernel/klib.h>
 #include <string.h>
+#include <stdio.h>
 
 static Mutex flush_mutex;
 
 static uint16_t start, len;
-static char ring[STDOUT_BUFFER_SIZE];
+static char *ring;
+static uint16_t ring_size;
 static uint16_t dropped_chars;
 
 FILE buffer_stdout_stream = FDEV_SETUP_STREAM(buffer_stdout_putchar, NULL, _FDEV_SETUP_WRITE);
 
 int buffer_stdout_putchar(char c, FILE *f) {
 	if (f != &buffer_stdout_stream) return EOF;
-	if (len >= sizeof(ring)) {
+	if (len >= ring_size) {
 		dropped_chars += 1;
 		return EOF;
 	}
-	ring[(start + len) % sizeof(ring)] = c;
+	ring[(start + len) % ring_size] = c;
 	len++;
 	return c;
 }
 
-void init_buffer_stdout() {
+void init_buffer_stdout(char *buffer_ring, uint16_t the_ring_size, BOOL redirect_stdout) {
     start = len = dropped_chars = 0;
 	flush_mutex = mutex_create();
+	ring_size = the_ring_size;
+	ring = buffer_ring;
+	if (redirect_stdout) {
+		stdout = &buffer_stdout_stream;
+	}
 }
 
 BufferStatus buffer_stdout_status() {
-	return (BufferStatus) { sizeof(ring), len, dropped_chars };
+	return (BufferStatus) { ring_size, len, dropped_chars };
 }
 
 uint16_t buffer_stdout_flush(char *target_buffer, uint16_t size) {
@@ -44,7 +51,7 @@ uint16_t buffer_stdout_flush(char *target_buffer, uint16_t size) {
 		size = len;
 	}
 
-	uint16_t rest = sizeof(ring) - start;
+	uint16_t rest = ring_size - start;
 	if (rest < size) {
 		memcpy(target_buffer, ring + start, rest);
 		memcpy(target_buffer + rest, ring, size - rest);
@@ -52,7 +59,7 @@ uint16_t buffer_stdout_flush(char *target_buffer, uint16_t size) {
 		memcpy(target_buffer, ring + start, size);
 	}
 
-	start = (start + size) % sizeof(ring);
+	start = (start + size) % ring_size;
 	len -= size;
 	dropped_chars = 0;
 	mutex_release(flush_mutex);

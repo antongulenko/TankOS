@@ -2,6 +2,7 @@
 #define twi_driver_H_
 
 #include <tank_os_common.h>
+#include <devices/port.h>
 
 // Since the twi-lines are pulled up, this byte is transmitted by default,
 // even when the Slave switches to not-addressed-mode (stops sending/receiving actively).
@@ -76,5 +77,7 @@ typedef uint16_t TwiStatus;
 
 // Usage-tag for occupyPinDirectly
 #define PinTwiIO 8
+extern Pin twiDataPin, twiClockPin;
+BOOL occupyTwiPins(Pin dataPin, Pin clockPin);
 
 #endif

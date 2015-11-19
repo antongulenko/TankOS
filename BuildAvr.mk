@@ -51,6 +51,7 @@ ifeq ($(DEBUG), true)
         CFLAGS += -Wno-cpp
     endif
 endif
+CFLAGS += -ffunction-sections -fdata-sections # Enable linker to garbage collect functions
 
 LIB_SUFFIX := a
 TARGET_SUFFIX := elf
@@ -60,9 +61,9 @@ TARGET_SUFFIX := elf
 LDFLAGS_START := $(MCUFLAG) -Wl,--start-group
 
 # This part of the linker flags is split off to include the objects of the current project into the start-group/end-group closure
-LDFLAGS_END := -Wl,--end-group -lm
+LDFLAGS_END := -Wl,--end-group -lm -Wl,--gc-sections
 # TODO -- check these linker flags!
-# -Wl,--gc-sections --rodata-writable -mrelax -Wl,--defsym=__stack=0x4000
+# --rodata-writable -mrelax -Wl,--defsym=__stack=0x4000
 
 DEPENDENCY_FLAGS := $(BASE_FLAGS) -MM
 ARFLAGS := rcs

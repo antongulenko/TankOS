@@ -12,11 +12,13 @@
 #include <mocks/assertions.h>
 #include <string.h>
 
+#define BUFFER_SIZE 2048
+char buf_ring[BUFFER_SIZE];
 byte clientLibraryBuffer[1000];
 byte serverLibraryBuffer[1000];
 
 void setUp() {
-    init_buffer_stdout();
+    init_buffer_stdout(buf_ring, BUFFER_SIZE, FALSE);
     buffer_stdout_putchar('c', &buffer_stdout_stream);
     buffer_stdout_putchar('d', &buffer_stdout_stream);
     buffer_stdout_putchar('e', &buffer_stdout_stream);
@@ -34,7 +36,7 @@ void test_query_status() {
     BufferStatus st;
     RpcClientResult status = query_stdout_buffer_status(test_device, &st);
 
-    TEST_ASSERT_EQUAL_UINT16_MESSAGE(STDOUT_BUFFER_SIZE, st.capacity, "unexpected buffer capacity");
+    TEST_ASSERT_EQUAL_UINT16_MESSAGE(BUFFER_SIZE, st.capacity, "unexpected buffer capacity");
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(3, st.used, "unexpected buffer length");
     TEST_ASSERT_EQUAL_UINT16_MESSAGE(0, st.dropped, "unexpected dropped chars");
 

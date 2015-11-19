@@ -16,13 +16,7 @@ static struct TWIOperation {
 static TWIDevice targetDevice;
 
 BOOL twi_init(Pin dataPin, Pin clockPin) {
-    if (!occupyPinDirectly(dataPin, PinTwiIO, EmptyConfigData))
-        return FALSE;
-    if (!occupyPinDirectly(clockPin, PinTwiIO, EmptyConfigData)) {
-        deOccupyPin(dataPin, PinTwiIO);
-        return FALSE;
-    }
-
+	if (!occupyTwiPins(dataPin, clockPin)) return FALSE;
 	twi_defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE);
 	TWCR = _BV(TWIE) | _BV(TWEN);
 	twi_error = TWI_No_Error;

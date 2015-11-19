@@ -6,6 +6,9 @@ ifeq ($(CONFIG), usb)
     AVR_MCU := attiny84
     AVR_SYMBOL := __AVR_ATtiny84__
 
+	USE_BUFFER_STDOUT := true
+    USE_TWI := true
+
     PROJ := USB-to-TWI
     PLATFORM := Avr
     LSS := true

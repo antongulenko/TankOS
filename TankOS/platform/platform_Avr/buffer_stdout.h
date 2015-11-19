@@ -9,11 +9,7 @@
 #include <tank_os_common.h>
 #include <stdio.h>
 
-#ifndef STDOUT_BUFFER_SIZE
-#define STDOUT_BUFFER_SIZE 2048
-#endif
-
-void init_buffer_stdout();
+void init_buffer_stdout(char *ring, uint16_t size, BOOL redirect_stdout);
 
 typedef struct BufferStatus {
 	uint16_t capacity;
