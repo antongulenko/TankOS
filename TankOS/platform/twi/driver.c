@@ -7,9 +7,9 @@ TwiError twi_error;
 Pin twiDataPin, twiClockPin;
 
 BOOL occupyTwiPins(Pin dataPin, Pin clockPin) {
-    if (!occupyPinDirectly(dataPin, PinTwiIO, EmptyConfigData))
+    if (!occupyPin(dataPin, PinTwiIO))
         return FALSE;
-    if (!occupyPinDirectly(clockPin, PinTwiIO, EmptyConfigData)) {
+    if (!occupyPin(clockPin, PinTwiIO)) {
         deOccupyPin(dataPin, PinTwiIO);
         return FALSE;
     }

@@ -30,7 +30,7 @@ Timer newTimer(volatile uint8_t *outputCompareRegister, TimerType type) {
 Timer newPwmTimer(volatile uint8_t *outputCompareRegister, TimerType type, Pin outputComparePin) {
     _Timer *timer = kalloc(sizeof(_Timer));
     if (!timer) return Invalid(Timer);
-    if (!occupyPinDirectly(outputComparePin, PinPwmOutput, EmptyConfigData)) {
+    if (!occupyPin(outputComparePin, PinPwmOutput)) {
         free(timer);
         return Invalid(Timer);
     }

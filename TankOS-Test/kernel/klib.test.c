@@ -47,9 +47,9 @@ void test_failed_kalloc_external() {
 
 void test_failed_pin_occupation() {
     init_fake_port();
-    occupyPinDirectly(testPin1, 30, EmptyConfigData);
-    occupyPinDirectly(testPin1, 20, EmptyConfigData);
-    occupyPinDirectly(testPin1, 10, EmptyConfigData);
+    occupyPin(testPin1, 30);
+    occupyPin(testPin1, 20);
+    occupyPin(testPin1, 10);
     deOccupyPin(testPin1, 20);
     deOccupyPin(testPin1, 30);
     assert_output("oPD:20<30\noPD:10<30\ndOP:20!30\n");

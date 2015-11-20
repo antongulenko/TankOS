@@ -3,6 +3,10 @@
 
 #include <tank_os_common.h>
 
+// These will not reflect freed memory.
+extern size_t klib_allocated;
+extern size_t klib_allocation_failed;
+
 void *kalloc(size_t bytes);
 void *kcalloc(size_t elems, size_t bytes);
 

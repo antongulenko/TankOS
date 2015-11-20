@@ -11,10 +11,13 @@
 ButtonCallbackFunction buttonPressedCallback;
 ButtonCallbackFunction buttonReleasedCallback;
 
-#define PIN Cast(Pin, button)
+typedef struct _Button {
+    Pin pin;
+    ButtonType flags;
+    uint8_t status;
+} *_Button;
 
-#define DATA_FLAGS 0
-#define DATA_STATUS 2
+#define BUTTON Get(struct _Button, button)
 
 enum {
 	MASK_STATUS = _BV(0),
@@ -29,43 +32,45 @@ static void initButton(Pin pin, ButtonType flags) {
 }
 
 Button newButton(Pin pin, ButtonType flags) {
-    ConfigData data;
-    data.data[DATA_FLAGS] = (uint8_t) flags;
-    data.data[DATA_STATUS] = 0;
-    if (!occupyPinDirectly(pin, PinButtonInput, data)) {
+    _Button button = kalloc(sizeof(struct _Button));
+    if (!button) return Invalid(Button);
+    if (!occupyPin(pin, PinButtonInput)) {
+        free(button);
         return Invalid(Button);
     }
+    button->pin = pin;
+    button->flags = flags;
+    button->status = 0;
     initButton(pin, flags);
-    return Cast(Button, pin);
+    return As(Button, button);
 }
 
 Button destroyButton(Button button) {
-    if (buttonValid(button))
-        deOccupyPin(PIN, PinButtonInput);
+    if (buttonValid(button)) {
+        deOccupyPin(BUTTON->pin, PinButtonInput);
+        free(BUTTON);
+    }
     return Invalid(Button);
 }
 
 BOOL buttonValid(Button button) {
     if (!IsValid(button))
         return FALSE;
-    if (pinOccupation(PIN) != PinButtonInput)
+    if (pinOccupation(BUTTON->pin) != PinButtonInput)
         return FALSE;
     return TRUE;
 }
 
 BOOL buttonStatus(Button button) {
     if (!buttonValid(button)) return FALSE;
-	BOOL val = readPin(PIN);
-    ConfigData *data = pinConfigData(PIN, PinButtonInput);
-	if (data->data[DATA_FLAGS] & ButtonInverted) val = !val;
+	BOOL val = readPin(BUTTON->pin);
+	if (BUTTON->flags & ButtonInverted) val = !val;
 	return val;
 }
 
 void updateButtonStatus(Button button) {
     if (!IsValid(button)) return;
-    ConfigData *data = pinConfigData(PIN, PinButtonInput);
-    if (!data) return;
-	uint8_t status = data->data[DATA_STATUS];
+	uint8_t status = BUTTON->status;
     BOOL isPressed = buttonStatus(button);
     BOOL wasPressed = status & MASK_STATUS;
     if (!wasPressed && isPressed) {
@@ -80,24 +85,20 @@ void updateButtonStatus(Button button) {
 		status |= MASK_STATUS;
 	else
 		status &= ~MASK_STATUS;
-	data->data[DATA_STATUS] = status;
+	BUTTON->status = status;
 }
 
 BOOL wasPressed(Button button) {
     if (!IsValid(button)) return FALSE;
-    ConfigData *data = pinConfigData(PIN, PinButtonInput);
-    if (!data) return FALSE;
-    BOOL result = data->data[DATA_STATUS] & MASK_WAS_PRESSED;
-    data->data[DATA_STATUS] &= ~MASK_WAS_PRESSED;
+    BOOL result = BUTTON->status & MASK_WAS_PRESSED;
+    BUTTON->status &= ~MASK_WAS_PRESSED;
     return result;
 }
 
 BOOL wasReleased(Button button) {
     if (!IsValid(button)) return FALSE;
-    ConfigData *data = pinConfigData(PIN, PinButtonInput);
-    if (!data) return FALSE;
-    BOOL result = data->data[DATA_STATUS] & MASK_WAS_RELEASED;
-    data->data[DATA_STATUS] &= ~MASK_WAS_RELEASED;
+    BOOL result = BUTTON->status & MASK_WAS_RELEASED;
+    BUTTON->status &= ~MASK_WAS_RELEASED;
     return result;
 }
 

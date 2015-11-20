@@ -9,7 +9,6 @@
 #include <process/mutex.h>
 #include <kernel/klib.h>
 #include <string.h>
-#include <stdio.h>
 
 static Mutex flush_mutex;
 

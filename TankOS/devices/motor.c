@@ -42,13 +42,13 @@ static Motor newMotorImpl(MotorType type, Timer forwardTimer, Timer backwardTime
     _Motor *motor = kalloc(sizeof(_Motor));
     if (!motor) return Invalid(Motor);
     if (IsValid(forwardPin)) {
-        if (!occupyPinDirectly(forwardPin, PinMotorDirection, EmptyConfigData)) {
+        if (!occupyPin(forwardPin, PinMotorDirection)) {
             free(motor);
             return Invalid(Motor);
         }
         setPinOutput(forwardPin);
         if (IsValid(backwardPin)) {
-            if (!occupyPinDirectly(backwardPin, PinMotorDirection, EmptyConfigData)) {
+            if (!occupyPin(backwardPin, PinMotorDirection)) {
                 deOccupyPin(forwardPin, PinMotorDirection);
                 free(motor);
                 return Invalid(Motor);
