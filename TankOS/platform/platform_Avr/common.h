@@ -10,6 +10,7 @@
 #include <avr/sleep.h>
 #include <avr/wdt.h>
 #include <avr/eeprom.h>
+#include <avr/pgmspace.h>
 #include <alloca.h>
 
 #define delay_ms(ms) _delay_ms(ms)

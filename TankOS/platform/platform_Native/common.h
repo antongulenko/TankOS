@@ -13,6 +13,8 @@
 #define INTERRUPT_FUNCTION
 #define WEAK_FUNCTION __attribute__((weak))
 
+#define PROGMEM // Only for preserving RAM on AVR
+
 // == Needed by process
 #define initial_process_stack_top() NULL
 
