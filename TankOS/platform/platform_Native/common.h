@@ -1,7 +1,7 @@
 #ifndef __NATIVE_COMMON_H_
 #define __NATIVE_COMMON_H_
 
-#define _BV(a) (1 << a)
+#define _BV(a) (1 << (a))
 
 // Include defines for bit-positions in registers.
 #include "avr_libc/iom1284p.h"
