@@ -89,6 +89,7 @@ ifdef PROJ
     map: map_$(PROJ)
     flash: flash_$(PROJ)
     flashv: flashv_$(PROJ)
+    eeprom: eeprom_$(PROJ)
     studio: studio_$(PROJ)
     clean_target: clean_target_$(PROJ)
     relink: relink_$(PROJ)

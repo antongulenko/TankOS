@@ -123,6 +123,7 @@ endif
 
 define do_flash
 	@echo "$$($(COLOR) $(COLOR_FLASH))Flashing $1$$($(COLOR) off)"
+	$(AVRDUDE_COMMAND) $2 -e # Chip erase
 	$(AVRDUDE_COMMAND) $2 -U flash:w:$1
 endef
 
@@ -137,5 +138,11 @@ flash_$(project): $(BUILDDIR)/$(primary_output).hex
 
 flashv_$(project): $(BUILDDIR)/$(primary_output).hex
 	$(call do_flash,$<, -v -v)
+
+EEPROM_OUT := out.eepr
+
+eeprom_$(project):
+	@echo "$$($(COLOR) $(COLOR_FLASH))Reading raw EEPROM to $(EEPROM_OUT)$$($(COLOR) off)"
+	$(AVRDUDE_COMMAND) -U eeprom:r:$(EEPROM_OUT):r
 
 .PHONY: flash_$(project) flashv_$(project) con
