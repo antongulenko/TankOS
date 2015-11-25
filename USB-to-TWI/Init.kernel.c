@@ -14,15 +14,15 @@ static void init_usb_twi() {
 KERNEL_INIT(init_usb_twi)
 
 static void init_usb() {
-    uchar   i;  
-    /* RESET status: all port bits are inputs without pull-up.
-     * That's the way we need D+ and D-. Therefore we don't need any
-     * additional hardware initialization.
-     */
+    uchar   i;
+    // RESET status: all port bits are inputs without pull-up.
+    // That's the way we need D+ and D-. Therefore we don't need any
+    // additional hardware initialization.
+
     usbInit();
-    usbDeviceDisconnect();  /* enforce re-enumeration, do this while interrupts are disabled! */
+    usbDeviceDisconnect();  // enforce re-enumeration, do this while interrupts are disabled!
     i = 0;
-    while(--i){             /* fake USB disconnect for > 250 ms */
+    while(--i){             // fake USB disconnect for > 250 ms
         delay_ms(1);
     }
     usbDeviceConnect();

@@ -1,12 +1,5 @@
-
-// This module sets up timers.
-// Two timers are provided for miscellaneous software-tasks.
-// The timer 3 is used for this, the frequency is 1ms.
-// Weak functions can be implemented to couple code to the timer-ISRs.
-
 #include <platform/kernel_init.h>
 #include <kernel/millisecond_clock.h>
-#include <platform/platform_Avr/avr_atmega1284p/timer.h>
 #include "timer.h"
 
 // timer.c
@@ -19,24 +12,23 @@ extern void setTimerPairFrequency(Timer timerA, Timer timerB, uint16_t herz);
 #define MILLISECOND_FREQUENCY 1000
 
 static void init_millisecond_timers() {
-    millisecond_timer_A = newTimer((uint8_t*) &OCR1A, TIMER_A); // Timer 1A
-    millisecond_timer_B = newTimer((uint8_t*) &OCR1B, TIMER_B); // Timer 1B
+    millisecond_timer_A = newTimer((uint8_t*) &OCR1A, TimerResolution16); // Timer 1A
+    millisecond_timer_B = newTimer((uint8_t*) &OCR1B, TimerResolution16); // Timer 1B
 
     TCCR1A = 0; // No compare-match-output, Clear timer on compare match (max = OCCR0A)
-    TCCR1B = _BV(WGM01) ||
-         _BV(CS01); // clock-select: prescale 8
+    TCCR1B = _BV(WGM12) ||
+         _BV(CS11); // clock-select: prescale 8
     TCCR1C = 0; // No forced output-compare
 
     setTimerPairFrequency(millisecond_timer_A, millisecond_timer_B, MILLISECOND_FREQUENCY);
 }
 
 static void init_generic_timers() {
-    generic_timer_A = newTimer((uint8_t*) &OCR0A, TIMER_A); // Timer 1A
-    generic_timer_B = newTimer((uint8_t*) &OCR0B, TIMER_B); // Timer 1B
+    generic_timer_A = newTimer((uint8_t*) &OCR0A, TimerResolution8); // Timer 0A
+    generic_timer_B = newTimer((uint8_t*) &OCR0B, TimerResolution8); // Timer 0B
 
-    TCCR0A = 0; // No compare-match-output, Clear timer on compare match (max = OCCR1A)
-    TCCR0B = _BV(WGM11) ||
-         _BV(CS11); // clock-select: prescale 8
+    TCCR0A = _BV(WGM01); // No compare-match-output, Clear timer on compare match (max = OCCR1A)
+    TCCR0B = _BV(CS01); // clock-select: prescale 8
 
     setTimerPairFrequency(generic_timer_A, generic_timer_B, MILLISECOND_FREQUENCY);
 }

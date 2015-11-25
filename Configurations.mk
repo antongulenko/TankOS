@@ -2,11 +2,12 @@
 ifdef CONFIG
 ifeq ($(CONFIG), usb)
 
-    AVR_FREQ := 16000000
+    AVR_FREQ := 20000000
     AVR_MCU := attiny84
     AVR_SYMBOL := __AVR_ATtiny84__
 
 	USE_BUFFER_STDOUT := true
+    KERNEL_LOG := true
     USE_TWI := true
 
     PROJ := USB-to-TWI

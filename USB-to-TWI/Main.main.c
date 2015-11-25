@@ -1,16 +1,20 @@
 #include <tank_os_common.h>
+#include <kernel/klib.h>
 #include <avr/eeprom.h>
 #include <avr/pgmspace.h>
-#include <usbdrv/usbdrv.h>
+// #include <usbdrv/usbdrv.h>
 #include <platform/twi/master.h>
 #include <string.h>
+#include <stdio.h>
+#include <platform/platform_Avr/buffer_stdout.h>
 #include "usb_twi_protocol.h"
 
-/* Since we define only one feature report, we don't use report-IDs (which
- * would be the first byte of the report). The entire report consists of 128
- * opaque data bytes.
- */
-PROGMEM const char usbHidReportDescriptor[22] = {    /* USB report descriptor */
+/*
+
+// Since we define only one feature report, we don't use report-IDs (which
+// would be the first byte of the report). The entire report consists of 128
+// opaque data bytes.
+PROGMEM const char usbHidReportDescriptor[22] = {    // USB report descriptor
     0x06, 0x00, 0xff,              // USAGE_PAGE (Generic Desktop)
     0x09, 0x01,                    // USAGE (Vendor Usage 1)
     0xa1, 0x01,                    // COLLECTION (Application)
@@ -23,7 +27,7 @@ PROGMEM const char usbHidReportDescriptor[22] = {    /* USB report descriptor */
     0xc0                           // END_COLLECTION
 };
 
-#define USB_BUFFER 160
+#define USB_BUFFER 2
 static byte     data[USB_BUFFER];
 static uint8_t  bytesReceived;
 static uint8_t  bytesRemaining;
@@ -149,8 +153,30 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
     return 0;
 }
 
+*/
+
+#include <kernel/millisecond_clock.h>
+#include "../Tank-IO/tank_io_service.h"
+#include "../Tank-IO/tank_io_address.h"
+#include <twi/rpc/strings.h>
+#include <devices/led_control.h>
+
 int main() {
+    TWIDevice dev = (TWIDevice) { TANK_IO_ADDRESS };
+    while (1) {
+        //RpcClientResult res = tank_io_set_leds(dev, (SetLedsParameters) { ALL_LEDS, LedsGroupRunning });
+        if (twi_error != TWI_No_Error) {
+            //printf("TWI: %s\n", RpcClientResult_string(res));
+            buffer_stdout_flush_to_eeprom((char*) 2, 256);
+        }
+        delay_ms(2000);
+        //tank_io_set_leds(dev, (SetLedsParameters) { ALL_LEDS, LedsBlinking });
+        delay_ms(2000);
+    }
+
+    /*
     while (1) {
         usbPoll();
     }
+    */
 }
