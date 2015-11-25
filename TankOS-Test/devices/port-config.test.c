@@ -34,7 +34,7 @@ void test_initially_no_occupation() {
     TEST_ASSERT_EQUAL_INT_MESSAGE(PinNoOccupation, occ, "Pin already occupied");
 }
 
-void test_occupy_directly() {
+void test_occupy() {
     BOOL res = occupyPin(p, myTag1);
     TEST_ASSERT_TRUE_MESSAGE(res, "Could not occupy pin");
 

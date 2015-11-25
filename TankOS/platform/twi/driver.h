@@ -75,7 +75,7 @@ void twiWaitForCompletion();
 
 typedef uint16_t TwiStatus;
 
-// Usage-tag for occupyPinDirectly
+// Usage-tag for occupyPin
 #define PinTwiIO 8
 extern Pin twiDataPin, twiClockPin;
 BOOL occupyTwiPins(Pin dataPin, Pin clockPin);

@@ -120,7 +120,7 @@ static const char msg_dOP[] PROGMEM = "dOP:%i!%i\n";
 BOOL occupyPin(Pin pin, PinOccupation tag) {
     if (!IsValid(pin)) return FALSE;
     if (PIN->tag != PinNoOccupation) {
-        klog(msg_oPD, tag, PIN->tag); // occupyPinDirectly failed
+        klog(msg_oPD, tag, PIN->tag); // occupyPin failed
         return FALSE;
     }
     PIN->tag = tag;

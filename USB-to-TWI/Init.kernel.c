@@ -4,6 +4,7 @@
 #include <platform/twi/master.h>
 #include <platform/platform_Avr/avr_attiny84/port.h>
 #include <platform/platform_Avr/kernel_init.h>
+#include "usbconfig.h"
 
 #define PIN_DATA  pinA6
 #define PIN_CLOCK pinA4
@@ -13,18 +14,24 @@ static void init_usb_twi() {
 }
 KERNEL_INIT(init_usb_twi)
 
+#define CONCAT2(A, B, C) A ## B ## C
+#define CONCAT(A, B, C) CONCAT2(A, B, C)
+#define UsbPinDPlus CONCAT(pin, USB_CFG_IOPORTNAME, USB_CFG_DPLUS_BIT)
+#define UsbPinDMinus CONCAT(pin, USB_CFG_IOPORTNAME, USB_CFG_DMINUS_BIT)
+#define PinUSB 15
+
 static void init_usb() {
-    uchar   i;
-    // RESET status: all port bits are inputs without pull-up.
-    // That's the way we need D+ and D-. Therefore we don't need any
-    // additional hardware initialization.
+    if (!occupyPin(UsbPinDPlus, PinUSB)) return;
+    if (!occupyPin(UsbPinDPlus, PinUSB)) return;
+    // This is the hardware default, but make sure.
+    setPinInput(UsbPinDPlus);
+    setPinInput(UsbPinDMinus);
+    disablePullup(UsbPinDPlus);
+    disablePullup(UsbPinDMinus);
 
     usbInit();
-    usbDeviceDisconnect();  // enforce re-enumeration, do this while interrupts are disabled!
-    i = 0;
-    while(--i){             // fake USB disconnect for > 250 ms
-        delay_ms(1);
-    }
+    usbDeviceDisconnect();  // enforce re-enumeration, do this while interrupts are disabled
+    delay_ms(250);          // fake USB disconnect for > 250 ms
     usbDeviceConnect();
 }
 KERNEL_INIT(init_usb)
