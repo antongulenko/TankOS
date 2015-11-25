@@ -16,8 +16,7 @@ static void init_millisecond_timers() {
     millisecond_timer_B = newTimer((uint8_t*) &OCR1B, TimerResolution16); // Timer 1B
 
     TCCR1A = 0; // No compare-match-output, Clear timer on compare match (max = OCCR0A)
-    TCCR1B = _BV(WGM12) ||
-         _BV(CS11); // clock-select: prescale 8
+    TCCR1B = _BV(WGM12) || _BV(CS11); // clock-select: prescale 8
     TCCR1C = 0; // No forced output-compare
 
     setTimerPairFrequency(millisecond_timer_A, millisecond_timer_B, MILLISECOND_FREQUENCY);

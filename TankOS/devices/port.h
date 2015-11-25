@@ -26,7 +26,7 @@ void setPinZero(Pin pin);
 BOOL readPin(Pin pin);
 
 #define enablePullup(pin) setPinOne(pin)
-#define disablePullup(pin) setPinZero(pin
+#define disablePullup(pin) setPinZero(pin)
 
 BOOL isPinOutputHigh(Pin pin);
 
