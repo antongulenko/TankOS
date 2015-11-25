@@ -109,6 +109,9 @@
     <Folder Include="mocks\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="devices\analog.test.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="devices\button.test.c">
       <SubType>compile</SubType>
     </Compile>

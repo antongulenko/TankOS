@@ -13,7 +13,8 @@ ifeq ($(CONFIG), usb)
     PROJ := USB-to-TWI
     PLATFORM := Avr
     LSS := true
-    SPEED := true
+    SPEED ?= true
+    STUDIO := true
 
 endif
 ifeq ($(CONFIG), simulator-test)
