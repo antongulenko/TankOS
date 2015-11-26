@@ -32,7 +32,7 @@ void yield_quantum() {
 		processor_idle();
 }
 
-void scheduler_interrupt() {
+static inline void inline_scheduler_interrupt() {
     millisecond_clock_tick();
     yielding_quantum = FALSE;
     ProcessBase nextProcess = schedule(TRUE);
@@ -43,4 +43,13 @@ void scheduler_interrupt() {
         return;
 	}
     switchProcessBase(nextProcess);
+}
+
+void scheduler_interrupt() {
+	inline_scheduler_interrupt();
+}
+
+void __vector_SCHEDULER_INTERRUPT() INTERRUPT_FUNCTION;
+void __vector_SCHEDULER_INTERRUPT() {
+    inline_scheduler_interrupt();
 }

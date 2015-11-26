@@ -1,0 +1,2 @@
+
+MILLISECOND_TIMER_ISR := __vector_6

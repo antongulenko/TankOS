@@ -9,6 +9,7 @@ ifeq ($(CONFIG), usb)
 	USE_BUFFER_STDOUT := true
     KERNEL_LOG := true
     USE_TWI := true
+    USE_MILLISECOND_TIMER := false # Problem with linking clock interrupt to ISR...
 
     PROJ := USB-to-TWI
     PLATFORM := Avr
@@ -108,4 +109,7 @@ ifndef AVR_MCU
 endif
 ifndef AVR_SYMBOL
     AVR_SYMBOL := __AVR_ATmega1284P__
+endif
+ifndef USE_MILLISECOND_TIMER
+	USE_MILLISECOND_TIMER := true
 endif

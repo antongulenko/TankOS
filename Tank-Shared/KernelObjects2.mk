@@ -8,10 +8,7 @@ ifeq ($(USE_PROCESS), true)
 endif
 
 ifeq ($(USE_SCHEDULER), true)
-    objects += $(BUILD_TankOS)/process/scheduler_interrupt.kernel.o
     objects += $(BUILD_Tank-Shared)/scheduler.kernel.o
-else
-    objects += $(BUILD_TankOS)/kernel/simple_timer.kernel.o
 endif
 
 objects += $(BUILD_Tank-Shared)/late_init.kernel.o

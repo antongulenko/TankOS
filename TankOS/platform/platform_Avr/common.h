@@ -17,7 +17,8 @@
 #define delay_us(us) _delay_us(us)
 
 #define INTERRUPT_HANDLER(name) ISR(name)
-#define INTERRUPT_FUNCTION __attribute__ ((interrupt))
+// #define INTERRUPT_FUNCTION __attribute__ ((interrupt))
+#define INTERRUPT_FUNCTION __attribute__ ((signal,__INTR_ATTRS)) // Taken from interrupt.h to mirror ISR()
 #define WEAK_FUNCTION __attribute__((weak))
 
 #define interrupts_enabled() (SREG & _BV(SREG_I))

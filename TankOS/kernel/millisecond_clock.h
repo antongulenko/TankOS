@@ -8,9 +8,6 @@
 #ifndef MILLISECOND_CLOCK_H_
 #define MILLISECOND_CLOCK_H_
 
-// This module will only work correctly, if either simple_timer.kernel
-// or processes/scheduler.kernel is linked.
-
 #include <tank_os_common.h>
 
 // This is a global variable (and not a function) for simplicity, but should not be written!
