@@ -25,31 +25,23 @@ void setPinOne(Pin pin);
 void setPinZero(Pin pin);
 BOOL readPin(Pin pin);
 
+#define enablePullup(pin) setPinOne(pin)
+#define disablePullup(pin) setPinZero(pin)
+
 BOOL isPinOutputHigh(Pin pin);
 
 // == Pin configuration
 // Each pin can be occupied by a module before using, to ensure mutually exclusive pin usage.
-// Possible usages are analog input, pwm output, buttons, leds or general purpose IO.
-// When occupied, a pin is tagged with an module specific value. The module can also store some configuration data which can be retrieved later.
-// Configuration data can be managed by registering a possible configuration on a pin. The pin can then be occupied by just providing the module
-// specific value, the configuration will be retrieved from the registry.
-
-typedef struct ConfigData {
-    byte data[4];
-} ConfigData;
-
-#define EmptyConfigData ((ConfigData) {0})
+// Possible usages include analog input, pwm output, buttons, leds or general purpose IO.
+// When occupied, a pin is tagged with an module specific value.
 
 typedef enum {
     PinNoOccupation = 0,
     PinGPIO = 1 // Available for every pin to be used as general IO pin.
 } PinOccupation;
 
-BOOL registerPinConfig(Pin pin, PinOccupation tag, ConfigData configData); // return FALSE if configuration with that tag is already present or if malloc failed.
-BOOL occupyPin(Pin pin, PinOccupation tag); // return FALSE if pin is already occupied or requested configuration is not available.
-BOOL occupyPinDirectly(Pin pin, PinOccupation tag, ConfigData configData); // Occupy without registering. return FALSE if pin already occupied.
+BOOL occupyPin(Pin pin, PinOccupation tag); // return FALSE if pin is already occupied.
 PinOccupation pinOccupation(Pin pin);
-ConfigData *pinConfigData(Pin pin, PinOccupation tag); // return {0} if pin not occupied or is occupied by different configuration than the given tag.
 BOOL deOccupyPin(Pin pin, PinOccupation tag); // return FALSE, if pin was not occupied by tag.
 
 #endif

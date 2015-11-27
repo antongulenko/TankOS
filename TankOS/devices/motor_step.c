@@ -64,9 +64,9 @@ StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, Step
     }
     smoothMotorSetMinSpeed(motor->smooth_motor, global_min_speed);
 
-    if (!occupyPinDirectly(step, PinStepMotor, EmptyConfigData) ||
-            !occupyPinDirectly(dir, PinStepMotor, EmptyConfigData) ||
-            (IsValid(enable) && !occupyPinDirectly(enable, PinStepMotor, EmptyConfigData))) {
+    if (!occupyPin(step, PinStepMotor) ||
+            !occupyPin(dir, PinStepMotor) ||
+            (IsValid(enable) && !occupyPin(enable, PinStepMotor))) {
         deOccupyPin(step, PinStepMotor);
         deOccupyPin(dir, PinStepMotor);
         deOccupyPin(enable, PinStepMotor);

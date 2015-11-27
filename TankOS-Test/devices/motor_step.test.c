@@ -64,7 +64,7 @@ void test_init_no_enable() {
 }
 
 void test_occupied_pin() {
-    occupyPinDirectly(dir, 22, EmptyConfigData);
+    occupyPin(dir, 22);
     motor = newStepMotor(step, dir, enable, 200, StepMotorNormal);
     TEST_ASSERT_FALSE_MESSAGE(IsValid(motor), "motor should not be valid");
     TEST_ASSERT_FALSE_MESSAGE(stepMotorValid(motor), "motor should not be valid");

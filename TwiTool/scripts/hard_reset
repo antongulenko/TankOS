@@ -1,0 +1,11 @@
+#!/bin/bash
+home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+RESET_PIN=30
+
+case $1 in
+    on) "$home/pin" $RESET_PIN lo ;;
+    off) "$home/pin" $RESET_PIN hi ;;
+	do) "$home/pin" $RESET_PIN lo; sleep 0.1; "$home/pin" $RESET_PIN hi ;;
+    *) echo "Need 1 parameter: on|off|do"; exit 1 ;;
+esac

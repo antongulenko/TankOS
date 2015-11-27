@@ -1,0 +1,6 @@
+#!/bin/bash
+set +e
+home=`dirname $(readlink -e $0)`
+source "$home/functions"
+
+set_motor $1 $2

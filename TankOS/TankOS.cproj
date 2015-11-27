@@ -114,12 +114,16 @@
     <Folder Include="devices\" />
     <Folder Include="kernel\" />
     <Folder Include="platform\" />
-    <Folder Include="platform\Avr\" />
-    <Folder Include="platform\Avr\m1284P\" />
-    <Folder Include="platform\Avr\process\" />
-    <Folder Include="platform\Avr\twi\" />
     <Folder Include="platform\Native\" />
     <Folder Include="platform\Native\avr_libc\" />
+    <Folder Include="platform\platform_Avr\" />
+    <Folder Include="platform\platform_Avr\avr_atmega1284p\" />
+    <Folder Include="platform\platform_Avr\avr_atmega1284p\twi\" />
+    <Folder Include="platform\platform_Avr\avr_attiny84\" />
+    <Folder Include="platform\platform_Avr\avr_attiny84\twi\" />
+    <Folder Include="platform\platform_Avr\process\" />
+    <Folder Include="platform\platform_Native\" />
+    <Folder Include="platform\platform_Native\avr_libc\" />
     <Folder Include="platform\twi\" />
     <Folder Include="process\" />
     <Folder Include="process\DMS\" />
@@ -132,6 +136,12 @@
     <Folder Include="uthash\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="devices\analog.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\analog.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="devices\button.c">
       <SubType>compile</SubType>
     </Compile>
@@ -186,114 +196,6 @@
     <Compile Include="kernel\millisecond_clock.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="platform\Avr\analog.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\analog.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\analog.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\atomic_mutex.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\buffer_stdout.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\buffer_stdout.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\buffer_stdout.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\common.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\early_init.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\early_init.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\early_init.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\early_init_eeprom.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\hardware_reset.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\hardware_reset.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\idle.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\idle.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\kernel_init.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\m1284P\analog.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\m1284P\analog.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\m1284P\port.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\m1284P\port.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\m1284P\timer.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\m1284P\timer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\memory.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\memory.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\process\context_switch.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\process\process.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\process\process.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\sleep_after_main.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\twi\driver.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\twi\internal.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\twi\isr.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\twi\master.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\twi\master.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\twi\slave.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="platform\Avr\twi\slave.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="platform\common.h">
       <SubType>compile</SubType>
     </Compile>
@@ -316,6 +218,141 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="platform\Native\kernel_init.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\atomic_mutex.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\analog.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\analog.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\port.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\port.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\reset_condition.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\timer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\twi\driver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\twi\internal.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\twi\isr.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\twi\master.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\twi\master.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\twi\slave.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_atmega1284p\twi\slave.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_attiny84\port.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_attiny84\port.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_attiny84\reset_condition.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_attiny84\twi\master.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_attiny84\twi\usi_i2c_master.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\avr_attiny84\twi\usi_i2c_master.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\buffer_stdout.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\buffer_stdout.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\common.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\early_init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\early_init.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\early_init.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\early_init_eeprom.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\hardware_reset.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\hardware_reset.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\idle.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\idle.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\kernel_init.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\memory.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\memory.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\process\context_switch.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\process\process.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\process\process.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Avr\sleep_after_main.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Native\avr_libc\common.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Native\avr_libc\iom1284p.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Native\avr_libc\portpins.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Native\common.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Native\common.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="platform\platform_Native\kernel_init.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="platform\process.h">

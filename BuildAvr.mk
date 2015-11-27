@@ -8,13 +8,15 @@ OBJ-COPY := avr-objcopy
 OBJ-DUMP := avr-objdump
 OBJ-SIZE := avr-size
 
-MCU := atmega1284p
-MCUFLAG := -mmcu=$(MCU)
-
-ifndef AVR_FREQ
-$(warning Using default AVR frequency of 8MHZ)
-AVR_FREQ := 8000000
+ifndef AVR_MCU
+	$(error AVR_MCU must be defined)
 endif
+ifndef AVR_FREQ
+	$(error AVR_FREQ must be defined)
+endif
+
+MCU := $(AVR_MCU)
+MCUFLAG := -mmcu=$(MCU)
 
 BASE_FLAGS := $(MCUFLAG) \
 	-std=gnu99 \
@@ -25,9 +27,9 @@ BASE_FLAGS := $(MCUFLAG) \
     -Wno-missing-braces
 
 ifndef __BUILDDIR_MODIFIED__
-# Frequency also impacts the binary outputs.
-BUILDDIR := $(BUILDDIR)-$(AVR_FREQ)
-BUILD_DIRNAME := $(BUILD_DIRNAME)-$(AVR_FREQ)
+# Frequency and MCU also impact the binary outputs.
+BUILDDIR := $(BUILDDIR)-$(AVR_FREQ)-$(MCU)
+BUILD_DIRNAME := $(BUILD_DIRNAME)-$(AVR_FREQ)-$(MCU)
 __BUILDDIR_MODIFIED__ := true
 endif
 
@@ -49,6 +51,7 @@ ifeq ($(DEBUG), true)
         CFLAGS += -Wno-cpp
     endif
 endif
+CFLAGS += -ffunction-sections -fdata-sections # Enable linker to garbage collect functions
 
 LIB_SUFFIX := a
 TARGET_SUFFIX := elf
@@ -58,9 +61,9 @@ TARGET_SUFFIX := elf
 LDFLAGS_START := $(MCUFLAG) -Wl,--start-group
 
 # This part of the linker flags is split off to include the objects of the current project into the start-group/end-group closure
-LDFLAGS_END := -Wl,--end-group -lm
+LDFLAGS_END := -Wl,--end-group -lm -Wl,--gc-sections
 # TODO -- check these linker flags!
-# -Wl,--gc-sections --rodata-writable -mrelax -Wl,--defsym=__stack=0x4000
+# --rodata-writable -mrelax -Wl,--defsym=__stack=0x4000
 
 DEPENDENCY_FLAGS := $(BASE_FLAGS) -MM
 ARFLAGS := rcs
@@ -120,6 +123,7 @@ endif
 
 define do_flash
 	@echo "$$($(COLOR) $(COLOR_FLASH))Flashing $1$$($(COLOR) off)"
+	$(AVRDUDE_COMMAND) $2 -e # Chip erase
 	$(AVRDUDE_COMMAND) $2 -U flash:w:$1
 endef
 
@@ -134,5 +138,11 @@ flash_$(project): $(BUILDDIR)/$(primary_output).hex
 
 flashv_$(project): $(BUILDDIR)/$(primary_output).hex
 	$(call do_flash,$<, -v -v)
+
+EEPROM_OUT := out.eepr
+
+eeprom_$(project):
+	@echo "$$($(COLOR) $(COLOR_FLASH))Reading raw EEPROM to $(EEPROM_OUT)$$($(COLOR) off)"
+	$(AVRDUDE_COMMAND) -U eeprom:r:$(EEPROM_OUT):r
 
 .PHONY: flash_$(project) flashv_$(project) con

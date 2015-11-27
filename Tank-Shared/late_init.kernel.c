@@ -5,8 +5,8 @@
 
 #include <platform/kernel_init.h>
 #include <kernel/klib.h>
-#include <platform/Avr/m1284P/timer.h>
-#include <platform/Avr/early_init.h>
+#include <platform/platform_Avr/avr_atmega1284p/timer.h>
+#include <platform/platform_Avr/early_init.h>
 #include "timer.h"
 
 // This function can be implemented in user code to have some initialization-code

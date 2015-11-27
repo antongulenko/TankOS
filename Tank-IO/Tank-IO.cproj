@@ -122,9 +122,6 @@
     <Compile Include="Main.main.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Main_test.main.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="tank_button.h">
       <SubType>compile</SubType>
     </Compile>

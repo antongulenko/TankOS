@@ -8,17 +8,28 @@
 // Hidden switch to make kalloc/kcalloc fail. Used for tests.
 BOOL __kalloc_fail = FALSE;
 
+size_t klib_allocated = 0;
+size_t klib_allocation_failed = 0;
+
 void *kalloc(size_t bytes) {
     void *res = __kalloc_fail ? NULL : malloc(bytes);
-    if (!res)
+    if (!res) {
+        klib_allocation_failed += bytes;
         klog("kf\n"); // kalloc failed
+    } else {
+        klib_allocated += bytes;
+    }
     return res;
 }
 
 void *kcalloc(size_t elems, size_t bytes) {
     void *res = __kalloc_fail ? NULL : calloc(elems, bytes);
-    if (!res)
+    if (!res) {
         klog("cf\n"); // kcalloc failed
+        klib_allocation_failed += bytes;
+    } else {
+        klib_allocated += bytes;
+    }
     return res;
 }
 

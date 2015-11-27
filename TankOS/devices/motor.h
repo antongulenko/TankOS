@@ -24,7 +24,8 @@ typedef enum {
 typedef enum {
 	MotorBackward = 0,
 	MotorForward = 1,
-	MotorStopped = 2
+	MotorStopped = 2,
+	MotorInvalidDir = 3
 } MotorDirection;
 
 DEFINE_HANDLE(Motor);

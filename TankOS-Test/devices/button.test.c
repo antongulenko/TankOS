@@ -38,7 +38,7 @@ void assertState(BOOL assumedState, BOOL assumedPullup) {
 }
 
 void test_button_occupy_failed() {
-    occupyPinDirectly(testPin1, 50, EmptyConfigData);
+    occupyPin(testPin1, 50);
     Btn = newButton(testPin1, ButtonNormal);
     TEST_ASSERT_FALSE_MESSAGE(IsValid(Btn), "button should not be valid");
     TEST_ASSERT_FALSE_MESSAGE(buttonValid(Btn), "button should not pass validity check");

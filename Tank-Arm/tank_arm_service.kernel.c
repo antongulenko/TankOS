@@ -6,7 +6,7 @@ static RpcHandlerStatus tank_arm_rotate_handler(uint16_t *params, uint16_t size)
         return TWI_RPC_handler_illegal_parameters;
     }
     MotorDirection dir = (MotorDirection) *params;
-    if (dir > MotorStopped)
+    if (dir >= MotorInvalidDir)
         return TWI_RPC_handler_illegal_parameters;
     stepMotorRotate(tank_arm_step_motor, dir);
     return TWI_RPC_handler_ok;

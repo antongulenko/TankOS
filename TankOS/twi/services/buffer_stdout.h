@@ -2,7 +2,7 @@
 #define TWI_SERVICE_BUFFER_STDOUT_H_
 
 #include <twi/rpc/client_functions.h>
-#include <platform/Avr/buffer_stdout.h>
+#include <platform/platform_Avr/buffer_stdout.h>
 
 typedef enum {
     QUERY_STDOUT_BUFFER_STATUS_OPERATION = 10,

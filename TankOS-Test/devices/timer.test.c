@@ -43,7 +43,7 @@ void test_pwm_timer_create() {
 }
 
 void test_pwm_timer_failedOccupation() {
-    occupyPinDirectly(testPin1, 40, EmptyConfigData);
+    occupyPin(testPin1, 40);
     t = newPwmTimer(OCR, TimerResolution8, testPin1);
     TEST_ASSERT_FALSE_MESSAGE(IsValid(t), "timer should not be valid");
     TEST_ASSERT_FALSE_MESSAGE(timerValid(t), "timer should not pass validity check");

@@ -1,6 +1,6 @@
 
 #include "tests.h"
-#include <platform/Avr/memory.h>
+#include <platform/platform_Avr/memory.h>
 
 uint16_t availableMemory_before = 0;
 

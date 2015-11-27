@@ -1,9 +1,13 @@
 
 # This is separate from the Main.mk file to keep the Main.mk more flexible.
 
+ifndef AVR_SYMBOL
+$(error AVR_SYMBOL must be defined)
+endif
+
 # Reset variables between projects
 ld_symbols :=
-symbols := PLATFORM_$(PLATFORM)
+symbols := PLATFORM_$(PLATFORM) $(AVR_SYMBOL)
 
 # Most projects can only be built for the Avr platform.
 $(project)_exclusive_platform := Avr
@@ -15,10 +19,11 @@ else
     dependencies :=
 endif
 
-sources := $(shell $(FIND) $(project) -name \*.c)
+sources := $(shell $(FIND) $(project) -name \*.c -o -name \*.S)
 sources := $(subst $(project)/,,$(sources))
 
 all_objects := $(sources:.c=.o)
+all_objects := $(all_objects:.S=.So)
 
 ifneq ($(filter %$(TEST_PROJECT_SUFFIX), $(project)),)
     test_project := true
@@ -60,6 +65,7 @@ endif
 
 # Only non-kernel and non-main objects are linked/archived automatically.
 # kernel.* or main.* objects must be selected separately when linking, using the project-specific Objects.mk script.
-default_sources := $(shell $(FIND) $(project) -name \*.c -and -not -name \*.kernel.c -and -not -name \*.main.c -and -not -name \*.testrunner.c)
+default_sources := $(shell $(FIND) $(project) \( -name \*.c  -o -name \*.S \) -and -not -name \*.kernel.c -and -not -name \*.main.c -and -not -name \*.testrunner.c)
 default_sources := $(subst $(project)/,,$(default_sources))
 objects := $(default_sources:.c=.o)
+objects := $(objects:.S=.So)

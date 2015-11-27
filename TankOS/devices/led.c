@@ -15,7 +15,7 @@ typedef struct _Led {
 #define PIN Cast(Pin, led)
 
 Led newLed(Pin pin) {
-    if (!occupyPinDirectly(pin, PinLedOutput, EmptyConfigData)) {
+    if (!occupyPin(pin, PinLedOutput)) {
         return Invalid(Led);
     }
     setPinOutput(pin);

@@ -33,3 +33,15 @@ int tank_driver_get_motor_speed_format(ClientResultPrinter print, void *results,
     res += print(" %.2f%% (%u)", speedPercent, status->speed);
     return res;
 }
+
+int tank_driver_get_battery_voltage_format(ClientResultPrinter print, void *results, uint16_t results_length) {
+    if (results_length != sizeof(uint16_t)) return 0;
+    uint16_t result = *(uint16_t*) results;
+    return print("Voltage: %i", result);
+}
+
+int tank_driver_get_motor_voltage_format(ClientResultPrinter print, void *results, uint16_t results_length) {
+    if (results_length != sizeof(uint16_t)) return 0;
+    uint16_t result = *(uint16_t*) results;
+    return print("Voltage: %i", result);
+}

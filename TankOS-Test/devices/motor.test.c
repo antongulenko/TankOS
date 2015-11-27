@@ -69,7 +69,7 @@ void test_invalid_motor() {
 }
 
 void test_failed_motor_creation1() {
-    occupyPinDirectly(testPin1, 40, EmptyConfigData);
+    occupyPin(testPin1, 40);
     motor = newMotor(MotorNormal, timer1, dir1);
     TEST_ASSERT_FALSE_MESSAGE(IsValid(motor), "motor should not be valid");
     TEST_ASSERT_FALSE_MESSAGE(motorValid(motor), "motor should not pass validity check");
@@ -77,7 +77,7 @@ void test_failed_motor_creation1() {
 }
 
 void test_failed_motor_creation2() {
-    occupyPinDirectly(testPin2, 40, EmptyConfigData);
+    occupyPin(testPin2, 40);
     motor = newMotor2dir(MotorNormal, timer1, dir1, dir2);
     TEST_ASSERT_FALSE_MESSAGE(IsValid(motor), "motor should not be valid");
     TEST_ASSERT_FALSE_MESSAGE(motorValid(motor), "motor should not pass validity check");

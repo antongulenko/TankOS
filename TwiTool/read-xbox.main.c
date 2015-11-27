@@ -21,45 +21,69 @@ void handle(int left, int right) {
 	fflush(stdout);
 }
 
+void help() {
+    fprintf(stderr, "Usage: read-xbox [-f] <js-file> <left-axis> <right-axis>\n");
+    exit(1);
+}
+
 int main (int argc, char **argv)
 {
+    int force = 0;
+    char *filename;
 	int fd;
 	unsigned char axes = 2;
 	unsigned char buttons = 2;
 	int version = 0x000800;
 	char name[NAME_LENGTH] = "Unknown";
+	int AXIS_LEFT;
+	int AXIS_RIGHT;
 
-	if (argc != 4) {
-		fprintf(stderr, "Usage: read-xbox <js-file> <left-axis> <right-axis>\n");
-		exit(1);
-	}
-	int AXIS_LEFT = atoi(argv[2]);
-	int AXIS_RIGHT = atoi(argv[3]);
+    if (argc == 4) {
+        filename = argv[1];
+        AXIS_LEFT = atoi(argv[2]);
+		AXIS_RIGHT = atoi(argv[3]);
+	} else if (argc == 5) {
+        if (!strcmp("-f", argv[1])) {
+            force = 1;
+        } else {
+            help();
+        }
+        filename = argv[2];
+        AXIS_LEFT = atoi(argv[3]);
+		AXIS_RIGHT = atoi(argv[4]);
+	} else {
+        help();
+    }
 	if (AXIS_LEFT == AXIS_RIGHT || AXIS_LEFT < 0 || AXIS_RIGHT < 0) {
 		fprintf(stderr, "Illegal axis values (must be different and >=0). Got %i and %i\n", AXIS_LEFT, AXIS_RIGHT);
 		exit(1);
-	}	
+	}
 	fprintf(stderr, "Using axis %i (left) and %i (right)\n", AXIS_LEFT, AXIS_RIGHT);
 
-	if ((fd = open(argv[1], O_RDONLY)) < 0) {
+	if ((fd = open(filename, O_RDONLY)) < 0) {
 		perror("read-xbox");
 		exit(1);
 	}
 
-	ioctl(fd, JSIOCGVERSION, &version);
-	ioctl(fd, JSIOCGAXES, &axes);
-	ioctl(fd, JSIOCGBUTTONS, &buttons);
-	ioctl(fd, JSIOCGNAME(NAME_LENGTH), name);
+    if (!force) {
+        ioctl(fd, JSIOCGVERSION, &version);
+        ioctl(fd, JSIOCGAXES, &axes);
+        ioctl(fd, JSIOCGBUTTONS, &buttons);
+        ioctl(fd, JSIOCGNAME(NAME_LENGTH), name);
 
-	fprintf(stderr, "Joystick (%s) has %d axes and %d buttons. Driver version is %d.%d.%d.\n",
-		name, axes, buttons, version >> 16, (version >> 8) & 0xff, version & 0xff);
+        fprintf(stderr, "Joystick (%s) has %d axes and %d buttons. Driver version is %d.%d.%d.\n",
+            name, axes, buttons, version >> 16, (version >> 8) & 0xff, version & 0xff);
+    } else {
+        fprintf(stderr, "Skipping ioctl and using new joystick interface...\n");
+        version = 0x020000;
+    }
 
 	if (version < 0x010000) {
 		fprintf(stderr, "Using old joystick interface\n");
 		struct JS_DATA_TYPE js;
 		while (1) {
 			if (read(fd, &js, JS_RETURN) != JS_RETURN) {
-				perror("\nread-xbox: error reading");
+				perror("read-xbox: error reading");
 				exit(1);
 			}
 
@@ -80,8 +104,8 @@ int main (int argc, char **argv)
 
 		while (1) {
 			if (read(fd, &js, sizeof(struct js_event)) != sizeof(struct js_event)) {
-				perror("\nread-xbox: error reading");
-				exit (1);
+				perror("read-xbox: error reading");
+				exit(1);
 			}
 
 			switch(js.type & ~JS_EVENT_INIT) {

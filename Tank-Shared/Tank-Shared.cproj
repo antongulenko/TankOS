@@ -100,6 +100,24 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="avr_atmega1284p\buffer_stdout.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="avr_atmega1284p\timer.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="avr_atmega1284p\twi.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="avr_attiny84\buffer_stdout.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="avr_attiny84\timer.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="avr_attiny84\twi.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="kernel_base.h">
       <SubType>compile</SubType>
     </Compile>
@@ -118,12 +136,10 @@
     <Compile Include="timer.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="timer.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="twi.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="avr_atmega1284p\" />
+    <Folder Include="avr_attiny84\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

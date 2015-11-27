@@ -2,7 +2,8 @@
 home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 read_xbox=$(readlink -f "$home/../build-Native-speed/read-xbox.main.out")
 buffered_exec=$(readlink -f "$home/../build-Native-speed/buffered-execute.main.out")
-motors=$(readlink -f "$home/set_motors")
+set_motor=$(readlink -f "$home/set_motor")
+js_input="/dev/input/js0"
 
 AXIS_BBB="1 3"
 
@@ -13,10 +14,10 @@ function log() {
 function run_xbox_reader() {
     while true; do
         log "Attempting to read xbox input..."
-        "$read_xbox" /dev/input/js0 $AXIS_BBB
+        "$read_xbox" "$js_input" $AXIS_BBB
         log "Read failed. Sleeping..."
         sleep 5
     done
 }
 
-run_xbox_reader | "$home/clean_motor_input" | "$buffered_exec" "$motors"
+run_xbox_reader | "$home/clean_motor_input" | "$buffered_exec" "$set_motor"
