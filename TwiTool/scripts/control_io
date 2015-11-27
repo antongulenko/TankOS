@@ -8,14 +8,14 @@ function log() {
     >&2 echo " ===== `date +'%F %T'` - $@"
 }
 
-TOTAL_AVRS=3
 BBB_LED=green1
 
 declare -A devices
 devices=(
     [driver]=green2
-    [arm]=green3
+    #[arm]=green3
 )
+TOTAL_AVRS=$((${#devices[@]}+1))
 
 log "Booting"
 "$power" off
@@ -27,6 +27,10 @@ function check() {
 
 function tank_shutdown() {
     log "Shutting down"
+    for device in "${!devices[@]}"; do
+        led=${devices[$device]}
+        "$leds" $led off
+    done
     "$power" off
 }
 
@@ -44,7 +48,7 @@ while true; do
             "$leds" $led blink_fast
         fi
     done
-    "$leds" $BBB_LED flash && booted=$((booted+1))
+    "$leds" $BBB_LED flash_long && booted=$((booted+1))
     if [ $booted = $TOTAL_AVRS ]; then
         log "All $booted AVRs booted, enabling motors"
         "$power" on
@@ -52,6 +56,6 @@ while true; do
         log "$booted out of $TOTAL_AVRS AVRs booted, disabling motors"
         "$power" off
     fi
-    sleep 3
+    test $booted = 0 && sleep 3 || sleep 2
 done
 
