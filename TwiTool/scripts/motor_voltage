@@ -6,8 +6,8 @@ source "$home/functions"
 MOT_MAX=2
 
 #echo -n "Left motor: "
-#twi_call tank_driver_get_battery_voltage driver $(param_enum $MOT_LEFT)
+#twi_call tank_driver_get_motor_voltage driver $(param_enum $MOT_LEFT)
 #echo -n "Right motor: "
-#twi_call tank_driver_get_battery_voltage driver $(param_enum $MOT_RIGHT)
+#twi_call tank_driver_get_motor_voltage driver $(param_enum $MOT_RIGHT)
 
-twi_call tank_driver_get_battery_voltage driver $(param_enum $MOT_MAX)
+twi_call tank_driver_get_motor_voltage driver $(param_enum $MOT_MAX)
