@@ -25,7 +25,7 @@ function twi_call() {
     device_address=${TWI_DEVICES[$device]}
     test -n "$device_address" || { echoerr "Address of device $device not registered."; return 1; }
 
-    "$TWI_TOOL" -b $TWI_BUS -d $device_address -f $func $@
+    $TWI_DEBUG "$TWI_TOOL" -b $TWI_BUS -d $device_address -f $func $@
 }
 
 function param_u16bit() {
