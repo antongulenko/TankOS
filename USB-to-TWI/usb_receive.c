@@ -1,7 +1,7 @@
 #include <string.h>
 #include "usb_receive.h"
 
-extern char *usb_data;
+static byte *usb_data = NULL;
 uint8_t usb_received;
 uint8_t usb_remaining;
 
@@ -10,8 +10,8 @@ void usbWriteFinished() {
 }
 
 uchar usbFunctionWrite(uchar *data, uchar len) {
-	if (len > usb_remaining) {
-		// We are receiving too much data from the host...
+	if (len > usb_remaining || usb_data == NULL) {
+		// We are receiving too much data from the host or have not been initialized.
 		return 0xff;
 	}
 	memcpy(usb_data + usb_received, data, len);
@@ -24,7 +24,7 @@ uchar usbFunctionWrite(uchar *data, uchar len) {
 	return 0; // Need more data
 }
 
-usbMsgLen_t usbPrepareWrite(usbRequest_t *rq, uint16_t usb_buffer_size) {
+usbMsgLen_t usbPrepareWrite(usbRequest_t *rq, byte *usb_buffer, uint16_t usb_buffer_size) {
 	// usbFunctionWrite() will be called with data.
 	uint16_t msgLen = rq->wLength.word;
 	if (msgLen > usb_buffer_size) {
@@ -32,6 +32,7 @@ usbMsgLen_t usbPrepareWrite(usbRequest_t *rq, uint16_t usb_buffer_size) {
 		usb_remaining = 0;
 		return 0;
 	}
+	usb_data = usb_buffer;
 	usb_remaining = msgLen;
 	usb_received = 0;
 	return USB_NO_MSG;

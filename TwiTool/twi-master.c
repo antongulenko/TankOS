@@ -12,10 +12,14 @@ void twiWaitForCompletion() {
 }
 
 void printTwiBuffer(char *comment, TWIBuffer buffer) {
-    if (!print_buffer_contents) return;
+    printRawBuffer(comment, buffer.data, buffer.size);
+}
+
+void printRawBuffer(char *comment, byte *buf, size_t len) {
+	if (!print_buffer_contents) return;
     fprintf(stderr, "Buffer (%s): ", comment);
-    for (int i = 0; i < buffer.size; i++) {
-        fprintf(stderr, "%02x ", buffer.data[i]);
+    for (int i = 0; i < len; i++) {
+        fprintf(stderr, "%02x ", buf[i]);
     }
     fprintf(stderr, "\n");
 }

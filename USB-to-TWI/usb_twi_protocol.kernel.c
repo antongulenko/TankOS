@@ -8,7 +8,7 @@
 #include "usb_twi_protocol.h"
 
 #define USB_BUFFER 128
-byte usb_data[USB_BUFFER];
+static byte usb_data[USB_BUFFER];
 static uint8_t result_size = 0;
 
 static BOOL set_error(byte err) {
@@ -98,7 +98,7 @@ usbMsgLen_t usbFunctionSetup(uchar rq_data[8]) {
             return res;
         } else if (rq->bRequest == USBRQ_HID_SET_REPORT) {
 			result_size = 0;
-            return usbPrepareWrite(rq, USB_BUFFER);
+            return usbPrepareWrite(rq, usb_data, sizeof(usb_data));
         }
     }
     return 0;

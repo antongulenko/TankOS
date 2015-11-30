@@ -12,7 +12,7 @@
 // =====================
 
 #define USB_BUFFER 64
-byte usb_data[USB_BUFFER];
+static byte usb_data[USB_BUFFER];
 
 PROGMEM const char usbHidReportDescriptor[22] = { // USB report descriptor
     0x06, 0x00, 0xff,              // USAGE_PAGE (Generic Desktop)
@@ -41,7 +41,7 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
 			usbMsgPtr = usb_data;
 			return usb_received;
 		} else if (rq->bRequest == USBRQ_HID_SET_REPORT) {
-			return usbPrepareWrite(rq, USB_BUFFER);
+			return usbPrepareWrite(rq, usb_data, sizeof(usb_data));
 		}
 	}
 	return 0;

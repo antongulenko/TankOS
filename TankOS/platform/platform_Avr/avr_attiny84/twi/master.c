@@ -26,7 +26,7 @@ static inline BOOL send_address(TWIDevice targetDevice, BOOL write) {
 	}
 	char res = USI_I2C_Master_Address(targetDevice.address & ~_BV(0));
 	if (!res) {
-		twi_error = TWI_Arbitration_Lost;
+		twi_error = TWI_SlaveAddress_NoAck;
 		return FALSE;
 	}
 	return TRUE;

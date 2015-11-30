@@ -12,7 +12,7 @@
 #define RECEIVE_BUFFER_SIZE 512
 #define USB_REPLY_DELAY 5
 static usbDevice_t *usb_dev;
-static char helper_buf[50];
+static char helper_buf[200];
 
 static void error(char *desc) {
     twi_error = TWI_Bus_Error;
@@ -33,9 +33,10 @@ void twi_init_linux(char *ignored_param) {
 
 static void usbReceiveReply(TWIBuffer receiveBuffer) {
     char receive_buf[RECEIVE_BUFFER_SIZE];
-    int len;
+    int len = sizeof(receive_buf);
     int res = usbhidGetReport(usb_dev, REPORT_ID, receive_buf, &len);
     if (res == 0) {
+        printRawBuffer("received usb", (byte*) receive_buf, len);
         if (len < 1) {
             error("Received empty report");
             return;
@@ -48,7 +49,7 @@ static void usbReceiveReply(TWIBuffer receiveBuffer) {
             } else {
                 TwiError usb_twi_error = receive_buf[1];
                 if (usb_twi_error != TWI_No_Error) {
-                    snprintf(helper_buf, sizeof(helper_buf), "TWI error %i (USB report length %i)", usb_status, len);
+                    snprintf(helper_buf, sizeof(helper_buf), "TWI error %i (USB report length %i)", usb_twi_error, len);
                     error(helper_buf);
                     return;
                 } else if (len != 2 + receiveBuffer.size) {
@@ -68,15 +69,7 @@ static void usbReceiveReply(TWIBuffer receiveBuffer) {
     }
 }
 
-void twiSend(TWIDevice targetDevice, TWIBuffer data) {
-    twiSendReceive(targetDevice, data, EmptyBuffer);
-}
-
-void twiReceive(TWIDevice targetDevice, TWIBuffer data) {
-    twiSendReceive(targetDevice, EmptyBuffer, data);
-}
-
-void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer) {
+void executeUsbCall(USB_TWI_COMMAND command, TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer) {
     twi_error_description = NULL;
     twi_error = TWI_No_Error;
 
@@ -91,7 +84,7 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
     }
 
     // Fill buffer with data to be sent
-    buf[0] = USB_TWI_SEND;
+    buf[0] = command;
     buf[1] = targetDevice.address;
     int pos = 2;
     if (sendData.size > 0) {
@@ -109,6 +102,7 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
     }
 
     // Send the prepared buffer and receive the reply
+    printRawBuffer("sending usb", (byte*) buf, buf_len);
     int res = usbhidSetReport(usb_dev, REPORT_ID, buf, buf_len);
     if (res != 0) {
         usberror("Error sending USB message", res);
@@ -116,4 +110,16 @@ void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiv
     }
     delay_ms(USB_REPLY_DELAY);
     usbReceiveReply(receiveBuffer);
+}
+
+void twiSend(TWIDevice targetDevice, TWIBuffer data) {
+    executeUsbCall(USB_TWI_SEND, targetDevice, data, EmptyBuffer);
+}
+
+void twiReceive(TWIDevice targetDevice, TWIBuffer data) {
+    executeUsbCall(USB_TWI_RECEIVE, targetDevice, EmptyBuffer, data);
+}
+
+void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer) {
+    executeUsbCall(USB_TWI_SEND_RECEIVE, targetDevice, sendData, receiveBuffer);
 }

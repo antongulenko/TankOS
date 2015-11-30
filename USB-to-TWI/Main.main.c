@@ -1,5 +1,7 @@
 #include <avr/pgmspace.h>
 #include <usbdrv/usbdrv.h>
+#include <platform/twi/master.h>
+#include <platform/platform_Avr/avr_attiny84/port.h>
 
 // Since we define only one feature report, we don't use report-IDs (which
 // would be the first byte of the report). The entire report consists of 128
@@ -17,7 +19,11 @@ PROGMEM const char usbHidReportDescriptor[22] = { // USB report descriptor
     0xc0                           // END_COLLECTION
 };
 
+#define PIN_DATA  pinA6
+#define PIN_CLOCK pinA4
+
 int main() {
+    twi_init(PIN_DATA, PIN_CLOCK);
     while (1) {
 	    usbPoll();
     }

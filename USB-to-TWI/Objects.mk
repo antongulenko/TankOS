@@ -12,5 +12,4 @@ ifeq ($(USE_BUFFER_STDOUT), true)
     objects += $(BUILD_Tank-Shared)/avr_$(AVR_MCU)/buffer_stdout.kernel.o
 endif
 
-objects_$(project)_Main.main := $(objects)
-objects_$(project)_Main.main += $(BUILD_USB-to-TWI)/usb_twi_protocol.kernel.o
+objects_$(project)_Main.main := $(objects) $(BUILD_USB-to-TWI)/usb_twi_protocol.kernel.o

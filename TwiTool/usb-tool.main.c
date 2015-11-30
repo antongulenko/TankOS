@@ -31,7 +31,7 @@ unsigned char reportId = 0; // TODO parse from parameter
         if((err = usbhidGetReport(dev, reportId, buffer, &len)) != 0){
             fprintf(stderr, "error reading data: %s\n", usbhidErrorMessage(err));
         }else{
-            printf("%s\n", buffer);
+            printf("%.*s\n", len, buffer);
         }
     }else if(strcasecmp(argv[1], "write") == 0){
         int i, pos;
@@ -44,7 +44,8 @@ unsigned char reportId = 0; // TODO parse from parameter
             }
             memcpy(buffer + pos, argv[i], len);
             pos += len;
-            buffer[pos++] = ' ';
+            if (i < argc - 1)
+                buffer[pos++] = ' ';
         }
         fprintf(stderr, "Sending: %s\n", buffer);
         if((err = usbhidSetReport(dev, reportId, buffer, pos)) != 0)

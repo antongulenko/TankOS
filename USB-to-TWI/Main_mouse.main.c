@@ -26,8 +26,6 @@ publish any hardware using these IDs! This is for demonstration only!
 #include <usbdrv/usbdrv.h>
 #include <usbdrv/oddebug.h>        /* This is also an example for using debug macros */
 
-#include <platform/platform_Avr/buffer_stdout.h>
-
 /* ------------------------------------------------------------------------- */
 /* ----------------------------- USB interface ----------------------------- */
 /* ------------------------------------------------------------------------- */
@@ -125,13 +123,8 @@ usbRequest_t    *rq = (void *)data;
 
 /* ------------------------------------------------------------------------- */
 
-// Not needed, only to satisfy linker in usb_receive.c
-char usb_data[1];
-
 int main(void)
 {
-    buffer_stdout_flush_to_eeprom((char*) 2, 32);
-
     for(;;){                /* main event loop */
         usbPoll();
         if(usbInterruptIsReady()){

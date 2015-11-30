@@ -1,18 +1,9 @@
 
 #include <tank_os_common.h>
 #include <usbdrv/usbdrv.h>
-#include <platform/twi/master.h>
 #include <platform/platform_Avr/avr_attiny84/port.h>
 #include <platform/platform_Avr/kernel_init.h>
 #include "usbconfig.h"
-
-#define PIN_DATA  pinA6
-#define PIN_CLOCK pinA4
-
-// static void init_usb_twi() {
-    // twi_init(PIN_DATA, PIN_CLOCK);
-// }
-//KERNEL_INIT(init_usb_twi)
 
 #define CONCAT2(A, B, C) A ## B ## C
 #define CONCAT(A, B, C) CONCAT2(A, B, C)

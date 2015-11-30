@@ -15,5 +15,6 @@ void twi_init_linux(char *param);
 
 // For the implementation
 void printTwiBuffer(char *comment, TWIBuffer buffer);
+void printRawBuffer(char *comment, byte *buf, size_t len);
 
 #endif // TWI_MASTER__H___
