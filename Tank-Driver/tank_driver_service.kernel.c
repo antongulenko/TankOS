@@ -42,11 +42,23 @@ static RpcHandlerStatus tank_driver_get_motor_voltage_handler(uint16_t *_motorNu
     if (size != sizeof(uint16_t)) {
         return TWI_RPC_handler_illegal_parameters;
     }
-    uint16_t motorNum = *_motorNum;
-    if (motorNum >= MOTOR_INVALID)
-        return TWI_RPC_handler_illegal_parameters;
-    AnalogInput input = TANK_MOTOR_VOLTAGES[motorNum];
-    uint16_t result = analogInputValue(input);
+    TankMotorVoltageSelection motorNum = (TankMotorVoltageSelection) *_motorNum;
+    uint16_t result;
+    switch (motorNum) {
+        case TANK_MOTOR_LEFT:
+            result = analogInputValue(leftMotorCurrent);
+            break;
+        case TANK_MOTOR_RIGHT:
+            result = analogInputValue(rightMotorCurrent);
+            break;
+        case TANK_MOTOR_MAX:
+            result = analogInputValue(leftMotorCurrent);
+            uint16_t other = analogInputValue(rightMotorCurrent);
+            if (other > result) result = other;
+            break;
+        default:
+            return TWI_RPC_handler_illegal_parameters;
+    }
     FILL_RESULT(resultBuffer, uint16_t, result);
     return TWI_RPC_handler_ok;
 }
