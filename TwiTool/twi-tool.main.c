@@ -1,5 +1,5 @@
 
-#include "twi-master-linux.h"
+#include "twi-master.h"
 #include <stdio.h>
 #include <errno.h>
 #include <unistd.h>
@@ -8,7 +8,6 @@
 #include <twi/rpc/client_functions_registry.h>
 #include <twi/rpc/strings.h>
 
-#define DEFAULT_BUS_NUM 2
 byte rpc_buffer[1024*4];
 BOOL debug_mode = FALSE;
 
@@ -57,7 +56,7 @@ void printFunctions() {
 }
 
 static void help() {
-    fprintf(stderr, "Usage: -d <device name (hex)> -f <function name> [-D(ebug)] [-b <bus number = %i>] ", DEFAULT_BUS_NUM);
+    fprintf(stderr, "Usage: -d <device name (hex)> -f <function name> -b <bus number> [-D(ebug)]");
     fprintf(stderr, "[-p <parameter hex byte>]* [-v <variable result size>]\n");
     printFunctions();
     exit(1);
@@ -105,9 +104,8 @@ int call(TWIDevice device, ClientFunctionRegistryEntry entry, byte *parameters, 
     }
 }
 
-void init_libraries(int bus_nr) {
-    bus_number = bus_nr;
-    twi_init_linux();
+void init_libraries(char *param) {
+    twi_init_linux(param);
     twi_rpc_client_init((TWIBuffer) { rpc_buffer, sizeof(rpc_buffer) });
     check_error();
 }
@@ -117,7 +115,7 @@ int main(int argc, char **argv) {
     int params = 0;
     int device_addr = -1;
     char *funcName = NULL;
-    int bus_nr = -1;
+    char *library_param = NULL;
     int c;
     BOOL var_res_given = FALSE;
     int var_res_size = 0;
@@ -136,8 +134,8 @@ int main(int argc, char **argv) {
             funcName = optarg;
             break;
         case 'b':
-            if (bus_nr != -1) help();
-            bus_nr = parse_int(optarg, 10, "bus number");
+            if (library_param != NULL) help();
+            library_param = optarg;
             break;
         case 'p':
             if (params >= sizeof(param_buf)) {
@@ -162,7 +160,7 @@ int main(int argc, char **argv) {
         }
     }
     if (!funcName || device_addr == -1) help();
-    if (bus_nr == -1) bus_nr = DEFAULT_BUS_NUM;
+    if (library_param == NULL) help();
     TWIDevice device = { device_addr };
 
     // == Lookup registered function entry
@@ -175,7 +173,7 @@ int main(int argc, char **argv) {
     if (debug_mode) {
         fprintf(stderr, "Calling ");
         printFunction(entry);
-        fprintf(stderr, " on device 0x%02x on bus %i\n", device_addr, bus_nr);
+        fprintf(stderr, " on device 0x%02x, i2c bus parameter %s\n", device_addr, library_param);
     }
 
     // == Handle required result size
@@ -197,6 +195,6 @@ int main(int argc, char **argv) {
     }
 
     // == Initialize and execute the call
-    init_libraries(bus_nr);
+    init_libraries(library_param);
     return call(device, entry, param_buf, params, result_size);
 }

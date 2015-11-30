@@ -41,7 +41,7 @@ LDFLAGS_START := -Wl,--no-enum-size-warning $(LDFLAGS_START)
 endif
 
 # This part of the linker flags is split off to include the objects of the current project into the start-group/end-group closure
-LDFLAGS_END := -Wl,--end-group -lm -lpthread
+LDFLAGS_END := -Wl,--end-group -lm
 
 DEPENDENCY_FLAGS := $(BASE_FLAGS) -MM
 ARFLAGS := rcs

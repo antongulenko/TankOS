@@ -14,3 +14,7 @@ objects += \
     $(BUILD_Tank-Driver)/tank_driver_service_client.kernel.o \
     $(BUILD_Tank-Arm)/tank_arm_service.o \
     $(BUILD_Tank-Arm)/tank_arm_service_client.kernel.o
+
+# TWI_IMPL := linux
+TWI_IMPL := usb
+objects += $(BUILD_TwiTool)/twi-master-$(TWI_IMPL).kernel.o
