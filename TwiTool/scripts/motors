@@ -27,4 +27,5 @@ test $right -ge -100 -a $right -le 100 || help "Invalid -r parameter"
 left=$((left*65535/100))
 right=$((right*65535/100))
 
-set_motors "$left" "$right"
+set_motor -l "$left"
+set_motor -r "$right"

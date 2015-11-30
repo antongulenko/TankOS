@@ -28,6 +28,10 @@ function check() {
 
 function tank_shutdown() {
     log "Shutting down"
+    for device in "${!devices[@]}"; do
+        led=${devices[$device]}
+        "$leds" $led off
+    done
     "$power" off
 }
 
@@ -45,7 +49,7 @@ function check_system() {
             "$leds" $led blink_fast
         fi
     done
-    "$leds" $BBB_LED flash && booted=$((booted+1))
+    "$leds" $BBB_LED flash_long && booted=$((booted+1))
     if [ $booted = $TOTAL_AVRS ]; then
         log "All $booted AVRs booted, enabling motors"
         "$power" on
@@ -53,6 +57,7 @@ function check_system() {
         log "$booted out of $TOTAL_AVRS AVRs booted, disabling motors"
         "$power" off
     fi
+    test $booted = 0 && sleep 3 || sleep 2
 }
 
 while true; do
