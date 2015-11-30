@@ -1,0 +1,23 @@
+#!/bin/bash
+home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+read_js=$(readlink -f "$home/../build-Native-speed/read-joystick.main.out")
+control_motors=$(readlink -f "$home/../build-Native-speed/control-motors.main.out")
+set_motor=$(readlink -f "$home/set_motor")
+js_input="/dev/input/js0"
+
+AXIS_BBB="1 3"
+
+function log() {
+    >&2 echo " ===== `date +'%F %T'` - $@"
+}
+
+function run_js_reader() {
+    while true; do
+        log "Attempting to read js input $js_input..."
+        "$read_js" -f "$js_input" $AXIS_BBB
+        log "Read failed. Sleeping..."
+        sleep 5
+    done
+}
+
+run_js_reader | "$home/clean_motor_input" | "$control_motors" "$set_motor"

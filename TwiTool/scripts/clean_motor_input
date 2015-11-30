@@ -2,8 +2,8 @@
 set -e
 home=`dirname $(readlink -e $0)`
 
-THRESHOLD=10000
-DIFF_THRESHOLD=2000
+THRESHOLD=2000
+DIFF_THRESHOLD=1000
 left=0
 right=0
 

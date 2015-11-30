@@ -3,4 +3,5 @@ set +e
 home=`dirname $(readlink -e $0)`
 source "$home/functions"
 
+>&2 echo "set_motor $1 $2"
 set_motor $1 $2

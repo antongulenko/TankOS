@@ -135,10 +135,10 @@ int main(int argc, char **argv) {
 		pthread_mutex_unlock(&lock);
 
 		if (myright_updated) {
-			set_motor(command_name, "-r", myleft);
+			set_motor(command_name, "-r", myright);
 		}
 		if (myleft_updated) {
-			set_motor(command_name, "-l", myright);
+			set_motor(command_name, "-l", myleft);
 		}
 	}
 }
