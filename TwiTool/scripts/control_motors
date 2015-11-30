@@ -3,15 +3,41 @@ home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 read_js=$(readlink -f "$home/../build-Native-speed/read-joystick.main.out")
 control_motors=$(readlink -f "$home/../build-Native-speed/control-motors.main.out")
 set_motor=$(readlink -f "$home/set_motor")
-js_input="/dev/input/js0"
 
+js_input="/dev/input/js0"
 AXIS_BBB="1 3"
+THRESHOLD=2000
+DIFF_THRESHOLD=1000
+
+left=0
+right=0
 
 function log() {
     >&2 echo " ===== `date +'%F %T'` - $@"
 }
 
-function run_js_reader() {
+function clean_js_input() {
+    while true; do
+        read newleft newright
+        test -n "$newleft" -a -n "$newright" || continue
+
+        absleft=${newleft#-}
+        absright=${newright#-}
+        test "$absleft" -lt "$THRESHOLD" && newleft=0
+        test "$absright" -lt "$THRESHOLD" && newright=0
+
+        leftdiff=$((left-newleft))
+        rightdiff=$((right-newright))
+        if [ ${leftdiff#-} -gt "$DIFF_THRESHOLD" -o ${rightdiff#-} -gt "$DIFF_THRESHOLD" ]; then
+            left=$newleft
+            right=$newright
+            echo "$left $right"
+            >&2 echo "$left $right"
+        fi
+    done
+}
+
+function read_js_input() {
     while true; do
         log "Attempting to read js input $js_input..."
         "$read_js" -f "$js_input" $AXIS_BBB
@@ -20,4 +46,5 @@ function run_js_reader() {
     done
 }
 
-run_js_reader | "$home/clean_motor_input" | "$control_motors" "$set_motor"
+read_js_input | clean_js_input | "$control_motors" "$set_motor"
+
