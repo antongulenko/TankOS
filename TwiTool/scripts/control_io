@@ -63,5 +63,4 @@ function check_system() {
 while true; do
     check_system
     "$reset" off # Just in case
-    sleep 3
 done
