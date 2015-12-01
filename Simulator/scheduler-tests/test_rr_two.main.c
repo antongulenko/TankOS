@@ -1,4 +1,4 @@
-#include <kernel_base.h>
+#include "../common.h"
 
 // Test description: let program run for some time, then pause it and check, that both counters differ by 1 or 0.
 

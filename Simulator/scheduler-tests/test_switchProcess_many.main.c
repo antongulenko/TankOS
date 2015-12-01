@@ -1,5 +1,5 @@
 
-#include <kernel_base.h>
+#include "../common.h"
 
 // This is a manual test. NUM_PROCESSES processes are created and will pass the execution
 // on to each other. if USE_RANDOM is defined, the next process is determined by rand(), else

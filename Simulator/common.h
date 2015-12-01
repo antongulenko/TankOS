@@ -1,12 +1,5 @@
-/*
- * kernel_base.h
- *
- * Created: 02.05.2012 15:44:37
- *  Author: Anton
- */
-
-#ifndef KERNEL_BASE_SHARED_H_
-#define KERNEL_BASE_SHARED_H_
+#ifndef SIM_KERNEL_BASE_SHARED_H_
+#define SIM_KERNEL_BASE_SHARED_H_
 
 #include <kernel/millisecond_clock.h>
 #include <platform/platform_Avr/early_init.h>

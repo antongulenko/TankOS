@@ -1,5 +1,5 @@
 
-#include <kernel_base.h>
+#include "../common.h"
 
 #define NUM_JOBS 12
 volatile unsigned long jobCounters[NUM_JOBS];
