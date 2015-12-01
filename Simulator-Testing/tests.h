@@ -1,6 +1,6 @@
 
 #include <unity.h>
-#include <kernel_base.h>
+#include "common.h"
 
 #define NUM_JOBS 12
 extern volatile unsigned long jobCounters[NUM_JOBS];

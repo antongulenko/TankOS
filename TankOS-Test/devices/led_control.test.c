@@ -217,3 +217,46 @@ void test_controlled_duration() {
     assertChangeAll(222, FALSE);
     TEST_ASSERT_EQUAL_MESSAGE(LedsBlinking, getControlledLedsState(multiple), "Unexpected ControlledLeds state");
 }
+
+void test_show_value() {
+    #define NUM_LEDS 3
+    ControlledLeds single3 = newControlledLed(led3);
+    ControlledLeds leds[NUM_LEDS] = { single1, single2, single3 };
+
+    controlLedsShowValue(leds, NUM_LEDS, 0, 10, 100);
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single1));
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single2));
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+
+    controlLedsShowValue(leds, NUM_LEDS, 9, 10, 100);
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single1));
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single2));
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+
+    controlLedsShowValue(leds, NUM_LEDS, 30, 10, 100);
+    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single1));
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single2));
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+
+    controlLedsShowValue(leds, NUM_LEDS, 50, 10, 100);
+    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single1));
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single2));
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+
+    controlLedsShowValue(leds, NUM_LEDS, 60, 10, 100);
+    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single1));
+    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single2));
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+
+    controlLedsShowValue(leds, NUM_LEDS, 90, 10, 100);
+    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single1));
+    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single2));
+    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+
+    controlLedsShowValue(leds, NUM_LEDS, 110, 10, 100);
+    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single1));
+    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single2));
+    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single3));
+
+    destroyControlledLeds(single3);
+}

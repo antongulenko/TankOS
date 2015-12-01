@@ -1,5 +1,5 @@
 
-#include <kernel_base.h>
+#include "../common.h"
 #include <platform/platform_Avr/memory.h>
 
 // This is too much to fit into memory, the last created DMS job is not valid.

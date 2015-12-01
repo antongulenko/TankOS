@@ -1,5 +1,5 @@
 
-#include <kernel_base.h>
+#include "common.h"
 #include <platform/platform_Avr/memory.h>
 
 #pragma GCC diagnostic ignored "-Wunused-variable"

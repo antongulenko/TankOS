@@ -1,6 +1,7 @@
 
-#include "kernel.h"
+#include <tank_os_common.h>
 #include <platform/platform_Avr/buffer_stdout.h>
+#include "tank_motor.h"
 
 int main() {
 }

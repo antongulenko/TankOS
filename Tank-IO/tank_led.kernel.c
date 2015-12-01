@@ -7,11 +7,7 @@
 #include <platform/kernel_init.h>
 #include <platform/platform_Avr/avr_atmega1284p/port.h>
 #include <string.h>
-
-static void tank_io_init_timer() {
-    TIMSK3 |= _BV(OCIE3B); // Enable timer interrupt
-}
-KERNEL_INIT(tank_io_init_timer)
+#include <timer.h>
 
 Led greenLed1, greenLed2, greenLed3, greenLed4, greenLed5;
 Led redLed1, redLed2, redLed3, redLed4, redLed5;
@@ -32,6 +28,9 @@ ControlledLeds greenLed1c, greenLed2c, greenLed3c, greenLed4c, greenLed5c;
 ControlledLeds redLedsC, yellowLedsC, greenLedsC, leftLedsC, middleLedsC, rightLedsC, allLedsC;
 
 static void init_tank_leds() {
+    // Timer for led_control
+    enableMillisecondTimerInterrupt_B();
+
     redLed1 = newLed(pinB5);
 	redLed2 = newLed(pinB6);
 	redLed3 = newLed(pinB7);

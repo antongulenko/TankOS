@@ -14,6 +14,7 @@ static struct TWIOperation {
 } sendOperation, receiveOperation;
 
 static TWIDevice targetDevice;
+static byte transmittedAddress;
 
 BOOL twi_init(Pin dataPin, Pin clockPin) {
 	if (!occupyTwiPins(dataPin, clockPin)) return FALSE;
@@ -29,13 +30,14 @@ BOOL start_master_operation() {
 	// Delete or set the LSB of the targetDevice address,
 	// which describes sla+w or sla+r (reading or writing slave address)
 	handledBytes = 0;
+	byte addr = targetDevice.address << 1;
 	if (sendOperation.valid) {
-		targetDevice.address &= ~_BV(0);
+		transmittedAddress = addr & ~_BV(0);
 		twi_buffer = sendOperation.buffer;
 		sendOperation.valid = FALSE;
 		return TRUE;
 	} else if (receiveOperation.valid) {
-		targetDevice.address |= _BV(0);
+		transmittedAddress = addr | _BV(0);
 		twi_buffer = receiveOperation.buffer;
 		receiveOperation.valid = FALSE;
 		return TRUE;
@@ -71,7 +73,7 @@ static inline TwiHandlerStatus twi_ack_receive() {
 	if (handledBytes + 1 < twi_buffer.size) {
 		return twi_ack(); // Still more than one byte to go.
 	} else {
-		return twi_continue();  // Want to receive just one more byte. Next byte will get NOT ACK.
+		return twi_continue(); // Want to receive just one more byte. Next byte will get NOT ACK.
 	}
 }
 
@@ -116,7 +118,7 @@ TwiHandlerStatus twi_handle(TwiStatus status) {
 		case TW_START:
 		case TW_REP_START:
 			// Start has been acknowledged, now send the slave address. Is already either READ or WRITE.
-			return twi_send(targetDevice.address);
+			return twi_send(transmittedAddress);
 		//case TW_MR_ARB_LOST: // This is the same value as the next one
 		case TW_MT_ARB_LOST:
 			twi_error = TWI_Arbitration_Lost;

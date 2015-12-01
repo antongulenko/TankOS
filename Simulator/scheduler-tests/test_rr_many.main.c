@@ -1,4 +1,4 @@
-#include <kernel_base.h>
+#include "../common.h"
 
 #define NUM_PROCESSES 14
 

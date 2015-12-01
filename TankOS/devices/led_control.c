@@ -156,6 +156,26 @@ void controlLedsDuration(ControlledLeds leds, LedState state, uint16_t effect_du
     LEDS->effect_state = 0;
 }
 
+void controlLedsShowValue(ControlledLeds *leds, uint8_t total_leds, uint16_t val, uint16_t min, uint16_t max) {
+    uint16_t step = (max - min) / (total_leds - 1);
+    if (step == 0) step = 1;
+    uint8_t num_leds = 0;
+    while (val > step || val > min) {
+        num_leds++;
+        if (val < step) break;
+        val -= step;
+    }
+    if (num_leds > total_leds) num_leds = total_leds;
+    for (uint8_t i = 0; i < total_leds; i++) {
+        ControlledLeds led = leds[i];
+        if (i < num_leds) {
+            controlLeds(led, LedsEnabled);
+        } else {
+            controlLeds(led, LedsDisabled);
+        }
+    }
+}
+
 LedState getControlledLedsState(ControlledLeds leds) {
     if (!IsValid(leds)) return LedsDisabled;
     return LEDS->state;

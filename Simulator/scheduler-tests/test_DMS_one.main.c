@@ -1,5 +1,5 @@
 
-#include <kernel_base.h>
+#include "../common.h"
 
 volatile unsigned long counter = 0;
 volatile unsigned long main_counter = 0;
