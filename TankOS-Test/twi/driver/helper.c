@@ -14,8 +14,7 @@ TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status);
 byte defaultControlFlags;
 
 #define TEST_ADDRESS 0xaa
-TWIDevice testDevice = { TEST_ADDRESS & ~1 };
-const byte receiveAddress = TEST_ADDRESS | 1;
+TWIDevice testDevice = { TEST_ADDRESS };
 byte sendData[6] = { 5, 6, 7, 0xaa, 0xdd, 0xcc };
 TWIBuffer sendBuffer = { sendData, sizeof(sendData) };
 
