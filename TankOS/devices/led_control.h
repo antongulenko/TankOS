@@ -38,6 +38,9 @@ void controlLeds(ControlledLeds leds, LedState state); // Uses default durations
 void controlLedsDuration(ControlledLeds leds, LedState state, uint16_t effect_duration);
 LedState getControlledLedsState(ControlledLeds leds);
 
+// Enable a number of leds representing the given value.
+void controlLedsShowValue(ControlledLeds *leds, uint8_t num_leds, uint16_t val, uint16_t min, uint16_t max);
+
 // Should be invoked every millisecond
 // e.g. by binding __vector_LED_CONTROL_INTERRUPT to a timer-interrupt
 void led_control_tick();
