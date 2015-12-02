@@ -17,14 +17,8 @@ BOOL twi_init(Pin dataPin, Pin clockPin) {
 		}								\
 	} while (0)
 
-static inline BOOL send_address(TWIDevice targetDevice, BOOL write) {
-	byte addr = targetDevice.address;
-	if (write) {
-		addr &= ~_BV(0);
-	} else {
-		addr |= _BV(0);
-	}
-	char res = USI_I2C_Master_Address(targetDevice.address & ~_BV(0));
+static inline BOOL send_address(byte addr) {
+	char res = USI_I2C_Master_Address(addr);
 	if (!res) {
 		twi_error = TWI_SlaveAddress_NoAck;
 		return FALSE;
@@ -34,7 +28,7 @@ static inline BOOL send_address(TWIDevice targetDevice, BOOL write) {
 
 static inline BOOL start_send(TWIDevice targetDevice, TWIBuffer data) {
 	USI_I2C_Master_Start();
-	if (!send_address(targetDevice, TRUE)) return FALSE;
+	if (!send_address(TWI_SLA_WRITE(targetDevice))) return FALSE;
 	char res = USI_I2C_Master_Write(data.data, data.size);
 	if (!res) {
 		twi_error = TWI_Master_TooMuchDataTransmitted;
@@ -50,7 +44,7 @@ void twiSend(TWIDevice targetDevice, TWIBuffer data) {
 
 void twiReceive(TWIDevice targetDevice, TWIBuffer receiveBuffer) {
 	USI_I2C_Master_Start();
-	if (!send_address(targetDevice, FALSE)) return;
+	if (!send_address(TWI_SLA_READ(targetDevice))) return;
 	USI_I2C_Master_Read(receiveBuffer.data, receiveBuffer.size);
 	USI_I2C_Master_Stop();
 }

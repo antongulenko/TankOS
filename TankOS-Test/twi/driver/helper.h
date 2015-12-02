@@ -16,8 +16,8 @@ extern byte twea_flag;
 
 // testDevice.address contains the send-address, receiveAddress is a separate value.
 extern TWIDevice testDevice;
-#define SEND_ADDRESS ((testDevice.address << 1) & ~_BV(0))
-#define RECEIVE_ADDRESS ((testDevice.address << 1) | _BV(0))
+#define SEND_ADDRESS TWI_SLA_WRITE(testDevice)
+#define RECEIVE_ADDRESS TWI_SLA_READ(testDevice)
 
 // These buffers are used by tests when sending or receiving
 extern byte sendData[6];

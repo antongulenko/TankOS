@@ -13,6 +13,9 @@ typedef struct TWIDevice {
 	byte address;
 } TWIDevice;
 
+#define TWI_SLA_WRITE(dev) ((dev.address << 1) & ~_BV(0))
+#define TWI_SLA_READ(dev) ((dev.address << 1) | _BV(0))
+
 extern const TWIDevice TWIBroadcast;
 
 typedef struct TWIBuffer {

@@ -31,12 +31,12 @@ BOOL start_master_operation() {
 	// which describes sla+w or sla+r (reading or writing slave address)
 	handledBytes = 0;
 	if (sendOperation.valid) {
-		transmittedAddress = (targetDevice.address << 1) & ~_BV(0);
+		transmittedAddress = TWI_SLA_WRITE(targetDevice);
 		twi_buffer = sendOperation.buffer;
 		sendOperation.valid = FALSE;
 		return TRUE;
 	} else if (receiveOperation.valid) {
-		transmittedAddress = (targetDevice.address << 1) | _BV(0);
+		transmittedAddress = TWI_SLA_READ(targetDevice);
 		twi_buffer = receiveOperation.buffer;
 		receiveOperation.valid = FALSE;
 		return TRUE;
