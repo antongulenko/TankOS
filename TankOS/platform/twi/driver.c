@@ -19,11 +19,5 @@ BOOL occupyTwiPins(Pin dataPin, Pin clockPin) {
 }
 
 void twiWaitForCompletion() {
-	while (1) {
-		uint8_t still_running;
-		ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-			still_running = twi_running;
-		}
-		if (!still_running) return;
-	}
+	while (twi_running) ;
 }

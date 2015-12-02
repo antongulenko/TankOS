@@ -11,7 +11,7 @@
 // Implemented by modules using this module.
 TwiHandlerStatus twi_test_handle_interrupt(TwiStatus status);
 
-byte defaultControlFlags;
+byte twea_flag;
 
 #define TEST_ADDRESS 0xaa
 TWIDevice testDevice = { TEST_ADDRESS };
@@ -51,7 +51,7 @@ void twi_tests_setUp() {
 
 void expectTwiOp(TwiStatus status, byte controlRegister, byte dataRegister, BOOL isWrite) {
 	expectedOps[numExpectedOps].status = status;
-	expectedOps[numExpectedOps].controlRegister = defaultControlFlags | controlRegister;
+	expectedOps[numExpectedOps].controlRegister = DEFAULT_TWCR | controlRegister;
 	expectedOps[numExpectedOps].dataRegister = dataRegister;
 	expectedOps[numExpectedOps].isWrite = isWrite;
 	numExpectedOps++;
@@ -122,6 +122,7 @@ void startTwiTest(byte initialControlRegister) {
 			TEST_ASSERT_EQUAL_MESSAGE(numExpectedOps, handledExpectedOps, buf);
 			twiHasTerminated = TRUE;
 		} else {
+			TEST_ASSERT_FALSE(twiHasTerminated);
             snprintf(buf, 99, "twi_running flag was reset! (twi operation nr %i)", handledExpectedOps);
 			TEST_ASSERT_MESSAGE(twi_running, buf);
 			// twi_error can already be set here, before all interrupts have been handled.
@@ -131,9 +132,9 @@ void startTwiTest(byte initialControlRegister) {
 }
 
 void startTwiMasterTest() {
-	startTwiTest(_BV(TWSTA) | defaultControlFlags);
+	startTwiTest(DEFAULT_TWCR | _BV(TWSTA));
 }
 
 void startTwiSlaveTest() {
-	startTwiTest((defaultControlFlags | _BV(TWEA)) & ~_BV(TWINT));
+	startTwiTest((DEFAULT_TWCR | _BV(TWEA)) & ~_BV(TWINT));
 }

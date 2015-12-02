@@ -18,7 +18,7 @@ static byte transmittedAddress;
 
 BOOL twi_init(Pin dataPin, Pin clockPin) {
 	if (!occupyTwiPins(dataPin, clockPin)) return FALSE;
-	twi_defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE);
+	twi_defaultControlFlags = DEFAULT_TWCR;
 	TWCR = _BV(TWIE) | _BV(TWEN);
 	twi_error = TWI_No_Error;
 	twi_running = FALSE;
@@ -30,14 +30,13 @@ BOOL start_master_operation() {
 	// Delete or set the LSB of the targetDevice address,
 	// which describes sla+w or sla+r (reading or writing slave address)
 	handledBytes = 0;
-	byte addr = targetDevice.address << 1;
 	if (sendOperation.valid) {
-		transmittedAddress = addr & ~_BV(0);
+		transmittedAddress = (targetDevice.address << 1) & ~_BV(0);
 		twi_buffer = sendOperation.buffer;
 		sendOperation.valid = FALSE;
 		return TRUE;
 	} else if (receiveOperation.valid) {
-		transmittedAddress = addr | _BV(0);
+		transmittedAddress = (targetDevice.address << 1) | _BV(0);
 		twi_buffer = receiveOperation.buffer;
 		receiveOperation.valid = FALSE;
 		return TRUE;
@@ -46,7 +45,7 @@ BOOL start_master_operation() {
 }
 
 static inline TwiHandlerStatus twi_start() {
-	return HandlerStatus_CONTINUE(twi_defaultControlFlags | _BV(TWSTA));
+	return HandlerStatus_CONTINUE(DEFAULT_TWCR | _BV(TWSTA));
 }
 
 static inline TwiHandlerStatus twi_stop() {
@@ -54,16 +53,25 @@ static inline TwiHandlerStatus twi_stop() {
 }
 
 static inline TwiHandlerStatus twi_stop_or_next() {
-	if (!start_master_operation()) {
-		return twi_stop();
-	} else {
-		// Next operation, without releasing the bus. Repeated START condition!
+	if (start_master_operation()) {
+		// Next operation, without releasing the bus. Repeated START condition.
 		return twi_start();
+	} else {
+		return twi_stop();
 	}
 }
 
+static inline TwiHandlerStatus twi_send(byte data) {
+	TWDR = data;
+	return HandlerStatus_CONTINUE(DEFAULT_TWCR);
+}
+
 static inline TwiHandlerStatus twi_ack() {
-	return HandlerStatus_CONTINUE(twi_defaultControlFlags | _BV(TWEA));
+	return HandlerStatus_CONTINUE(DEFAULT_TWCR | _BV(TWEA));
+}
+
+static inline TwiHandlerStatus twi_nack() {
+	return HandlerStatus_CONTINUE(DEFAULT_TWCR);
 }
 
 static inline TwiHandlerStatus twi_ack_receive() {
@@ -73,7 +81,7 @@ static inline TwiHandlerStatus twi_ack_receive() {
 	if (handledBytes + 1 < twi_buffer.size) {
 		return twi_ack(); // Still more than one byte to go.
 	} else {
-		return twi_continue(); // Want to receive just one more byte. Next byte will get NOT ACK.
+		return twi_nack(); // Want to receive just one more byte. Next byte will get NOT ACK.
 	}
 }
 

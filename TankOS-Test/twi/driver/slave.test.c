@@ -35,7 +35,7 @@ void twi_masterTransmissionEnded(TWIBuffer buffer) {
 void setUp() {
 	twi_tests_setUp();
     init_fake_port();
-	defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE) | _BV(TWEA);
+	twea_flag = _BV(TWEA);
 	BOOL res = twi_init_slave(testPin1, testPin2);
     TEST_ASSERT_TRUE_MESSAGE(res, "failed to initialize twi slave.");
 	twi_init_slave_callbacks(
@@ -104,23 +104,23 @@ void test_transmitReceive_ErrorPhase2();
 void test_transmitReceive_LostSecondArbitration();
 
 void expectTwiSlaveNoackRead(TwiStatus status, byte data) {
-    expectTwiNoackOp(status, 0, data, FALSE);
+    expectTwiNoackOp(status, _BV(TWEA), data, FALSE);
 }
 
 void expectTwiSlaveNoackWrite(TwiStatus status, byte data) {
-    expectTwiNoackOp(status, 0, data, TRUE);
+    expectTwiNoackOp(status, _BV(TWEA), data, TRUE);
 }
 
 void expectTwiSlaveWriteOp(TwiStatus status, byte data) {
-	expectTwiWriteOp(status, 0, data);
+	expectTwiWriteOp(status, _BV(TWEA), data);
 }
 
 void expectTwiSlaveReadOp(TwiStatus status, byte data) {
-	expectTwiReadOp(status, 0, data);
+	expectTwiReadOp(status, _BV(TWEA), data);
 }
 
 void expectTwiSlaveControlOp(TwiStatus status) {
-	expectTwiControlOp(status, 0);
+	expectTwiControlOp(status, _BV(TWEA));
 }
 
 void test_slave_transmit_successfull_1 () {

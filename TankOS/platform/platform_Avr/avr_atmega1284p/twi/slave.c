@@ -17,11 +17,20 @@ BOOL twi_init_slave(Pin dataPin, Pin clockPin) {
 
 static inline TwiHandlerStatus twi_send_last(byte data) {
 	TWDR = data;
-	return HandlerStatus_CONTINUE(twi_defaultControlFlags & ~_BV(TWEA));
+	return HandlerStatus_CONTINUE(DEFAULT_TWCR);
+}
+
+static inline TwiHandlerStatus twi_continue() {
+	return HandlerStatus_CONTINUE(DEFAULT_TWCR | _BV(TWEA));
 }
 
 static inline TwiHandlerStatus twi_return_nack() {
-	return HandlerStatus_CONTINUE(twi_defaultControlFlags & ~_BV(TWEA));
+	return HandlerStatus_CONTINUE(DEFAULT_TWCR);
+}
+
+static inline TwiHandlerStatus twi_send(byte data) {
+	TWDR = data;
+	return HandlerStatus_CONTINUE(DEFAULT_TWCR | _BV(TWEA));
 }
 
 // The callback functions called by this module.

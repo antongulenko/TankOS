@@ -100,6 +100,9 @@ ifeq ($(CONFIG), twitool)
 endif
 endif
 
+# Overrides USE_BUFFER_STDOUT. printf() goes directly to eeprom.
+# USE_EEPROM_STDOUT := $(USE_BUFFER_STDOUT)
+
 # Default values
 ifndef AVR_FREQ
     AVR_FREQ := 20000000

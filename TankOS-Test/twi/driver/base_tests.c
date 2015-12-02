@@ -47,7 +47,7 @@ extern void test_transmitReceive_LostSecondArbitration();
 void test_send_successfull_0() {
 	sendBuffer.size = 0;
 	expectTwiWriteOp(TW_START, 0, SEND_ADDRESS);
-	expectTwiControlOp(TW_MT_SLA_ACK, _BV(TWSTO));
+	expectTwiControlOp(TW_MT_SLA_ACK, twea_flag | _BV(TWSTO));
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -56,7 +56,7 @@ void test_send_successfull_1() {
 	sendBuffer.size = 1;
 	expectTwiWriteOp(TW_START, 0, SEND_ADDRESS);
 	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
-	expectTwiControlOp(TW_MT_DATA_ACK, _BV(TWSTO));
+	expectTwiControlOp(TW_MT_DATA_ACK, twea_flag | _BV(TWSTO));
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -69,7 +69,7 @@ void test_send_successfull_all() {
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[3]);
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[4]);
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[5]);
-	expectTwiControlOp(TW_MT_DATA_ACK, _BV(TWSTO));
+	expectTwiControlOp(TW_MT_DATA_ACK, twea_flag | _BV(TWSTO));
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -77,7 +77,7 @@ void test_send_successfull_all() {
 void test_send_arbitrationLost() {
 	expectedError = TWI_Arbitration_Lost;
 	expectTwiWriteOp(TW_START, 0, SEND_ADDRESS);
-	expectTwiControlOp(TW_MT_ARB_LOST, 0);
+	expectTwiControlOp(TW_MT_ARB_LOST, twea_flag);
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -86,7 +86,7 @@ void test_send_arbitrationLost_duringSend() {
 	expectedError = TWI_Arbitration_Lost;
 	expectTwiWriteOp(TW_START, 0, SEND_ADDRESS);
 	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
-	expectTwiControlOp(TW_MT_ARB_LOST, 0);
+	expectTwiControlOp(TW_MT_ARB_LOST, twea_flag);
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -98,7 +98,7 @@ void test_send_arbitrationLost_duringLaterSend() {
 	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[1]);
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[2]);
-	expectTwiControlOp(TW_MT_ARB_LOST, 0);
+	expectTwiControlOp(TW_MT_ARB_LOST, twea_flag);
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -106,7 +106,7 @@ void test_send_arbitrationLost_duringLaterSend() {
 void test_send_slaNack() {
 	expectedError = TWI_SlaveAddress_NoAck;
 	expectTwiWriteOp(TW_START, 0, SEND_ADDRESS);
-	expectTwiControlOp(TW_MT_SLA_NACK, _BV(TWSTO));
+	expectTwiControlOp(TW_MT_SLA_NACK, twea_flag | _BV(TWSTO));
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -115,7 +115,7 @@ void test_send_dataNack() {
 	expectedError = TWI_Master_TooMuchDataTransmitted;
 	expectTwiWriteOp(TW_START, 0, SEND_ADDRESS);
 	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
-	expectTwiControlOp(TW_MT_DATA_NACK, _BV(TWSTO));
+	expectTwiControlOp(TW_MT_DATA_NACK, twea_flag | _BV(TWSTO));
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -126,7 +126,7 @@ void test_send_laterDataNack() {
 	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[1]);
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[2]);
-	expectTwiControlOp(TW_MT_DATA_NACK, _BV(TWSTO));
+	expectTwiControlOp(TW_MT_DATA_NACK, twea_flag | _BV(TWSTO));
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -135,7 +135,7 @@ void test_send_NoInfoInterrupt() {
 	expectedError = TWI_No_Info_Interrupt;
 	expectTwiWriteOp(TW_START, 0, SEND_ADDRESS);
 	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
-	expectTwiControlOp(TW_NO_INFO, 0);
+	expectTwiControlOp(TW_NO_INFO, twea_flag);
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -144,7 +144,7 @@ void test_send_BusError() {
 	expectedError = TWI_Bus_Error;
 	expectTwiWriteOp(TW_START, 0, SEND_ADDRESS);
 	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
-	expectTwiControlOp(TW_BUS_ERROR, _BV(TWSTO));
+	expectTwiControlOp(TW_BUS_ERROR, twea_flag | _BV(TWSTO));
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -154,7 +154,7 @@ void test_send_IllegalStatus() {
 	expectedError = TWI_Illegal_Status;
 	expectTwiWriteOp(TW_START, 0, SEND_ADDRESS);
 	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
-	expectTwiControlOp(ILLEGAL_STATUS, 0);
+	expectTwiControlOp(ILLEGAL_STATUS, twea_flag);
 	twiSend(testDevice, sendBuffer);
 	startTwiMasterTest();
 }
@@ -167,7 +167,7 @@ void test_receive_successfull_0() {
 	receiveBuffer.size = 0;
 	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
 	expectTwiControlOp(TW_MR_SLA_ACK, 0);
-	expectTwiControlOp(TW_MR_DATA_NACK, _BV(TWSTO));
+	expectTwiReadOp(TW_MR_DATA_NACK, twea_flag | _BV(TWSTO), 0xff);
 	// In Master Receive mode, at least one byte must be received from the slave.
 	// This byte should be ignored though, because the receive buffer has size 0.
 	twiReceive(testDevice, receiveBuffer);
@@ -179,7 +179,7 @@ void test_receive_successfull_1() {
 	receiveBuffer.size = 1;
 	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
 	expectTwiControlOp(TW_MR_SLA_ACK, 0);
-	expectTwiReadOp(TW_MR_DATA_NACK, _BV(TWSTO), expectedByte);
+	expectTwiReadOp(TW_MR_DATA_NACK, twea_flag | _BV(TWSTO), expectedByte);
 	twiReceive(testDevice, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedByte(expectedByte);
@@ -193,7 +193,7 @@ void test_receive_successfull_many() {
 	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedReceiveData[2]);
 	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedReceiveData[3]);
 	expectTwiReadOp(TW_MR_DATA_ACK, 0, expectedReceiveData[4]);
-	expectTwiReadOp(TW_MR_DATA_NACK, _BV(TWSTO), expectedReceiveData[5]);
+	expectTwiReadOp(TW_MR_DATA_NACK, twea_flag | _BV(TWSTO), expectedReceiveData[5]);
 	twiReceive(testDevice, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedData(expectedReceiveData, sizeof(expectedReceiveData));
@@ -202,7 +202,7 @@ void test_receive_successfull_many() {
 void test_receive_arbitrationLost() {
 	expectedError = TWI_Arbitration_Lost;
 	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
-	expectTwiControlOp(TW_MR_ARB_LOST, 0);
+	expectTwiControlOp(TW_MR_ARB_LOST, twea_flag);
 	twiReceive(testDevice, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedNoData();
@@ -212,7 +212,7 @@ void test_receive_arbitrationLost_afterSlaAck() {
 	expectedError = TWI_Arbitration_Lost;
 	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
 	expectTwiControlOp(TW_MR_SLA_ACK, _BV(TWEA));
-	expectTwiControlOp(TW_MR_ARB_LOST, 0);
+	expectTwiControlOp(TW_MR_ARB_LOST, twea_flag);
 	twiReceive(testDevice, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedNoData();
@@ -226,7 +226,7 @@ void test_receive_arbitrationLost_duringLaterReceive() {
 	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedReceiveData[0]);
 	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedReceiveData[1]);
 	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedReceiveData[2]);
-	expectTwiControlOp(TW_MR_ARB_LOST, 0);
+	expectTwiControlOp(TW_MR_ARB_LOST, twea_flag);
 	twiReceive(testDevice, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedData(expectedReceiveData, 3); // Only 3 bytes received
@@ -235,7 +235,7 @@ void test_receive_arbitrationLost_duringLaterReceive() {
 void test_receive_slaNack() {
 	expectedError = TWI_SlaveAddress_NoAck;
 	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
-	expectTwiControlOp(TW_MR_SLA_NACK, _BV(TWSTO));
+	expectTwiControlOp(TW_MR_SLA_NACK, twea_flag | _BV(TWSTO));
 	twiReceive(testDevice, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedNoData();
@@ -246,7 +246,7 @@ void test_receive_NoInfoInterrupt() {
 	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
 	expectTwiControlOp(TW_MR_SLA_ACK, _BV(TWEA));
 	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedByte);
-	expectTwiControlOp(TW_NO_INFO, 0);
+	expectTwiControlOp(TW_NO_INFO, twea_flag);
 	twiReceive(testDevice, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedByte(expectedByte);
@@ -257,7 +257,7 @@ void test_receive_BusError() {
 	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
 	expectTwiControlOp(TW_MR_SLA_ACK, _BV(TWEA));
 	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedByte);
-	expectTwiControlOp(TW_BUS_ERROR, _BV(TWSTO));
+	expectTwiControlOp(TW_BUS_ERROR, twea_flag | _BV(TWSTO));
 	twiReceive(testDevice, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedByte(expectedByte);
@@ -269,7 +269,7 @@ void test_receive_IllegalStatus() {
 	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
 	expectTwiControlOp(TW_MR_SLA_ACK, _BV(TWEA));
 	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedByte);
-	expectTwiControlOp(ILLEGAL_STATUS, 0);
+	expectTwiControlOp(ILLEGAL_STATUS, twea_flag);
 	twiReceive(testDevice, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedByte(expectedByte);
@@ -291,11 +291,11 @@ void test_transmitReceive_Success() {
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[1]);
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[2]);
 	expectTwiControlOp(TW_MT_DATA_ACK, _BV(TWSTA));
-	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
+	expectTwiWriteOp(TW_REP_START, 0, RECEIVE_ADDRESS);
 	expectTwiControlOp(TW_MR_SLA_ACK, _BV(TWEA));
 	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedReceiveData[0]);
 	expectTwiReadOp(TW_MR_DATA_ACK, 0, expectedReceiveData[1]);
-	expectTwiReadOp(TW_MR_DATA_NACK, _BV(TWSTO), expectedReceiveData[2]);
+	expectTwiReadOp(TW_MR_DATA_NACK, twea_flag | _BV(TWSTO), expectedReceiveData[2]);
 	twiSendReceive(testDevice, sendBuffer, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedData(expectedReceiveData, 3);
@@ -307,7 +307,7 @@ void test_transmitReceive_ErrorPhase1() {
 	receiveBuffer.size = 3;
 	expectTwiWriteOp(TW_START, 0, SEND_ADDRESS);
 	expectTwiWriteOp(TW_MT_SLA_ACK, 0, sendData[0]);
-	expectTwiControlOp(TW_BUS_ERROR, _BV(TWSTO));
+	expectTwiControlOp(TW_BUS_ERROR, twea_flag | _BV(TWSTO));
 	twiSendReceive(testDevice, sendBuffer, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedNoData();
@@ -322,10 +322,10 @@ void test_transmitReceive_ErrorPhase2() {
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[1]);
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[2]);
 	expectTwiControlOp(TW_MT_DATA_ACK, _BV(TWSTA));
-	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
+	expectTwiWriteOp(TW_REP_START, 0, RECEIVE_ADDRESS);
 	expectTwiControlOp(TW_MR_SLA_ACK, _BV(TWEA));
 	expectTwiReadOp(TW_MR_DATA_ACK, _BV(TWEA), expectedByte);
-	expectTwiControlOp(TW_BUS_ERROR, _BV(TWSTO));
+	expectTwiControlOp(TW_BUS_ERROR, twea_flag | _BV(TWSTO));
 	twiSendReceive(testDevice, sendBuffer, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedByte(expectedByte);
@@ -340,8 +340,8 @@ void test_transmitReceive_LostSecondArbitration() {
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[1]);
 	expectTwiWriteOp(TW_MT_DATA_ACK, 0, sendData[2]);
 	expectTwiControlOp(TW_MT_DATA_ACK, _BV(TWSTA));
-	expectTwiWriteOp(TW_START, 0, RECEIVE_ADDRESS);
-	expectTwiControlOp(TW_MR_ARB_LOST, 0);
+	expectTwiWriteOp(TW_REP_START, 0, RECEIVE_ADDRESS);
+	expectTwiControlOp(TW_MR_ARB_LOST, twea_flag);
 	twiSendReceive(testDevice, sendBuffer, receiveBuffer);
 	startTwiMasterTest();
 	assertReceivedNoData();

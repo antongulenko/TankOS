@@ -9,8 +9,10 @@
 #include <tank_os_common.h>
 #include <platform/twi/driver.h>
 
-// These bits are always expected to be set in the TWI controlRegister
-extern byte defaultControlFlags;
+#define DEFAULT_TWCR _BV(TWEN) | _BV(TWINT) | _BV(TWIE)
+
+// Only zero for master-only mode. Slave needs TWEA set at the end of any transmission.
+extern byte twea_flag;
 
 // testDevice.address contains the send-address, receiveAddress is a separate value.
 extern TWIDevice testDevice;

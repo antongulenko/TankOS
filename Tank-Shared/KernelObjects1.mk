@@ -3,8 +3,12 @@ objects += \
     $(BUILD_TankOS)/platform/platform_Avr/early_init.kernel.o \
     $(BUILD_TankOS)/platform/platform_Avr/early_init_eeprom.kernel.o
 
+ifeq ($(USE_EEPROM_STDOUT), true)
+	objects += $(BUILD_Tank-Shared)/avr_$(AVR_MCU)/eeprom_stdout.kernel.o
+else
 ifeq ($(USE_BUFFER_STDOUT), true)
     objects += $(BUILD_Tank-Shared)/avr_$(AVR_MCU)/buffer_stdout.kernel.o
+endif
 endif
 
 objects += \

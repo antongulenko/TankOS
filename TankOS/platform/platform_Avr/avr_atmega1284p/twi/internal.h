@@ -8,6 +8,8 @@
 
 #include <platform/twi/driver.h>
 
+#define DEFAULT_TWCR _BV(TWEN) | _BV(TWINT) | _BV(TWIE)
+
 extern int handledBytes;
 extern TWIBuffer twi_buffer;
 extern byte twi_defaultControlFlags;
@@ -30,18 +32,9 @@ static inline TwiHandlerStatus HandlerStatus_FINISHED(byte controlRegister) {
 	return (TwiHandlerStatus) { TRUE, controlRegister };
 }
 
-static inline TwiHandlerStatus twi_continue() {
-	return HandlerStatus_CONTINUE(twi_defaultControlFlags);
-}
-
 static inline TwiHandlerStatus twi_end() {
 	// Implies twi_running = false!
 	return HandlerStatus_FINISHED(twi_defaultControlFlags);
-}
-
-static inline TwiHandlerStatus twi_send(byte data) {
-	TWDR = data;
-	return twi_continue();
 }
 
 static inline void twi_read_byte() {

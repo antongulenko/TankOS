@@ -33,6 +33,11 @@ static inline BOOL is_success(RpcClientResult res) {
 
 // TODO debugging, remove
 static uint16_t bat_val = 0;
+void show_progress() {
+	show_motors(bat_val);
+	bat_val += 1;
+	if (bat_val > 100) bat_val = 0;
+}
 
 static inline void do_update_led_info() {
 	uint16_t battery;
@@ -50,9 +55,6 @@ static inline void do_update_led_info() {
 		show_motors(motors);
 	}
 	*/
-
-	show_motors(bat_val++);
-	if (bat_val > 100) bat_val = 0;
 }
 
 void update_led_info() {

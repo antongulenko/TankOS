@@ -7,7 +7,7 @@
 void setUp() {
     init_fake_port();
 	twi_tests_setUp();
-	defaultControlFlags = _BV(TWEN) | _BV(TWINT) | _BV(TWIE);
+	twea_flag = 0;
 	BOOL res = twi_init(testPin1, testPin2);
     TEST_ASSERT_TRUE_MESSAGE(res, "failed to initialize twi master.");
 }
