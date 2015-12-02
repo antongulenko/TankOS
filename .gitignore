@@ -1,5 +1,6 @@
 
 # === Local configuration files and scripts
+/cloc
 /mk
 /simulator.sh
 /make-all.sh
