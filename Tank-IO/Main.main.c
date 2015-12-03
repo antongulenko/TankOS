@@ -17,21 +17,12 @@ void show_progress();
 
 int main() {
 	controlLeds(allLedsC, LedsGroupRun);
-	
-	/*
-	uint16_t battery = 6666;
-	printf(" Calling!");
-	RpcClientResult res = tank_driver_get_battery_voltage(TANK_DRIVER_DEVICE, &battery);
-	printf(">(1)%i,%i,%i,%i(=%i)", twi_error, res.status, res.server_status, res.handler_status, battery);
-	*/
 
-	// printf("\n!!!\n");
-	// buffer_stdout_flush_to_eeprom((char*) 2, 256);
+	//setGenericTimerFrequency(10000);
+	//enableGenericTimerInterrupt_A();
 
 	while (1) {
-		show_progress();
 		update_led_info();
 		delay_ms(50);
 	}
 }
-	

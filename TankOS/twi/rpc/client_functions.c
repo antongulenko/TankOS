@@ -9,21 +9,18 @@ RpcClientResult twi_rpc_client(TWIDevice device, byte operationByte, byte *param
     TWIBuffer argBuf = (TWIBuffer) { parameters, argSize };
 	TWIBuffer resBuf = (TWIBuffer) { out_result, resultSize };
 	RpcClientResult res = twi_rpc(device, operationByte, argBuf, resBuf);
-	twiWaitForCompletion();
     return res;
 }
 
 RpcClientResult twi_rpc_client_void(TWIDevice device, byte operationByte, byte *parameters, uint16_t argSize) {
     TWIBuffer buf = (TWIBuffer) { parameters, argSize };
     RpcClientResult res = twi_rpc_void(device, operationByte, buf);
-	twiWaitForCompletion();
     return res;
 }
 
 RpcClientResult twi_rpc_client_async(TWIDevice device, byte operationByte, byte *parameters, uint16_t argSize) {
     TWIBuffer buf = (TWIBuffer) { parameters, argSize };
     RpcClientResult res = twi_rpc_async(device, operationByte, buf);
-	twiWaitForCompletion();
     return res;
 }
 
