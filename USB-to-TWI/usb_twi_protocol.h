@@ -9,7 +9,7 @@ typedef enum {
 } USB_TWI_COMMAND;
 
 typedef enum {
-	USB_TWI_OK, // + twi_error + (optional) len + (optional) data
+	USB_TWI_OK, // + twi_error + (optional) data
 	USB_TWI_ERR_INVALID_COMMAND,
 	USB_TWI_ERR_SMALL_BUFFER,
 	USB_TWI_ERR_MISSING_DATA,

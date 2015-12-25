@@ -38,8 +38,12 @@ void controlLeds(ControlledLeds leds, LedState state); // Uses default durations
 void controlLedsDuration(ControlledLeds leds, LedState state, uint16_t effect_duration);
 LedState getControlledLedsState(ControlledLeds leds);
 
-// Enable a number of leds representing the given value.
-void controlLedsShowValue(ControlledLeds *leds, uint8_t num_leds, uint16_t val, uint16_t min, uint16_t max);
+// Setting bits in mask high will make certain Leds ignore the effect. These leds will stay disabled.
+// The MSB corresponds to the first led in the group, and so on.
+void controlLedsMask(ControlledLeds leds, uint16_t mask);
+
+// Calculate the led mask based on val within min..max
+void controlLedsMaskValue(ControlledLeds leds, uint16_t val, uint16_t min, uint16_t max);
 
 // Should be invoked every millisecond
 // e.g. by binding __vector_LED_CONTROL_INTERRUPT to a timer-interrupt

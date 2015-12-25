@@ -1,0 +1,33 @@
+#ifndef __encoder_sensor__
+#define __encoder_sensor__
+
+#include <tank_os_common.h>
+#include <devices/port.h>
+
+DEFINE_HANDLE(Encoder);
+
+#define PinEncoder 11
+
+Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, Pin pinB);
+Encoder destroyEncoder(Encoder sensor);
+BOOL encoderValid(Encoder sensor);
+
+int16_t encoderState(Encoder sensor);
+
+unsigned int countEncoders();
+
+typedef enum {
+	EncoderSimultaneousRise = _BV(0),
+	EncoderSimultaneousDrop = _BV(1),
+	EncoderSimultaneousFlip1 = _BV(2), // Only B up -> only A up
+	EncoderSimultaneousFlip2 = _BV(3), // Only A up -> only B up
+} EncoderErrorMask;
+
+typedef struct EncoderError {
+	uint16_t errors;
+	EncoderErrorMask errorMask;
+} EncoderError;
+
+EncoderError getEncoderError(Encoder encoder);
+
+#endif // __encoder_sensor__

@@ -60,7 +60,7 @@ void tearDown() {
     TEST_ASSERT_EQUAL_INT_MESSAGE(expectedStatus.status, status.status, "Unexpected rpc client result status");
     TEST_ASSERT_EQUAL_INT_MESSAGE(expectedStatus.server_status, status.server_status, "Unexpected rpc client server status");
     TEST_ASSERT_EQUAL_INT_MESSAGE(expectedStatus.handler_status, status.handler_status, "Unexpected rpc handler status");
-	TEST_ASSERT_FALSE_MESSAGE(mock_driver.waitedForCompletion, "Should not have waited for completion");
+	TEST_ASSERT_EQUAL_MESSAGE(expectedSend || expectedReceive, mock_driver.waitedForCompletion, "Should (not) have waited for completion");
     TEST_ASSERT_EQUAL_MESSAGE(expectedSend, mock_driver.sent, "rpc call should (not) have sent something");
     TEST_ASSERT_EQUAL_MESSAGE(expectedReceive, mock_driver.received, "rpc call should (not) have received something");
 }

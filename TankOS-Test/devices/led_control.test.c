@@ -219,44 +219,62 @@ void test_controlled_duration() {
 }
 
 void test_show_value() {
-    #define NUM_LEDS 3
-    ControlledLeds single3 = newControlledLed(led3);
-    ControlledLeds leds[NUM_LEDS] = { single1, single2, single3 };
+    controlLeds(multiple, LedsEnabled);
+    runticks(1);
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led1));
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led2));
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led3));
 
-    controlLedsShowValue(leds, NUM_LEDS, 0, 10, 100);
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single1));
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single2));
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+    controlLedsMaskValue(multiple, 0, 10, 100);
+    runticks(1);
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led1));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led2));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led3));
 
-    controlLedsShowValue(leds, NUM_LEDS, 9, 10, 100);
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single1));
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single2));
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+    controlLedsMaskValue(multiple, 9, 10, 100);
+    runticks(1);
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led1));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led2));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led3));
 
-    controlLedsShowValue(leds, NUM_LEDS, 30, 10, 100);
-    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single1));
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single2));
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+    controlLedsMaskValue(multiple, 30, 10, 100);
+    runticks(1);
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led1));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led2));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led3));
 
-    controlLedsShowValue(leds, NUM_LEDS, 50, 10, 100);
-    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single1));
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single2));
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+    controlLedsMaskValue(multiple, 50, 10, 100);
+    runticks(1);
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led1));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led2));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led3));
 
-    controlLedsShowValue(leds, NUM_LEDS, 60, 10, 100);
-    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single1));
-    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single2));
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+    controlLedsMaskValue(multiple, 60, 10, 100);
+    runticks(1);
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led1));
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led2));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led3));
 
-    controlLedsShowValue(leds, NUM_LEDS, 90, 10, 100);
-    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single1));
-    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single2));
-    TEST_ASSERT_EQUAL(LedsDisabled, getControlledLedsState(single3));
+    controlLedsMaskValue(multiple, 90, 10, 100);
+    runticks(1);
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led1));
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led2));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led3));
 
-    controlLedsShowValue(leds, NUM_LEDS, 110, 10, 100);
-    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single1));
-    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single2));
-    TEST_ASSERT_EQUAL(LedsEnabled, getControlledLedsState(single3));
+    controlLedsMaskValue(multiple, 110, 10, 100);
+    runticks(1);
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led1));
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led2));
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led3));
 
-    destroyControlledLeds(single3);
+    controlLedsMask(multiple, 0xffff);
+    runticks(1);
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led1));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led2));
+    TEST_ASSERT_EQUAL(FALSE, isLedEnabled(led3));
+    controlLedsMask(multiple, 0);
+    runticks(1);
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led1));
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led2));
+    TEST_ASSERT_EQUAL(TRUE, isLedEnabled(led3));
 }

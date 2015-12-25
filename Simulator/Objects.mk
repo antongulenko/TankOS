@@ -5,6 +5,7 @@ include Tank-Shared/KernelObjects1.mk
 objects += \
     $(BUILD_Tank-IO)/tank_led.kernel.o \
     $(BUILD_Tank-IO)/tank_button.kernel.o \
+    $(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/pin_change.kernel.o \
     $(BUILD_Tank-IO)/tank_button_interrupts.kernel.o
 
 ifeq ($(USE_TWI), true)

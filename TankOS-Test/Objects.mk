@@ -23,8 +23,7 @@ define set_test_objects
 endef
 
 $(eval $(call set_test_objects,kernel/klib,\
-    $(BUILD_TESTS)/mocks/port.o \
-    ))
+    $(BUILD_TESTS)/mocks/port.o ))
 
 $(eval $(call set_test_objects,process/process,\
     $(BUILD_TESTS)/mocks/process.o \
@@ -35,6 +34,16 @@ $(eval $(call set_test_objects,process/scheduler,\
 	$(BUILD_TankOS)/process/process.o \
     $(BUILD_TankOS)/platform/platform_Avr/idle.o \
     $(BUILD_TankOS)/process/scheduler.o ))
+
+$(eval $(call set_test_objects,devices/hall,\
+    $(BUILD_TESTS)/mocks/port.o \
+    $(BUILD_TESTS)/mocks/pin_change.o \
+	$(BUILD_TankOS)/devices/hall.o ))
+
+$(eval $(call set_test_objects,devices/encoder,\
+    $(BUILD_TESTS)/mocks/port.o \
+    $(BUILD_TESTS)/mocks/pin_change.o \
+	$(BUILD_TankOS)/devices/encoder.o ))
 
 $(eval $(call set_test_objects,devices/port,\
     $(BUILD_TESTS)/mocks/port.o \
