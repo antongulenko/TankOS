@@ -40,7 +40,7 @@ typedef struct _StepMotor {
 // One turn per second as minimal speed
 #define global_min_speed (1 * SPEED_FACTOR)
 static ticks_t global_ticks_per_second;
-StepMotorStepDelay stepDelay = StepDelay10us;
+StepMotorPulse stepMotorPulse = StepMotorPulse10us;
 _StepMotor _step_motors;
 
 void stepMotorSetUnderlyingSpeed(UnderlyingMotor underlying, speed_t speed, MotorDirection direction);
@@ -150,6 +150,10 @@ BOOL stepMotorEnabled(StepMotor motor) {
     } else {
         return TRUE;
     }
+}
+
+void stepMotorResetPosition(StepMotor motor, pos_t position) {
+    MOTOR->position = position;
 }
 
 BOOL stepMotorSetMaxSpeed(StepMotor motor, speed_t speed) {
@@ -285,20 +289,20 @@ static void do_motor_step(_StepMotor motor) {
 
     // Generate a pulse
     writePin(motor->step, pinBefore);
-    switch (stepDelay) {
-        case StepDelay1us:
+    switch (stepMotorPulse) {
+        case StepMotorPulse1us:
             delay_us(1);
             break;
-        case StepDelay10us:
+        case StepMotorPulse10us:
             delay_us(10);
             break;
-        case StepDelay50us:
+        case StepMotorPulse50us:
             delay_us(50);
             break;
-        case StepDelay100us:
+        case StepMotorPulse100us:
             delay_us(100);
             break;
-        case StepDelayNone:
+        case StepMotorPulseZero:
         default:
             break;
     }

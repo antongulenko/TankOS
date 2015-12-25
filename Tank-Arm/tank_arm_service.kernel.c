@@ -8,7 +8,7 @@ static RpcHandlerStatus tank_arm_rotate_handler(uint16_t *params, uint16_t size)
     MotorDirection dir = (MotorDirection) *params;
     if (dir >= MotorInvalidDir)
         return TWI_RPC_handler_illegal_parameters;
-    stepMotorRotate(tank_arm_step_motor, dir);
+    stepMotorRotate(tank_arm.motor, dir);
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_rotate_handler, TANK_ARM_ROTATE, uint16_t)
@@ -17,32 +17,32 @@ static RpcHandlerStatus tank_arm_step_handler(pos_t *params, uint16_t size) {
     if (size != sizeof(pos_t)) {
         return TWI_RPC_handler_illegal_parameters;
     }
-    stepMotorStep(tank_arm_step_motor, *params);
+    stepMotorStep(tank_arm.motor, *params);
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_step_handler, TANK_ARM_STEP, pos_t)
 
 static RpcHandlerStatus tank_arm_stop_handler() {
-    stepMotorStop(tank_arm_step_motor);
+    stepMotorStop(tank_arm.motor);
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_NOTIFY(tank_arm_stop_handler, TANK_ARM_STOP)
 
 static RpcHandlerStatus tank_arm_position_handler(TWIBuffer *resultBuffer) {
-    pos_t pos = stepMotorPosition(tank_arm_step_motor);
+    pos_t pos = stepMotorPosition(tank_arm.motor);
     FILL_RESULT(resultBuffer, pos_t, pos)
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_NOARGS(tank_arm_position_handler, TANK_ARM_POSITION)
 
 static RpcHandlerStatus tank_arm_enable_handler() {
-    enableStepMotor(tank_arm_step_motor);
+    enableStepMotor(tank_arm.motor);
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_NOTIFY(tank_arm_enable_handler, TANK_ARM_ENABLE)
 
 static RpcHandlerStatus tank_arm_disable_handler() {
-    disableStepMotor(tank_arm_step_motor);
+    disableStepMotor(tank_arm.motor);
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_NOTIFY(tank_arm_disable_handler, TANK_ARM_DISABLE)
@@ -51,14 +51,14 @@ static RpcHandlerStatus tank_arm_set_max_handler(speed_t *params, uint16_t size,
     if (size != sizeof(speed_t)) {
         return TWI_RPC_handler_illegal_parameters;
     }
-    BOOL res = stepMotorSetMaxSpeed(tank_arm_step_motor, *params);
+    BOOL res = stepMotorSetMaxSpeed(tank_arm.motor, *params);
     FILL_RESULT(resultBuffer, uint16_t, (uint16_t) res)
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION(tank_arm_set_max_handler, TANK_ARM_SET_MAX, speed_t)
 
 static RpcHandlerStatus tank_arm_get_max_handler(TWIBuffer *resultBuffer) {
-    speed_t res = stepMotorGetMaxSpeed(tank_arm_step_motor);
+    speed_t res = stepMotorGetMaxSpeed(tank_arm.motor);
     FILL_RESULT(resultBuffer, speed_t, res)
     return TWI_RPC_handler_ok;
 }
@@ -78,11 +78,11 @@ static RpcHandlerStatus tank_arm_set_delay_handler(uint16_t *params, uint16_t si
     if (size != sizeof(uint16_t)) {
         return TWI_RPC_handler_illegal_parameters;
     }
-    StepMotorStepDelay val = (StepMotorStepDelay) *params;
-    if (val > StepDelay100us) {
+    StepMotorPulse val = (StepMotorPulse) *params;
+    if (val > StepMotorPulse100us) {
         return TWI_RPC_handler_illegal_parameters;
     }
-    stepDelay = val;
+    stepMotorPulse = val;
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_set_delay_handler, TANK_ARM_SET_DELAY, uint16_t)

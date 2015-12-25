@@ -8,11 +8,14 @@ DEFINE_HANDLE(Encoder);
 
 #define PinEncoder 11
 
-Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, Pin pinB);
-Encoder destroyEncoder(Encoder sensor);
-BOOL encoderValid(Encoder sensor);
+typedef int16_t encoder_pos_t;
 
-int16_t encoderState(Encoder sensor);
+Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, Pin pinB);
+Encoder destroyEncoder(Encoder encoder);
+BOOL encoderValid(Encoder encoder);
+
+encoder_pos_t encoderState(Encoder encoder);
+void encoderReset(Encoder encoder, encoder_pos_t state);
 
 unsigned int countEncoders();
 

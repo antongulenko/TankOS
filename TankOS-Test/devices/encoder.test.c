@@ -41,6 +41,8 @@ void test_init() {
 	TEST_ASSERT_EQUAL(0, encoderState(encoder));
 	TEST_ASSERT_EQUAL(0, getEncoderError(encoder).errors);
 	TEST_ASSERT_EQUAL(0, getEncoderError(encoder).errorMask);
+	encoderReset(encoder, 100);
+	TEST_ASSERT_EQUAL(100, encoderState(encoder));
 }
 
 void interrupt(BOOL aUp, BOOL bUp) {
@@ -49,7 +51,7 @@ void interrupt(BOOL aUp, BOOL bUp) {
 }
 
 void trigger(BOOL forward) {
-	int16_t state = encoderState(encoder);
+	encoder_pos_t state = encoderState(encoder);
 	if (forward) {
 		interrupt(FALSE, FALSE);
 		interrupt(TRUE, FALSE);
@@ -164,7 +166,7 @@ void test_errors() {
 
 void test_fluctuation() {
 	interrupt(TRUE, FALSE);
-	int16_t state = encoderState(encoder);
+	encoder_pos_t state = encoderState(encoder);
 	interrupt(TRUE, TRUE);
 	interrupt(TRUE, TRUE);
 	interrupt(TRUE, FALSE);

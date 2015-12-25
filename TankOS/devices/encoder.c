@@ -17,7 +17,7 @@ typedef struct _Encoder {
 	uint8_t pinMaskB;
 	
 	EncoderError error;
-	int16_t state;
+	encoder_pos_t state;
 	uint8_t pins;
 	uint8_t portNum;
 } _Encoder;
@@ -157,7 +157,7 @@ BOOL encoderValid(Encoder encoder) {
 	return TRUE;
 }
 
-int16_t encoderState(Encoder encoder) {
+encoder_pos_t encoderState(Encoder encoder) {
 	if (!IsValid(encoder)) return 0;
 	return ENCODER->state;
 }
@@ -175,4 +175,8 @@ unsigned int countEncoders() {
 
 EncoderError getEncoderError(Encoder encoder) {
 	return ENCODER->error;
+}
+
+void encoderReset(Encoder encoder, encoder_pos_t state) {
+	ENCODER->state = state;
 }

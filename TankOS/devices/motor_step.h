@@ -39,19 +39,20 @@ void stepMotorStop(StepMotor motor);
 void stepMotorForceStop(StepMotor motor);
 
 pos_t stepMotorPosition(StepMotor motor);
+void stepMotorResetPosition(StepMotor motor, pos_t position);
 
 // Call once before creating first motor.
 void setupStepMotors(ticks_t ticks_per_second);
 void motor_step_tick();
 
 typedef enum {
-	StepDelayNone,
-	StepDelay1us,
-	StepDelay10us,
-	StepDelay50us,
-	StepDelay100us
-} StepMotorStepDelay;
+	StepMotorPulseZero,
+	StepMotorPulse1us,
+	StepMotorPulse10us,
+	StepMotorPulse50us,
+	StepMotorPulse100us
+} StepMotorPulse;
 
-extern StepMotorStepDelay stepDelay;
+extern StepMotorPulse stepMotorPulse;
 
 #endif // __MOTOR_STEP__

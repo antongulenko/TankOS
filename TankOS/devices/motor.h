@@ -12,7 +12,7 @@
 #include <devices/timer.h>
 
 typedef uint16_t speed_t;
-typedef int16_t uspeed_t;
+typedef int16_t sspeed_t; // Signed speed
 
 typedef enum {
     MotorNormal = 0,
@@ -55,7 +55,7 @@ void setSpeedBackward(Motor motor, speed_t speed);
 // When getting, the absolute value will be shifted right once and multiplied with -1 if driving backwards
 //				(also ignoring the least significant bit).
 // This happens before the possible 8/16 bit conversion.
-uspeed_t getDirSpeed(Motor motor);
-void setDirSpeed(Motor motor, uspeed_t speed);
+sspeed_t getDirSpeed(Motor motor);
+void setDirSpeed(Motor motor, sspeed_t speed);
 
 #endif /* MOTOR_H_ */
