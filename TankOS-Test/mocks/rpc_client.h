@@ -23,7 +23,7 @@ typedef struct TestResStruct {
 } TestResStruct;
 
 enum {
-	OP_RPC_VAR = 55,
+	OP_RPC_VAR = 75,
 	OP_RPC_VARARGS,
 	OP_RPC_VARRES,
 	OP_RPC_NORMAL,
@@ -35,7 +35,7 @@ enum {
 	OP_RPC_NOARGS_VAR,
 	OP_RPC_NOTIFY,
 	OP_RPC_NOTIFY_ASYNC
-} PROTOCOL_TEST_RPC_SERVICE; // Start at 55 (only for tests)
+} PROTOCOL_TEST_RPC_SERVICE; // Start at 75 (only for tests)
 
 // Define one function of each type for the test rpc client
 

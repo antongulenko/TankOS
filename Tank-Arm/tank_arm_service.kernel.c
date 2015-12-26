@@ -86,3 +86,33 @@ static RpcHandlerStatus tank_arm_set_delay_handler(uint16_t *params, uint16_t si
     return TWI_RPC_handler_ok;
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_set_delay_handler, TANK_ARM_SET_DELAY, uint16_t)
+
+static RpcHandlerStatus tank_arm_calibrate_handler() {
+    calibrateTankArm(&tank_arm);
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION_NOTIFY(tank_arm_calibrate_handler, TANK_ARM_CALIBRATE)
+
+static RpcHandlerStatus tank_arm_recalibrate_handler() {
+    recalibrateTankArm(&tank_arm);
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION_NOTIFY(tank_arm_recalibrate_handler, TANK_ARM_RECALIBRATE)
+
+static RpcHandlerStatus tank_arm_state_handler(TWIBuffer *resultBuffer) {
+    TankArmState res;
+    getTankArmState(&tank_arm, &res);
+    FILL_RESULT(resultBuffer, TankArmState, res);
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION_NOARGS(tank_arm_state_handler, TANK_ARM_GET_STATE)
+
+static RpcHandlerStatus tank_arm_move_handler(uint16_t *params, uint16_t size) {
+    if (size != sizeof(arm_pos_t)) {
+        return TWI_RPC_handler_illegal_parameters;
+    }
+    arm_pos_t val = (arm_pos_t) *params;
+    tankArmMove(&tank_arm, val);
+    return TWI_RPC_handler_ok;
+}
+TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_move_handler, TANK_ARM_MOVE, uint16_t)

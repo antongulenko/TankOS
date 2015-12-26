@@ -228,3 +228,21 @@ $(eval $(call set_test_objects,process/RoundRobin,\
     $(BUILD_TESTS)/mocks/scheduler.o \
     $(BUILD_TESTS)/mocks/process.o \
     $(BUILD_TankOS)/process/RoundRobin/rr.o ))
+
+$(eval $(call set_test_objects,Arm/service,\
+    $(BUILD_TESTS)/mocks/assertions.o \
+    $(BUILD_TESTS)/mocks/port.o \
+    $(BUILD_TESTS)/mocks/twi_driver_slave.o \
+    $(BUILD_TESTS)/mocks/twi_end_to_end.o \
+    $(BUILD_TESTS)/twi/services/helper.o \
+    $(BUILD_TESTS)/Arm/arm.o \
+    $(BUILD_TESTS)/mocks/pin_change.o \
+    $(BUILD_Tank-Arm)/arm.o \
+    $(BUILD_Tank-Arm)/tank_arm_service.o \
+    $(BUILD_Tank-Arm)/tank_arm_service.kernel.o \
+    $(BUILD_Tank-Arm)/tank_arm_service_client.kernel.o \
+    $(BUILD_TankOS)/twi/rpc/strings.o \
+    $(BUILD_TankOS)/twi/rpc/server.o \
+    $(BUILD_TankOS)/twi/rpc/client.o \
+    $(BUILD_TankOS)/twi/rpc/client_functions.o \
+    $(BUILD_TankOS)/twi/rpc/server_handler_functions.kernel.o ))

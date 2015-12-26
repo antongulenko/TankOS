@@ -3,7 +3,7 @@
 #include <platform/platform_Avr/avr_atmega1284p/port.h>
 #include <timer.h>
 
-TankArm tank_arm;
+struct TankArm tank_arm;
 
 void setupTankArmMotor(uint16_t max_frequency) {
 	setGenericTimerFrequency(max_frequency);
