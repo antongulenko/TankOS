@@ -238,7 +238,7 @@ void stepMotorSetSpeed(_StepMotor motor, speed_t speed) {
         ticks_between_steps = global_ticks_per_second / ticks_per_sec;
         if (ticks_between_steps <= 1) ticks_between_steps = 1.0;
     } else {
-        ticks_between_steps = 1; // Value should not matter
+        ticks_between_steps = 1; // Value should not matter, motor stopped.
     }
     motor->ticks_between_steps = ticks_between_steps;
 }

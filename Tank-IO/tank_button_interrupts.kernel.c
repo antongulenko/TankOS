@@ -12,6 +12,6 @@ static void enable_tank_button_interrupts() {
 	enablePinChangeInterrupt(0, 1);
 	enablePinChangeInterrupt(0, 2);
 	enablePinChangeInterrupt(0, 3);
-	setPinInterruptHandler(0, /*(PinInterruptHandler)*/ tankPinInterruptHandler);
+	addPinInterruptHandler(0, tankPinInterruptHandler);
 }
 KERNEL_INIT(enable_tank_button_interrupts)

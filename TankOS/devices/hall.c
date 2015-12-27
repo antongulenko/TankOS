@@ -9,6 +9,7 @@
 
 typedef struct _HallSensor {
 	Pin pin;
+	uint8_t portNum;
 	BOOL state;
 	HallSensorCallback callback;
 	void *callbackData;
@@ -67,7 +68,8 @@ HallSensor newHallSensor(uint8_t portNum, uint8_t pinNum, Pin pin) {
 
 	setPinInput(pin);
 	enablePinChangeInterrupt(portNum, pinNum);
-	setPinInterruptHandler(portNum, hallSensorPinInterrupt);
+	addPinInterruptHandler(portNum, hallSensorPinInterrupt);
+	sensor->portNum = portNum;
 	sensor->pin = pin;
 	sensor->state = FALSE;
 	sensor->callback = NULL;
@@ -80,6 +82,7 @@ HallSensor destroyHallSensor(HallSensor sensor) {
 	if (IsValid(sensor)) {
 		// TODO Should disable pin interrupt.
 		deOccupyPin(SENSOR->pin, PinHallSensor);
+		removePinInterruptHandler(SENSOR->portNum, hallSensorPinInterrupt);
 		*(SENSOR->container) = NULL;
 		free(SENSOR);
 	}

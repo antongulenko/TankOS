@@ -50,7 +50,9 @@ void tearDown() {
 	TEST_ASSERT_FALSE(IsValid(hall3));
 	TEST_ASSERT_EQUAL(PinNoOccupation, pinOccupation(testPin3));
 	TEST_ASSERT_EQUAL(0, countHallSensors());
+	
 	destroy_fake_port();
+	tearDownPinChangeInterrupts();
 }
 
 void test_init() {
@@ -78,24 +80,24 @@ void test_callback() {
 	setHallCallback(hall2, &callback, &hall2);
 	
 	// Pin1 still down
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0));
+	invokePinChangeInterrupt(0, 0);
 	TEST_ASSERT_FALSE(called1 || called2 || called3);
 	TEST_ASSERT_FALSE(hallSensorState(hall1));
 	
 	// Pin1 now up
-	TEST_ASSERT(invokePinChangeInterrupt(0, _BV(0)));
+	invokePinChangeInterrupt(0, _BV(0));
 	TEST_ASSERT(called1);
 	called1 = FALSE;
 	TEST_ASSERT_FALSE(called2 || called3);
 	TEST_ASSERT(hallSensorState(hall1));
 
 	// Pin1 still up
-	TEST_ASSERT(invokePinChangeInterrupt(0, _BV(0)));
+	invokePinChangeInterrupt(0, _BV(0));
 	TEST_ASSERT_FALSE(called1 || called2 || called3);
 	TEST_ASSERT(hallSensorState(hall1));
 
 	// Pin1 now down again
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0));
+	invokePinChangeInterrupt(0, 0);
 	TEST_ASSERT(called1);
 	TEST_ASSERT_FALSE(hallSensorState(hall1));
 	TEST_ASSERT_FALSE(called2 || called3);
@@ -106,13 +108,13 @@ void test_callback_2() {
 	setHallCallback(hall2, &callback, &hall2);
 	
 	// Pin1 and 2 still down
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0));
+	invokePinChangeInterrupt(0, 0);
 	TEST_ASSERT_FALSE(called1 || called2 || called3);
 	TEST_ASSERT_FALSE(hallSensorState(hall1));
 	TEST_ASSERT_FALSE(hallSensorState(hall2));
 	
 	// Pin1 and 2 now up
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0xff));
+	invokePinChangeInterrupt(0, 0xff);
 	TEST_ASSERT(called1 && called2);
 	called1 = called2 = FALSE;
 	TEST_ASSERT_FALSE(called3);
@@ -120,13 +122,13 @@ void test_callback_2() {
 	TEST_ASSERT(hallSensorState(hall2));
 
 	// Pin1 and 2 still up
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0xff));
+	invokePinChangeInterrupt(0, 0xff);
 	TEST_ASSERT_FALSE(called1 || called2 || called3);
 	TEST_ASSERT(hallSensorState(hall1));
 	TEST_ASSERT(hallSensorState(hall2));
 
 	// Pin1 and 2 now down again
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0));
+	invokePinChangeInterrupt(0, 0);
 	TEST_ASSERT(called1 && called2);
 	TEST_ASSERT_FALSE(hallSensorState(hall1));
 	TEST_ASSERT_FALSE(hallSensorState(hall2));
@@ -134,10 +136,10 @@ void test_callback_2() {
 }
 
 void test_unregistererd_handler() {
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0xff));
-	TEST_ASSERT(invokePinChangeInterrupt(1, 0xff));
-	TEST_ASSERT_FALSE(invokePinChangeInterrupt(2, 0xff));
-	TEST_ASSERT_FALSE(invokePinChangeInterrupt(3, 0xff));
+	tryInvokePinChangeInterrupt(0, 0xff);
+	tryInvokePinChangeInterrupt(1, 0xff);
+	tryInvokePinChangeInterrupt(2, 0xff);
+	tryInvokePinChangeInterrupt(3, 0xff);
 	TEST_ASSERT_FALSE(called1 || called2 || called3);
 }
 
@@ -147,18 +149,18 @@ void test_callback_3() {
 	setHallCallback(hall3, &callback, &hall3);
 	
 	// Pins still down
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0));
+	invokePinChangeInterrupt(0, 0);
 	TEST_ASSERT_FALSE(called1 || called2 || called3);
 	TEST_ASSERT_FALSE(hallSensorState(hall1));
 	TEST_ASSERT_FALSE(hallSensorState(hall2));
 	TEST_ASSERT_FALSE(hallSensorState(hall3));
 	
 	// Pins now up
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0xff));
+	invokePinChangeInterrupt(0, 0xff);
 	TEST_ASSERT(called1 && called2);
 	called1 = called2 = FALSE;
 	TEST_ASSERT_FALSE(called3);
-	TEST_ASSERT(invokePinChangeInterrupt(1, 0xff));
+	invokePinChangeInterrupt(1, 0xff);
 	TEST_ASSERT(called3);
 	called3 = FALSE;
 	TEST_ASSERT(hallSensorState(hall1));
@@ -166,18 +168,18 @@ void test_callback_3() {
 	TEST_ASSERT(hallSensorState(hall3));
 
 	// Pins still up
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0xff));
-	TEST_ASSERT(invokePinChangeInterrupt(1, 0xff));
+	invokePinChangeInterrupt(0, 0xff);
+	invokePinChangeInterrupt(1, 0xff);
 	TEST_ASSERT_FALSE(called1 || called2 || called3);
 	TEST_ASSERT(hallSensorState(hall1));
 	TEST_ASSERT(hallSensorState(hall2));
 	TEST_ASSERT(hallSensorState(hall3));
 
 	// Pins now down again
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0));
+	invokePinChangeInterrupt(0, 0);
 	TEST_ASSERT(called1 && called2);
 	TEST_ASSERT_FALSE(called3);
-	TEST_ASSERT(invokePinChangeInterrupt(1, 0));
+	invokePinChangeInterrupt(1, 0);
 	TEST_ASSERT(called3);
 	TEST_ASSERT_FALSE(hallSensorState(hall1));
 	TEST_ASSERT_FALSE(hallSensorState(hall2));

@@ -23,7 +23,7 @@ static void advanceCalibration(TankArm arm, MotorDirection now) {
 			break;
 		case CalibratedOne:
 			if (now == calibrationDir) {
-				// Zero position should be at the "back" hall-sensor.
+				// Zero position should be at the "back" hall-sensor, regardless of calibrationDir.
 				pos_t motorSwing = stepMotorPosition(arm->motor);
 				if (motorSwing < 0) {
 					assertCalibrationDir(calibrationDir, MotorBackward, "M");
@@ -31,7 +31,6 @@ static void advanceCalibration(TankArm arm, MotorDirection now) {
 					motorSwing = -motorSwing;
 				} else {
 					assertCalibrationDir(calibrationDir, MotorForward, "M");
-					stepMotorResetPosition(arm->motor, motorSwing);
 				}
 
 				encoder_pos_t encoderSwing = encoderState(arm->encoder);
@@ -41,7 +40,6 @@ static void advanceCalibration(TankArm arm, MotorDirection now) {
 					encoderSwing = -encoderSwing;
 				} else {
 					assertCalibrationDir(calibrationDir, MotorForward, "E");
-					encoderReset(arm->encoder, encoderSwing);
 				}
 
 				arm->fullMotorSwing = motorSwing;
@@ -93,6 +91,10 @@ void destroyTankArm(TankArm arm) {
 	arm->encoder = destroyEncoder(arm->encoder);
 	arm->front = destroyHallSensor(arm->front);
 	arm->back = destroyHallSensor(arm->back);
+	arm->calibrationDir = MotorBackward;
+	arm->calibration = NotCalibrated;
+	arm->fullMotorSwing = 0;
+	arm->fullEncoderSwing = 0;
 }
 
 void calibrateTankArm(TankArm arm) {
@@ -108,11 +110,6 @@ void recalibrateTankArm(TankArm arm) {
 	calibrateTankArm(arm);
 }
 
-BOOL tankArmShouldMove(TankArm arm) {
-	if (arm == NULL) return FALSE;
-	return !hallSensorState(arm->front) && !hallSensorState(arm->back);
-}
-
 arm_pos_t tankArmPosition(TankArm arm) {
 	if (arm == NULL || arm->calibration != CalibratedFull) return 0;
 	encoder_pos_t encoder = encoderState(arm->encoder);
@@ -123,14 +120,17 @@ arm_pos_t tankArmPosition(TankArm arm) {
 	return (arm_pos_t) pos;
 }
 
-void tankArmMove(TankArm arm, arm_pos_t move) {
-	if (arm == NULL || arm->calibration != CalibratedFull) return;
+BOOL tankArmMove(TankArm arm, arm_pos_t move) {
+	if (arm == NULL || arm->calibration != CalibratedFull) return FALSE;
+	if (hallSensorState(arm->front) && move > 0) return FALSE;
+	if (hallSensorState(arm->back) && move < 0) return FALSE;
 	
 	// TODO add encoder control
 
 	int64_t motorMove = (int64_t) move * (int64_t) arm->fullMotorSwing;
 	motorMove /= 128;
 	stepMotorStep(arm->motor, (pos_t) motorMove);
+	return TRUE;
 }
 
 void getTankArmState(TankArm arm, TankArmState *state) {

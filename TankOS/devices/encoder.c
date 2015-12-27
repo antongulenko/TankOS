@@ -119,7 +119,7 @@ Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, 
 	setPinInput(pinB);
 	enablePinChangeInterrupt(portNum, pinNumA);
 	enablePinChangeInterrupt(portNum, pinNumB);
-	setPinInterruptHandler(portNum, encoderPinInterrupt);
+	addPinInterruptHandler(portNum, encoderPinInterrupt);
 	readEncoderPins(encoder, readPin(pinA), readPin(pinB)); // Set encoder->pins
 	encoder->pinA = pinA;
 	encoder->pinB = pinB;
@@ -136,9 +136,10 @@ Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, 
 
 Encoder destroyEncoder(Encoder encoder) {
 	if (IsValid(encoder)) {
-		// TODO Should disable pin interrupt.
+		// TODO Should also disable pin interrupt.
 		deOccupyPin(ENCODER->pinA, PinEncoder);
 		deOccupyPin(ENCODER->pinB, PinEncoder);
+		removePinInterruptHandler(ENCODER->portNum, encoderPinInterrupt);
 		if (ENCODER->portNum < NUM_PORTS) {
 			if (encoders[ENCODER->portNum] != NULL)
 				LL_DELETE(encoders[ENCODER->portNum], ENCODER);

@@ -34,7 +34,9 @@ void tearDown() {
 	TEST_ASSERT_EQUAL(PinNoOccupation, pinOccupation(testPin1));
 	TEST_ASSERT_EQUAL(PinNoOccupation, pinOccupation(testPin2));
 	TEST_ASSERT_EQUAL(0, countEncoders());
+
 	destroy_fake_port();
+	tearDownPinChangeInterrupts();
 }
 
 void test_init() {
@@ -47,7 +49,7 @@ void test_init() {
 
 void interrupt(BOOL aUp, BOOL bUp) {
 	uint8_t pins = (aUp ? _BV(0) : 0) | (bUp ? _BV(1) : 0);
-	TEST_ASSERT(invokePinChangeInterrupt(0, pins));
+	invokePinChangeInterrupt(0, pins);
 }
 
 void trigger(BOOL forward) {
@@ -127,10 +129,10 @@ void test_two_encoders() {
 	TEST_ASSERT_EQUAL(2*4, encoderState(encoder));
 	TEST_ASSERT_EQUAL(0, encoderState(encoder2));
 
-	TEST_ASSERT(invokePinChangeInterrupt(0, _BV(2)));
-	TEST_ASSERT(invokePinChangeInterrupt(0, _BV(2) | _BV(3)));
-	TEST_ASSERT(invokePinChangeInterrupt(0, _BV(3)));
-	TEST_ASSERT(invokePinChangeInterrupt(0, 0));
+	invokePinChangeInterrupt(0, _BV(2));
+	invokePinChangeInterrupt(0, _BV(2) | _BV(3));
+	invokePinChangeInterrupt(0, _BV(3));
+	invokePinChangeInterrupt(0, 0);
 	TEST_ASSERT_EQUAL(2*4, encoderState(encoder));
 	TEST_ASSERT_EQUAL(1*4, encoderState(encoder2));	
 

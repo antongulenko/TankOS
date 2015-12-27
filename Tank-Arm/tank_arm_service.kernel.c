@@ -112,7 +112,9 @@ static RpcHandlerStatus tank_arm_move_handler(uint16_t *params, uint16_t size) {
         return TWI_RPC_handler_illegal_parameters;
     }
     arm_pos_t val = (arm_pos_t) *params;
-    tankArmMove(&tank_arm, val);
-    return TWI_RPC_handler_ok;
+    if (tankArmMove(&tank_arm, val))
+        return TWI_RPC_handler_ok;
+    else
+        return TWI_RPC_handler_error + 1;
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_move_handler, TANK_ARM_MOVE, uint16_t)
