@@ -47,5 +47,8 @@ int tank_arm_state_format(ClientResultPrinter print, void *results, uint16_t res
             res += print("calibrated: %i", state->calibration);
     }
     res += print(", motor swing: %i, encoder swing: %i)", state->fullMotorSwing, state->fullEncoderSwing);
+    if (state->encoder_error.errors > 0 || state->encoder_error.errorMask != 0) {
+        res += print(" %i encoder errors: 0x%.2x", state->encoder_error.errors, state->encoder_error.errorMask);
+    }
     return res;
 }

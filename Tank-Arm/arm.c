@@ -143,4 +143,5 @@ void getTankArmState(TankArm arm, TankArmState *state) {
 	state->calibration = (uint16_t) arm->calibration;
 	state->fullMotorSwing = arm->fullMotorSwing;
 	state->fullEncoderSwing = arm->fullEncoderSwing;
+	state->encoder_error = getEncoderError(arm->encoder);
 }

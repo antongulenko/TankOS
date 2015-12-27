@@ -129,9 +129,12 @@ void test_format_results() {
     state.fullMotorSwing = 500;
     state.fullEncoderSwing = 400;
     state.calibration = CalibratedOne;
+    state.encoder_error.errors = 4;
+    state.encoder_error.errorMask = 0x0a;
     init_mock_printf();
     f->format_results(mock_printf, &state, sizeof(state));
     TEST_ASSERT_EQUAL_STRING(
-            "Pos 55 (Encoder 100, Motor 200) [FRONT] (half calibrated, motor swing: 500, encoder swing: 400)", 
+            "Pos 55 (Encoder 100, Motor 200) [FRONT] "
+            "(half calibrated, motor swing: 500, encoder swing: 400) 4 encoder errors: 0x0a", 
             mock_printf_buffer);
 }

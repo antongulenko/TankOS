@@ -8,7 +8,7 @@ DEFINE_HANDLE(Encoder);
 
 #define PinEncoder 11
 
-typedef int16_t encoder_pos_t;
+typedef int32_t encoder_pos_t;
 
 Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, Pin pinB);
 Encoder destroyEncoder(Encoder encoder);

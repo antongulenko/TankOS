@@ -47,6 +47,7 @@ typedef struct TankArmState {
 	uint16_t calibration; // enum TankArmCalibration
 	pos_t fullMotorSwing;
 	encoder_pos_t fullEncoderSwing;
+	EncoderError encoder_error;
 } TankArmState;
 
 void getTankArmState(TankArm arm, TankArmState *state);
