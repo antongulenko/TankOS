@@ -3,6 +3,8 @@
 
 #include <devices/port.h>
 
+#define NUM_PORTS 2
+
 extern Port portA, portB;
 extern Pin pinA0, pinA1, pinA2, pinA3, pinA4, pinA5, pinA6, pinA7;
 extern Pin pinB0, pinB1, pinB2, pinB3;

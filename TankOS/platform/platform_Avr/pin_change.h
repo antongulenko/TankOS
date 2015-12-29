@@ -2,8 +2,9 @@
 #define ___pin_change_interrupts___
 
 #include <tank_os_common.h>
+#include "port.h"
 
-// pinNum: 0..3, pinNum: 0..7
+// portNum: 0=A, 1=B, ...
 void enablePinChangeInterrupt(uint8_t portNum, uint8_t pinNum);
 
 typedef void (*PinInterruptHandler)(uint8_t portNum, uint8_t pinBits);

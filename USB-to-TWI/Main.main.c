@@ -1,7 +1,7 @@
 #include <avr/pgmspace.h>
 #include <usbdrv/usbdrv.h>
 #include <platform/twi/master.h>
-#include <platform/platform_Avr/avr_attiny84/port.h>
+#include <platform/platform_Avr/port.h>
 
 // Since we define only one feature report, we don't use report-IDs (which
 // would be the first byte of the report). The entire report consists of 128

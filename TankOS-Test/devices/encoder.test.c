@@ -6,7 +6,6 @@
 Encoder encoder;
 
 // For testing empty lists
-#define NUM_PORTS 4
 extern void *_encoder_list[NUM_PORTS];
 
 BOOL expectClean;

@@ -4,10 +4,6 @@
 #include <platform/platform_Avr/pin_change.h>
 #include <uthash/utlist.h>
 
-// TODO these values are controller-specific
-#define NUM_PORTS 4
-#define NUM_PINS 8
-
 typedef struct _Encoder {
 	Pin pinA;
 	Pin pinB;
@@ -34,11 +30,12 @@ static inline void encoderError(_Encoder *enc, EncoderErrorMask err) {
 static inline uint8_t readEncoderPins(_Encoder *enc, BOOL pinA, BOOL pinB) {
 	uint8_t pins = enc->pins;
 	pins <<= 2;
+	pins &= 0b11111100;
 	if (pinA) {
-		pins |= 0b10;
+		pins |= 0b00000010;
 	}
 	if (pinB) {
-		pins |= 0b01;
+		pins |= 0b00000001;
 	}
 	enc->pins = pins;
 	return pins;
@@ -103,9 +100,13 @@ static void encoderPinInterrupt(uint8_t portNum, uint8_t pinBits) {
 }
 
 Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, Pin pinB) {
-	if (portNum >= NUM_PORTS) return Invalid(Encoder);
+	if (portNum >= NUM_PORTS) {
+		return Invalid(Encoder);
+	}
 	_Encoder *encoder = kalloc(sizeof(_Encoder));
-	if (!encoder) return Invalid(Encoder);
+	if (!encoder) {
+		return Invalid(Encoder);
+	}
 	if (!occupyPin(pinA, PinEncoder)) {
 		free(encoder);
 		return Invalid(Encoder);
@@ -113,7 +114,6 @@ Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, 
 	if (!occupyPin(pinB, PinEncoder)) {
 		free(encoder);
 		deOccupyPin(pinA, PinEncoder);
-		return Invalid(Encoder);
 	}
 	setPinInput(pinA);
 	setPinInput(pinB);

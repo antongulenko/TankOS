@@ -1,15 +1,13 @@
 #include <platform/platform_Avr/pin_change.h>
+#include "port.h"
 #include <kernel/klib.h>
 
-#define MASK_REGISTERS ((volatile uint8_t*[4]) { &PCMSK0, &PCMSK1, &PCMSK2, &PCMSK3 })
+#define MASK_REGISTERS ((volatile uint8_t*[NUM_PORTS]) { &PCMSK0, &PCMSK1, &PCMSK2, &PCMSK3 })
 
-#define PORTS 4
-#define PINS 8
-
-static PinHandlerList handlers[PORTS];
+static PinHandlerList handlers[NUM_PORTS];
 
 void enablePinChangeInterrupt(uint8_t portNum, uint8_t pinNum) {
-	if (portNum >= PORTS || pinNum >= PINS) {
+	if (portNum >= NUM_PORTS) {
 		klog("IPeN:%i\n", portNum); // Illegal Pin Change Interrupt Number
 		return;
 	}
@@ -18,7 +16,7 @@ void enablePinChangeInterrupt(uint8_t portNum, uint8_t pinNum) {
 }
 
 void addPinInterruptHandler(uint8_t portNum, PinInterruptHandler handler) {
-	if (portNum >= PORTS) {
+	if (portNum >= NUM_PORTS) {
 		klog("IPN:%i\n", portNum); // Illegal Pin Change Interrupt Number
 		return;
 	}
@@ -26,7 +24,7 @@ void addPinInterruptHandler(uint8_t portNum, PinInterruptHandler handler) {
 }
 
 void removePinInterruptHandler(uint8_t portNum, PinInterruptHandler handler) {
-	if (portNum >= PORTS) {
+	if (portNum >= NUM_PORTS) {
 		klog("IPrN:%i\n", portNum); // Illegal Pin Change Interrupt Number
 		return;
 	}
