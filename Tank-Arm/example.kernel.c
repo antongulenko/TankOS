@@ -1,6 +1,6 @@
 #include "example.h"
 #include <platform/kernel_init.h>
-#include <platform/platform_Avr/avr_atmega1284p/port.h>
+#include <platform/platform_Avr/port.h>
 #include <timer.h>
 
 struct TankArm tank_arm;
@@ -17,14 +17,14 @@ static inline void init_tank_arm_motor() {
     // flags |= StepMotorInverseStep;
     stepMotorPulse = StepMotorPulse10us;
 
-    tank_arm.motor = newStepMotor(pinB0, pinB1, pinB2, 400, flags);
+    tank_arm.motor = newStepMotor(pinA0, pinA1, pinA2, 400, flags);
     enableGenericTimerInterrupt_A(); // Step motor interrupt
 }
 
 static inline void init_tank_arm_sensors() {
-	tank_arm.front = newHallSensor(1, 3, pinB3);
-	tank_arm.back = newHallSensor(1, 4, pinB4);
-	tank_arm.encoder = newEncoder(1, 5, 6, pinB5, pinB6);
+	tank_arm.front = newHallSensor(0, 4, pinA4);
+	tank_arm.back = newHallSensor(0, 3, pinA3);
+	tank_arm.encoder = newEncoder(0, 5, 6, pinA5, pinA6);
 }
 
 static void init_tank_arm() {
@@ -34,4 +34,4 @@ static void init_tank_arm() {
     if (!tankArmInitialize(&tank_arm))
     	destroyTankArm(&tank_arm);
 }
-KERNEL_INIT(init_tank_arm)
+// KERNEL_INIT(init_tank_arm)
