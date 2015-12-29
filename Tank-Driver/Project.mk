@@ -3,7 +3,7 @@ project := $(get-basedir)
 dependencies := TankOS Tank-Shared
 
 ifndef MAIN_$(project)
-MAIN_$(project) := Main_empty
+MAIN_$(project) := Main
 endif
 
 include Defaults.mk
