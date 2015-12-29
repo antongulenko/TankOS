@@ -110,17 +110,10 @@ BOOL isPinOutputHigh(Pin pin) {
 
 // == Pin occupation
 
-// Put error-strings in flash memory to preserve RAM
-static const char msg_rPC[] PROGMEM = "rPC:%i<%i\n";
-static const char msg_rPCd[] PROGMEM = "rPCd:%i\n";
-static const char msg_oPD[] PROGMEM = "oPD:%i<%i\n";
-static const char msg_pCD[] PROGMEM = "pCD%i!%i\n";
-static const char msg_dOP[] PROGMEM = "dOP:%i!%i\n";
-
 BOOL occupyPin(Pin pin, PinOccupation tag) {
     if (!IsValid(pin)) return FALSE;
     if (PIN->tag != PinNoOccupation) {
-        klog(msg_oPD, tag, PIN->tag); // occupyPin failed
+        klog("oP:%i<%i\n", tag, PIN->tag); // occupyPin failed
         return FALSE;
     }
     PIN->tag = tag;
@@ -135,7 +128,7 @@ PinOccupation pinOccupation(Pin pin) {
 BOOL deOccupyPin(Pin pin, PinOccupation tag) {
     if (!IsValid(pin)) return FALSE;
     if (PIN->tag != tag) {
-        klog(msg_dOP, tag, PIN->tag); // deOccupyPin failed
+        klog("dOP:%i!%i\n", tag, PIN->tag); // deOccupyPin failed
         return FALSE;
     }
     PIN->tag = PinNoOccupation;

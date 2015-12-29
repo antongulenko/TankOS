@@ -52,5 +52,5 @@ void test_failed_pin_occupation() {
     occupyPin(testPin1, 10);
     deOccupyPin(testPin1, 20);
     deOccupyPin(testPin1, 30);
-    assert_output("oPD:20<30\noPD:10<30\ndOP:20!30\n");
+    assert_output("oP:20<30\noP:10<30\ndOP:20!30\n");
 }
