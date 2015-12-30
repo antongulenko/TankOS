@@ -1,7 +1,7 @@
 
 #include <tank_os_common.h>
 #include <usbdrv/usbdrv.h>
-#include <platform/platform_Avr/avr_attiny84/port.h>
+#include <platform/platform_Avr/port.h>
 #include <platform/platform_Avr/kernel_init.h>
 #include "usbconfig.h"
 

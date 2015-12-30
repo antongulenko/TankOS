@@ -1,14 +1,17 @@
 
 #include <platform/kernel_init.h>
-#include <tank_os_common.h>
+#include <platform/platform_Avr/pin_change.h>
 #include "tank_button.h"
 
-INTERRUPT_HANDLER(PCINT0_vect) {
+static void tankPinInterruptHandler(uint8_t portNum, uint8_t pins) {
 	updateButtonGroup(buttons);
 }
 
 static void enable_tank_button_interrupts() {
-	PCICR |= _BV(PCIE0);
-	PCMSK0 |= _BV(PCINT0) | _BV(PCINT1) | _BV(PCINT2) | _BV(PCINT3);
+	enablePinChangeInterrupt(0, 0);
+	enablePinChangeInterrupt(0, 1);
+	enablePinChangeInterrupt(0, 2);
+	enablePinChangeInterrupt(0, 3);
+	addPinInterruptHandler(0, tankPinInterruptHandler);
 }
 KERNEL_INIT(enable_tank_button_interrupts)

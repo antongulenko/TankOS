@@ -1,6 +1,6 @@
 LIBRARY := false
 project := $(get-basedir)
-dependencies := TankOS Unity
+dependencies := TankOS Unity Tank-Arm
 
 include Defaults.mk
 

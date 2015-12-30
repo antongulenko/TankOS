@@ -1,7 +1,9 @@
 
 include Tank-Shared/KernelObjects1.mk
 
-objects += $(BUILD_Tank-Arm)/tank_arm_motor.kernel.o
+objects += \
+	$(BUILD_Tank-Arm)/example.kernel.o \
+	$(BUILD_TankOS)/platform/platform_Avr/avr_atmega1284p/pin_change.kernel.o
 
 ifeq ($(USE_TWI), true)
     objects += \

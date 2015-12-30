@@ -5,7 +5,7 @@
 #include <platform/twi/slave.h>
 #include <platform/twi/master.h>
 #include <platform/kernel_init.h>
-#include <platform/platform_Avr/avr_atmega1284p/port.h>
+#include <platform/platform_Avr/port.h>
 
 static byte twi_io_buffer[256];
 

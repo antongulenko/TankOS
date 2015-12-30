@@ -87,7 +87,7 @@ void smoothMotorSetMinSpeed(SmoothMotor motor, speed_t min_speed) {
     }
 }
 
-speed_t motor_toUnsignedSpeed(uspeed_t speed); // motor.c
+speed_t motor_toUnsignedSpeed(sspeed_t speed); // motor.c
 
 void regulateStopMotor(SmoothMotor motor) {
     if (!IsValid(motor)) return;
@@ -130,7 +130,7 @@ void regulateSpeedBackward(SmoothMotor motor, speed_t speed) {
 	regulateSpeed(motor, speed, MotorBackward);
 }
 
-void regulateDirSpeed(SmoothMotor motor, uspeed_t speed) {
+void regulateDirSpeed(SmoothMotor motor, sspeed_t speed) {
     if (!IsValid(motor)) return;
 	if (speed == 0) {
 		regulateStopMotor(motor);

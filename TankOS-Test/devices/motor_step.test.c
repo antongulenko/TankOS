@@ -368,9 +368,9 @@ void test_change_timer_frequency_slow_motor_frequency() {
 }
 
 void test_inverse_long_step() {
-    // This tests both StepMotorInverseStep and stepDelay
+    // This tests both StepMotorInverseStep and stepMotorPulse
     createMotor2(StepMotorInverseStep, FALSE);
-    stepDelay = StepDelay50us;
+    stepMotorPulse = StepMotorPulse50us;
     stepMotorStep(motor, 10);
     init_mock_delay();
     dosteps(20);

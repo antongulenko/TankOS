@@ -29,7 +29,7 @@ void regulateSpeed(SmoothMotor motor, speed_t speed, MotorDirection direction);
 void regulateSpeedForward(SmoothMotor motor, speed_t speed);
 void regulateSpeedBackward(SmoothMotor motor, speed_t speed);
 
-void regulateDirSpeed(SmoothMotor motor, uspeed_t speed);
+void regulateDirSpeed(SmoothMotor motor, sspeed_t speed);
 
 // Default for smoothMotorSetStep when creating new motors.
 uint16_t smooth_motor_default_step;

@@ -16,6 +16,7 @@ typedef struct _ControlledLeds {
     uint16_t max_effect_counter;
     uint16_t effect_counter;
     uint8_t effect_state;
+    uint16_t mask;
     struct _ControlledLeds *next;
 } *_ControlledLeds;
 
@@ -93,6 +94,7 @@ ControlledLeds newControlledLedGroup(LedGroup group) {
         free(leds);
         return Invalid(ControlledLeds);
     }
+    leds->mask = 0;
     leds->leds = underlying;
     leds->count = group->count;
     leds->next = NULL;
@@ -156,24 +158,22 @@ void controlLedsDuration(ControlledLeds leds, LedState state, uint16_t effect_du
     LEDS->effect_state = 0;
 }
 
-void controlLedsShowValue(ControlledLeds *leds, uint8_t total_leds, uint16_t val, uint16_t min, uint16_t max) {
-    uint16_t step = (max - min) / (total_leds - 1);
+void controlLedsMask(ControlledLeds leds, uint16_t mask) {
+    LEDS->mask = mask;
+}
+
+void controlLedsMaskValue(ControlledLeds leds, uint16_t val, uint16_t min, uint16_t max) {
+    uint16_t step = (max - min) / (LEDS->count - 1);
     if (step == 0) step = 1;
-    uint8_t num_leds = 0;
-    while (val > step || val > min) {
-        num_leds++;
-        if (val < step) break;
-        val -= step;
+    uint16_t mask = 0xffff;
+    uint16_t bit = 1<<15;
+    uint16_t threshold = min;
+    while (val >= threshold && threshold <= max) {
+        mask &= ~bit;
+        bit = bit >> 1;
+        threshold += step;
     }
-    if (num_leds > total_leds) num_leds = total_leds;
-    for (uint8_t i = 0; i < total_leds; i++) {
-        ControlledLeds led = leds[i];
-        if (i < num_leds) {
-            controlLeds(led, LedsEnabled);
-        } else {
-            controlLeds(led, LedsDisabled);
-        }
-    }
+    controlLedsMask(leds, mask);
 }
 
 LedState getControlledLedsState(ControlledLeds leds) {
@@ -248,11 +248,24 @@ static void apply_led_effect(_ControlledLeds leds) {
     }
 }
 
+static void apply_led_mask(_ControlledLeds leds) {
+    uint16_t mask = leds->mask;
+    if (mask != 0) {
+        uint16_t bit = 1<<15;
+        for (int i = 0; i < leds->count; i++) {
+            if (bit & mask)
+                leds->leds[i]->enabled = FALSE;
+            bit = bit >> 1;
+        }
+    }
+}
+
 void led_control_tick() {
     _ControlledLeds element = NULL;
     LL_FOREACH(controlled_leds, element) {
         // First apply all currently active effects
         apply_led_effect(element);
+        apply_led_mask(element);
     }
     LedList led = NULL;
     LL_FOREACH(underlying_leds, led) {

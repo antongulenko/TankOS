@@ -237,21 +237,21 @@ void setSpeedBackward(Motor motor, speed_t speed) {
 	setSpeed(motor, speed, MotorBackward);
 }
 
-uspeed_t getDirSpeed(Motor motor) {
+sspeed_t getDirSpeed(Motor motor) {
     if (!IsValid(motor)) return 0;
 	MotorDirection dir = getDirection(motor);
 	if (dir == MotorStopped) return 0;
     speed_t speed = getSpeed(motor);
 
 	// This is symmetric to the shift in motor_toUnsignedSpeed.
-	uspeed_t val = abs((uspeed_t) (speed >> 1));
+	sspeed_t val = abs((sspeed_t) (speed >> 1));
 	if (dir == MotorBackward)
 		val *= -1; // Should be optimized away by compiler.
 	return val;
 }
 
 // This is also used in motor_smooth.c
-speed_t motor_toUnsignedSpeed(uspeed_t speed) {
+speed_t motor_toUnsignedSpeed(sspeed_t speed) {
 	// Project the signed speed-value into the unsigned value range
 	speed_t absv = abs(speed);
 	// This if-clause is just to avoid making the value smaller.
@@ -261,7 +261,7 @@ speed_t motor_toUnsignedSpeed(uspeed_t speed) {
 	return absv;
 }
 
-void setDirSpeed(Motor motor, uspeed_t speed) {
+void setDirSpeed(Motor motor, sspeed_t speed) {
     if (!IsValid(motor)) return;
 	if (speed == 0) {
 		stopMotor(motor);

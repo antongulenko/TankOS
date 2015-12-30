@@ -18,7 +18,7 @@ void tearDown() {
 
 void assert_output(char *str) {
     int len = strlen(str);
-    TEST_ASSERT_EQUAL_STRING_LEN(str, mock_printf_buffer, strlen(str));
+    TEST_ASSERT_EQUAL_STRING_LEN(str, mock_printf_buffer, len);
     TEST_ASSERT_EQUAL_MESSAGE(len, mock_printf_written, "wrong number of characters in output");
 }
 
@@ -42,7 +42,7 @@ void test_failed_kcalloc() {
 void test_failed_kalloc_external() {
     __kalloc_fail = TRUE;
     init_fake_port();
-    assert_output("kf\nkf\nkf\nkf\nkf\n"); // 4 pins and 1 port.
+    assert_output("kf\nkf\nkf\nkf\nkf\nkf\nkf\nkf\nkf\n"); // 8 pins and 1 port.
 }
 
 void test_failed_pin_occupation() {
@@ -52,5 +52,5 @@ void test_failed_pin_occupation() {
     occupyPin(testPin1, 10);
     deOccupyPin(testPin1, 20);
     deOccupyPin(testPin1, 30);
-    assert_output("oPD:20<30\noPD:10<30\ndOP:20!30\n");
+    assert_output("oP:20<30\noP:10<30\ndOP:20!30\n");
 }
