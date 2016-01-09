@@ -34,11 +34,14 @@ int tank_arm_state_format(ClientResultPrinter print, void *results, uint16_t res
     }
     res += print("(");
     switch ((TankArmCalibration) state->calibration) {
-        case NotCalibrated:
+        case NotCalibrating:
             res += print("not calibrated");
             break;
-        case CalibratedOne:
-            res += print("half calibrated");
+        case CalibratingFirst:
+            res += print("calibrating first");
+            break;
+        case CalibratingSecond:
+            res += print("calibrating second");
             break;
         case CalibratedFull:
             res += print("calibrated");

@@ -8,9 +8,10 @@
 typedef int8_t arm_pos_t; // -128 .. +127
 
 typedef enum {
-	NotCalibrated = 0,
-	CalibratedOne = 1,
-	CalibratedFull = 2
+	NotCalibrating = 0,
+	CalibratingFirst = 1,
+	CalibratingSecond = 2,
+	CalibratedFull = 3
 } TankArmCalibration;
 
 typedef struct TankArm {

@@ -3,7 +3,8 @@
 
 #include "arm.h"
 
-extern struct TankArm tank_arm;
+extern struct TankArm tank_joint;
+extern struct TankArm tank_socket;
 
 void setupTankArmMotor(uint16_t max_frequency);
 

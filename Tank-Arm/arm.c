@@ -1,7 +1,7 @@
 #include "arm.h"
 #include <kernel/klib.h>
 
-#define OPPOSITE(dir) (dir == MotorForward ? MotorBackward : MotorBackward)
+#define OPPOSITE(dir) (dir == MotorForward ? MotorBackward : MotorForward)
 
 static void assertCalibrationDir(MotorDirection calibrationDir, MotorDirection expected, char* note) {
 	// Sanity check that encoder/motor/hall-sensor directions are wired correctly
@@ -13,15 +13,18 @@ static void assertCalibrationDir(MotorDirection calibrationDir, MotorDirection e
 static void advanceCalibration(TankArm arm, MotorDirection now) {
 	MotorDirection calibrationDir = arm->calibrationDir;
 	switch (arm->calibration) {
-		case NotCalibrated:
+		case CalibratingFirst:
 			if (now == OPPOSITE(calibrationDir)) {
 				stepMotorResetPosition(arm->motor, 0);
 				encoderReset(arm->encoder, 0);
-				arm->calibration = CalibratedOne;
-				calibrateTankArm(arm);
+				arm->calibration = CalibratingSecond;
+				stepMotorRotate(arm->motor, arm->calibrationDir);
+			} else {
+				// This should not happen
+				klog("WAC1\n"); // Wrong Arm Calibration 1
 			}
 			break;
-		case CalibratedOne:
+		case CalibratingSecond:
 			if (now == calibrationDir) {
 				// Zero position should be at the "back" hall-sensor, regardless of calibrationDir.
 				pos_t motorSwing = stepMotorPosition(arm->motor);
@@ -45,6 +48,9 @@ static void advanceCalibration(TankArm arm, MotorDirection now) {
 				arm->fullMotorSwing = motorSwing;
 				arm->fullEncoderSwing = encoderSwing;
 				arm->calibration = CalibratedFull;
+			} else {
+				// This should not happen
+				klog("WAC2\n"); // Wrong Arm Calibration 2
 			}
 			break;
 		default:
@@ -72,7 +78,7 @@ static void hallCallbackBack(void *param) {
 
 BOOL tankArmInitialize(TankArm arm) {
 	if (arm == NULL) return FALSE;
-	arm->calibration = NotCalibrated;
+	arm->calibration = NotCalibrating;
 	if (!IsValid(arm->motor) ||
 		!IsValid(arm->front) ||
 		!IsValid(arm->back) ||
@@ -92,21 +98,20 @@ void destroyTankArm(TankArm arm) {
 	arm->front = destroyHallSensor(arm->front);
 	arm->back = destroyHallSensor(arm->back);
 	arm->calibrationDir = MotorBackward;
-	arm->calibration = NotCalibrated;
+	arm->calibration = CalibratingFirst;
 	arm->fullMotorSwing = 0;
 	arm->fullEncoderSwing = 0;
 }
 
 void calibrateTankArm(TankArm arm) {
-	if (arm->calibration == NotCalibrated) {
+	if (arm->calibration == NotCalibrating) {
+		arm->calibration = CalibratingFirst;
 		stepMotorRotate(arm->motor, OPPOSITE(arm->calibrationDir));
-	} else if (arm->calibration == CalibratedOne) {
-		stepMotorRotate(arm->motor, arm->calibrationDir);
 	}
 }
 
 void recalibrateTankArm(TankArm arm) {
-	arm->calibration = NotCalibrated;
+	arm->calibration = NotCalibrating;
 	calibrateTankArm(arm);
 }
 
