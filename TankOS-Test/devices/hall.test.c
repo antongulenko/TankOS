@@ -26,13 +26,13 @@ void setUp() {
 	initPinChangeInterrupts();
 	init_fake_port();
 	TEST_ASSERT_EQUAL(0, countHallSensors());
-	hall1 = newHallSensor(0, 0, testPin1);
+	hall1 = newHallSensor(0, 0, testPin1, FALSE);
 	TEST_ASSERT(IsValid(hall1));
 	TEST_ASSERT(hallSensorValid(hall1));
-	hall2 = newHallSensor(0, 1, testPin2);
+	hall2 = newHallSensor(0, 1, testPin2, FALSE);
 	TEST_ASSERT(IsValid(hall2));
 	TEST_ASSERT(hallSensorValid(hall2));
-	hall3 = newHallSensor(1, 0, testPin3);
+	hall3 = newHallSensor(1, 0, testPin3, FALSE);
 	TEST_ASSERT(IsValid(hall3));
 	TEST_ASSERT(hallSensorValid(hall3));
 	TEST_ASSERT_EQUAL(3, countHallSensors());
@@ -62,9 +62,9 @@ void test_init() {
 }
 
 void test_reuse() {
-	TEST_ASSERT_FALSE(IsValid(newHallSensor(0, 0, testPin1)));
-	TEST_ASSERT_FALSE(IsValid(newHallSensor(0, 1, testPin2)));
-	TEST_ASSERT_FALSE(IsValid(newHallSensor(1, 0, testPin3)));
+	TEST_ASSERT_FALSE(IsValid(newHallSensor(0, 0, testPin1, FALSE)));
+	TEST_ASSERT_FALSE(IsValid(newHallSensor(0, 1, testPin2, FALSE)));
+	TEST_ASSERT_FALSE(IsValid(newHallSensor(1, 0, testPin3, FALSE)));
 }
 
 void test_pin_change_enabled() {
@@ -185,4 +185,36 @@ void test_callback_3() {
 	TEST_ASSERT_FALSE(hallSensorState(hall2));
 	TEST_ASSERT_FALSE(hallSensorState(hall3));
 	
+}
+
+void test_inverted() {
+	hall1 = destroyHallSensor(hall1);
+	hall1 = newHallSensor(0, 0, testPin1, TRUE);
+
+	setHallCallback(hall1, &callback, &hall1);
+
+	// Initial state: pin up
+	invokePinChangeInterrupt(0, _BV(0));
+	called1 = FALSE;
+	
+	// Pin1 still up (not triggered)
+	invokePinChangeInterrupt(0, _BV(0));
+	TEST_ASSERT_FALSE(called1);
+	TEST_ASSERT_FALSE(hallSensorState(hall1));
+	
+	// Pin1 now down (triggered)
+	invokePinChangeInterrupt(0, 0);
+	TEST_ASSERT(called1);
+	called1 = FALSE;
+	TEST_ASSERT(hallSensorState(hall1));
+
+	// Pin1 still down
+	invokePinChangeInterrupt(0, 0);
+	TEST_ASSERT_FALSE(called1);
+	TEST_ASSERT(hallSensorState(hall1));
+
+	// Pin1 now up again
+	invokePinChangeInterrupt(0, _BV(0));
+	TEST_ASSERT(called1);
+	TEST_ASSERT_FALSE(hallSensorState(hall1));
 }
