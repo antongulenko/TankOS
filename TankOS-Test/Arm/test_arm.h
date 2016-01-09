@@ -5,7 +5,7 @@
 #include <arm.h>
 #include <mocks/port.h>
 
-extern struct TankArm tank_arm;
+extern struct TankArm tank_joint;
 
 #define PORT_PIN_CHANGE 0
 #define FRONT_PIN_CHANGE 4

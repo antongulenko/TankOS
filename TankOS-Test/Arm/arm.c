@@ -2,33 +2,35 @@
 #include <Arm/test_arm.h>
 #include <unity.h>
 
-struct TankArm tank_arm;
+struct TankArm tank_joint;
+struct TankArm tank_socket; // Only to satisfy the linker
 
 void setupTankArmMotor(uint16_t freq) {
 	setupStepMotors(freq);
 }
 
 void init_test_tank_arm() {
-	init_fake_port();
+    init_fake_port();
+    pin = 0xff;
 
-	setupTankArmMotor(400);
-	tank_arm.motor = newStepMotor(testPin1, testPin2, testPin3, 400, StepMotorNormal);
+    setupTankArmMotor(400);
+    tank_joint.motor = newStepMotor(testPin1, testPin2, testPin3, 400, StepMotorNormal);
 
-	tank_arm.front = newHallSensor(PORT_PIN_CHANGE, FRONT_PIN_CHANGE, testPin4);
-	tank_arm.back = newHallSensor(PORT_PIN_CHANGE, BACK_PIN_CHANGE, testPin5);
-	tank_arm.encoder = newEncoder(PORT_PIN_CHANGE, ENC_A_PIN_CHANGE, ENC_B_PIN_CHANGE, testPin6, testPin7);
+    tank_joint.front = newHallSensor(PORT_PIN_CHANGE, FRONT_PIN_CHANGE, testPin4, TRUE);
+    tank_joint.back = newHallSensor(PORT_PIN_CHANGE, BACK_PIN_CHANGE, testPin5, TRUE);
+    tank_joint.encoder = newEncoder(PORT_PIN_CHANGE, ENC_A_PIN_CHANGE, ENC_B_PIN_CHANGE, testPin6, testPin7);
 
-    tank_arm.calibrationDir = MotorForward;
+    tank_joint.calibrationDir = MotorForward;
 
-    TEST_ASSERT(hallSensorValid(tank_arm.front));
-    TEST_ASSERT(hallSensorValid(tank_arm.back));
-    TEST_ASSERT(encoderValid(tank_arm.encoder));
-    TEST_ASSERT(stepMotorValid(tank_arm.motor));
+    TEST_ASSERT(hallSensorValid(tank_joint.front));
+    TEST_ASSERT(hallSensorValid(tank_joint.back));
+    TEST_ASSERT(encoderValid(tank_joint.encoder));
+    TEST_ASSERT(stepMotorValid(tank_joint.motor));
 
-    TEST_ASSERT(tankArmInitialize(&tank_arm));
+    TEST_ASSERT(tankArmInitialize(&tank_joint));
 }
 
 void tear_down_test_tank_arm() {
-	destroyTankArm(&tank_arm);
-	destroy_fake_port();
+    destroyTankArm(&tank_joint);
+    destroy_fake_port();
 }
