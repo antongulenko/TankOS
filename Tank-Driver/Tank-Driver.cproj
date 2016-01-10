@@ -122,10 +122,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Main_empty.main.c">
+    <Compile Include="Main.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_driver_address.h">

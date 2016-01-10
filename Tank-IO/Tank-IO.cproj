@@ -110,13 +110,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="kernel.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="LedOperations.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="LedOperations.h">
+    <Compile Include="led_info.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Main.main.c">

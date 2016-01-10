@@ -118,6 +118,9 @@
     <OutputDirectory>C:\Users\anton\Documents\GitHub\TankOS</OutputDirectory>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="common.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Main_empty.main.c">
       <SubType>compile</SubType>
     </Compile>
