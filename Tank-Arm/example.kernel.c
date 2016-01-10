@@ -12,7 +12,7 @@ void setupTankArmMotor(uint16_t max_frequency) {
 }
 
 static inline void init_tank_arm_motor() {
-	setupTankArmMotor(6000);
+	setupTankArmMotor(2000);
     StepMotorFlags flags = StepMotorInverseEnable;
 
     // flags |= StepMotorInverseStep;

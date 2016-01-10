@@ -18,14 +18,14 @@ static void initleds() {
 
 static void loopleds() {
 	BOOL on = TRUE;
-	for (uint8_t i = 0; i < 10; i++) {
+	for (uint8_t i = 0; i < 255; i++) {
 		setLed(led1, on);
 		setLed(led2, !on);
 		setLed(led3, on);
 		on = !on;
 		
-		// wait_milliseconds(200);
-		delay_ms(200);
+		wait_milliseconds(250);
+		// delay_ms(250);
 		
 		// for (int j = 0; j < 2; j++) {
 			// delay_us(10);
