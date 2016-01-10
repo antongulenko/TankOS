@@ -151,6 +151,12 @@
     <Compile Include="Main.main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Main_mouse.main.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Main_store.main.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="usbconfig.h">
       <SubType>compile</SubType>
     </Compile>
@@ -173,9 +179,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="usbdrv\usbportability.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="usb_mock.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="usb_receive.c">

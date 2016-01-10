@@ -98,6 +98,7 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Arm\" />
     <Folder Include="devices\" />
     <Folder Include="kernel\" />
     <Folder Include="process\" />
@@ -109,6 +110,15 @@
     <Folder Include="mocks\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arm\arm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Arm\service.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Arm\test_arm.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="devices\analog.test.c">
       <SubType>compile</SubType>
     </Compile>
@@ -116,6 +126,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="devices\buttonGroup.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\encoder.test.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="devices\hall.test.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="devices\led.test.c">
@@ -155,6 +171,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\memory.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\pin_change.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="mocks\pin_change.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="mocks\scheduler.c">

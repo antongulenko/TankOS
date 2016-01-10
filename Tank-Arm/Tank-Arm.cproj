@@ -121,19 +121,22 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="kernel.h">
+    <Compile Include="arm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="arm.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="example.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="example.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Main.main.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_arm_address.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="tank_arm_motor.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="tank_arm_motor.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="tank_arm_service.c">

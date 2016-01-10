@@ -103,6 +103,9 @@
     <Compile Include="avr_atmega1284p\buffer_stdout.kernel.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="avr_atmega1284p\eeprom_stdout.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="avr_atmega1284p\timer.kernel.c">
       <SubType>compile</SubType>
     </Compile>
@@ -112,13 +115,13 @@
     <Compile Include="avr_attiny84\buffer_stdout.kernel.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="avr_attiny84\eeprom_stdout.kernel.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="avr_attiny84\timer.kernel.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="avr_attiny84\twi.kernel.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="kernel_base.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="late_init.kernel.c">
