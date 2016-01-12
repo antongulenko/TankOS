@@ -9,7 +9,7 @@
 #include <platform/platform_Avr/early_init.h>
 #include "timer.h"
 
-// Hack: Reference function from millisecond_clock.c to include it is included and __vector_MILLISECOND_CLOCK_INTERRUPT is available.
+// Hack: Reference function from millisecond_clock.c to ensure it is included and __vector_MILLISECOND_CLOCK_INTERRUPT is available.
 // Necessary when USE_TWI=false and twi/services/hardware.kernel.o does not use get_milliseconds_running().
 #include <kernel/millisecond_clock.h>
 void __hack_help_linker__() {

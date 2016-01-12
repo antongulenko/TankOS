@@ -1,10 +1,10 @@
 
 #include <timer.h>
+#include <kernel/klib.h>
 #include <platform/kernel_init.h>
 #include "../Tank-Driver/tank_driver_service.h"
 #include "../Tank-Driver/tank_driver_address.h"
 #include "tank_led.h"
-#include <stdio.h>
 
 #define TANK_DRIVER_DEVICE ((TWIDevice) { TANK_DRIVER_ADDRESS })
 
@@ -19,7 +19,7 @@ static inline void show(ControlledLeds leds, RpcClientResult res, uint16_t val, 
 		controlLedsMaskValue(leds, val, min, max);
 		controlLeds(leds, LedsEnabled);
 	} else {
-		printf("err:%x,%x,%x,%x\n", twi_error, res.status, res.handler_status, res.server_status);
+		klog("tme:%x,%x,%x,%x\n", twi_error, res.status, res.handler_status, res.server_status); // TWI Master Error
 		controlLeds(leds, LedsBlinkingFast);
 		controlLedsMask(leds, 0);
 	}
@@ -47,16 +47,7 @@ static inline void update_motors() {
 	show(yellowLedsC, res, motors, MOTORS_MIN, MOTORS_MAX);
 }
 
-static inline void do_update_led_info() {
+void update_led_info() {
 	update_battery();
 	update_motors();
-}
-
-void update_led_info() {
-	do_update_led_info();
-}
-
-void __vector_LED_INFO_INTERRUPT() INTERRUPT_FUNCTION;
-void __vector_LED_INFO_INTERRUPT() {
-    do_update_led_info();
 }
