@@ -7,5 +7,6 @@ ISR(BADISR_vect) {
 	uint16_t val = eeprom_read_word(&bad_isrs);
 	eeprom_update_word(&bad_isrs, val+1);
 
-	asm("jmp 0"); // Jump to the reset vector, like the default BADISR routine.
+	// TODO does not work cross-device
+	// asm("jmp 0"); // Jump to the reset vector, like the default BADISR routine.
 }
