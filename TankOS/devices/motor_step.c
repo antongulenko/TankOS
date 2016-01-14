@@ -14,7 +14,6 @@ typedef struct _StepMotor {
     StepMotorFlags flags;
     speed_t possible_max_speed;
     speed_t max_speed;
-    steps_t steps_for_slowdown; // Maximum number of steps it can take to slow down from max to min speed
 
     // Motor state
     float ticks_between_steps;
@@ -25,13 +24,15 @@ typedef struct _StepMotor {
     float wait_ticks; // Ticks before next step. Incremented by ticks_per_step when reaches < 1
     pos_t position;
 
-    // State for step_motor_step()
-    BOOL counting_steps;
-    steps_t leftover_steps;
-
     // State for regulate*
     SmoothMotor smooth_motor;
     float regulate_ticks;
+
+    StepMotorController controller;
+
+    // State for MotorController_Stepping
+    steps_t steps_for_slowdown; // Maximum number of steps it can take to slow down from max to min speed
+    steps_t leftover_steps;
 } *_StepMotor;
 
 #define MOTOR Get(struct _StepMotor, motor)
@@ -43,10 +44,7 @@ static ticks_t global_ticks_per_second;
 StepMotorPulse stepMotorPulse = StepMotorPulse1us;
 _StepMotor _step_motors;
 
-void stepMotorSetUnderlyingSpeed(UnderlyingMotor underlying, speed_t speed, MotorDirection direction);
-void stepMotorRegulateForceStop(_StepMotor motor);
-void stepMotorRegulate(_StepMotor motor, speed_t speed, MotorDirection dir);
-void stepMotorRegulateTick(_StepMotor motor, BOOL ticked);
+static void stepMotorSetUnderlyingSpeed(UnderlyingMotor underlying, speed_t speed, MotorDirection direction);
 
 void setupStepMotors(ticks_t _global_ticks_per_second) {
     global_ticks_per_second = _global_ticks_per_second;
@@ -85,6 +83,7 @@ StepMotor newStepMotor(Pin step, Pin dir, Pin enable, steps_t stepsPerTurn, Step
     motor->enable = enable;
     motor->full_turn = stepsPerTurn;
     motor->flags = flags;
+    motor->controller = NULL;
     motor->possible_max_speed = global_ticks_per_second / stepsPerTurn * SPEED_FACTOR;
 
     // TODO need mechanism to set motor into well-defined initial position
@@ -119,6 +118,26 @@ BOOL stepMotorValid(StepMotor motor) {
     if (IsValid(MOTOR->enable) && pinOccupation(MOTOR->enable) != PinStepMotor) return FALSE;
     if (!smoothMotorValid(MOTOR->smooth_motor)) return FALSE;
     return TRUE;
+}
+
+static StepMotorCommand MotorController_Default(StepMotor motor, MotorDirection currentDir) {
+    if (currentDir == MotorStopped) {
+        return STEP_CMD_FINISH;
+    } else {
+        return STEP_CMD_CONTINUE;
+    }
+}
+
+static StepMotorCommand MotorController_Stepping(StepMotor motor, MotorDirection currentDir) {
+    if (MOTOR->leftover_steps <= 0) {
+        return STEP_CMD_FINISH;
+    }
+    MOTOR->leftover_steps--;
+    if (MOTOR->leftover_steps <= MOTOR->steps_for_slowdown) {
+        return (StepMotorCommand) { STEP_CMD_FLAG_REGULATE | STEP_CMD_FLAG_SLOW, currentDir };
+    } else {
+        return STEP_CMD_CONTINUE;
+    }
 }
 
 void enableStepMotor(StepMotor motor) {
@@ -166,10 +185,6 @@ BOOL stepMotorSetMaxSpeed(StepMotor motor, speed_t speed) {
         MOTOR->max_speed = MOTOR->possible_max_speed;
         res = FALSE;
     }
-
-    // Calculate number of steps to slow down from max to min speed
-    // TODO
-    MOTOR->steps_for_slowdown = 100;
     return res;
 }
 
@@ -178,16 +193,14 @@ speed_t stepMotorGetMaxSpeed(StepMotor motor) {
     return MOTOR->max_speed;
 }
 
-static inline void initiateMovement(_StepMotor motor, MotorDirection dir) {
-    enableStepMotor(As(StepMotor, motor));
-    if (motor->dir == MotorStopped) {
+void stepMotorControlledRotate(StepMotor motor, StepMotorController controller) {
+    if (!IsValid(motor)) return;
+    MOTOR->controller = controller;
+    if (MOTOR->dir == MotorStopped) {
         // If starting up, immediately start stepping
-        motor->wait_ticks = 0;
+        MOTOR->wait_ticks = 0;
     }
-    if (dir == MotorStopped)
-        stepMotorRegulate(motor, 0, dir);
-    else
-        stepMotorRegulate(motor, motor->max_speed, dir);
+    enableStepMotor(motor);
 }
 
 void stepMotorStep(StepMotor motor, pos_t numSteps) {
@@ -196,32 +209,34 @@ void stepMotorStep(StepMotor motor, pos_t numSteps) {
         stepMotorStop(motor);
         return;
     } else if (numSteps < 0) {
-        initiateMovement(MOTOR, MotorBackward);
+        regulateSpeed(MOTOR->smooth_motor, MOTOR->max_speed, MotorBackward);
         MOTOR->leftover_steps = -numSteps;
     } else {
-        initiateMovement(MOTOR, MotorForward);
+        regulateSpeed(MOTOR->smooth_motor, MOTOR->max_speed, MotorForward);
         MOTOR->leftover_steps = numSteps;
     }
-    MOTOR->counting_steps = TRUE;
+    // Calculate number of steps to slow down from max to min speed
+    // TODO
+    MOTOR->steps_for_slowdown = 100;
+    stepMotorControlledRotate(motor, MotorController_Stepping);
 }
 
 void stepMotorRotate(StepMotor motor, MotorDirection dir) {
     if (!IsValid(motor)) return;
-    initiateMovement(MOTOR, dir);
-    MOTOR->counting_steps = FALSE;
+    regulateSpeed(MOTOR->smooth_motor, MOTOR->max_speed, dir);
+    stepMotorControlledRotate(motor, MotorController_Default);
 }
 
 void stepMotorStop(StepMotor motor) {
     if (!IsValid(motor)) return;
-    initiateMovement(MOTOR, MotorStopped);
-    MOTOR->counting_steps = FALSE;
+    regulateStopMotor(MOTOR->smooth_motor);
+    stepMotorControlledRotate(motor, MotorController_Default);
 }
 
 void stepMotorForceStop(StepMotor motor) {
     if (!IsValid(motor)) return;
     enableStepMotor(motor);
-    stepMotorRegulateForceStop(MOTOR);
-    MOTOR->counting_steps = FALSE;
+    forceStopMotor(MOTOR->smooth_motor);
 }
 
 pos_t stepMotorPosition(StepMotor motor) {
@@ -229,10 +244,11 @@ pos_t stepMotorPosition(StepMotor motor) {
     return MOTOR->position;
 }
 
-void stepMotorSetSpeed(_StepMotor motor, speed_t speed) {
-    motor->speed = speed;
+static void stepMotorSetUnderlyingSpeed(UnderlyingMotor motor, speed_t speed, MotorDirection direction) {
+    MOTOR->dir = direction;
+    MOTOR->speed = speed;
     float turns_per_sec = (float) speed / (float) SPEED_FACTOR;
-    float ticks_per_sec = turns_per_sec * (float) motor->full_turn;
+    float ticks_per_sec = turns_per_sec * (float) MOTOR->full_turn;
     float ticks_between_steps;
     if (ticks_per_sec != 0) {
         ticks_between_steps = global_ticks_per_second / ticks_per_sec;
@@ -240,23 +256,10 @@ void stepMotorSetSpeed(_StepMotor motor, speed_t speed) {
     } else {
         ticks_between_steps = 1; // Value should not matter, motor stopped.
     }
-    motor->ticks_between_steps = ticks_between_steps;
+    MOTOR->ticks_between_steps = ticks_between_steps;
 }
 
-void stepMotorSetUnderlyingSpeed(UnderlyingMotor motor, speed_t speed, MotorDirection direction) {
-    MOTOR->dir = direction;
-    stepMotorSetSpeed(MOTOR, speed);
-}
-
-void stepMotorRegulateForceStop(_StepMotor motor) {
-    forceStopMotor(motor->smooth_motor);
-}
-
-void stepMotorRegulate(_StepMotor motor, speed_t speed, MotorDirection dir) {
-    regulateSpeed(motor->smooth_motor, speed, dir);
-}
-
-void stepMotorRegulateTick(_StepMotor motor, BOOL ticked) {
+static void stepMotorRegulateTick(_StepMotor motor) {
     float ticks = motor->regulate_ticks;
     if (ticks > 1) {
         motor->regulate_ticks = ticks - 1.0f;
@@ -315,34 +318,44 @@ static void do_motor_step(_StepMotor motor) {
 }
 
 static void handle_motor_tick(_StepMotor motor) {
-    BOOL ticked = do_motor_tick(motor);
-    if (ticked) {
-        if (motor->dir == MotorStopped) {
-            // In case of StepMotorInverseStep
-            setPinZero(motor->step);
-        } else {
-            do_motor_step(motor);
-            if (motor->counting_steps) {
-                if (motor->leftover_steps <= 1) {
-                    stepMotorForceStop(As(StepMotor, motor));
-                    return;
-                } else if (motor->leftover_steps <= motor->steps_for_slowdown) {
-                    // TODO ticks between 1 and global_min_frequency always happen on minimal speed
-                    stepMotorRegulate(motor, global_min_speed, motor->dir);
-                }
-                motor->leftover_steps--;
-            }
+    if (motor->controller == NULL) return;
+    if (do_motor_tick(motor)) {
+        // Query and evaluate controller
+        StepMotorCommand cmd = motor->controller(As(StepMotor, motor), motor->dir);
+        if (cmd.flags & STEP_CMD_FLAG_FINISH) {
+            motor->controller = NULL;
+            forceStopMotor(motor->smooth_motor);
+            return;
         }
-    }
-    // Apply direction
-    if (motor->dir != MotorStopped) {
-        BOOL dirPinSet = motor->dir == MotorForward;
-        if (motor->flags & StepMotorInverseDir)
-            dirPinSet = !dirPinSet;
-        writePin(motor->dirPin, dirPinSet);
-    }
 
-    stepMotorRegulateTick(motor, ticked);
+        // Determine required speed
+        // TODO ticks between 1 and global_min_frequency always happen on minimal speed
+        speed_t speed;
+        if (cmd.continueDir == MotorStopped) speed = 0;
+        else if (cmd.flags & STEP_CMD_FLAG_SLOW) speed = global_min_speed;
+        else speed = motor->max_speed;
+
+        // Regulate the speed/direction if required
+        if (cmd.flags & STEP_CMD_FLAG_FORCE) {
+            forceMotorSpeed(motor->smooth_motor, speed, cmd.continueDir);
+        } else if (cmd.flags & STEP_CMD_FLAG_REGULATE) {
+            regulateSpeed(motor->smooth_motor, speed, cmd.continueDir);
+        }
+        stepMotorRegulateTick(motor);
+
+        if (motor->dir != MotorStopped) {
+            // Apply direction
+            BOOL dirPinSet = motor->dir == MotorForward;
+            if (motor->flags & StepMotorInverseDir)
+                dirPinSet = !dirPinSet;
+            writePin(motor->dirPin, dirPinSet);
+
+            // Finally generate the actual pulse
+            do_motor_step(motor);
+        }
+    } else {
+        stepMotorRegulateTick(motor);
+    }
 }
 
 void motor_step_tick() {

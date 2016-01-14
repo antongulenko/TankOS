@@ -98,8 +98,6 @@ void dosteps(int num) {
 void checkPins(int LINE, BOOL dirUp, BOOL enableUp) {
     UNITY_TEST_ASSERT_EQUAL_INT((dirUp), (isPinOutputHigh(dir)), LINE, "wrong dir pin");
     UNITY_TEST_ASSERT_EQUAL_INT((enableUp), (isPinOutputHigh(enable)), LINE, "wrong enable pin");
-    //TEST_ASSERT_EQUAL_MESSAGE(dirUp, isPinOutputHigh(dir), "wrong direction pin set");
-    //TEST_ASSERT_EQUAL_MESSAGE(enableUp, isPinOutputHigh(enable), "wrong enable pin set");
 }
 
 void checkMaxSpeed(StepMotor motor) {
@@ -241,12 +239,12 @@ void test_rotate_change() {
     checkPins(__LINE__, TRUE, TRUE);
 
     stepMotorRotate(motor, MotorBackward);
-    dosteps(1001);
+    dosteps(1003);
     checkPins(__LINE__, TRUE, TRUE);
     dosteps(1); // Down to speed 0
     checkPins(__LINE__, FALSE, TRUE);
 
-    dosteps(1583); // Speed up in reverse direction
+    dosteps(1581); // Speed up in reverse direction
     TEST_ASSERT_EQUAL_MESSAGE(0, stepMotorPosition(motor), "motor wrong position");
     dosteps(2000);
     TEST_ASSERT_EQUAL_MESSAGE(-1889, stepMotorPosition(motor), "motor wrong position");
@@ -378,5 +376,77 @@ void test_inverse_long_step() {
     dosteps(500);
     TEST_ASSERT_EQUAL_MESSAGE(10, DelayUSCalled, "Microsecond delay called wrong number of times");
     TEST_ASSERT_EQUAL_MESSAGE(10 * 50, DelayedUS, "Wrong accumulated microsecond delay");
-    TEST_ASSERT_FALSE_MESSAGE(isPinOutputHigh(step), "step pin should be low again");
+    TEST_ASSERT_TRUE_MESSAGE(isPinOutputHigh(step), "step pin should be high");
+}
+
+static int _controller_state;
+static MotorDirection expectedCurrentDir;
+static StepMotorCommand TestStepMotorController(StepMotor motor, MotorDirection currentDir) {
+    if (expectedCurrentDir != currentDir) {
+        printf("Test fail at %i\n", _controller_state);
+    }
+    TEST_ASSERT_EQUAL_MESSAGE(expectedCurrentDir, currentDir, "motor was in wrong direction");
+    _controller_state++;
+    if (_controller_state == 1) {
+        return (StepMotorCommand) { STEP_CMD_FLAG_REGULATE, MotorForward }; // Start accelerating (immediate min though)
+    } else if(_controller_state == 20) {
+        return (StepMotorCommand) { STEP_CMD_FLAG_FORCE, MotorForward }; // Jump to max speed
+    } else if (_controller_state == 100) {
+        return (StepMotorCommand) { STEP_CMD_FLAG_REGULATE, MotorBackward }; // Start decelerating
+    } else if (_controller_state == 300) {
+        return (StepMotorCommand) { STEP_CMD_FLAG_FORCE, MotorStopped }; // Stop abruptly
+    } else if (_controller_state == 305) {
+        return (StepMotorCommand) { STEP_CMD_FLAG_FORCE, MotorBackward }; // Max speed backward
+    } else if (_controller_state == 360) {
+        return STEP_CMD_FINISH; // Stop & finish
+    } else {
+        // In-between: continue moving
+        return STEP_CMD_CONTINUE;
+    }
+}
+
+void test_controlled_rotate() {
+    createMotor();
+    _controller_state = 0;
+    stepMotorControlledRotate(motor, TestStepMotorController);
+    TEST_ASSERT_EQUAL(0, _controller_state);
+    TEST_ASSERT_EQUAL(0, stepMotorPosition(motor));
+    expectedCurrentDir = MotorStopped;
+
+    dosteps(1);
+    expectedCurrentDir = MotorForward;
+    TEST_ASSERT_EQUAL(1, _controller_state);
+    TEST_ASSERT_EQUAL(1, stepMotorPosition(motor));
+
+    dosteps(19);
+    TEST_ASSERT_EQUAL(20, stepMotorPosition(motor));
+    TEST_ASSERT_EQUAL(20, _controller_state);
+
+    dosteps(79);
+    TEST_ASSERT_EQUAL(99, stepMotorPosition(motor));
+    TEST_ASSERT_EQUAL(99, _controller_state);
+
+    dosteps(1);
+    expectedCurrentDir = MotorBackward;
+    TEST_ASSERT_EQUAL(98, stepMotorPosition(motor));
+    TEST_ASSERT_EQUAL(100, _controller_state);
+
+    dosteps(200);
+    expectedCurrentDir = MotorStopped;
+    TEST_ASSERT_EQUAL(-101, stepMotorPosition(motor));
+    TEST_ASSERT_EQUAL(300, _controller_state);
+
+    dosteps(5);
+    expectedCurrentDir = MotorBackward;
+    TEST_ASSERT_EQUAL(-102, stepMotorPosition(motor));
+    TEST_ASSERT_EQUAL(305, _controller_state);
+
+    dosteps(55);
+    expectedCurrentDir = MotorStopped;
+    TEST_ASSERT_EQUAL(-156, stepMotorPosition(motor));
+    TEST_ASSERT_EQUAL(360, _controller_state);
+
+    dosteps(333);
+    TEST_ASSERT_EQUAL(-156, stepMotorPosition(motor));
+    TEST_ASSERT_EQUAL(360, _controller_state);
 }
