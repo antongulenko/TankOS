@@ -3,8 +3,12 @@
 #include <devices/led.h>
 #include <platform/platform_Avr/port.h>
 
+#include <twi/twi_sniffer.h>
 #include <stdio.h>
 #include <kernel/millisecond_clock.h>
+
+// #define sniff_main main
+#define test_main main
 
 Led led1;
 Led led2;
@@ -16,9 +20,9 @@ static void initleds() {
 	led3 = newLed(pinC5);
 }
 
-static void loopleds() {
+static void loopleds(uint8_t num) {
 	BOOL on = TRUE;
-	for (uint8_t i = 0; i < 255; i++) {
+	for (uint8_t i = 0; i < num; i++) {
 		setLed(led1, on);
 		setLed(led2, !on);
 		setLed(led3, on);
@@ -26,19 +30,48 @@ static void loopleds() {
 		
 		wait_milliseconds(250);
 		// delay_ms(250);
-		
-		// for (int j = 0; j < 2; j++) {
-			// delay_us(10);
-		// }
 	}
 }
 
-int main() {
+int test_main() {
 	initleds();
-	loopleds();
+	loopleds(4);
+	enableLed(led1);
+	enableLed(led2);
+	enableLed(led3);
+	while (1) ;
+	return 0;
+}
+
+static BOOL sda;
+static BOOL scl;
+static void updated_sda(BOOL up) {
+	printf("%li: D %i\n", get_milliseconds_running(), up);
+	if (up) {
+		sda = !sda;
+		setLed(led1, sda);
+	}
+}
+static void updated_scl(BOOL up) {
+	printf("%li: C %i\n", get_milliseconds_running(), up);
+	if (up) {
+		scl = !scl;
+		setLed(led2, scl);
+	}
+}
+
+int sniff_main() {
+	initleds();
+	loopleds(4);
 	disableLed(led1);
 	disableLed(led2);
 	disableLed(led3);
+
+	#define PIN_SDA pinC1
+	#define PIN_SCL pinC0
+	sniff_twi_updates(PIN_SDA, PIN_SCL, 2, 1, 0, updated_sda, updated_scl);
+
+	return 0;
 }
 
 static void init() {
@@ -54,7 +87,7 @@ static void init() {
 		IsValid(led2),
 		IsValid(led3));
 
-	loopleds();
+	loopleds(4);
 }
 
 int test_motors_main() {
