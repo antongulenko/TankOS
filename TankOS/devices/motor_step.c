@@ -40,7 +40,7 @@ typedef struct _StepMotor {
 // One turn per second as minimal speed
 #define global_min_speed (1 * SPEED_FACTOR)
 static ticks_t global_ticks_per_second;
-StepMotorPulse stepMotorPulse = StepMotorPulse10us;
+StepMotorPulse stepMotorPulse = StepMotorPulse1us;
 _StepMotor _step_motors;
 
 void stepMotorSetUnderlyingSpeed(UnderlyingMotor underlying, speed_t speed, MotorDirection direction);
