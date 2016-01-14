@@ -50,11 +50,11 @@ typedef struct StepMotorCommand {
 #define STEP_CMD_CONTINUE ((StepMotorCommand) { 0, MotorStopped /* direction irrelevant */ })
 #define STEP_CMD_FINISH ((StepMotorCommand) { STEP_CMD_FLAG_FINISH, MotorStopped })
 
-typedef StepMotorCommand (*StepMotorController)(StepMotor motor, MotorDirection currentDir);
+typedef StepMotorCommand (*StepMotorController)(MotorDirection currentDir, void *userData);
 
+void stepMotorControlledRotate(StepMotor motor, StepMotorController controller, void *userData);
 void stepMotorStep(StepMotor motor, pos_t numSteps);
 void stepMotorRotate(StepMotor motor, MotorDirection dir);
-void stepMotorControlledRotate(StepMotor motor, StepMotorController controller);
 void stepMotorStop(StepMotor motor);
 void stepMotorForceStop(StepMotor motor);
 

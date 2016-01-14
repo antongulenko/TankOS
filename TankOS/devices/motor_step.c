@@ -29,6 +29,7 @@ typedef struct _StepMotor {
     float regulate_ticks;
 
     StepMotorController controller;
+    void *controllerUserData;
 
     // State for MotorController_Stepping
     steps_t steps_for_slowdown; // Maximum number of steps it can take to slow down from max to min speed
@@ -120,7 +121,7 @@ BOOL stepMotorValid(StepMotor motor) {
     return TRUE;
 }
 
-static StepMotorCommand MotorController_Default(StepMotor motor, MotorDirection currentDir) {
+static StepMotorCommand MotorController_Default(MotorDirection currentDir, void *ignored) {
     if (currentDir == MotorStopped) {
         return STEP_CMD_FINISH;
     } else {
@@ -128,12 +129,13 @@ static StepMotorCommand MotorController_Default(StepMotor motor, MotorDirection 
     }
 }
 
-static StepMotorCommand MotorController_Stepping(StepMotor motor, MotorDirection currentDir) {
-    if (MOTOR->leftover_steps <= 0) {
+static StepMotorCommand MotorController_Stepping(MotorDirection currentDir, void *userData) {
+    _StepMotor motor = (_StepMotor) userData;
+    if (motor->leftover_steps <= 0) {
         return STEP_CMD_FINISH;
     }
-    MOTOR->leftover_steps--;
-    if (MOTOR->leftover_steps <= MOTOR->steps_for_slowdown) {
+    motor->leftover_steps--;
+    if (motor->leftover_steps <= motor->steps_for_slowdown) {
         return (StepMotorCommand) { STEP_CMD_FLAG_REGULATE | STEP_CMD_FLAG_SLOW, currentDir };
     } else {
         return STEP_CMD_CONTINUE;
@@ -193,9 +195,10 @@ speed_t stepMotorGetMaxSpeed(StepMotor motor) {
     return MOTOR->max_speed;
 }
 
-void stepMotorControlledRotate(StepMotor motor, StepMotorController controller) {
+void stepMotorControlledRotate(StepMotor motor, StepMotorController controller, void *userData) {
     if (!IsValid(motor)) return;
     MOTOR->controller = controller;
+    MOTOR->controllerUserData = userData;
     if (MOTOR->dir == MotorStopped) {
         // If starting up, immediately start stepping
         MOTOR->wait_ticks = 0;
@@ -218,19 +221,19 @@ void stepMotorStep(StepMotor motor, pos_t numSteps) {
     // Calculate number of steps to slow down from max to min speed
     // TODO
     MOTOR->steps_for_slowdown = 100;
-    stepMotorControlledRotate(motor, MotorController_Stepping);
+    stepMotorControlledRotate(motor, MotorController_Stepping, (void*) MOTOR);
 }
 
 void stepMotorRotate(StepMotor motor, MotorDirection dir) {
     if (!IsValid(motor)) return;
     regulateSpeed(MOTOR->smooth_motor, MOTOR->max_speed, dir);
-    stepMotorControlledRotate(motor, MotorController_Default);
+    stepMotorControlledRotate(motor, MotorController_Default, (void*) MOTOR);
 }
 
 void stepMotorStop(StepMotor motor) {
     if (!IsValid(motor)) return;
     regulateStopMotor(MOTOR->smooth_motor);
-    stepMotorControlledRotate(motor, MotorController_Default);
+    stepMotorControlledRotate(motor, MotorController_Default, (void*) MOTOR);
 }
 
 void stepMotorForceStop(StepMotor motor) {
@@ -321,7 +324,7 @@ static void handle_motor_tick(_StepMotor motor) {
     if (motor->controller == NULL) return;
     if (do_motor_tick(motor)) {
         // Query and evaluate controller
-        StepMotorCommand cmd = motor->controller(As(StepMotor, motor), motor->dir);
+        StepMotorCommand cmd = motor->controller(motor->dir, motor->controllerUserData);
         if (cmd.flags & STEP_CMD_FLAG_FINISH) {
             motor->controller = NULL;
             forceStopMotor(motor->smooth_motor);

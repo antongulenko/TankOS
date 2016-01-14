@@ -379,14 +379,15 @@ void test_inverse_long_step() {
     TEST_ASSERT_TRUE_MESSAGE(isPinOutputHigh(step), "step pin should be high");
 }
 
-static int _controller_state;
 static MotorDirection expectedCurrentDir;
-static StepMotorCommand TestStepMotorController(StepMotor motor, MotorDirection currentDir) {
+static StepMotorCommand TestStepMotorController(MotorDirection currentDir, void *userData) {
+    int *_controller_state_ptr = (int*) userData;
     if (expectedCurrentDir != currentDir) {
-        printf("Test fail at %i\n", _controller_state);
+        printf("Test fail at %i\n", *_controller_state_ptr);
     }
     TEST_ASSERT_EQUAL_MESSAGE(expectedCurrentDir, currentDir, "motor was in wrong direction");
-    _controller_state++;
+    (*_controller_state_ptr)++;
+    int _controller_state = *_controller_state_ptr;
     if (_controller_state == 1) {
         return (StepMotorCommand) { STEP_CMD_FLAG_REGULATE, MotorForward }; // Start accelerating (immediate min though)
     } else if(_controller_state == 20) {
@@ -407,8 +408,8 @@ static StepMotorCommand TestStepMotorController(StepMotor motor, MotorDirection 
 
 void test_controlled_rotate() {
     createMotor();
-    _controller_state = 0;
-    stepMotorControlledRotate(motor, TestStepMotorController);
+    int _controller_state = 0;
+    stepMotorControlledRotate(motor, TestStepMotorController, &_controller_state);
     TEST_ASSERT_EQUAL(0, _controller_state);
     TEST_ASSERT_EQUAL(0, stepMotorPosition(motor));
     expectedCurrentDir = MotorStopped;
