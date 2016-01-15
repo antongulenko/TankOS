@@ -52,8 +52,8 @@ static RpcHandlerStatus tank_arm_rotate_handler(TankArmWordParameter *params, ui
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_rotate_handler, TANK_ARM_ROTATE, TankArmWordParameter)
 
-static RpcHandlerStatus tank_arm_step_handler(TankArmStepParameter *params, uint16_t size) {
-    if (size != sizeof(TankArmStepParameter)) {
+static RpcHandlerStatus tank_arm_step_handler(TankArmLongParameter *params, uint16_t size) {
+    if (size != sizeof(TankArmLongParameter)) {
         return TWI_RPC_handler_illegal_parameters;
     }
     TANK_JOINT_NUM num = params->joint_num;
@@ -64,7 +64,7 @@ static RpcHandlerStatus tank_arm_step_handler(TankArmStepParameter *params, uint
     stepMotorStep(TANK_JOINTS[num]->motor, params->param);
     return TWI_RPC_handler_ok;
 }
-TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_step_handler, TANK_ARM_STEP, TankArmStepParameter)
+TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_step_handler, TANK_ARM_STEP, TankArmLongParameter)
 
 static RpcHandlerStatus tank_arm_stop_handler(uint16_t *params, uint16_t size) {
     if (size != sizeof(uint16_t)) {
@@ -179,20 +179,6 @@ static RpcHandlerStatus tank_arm_calibrate_handler(uint16_t *params, uint16_t si
 }
 TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_calibrate_handler, TANK_ARM_CALIBRATE, uint16_t)
 
-static RpcHandlerStatus tank_arm_recalibrate_handler(uint16_t *params, uint16_t size) {
-    if (size != sizeof(uint16_t)) {
-        return TWI_RPC_handler_illegal_parameters;
-    }
-    TANK_JOINT_NUM num = (TANK_JOINT_NUM) *params;
-    if (num > TANK_JOINT_INVALID) {
-        return TWI_RPC_handler_illegal_parameters;
-    }
-
-    recalibrateTankArm(TANK_JOINTS[num]);
-    return TWI_RPC_handler_ok;
-}
-TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_recalibrate_handler, TANK_ARM_RECALIBRATE, uint16_t)
-
 static RpcHandlerStatus tank_arm_state_handler(uint16_t *params, uint16_t size, TWIBuffer *resultBuffer) {
     if (size != sizeof(uint16_t)) {
         return TWI_RPC_handler_illegal_parameters;
@@ -209,8 +195,8 @@ static RpcHandlerStatus tank_arm_state_handler(uint16_t *params, uint16_t size, 
 }
 TWI_RPC_SERVER_FUNCTION(tank_arm_state_handler, TANK_ARM_GET_STATE, uint16_t)
 
-static RpcHandlerStatus tank_arm_move_handler(TankArmWordParameter *params, uint16_t size) {
-    if (size != sizeof(TankArmWordParameter)) {
+static RpcHandlerStatus tank_arm_move_handler(TankArmLongParameter *params, uint16_t size) {
+    if (size != sizeof(TankArmLongParameter)) {
         return TWI_RPC_handler_illegal_parameters;
     }
     TANK_JOINT_NUM num = (TANK_JOINT_NUM) params->joint_num;
@@ -218,10 +204,8 @@ static RpcHandlerStatus tank_arm_move_handler(TankArmWordParameter *params, uint
         return TWI_RPC_handler_illegal_parameters;
     }
 
-    arm_pos_t val = (arm_pos_t) params->param;
-    if (tankArmMove(TANK_JOINTS[num], val))
-        return TWI_RPC_handler_ok;
-    else
-        return TWI_RPC_handler_error + 1;
+    encoder_pos_t val = (encoder_pos_t) params->param;
+    tankArmMoveTo(TANK_JOINTS[num], val);
+    return TWI_RPC_handler_ok;
 }
-TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_move_handler, TANK_ARM_MOVE, TankArmWordParameter)
+TWI_RPC_SERVER_FUNCTION_VOID(tank_arm_move_handler, TANK_ARM_MOVE, TankArmLongParameter)

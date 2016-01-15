@@ -49,13 +49,19 @@ typedef struct StepMotorCommand {
 
 #define STEP_CMD_CONTINUE ((StepMotorCommand) { 0, MotorStopped /* direction irrelevant */ })
 #define STEP_CMD_FINISH ((StepMotorCommand) { STEP_CMD_FLAG_FINISH, MotorStopped })
+#define STEP_CMD_STOP ((StepMotorCommand) { STEP_CMD_FLAG_FORCE, MotorStopped })
 
 typedef StepMotorCommand (*StepMotorController)(MotorDirection currentDir, void *userData);
 
 void stepMotorControlledRotate(StepMotor motor, StepMotorController controller, void *userData);
+
+// These movement methods use stepMotorControlledRotate and overwrite any previous controller!s
 void stepMotorStep(StepMotor motor, pos_t numSteps);
 void stepMotorRotate(StepMotor motor, MotorDirection dir);
 void stepMotorStop(StepMotor motor);
+
+// This does not overwrite the controller, but simply sets the motor speed to zero. Current controller
+// can command the motor to move again.
 void stepMotorForceStop(StepMotor motor);
 
 pos_t stepMotorPosition(StepMotor motor);

@@ -15,9 +15,6 @@ static inline void init_tank_arm_motor() {
 	setupTankArmMotor(2000);
     StepMotorFlags flags = StepMotorInverseEnable;
 
-    // flags |= StepMotorInverseStep;
-    stepMotorPulse = StepMotorPulse10us;
-
     tank_socket.motor = newStepMotor(pinB0, pinB1, pinB2, 400, flags);
     tank_joint.motor = newStepMotor(pinA0, pinA1, pinA2, 400, flags);
     enableGenericTimerInterrupt_A(); // Step motor interrupt
@@ -36,10 +33,8 @@ static inline void init_tank_arm_sensors() {
 static void init_tank_arm() {
     init_tank_arm_sensors();
     init_tank_arm_motor();
-    tank_socket.calibrationDir = MotorForward;
     if (!tankArmInitialize(&tank_socket))
         destroyTankArm(&tank_socket);
-    tank_joint.calibrationDir = MotorForward;
     if (!tankArmInitialize(&tank_joint))
     	destroyTankArm(&tank_joint);
 }

@@ -20,8 +20,6 @@ void init_test_tank_arm() {
     tank_joint.back = newHallSensor(PORT_PIN_CHANGE, BACK_PIN_CHANGE, testPin5, TRUE);
     tank_joint.encoder = newEncoder(PORT_PIN_CHANGE, ENC_A_PIN_CHANGE, ENC_B_PIN_CHANGE, testPin6, testPin7);
 
-    tank_joint.calibrationDir = MotorForward;
-
     TEST_ASSERT(hallSensorValid(tank_joint.front));
     TEST_ASSERT(hallSensorValid(tank_joint.back));
     TEST_ASSERT(encoderValid(tank_joint.encoder));

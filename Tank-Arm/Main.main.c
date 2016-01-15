@@ -8,7 +8,8 @@
 #include <kernel/millisecond_clock.h>
 
 // #define sniff_main main
-#define test_main main
+// #define test_main main
+#define twi_log_main main
 
 Led led1;
 Led led2;
@@ -30,6 +31,28 @@ static void loopleds(uint8_t num) {
 		
 		wait_milliseconds(250);
 		// delay_ms(250);
+	}
+}
+
+uint8_t twi_log[1024];
+volatile int twi_log_len = 0;
+int twi_log_main() {
+	initleds();
+	loopleds(4);
+	enableLed(led1);
+	enableLed(led2);
+	enableLed(led3);
+
+	int handled = 0;
+	while (1) {
+		if (handled + 1 <= twi_log_len) {
+			printf("TWI: %x\n", twi_log[handled]);
+			handled++;
+		}
+		// if (handled + 4 <= twi_log_len) {
+		// 	printf("TWI(%c):%x:%x:%x\n", twi_log[handled], twi_log[handled+1], twi_log[handled+2], twi_log[handled+3]);
+		// 	handled += 4;
+		// }
 	}
 }
 
@@ -104,18 +127,13 @@ int tank_calibrate_main() {
 	init();
 
 	calibrateTankArm(&tank_joint);
-	//disableStepMotor(tank_joint.motor);
 
 	while (1) {
 		setLed(led1, hallSensorState(tank_joint.front));
 		setLed(led2, hallSensorState(tank_joint.back));
-
-		if (tank_joint.calibration == CalibratingSecond || tank_joint.calibration == CalibratedFull) {
-			enableLed(led3);
-		} else {
-			disableLed(led3);
-		}
+		setLed(led3, tank_joint.calibration == Calibrated);
 	}
+	return 0;
 }
 
 int test_hall_encoder_main() {
