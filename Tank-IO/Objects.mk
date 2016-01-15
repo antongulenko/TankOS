@@ -16,7 +16,6 @@ ifeq ($(USE_TWI), true)
         $(BUILD_TankOS)/twi/services/example.kernel.o \
         $(BUILD_Tank-IO)/tank_io_twi.kernel.o \
         $(BUILD_Tank-IO)/tank_io_service.kernel.o \
-        $(BUILD_Tank-Driver)/tank_driver_service_client.kernel.o \
         $(BUILD_Tank-Driver)/tank_driver_service.o
 
     ifeq ($(USE_BUFFER_STDOUT), true)

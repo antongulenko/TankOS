@@ -65,6 +65,7 @@ INCLUDE_FLAGS := $(foreach d, $(includes), -I$d)
 
 all_objects := $(addprefix $(BUILDDIR)/, $(all_objects))
 objects := $(addprefix $(BUILDDIR)/, $(objects))
+DEPENDENCY_DIR := $(GCC_DEP_DIR)/$(BUILD_DIRNAME)
 dependency_files := $(addprefix $(DEPENDENCY_DIR)/$(project)/, $(sources))
 
 # Include additional objects required by this project. These objects can be located in other project-folders!
@@ -174,8 +175,8 @@ endef
 
 define make_output
 $(BUILDDIR)/$1.$(TARGET_SUFFIX) $(BUILDDIR)/$1.map: $(fake) $(BUILDDIR)/$1.o $(objects_$(project)_$1) $(dependencies) $(dependency_targets)
-	@echo "$$$$($$(COLOR) $$(COLOR_LINK))Linking $$@$$$$($$(COLOR) off)"
 	mkdir -p $$($$<_builddir)
+	@echo "$$$$($$(COLOR) $$(COLOR_LINK))Linking $$@$$$$($$(COLOR) off)"
 	$(CC) $$($$<_fullLinkerFlags1) $(objects_$(project)_$1) $(BUILDDIR)/$1.o $$($$<_fullLinkerFlags2) -Wl,-Map="$$(subst .o,.map,$$(word 2, $$^))" -o $$@
 	$(OPTIONAL_SIZE_COMMAND)
 
@@ -203,7 +204,9 @@ map_$(project): $(foreach o, $(outputs), $(BUILDDIR)/$o.map)
 studio_$(project): $(studiotarget) $(foreach d, $(dependencies), studio_$d)
 clean_target_$(project): $(fake)
 	rm -f $($<_projectoutputs)
-relink_$(project): clean_target_$(project) $(project)
+relink_$(project): $(fake)
+	rm -f $($<_projectoutputs)
+	+$(MAKE) $($<)
 
 clean_$(project): $(fake)
 	$(FIND) $($<_project) '(' -type d -a $(foreach p, $(ALL_PLATFORMS), -name 'build-$(p)*' -o) -false ')' -exec rm -r {} +

@@ -33,9 +33,35 @@ BOOL stepMotorEnabled(StepMotor motor);
 BOOL stepMotorSetMaxSpeed(StepMotor motor, speed_t speed); // Return FALSE if speed is too high
 speed_t stepMotorGetMaxSpeed(StepMotor motor);
 
+// Deactivate the current controller. Force continueDir = MotorStopped, ignore rest of command.
+#define STEP_CMD_FLAG_FINISH _BV(0)
+// Change motor direction to continueDir smoothly (use regulate*)
+#define STEP_CMD_FLAG_REGULATE _BV(1)
+// Change motor direction immediately (overrides STEP_CMD_REGULATE)
+#define STEP_CMD_FLAG_FORCE _BV(1)
+// Slow down speed if STEP_CMD_REGULATE or STEP_CMD_FORCE is given. No effect if continueDir = MotorStopped.
+#define STEP_CMD_FLAG_SLOW _BV(2)
+
+typedef struct StepMotorCommand {
+	uint8_t flags;
+	MotorDirection continueDir;
+} StepMotorCommand;
+
+#define STEP_CMD_CONTINUE ((StepMotorCommand) { 0, MotorStopped /* direction irrelevant */ })
+#define STEP_CMD_FINISH ((StepMotorCommand) { STEP_CMD_FLAG_FINISH, MotorStopped })
+#define STEP_CMD_STOP ((StepMotorCommand) { STEP_CMD_FLAG_FORCE, MotorStopped })
+
+typedef StepMotorCommand (*StepMotorController)(MotorDirection currentDir, void *userData);
+
+void stepMotorControlledRotate(StepMotor motor, StepMotorController controller, void *userData);
+
+// These movement methods use stepMotorControlledRotate and overwrite any previous controller!s
 void stepMotorStep(StepMotor motor, pos_t numSteps);
 void stepMotorRotate(StepMotor motor, MotorDirection dir);
 void stepMotorStop(StepMotor motor);
+
+// This does not overwrite the controller, but simply sets the motor speed to zero. Current controller
+// can command the motor to move again.
 void stepMotorForceStop(StepMotor motor);
 
 pos_t stepMotorPosition(StepMotor motor);

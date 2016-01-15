@@ -8,7 +8,7 @@ DEFINE_HANDLE(HallSensor);
 
 #define PinHallSensor 10
 
-HallSensor newHallSensor(uint8_t portNum, uint8_t pinNum, Pin pin);
+HallSensor newHallSensor(uint8_t portNum, uint8_t pinNum, Pin pin, BOOL inverted);
 HallSensor destroyHallSensor(HallSensor sensor);
 BOOL hallSensorValid(HallSensor sensor);
 

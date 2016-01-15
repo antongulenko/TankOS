@@ -2,8 +2,7 @@
 #include <devices/led_control.h>
 #include "tank_led.h"
 
-// led_info.kernel.c
-void update_led_info();
+void update_led_info(); // led_info.kernel.c
 
 int main() {
 	controlLeds(allLedsC, LedsGroupRun);

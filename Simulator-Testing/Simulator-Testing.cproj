@@ -98,6 +98,9 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="common.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="TestRunner.main.c">
       <SubType>compile</SubType>
     </Compile>

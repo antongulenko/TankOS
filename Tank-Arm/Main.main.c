@@ -3,50 +3,149 @@
 #include <devices/led.h>
 #include <platform/platform_Avr/port.h>
 
+#include <twi/twi_sniffer.h>
 #include <stdio.h>
+#include <kernel/millisecond_clock.h>
 
-Led ledFront;
-Led ledBack;
-Led ledEnc;
+// #define sniff_main main
+// #define test_main main
+#define twi_log_main main
 
-int main() {
-	tank_arm.back = newHallSensor(1, 0, pinB0);
-	tank_arm.front = newHallSensor(1, 1, pinB1);
-	tank_arm.encoder = newEncoder(3, 0, 1, pinD0, pinD1);
+Led led1;
+Led led2;
+Led led3;
 
-	DDRC = 0xff;
+static void initleds() {
+	led1 = newLed(pinC7);
+	led2 = newLed(pinC6);
+	led3 = newLed(pinC5);
+}
 
-	ledFront = newLed(pinC7);
-	ledBack = newLed(pinC6);
-	ledEnc = newLed(pinC5);
-
-	newLed(pinC0);
-	newLed(pinC1);
-
-	printf("OK:%i,%i,%i,%i,%i,%i\n", IsValid(tank_arm.back),
-		IsValid(tank_arm.front),
-		IsValid(tank_arm.encoder),
-		IsValid(ledFront),
-		IsValid(ledBack),
-		IsValid(ledEnc));
-
+static void loopleds(uint8_t num) {
 	BOOL on = TRUE;
-	for (int i = 0; i < 10; i++) {
-		setLed(ledFront, on);
-		setLed(ledBack, !on);
-		setLed(ledEnc, on);
+	for (uint8_t i = 0; i < num; i++) {
+		setLed(led1, on);
+		setLed(led2, !on);
+		setLed(led3, on);
 		on = !on;
-		delay_ms(200);
+		
+		wait_milliseconds(250);
+		// delay_ms(250);
 	}
+}
+
+uint8_t twi_log[1024];
+volatile int twi_log_len = 0;
+int twi_log_main() {
+	initleds();
+	loopleds(4);
+	enableLed(led1);
+	enableLed(led2);
+	enableLed(led3);
+
+	int handled = 0;
+	while (1) {
+		if (handled + 1 <= twi_log_len) {
+			printf("TWI: %x\n", twi_log[handled]);
+			handled++;
+		}
+		// if (handled + 4 <= twi_log_len) {
+		// 	printf("TWI(%c):%x:%x:%x\n", twi_log[handled], twi_log[handled+1], twi_log[handled+2], twi_log[handled+3]);
+		// 	handled += 4;
+		// }
+	}
+}
+
+int test_main() {
+	initleds();
+	loopleds(4);
+	enableLed(led1);
+	enableLed(led2);
+	enableLed(led3);
+	while (1) ;
+	return 0;
+}
+
+static BOOL sda;
+static BOOL scl;
+static void updated_sda(BOOL up) {
+	printf("%li: D %i\n", get_milliseconds_running(), up);
+	if (up) {
+		sda = !sda;
+		setLed(led1, sda);
+	}
+}
+static void updated_scl(BOOL up) {
+	printf("%li: C %i\n", get_milliseconds_running(), up);
+	if (up) {
+		scl = !scl;
+		setLed(led2, scl);
+	}
+}
+
+int sniff_main() {
+	initleds();
+	loopleds(4);
+	disableLed(led1);
+	disableLed(led2);
+	disableLed(led3);
+
+	#define PIN_SDA pinC1
+	#define PIN_SCL pinC0
+	sniff_twi_updates(PIN_SDA, PIN_SCL, 2, 1, 0, updated_sda, updated_scl);
+
+	return 0;
+}
+
+static void init() {
+	initleds();
+	stepMotorSetMaxSpeed(tank_joint.motor, 3000);
+
+	DDRC |= 0b11111100;
+
+	printf("OK:%i,%i,%i,%i,%i,%i\n", IsValid(tank_socket.back),
+		IsValid(tank_socket.front),
+		IsValid(tank_socket.encoder),
+		IsValid(led1),
+		IsValid(led2),
+		IsValid(led3));
+
+	loopleds(4);
+}
+
+int test_motors_main() {
+	init();
+	while (1) {
+		stepMotorRotate(tank_joint.motor, MotorForward);
+		delay_ms(500);
+		stepMotorRotate(tank_joint.motor, MotorBackward);
+		delay_ms(500);
+	}
+}
+
+int tank_calibrate_main() {
+	init();
+
+	calibrateTankArm(&tank_joint);
 
 	while (1) {
-		BOOL back = hallSensorState(tank_arm.back);
-		BOOL front = hallSensorState(tank_arm.front);
-		setLed(ledBack, back);
-		setLed(ledFront, front);
+		setLed(led1, hallSensorState(tank_joint.front));
+		setLed(led2, hallSensorState(tank_joint.back));
+		setLed(led3, tank_joint.calibration == Calibrated);
+	}
+	return 0;
+}
 
-		encoder_pos_t pos = encoderState(tank_arm.encoder);
-		PORTC &= 0b11000000;
-		PORTC |= ((uint8_t) pos) & 0b00111111;
+int test_hall_encoder_main() {
+	init();
+	while (1) {
+		BOOL back = hallSensorState(tank_socket.back);
+		BOOL front = hallSensorState(tank_socket.front);
+		setLed(led2, !back);
+		setLed(led1, !front);
+
+		encoder_pos_t pos = encoderState(tank_socket.encoder);
+		PORTC &= 0b11000011;
+		PORTC |= ((uint8_t) pos << 2) & 0b00111100;
 	}
 }

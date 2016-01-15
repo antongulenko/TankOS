@@ -237,8 +237,8 @@ $(eval $(call set_test_objects,Arm/service,\
     $(BUILD_TESTS)/mocks/twi_driver_slave.o \
     $(BUILD_TESTS)/mocks/twi_end_to_end.o \
     $(BUILD_TESTS)/twi/services/helper.o \
-    $(BUILD_TESTS)/Arm/arm.o \
     $(BUILD_TESTS)/mocks/pin_change.o \
+    $(BUILD_TESTS)/Arm/arm.o \
     $(BUILD_Tank-Arm)/arm.o \
     $(BUILD_Tank-Arm)/tank_arm_service.o \
     $(BUILD_Tank-Arm)/tank_arm_service.kernel.o \

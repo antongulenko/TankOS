@@ -25,28 +25,29 @@ int tank_arm_set_max_format(ClientResultPrinter print, void *results, uint16_t r
 int tank_arm_state_format(ClientResultPrinter print, void *results, uint16_t results_length) {
     if (results_length != sizeof(TankArmState)) return 0;
     TankArmState *state = (TankArmState*) results;
-    int res = print("Pos %i (Encoder %i, Motor %i) ", state->armPos, state->encoderPos, state->motorPos);
+    int res = print("Encoder %i, Motor %i", state->encoderPos, state->motorPos);
     if (state->backSensor || state->frontSensor) {
-        res += print("[");
+        res += print(" [");
         if (state->backSensor) res += print("BACK");
         if (state->frontSensor) res += print("FRONT");
-        res += print("] ");
+        res += print("]");
     }
+    print(", Moving to %i ", state->targetPos);
     res += print("(");
     switch ((TankArmCalibration) state->calibration) {
         case NotCalibrated:
             res += print("not calibrated");
             break;
-        case CalibratedOne:
-            res += print("half calibrated");
+        case Calibrating:
+            res += print("calibrating");
             break;
-        case CalibratedFull:
+        case Calibrated:
             res += print("calibrated");
             break;
         default:
-            res += print("calibrated: %i", state->calibration);
+            res += print("illegal calibration value: %i", state->calibration);
     }
-    res += print(", motor swing: %i, encoder swing: %i)", state->fullMotorSwing, state->fullEncoderSwing);
+    res += print(")");
     if (state->encoder_error.errors > 0 || state->encoder_error.errorMask != 0) {
         res += print(" %i encoder errors: 0x%.2x", state->encoder_error.errors, state->encoder_error.errorMask);
     }
