@@ -10,6 +10,12 @@ static char *eeprom_buffer;
 
 FILE eeprom_stdout_stream = FDEV_SETUP_STREAM(eeprom_stdout_putchar, NULL, _FDEV_SETUP_WRITE);
 
+static void write_extra_newlines() {
+	for (uint8_t i = 0; i < 3 && bytes_written + i + 1 <= buffer_size; i++) {
+		eeprom_update_byte((byte*) eeprom_buffer + bytes_written + i, '\n');
+	}
+}
+
 int eeprom_stdout_putchar(char c, FILE *f) {
 	if (f != &eeprom_stdout_stream) return EOF;
 	if (bytes_written >= buffer_size) {
@@ -19,6 +25,8 @@ int eeprom_stdout_putchar(char c, FILE *f) {
 	eeprom_update_byte((byte*) eeprom_buffer + bytes_written, c);
 	bytes_written++;
 	eeprom_update_word(eeprom_bytes_written, bytes_written);
+	if (c == '\n')
+		write_extra_newlines();
 	return c;
 }
 
