@@ -65,6 +65,7 @@ INCLUDE_FLAGS := $(foreach d, $(includes), -I$d)
 
 all_objects := $(addprefix $(BUILDDIR)/, $(all_objects))
 objects := $(addprefix $(BUILDDIR)/, $(objects))
+DEPENDENCY_DIR := $(GCC_DEP_DIR)/$(BUILD_DIRNAME)
 dependency_files := $(addprefix $(DEPENDENCY_DIR)/$(project)/, $(sources))
 
 # Include additional objects required by this project. These objects can be located in other project-folders!

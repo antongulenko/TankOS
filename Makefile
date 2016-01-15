@@ -141,8 +141,6 @@ else
     endif
 endif
 
-DEPENDENCY_DIR := $(GCC_DEP_DIR)/$(BUILD_DIRNAME)
-
 ifneq ($(MAKECMDGOALS), projects)
     ifneq ($(MAKECMDGOALS), platforms)
         include $(ProjectMakefiles)
