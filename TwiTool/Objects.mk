@@ -16,5 +16,6 @@ objects += \
     $(BUILD_Tank-Arm)/tank_arm_service_client.kernel.o
 
 # TWI_IMPL := linux
-TWI_IMPL := odroid
+# TWI_IMPL := odroid
+TWI_IMPL := gpio
 objects += $(BUILD_TwiTool)/twi-master-$(TWI_IMPL).kernel.o
