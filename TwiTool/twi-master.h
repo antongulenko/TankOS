@@ -11,7 +11,7 @@ extern char *twi_error_description;
 extern BOOL print_buffer_contents;
 
 // Meaning of param depends on implementation
-void twi_init_linux(char *param);
+void twi_init_master(char *param);
 
 // For the implementation
 void printTwiBuffer(char *comment, TWIBuffer buffer);
