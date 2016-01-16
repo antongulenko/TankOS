@@ -105,7 +105,7 @@ int call(TWIDevice device, ClientFunctionRegistryEntry entry, byte *parameters, 
 }
 
 void init_libraries(char *param) {
-    twi_init_linux(param);
+    twi_init_master(param);
     twi_rpc_client_init((TWIBuffer) { rpc_buffer, sizeof(rpc_buffer) });
     check_error();
 }

@@ -83,7 +83,7 @@ static BOOL twi_master_doReceive(TWIDevice targetDevice, TWIBuffer data) {
     return TRUE;
 }
 
-void twi_init_linux(char *param) {
+void twi_init_master(char *param) {
     dev = dev_open();
     if (!dev) error("Failed to open USB device");
 }

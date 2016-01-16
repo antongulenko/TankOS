@@ -60,7 +60,7 @@ static void twi_master_doReceive(TWIDevice targetDevice, TWIBuffer data) {
     }
 }
 
-void twi_init_linux(char *param) {
+void twi_init_master(char *param) {
     char *bus_number = param;
     snprintf(filename, sizeof(filename) - 1, "%s%s", i2c_file_prefix, bus_number);
     file = open(filename, O_RDWR);
