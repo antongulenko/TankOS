@@ -250,7 +250,11 @@ int i2c_gpio_retry_address(GpioI2C bus, unsigned char addr, int retries) {
 	return res;
 }
 
-static int gpio_export(char *pin)  {
+static int gpio_export(char *pin) {
+    char test_file[512];
+    snprintf(test_file, sizeof(test_file), "%s%s", GPIO_PATH, pin);
+    if (access(test_file, R_OK|W_OK|X_OK) == 0) return 0;
+
     int fd = open(GPIO_PATH_EXPORT, O_WRONLY);
     if (fd < 0) {
         err("Failed to open %s for exporting %s", GPIO_PATH_EXPORT, pin);
@@ -285,12 +289,16 @@ static int gpio_unexport(char *pin)  {
 }
 
 int i2c_gpio_destroy(GpioI2C bus) {
-    int res1 = gpio_unexport(bus->sdaPinNum);
-    int res2 = gpio_unexport(bus->sclPinNum);
     if (bus->sclVal > 0) close(bus->sclVal);
     if (bus->sdaVal > 0) close(bus->sdaVal);
     if (bus->sclDir > 0) close(bus->sclDir);
     if (bus->sdaDir > 0) close(bus->sdaDir);
+    return 0;
+}
+
+int i2c_gpio_unexport(GpioI2C bus) {
+    int res1 = gpio_unexport(bus->sdaPinNum);
+    int res2 = gpio_unexport(bus->sclPinNum);
     return res2 < 0 ? res2 : res1;
 }
 

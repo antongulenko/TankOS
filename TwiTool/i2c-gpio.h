@@ -30,6 +30,7 @@ typedef struct GpioI2C {
 
 int i2c_gpio_init(GpioI2C bus);
 int i2c_gpio_destroy(GpioI2C bus);
+int i2c_gpio_unexport(GpioI2C bus);
 
 int i2c_gpio_start(GpioI2C bus);
 int i2c_gpio_repstart(GpioI2C bus);
