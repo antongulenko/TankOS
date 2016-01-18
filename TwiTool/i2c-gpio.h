@@ -14,12 +14,30 @@
 #define LOCK_RETRIES 800
 
 // SCL timeout after 1 second
-#define TIMEOUT_SLEEP_MICRO 5
+#define SCL_TIMEOUT_SLEEP_MICRO 5
+#define SDA_TIMEOUT_SLEEP_MICRO 1
 #define TIMEOUT_RETRIES 200000
 
 #define DELAY_STRETCH 1.0
 // #define DO_DEBUG
 // #define DO_TRACE
+
+typedef enum {
+    ERR_SEEK_FAILED = -1,
+    ERR_READ_FAILED = -2,
+    ERR_BOGUS_VALUE = -3,
+    ERR_WRITE_FAILED = -4,
+    ERR_SCL_HI_TIMEOUT = -5,
+    ERR_SCL_NOT_LO = -6,
+    ERR_OPEN_FAILED = -7,
+    ERR_EXPORT_FAILED = -8,
+    ERR_UNEXPORT_FAILED = -9,
+    ERR_LOCK_TIMEOUT = -10,
+    ERR_LOCK_FAILED = -11,
+    ERR_RELEASE_LOCK_FAILED = -12,
+    ERR_ARBITRATION_LOST = -13,
+    ERR_SDA_HI_TIMEOUT = -14
+} GpioError;
 
 typedef struct GpioI2C {
     // Input

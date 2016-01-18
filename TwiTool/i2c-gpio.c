@@ -12,21 +12,6 @@
 
 #define CHECK(instr) do { int ___res___ = instr; if (___res___ < 0) return ___res___; } while (0)
 
-typedef enum {
-    ERR_SEEK_FAILED = -1,
-    ERR_READ_FAILED = -2,
-    ERR_BOGUS_VALUE = -3,
-    ERR_WRITE_FAILED = -4,
-    ERR_SCL_HI_TIMEOUT = -5,
-    ERR_SCL_NOT_LO = -6,
-    ERR_OPEN_FAILED = -7,
-    ERR_EXPORT_FAILED = -8,
-    ERR_UNEXPORT_FAILED = -9,
-    ERR_LOCK_TIMEOUT = -10,
-    ERR_LOCK_FAILED = -11,
-    ERR_RELEASE_LOCK_FAILED = -12
-} GpioError;
-
 static inline void debug(const char *fmt, ...) {
 #ifdef DO_DEBUG
     va_list args;
@@ -136,28 +121,65 @@ static int wait_scl_hi(GpioI2C bus) {
         int res = getscl(bus);
         if (res < 0) return res;
         if (res == 1) return 0;
-        __usleep(TIMEOUT_SLEEP_MICRO);
+        __usleep(SCL_TIMEOUT_SLEEP_MICRO);
     }
-    err("Waiting for scl high timed out");
+    err("");
     return ERR_SCL_HI_TIMEOUT;
+}
+
+static int check_sda_hi(GpioI2C bus) {
+    // Make sure sda goes hi before scl goes lo.
+    // That condition means another master won arbitration.
+    CHECK(sdahi(bus));
+    DELAY(1);
+    for(int i = 0; i < TIMEOUT_RETRIES; i++) {
+        int sda = getsda(bus);
+        if (sda < 0) return sda;
+        int scl = getscl(bus);
+        if (scl < 0) return scl;
+        if (sda == 0 && scl == 0) {
+            err("");
+            return ERR_ARBITRATION_LOST;
+        } else if (sda == 0 && scl == 1) {
+            // Still waiting for sda to be released
+            __usleep(SDA_TIMEOUT_SLEEP_MICRO);
+        } else {
+            // sda == 1 && scl == 1 -> we won arbitration
+            // sda == 1 && scl == 0 -> likely another master also released sda and already pulled scl back lo
+            return 0;
+        }
+    }
+    err("");
+    return ERR_SDA_HI_TIMEOUT;
+}
+
+static int check_bus_free(GpioI2C bus) {
+    // TODO watch for bus activity for some time.
+    // If there is activity, wait for STOP condition.
+    // If this returns 0, SDA and SCL must be hi.
+    return 0;
+}
+
+static int doStart(GpioI2C bus) {
+    CHECK(sdalo(bus));
+    DELAY(2);
+    CHECK(scllo(bus));
+    DELAY(1);
+    return 0;
 }
 
 int i2c_gpio_start(GpioI2C bus) {
     debug(" == START\n");
-    CHECK(wait_scl_hi(bus));
-    // TODO: ensure sda hi?
-    CHECK(sdalo(bus));
-	DELAY(2);
-    CHECK(scllo(bus));
-	DELAY(1);
-    return 0;
+    CHECK(check_bus_free(bus));
+    return doStart(bus);
 }
 
 int i2c_gpio_repstart(GpioI2C bus) {
     debug(" == REPEATED START\n");
     CHECK(sdahi(bus));
 	DELAY(1.5);
-    return i2c_gpio_start(bus);
+    CHECK(wait_scl_hi(bus));
+    return doStart(bus);
 }
 
 int i2c_gpio_stop(GpioI2C bus) {
@@ -173,10 +195,13 @@ int i2c_gpio_stop(GpioI2C bus) {
 
 static int sendbit(GpioI2C bus, int bit) {
     trace(" - Sending bit: %i\n", bit);
-    if (bit)
-        CHECK(sdahi(bus));
-    else
+    if (bit) {
+        int res = check_sda_hi(bus);
+        if (res < 0) return res;
+    }
+    else {
         CHECK(sdalo(bus));
+    }
     DELAY(1.5);
     CHECK(wait_scl_hi(bus));
     DELAY(2);
@@ -220,7 +245,12 @@ int i2c_gpio_write(GpioI2C bus, unsigned char c) {
 	for (int i = 7; i >= 0; i--) {
 		int sb = (c >> i) & 1;
         int res = sendbit(bus, sb);
-        if (res < 0) return res;
+        if (res < 0) {
+            if (res == ERR_ARBITRATION_LOST) {
+                err("Arbitration lost in bit %i", 8 - i);
+            }
+            return res;
+        }
 	}
 	CHECK(sdahi(bus));
 	DELAY(1.5);
@@ -299,7 +329,6 @@ static int gpio_export(char *pin) {
         err("Access denied to %s", test_file);
         return ERR_EXPORT_FAILED;
     }
-    if (access(test_file, R_OK|W_OK|X_OK) == 0) return 0;
 
     int fd = open(GPIO_PATH_EXPORT, O_WRONLY);
     if (fd < 0) {
@@ -390,6 +419,7 @@ int i2c_gpio_init(GpioI2C bus) {
 
 char *i2c_gpio_errstring(int code) {
     static char ext_errbuf[2248];
+    static char unknown_code_buf[40];
     char *msg = NULL;
     switch ((GpioError) code) {
         case ERR_SEEK_FAILED:
@@ -401,7 +431,7 @@ char *i2c_gpio_errstring(int code) {
         case ERR_WRITE_FAILED:
             msg = "Write failed"; break;
         case ERR_SCL_HI_TIMEOUT:
-            msg = "SCL high timeout"; break;
+            msg = "Waiting for SCL high timed out"; break;
         case ERR_SCL_NOT_LO:
             msg = "SCL must be low (execute START first)"; break;
         case ERR_OPEN_FAILED:
@@ -416,8 +446,15 @@ char *i2c_gpio_errstring(int code) {
             msg = "Error acquiring bus lock"; break;
         case ERR_RELEASE_LOCK_FAILED:
             msg = "Error releasing bus lock"; break;
+        case ERR_ARBITRATION_LOST:
+            msg = "Arbitration lost"; break;
+        case ERR_SDA_HI_TIMEOUT:
+            msg = "Waiting for SDA high timed out"; break;
     }
-    if (msg == NULL) msg = "Unknown error code";
+    if (msg == NULL) {
+        snprintf(unknown_code_buf, sizeof(unknown_code_buf), "Unknown error code (%i)", code);
+        msg = unknown_code_buf;
+    }
     snprintf(ext_errbuf, sizeof(ext_errbuf), "%s: %s", msg, errbuf);
     return ext_errbuf;
 }

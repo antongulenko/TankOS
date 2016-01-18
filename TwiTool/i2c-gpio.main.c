@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     fprintf(stderr, "Testing %02x (%s address: %02x)\n", addrVal, ioStr, address);
 
     int res;
-    if ((res = i2c_gpio_init(&bus) < 0)) {
+    if ((res = i2c_gpio_init(&bus)) < 0) {
         fprintf(stderr, "Init failed: %s\n", i2c_gpio_errstring(res));
     } else {
         res = i2c_gpio_try_address(&bus, address);

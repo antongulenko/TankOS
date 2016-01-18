@@ -7,6 +7,7 @@
 #define TWI_ACTION_TIMEOUT_MILLIS 1
 
 static struct GpioI2C bus;
+static BOOL arbitration_lost;
 
 static void error(char *desc, int code) {
     twi_error = TWI_Bus_Error;
@@ -20,15 +21,17 @@ static void error(char *desc, int code) {
 }
 
 static void cleanUp() {
-    int res = i2c_gpio_stop(&bus);
-    if (res < 0) {
-        if (twi_error == TWI_No_Error)
-            // Don't overwrite previous errors
-            error("Stop", res);
-        else
-            fprintf(stderr, "Additional error generating Stop: %s\n", i2c_gpio_errstring(res));
+    if (!arbitration_lost) {
+        int res = i2c_gpio_stop(&bus);
+        if (res < 0) {
+            if (twi_error == TWI_No_Error)
+                // Don't overwrite previous errors
+                error("Stop", res);
+            else
+                fprintf(stderr, "Additional error generating Stop: %s\n", i2c_gpio_errstring(res));
+        }
     }
-    res = i2c_gpio_destroy(&bus);
+    int res = i2c_gpio_destroy(&bus);
     if (res < 0) {
         if (twi_error == TWI_No_Error)
             // Don't overwrite previous errors
@@ -38,7 +41,8 @@ static void cleanUp() {
     }
 }
 
-static void resetError() {
+static void prepare() {
+    arbitration_lost = FALSE;
     twi_error_description = NULL;
     twi_error = TWI_No_Error;
 }
@@ -65,6 +69,9 @@ static BOOL doAddress(TWIDevice targetDevice, BOOL write) {
     int addr = write ? TWI_SLA_WRITE(targetDevice) : TWI_SLA_READ(targetDevice);
     int res = i2c_gpio_write(&bus, addr);
     if (res < 0) {
+        if (res == ERR_ARBITRATION_LOST) {
+            arbitration_lost = TRUE;
+        }
         error("Write SLA addr", res);
         return FALSE;
     }
@@ -80,6 +87,9 @@ static BOOL doSend(TWIDevice targetDevice, TWIBuffer data) {
         byte val = data.data[i];
         int res = i2c_gpio_write(&bus, val);
         if (res < 0) {
+            if (res == ERR_ARBITRATION_LOST) {
+                arbitration_lost = TRUE;
+            }
             static char buf[30];
             snprintf(buf, sizeof(buf), "Write data byte %i", i);
             error(buf, res);
@@ -139,7 +149,7 @@ void twi_init_master(char *param) {
 }
 
 void twiSend(TWIDevice targetDevice, TWIBuffer data) {
-    resetError(targetDevice);
+    prepare(targetDevice);
     if (doStart()) {
         doSend(targetDevice, data);
         cleanUp();
@@ -147,7 +157,7 @@ void twiSend(TWIDevice targetDevice, TWIBuffer data) {
 }
 
 void twiReceive(TWIDevice targetDevice, TWIBuffer data) {
-    resetError(targetDevice);
+    prepare(targetDevice);
     if (doStart()) {
         doReceive(targetDevice,data);
         cleanUp();
@@ -155,7 +165,7 @@ void twiReceive(TWIDevice targetDevice, TWIBuffer data) {
 }
 
 void twiSendReceive(TWIDevice targetDevice, TWIBuffer sendData, TWIBuffer receiveBuffer) {
-    resetError(targetDevice);
+    prepare(targetDevice);
     if (doStart()) {
         if (doSend(targetDevice, sendData))
             if (doRepstart())
