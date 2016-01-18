@@ -12,7 +12,7 @@ static void error(char *desc, int code) {
     twi_error = TWI_Bus_Error;
     if (code < 0) {
         static char error_str[2048];
-        snprintf(error_str, sizeof(error_str), "%s (%i): %s", desc, code, i2c_gpio_errstring(code));
+        snprintf(error_str, sizeof(error_str), "%s: %s", desc, i2c_gpio_errstring(code));
         twi_error_description = error_str;
     } else {
         twi_error_description = desc;

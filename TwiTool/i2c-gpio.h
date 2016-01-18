@@ -9,12 +9,17 @@
 #define GPIO_DIR "/direction"
 #define GPIO_VAL "/value"
 
+#define LOCK_FILE "/tmp/i2c-gpio.lock"
+#define LOCK_WAIT_MILLIS 4
+#define LOCK_RETRIES 800
+
 // SCL timeout after 1 second
 #define TIMEOUT_SLEEP_MICRO 5
 #define TIMEOUT_RETRIES 200000
 
 #define DELAY_STRETCH 1.0
-// #define DEBUG
+// #define DO_DEBUG
+// #define DO_TRACE
 
 typedef struct GpioI2C {
     // Input
@@ -22,6 +27,7 @@ typedef struct GpioI2C {
     char *sclPinNum;
     
     // Internal state
+    int lock_fd;
     int sdaVal;
     int sclVal;
     int sdaDir;
@@ -30,7 +36,7 @@ typedef struct GpioI2C {
 
 int i2c_gpio_init(GpioI2C bus);
 int i2c_gpio_destroy(GpioI2C bus);
-int i2c_gpio_unexport(GpioI2C bus);
+int i2c_gpio_cleanup(GpioI2C bus); // does not need *init()
 
 int i2c_gpio_start(GpioI2C bus);
 int i2c_gpio_repstart(GpioI2C bus);

@@ -9,7 +9,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdarg.h>
-#include <sys/types.h>
 
 #define CHECK(instr) do { int ___res___ = instr; if (___res___ < 0) return ___res___; } while (0)
 
@@ -22,11 +21,14 @@ typedef enum {
     ERR_SCL_NOT_LO = -6,
     ERR_OPEN_FAILED = -7,
     ERR_EXPORT_FAILED = -8,
-    ERR_UNEXPORT_FAILED = -9
+    ERR_UNEXPORT_FAILED = -9,
+    ERR_LOCK_TIMEOUT = -10,
+    ERR_LOCK_FAILED = -11,
+    ERR_RELEASE_LOCK_FAILED = -12
 } GpioError;
 
 static inline void debug(const char *fmt, ...) {
-#ifdef DEBUG
+#ifdef DO_DEBUG
     va_list args;
     va_start(args, fmt);
     vfprintf(stderr, fmt, args);
@@ -34,12 +36,23 @@ static inline void debug(const char *fmt, ...) {
 #endif
 }
 
-static char errbuf[1024] = {0};
+static inline void trace(const char *fmt, ...) {
+#ifdef DO_TRACE
+    va_list args;
+    va_start(args, fmt);
+    vfprintf(stderr, fmt, args);
+    va_end(args);
+#endif   
+}
+
+static char errbuf[2048] = {0};
 
 static void err(char *fmt, ...) {
     va_list args;
     va_start(args, fmt);
-    vsnprintf(errbuf, sizeof(errbuf), fmt, args);
+    int n = vsnprintf(errbuf, sizeof(errbuf), fmt, args);
+    if (errno != 0)
+        snprintf(errbuf + n, sizeof(errbuf) - n, " (%s)", strerror(errno));
     va_end(args);
 }
 
@@ -67,10 +80,10 @@ static int readval(int fd, char *desc) {
         return ERR_READ_FAILED;
 	}
 	if (val[0] == '1') {
-        debug("Read %s: 1\n", desc);
+        trace("Read bit %s: 1\n", desc);
 		return 1;
 	} else if (val[0] == '0') {
-        debug("Read %s: 0\n", desc);
+        trace("Read bit %s: 0\n", desc);
 		return 0;
 	} else {
         err("Bogus %s value: %s", desc, val);
@@ -80,7 +93,7 @@ static int readval(int fd, char *desc) {
 
 static inline int setval(int fd, BOOL val, char *desc) {
     int res;
-    debug("Writ %s: %i\n", desc, val);
+    trace("Writ bit %s: %i\n", desc, val);
     if (val)
         res = write(fd, "in", 2);
     else
@@ -159,7 +172,7 @@ int i2c_gpio_stop(GpioI2C bus) {
 }
 
 static int sendbit(GpioI2C bus, int bit) {
-    debug(" - Sending bit: %i\n", bit);
+    trace(" - Sending bit: %i\n", bit);
     if (bit)
         CHECK(sdahi(bus));
     else
@@ -177,14 +190,14 @@ static int receivebit(GpioI2C bus) {
     DELAY(5);
 	int bit = getsda(bus);
     if (bit < 0) return bit;
-    debug(" - received: %i\n", bit);
+    debug(" - Received bit: %i\n", bit);
 	CHECK(scllo(bus));
 	DELAY(1);
     return bit;
 }
 
 static int readack(GpioI2C bus) {
-    debug(" - Reading ack\n");
+    debug(" == Reading ack\n");
     int bit = receivebit(bus);
     if (bit < 0) return bit;
     return !bit;
@@ -250,7 +263,42 @@ int i2c_gpio_retry_address(GpioI2C bus, unsigned char addr, int retries) {
 	return res;
 }
 
+static int acquire_lock() {
+    for (int i = 0; i < LOCK_RETRIES; i++) {
+        errno = 0;
+        int fd = open(LOCK_FILE, O_CREAT | O_EXCL | O_WRONLY, S_IRUSR | S_IWUSR);
+        if (fd > 0) return fd;
+        if (errno == EEXIST) {
+            debug(" == Bus locked by other process\n");
+            __usleep(LOCK_WAIT_MILLIS * 1000);
+            continue;
+        } else {
+            err("Error opening lock file");
+            return ERR_LOCK_FAILED;
+        }
+    }
+    err("Failed to acquire bus lock after %i retries", LOCK_RETRIES);
+    return ERR_LOCK_TIMEOUT;
+}
+
+static int release_lock() {
+    if (unlink(LOCK_FILE) != 0) {
+        err("");
+        return ERR_RELEASE_LOCK_FAILED;
+    }
+    return 0;
+}
+
 static int gpio_export(char *pin) {
+
+    printf("\n   >>>>    Now sleeping...\n");
+    sleep(1);
+    printf("Done sleeping\n");
+    if (1) {
+        err("TEST ERROR");
+        return ERR_EXPORT_FAILED;
+    }
+
     char test_file[512];
     snprintf(test_file, sizeof(test_file), "%s%s", GPIO_PATH, pin);
     if (access(test_file, R_OK|W_OK|X_OK) == 0) return 0;
@@ -293,12 +341,19 @@ int i2c_gpio_destroy(GpioI2C bus) {
     if (bus->sdaVal > 0) close(bus->sdaVal);
     if (bus->sclDir > 0) close(bus->sclDir);
     if (bus->sdaDir > 0) close(bus->sdaDir);
+    if (bus->lock_fd > 0) {
+        close(bus->lock_fd);
+        return release_lock();
+    }
     return 0;
 }
 
-int i2c_gpio_unexport(GpioI2C bus) {
+int i2c_gpio_cleanup(GpioI2C bus) {
     int res1 = gpio_unexport(bus->sdaPinNum);
     int res2 = gpio_unexport(bus->sclPinNum);
+    if (access(LOCK_FILE, R_OK|W_OK) == 0) {
+        unlink(LOCK_FILE);
+    }
     return res2 < 0 ? res2 : res1;
 }
 
@@ -308,6 +363,9 @@ static int open_failed_err(char *file_name) {
 }
 
 int i2c_gpio_init(GpioI2C bus) {
+    int lock_fd = acquire_lock();
+    if (lock_fd < 0) return lock_fd;
+    bus->lock_fd = lock_fd;
     CHECK(gpio_export(bus->sdaPinNum));
     CHECK(gpio_export(bus->sclPinNum));
     
@@ -333,8 +391,8 @@ int i2c_gpio_init(GpioI2C bus) {
 }
 
 char *i2c_gpio_errstring(int code) {
-    static char ext_errbuf[2048];
-    char *msg;
+    static char ext_errbuf[2248];
+    char *msg = NULL;
     switch ((GpioError) code) {
         case ERR_SEEK_FAILED:
             msg = "Seek failed"; break;
@@ -354,12 +412,14 @@ char *i2c_gpio_errstring(int code) {
             msg = "Export failed"; break;
         case ERR_UNEXPORT_FAILED:
             msg = "Unexport failed"; break;
-        default:
-            msg = "Unknown error code"; break;
+        case ERR_LOCK_TIMEOUT:
+            msg = "Acquiring bus lock timed out"; break;
+        case ERR_LOCK_FAILED:
+            msg = "Error acquiring bus lock"; break;
+        case ERR_RELEASE_LOCK_FAILED:
+            msg = "Error releasing bus lock"; break;
     }
-    int n = snprintf(ext_errbuf, sizeof(ext_errbuf), "%s: %s", msg, errbuf);
-    if (errno != 0)
-        snprintf(ext_errbuf + n, sizeof(ext_errbuf) - n, " (%s)", strerror(errno));
+    if (msg == NULL) msg = "Unknown error code";
+    snprintf(ext_errbuf, sizeof(ext_errbuf), "%s: %s", msg, errbuf);
     return ext_errbuf;
 }
-

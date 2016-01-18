@@ -7,7 +7,7 @@
 
 static void help() {
     fprintf(stderr,
-        "Parameters: <scl> <sda> <addr> (read|write|unexport)\n"
+        "Parameters: <scl> <sda> <addr> (read|write|cleanup)\n"
         "Example:\n"
         "i2c-gpio.main.out 187 188 2a read\n"
     );
@@ -29,9 +29,9 @@ int main(int argc, char **argv) {
         address = TWI_SLA_READ((TWIDevice) { addrVal });
     } else if (!strcmp(ioStr, "write")) {
         address = TWI_SLA_WRITE((TWIDevice) { addrVal });
-    } else if (!strcmp(ioStr, "unexport")) {
-        fprintf(stderr, "Unexporting pins %s and %s\n", bus.sclPinNum, bus.sdaPinNum);
-        int res = i2c_gpio_unexport(&bus);
+    } else if (!strcmp(ioStr, "cleanup")) {
+        fprintf(stderr, "Unexporting pins %s and %s, deleting %s\n", bus.sclPinNum, bus.sdaPinNum, LOCK_FILE);
+        int res = i2c_gpio_cleanup(&bus);
         if (res < 0) {
             fprintf(stderr, "Error unexporting: %s\n", i2c_gpio_errstring(res));
         }
