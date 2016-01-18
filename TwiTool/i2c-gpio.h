@@ -10,17 +10,18 @@
 #define GPIO_VAL "/value"
 
 #define LOCK_FILE "/tmp/i2c-gpio.lock"
-#define LOCK_WAIT_MILLIS 4
-#define LOCK_RETRIES 800
+#define LOCK_WAIT_MILLIS 2
+#define LOCK_RETRIES 750
 
 // SCL timeout after 1 second
 #define SCL_TIMEOUT_SLEEP_MICRO 5
+#define SCL_TIMEOUT_RETRIES 200000
 #define SDA_TIMEOUT_SLEEP_MICRO 1
-#define TIMEOUT_RETRIES 200000
+#define SDA_TIMEOUT_RETRIES 20000
 
 #define DELAY_STRETCH 1.0
-// #define DO_DEBUG
-// #define DO_TRACE
+#define DO_DEBUG
+#define DO_TRACE
 
 typedef enum {
     ERR_SEEK_FAILED = -1,

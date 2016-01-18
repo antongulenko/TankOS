@@ -117,7 +117,7 @@ static int getscl(GpioI2C bus) {
 static int wait_scl_hi(GpioI2C bus) {
     CHECK(sclhi(bus));
     DELAY(1);
-    for(int i = 0; i < TIMEOUT_RETRIES; i++) {
+    for(int i = 0; i < SCL_TIMEOUT_RETRIES; i++) {
         int res = getscl(bus);
         if (res < 0) return res;
         if (res == 1) return 0;
@@ -130,7 +130,7 @@ static int wait_scl_hi(GpioI2C bus) {
 static int check_sda_hi(GpioI2C bus) {
     // Make sure sda goes hi before scl goes lo.
     // That condition means another master won arbitration.
-    for(int i = 0; i < TIMEOUT_RETRIES; i++) {
+    for(int i = 0; i < SDA_TIMEOUT_RETRIES; i++) {
         int sda = getsda(bus);
         if (sda < 0) return sda;
         int scl = getscl(bus);
