@@ -321,12 +321,9 @@ static int gpio_export(char *pin) {
     char test_file[512];
     snprintf(test_file, sizeof(test_file), "%s%s", GPIO_PATH, pin);
     errno = 0;
-    int res = access(test_file, R_OK | W_OK | X_OK);
+    int res = access(test_file, F_OK);
     if (res == 0) return 0;
-    if (errno == EACCES) {
-        err("Access denied to %s", test_file);
-        return ERR_EXPORT_FAILED;
-    }
+    if (errno != ENOENT) return res;
 
     int fd = open(GPIO_PATH_EXPORT, O_WRONLY);
     if (fd < 0) {
