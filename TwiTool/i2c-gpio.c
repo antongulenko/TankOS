@@ -130,8 +130,6 @@ static int wait_scl_hi(GpioI2C bus) {
 static int check_sda_hi(GpioI2C bus) {
     // Make sure sda goes hi before scl goes lo.
     // That condition means another master won arbitration.
-    CHECK(sdahi(bus));
-    DELAY(1);
     for(int i = 0; i < TIMEOUT_RETRIES; i++) {
         int sda = getsda(bus);
         if (sda < 0) return sda;
@@ -196,14 +194,14 @@ int i2c_gpio_stop(GpioI2C bus) {
 static int sendbit(GpioI2C bus, int bit) {
     trace(" - Sending bit: %i\n", bit);
     if (bit) {
-        int res = check_sda_hi(bus);
-        if (res < 0) return res;
+        CHECK(sdahi(bus));
     }
     else {
         CHECK(sdalo(bus));
     }
     DELAY(1.5);
     CHECK(wait_scl_hi(bus));
+    if (bit) CHECK(check_sda_hi(bus)); // In case of hi we have to check if we won arbitration
     DELAY(2);
     CHECK(scllo(bus));
     DELAY(1);
