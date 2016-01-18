@@ -290,17 +290,15 @@ static int release_lock() {
 }
 
 static int gpio_export(char *pin) {
-
-    printf("\n   >>>>    Now sleeping...\n");
-    sleep(1);
-    printf("Done sleeping\n");
-    if (1) {
-        err("TEST ERROR");
-        return ERR_EXPORT_FAILED;
-    }
-
     char test_file[512];
     snprintf(test_file, sizeof(test_file), "%s%s", GPIO_PATH, pin);
+    errno = 0;
+    int res = access(test_file, R_OK | W_OK | X_OK);
+    if (res == 0) return 0;
+    if (errno == EACCES) {
+        err("Access denied to %s", test_file);
+        return ERR_EXPORT_FAILED;
+    }
     if (access(test_file, R_OK|W_OK|X_OK) == 0) return 0;
 
     int fd = open(GPIO_PATH_EXPORT, O_WRONLY);
@@ -308,7 +306,7 @@ static int gpio_export(char *pin) {
         err("Failed to open %s for exporting %s", GPIO_PATH_EXPORT, pin);
         return ERR_EXPORT_FAILED;
     } else {
-        int res = write(fd, pin, strlen(pin));
+        res = write(fd, pin, strlen(pin));
         if (res < 0) {
             close(fd);
             err("Failed to export %s", pin);
