@@ -130,8 +130,6 @@ static int wait_scl_hi(GpioI2C bus) {
 static int check_sda_hi(GpioI2C bus) {
     // Make sure sda goes hi before scl goes lo.
     // That condition means another master won arbitration.
-    int times_wrong = 10;
-    int times_right = 10;
     for(int i = 0; i < SDA_TIMEOUT_RETRIES; i++) {
         int sda = getsda(bus);
         if (sda < 0) return sda;
@@ -139,23 +137,15 @@ static int check_sda_hi(GpioI2C bus) {
         if (scl < 0) return scl;
         if (sda == 0 && scl == 0) {
             err("");
-            times_right = 10;
-            times_wrong--;
-            if (times_wrong <= 10)
-                return ERR_ARBITRATION_LOST;
+            return ERR_ARBITRATION_LOST;
         } else if (sda == 0 && scl == 1) {
             // Still waiting for sda to be released
-            times_right = 10;
-            times_wrong = 10;
+            __usleep(SDA_TIMEOUT_SLEEP_MICRO);
         } else {
             // sda == 1 && scl == 1 -> we won arbitration
             // sda == 1 && scl == 0 -> likely another master also released sda and already pulled scl back lo
-            times_wrong = 10;
-            times_right--;
-            if (times_right <= 10)
-                return 0;
+            return 0;
         }
-        __usleep(SDA_TIMEOUT_SLEEP_MICRO);
     }
     err("");
     return ERR_SDA_HI_TIMEOUT;

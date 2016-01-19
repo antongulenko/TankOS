@@ -20,8 +20,8 @@
 #define SDA_TIMEOUT_RETRIES 20000
 
 #define DELAY_STRETCH 1.0
-#define DO_DEBUG
-#define DO_TRACE
+// #define DO_DEBUG
+// #define DO_TRACE
 
 typedef enum {
     ERR_SEEK_FAILED = -1,
