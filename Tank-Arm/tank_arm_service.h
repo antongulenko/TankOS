@@ -37,7 +37,7 @@ typedef struct TankArmWordParameter {
 typedef struct TankArmLongParameter {
     uint16_t joint_num; // enum TANK_JOINT_NUM
     pos_t param;
-} TankArmLongParameter;
+} __attribute__((packed)) TankArmLongParameter;
 
 // Chip-Global settings
 TWI_RPC_FUNCTION_VOID(tank_arm_set_timer, TANK_ARM_SET_TIMER, uint16_t) // uint16_t
