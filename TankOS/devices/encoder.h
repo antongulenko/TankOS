@@ -28,7 +28,7 @@ typedef enum {
 
 typedef struct EncoderError {
 	uint16_t errors;
-	EncoderErrorMask errorMask;
+	uint16_t errorMask; // enum EncoderErrorMask
 } EncoderError;
 
 EncoderError getEncoderError(Encoder encoder);
