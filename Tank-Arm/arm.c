@@ -115,6 +115,11 @@ void tankArmMoveTo(TankArm arm, pos_t targetPos) {
 	startMoving(arm);
 }
 
+void tankArmStop(TankArm arm) {
+	encoder_pos_t target = encoderState(arm->encoder);
+	tankArmMoveTo(arm, target);
+}
+
 void getTankArmState(TankArm arm, TankArmState *state) {
 	if (arm == NULL || state == NULL) return;
 	state->backSensor = (uint16_t) hallSensorState(arm->back);

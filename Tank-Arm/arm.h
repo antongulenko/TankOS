@@ -35,6 +35,7 @@ void destroyTankArm(TankArm arm);
 
 void calibrateTankArm(TankArm arm);
 void tankArmMoveTo(TankArm arm, pos_t pos);
+void tankArmStop(TankArm arm);
 
 typedef struct TankArmState {
 	uint16_t backSensor; // enum BOOL

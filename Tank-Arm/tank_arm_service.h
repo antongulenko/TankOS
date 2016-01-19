@@ -26,7 +26,8 @@ typedef enum {
 
     TANK_ARM_GET_STATE = 50,
     TANK_ARM_CALIBRATE = 51,
-    TANK_ARM_MOVE = 52
+    TANK_ARM_MOVE = 52,
+    TANK_ARM_MOVE_STOP = 53
 } PROTOCOL_TANK_ARM_SERVICE; // Start at 40
 
 typedef struct TankArmWordParameter {
@@ -57,5 +58,6 @@ TWI_RPC_FUNCTION(tank_arm_get_max, TANK_ARM_GET_MAX, uint16_t, speed_t) // enum 
 TWI_RPC_FUNCTION_VOID(tank_arm_calibrate, TANK_ARM_CALIBRATE, uint16_t) // enum TANK_JOINT_NUM
 TWI_RPC_FUNCTION(tank_arm_state, TANK_ARM_GET_STATE, uint16_t, TankArmState) // enum TANK_JOINT_NUM
 TWI_RPC_FUNCTION_VOID(tank_arm_move, TANK_ARM_MOVE, TankArmLongParameter) // param: encoder_pos_t
+TWI_RPC_FUNCTION_VOID(tank_arm_move_stop, TANK_ARM_MOVE_STOP, uint16_t) // enum TANK_JOINT_NUM
 
 #endif // _TANK_ARM_SERVICE_TWI_
