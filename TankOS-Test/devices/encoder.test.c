@@ -14,7 +14,7 @@ void setUp() {
 	initPinChangeInterrupts();
 	init_fake_port();
 	TEST_ASSERT_EQUAL(0, countEncoders());
-	encoder = newEncoder(0, 0, 1, testPin1, testPin2);
+	encoder = newEncoder(0, 0, 1, testPin1, testPin2, 0);
 	TEST_ASSERT(IsValid(encoder));
 	TEST_ASSERT(encoderValid(encoder));
 	TEST_ASSERT_EQUAL(1, countEncoders());
@@ -117,7 +117,7 @@ void test_count() {
 }
 
 void test_two_encoders() {
-	Encoder encoder2 = newEncoder(0, 2, 3, testPin3, testPin4);
+	Encoder encoder2 = newEncoder(0, 2, 3, testPin3, testPin4, 0);
 	TEST_ASSERT(encoderValid(encoder2));
 
 	TEST_ASSERT_EQUAL(0, encoderState(encoder));

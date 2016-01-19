@@ -44,6 +44,7 @@ typedef struct TankArmState {
 	encoder_pos_t targetPos;
 
 	uint16_t calibration; // enum TankArmCalibration
+	uint16_t ___alignment;
 	EncoderError encoder_error;
 } TankArmState;
 

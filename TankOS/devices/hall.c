@@ -11,7 +11,7 @@ typedef struct _HallSensor {
 	BOOL state;
 	HallSensorCallback callback;
 	void *callbackData;
-	BOOL inverted;
+	HallFlags flags;
 	struct _HallSensor *next;
 } _HallSensor;
 
@@ -33,7 +33,7 @@ static void hallSensorPinInterrupt(uint8_t portNum, uint8_t pinBits) {
 	}
 }
 
-HallSensor newHallSensor(uint8_t portNum, uint8_t pinNum, Pin pin, BOOL inverted) {
+HallSensor newHallSensor(uint8_t portNum, uint8_t pinNum, Pin pin, HallFlags flags) {
 	if (portNum >= NUM_PORTS) return Invalid(HallSensor);
 	_HallSensor *sensor = kalloc(sizeof(struct _HallSensor));
 	if (!sensor) return Invalid(HallSensor);
@@ -41,7 +41,7 @@ HallSensor newHallSensor(uint8_t portNum, uint8_t pinNum, Pin pin, BOOL inverted
 		free(sensor);
 		return Invalid(HallSensor);
 	}
-
+	writePin(pin, (flags & HALL_PULLUP) != 0); // Enable internal pullup if required
 	setPinInput(pin);
 	enablePinChangeInterrupt(portNum, pinNum);
 	addPinInterruptHandler(portNum, hallSensorPinInterrupt);
@@ -49,7 +49,7 @@ HallSensor newHallSensor(uint8_t portNum, uint8_t pinNum, Pin pin, BOOL inverted
 	sensor->pinNum = pinNum;
 	sensor->pin = pin;
 	sensor->state = readPin(pin);
-	sensor->inverted = inverted;
+	sensor->flags = flags;
 	sensor->callback = NULL;
 	sensor->callbackData = NULL;
 	sensor->next = NULL;
@@ -84,7 +84,7 @@ void setHallCallback(HallSensor sensor, HallSensorCallback callback, void *callb
 BOOL hallSensorState(HallSensor sensor) {
 	if (!IsValid(sensor)) return FALSE;
 	BOOL state = SENSOR->state;
-	if (SENSOR->inverted) state = !state;
+	if (SENSOR->flags & HALL_INVERTED) state = !state;
 	return state;
 }
 

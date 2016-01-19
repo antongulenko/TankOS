@@ -16,6 +16,7 @@ typedef struct _Encoder {
 	encoder_pos_t state;
 	uint8_t pins;
 	uint8_t portNum;
+	EncoderFlags flags;
 } _Encoder;
 
 #define ENCODER Get(_Encoder, encoder)
@@ -99,7 +100,7 @@ static void encoderPinInterrupt(uint8_t portNum, uint8_t pinBits) {
 	}
 }
 
-Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, Pin pinB) {
+Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, Pin pinB, EncoderFlags flags) {
 	if (portNum >= NUM_PORTS) {
 		return Invalid(Encoder);
 	}
@@ -115,12 +116,15 @@ Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, 
 		free(encoder);
 		deOccupyPin(pinA, PinEncoder);
 	}
+	writePin(pinA, (flags & ENCODER_PULLUPS) != 0); // Enable internal pullups if required
+	writePin(pinB, (flags & ENCODER_PULLUPS) != 0);
 	setPinInput(pinA);
 	setPinInput(pinB);
 	enablePinChangeInterrupt(portNum, pinNumA);
 	enablePinChangeInterrupt(portNum, pinNumB);
 	addPinInterruptHandler(portNum, encoderPinInterrupt);
 	readEncoderPins(encoder, readPin(pinA), readPin(pinB)); // Set encoder->pins
+	encoder->flags = flags;
 	encoder->pinA = pinA;
 	encoder->pinB = pinB;
 	encoder->portNum = portNum;

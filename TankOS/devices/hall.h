@@ -8,7 +8,12 @@ DEFINE_HANDLE(HallSensor);
 
 #define PinHallSensor 10
 
-HallSensor newHallSensor(uint8_t portNum, uint8_t pinNum, Pin pin, BOOL inverted);
+typedef enum {
+	HALL_INVERTED = _BV(0),
+	HALL_PULLUP = _BV(1)
+} HallFlags;
+
+HallSensor newHallSensor(uint8_t portNum, uint8_t pinNum, Pin pin, HallFlags flags);
 HallSensor destroyHallSensor(HallSensor sensor);
 BOOL hallSensorValid(HallSensor sensor);
 

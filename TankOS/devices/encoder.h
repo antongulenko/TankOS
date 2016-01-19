@@ -10,7 +10,11 @@ DEFINE_HANDLE(Encoder);
 
 typedef int32_t encoder_pos_t;
 
-Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, Pin pinB);
+typedef enum {
+	ENCODER_PULLUPS = _BV(0)
+} EncoderFlags;
+
+Encoder newEncoder(uint8_t portNum, uint8_t pinNumA, uint8_t pinNumB, Pin pinA, Pin pinB, EncoderFlags flags);
 Encoder destroyEncoder(Encoder encoder);
 BOOL encoderValid(Encoder encoder);
 

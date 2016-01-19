@@ -21,13 +21,16 @@ static inline void init_tank_arm_motor() {
 }
 
 static inline void init_tank_arm_sensors() {
-	tank_socket.front = newHallSensor(1, 4, pinB4, TRUE);
-	tank_socket.back = newHallSensor(1, 3, pinB3, TRUE);
-	tank_socket.encoder = newEncoder(1, 5, 6, pinB5, pinB6);
+    HallFlags hall_flags = HALL_INVERTED | HALL_PULLUP;
+    EncoderFlags encoder_flags = ENCODER_PULLUPS;
 
-    tank_joint.front = newHallSensor(0, 4, pinA4, TRUE);
-    tank_joint.back = newHallSensor(0, 3, pinA3, TRUE);
-    tank_joint.encoder = newEncoder(0, 5, 6, pinA5, pinA6);
+	tank_socket.front = newHallSensor(1, 4, pinB4, hall_flags);
+	tank_socket.back = newHallSensor(1, 3, pinB3, hall_flags);
+	tank_socket.encoder = newEncoder(1, 5, 6, pinB5, pinB6, encoder_flags);
+
+    tank_joint.front = newHallSensor(0, 4, pinA4, hall_flags);
+    tank_joint.back = newHallSensor(0, 3, pinA3, hall_flags);
+    tank_joint.encoder = newEncoder(0, 5, 6, pinA5, pinA6, encoder_flags);
 }
 
 static void init_tank_arm() {
