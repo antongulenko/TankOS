@@ -130,6 +130,8 @@ static int wait_scl_hi(GpioI2C bus) {
 static int check_sda_hi(GpioI2C bus) {
     // Make sure sda goes hi before scl goes lo.
     // That condition means another master won arbitration.
+    int times_wrong = 10;
+    int times_right = 10;
     for(int i = 0; i < SDA_TIMEOUT_RETRIES; i++) {
         int sda = getsda(bus);
         if (sda < 0) return sda;
@@ -137,15 +139,23 @@ static int check_sda_hi(GpioI2C bus) {
         if (scl < 0) return scl;
         if (sda == 0 && scl == 0) {
             err("");
-            return ERR_ARBITRATION_LOST;
+            times_right = 10;
+            times_wrong--;
+            if (times_wrong <= 10)
+                return ERR_ARBITRATION_LOST;
         } else if (sda == 0 && scl == 1) {
             // Still waiting for sda to be released
-            __usleep(SDA_TIMEOUT_SLEEP_MICRO);
+            times_right = 10;
+            times_wrong = 10;
         } else {
             // sda == 1 && scl == 1 -> we won arbitration
             // sda == 1 && scl == 0 -> likely another master also released sda and already pulled scl back lo
-            return 0;
+            times_wrong = 10;
+            times_right--;
+            if (times_right <= 10)
+                return 0;
         }
+        __usleep(SDA_TIMEOUT_SLEEP_MICRO);
     }
     err("");
     return ERR_SDA_HI_TIMEOUT;
@@ -155,6 +165,8 @@ static int check_bus_free(GpioI2C bus) {
     // TODO watch for bus activity for some time.
     // If there is activity, wait for STOP condition.
     // If this returns 0, SDA and SCL must be hi.
+    CHECK(wait_scl_hi(bus));
+    CHECK(check_sda_hi(bus));
     return 0;
 }
 
@@ -195,13 +207,12 @@ static int sendbit(GpioI2C bus, int bit) {
     trace(" - Sending bit: %i\n", bit);
     if (bit) {
         CHECK(sdahi(bus));
-    }
-    else {
+    } else {
         CHECK(sdalo(bus));
     }
     DELAY(1.5);
     CHECK(wait_scl_hi(bus));
-    if (bit) CHECK(check_sda_hi(bus)); // In case of hi we have to check if we won arbitration
+    if (bit) CHECK(check_sda_hi(bus)); // Check if we won arbitration
     DELAY(2);
     CHECK(scllo(bus));
     DELAY(1);
@@ -245,7 +256,7 @@ int i2c_gpio_write(GpioI2C bus, unsigned char c) {
         int res = sendbit(bus, sb);
         if (res < 0) {
             if (res == ERR_ARBITRATION_LOST) {
-                err("Arbitration lost in bit %i", 8 - i);
+                err("Arbitration lost in bit %i", 7 - i);
             }
             return res;
         }
