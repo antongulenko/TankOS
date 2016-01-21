@@ -19,6 +19,12 @@
 #define SDA_TIMEOUT_SLEEP_MICRO 1
 #define SDA_TIMEOUT_RETRIES 20000
 
+#define BUS_FREE_MINTIME_MILLIS 5
+#define BUS_FREE_TIMEOUT_MILLIS 2500
+
+#define BUS_DETECT_STOP 0
+#define BUS_DETECT_FREE 0
+
 #define DELAY_STRETCH 1.0
 // #define DO_DEBUG
 // #define DO_TRACE
@@ -37,7 +43,9 @@ typedef enum {
     ERR_LOCK_FAILED = -11,
     ERR_RELEASE_LOCK_FAILED = -12,
     ERR_ARBITRATION_LOST = -13,
-    ERR_SDA_HI_TIMEOUT = -14
+    ERR_SDA_HI_TIMEOUT = -14,
+    ERR_GETTIME_FAILED = -15,
+    ERR_BUS_FREE_TIMEOUT = -16
 } GpioError;
 
 typedef struct GpioI2C {

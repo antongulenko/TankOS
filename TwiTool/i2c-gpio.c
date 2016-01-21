@@ -127,6 +127,19 @@ static int wait_scl_hi(GpioI2C bus) {
     return ERR_SCL_HI_TIMEOUT;
 }
 
+static int wait_sda_hi(GpioI2C bus) {
+    CHECK(sdahi(bus));
+    DELAY(1);
+    for(int i = 0; i < SDA_TIMEOUT_RETRIES; i++) {
+        int res = getsda(bus);
+        if (res < 0) return res;
+        if (res == 1) return 0;
+        __usleep(SDA_TIMEOUT_SLEEP_MICRO);
+    }
+    err("");
+    return ERR_SDA_HI_TIMEOUT;
+}
+
 static int check_sda_hi(GpioI2C bus) {
     // Make sure sda goes hi before scl goes lo.
     // That condition means another master won arbitration.
@@ -151,13 +164,89 @@ static int check_sda_hi(GpioI2C bus) {
     return ERR_SDA_HI_TIMEOUT;
 }
 
-static int check_bus_free(GpioI2C bus) {
-    // TODO watch for bus activity for some time.
-    // If there is activity, wait for STOP condition.
-    // If this returns 0, SDA and SCL must be hi.
-    CHECK(wait_scl_hi(bus));
-    CHECK(check_sda_hi(bus));
+static inline long millis_between(struct timespec *start, struct timespec *now) {
+    return (now->tv_sec - start->tv_sec) * 1000
+            + (now->tv_nsec - start->tv_nsec) / 1000000;
+}
+
+static inline int gettime(struct timespec *t) {
+    if (clock_gettime(CLOCK_REALTIME, t) != 0) {
+        err("");
+        return ERR_GETTIME_FAILED;
+    }
     return 0;
+}
+
+static int check_bus_free_time(GpioI2C bus) {
+    // Wait until the bus is unused for a certain time. Do not analyze traffic.
+    CHECK(sclhi(bus));
+    CHECK(sdahi(bus));
+    struct timespec start_time;
+    struct timespec cur_time;
+    struct timespec free_time;
+    CHECK(gettime(&start_time));
+    free_time = start_time;
+    do {
+        int sda = getsda(bus);
+        if (sda < 0) return sda;
+        int scl = getscl(bus);
+        if (scl < 0) return scl;
+        CHECK(gettime(&cur_time));
+        BOOL bus_free = sda == 1 && scl == 1;
+        if (!bus_free) {
+            free_time = cur_time;
+        } else if (millis_between(&free_time, &cur_time) >= BUS_FREE_MINTIME_MILLIS) {
+            // Bus was free long enough
+            return 0;
+        }
+    } while(millis_between(&start_time, &cur_time) < BUS_FREE_TIMEOUT_MILLIS);
+    err("");
+    return ERR_BUS_FREE_TIMEOUT;
+}
+
+static int check_bus_free_stop(GpioI2C bus) {
+    CHECK(sclhi(bus));
+    CHECK(sdahi(bus));
+    struct timespec start_time;
+    struct timespec cur_time;
+    CHECK(gettime(&start_time));
+    BOOL detect_stop = FALSE;
+    register uint8_t stop_state = 0;
+    do {
+        int sda = getsda(bus);
+        if (sda < 0) return sda;
+        int scl = getscl(bus);
+        if (scl < 0) return scl;
+        CHECK(gettime(&cur_time));
+        BOOL bus_free = sda == 1 && scl == 1;
+        if (!bus_free) detect_stop = TRUE;
+        if (detect_stop) {
+            if (stop_state == 0) {
+                if (scl == 0 && sda == 0) {
+                    // First, both lines must be pulled down
+                    stop_state = 1;
+                } else stop_state = 0;
+            } else if (stop_state == 1) {
+                if (scl == 1 && sda == 0) {
+                    // SCL must be released first
+                    stop_state = 2;
+                } else if (scl == 0 && sda == 0) continue;
+                else stop_state = 0;
+            } else if (stop_state == 2) {
+                if (scl == 1 && sda == 1) {
+                    // If sda is released while scl is still high: STOP condition detected!
+                    return 0;
+                } else if (scl == 1 && sda == 0) continue;
+                else stop_state = 0;
+            }
+        } else {
+            if (millis_between(&start_time, &cur_time) >= BUS_FREE_MINTIME_MILLIS)
+                // Bus was without any activity long enough
+                return 0;
+        }
+    } while(millis_between(&start_time, &cur_time) < BUS_FREE_TIMEOUT_MILLIS);
+    err("");
+    return ERR_BUS_FREE_TIMEOUT;
 }
 
 static int doStart(GpioI2C bus) {
@@ -170,7 +259,14 @@ static int doStart(GpioI2C bus) {
 
 int i2c_gpio_start(GpioI2C bus) {
     debug(" == START\n");
-    CHECK(check_bus_free(bus));
+    if (BUS_DETECT_FREE)
+        CHECK(check_bus_free_time(bus));
+    else if (BUS_DETECT_STOP)
+        CHECK(check_bus_free_stop(bus));
+    else {
+        CHECK(wait_scl_hi(bus));
+        CHECK(wait_sda_hi(bus));
+    }
     return doStart(bus);
 }
 
@@ -446,6 +542,10 @@ char *i2c_gpio_errstring(int code) {
             msg = "Arbitration lost"; break;
         case ERR_SDA_HI_TIMEOUT:
             msg = "Waiting for SDA high timed out"; break;
+        case ERR_GETTIME_FAILED:
+            msg = "Failed to get time with clock_gettime"; break;
+        case ERR_BUS_FREE_TIMEOUT:
+            msg = "Bus too busy: waiting for free bus timed out"; break;
     }
     if (msg == NULL) {
         snprintf(unknown_code_buf, sizeof(unknown_code_buf), "Unknown error code (%i)", code);
