@@ -2,7 +2,7 @@
 home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function echoerr() {
-    >&2 echo $@
+    >&2 echo "$@"
 }
 
 TWI_TOOL=$(readlink -f "$home/../build-Native-speed/twi-tool.main.out")

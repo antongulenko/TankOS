@@ -8,50 +8,70 @@ arm_dirs=(
     [backward]=0 [forward]=1 [stop]=2
 )
 
+declare -A arm_joints
+arm_joints=(
+    [joint]=1 [socket]=0
+)
+
 declare -A delays
 delays=(
     [0]=0 [1]=1 [10]=2 [50]=3 [100]=4
 )
 
 function help() {
-    echoerr "Commands: rotate <arm_dir> | step <steps> | stop | position | enable | disable | set_max <freq> | get_max | set_timer <timer> | set_delay <delay>"
+    echoerr "Chip-Global commands:"
+    echoerr "        set_timer <timer> | set_delay <delay>"
+    echoerr "Step-Motor commands:"
+    echoerr "        rotate <joint> <arm_dir> | step <joint> <steps> | stop <joint>"
+    echoerr "        position <joint> | enable <joint> | disable <joint> | set_max <freq> <freq> | get_max <joint>"
+    echoerr "Arm-Joint commands:"
+    echoerr "        calibrate <joint> | state <joint> | move <joint> <target> | move_stop <joint>"
+    echoerr "joint: ${!arm_joints[@]}"
     echoerr "arm_dir: ${!arm_dirs[@]}"
-    echoerr "steps: positive/negative integer"
+    echoerr "steps, target: positive/negative integer"
     echoerr "freq, timer: positive 16 bit integer"
-    echoerr "delay: 0, 1, 10, 50, 100"
+    sorted_delays=$(echo "${!delays[@]}" | tr " " "\n" | sort -g | tr "\n" " ")
+    echoerr "delay: $sorted_delays"
     exit 1
 }
 
-if [ $# = 1 -o $# = 2 ]; then
-    command=$1
-    command_name=tank_arm_$command
-    if [ $# = 1 ]; then
-        case $command in
-            stop | position | enable | disable | get_max) ;;
-            *) help ;;
-        esac
-    elif [ $# = 2 ]; then
-        param=$2
-        if [ $command == set_timer ]; then
-            params=$(param_u16bit $param)
-        elif [ $command == set_max ]; then
-            params=$(param_u16bit $param)
-        elif [ $command == step ]; then
-            params=$(param_s32bit $param)
-        elif [ $command == rotate ]; then
-            arm_dir=${arm_dirs[$param]}
-            test -n "$arm_dir" || { echoerr "Unknown arm_dir: $param"; help; }
-            params=$(param_enum $arm_dir)
-        elif [ $command == set_delay ]; then
-            delay=${delays[$param]}
-            test -n "$delay" || { echoerr "Unknown delay: $param"; help; }
-            params=$(param_enum $delay)
-        else
-            help
-        fi
-    fi
+command=$1
+param=$2
+if [ $# = 2 ]; then
+    case $command in
+    set_timer)
+        params=$(param_u16bit $param) ;;
+    set_delay)
+        delay=${delays[$param]}
+        test -n "$delay" || { echoerr "Unknown delay: $param"; help; }
+        params=$(param_enum $delay) ;;
+    stop|position|enable|disable|get_max|calibrate|state|move_stop)
+        joint=${arm_joints[$param]}
+        test -n "$joint" || { echoerr "Unknown joint: $param"; help; }
+        params=$(param_enum $joint) ;;
+    *) help ;;
+    esac
+elif [ $# = 3 ]; then
+    joint=${arm_joints[$param]}
+    test -n "$joint" || { echoerr "Unknown joint: $param"; help; }
+    joint_param=$(param_enum $joint)
+    param2=$3
+    case $command in
+    set_max)
+        params="$joint_param $(param_u16bit $param2)" ;;
+    step)
+        params="$joint_param $(param_s32bit $param2)" ;;
+    rotate)
+        arm_dir=${arm_dirs[$param2]}
+        test -n "$arm_dir" || { echoerr "Unknown arm_dir: $param"; help; }
+        params="$joint_param $(param_enum $arm_dir)" ;;
+    move)
+        params="$joint_param $(param_s32bit $param2)" ;;
+    *) help ;;
+    esac
 else
     help
 fi
 
+command_name=tank_arm_$command
 twi_call $command_name arm $params

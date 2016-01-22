@@ -1,7 +1,7 @@
 #!/bin/bash
 home="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-RESET_PIN=30
+RESET_PIN=25
 
 case $1 in
     on) "$home/pin" $RESET_PIN lo ;;
