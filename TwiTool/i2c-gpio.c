@@ -298,7 +298,7 @@ static int sendbit(GpioI2C bus, int bit) {
     }
     DELAY(1.5);
     CHECK(wait_scl_hi(bus));
-    if (bit) CHECK(check_sda_hi(bus)); // Check if we won arbitration
+    if (BUS_DETECT_ARBITRATION && bit) CHECK(check_sda_hi(bus)); // Check if we won arbitration
     DELAY(2);
     CHECK(scllo(bus));
     DELAY(1);
