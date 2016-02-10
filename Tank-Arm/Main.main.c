@@ -8,8 +8,8 @@
 #include <kernel/millisecond_clock.h>
 
 // #define sniff_main main
-// #define test_main main
-#define twi_log_main main
+#define test_main main
+// #define twi_log_main main
 
 Led led1;
 Led led2;
