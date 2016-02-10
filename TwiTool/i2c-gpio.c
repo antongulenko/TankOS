@@ -41,7 +41,25 @@ static void err(char *fmt, ...) {
     va_end(args);
 }
 
+static inline long nanoseconds_between(struct timespec *start, struct timespec *now) {
+    return (now->tv_sec - start->tv_sec) * 1000000 + now->tv_nsec - start->tv_nsec;
+}
+
+static inline long millis_between(struct timespec *start, struct timespec *now) {
+    return (now->tv_sec - start->tv_sec) * 1000
+            + (now->tv_nsec - start->tv_nsec) / 1000000;
+}
+
+static inline int gettime(struct timespec *t) {
+    if (clock_gettime(CLOCK_REALTIME, t) != 0) {
+        err("");
+        return ERR_GETTIME_FAILED;
+    }
+    return 0;
+}
+
 static inline void __usleep(long usec) {
+    if (usec == 0) return;
 	struct timespec ts;
 	ts.tv_sec = 0;
 	ts.tv_nsec = usec * 1000;
@@ -114,13 +132,41 @@ static int getscl(GpioI2C bus) {
     return readval(bus->sclVal, "scl(in)");
 }
 
-static int wait_scl_hi(GpioI2C bus) {
+typedef enum {
+    WAIT_SCL_STOP,
+    WAIT_SCL_START,
+    WAIT_SCL_REPSTART,
+    WAIT_SCL_SEND,
+    WAIT_SCL_RECEIVE,
+    WAIT_SCL_NUM
+} wait_scl_stats_num;
+
+#ifdef DO_STATS
+static struct wait_scl_stats {
+    unsigned long time;
+    unsigned long sleeps;
+    unsigned long calls;
+} wait_scl_stats[WAIT_SCL_NUM];
+#endif
+
+static int wait_scl_hi(GpioI2C bus, wait_scl_stats_num stat_num) {
     CHECK(sclhi(bus));
     DELAY(1);
+    struct timespec start;
+    CHECK(gettime(&start));
     for(int i = 0; i < SCL_TIMEOUT_RETRIES; i++) {
         int res = getscl(bus);
         if (res < 0) return res;
-        if (res == 1) return 0;
+        if (res == 1) {
+#ifdef DO_STATS
+            struct timespec end;
+            CHECK(gettime(&end));
+            wait_scl_stats[stat_num].time += (unsigned long) nanoseconds_between(&start, &end);
+            wait_scl_stats[stat_num].sleeps += i;
+            wait_scl_stats[stat_num].calls++;
+#endif
+            return 0;
+        }
         __usleep(SCL_TIMEOUT_SLEEP_MICRO);
     }
     err("");
@@ -162,19 +208,6 @@ static int check_sda_hi(GpioI2C bus) {
     }
     err("");
     return ERR_SDA_HI_TIMEOUT;
-}
-
-static inline long millis_between(struct timespec *start, struct timespec *now) {
-    return (now->tv_sec - start->tv_sec) * 1000
-            + (now->tv_nsec - start->tv_nsec) / 1000000;
-}
-
-static inline int gettime(struct timespec *t) {
-    if (clock_gettime(CLOCK_REALTIME, t) != 0) {
-        err("");
-        return ERR_GETTIME_FAILED;
-    }
-    return 0;
 }
 
 static int check_bus_free_time(GpioI2C bus) {
@@ -264,7 +297,7 @@ int i2c_gpio_start(GpioI2C bus) {
     else if (BUS_DETECT_STOP)
         CHECK(check_bus_free_stop(bus));
     else {
-        CHECK(wait_scl_hi(bus));
+        CHECK(wait_scl_hi(bus, WAIT_SCL_START));
         CHECK(wait_sda_hi(bus));
     }
     return doStart(bus);
@@ -274,7 +307,7 @@ int i2c_gpio_repstart(GpioI2C bus) {
     debug(" == REPEATED START\n");
     CHECK(sdahi(bus));
 	DELAY(1.5);
-    CHECK(wait_scl_hi(bus));
+    CHECK(wait_scl_hi(bus, WAIT_SCL_REPSTART));
     return doStart(bus);
 }
 
@@ -282,7 +315,7 @@ int i2c_gpio_stop(GpioI2C bus) {
     debug(" == STOP\n");
 	CHECK(sdalo(bus));
 	DELAY(1.5);
-    int res = wait_scl_hi(bus); // Must release sda even if this fails
+    int res = wait_scl_hi(bus, WAIT_SCL_STOP); // Must release sda even if this fails
 	DELAY(2);
     CHECK(sdahi(bus));
 	DELAY(2);
@@ -297,8 +330,8 @@ static int sendbit(GpioI2C bus, int bit) {
         CHECK(sdalo(bus));
     }
     DELAY(1.5);
-    CHECK(wait_scl_hi(bus));
-    if (bit) CHECK(check_sda_hi(bus)); // Check if we won arbitration
+    CHECK(wait_scl_hi(bus, WAIT_SCL_SEND));
+    if (BUS_DETECT_ARBITRATION && bit) CHECK(check_sda_hi(bus)); // Check if we won arbitration
     DELAY(2);
     CHECK(scllo(bus));
     DELAY(1);
@@ -306,11 +339,11 @@ static int sendbit(GpioI2C bus, int bit) {
 }
 
 static int receivebit(GpioI2C bus) {
-    CHECK(wait_scl_hi(bus));
+    CHECK(wait_scl_hi(bus, WAIT_SCL_RECEIVE));
     DELAY(5);
 	int bit = getsda(bus);
     if (bit < 0) return bit;
-    debug(" - Received bit: %i\n", bit);
+    trace(" - Received bit: %i\n", bit);
 	CHECK(scllo(bus));
 	DELAY(1);
     return bit;
@@ -456,6 +489,26 @@ static int gpio_unexport(char *pin)  {
 }
 
 int i2c_gpio_destroy(GpioI2C bus) {
+#ifdef DO_STATS
+    printf(" === SCL-wait Statistics\n");
+    for (int i = 0; i < WAIT_SCL_NUM; i++) {
+        char *name;
+        switch ((wait_scl_stats_num) i) {
+            case WAIT_SCL_START: name = "Start"; break;
+            case WAIT_SCL_STOP: name = "Stop"; break;
+            case WAIT_SCL_REPSTART: name = "Repstart"; break;
+            case WAIT_SCL_SEND: name = "Send"; break;
+            case WAIT_SCL_RECEIVE: name = "Receive"; break;
+            default: name = "Unknown";
+        }
+        struct wait_scl_stats stats = wait_scl_stats[i];
+        double checks_per_call = (double) stats.sleeps / (double) stats.calls;
+        double avg_check = (double) stats.sleeps * 1000000.0 / (double) stats.time;
+        double avg_call = (double) stats.calls * 1000000.0 / (double) stats.time;
+        printf(" = %s: %lu checks in %lu calls, %lu nano seconds (%.2f check/millis, %.2f calls/millis, %.2f checks/call)\n",
+            name, stats.sleeps, stats.calls, stats.time, avg_check, avg_call, checks_per_call);
+    }
+#endif
     if (bus->sclVal > 0) close(bus->sclVal);
     if (bus->sdaVal > 0) close(bus->sdaVal);
     if (bus->sclDir > 0) close(bus->sclDir);

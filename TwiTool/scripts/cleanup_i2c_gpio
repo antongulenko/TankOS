@@ -1,0 +1,6 @@
+#!/bin/bash
+
+home=`dirname $(readlink -e $0)`
+source "$home/functions"
+IRRELEVANT_ADDR=aa
+sudo ../build-Native-speed/i2c-gpio.main.out $TWI_BUS $IRRELEVANT_ADDR cleanup
